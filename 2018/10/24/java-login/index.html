@@ -89,8 +89,8 @@
 <meta property="og:image" content="http://i1.bvimg.com/645823/aa49de553b428259.png">
 <meta property="og:image" content="http://i1.bvimg.com/645823/4d809dd5f325700c.png">
 <meta property="og:image" content="http://i1.bvimg.com/645823/d4ff8a3844a8489f.png">
-<meta property="og:image" content="c:/Users/小鬼/AppData/Roaming/Typora/typora-user-images/1540431962181.png">
-<meta property="og:updated_time" content="2018-10-25T02:16:34.386Z">
+<meta property="og:image" content="http://i1.bvimg.com/645823/f7ad560369cde48c.png">
+<meta property="og:updated_time" content="2018-10-25T02:18:27.728Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="404 not found">
 <meta name="twitter:description" content="java-web基础功能（一）—-实现用户登录思路：实现用户登录方法的实质，就是从表单传递两个参数，username还有password，然后通过get或者post方式提交到LoginServlet,对传进来的两个参数进行具体的判断，判断之后调用一个自己定义的User Login的方法，从数据库中查找对应的参数是否和数据库里面的数据一致，然后返回结果。 前期准备： （1）在数据库中建立一张user">
@@ -327,7 +327,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.Demo.dao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.dbutils.QueryRunner;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.dbutils.handlers.BeanHandler;</span><br><span class="line"><span class="keyword">import</span> com.Demo.domain.User;</span><br><span class="line"><span class="keyword">import</span> com.Demo.utils.DataSourceUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserLogin</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> User <span class="title">login</span><span class="params">(String username,String password)</span> <span class="keyword">throws</span> SQLException</span>&#123;</span><br><span class="line">		QueryRunner runner = <span class="keyword">new</span> QueryRunner(DataSourceUtils.getDataSource());</span><br><span class="line">		String sql = <span class="string">"select * from user where username=? and password=?"</span>;</span><br><span class="line">		User user = runner.query(sql, <span class="keyword">new</span> BeanHandler&lt;User&gt;(User.class),username ,password);</span><br><span class="line">	<span class="keyword">return</span> user;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>（5）向user表中填入数据，这里我自己定义了一条数据，username=zhangsan，password=123，然后部署到tomcat上运行login.jsp，查看效果</p>
 <p><img src="http://i1.bvimg.com/645823/d4ff8a3844a8489f.png" alt="Markdown"></p>
-<p><img src="C:\Users\小鬼\AppData\Roaming\Typora\typora-user-images\1540431962181.png" alt="1540431962181"></p>
+<p><img src="http://i1.bvimg.com/645823/f7ad560369cde48c.png" alt="Markdown"></p>
 <p>如果能够跳转到index.jsp，就说明你成功了~</p>
 
       
