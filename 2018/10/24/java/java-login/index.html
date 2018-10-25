@@ -79,21 +79,21 @@
 
 
 
-<meta name="description" content="ava-web基础功能（一）—-实现用户登录思路：实现用户登录方法的实质，就是从表单传递两个参数，username还有password，然后通过get或者post方式提交到LoginServlet,对传进来的两个参数进行具体的判断，判断之后调用一个自己定义的User Login的方法，从数据库中查找对应的参数是否和数据库里面的数据一致，然后返回结果。 前期准备： （1）在数据库中建立一张user表">
+<meta name="description" content="java-web基础功能（一）—-实现用户登录思路：实现用户登录方法的实质，就是从表单传递两个参数，username还有password，然后通过get或者post方式提交到LoginServlet,对传进来的两个参数进行具体的判断，判断之后调用一个自己定义的User Login的方法，从数据库中查找对应的参数是否和数据库里面的数据一致，然后返回结果。 前期准备： （1）在数据库中建立一张user">
 <meta property="og:type" content="article">
 <meta property="og:title" content="404 not found">
 <meta property="og:url" content="http://yoursite.com/2018/10/24/java/java-login/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="ava-web基础功能（一）—-实现用户登录思路：实现用户登录方法的实质，就是从表单传递两个参数，username还有password，然后通过get或者post方式提交到LoginServlet,对传进来的两个参数进行具体的判断，判断之后调用一个自己定义的User Login的方法，从数据库中查找对应的参数是否和数据库里面的数据一致，然后返回结果。 前期准备： （1）在数据库中建立一张user表">
+<meta property="og:description" content="java-web基础功能（一）—-实现用户登录思路：实现用户登录方法的实质，就是从表单传递两个参数，username还有password，然后通过get或者post方式提交到LoginServlet,对传进来的两个参数进行具体的判断，判断之后调用一个自己定义的User Login的方法，从数据库中查找对应的参数是否和数据库里面的数据一致，然后返回结果。 前期准备： （1）在数据库中建立一张user">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://i1.bvimg.com/645823/aa49de553b428259.png">
 <meta property="og:image" content="http://i1.bvimg.com/645823/4d809dd5f325700c.png">
 <meta property="og:image" content="http://i1.bvimg.com/645823/d4ff8a3844a8489f.png">
 <meta property="og:image" content="c:/Users/小鬼/AppData/Roaming/Typora/typora-user-images/1540431962181.png">
-<meta property="og:updated_time" content="2018-10-25T01:46:39.640Z">
+<meta property="og:updated_time" content="2018-10-25T02:06:13.306Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="404 not found">
-<meta name="twitter:description" content="ava-web基础功能（一）—-实现用户登录思路：实现用户登录方法的实质，就是从表单传递两个参数，username还有password，然后通过get或者post方式提交到LoginServlet,对传进来的两个参数进行具体的判断，判断之后调用一个自己定义的User Login的方法，从数据库中查找对应的参数是否和数据库里面的数据一致，然后返回结果。 前期准备： （1）在数据库中建立一张user表">
+<meta name="twitter:description" content="java-web基础功能（一）—-实现用户登录思路：实现用户登录方法的实质，就是从表单传递两个参数，username还有password，然后通过get或者post方式提交到LoginServlet,对传进来的两个参数进行具体的判断，判断之后调用一个自己定义的User Login的方法，从数据库中查找对应的参数是否和数据库里面的数据一致，然后返回结果。 前期准备： （1）在数据库中建立一张user">
 <meta name="twitter:image" content="http://i1.bvimg.com/645823/aa49de553b428259.png">
 
 
@@ -304,7 +304,7 @@
       
 
       
-        <h1 id="ava-web基础功能（一）—-实现用户登录"><a href="#ava-web基础功能（一）—-实现用户登录" class="headerlink" title="ava-web基础功能（一）—-实现用户登录"></a>ava-web基础功能（一）—-实现用户登录</h1><p>思路：实现用户登录方法的实质，就是从表单传递两个参数，username还有password，然后通过get或者post方式提交到LoginServlet,对传进来的两个参数进行具体的判断，判断之后调用一个自己定义的User Login的方法，从数据库中查找对应的参数是否和数据库里面的数据一致，然后返回结果。</p>
+        <h1 id="java-web基础功能（一）—-实现用户登录"><a href="#java-web基础功能（一）—-实现用户登录" class="headerlink" title="java-web基础功能（一）—-实现用户登录"></a>java-web基础功能（一）—-实现用户登录</h1><p>思路：实现用户登录方法的实质，就是从表单传递两个参数，username还有password，然后通过get或者post方式提交到LoginServlet,对传进来的两个参数进行具体的判断，判断之后调用一个自己定义的User Login的方法，从数据库中查找对应的参数是否和数据库里面的数据一致，然后返回结果。</p>
 <p>前期准备：</p>
 <p>（1）在数据库中建立一张user表，因为只需要实现最基础的功能，所以里面我只设置了 三个最普通的字段，这张表我是放在demo数据库里面的。如图所示：</p>
 <p><img src="http://i1.bvimg.com/645823/aa49de553b428259.png" alt="Markdown"></p>
@@ -475,7 +475,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ava-web基础功能（一）—-实现用户登录"><span class="nav-number">1.</span> <span class="nav-text">ava-web基础功能（一）—-实现用户登录</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java-web基础功能（一）—-实现用户登录"><span class="nav-number">1.</span> <span class="nav-text">java-web基础功能（一）—-实现用户登录</span></a></li></ol></div>
             
 
           </div>
