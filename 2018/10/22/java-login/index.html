@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://i1.bvimg.com/645823/4d809dd5f325700c.png">
 <meta property="og:image" content="http://i1.bvimg.com/645823/d4ff8a3844a8489f.png">
 <meta property="og:image" content="http://i1.bvimg.com/645823/f7ad560369cde48c.png">
-<meta property="og:updated_time" content="2018-10-25T02:25:47.087Z">
+<meta property="og:updated_time" content="2018-10-25T09:04:02.098Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java-login">
 <meta name="twitter:description" content="java-web基础功能（一）—-实现用户登录思路：实现用户登录方法的实质，就是从表单传递两个参数，username还有password，然后通过get或者post方式提交到LoginServlet,对传进来的两个参数进行具体的判断，判断之后调用一个自己定义的User Login的方法，从数据库中查找对应的参数是否和数据库里面的数据一致，然后返回结果。 前期准备： （1）在数据库中建立一张user">
@@ -310,7 +310,7 @@
 <p><img src="http://i1.bvimg.com/645823/aa49de553b428259.png" alt="Markdown"></p>
 <p>(2)导入相应的jar包，连接数据库的时候需要用到，这里我使用的时c3p0连接池：</p>
 <p><img src="http://i1.bvimg.com/645823/4d809dd5f325700c.png" alt="Markdown"></p>
-<p>（3）配置C3P0-config.xml文件，连接到本地的数据库，demo就是我实现功能所需要的数据库的名称，具体的代码如下：</p>
+<p>（3）配置C3P0-config.xml文件（放在src目录下面），连接到本地的数据库，demo就是我实现功能所需要的数据库的名称，具体的代码如下：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">c3p0-config</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">default-config</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"user"</span>&gt;</span>root<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span>&gt;</span>root<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClass"</span>&gt;</span>com.mysql.jdbc.Driver<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUrl"</span>&gt;</span>jdbc:mysql:///demo<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">default-config</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">c3p0-config</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>代码实现功能：</p>
 <p>(1)写一个前端页面login.jsp，在这里我就不加样式了，所以页面会很简陋，但是还是能达到自己想要的功能</p>
