@@ -79,19 +79,17 @@
 
 
 
-<meta name="description" content="三层架构开发模式前面关于login和register功能已经有所涉及到一点，但是由于业务简单所以我的代码没有按照这个模式来，所以接下来的功能我都会按照这个模式来开发，因为这样可以使得我们的开发思路更加清晰。  如上图所示，web客户端就是我们平时接触到的网页程序，通过传递参数给服务器，然后服务器根据请求再与数据库连接，然后获取到数据库数据之后服务器再将其结果返回到前端页面。而在这个过程之中，服务器">
+<meta name="description" content="Struts 2（一）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java EE三层架构开发模式">
-<meta property="og:url" content="http://yoursite.com/2018/10/26/MVC/index.html">
+<meta property="og:title" content="2">
+<meta property="og:url" content="http://yoursite.com/2018/11/01/Struts2/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="三层架构开发模式前面关于login和register功能已经有所涉及到一点，但是由于业务简单所以我的代码没有按照这个模式来，所以接下来的功能我都会按照这个模式来开发，因为这样可以使得我们的开发思路更加清晰。  如上图所示，web客户端就是我们平时接触到的网页程序，通过传递参数给服务器，然后服务器根据请求再与数据库连接，然后获取到数据库数据之后服务器再将其结果返回到前端页面。而在这个过程之中，服务器">
+<meta property="og:description" content="Struts 2（一）">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://i4.bvimg.com/645823/212f26a953a5f121.png">
-<meta property="og:updated_time" content="2018-10-27T07:59:32.507Z">
+<meta property="og:updated_time" content="2018-11-01T12:36:38.783Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java EE三层架构开发模式">
-<meta name="twitter:description" content="三层架构开发模式前面关于login和register功能已经有所涉及到一点，但是由于业务简单所以我的代码没有按照这个模式来，所以接下来的功能我都会按照这个模式来开发，因为这样可以使得我们的开发思路更加清晰。  如上图所示，web客户端就是我们平时接触到的网页程序，通过传递参数给服务器，然后服务器根据请求再与数据库连接，然后获取到数据库数据之后服务器再将其结果返回到前端页面。而在这个过程之中，服务器">
-<meta name="twitter:image" content="http://i4.bvimg.com/645823/212f26a953a5f121.png">
+<meta name="twitter:title" content="2">
+<meta name="twitter:description" content="Struts 2（一）">
 
 
 
@@ -121,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/26/MVC/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/01/Struts2/">
 
 
 
 
 
-  <title>java EE三层架构开发模式 | 404 not found</title>
+  <title>2 | 404 not found</title>
   
 
 
@@ -234,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/26/MVC/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/01/Struts2/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
@@ -251,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">java EE三层架构开发模式</h1>
+          <h1 class="post-title" itemprop="name headline">2</h1>
         
 
         <div class="post-meta">
@@ -263,8 +261,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-26T20:12:32+08:00">
-                2018-10-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-01T19:46:27+08:00">
+                2018-11-01
               </time>
             
 
@@ -301,12 +299,7 @@
       
 
       
-        <p>三层架构开发模式前面关于login和register功能已经有所涉及到一点，但是由于业务简单所以我的代码没有按照这个模式来，所以接下来的功能我都会按照这个模式来开发，因为这样可以使得我们的开发思路更加清晰。</p>
-<p><img src="http://i4.bvimg.com/645823/212f26a953a5f121.png" alt="Markdown"></p>
-<p>如上图所示，web客户端就是我们平时接触到的网页程序，通过传递参数给服务器，然后服务器根据请求再与数据库连接，然后获取到数据库数据之后服务器再将其结果返回到前端页面。而在这个过程之中，服务器端又可以将其分成三层，即web层，service层还有dao层。其中，web层是用来接收客户端传输过来的数据，然后再将其封装到JavaBean中，传递给sevice层，其中使用到的框架有Struts2。而service层接收web层传递过来的数据，然后根据实际需求编写业务逻辑代码。最后一个是dao层，service层所需要用到的数据，则是通过dao层来执行对数据库的操作，然后再一层一层返回，最终在客户端显示结果。这样做的好处是可以使开发的思路更加清晰，各层分工明确。</p>
-<p>至于说到MVC模式和三层架构之间的关系，可以说Mvc是web开发的一种开发模式，而三层架构是针对Java语言的。本身是没有联系，但是三层架构中，分别是web层，service层还有dao层，servlet+JavaBean+jsp刚刚好构成了web层，所以web层是一种mvc的模式。（wen层中，JavaBean是M层，jsp是V层，Servlet是C层）</p>
-<p>这个也有可能是面试题目哦，所以最好记住也不要混淆，嘿嘿嘿~</p>
-
+        <h1 id="Struts-2（一）"><a href="#Struts-2（一）" class="headerlink" title="Struts 2（一）"></a>Struts 2（一）</h1>
       
     </div>
     
@@ -330,8 +323,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/25/java-register/" rel="next" title="java-register">
-                <i class="fa fa-chevron-left"></i> java-register
+              <a href="/2018/10/29/cookie/" rel="next" title="cookie">
+                <i class="fa fa-chevron-left"></i> cookie
               </a>
             
           </div>
@@ -339,10 +332,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/28/check-img/" rel="prev" title="check-img">
-                check-img <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -394,8 +383,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -437,6 +435,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Struts-2（一）"><span class="nav-number">1.</span> <span class="nav-text">Struts 2（一）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
