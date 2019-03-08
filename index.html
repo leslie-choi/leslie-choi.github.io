@@ -954,7 +954,7 @@
           
             <h1 id="java-web基础功能（一）—-实现用户登录"><a href="#java-web基础功能（一）—-实现用户登录" class="headerlink" title="java-web基础功能（一）—-实现用户登录"></a>java-web基础功能（一）—-实现用户登录</h1><p>思路：实现用户登录方法的实质，就是从表单传递两个参数，username还有password，然后通过get或者post方式提交到LoginServlet,对传进来的两个参数进行具体的判断，判断之后调用一个自己定义的User Login的方法，从数据库中查找对应的参数是否和数据库里面的数据一致，然后返回结果。</p>
 <p>前期准备：</p>
-<p>（1）在数据库中建立一张user表，因为只需要实现最基础的功能，所以里面我只设置了 三个最普通的字段，这张表我是放在demo数据库里面的。如图所示：</p>
+<p>（1）在数据库中建立一张user表，因为只需要实现最基础的功能，所以里面我只设置了 三个最普通的字段，这张表我是放在demo数据库里面的。如图所示： </p>
 <p><img src="http://i1.bvimg.com/645823/aa49de553b428259.png" alt="Markdown"></p>
 <p>(2)导入相应的jar包，连接数据库的时候需要用到，这里我使用的时c3p0连接池：</p>
 <p><img src="http://i1.bvimg.com/645823/4d809dd5f325700c.png" alt="Markdown"></p>
