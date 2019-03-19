@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="basic,">
 
 
 
@@ -79,14 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta name="description" content="生命周期1、 beforeCreate:在该方法中data和mothods都没有被初始化 created：在该方法中data和methods都已经被初始化好了（最重要） beforeMount：最新的模板页面（虚拟DOM）并没有被挂载到页面中去，但是在内存中已经被编译好 mounted：最新的虚拟DOM被挂载到页面中去（最重要） 只要执行完整个mounted，就表示整个Vue实例已经完成初始化。此">
+<meta name="keywords" content="basic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="四、生命周期">
+<meta property="og:url" content="http://yoursite.com/2019/01/23/vue/4、生命周期/index.html">
 <meta property="og:site_name" content="404 not found">
+<meta property="og:description" content="生命周期1、 beforeCreate:在该方法中data和mothods都没有被初始化 created：在该方法中data和methods都已经被初始化好了（最重要） beforeMount：最新的模板页面（虚拟DOM）并没有被挂载到页面中去，但是在内存中已经被编译好 mounted：最新的虚拟DOM被挂载到页面中去（最重要） 只要执行完整个mounted，就表示整个Vue实例已经完成初始化。此">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-15T10:14:44.208Z">
+<meta property="og:updated_time" content="2019-03-19T17:01:11.713Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
+<meta name="twitter:title" content="四、生命周期">
+<meta name="twitter:description" content="生命周期1、 beforeCreate:在该方法中data和mothods都没有被初始化 created：在该方法中data和methods都已经被初始化好了（最重要） beforeMount：最新的模板页面（虚拟DOM）并没有被挂载到页面中去，但是在内存中已经被编译好 mounted：最新的虚拟DOM被挂载到页面中去（最重要） 只要执行完整个mounted，就表示整个Vue实例已经完成初始化。此">
 
 
 
@@ -116,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/23/vue/4、生命周期/">
 
 
 
 
 
-  <title>tags | 404 not found</title>
+  <title>四、生命周期 | 404 not found</title>
   
 
 
@@ -217,40 +221,180 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/vue/4、生命周期/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">tags</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                1 tag in total
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/basic/" style="font-size: 12px; color: #ccc">basic</a>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">四、生命周期</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-23T10:23:35+08:00">
+                2019-01-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h1 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h1><p>1、</p>
+<p>beforeCreate:在该方法中data和mothods都没有被初始化</p>
+<p>created：在该方法中data和methods都已经被初始化好了（最重要）</p>
+<p>beforeMount：最新的模板页面（虚拟DOM）并没有被挂载到页面中去，但是在内存中已经被编译好</p>
+<p>mounted：最新的虚拟DOM被挂载到页面中去（最重要）</p>
+<p>只要执行完整个mounted，就表示整个Vue实例已经完成初始化。此时组件已经脱离了创建阶段，进入运行阶段</p>
+<p>运行阶段的两个生命周期函数，这两个事件会根据data数据的改变，有选择性触发0到多次</p>
+<p>beforeUpdate：表示界面还没有被更新，但是数据被更新了</p>
+<p>update： 事件执行的时候，页面和data数据已经保持同步，都是最新的</p>
+<p>beforeDestroy：执行该函数的时候，实例身上的所有data和所有的methods以及过滤器、指令等等都处于可用状态，还没有真正执行销毁的过程</p>
+<p>Destroyed：执行到该函数的时候，组件中的而所有数据、方法、指令过滤器都不可用</p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/basic/" rel="tag"># basic</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/22/vue/3、Vue自定义属性绑定/" rel="next" title="三、Vue自定义属性绑定">
+                <i class="fa fa-chevron-left"></i> 三、Vue自定义属性绑定
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/23/vue/5、vue-resource发起get和post以及jsonp请求/" rel="prev" title="五、vue-resource发起get和post以及jsonp请求">
+                五、vue-resource发起get和post以及jsonp请求 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -283,8 +427,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -344,6 +497,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#生命周期"><span class="nav-number">1.</span> <span class="nav-text">生命周期</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
