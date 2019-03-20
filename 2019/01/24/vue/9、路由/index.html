@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="basic,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="路由的基本使用前端路由和后端路由的区别： 后端路由：所有的超链接都是url地址，都对应服务器上对应的资源 前端路由：对于单页面应用程序来说，主要通过url中的hash（#号）来实现不同页面之间的切换，这种通过hash改变页面的切换页面的方法是称为前端路由 1、需要先安装vue-router模块，且顺序必须放在vue.js后面 2、使用router-link组件来导航 12&amp;lt;router-li">
+<meta name="keywords" content="basic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="九、路由">
+<meta property="og:url" content="http://yoursite.com/2019/01/24/vue/9、路由/index.html">
+<meta property="og:site_name" content="404 not found">
+<meta property="og:description" content="路由的基本使用前端路由和后端路由的区别： 后端路由：所有的超链接都是url地址，都对应服务器上对应的资源 前端路由：对于单页面应用程序来说，主要通过url中的hash（#号）来实现不同页面之间的切换，这种通过hash改变页面的切换页面的方法是称为前端路由 1、需要先安装vue-router模块，且顺序必须放在vue.js后面 2、使用router-link组件来导航 12&amp;lt;router-li">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-20T17:10:38.051Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="九、路由">
+<meta name="twitter:description" content="路由的基本使用前端路由和后端路由的区别： 后端路由：所有的超链接都是url地址，都对应服务器上对应的资源 前端路由：对于单页面应用程序来说，主要通过url中的hash（#号）来实现不同页面之间的切换，这种通过hash改变页面的切换页面的方法是称为前端路由 1、需要先安装vue-router模块，且顺序必须放在vue.js后面 2、使用router-link组件来导航 12&amp;lt;router-li">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/24/vue/9、路由/">
+
+
+
+
+
+  <title>九、路由 | 404 not found</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">404 not found</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/24/vue/9、路由/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">九、路由</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-24T15:12:20+08:00">
+                2019-01-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="路由的基本使用"><a href="#路由的基本使用" class="headerlink" title="路由的基本使用"></a>路由的基本使用</h1><p>前端路由和后端路由的区别：</p>
+<p>后端路由：所有的超链接都是url地址，都对应服务器上对应的资源</p>
+<p>前端路由：对于单页面应用程序来说，主要通过url中的hash（#号）来实现不同页面之间的切换，这种通过hash改变页面的切换页面的方法是称为前端路由</p>
+<p>1、需要先安装vue-router模块，且顺序必须放在vue.js后面</p>
+<p>2、使用router-link组件来导航</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-link to=<span class="string">"/login"</span>&gt;登录&lt;<span class="regexp">/router-link&gt;</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/可以使用tag属性指定router-link渲染标签的类型</span></span><br></pre></td></tr></table></figure>
+<p>3、使用 router-view 组件来显示匹配到的组件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-view&gt;&lt;/router-view&gt;</span><br></pre></td></tr></table></figure>
+<p>4、使用vue-entend 创建登录组件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> login = Vue.extend(&#123;</span><br><span class="line">  template: <span class="string">'&lt;h1&gt;登录组件&lt;/h1&gt;'</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">var</span> register = Vue.extend(&#123;</span><br><span class="line">  template: <span class="string">'&lt;h1&gt;注册组件&lt;/h1&gt;'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>5、创建一个router实例，通过router属性来定义路由匹配规则</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> router111 = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">'/login'</span>, <span class="attr">component</span>: login &#125;,</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">'/register'</span>, <span class="attr">component</span>: register &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>6、使用router属性来使用路由规则</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  router: router111 <span class="comment">// 使用 上面创建的router111 属性来使用路由规则</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>思路：</p>
+<p>1、设置两个login和register子组件</p>
+<p>2、创建一个路由对象，设置路由规则数组，即设置这两个子组件的对应路径</p>
+<p>3、将路由对象与Vue实例关联起来</p>
+<p>4、根据实际需要设置重定向</p>
+<h1 id="使用children属性实现路由嵌套"><a href="#使用children属性实现路由嵌套" class="headerlink" title="使用children属性实现路由嵌套"></a>使用children属性实现路由嵌套</h1><p>account组件下面有两个子组件，login和register，在创建路由实例的时候，将account传入，然后在childrens[]数组内再定义两个子组件，login和register</p>
+<p>这里为了使地址栏能达到效果需要使用redirect进行重定向，如果路径是根路径的话，则设置重定向到login下—-path: ‘/‘, redirect: ‘/account/login’</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">  &lt;router-link to=<span class="string">"/account"</span>&gt;Account&lt;<span class="regexp">/router-link&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  &lt;router-view&gt;&lt;/</span>router-view&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  /</span><span class="regexp">/ 父路由中的组件</span></span><br><span class="line"><span class="regexp">  const account = Vue.extend(&#123;</span></span><br><span class="line"><span class="regexp">    template: `&lt;div&gt;</span></span><br><span class="line"><span class="regexp">      这是account组件</span></span><br><span class="line"><span class="regexp">      &lt;router-link to="/</span>account/login<span class="string">"&gt;login&lt;/router-link&gt; | </span></span><br><span class="line"><span class="string">      &lt;router-link to="</span>/account/register<span class="string">"&gt;register&lt;/router-link&gt;</span></span><br><span class="line"><span class="string">      &lt;router-view&gt;&lt;/router-view&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;`</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  // 子路由中的 login 组件</span></span><br><span class="line"><span class="string">  const login = Vue.extend(&#123;</span></span><br><span class="line"><span class="string">    template: '&lt;div&gt;登录组件&lt;/div&gt;'</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  // 子路由中的 register 组件</span></span><br><span class="line"><span class="string">  const register = Vue.extend(&#123;</span></span><br><span class="line"><span class="string">    template: '&lt;div&gt;注册组件&lt;/div&gt;'</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  // 路由实例</span></span><br><span class="line"><span class="string">  var router = new VueRouter(&#123;</span></span><br><span class="line"><span class="string">    routes: [</span></span><br><span class="line"><span class="string">      &#123; path: '/', redirect: '/account/login' &#125;, // 使用 redirect 实现路由重定向</span></span><br><span class="line"><span class="string">      &#123;</span></span><br><span class="line"><span class="string">        path: '/account',</span></span><br><span class="line"><span class="string">        component: account,</span></span><br><span class="line"><span class="string">        children: [ // 通过 children 数组属性，来实现路由的嵌套</span></span><br><span class="line"><span class="string">          &#123; path: 'login', component: login &#125;, // 注意，子路由的开头位置，不要加 / 路径符</span></span><br><span class="line"><span class="string">          &#123; path: 'register', component: register &#125;</span></span><br><span class="line"><span class="string">        ]</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">    ]</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  // 创建 Vue 实例，得到 ViewModel</span></span><br><span class="line"><span class="string">  var vm = new Vue(&#123;</span></span><br><span class="line"><span class="string">    el: '#app',</span></span><br><span class="line"><span class="string">    data: &#123;&#125;,</span></span><br><span class="line"><span class="string">    methods: &#123;&#125;,</span></span><br><span class="line"><span class="string">    components: &#123;</span></span><br><span class="line"><span class="string">      account</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">    router: router</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="在路由中实现参数的传递"><a href="#在路由中实现参数的传递" class="headerlink" title="在路由中实现参数的传递"></a>在路由中实现参数的传递</h1><p>1、在规则中定义参数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> router111 = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">'/register/:id'</span>, <span class="attr">component</span>: register &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>2、通过this.$route.params获取路由中的参数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> register = Vue.extend(&#123;</span><br><span class="line">      template: <span class="string">'&lt;h1&gt;注册组件 --- &#123;&#123;this.$route.params.id&#125;&#125;&lt;/h1&gt;'</span></span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<p>思路：分别创建account组件作为父组件，login和register作为子组件。</p>
+<p>在#app中使用router-viewi标签显示在页面中显示所有的组件。</p>
+<p>然后使用v-extend创建三个组件，父组件中使用router-link to分别指向两个子组件</p>
+<p>然后创建一个router实例，分别设置父组件和在childrens[]数组中设置子组件，分别设置组件的映射路径</p>
+<p>最后在Vue实例里面的component中注册父组件和router中注册上面新建的router实例</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/basic/" rel="tag"># basic</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/24/vue/10、watch、computed和methods属性的区别/" rel="next" title="十、watch、computed和methods属性的区别">
+                <i class="fa fa-chevron-left"></i> 十、watch、computed和methods属性的区别
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">leslie choi</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#路由的基本使用"><span class="nav-number">1.</span> <span class="nav-text">路由的基本使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用children属性实现路由嵌套"><span class="nav-number">2.</span> <span class="nav-text">使用children属性实现路由嵌套</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在路由中实现参数的传递"><span class="nav-number">3.</span> <span class="nav-text">在路由中实现参数的传递</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leslie choi</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
