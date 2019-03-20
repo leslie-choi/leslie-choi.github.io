@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="步骤1、导包，在vue.js后面再引入vue-resource.js，依赖于vue,需要注意先后顺序 2、get、post还有jsonp请求 在methods中定义三个函数 get请求 1234567getInfo() &amp;#123; // 发起get请求    //  当发起get请求之后， 通过 .then 来设置成功的回调函数    this.$http.get(&apos;http://vue.stu">
+<meta name="description" content="组件中css的作用域、抽离路由模块1、为了使组件中的css样式不影响全局，可以在style标签内多加一个scoped属性 2、抽离路由模块 新建一个router.js a、导入组件 b、创建路由对象 c、设置子路由，并设置路径 d、将该路由暴露出去 document.cookie=”track_id=1545690009|eddde566ae9aa2b35a454e91ee2342a127b111">
 <meta name="keywords" content="basic">
 <meta property="og:type" content="article">
-<meta property="og:title" content="五、vue-resource发起get和post以及jsonp请求">
-<meta property="og:url" content="http://yoursite.com/2019/01/23/vue/5、vue-resource发起get和post以及jsonp请求/index.html">
+<meta property="og:title" content="十三、组件中css的作用域、抽离路由模块">
+<meta property="og:url" content="http://yoursite.com/2019/01/25/vue/13、组件中css的作用域、抽离路由模块/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="步骤1、导包，在vue.js后面再引入vue-resource.js，依赖于vue,需要注意先后顺序 2、get、post还有jsonp请求 在methods中定义三个函数 get请求 1234567getInfo() &amp;#123; // 发起get请求    //  当发起get请求之后， 通过 .then 来设置成功的回调函数    this.$http.get(&apos;http://vue.stu">
+<meta property="og:description" content="组件中css的作用域、抽离路由模块1、为了使组件中的css样式不影响全局，可以在style标签内多加一个scoped属性 2、抽离路由模块 新建一个router.js a、导入组件 b、创建路由对象 c、设置子路由，并设置路径 d、将该路由暴露出去 document.cookie=”track_id=1545690009|eddde566ae9aa2b35a454e91ee2342a127b111">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-19T17:04:28.900Z">
+<meta property="og:updated_time" content="2019-03-20T17:20:15.532Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="五、vue-resource发起get和post以及jsonp请求">
-<meta name="twitter:description" content="步骤1、导包，在vue.js后面再引入vue-resource.js，依赖于vue,需要注意先后顺序 2、get、post还有jsonp请求 在methods中定义三个函数 get请求 1234567getInfo() &amp;#123; // 发起get请求    //  当发起get请求之后， 通过 .then 来设置成功的回调函数    this.$http.get(&apos;http://vue.stu">
+<meta name="twitter:title" content="十三、组件中css的作用域、抽离路由模块">
+<meta name="twitter:description" content="组件中css的作用域、抽离路由模块1、为了使组件中的css样式不影响全局，可以在style标签内多加一个scoped属性 2、抽离路由模块 新建一个router.js a、导入组件 b、创建路由对象 c、设置子路由，并设置路径 d、将该路由暴露出去 document.cookie=”track_id=1545690009|eddde566ae9aa2b35a454e91ee2342a127b111">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/23/vue/5、vue-resource发起get和post以及jsonp请求/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/25/vue/13、组件中css的作用域、抽离路由模块/">
 
 
 
 
 
-  <title>五、vue-resource发起get和post以及jsonp请求 | 404 not found</title>
+  <title>十三、组件中css的作用域、抽离路由模块 | 404 not found</title>
   
 
 
@@ -233,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/vue/5、vue-resource发起get和post以及jsonp请求/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/25/vue/13、组件中css的作用域、抽离路由模块/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">五、vue-resource发起get和post以及jsonp请求</h1>
+          <h1 class="post-title" itemprop="name headline">十三、组件中css的作用域、抽离路由模块</h1>
         
 
         <div class="post-meta">
@@ -262,8 +262,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-23T15:13:25+08:00">
-                2019-01-23
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-25T15:16:54+08:00">
+                2019-01-25
               </time>
             
 
@@ -322,15 +322,14 @@
       
 
       
-        <h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1><p>1、导包，在vue.js后面再引入vue-resource.js，依赖于vue,需要注意先后顺序</p>
-<p>2、get、post还有jsonp请求</p>
-<p>在methods中定义三个函数</p>
-<p>get请求</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">getInfo() &#123; <span class="comment">// 发起get请求</span></span><br><span class="line">    <span class="comment">//  当发起get请求之后， 通过 .then 来设置成功的回调函数</span></span><br><span class="line">    <span class="keyword">this</span>.$http.get(<span class="string">'http://vue.studyit.io/api/getlunbo'</span>).then(<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 通过 result.body 拿到服务器返回的成功的数据</span></span><br><span class="line">        <span class="comment">// console.log(result.body)</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>post请求</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">postInfo() &#123; <span class="comment">// 发起 post 请求   application/x-wwww-form-urlencoded</span></span><br><span class="line">    <span class="comment">//  手动发起的 Post 请求，默认没有表单格式，所以，有的服务器处理不了</span></span><br><span class="line">    <span class="comment">//  通过 post 方法的第三个参数， &#123; emulateJSON: true &#125; 设置 提交的内容类型 为 普通表单数据格式</span></span><br><span class="line">    <span class="keyword">this</span>.$http.post(<span class="string">'http://vue.studyit.io/api/post'</span>, &#123;&#125;, &#123; <span class="attr">emulateJSON</span>: <span class="literal">true</span> &#125;).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(result.body)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>jsonp请求</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jsonpInfo() &#123; <span class="comment">// 发起JSONP 请求</span></span><br><span class="line">    <span class="keyword">this</span>.$http.jsonp(<span class="string">'http://vue.studyit.io/api/jsonp'</span>).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(result.body)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="组件中css的作用域、抽离路由模块"><a href="#组件中css的作用域、抽离路由模块" class="headerlink" title="组件中css的作用域、抽离路由模块"></a>组件中css的作用域、抽离路由模块</h1><p>1、为了使组件中的css样式不影响全局，可以在style标签内多加一个scoped属性</p>
+<p>2、抽离路由模块</p>
+<p>新建一个router.js</p>
+<p>a、导入组件</p>
+<p>b、创建路由对象</p>
+<p>c、设置子路由，并设置路径</p>
+<p>d、将该路由暴露出去</p>
+<p>document.cookie=”track_id=1545690009|eddde566ae9aa2b35a454e91ee2342a127b11148a8eaec390b|a73c8c1097ae7b5ef779f762abacfb1b; domain=ele.me; path=/“;document.cookie=”USERID=3692924746; domain=ele.me; path=/“;document.cookie=”SID=zkGQB2wu1nCjmOXtiHZmkOMpabWHwiPZgVVg; domain=ele.me; path=/“;</p>
 
       
     </div>
@@ -361,8 +360,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/23/vue/4、生命周期/" rel="next" title="四、生命周期">
-                <i class="fa fa-chevron-left"></i> 四、生命周期
+              <a href="/2019/01/25/vue/12、webpack结合路由的使用/" rel="next" title="十二、webpack结合路由的使用">
+                <i class="fa fa-chevron-left"></i> 十二、webpack结合路由的使用
               </a>
             
           </div>
@@ -370,10 +369,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/23/vue/6、数据库获取数据并进行操作/" rel="prev" title="六、vue-resource发起get和post以及jsonp请求">
-                六、vue-resource发起get和post以及jsonp请求 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -505,7 +500,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#步骤"><span class="nav-number">1.</span> <span class="nav-text">步骤</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#组件中css的作用域、抽离路由模块"><span class="nav-number">1.</span> <span class="nav-text">组件中css的作用域、抽离路由模块</span></a></li></ol></div>
             
 
           </div>

@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="步骤1、导包，在vue.js后面再引入vue-resource.js，依赖于vue,需要注意先后顺序 2、get、post还有jsonp请求 在methods中定义三个函数 get请求 1234567getInfo() &amp;#123; // 发起get请求    //  当发起get请求之后， 通过 .then 来设置成功的回调函数    this.$http.get(&apos;http://vue.stu">
+<meta name="description" content="webpack结合路由的使用1、在main.js中导入vue-router包 2、手动安装VueRouter 3、导入组件 4、创建路由对象 1234567891011121314151617181920212223242526272829import Vue from &apos;vue&apos;// 1. 导入 vue-router 包import VueRouter from &apos;vue-router&apos;// 2">
 <meta name="keywords" content="basic">
 <meta property="og:type" content="article">
-<meta property="og:title" content="五、vue-resource发起get和post以及jsonp请求">
-<meta property="og:url" content="http://yoursite.com/2019/01/23/vue/5、vue-resource发起get和post以及jsonp请求/index.html">
+<meta property="og:title" content="十二、webpack结合路由的使用">
+<meta property="og:url" content="http://yoursite.com/2019/01/25/vue/12、webpack结合路由的使用/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="步骤1、导包，在vue.js后面再引入vue-resource.js，依赖于vue,需要注意先后顺序 2、get、post还有jsonp请求 在methods中定义三个函数 get请求 1234567getInfo() &amp;#123; // 发起get请求    //  当发起get请求之后， 通过 .then 来设置成功的回调函数    this.$http.get(&apos;http://vue.stu">
+<meta property="og:description" content="webpack结合路由的使用1、在main.js中导入vue-router包 2、手动安装VueRouter 3、导入组件 4、创建路由对象 1234567891011121314151617181920212223242526272829import Vue from &apos;vue&apos;// 1. 导入 vue-router 包import VueRouter from &apos;vue-router&apos;// 2">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-19T17:04:28.900Z">
+<meta property="og:updated_time" content="2019-03-20T17:18:38.340Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="五、vue-resource发起get和post以及jsonp请求">
-<meta name="twitter:description" content="步骤1、导包，在vue.js后面再引入vue-resource.js，依赖于vue,需要注意先后顺序 2、get、post还有jsonp请求 在methods中定义三个函数 get请求 1234567getInfo() &amp;#123; // 发起get请求    //  当发起get请求之后， 通过 .then 来设置成功的回调函数    this.$http.get(&apos;http://vue.stu">
+<meta name="twitter:title" content="十二、webpack结合路由的使用">
+<meta name="twitter:description" content="webpack结合路由的使用1、在main.js中导入vue-router包 2、手动安装VueRouter 3、导入组件 4、创建路由对象 1234567891011121314151617181920212223242526272829import Vue from &apos;vue&apos;// 1. 导入 vue-router 包import VueRouter from &apos;vue-router&apos;// 2">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/23/vue/5、vue-resource发起get和post以及jsonp请求/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/25/vue/12、webpack结合路由的使用/">
 
 
 
 
 
-  <title>五、vue-resource发起get和post以及jsonp请求 | 404 not found</title>
+  <title>十二、webpack结合路由的使用 | 404 not found</title>
   
 
 
@@ -233,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/vue/5、vue-resource发起get和post以及jsonp请求/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/25/vue/12、webpack结合路由的使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">五、vue-resource发起get和post以及jsonp请求</h1>
+          <h1 class="post-title" itemprop="name headline">十二、webpack结合路由的使用</h1>
         
 
         <div class="post-meta">
@@ -262,8 +262,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-23T15:13:25+08:00">
-                2019-01-23
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-25T13:46:52+08:00">
+                2019-01-25
               </time>
             
 
@@ -322,15 +322,11 @@
       
 
       
-        <h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1><p>1、导包，在vue.js后面再引入vue-resource.js，依赖于vue,需要注意先后顺序</p>
-<p>2、get、post还有jsonp请求</p>
-<p>在methods中定义三个函数</p>
-<p>get请求</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">getInfo() &#123; <span class="comment">// 发起get请求</span></span><br><span class="line">    <span class="comment">//  当发起get请求之后， 通过 .then 来设置成功的回调函数</span></span><br><span class="line">    <span class="keyword">this</span>.$http.get(<span class="string">'http://vue.studyit.io/api/getlunbo'</span>).then(<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 通过 result.body 拿到服务器返回的成功的数据</span></span><br><span class="line">        <span class="comment">// console.log(result.body)</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>post请求</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">postInfo() &#123; <span class="comment">// 发起 post 请求   application/x-wwww-form-urlencoded</span></span><br><span class="line">    <span class="comment">//  手动发起的 Post 请求，默认没有表单格式，所以，有的服务器处理不了</span></span><br><span class="line">    <span class="comment">//  通过 post 方法的第三个参数， &#123; emulateJSON: true &#125; 设置 提交的内容类型 为 普通表单数据格式</span></span><br><span class="line">    <span class="keyword">this</span>.$http.post(<span class="string">'http://vue.studyit.io/api/post'</span>, &#123;&#125;, &#123; <span class="attr">emulateJSON</span>: <span class="literal">true</span> &#125;).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(result.body)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>jsonp请求</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jsonpInfo() &#123; <span class="comment">// 发起JSONP 请求</span></span><br><span class="line">    <span class="keyword">this</span>.$http.jsonp(<span class="string">'http://vue.studyit.io/api/jsonp'</span>).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(result.body)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="webpack结合路由的使用"><a href="#webpack结合路由的使用" class="headerlink" title="webpack结合路由的使用"></a>webpack结合路由的使用</h1><p>1、在main.js中导入vue-router包</p>
+<p>2、手动安装VueRouter</p>
+<p>3、导入组件</p>
+<p>4、创建路由对象</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="comment">// 1. 导入 vue-router 包</span></span><br><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">'vue-router'</span></span><br><span class="line"><span class="comment">// 2. 手动安装 VueRouter </span></span><br><span class="line">Vue.use(VueRouter)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 导入 app 组件</span></span><br><span class="line"><span class="keyword">import</span> app <span class="keyword">from</span> <span class="string">'./App.vue'</span></span><br><span class="line"><span class="comment">// 导入 Account 组件</span></span><br><span class="line"><span class="keyword">import</span> account <span class="keyword">from</span> <span class="string">'./main/Account.vue'</span></span><br><span class="line"><span class="keyword">import</span> goodslist <span class="keyword">from</span> <span class="string">'./main/GoodsList.vue'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 创建路由对象</span></span><br><span class="line"><span class="keyword">var</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    <span class="comment">// account  goodslist</span></span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">'/account'</span>, <span class="attr">component</span>: account &#125;,</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">'/goodslist'</span>, <span class="attr">component</span>: goodslist &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  render: <span class="function"><span class="params">c</span> =&gt;</span> c(app), <span class="comment">// render 会把 el 指定的容器中，所有的内容都清空覆盖，所以 不要 把 路由的 router-view 和 router-link 直接写到 el 所控制的元素中</span></span><br><span class="line">  router <span class="comment">// 4. 将路由对象挂载到 vm 上</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注意： App 这个组件，是通过 VM 实例的 render 函数，渲染出来的， render 函数如果要渲染 组件， 渲染出来的组件，只能放到 el: '#app' 所指定的 元素中；</span></span><br><span class="line"><span class="comment">// Account 和 GoodsList 组件， 是通过 路由匹配监听到的，所以， 这两个组件，只能展示到 属于 路由的 &lt;router-view&gt;&lt;/router-view&gt; 中去；</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -361,8 +357,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/23/vue/4、生命周期/" rel="next" title="四、生命周期">
-                <i class="fa fa-chevron-left"></i> 四、生命周期
+              <a href="/2019/01/24/vue/11、使用render函数渲染组件/" rel="next" title="十一、使用render函数渲染组件">
+                <i class="fa fa-chevron-left"></i> 十一、使用render函数渲染组件
               </a>
             
           </div>
@@ -371,8 +367,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/23/vue/6、数据库获取数据并进行操作/" rel="prev" title="六、vue-resource发起get和post以及jsonp请求">
-                六、vue-resource发起get和post以及jsonp请求 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/01/25/vue/13、组件中css的作用域、抽离路由模块/" rel="prev" title="十三、组件中css的作用域、抽离路由模块">
+                十三、组件中css的作用域、抽离路由模块 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -505,7 +501,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#步骤"><span class="nav-number">1.</span> <span class="nav-text">步骤</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#webpack结合路由的使用"><span class="nav-number">1.</span> <span class="nav-text">webpack结合路由的使用</span></a></li></ol></div>
             
 
           </div>
