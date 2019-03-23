@@ -229,7 +229,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/JavaScript/JavaScript入门（一）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/28/JavaScript/JavaScript入门（二）/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
@@ -248,7 +248,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/26/JavaScript/JavaScript入门（一）/" itemprop="url">JavaScript入门（一）</a></h1>
+                <a class="post-title-link" href="/2019/01/28/JavaScript/JavaScript入门（二）/" itemprop="url">JavaScript入门（二）</a></h1>
         
 
         <div class="post-meta">
@@ -260,8 +260,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-26T16:16:24+08:00">
-                2019-01-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-28T11:46:24+08:00">
+                2019-01-28
               </time>
             
 
@@ -322,19 +322,34 @@
       
         
           
-            <h1 id="JavaScript入门（一）"><a href="#JavaScript入门（一）" class="headerlink" title="JavaScript入门（一）"></a>JavaScript入门（一）</h1><h2 id="一、js中的数据类型"><a href="#一、js中的数据类型" class="headerlink" title="一、js中的数据类型"></a>一、js中的数据类型</h2><p>js中的原始数据类型:number , string , boolean , null , undefined , object</p>
-<p>number:数字类型(整数和小数)</p>
-<p>string:字符串类型(的值一般都是用单引号或者是双引号括起来)  “34”</p>
-<p>boolean:布尔类型(值只有两个,true(真1),false(假0))<br>​    null:空类型,值只有一个:null,一个对象指向为空了,此时可以赋值为null<br>     undefined:未定义,值只有一个:undefined<br>      什么情况下的结果是undefined<br>      变量声明了,没有赋值,结果是undefined<br>     函数没有明确返回值,如果接收了,结果也是undefined<br>      如果一个变量的结果是undefined和一个数字进行计算,结果:NaN不是一个数字,也没有意义</p>
-<p>如果想要获取一个变量的数据类型，可以适用typeof获取</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">var</span> str = <span class="string">"小白"</span>;</span><br><span class="line"><span class="keyword">var</span> flag = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">var</span> nll = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> undef;</span><br><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="comment">//是使用typeof 获取变量的类型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> num);<span class="comment">//number</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> str);<span class="comment">//string</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> flag);<span class="comment">//boolean</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>(nll));<span class="comment">//是null</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> nll);<span class="comment">//不是null</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> undef);<span class="comment">//undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> obj);<span class="comment">//object</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span>(num));</span><br></pre></td></tr></table></figure>
-<h2 id="二、类型转换"><a href="#二、类型转换" class="headerlink" title="二、类型转换"></a>二、类型转换</h2><p>1、其他类型转数字类型有三种方式：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.parseInt();//转整数</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">"10"</span>));<span class="comment">//10</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">"10afrswfdsf"</span>));<span class="comment">//10</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">"g10"</span>));<span class="comment">//NaN</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">"1fds0"</span>));<span class="comment">//1</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">"10.98"</span>));<span class="comment">//10</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">"10.98fdsfd"</span>));<span class="comment">//10</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//2.parseFloat()//转小数</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseFloat</span>(<span class="string">"10"</span>));<span class="comment">//10</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseFloat</span>(<span class="string">"10afrswfdsf"</span>));<span class="comment">//10</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseFloat</span>(<span class="string">"g10"</span>));<span class="comment">//NaN</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseFloat</span>(<span class="string">"1fds0"</span>));<span class="comment">//1    </span></span><br><span class="line">	<span class="built_in">console</span>.log(<span class="built_in">parseFloat</span>(<span class="string">"10.98"</span>));<span class="comment">//10.98</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseFloat</span>(<span class="string">"10.98fdsfd"</span>));<span class="comment">//10.98</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//3.Number();//转数字</span></span><br><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="string">"10"</span>));<span class="comment">//10</span></span><br><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="string">"10afrswfdsf"</span>));<span class="comment">//NaN</span></span><br><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="string">"g10"</span>));<span class="comment">//NaN    </span></span><br><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="string">"1fds0"</span>));<span class="comment">//NaN</span></span><br><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="string">"10.98"</span>));<span class="comment">//10.98</span></span><br><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="string">"10.98fdsfd"</span>));<span class="comment">//</span></span><br><span class="line"><span class="comment">//总结:想要转整数用parseInt(),想要转小数用parseFloat()</span></span><br><span class="line"><span class="comment">//想要转数字:Number();要比上面的两种方式严格</span></span><br></pre></td></tr></table></figure>
-<h2 id="2、其他类型转字符串类型"><a href="#2、其他类型转字符串类型" class="headerlink" title="2、其他类型转字符串类型"></a>2、其他类型转字符串类型</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1    .toString()</span></span><br><span class="line">    <span class="keyword">var</span> num=<span class="number">10</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(num.toString());<span class="comment">//字符串类型</span></span><br><span class="line"><span class="comment">//2  String();</span></span><br><span class="line">    <span class="keyword">var</span> num1=<span class="number">20</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">String</span>(num1));</span><br><span class="line"><span class="comment">//如果变量有意义调用.toString()使用转换</span></span><br><span class="line"><span class="comment">//如果变量没有意义使用String()转换</span></span><br></pre></td></tr></table></figure>
-<h2 id="3、其他类型转Boolean"><a href="#3、其他类型转Boolean" class="headerlink" title="3、其他类型转Boolean"></a>3、其他类型转Boolean</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//1  Boolean(值);</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Boolean</span>(<span class="number">1</span>));<span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Boolean</span>(<span class="number">0</span>));<span class="comment">//false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Boolean</span>(<span class="number">11</span>));<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-<h1 id="三、操作符"><a href="#三、操作符" class="headerlink" title="三、操作符"></a>三、操作符</h1><p>  算数运算符:  +  -  <em> / %<br>  算数运算表达式:由算数运算符连接起来的表达式<br>  一元运算符: 这个操作符只需要一个操作数就可以运算的符号  ++  –<br>  二元运算符: 这个操作符需要两个操作数就可以运算,<br>  三元运算符: a &gt; b ? a : b<br>  复合运算符: +=  -=  </em>= /= %=<br>  复合运算表达式:由复合运算符连接起来的表达式<br>  var num=10;<br>  num+=10;——&gt;就是:num=num+10;<br>  console.log(num);20</p>
-<p>关系运算符: &gt;  &lt;  &gt;=  &lt;=  ==不严格的 ===严格的 !=不严格的不等 !==严格的不等<br>  关系运算表达式:由关系运算符连接起来的表达式<br>  关系运算表达式的结果是布尔类型<br>  逻辑运算符:<br>  &amp;&amp;—逻辑与–并且<br>  ||—逻辑或—或者<br>  !—逻辑非—取反–取非<br>  逻辑运算表达式:由逻辑运算符连接起来的表达式<br>  表达式1&amp;&amp;表达式2<br>  如果有一个为false,整个的结果就是false<br>  表达式1||表达式2<br>  如果有一个为true,整个的结果为true<br>  !表达式1<br>  表达式1的结果是true,整个结果为false<br>  表达式1的结果是false,整个结果为true</p>
-<p>  赋值运算符:  =</p>
+            <h1 id="JavaScript入门（二）"><a href="#JavaScript入门（二）" class="headerlink" title="JavaScript入门（二）"></a>JavaScript入门（二）</h1><h2 id="1、流程控制的三种方式"><a href="#1、流程控制的三种方式" class="headerlink" title="1、流程控制的三种方式"></a>1、流程控制的三种方式</h2><p>1.顺序结构:从上到下,从左到右执行的顺序,就叫做顺序结构（但是不严谨）</p>
+<p>2.分支结构:if语句,if-else语句,if-else if-else if…语句,switch-case语句,三元表达式语句</p>
+<p>3.循环结构:while循环,do-while循环,for循环,for-in循环</p>
+<p>while循环特点:先判断,后循环,有可能一次循环体都不执行</p>
+<p>do-while循环特点:先循环,后判断,至少执行一次循环体</p>
+<h2 id="2、break关键字"><a href="#2、break关键字" class="headerlink" title="2、break关键字"></a>2、break关键字</h2><p>如果在循环中使用,遇到了break,则立刻跳出当前所在的循环</p>
+<h2 id="3、continue关键字"><a href="#3、continue关键字" class="headerlink" title="3、continue关键字"></a>3、continue关键字</h2><p>在循环中如果遇到continue关键字,直接开始下一次循环</p>
+<h2 id="4、函数"><a href="#4、函数" class="headerlink" title="4、函数"></a>4、函数</h2><p>函数:把一坨重复的代码封装,在需要的时候直接调用即可<br>函数的作用:代码的重用<br>函数的定义：</p>
+<p>语法:</p>
+<p>function 函数名字(){</p>
+<p>​    函数体—–一坨重复的代码</p>
+<p>}</p>
+<p>函数的调用:</p>
+<p>函数名();</p>
+<p>函数的命名要遵循驼峰命名法</p>
+<h2 id="5、数组"><a href="#5、数组" class="headerlink" title="5、数组"></a>5、数组</h2><p>1）通过构造函数创建数组</p>
+<p>语法:</p>
+<p>var 数组名=new Array();</p>
+<p>var array=new Array();//定义了一个数组</p>
+<p>数组的名字如果直接输出,那么直接就可以把数组中的数据显示出来,如果没有数据,就看不到数据</p>
+<p>2）通过字面量的方式创建数组</p>
+<p>var 数组名=[];//空数组</p>
+<p>var array=[10,2,3,4];</p>
+<h2 id="6、arguments伪数组"><a href="#6、arguments伪数组" class="headerlink" title="6、arguments伪数组"></a>6、arguments伪数组</h2><p>伪数组：具有length属性；不具有数组的方法；按照索引的方式存储数据</p>
+<p>定义一个函数,如果不确定用户是否传入了参数,或者说不知道用户传了几个参数,没办法计算,可以用伪数组将参数存储起来。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//获取的是函数在调用的时候,传入了几个参数</span></span><br><span class="line">  <span class="comment">//console.log(arguments.length);</span></span><br><span class="line">  <span class="comment">//使用arguments对象可以获取传入的每个参数的值</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f2(<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>,<span class="number">40</span>,<span class="number">100</span>,<span class="number">200</span>);<span class="comment">//调用</span></span><br></pre></td></tr></table></figure>
+<p>将伪数组转化为数组的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Arry.prototype.slice.call(伪数组)</span><br></pre></td></tr></table></figure>
 
           
         
@@ -476,10 +491,12 @@
       
         
           
-            <h1 id="一、作用域"><a href="#一、作用域" class="headerlink" title="一、作用域"></a>一、作用域</h1><h2 id="1、作用域"><a href="#1、作用域" class="headerlink" title="1、作用域"></a>1、作用域</h2><p>作用域：变量可以起作用的范围</p>
-<p>全局变量：在任何地方都可以访问到的变量就是全局变量，对应全局作用域</p>
-<p>局部变量：只在固定的代码片段内可访问到的变量，最常见的例如函数内部。对应局部作用域(函数作用域)</p>
-<p>不使用var声明的变量是全局变量，不推荐使用。变量退出作用域之后会销毁，全局变量关闭网页或浏览器才会销毁</p>
+            <h1 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h1><h2 id="1、作用域概念"><a href="#1、作用域概念" class="headerlink" title="1、作用域概念"></a>1、作用域概念</h2><p>作用域：变量可以起作用的范围</p>
+<p>全局变量：使用var声明的，在任何地方都可以访问到的变量就是全局变量，对应全局作用域，如果页面不关闭，则内存不会释放，一直占用空间。</p>
+<p>局部变量：只在固定的代码片段内可访问到的变量，最常见的例如函数内部。对应局部作用域(函数作用域)。</p>
+<p>隐式全局变量：声明的变量没有var,就叫隐式全局变量。</p>
+<p>不使用var声明的变量是全局变量，不推荐使用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  number=<span class="number">1000</span>;<span class="comment">//是隐式全局变量</span></span><br><span class="line">&#125;</span><br><span class="line">f1();</span><br><span class="line"><span class="built_in">console</span>.log(number);</span><br></pre></td></tr></table></figure>
 <h2 id="2、块级作用域"><a href="#2、块级作用域" class="headerlink" title="2、块级作用域"></a>2、块级作用域</h2><p>任何一对花括号（｛和｝）中的语句集都属于一个块，在这之中定义的所有变量在代码块外都是不可见的，我们称之为块级作用域。在es5之前没有块级作用域的的概念,只有函数作用域。</p>
 <h2 id="3、-js-中词法作用域规则"><a href="#3、-js-中词法作用域规则" class="headerlink" title="3、 js 中词法作用域规则:"></a>3、 js 中词法作用域规则:</h2><p>函数允许访问函数外的数据.</p>
 <p>整个代码结构中只有函数可以限定作用域.</p>
@@ -488,13 +505,167 @@
 <h2 id="4、作用域链"><a href="#4、作用域链" class="headerlink" title="4、作用域链"></a>4、作用域链</h2><p>只有函数可以制造作用域结构， 那么只要是代码，就至少有一个作用域, 即全局作用域。凡是代码中有函数，那么这个函数就构成另一个作用域。如果函数中还有函数，那么在这个作用域中就又可以诞生一个作用域。</p>
 <p>将这样的所有的作用域列出来，可以有一个结构: 函数内指向函数外的链式结构。就称作作用域链。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">f3</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="二、预解析"><a href="#二、预解析" class="headerlink" title="二、预解析"></a>二、预解析</h1><p>JavaScript代码的执行是由浏览器中的JavaScript解析器来执行的。JavaScript解析器执行JavaScript代码的时候，分为两个过程：预解析过程和代码执行过程。</p>
+<h1 id="预解析"><a href="#预解析" class="headerlink" title="预解析"></a>预解析</h1><p>JavaScript代码的执行是由浏览器中的JavaScript解析器来执行的。JavaScript解析器执行JavaScript代码的时候，分为两个过程：预解析过程和代码执行过程。</p>
 <p>预解析过程：</p>
 <ol>
 <li>把变量的声明提升到当前作用域的最前面，只会提升声明，不会提升赋值。</li>
 <li>把函数的声明提升到当前作用域的最前面，只会提升声明，不会提升调用。</li>
 <li>先提升var，再提升function</li>
 </ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/JavaScript/JavaScript入门（一）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/26/JavaScript/JavaScript入门（一）/" itemprop="url">JavaScript入门（一）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-26T16:16:24+08:00">
+                2019-01-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="JavaScript入门（一）"><a href="#JavaScript入门（一）" class="headerlink" title="JavaScript入门（一）"></a>JavaScript入门（一）</h1><h2 id="一、js中的数据类型"><a href="#一、js中的数据类型" class="headerlink" title="一、js中的数据类型"></a>一、js中的数据类型</h2><p>js中的原始数据类型:number , string , boolean , null , undefined , object</p>
+<p>number:数字类型(整数和小数)</p>
+<p>string:字符串类型(的值一般都是用单引号或者是双引号括起来)  “34”</p>
+<p>boolean:布尔类型(值只有两个,true(真1),false(假0))<br>​    null:空类型,值只有一个:null,一个对象指向为空了,此时可以赋值为null<br>     undefined:未定义,值只有一个:undefined<br>      什么情况下的结果是undefined<br>      变量声明了,没有赋值,结果是undefined<br>     函数没有明确返回值,如果接收了,结果也是undefined<br>      如果一个变量的结果是undefined和一个数字进行计算,结果:NaN不是一个数字,也没有意义</p>
+<p>如果想要获取一个变量的数据类型，可以适用typeof获取</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">var</span> str = <span class="string">"小白"</span>;</span><br><span class="line"><span class="keyword">var</span> flag = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">var</span> nll = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> undef;</span><br><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="comment">//是使用typeof 获取变量的类型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> num);<span class="comment">//number</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> str);<span class="comment">//string</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> flag);<span class="comment">//boolean</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>(nll));<span class="comment">//是null</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> nll);<span class="comment">//不是null</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> undef);<span class="comment">//undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> obj);<span class="comment">//object</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span>(num));</span><br></pre></td></tr></table></figure>
+<h2 id="二、类型转换"><a href="#二、类型转换" class="headerlink" title="二、类型转换"></a>二、类型转换</h2><p>1、其他类型转数字类型有三种方式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.parseInt();//转整数</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">"10"</span>));<span class="comment">//10</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">"10afrswfdsf"</span>));<span class="comment">//10</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">"g10"</span>));<span class="comment">//NaN</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">"1fds0"</span>));<span class="comment">//1</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">"10.98"</span>));<span class="comment">//10</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">"10.98fdsfd"</span>));<span class="comment">//10</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//2.parseFloat()//转小数</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseFloat</span>(<span class="string">"10"</span>));<span class="comment">//10</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseFloat</span>(<span class="string">"10afrswfdsf"</span>));<span class="comment">//10</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseFloat</span>(<span class="string">"g10"</span>));<span class="comment">//NaN</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseFloat</span>(<span class="string">"1fds0"</span>));<span class="comment">//1    </span></span><br><span class="line">	<span class="built_in">console</span>.log(<span class="built_in">parseFloat</span>(<span class="string">"10.98"</span>));<span class="comment">//10.98</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseFloat</span>(<span class="string">"10.98fdsfd"</span>));<span class="comment">//10.98</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//3.Number();//转数字</span></span><br><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="string">"10"</span>));<span class="comment">//10</span></span><br><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="string">"10afrswfdsf"</span>));<span class="comment">//NaN</span></span><br><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="string">"g10"</span>));<span class="comment">//NaN    </span></span><br><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="string">"1fds0"</span>));<span class="comment">//NaN</span></span><br><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="string">"10.98"</span>));<span class="comment">//10.98</span></span><br><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="string">"10.98fdsfd"</span>));<span class="comment">//</span></span><br><span class="line"><span class="comment">//总结:想要转整数用parseInt(),想要转小数用parseFloat()</span></span><br><span class="line"><span class="comment">//想要转数字:Number();要比上面的两种方式严格</span></span><br></pre></td></tr></table></figure>
+<h2 id="2、其他类型转字符串类型"><a href="#2、其他类型转字符串类型" class="headerlink" title="2、其他类型转字符串类型"></a>2、其他类型转字符串类型</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1    .toString()</span></span><br><span class="line">    <span class="keyword">var</span> num=<span class="number">10</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(num.toString());<span class="comment">//字符串类型</span></span><br><span class="line"><span class="comment">//2  String();</span></span><br><span class="line">    <span class="keyword">var</span> num1=<span class="number">20</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">String</span>(num1));</span><br><span class="line"><span class="comment">//如果变量有意义调用.toString()使用转换</span></span><br><span class="line"><span class="comment">//如果变量没有意义使用String()转换</span></span><br></pre></td></tr></table></figure>
+<h2 id="3、其他类型转Boolean"><a href="#3、其他类型转Boolean" class="headerlink" title="3、其他类型转Boolean"></a>3、其他类型转Boolean</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//1  Boolean(值);</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Boolean</span>(<span class="number">1</span>));<span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Boolean</span>(<span class="number">0</span>));<span class="comment">//false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Boolean</span>(<span class="number">11</span>));<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<h1 id="三、操作符"><a href="#三、操作符" class="headerlink" title="三、操作符"></a>三、操作符</h1><p>  算数运算符:  +  -  <em> / %<br>  算数运算表达式:由算数运算符连接起来的表达式<br>  一元运算符: 这个操作符只需要一个操作数就可以运算的符号  ++  –<br>  二元运算符: 这个操作符需要两个操作数就可以运算,<br>  三元运算符: a &gt; b ? a : b<br>  复合运算符: +=  -=  </em>= /= %=<br>  复合运算表达式:由复合运算符连接起来的表达式<br>  var num=10;<br>  num+=10;——&gt;就是:num=num+10;<br>  console.log(num);20</p>
+<p>关系运算符: &gt;  &lt;  &gt;=  &lt;=  ==不严格的 ===严格的 !=不严格的不等 !==严格的不等<br>  关系运算表达式:由关系运算符连接起来的表达式<br>  关系运算表达式的结果是布尔类型<br>  逻辑运算符:<br>  &amp;&amp;—逻辑与–并且<br>  ||—逻辑或—或者<br>  !—逻辑非—取反–取非<br>  逻辑运算表达式:由逻辑运算符连接起来的表达式<br>  表达式1&amp;&amp;表达式2<br>  如果有一个为false,整个的结果就是false<br>  表达式1||表达式2<br>  如果有一个为true,整个的结果为true<br>  !表达式1<br>  表达式1的结果是true,整个结果为false<br>  表达式1的结果是false,整个结果为true</p>
+<p>  赋值运算符:  =</p>
 
           
         
@@ -1618,159 +1789,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/vue/7、创建组件/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/23/vue/7、创建组件/" itemprop="url">七、创建组件的三种方式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-23T17:53:20+08:00">
-                2019-01-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue/" itemprop="url" rel="index">
-                    <span itemprop="name">Vue</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="创建组件的三种方式"><a href="#创建组件的三种方式" class="headerlink" title="创建组件的三种方式"></a>创建组件的三种方式</h1><p>1、</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>2、</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>3、</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>4、组件中的method和data</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>5、组件的切换方式</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>实现切换的动画效果</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1821,7 +1839,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
