@@ -89,7 +89,9 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2019/01/27/前端知识点/网络知识点/images/http.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/01/27/前端知识点/网络知识点/images/https.png">
-<meta property="og:updated_time" content="2019-03-28T01:27:27.071Z">
+<meta property="og:image" content="http://yoursite.com/2019/01/27/前端知识点/网络知识点/images/TCP.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/27/前端知识点/网络知识点/URL.png">
+<meta property="og:updated_time" content="2019-03-28T07:11:06.758Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见网络知识点">
 <meta name="twitter:description" content="常见网络知识点1、常见的http状态码状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：1xx：指示信息–表示请求已接收，继续处理2xx：成功–表示请求已被成功接收、理解、接受3xx：重定向–要完成请求必须进行更进一步的操作4xx：客户端错误–请求有语法错误或请求无法实现5xx：服务器端错误–服务器未能实现合法的请求 200 OK 一切正常，对GET和POST请求的应答文档跟在">
@@ -345,9 +347,15 @@
 <ol>
 <li>内容加密：采用混合加密技术，中间者无法直接查看明文内容</li>
 <li>验证身份：通过证书认证客户端访问的是自己的服务器</li>
-<li>保护数据完整性：防止传输的内容被中间人冒充或者篡改<br><img src="images/https.png" alt="https"><h2 id="4、TCP协议"><a href="#4、TCP协议" class="headerlink" title="4、TCP协议"></a>4、TCP协议</h2></li>
+<li>保护数据完整性：防止传输的内容被中间人冒充或者篡改<br><img src="images/https.png" alt="https"><h2 id="4、TCP协议"><a href="#4、TCP协议" class="headerlink" title="4、TCP协议"></a>4、TCP协议</h2><img src="/2019/01/27/前端知识点/网络知识点/images/TCP.png" alt="TCP"><br>互联网由一整套协议构成<br>图片说明：顶层协议是应用层协议 =&gt; TCP协议 =&gt; IP协议 =&gt; 以太网协议</li>
 </ol>
-<h2 id="5、URL"><a href="#5、URL" class="headerlink" title="5、URL"></a>5、URL</h2><h2 id="6、URI"><a href="#6、URI" class="headerlink" title="6、URI"></a>6、URI</h2>
+<p>以太网协议：最底层的协议，可以解决子网内部的点对点通讯。</p>
+<p>IP协议：IP协议，可以解决多个局域网之间互通，可以连接多个局域网，定义了一套自己的地址规则，实现了路由的功能，允许某个局域网的A主机，向另一个局域网的B主机发送消息。（PS：路由器就是基于IP协议。所以局域网之间要靠路由器连接）</p>
+<p>题外话：路由原理就是路由器内部有一张路由表，规定A段IP地址走出口一，B段IP地址走出口二。。。根据这样实现了数据包的转发。</p>
+<p>TCP协议：IP协议只是一个地址协议，并不能保证数据的完整性。如果缓存满了，新进来的数据包就会丢失，所以这个时候需要发现丢了哪一个包，以及如何重新发送这个包，所以这个时候需要使用到TCP协议。以太网数据包的负载是1500字节，TCP数据包的负载在1400字节左右。</p>
+<h2 id="5、URL和URI的区别"><a href="#5、URL和URI的区别" class="headerlink" title="5、URL和URI的区别"></a>5、URL和URI的区别</h2><p><img src="/2019/01/27/前端知识点/网络知识点/URL.png" alt="URL"><br>URL是Uniform Resource Locator，表示是一个地址。<br>URI是Uniform Resource Identifier,表示是一个资源。<br>URL是URI的子集，所有的URL都是URI，但不是每个URI都是URL，还有可能是URN。<br>在这里举一个栗子：比如这个世界上的电音之王是加拿大炮王XXX。那这个头衔电音之王加拿大炮王就是一个URI，那如果我们想要找到这个人XXX，光知道头衔肯定是不够的，所以我们还需要知道他的住址，而这个住址就是URL。</p>
+<p>同理，每个人的身份证号码就是一个URI，而每个人的家庭住址也是一个URL。<br>总结：<strong>URI强调的是给资源标记命名，URL强调的是给资源定位，</strong>但是你会发现，URL显然比URI包含信息更多，我通过URL也可以知道张三是总经理，并且我还知道了他的地址，<strong>所以大多数情况下大家觉得给一个网络资源分别命名和给出地址太麻烦，干脆就用地址既当地址用，又当标记名用</strong>，所以，URL也充当了WWW万维网里面URI的角色，但是他比URI多了一层意义，我不光知道你叫什么，我还知道你在哪里。我们在浏览器输入的都是URL，因为我们输入的目的是为了找到某一个资源，当然你输入的是URI也是没错的，因为URL也是URI。</p>
+
       
     </div>
     
@@ -521,7 +529,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#常见网络知识点"><span class="nav-number">1.</span> <span class="nav-text">常见网络知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、常见的http状态码"><span class="nav-number">1.1.</span> <span class="nav-text">1、常见的http状态码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、http协议"><span class="nav-number">1.2.</span> <span class="nav-text">2、http协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、Https"><span class="nav-number">1.3.</span> <span class="nav-text">3、Https</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、TCP协议"><span class="nav-number">1.4.</span> <span class="nav-text">4、TCP协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、URL"><span class="nav-number">1.5.</span> <span class="nav-text">5、URL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、URI"><span class="nav-number">1.6.</span> <span class="nav-text">6、URI</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#常见网络知识点"><span class="nav-number">1.</span> <span class="nav-text">常见网络知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、常见的http状态码"><span class="nav-number">1.1.</span> <span class="nav-text">1、常见的http状态码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、http协议"><span class="nav-number">1.2.</span> <span class="nav-text">2、http协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、Https"><span class="nav-number">1.3.</span> <span class="nav-text">3、Https</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、TCP协议"><span class="nav-number">1.4.</span> <span class="nav-text">4、TCP协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、URL和URI的区别"><span class="nav-number">1.5.</span> <span class="nav-text">5、URL和URI的区别</span></a></li></ol></li></ol></div>
             
 
           </div>
