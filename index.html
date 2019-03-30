@@ -378,7 +378,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/19/JavaScript/JavaScript高级（一）/" itemprop="url">常见网络知识点</a></h1>
+                <a class="post-title-link" href="/2019/02/19/JavaScript/JavaScript高级（一）/" itemprop="url">javaScript高级</a></h1>
         
 
         <div class="post-meta">
@@ -413,8 +413,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/network/" itemprop="url" rel="index">
-                    <span itemprop="name">network</span>
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
                   </a>
                 </span>
 
@@ -490,6 +490,9 @@
 <p>所以当我们访问对象的一个属性或者方法，首先在对象自身中寻找，如果有的话泽直接使用，没有的话再到原型对象中寻找，直到找到Object对象，如果在Object对象中依然没有找到，则返回undefined。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">Person.prototype.a = <span class="number">123</span>;</span><br><span class="line">Person.prototype.sayHello = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(<span class="string">"hello"</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person()</span><br><span class="line"><span class="built_in">console</span>.log(person.a) <span class="comment">//123</span></span><br><span class="line"><span class="built_in">console</span>.log(person.hasOwnProperty(<span class="string">'a'</span>)); <span class="comment">//false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'a'</span> <span class="keyword">in</span> person) <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
 <p>person实例中没有a这个属性，从 person 对象中找不到 a 属性就会从 person 的原型也就是 <code>person.__proto__</code> ，也就是 Person.prototype中查找，很幸运地得到a的值为123。<br><a href="prototype3.webp">prototype3</a></p>
+<p>##简单的原型语法</p>
+<p><strong>为了保证构造器contructor的指向正确，需要手动指向正确的构造函数</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span> (<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name</span><br><span class="line">  <span class="keyword">this</span>.age = age</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype = &#123;</span><br><span class="line">  <span class="keyword">constructor</span>: Person, // =&gt; 手动将 <span class="keyword">constructor</span> 指向正确的构造函数</span><br><span class="line">  type: 'human',</span><br><span class="line">  sayHello: function () &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'我叫'</span> + <span class="keyword">this</span>.name + <span class="string">'，我今年'</span> + <span class="keyword">this</span>.age + <span class="string">'岁了'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         
