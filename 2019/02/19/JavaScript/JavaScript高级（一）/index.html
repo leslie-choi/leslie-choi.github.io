@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="JavaScript高级写在前面：JavaScript高级，比入门的感觉会抽象很多。所以要结合实际案例还有画图来理解，才能够更加深刻。特别是原型和原型链，需要下点功夫，才能理解个35成，蛤蛤蛤。。。ok不膜了进入正题。">
+<meta name="description" content="JavaScript高级写在前面：JavaScript高级，比入门的感觉会抽象很多。所以要结合实际案例还有画图来理解，才能够更加深刻。特别是原型和原型链，需要下点功夫，才能理解个35成，蛤蛤蛤。。。ok不膜了进入正题。 先来重新再认识一下JavaScript吧。JavaScript，其实是一门脚本、弱类型、轻量级的解释性语言。针对解释性语言，不同于编译性语言。编译性语言编写的程序，在执行之前需要有">
 <meta name="keywords" content="Interview">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常见网络知识点">
 <meta property="og:url" content="http://yoursite.com/2019/02/19/JavaScript/JavaScript高级（一）/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="JavaScript高级写在前面：JavaScript高级，比入门的感觉会抽象很多。所以要结合实际案例还有画图来理解，才能够更加深刻。特别是原型和原型链，需要下点功夫，才能理解个35成，蛤蛤蛤。。。ok不膜了进入正题。">
+<meta property="og:description" content="JavaScript高级写在前面：JavaScript高级，比入门的感觉会抽象很多。所以要结合实际案例还有画图来理解，才能够更加深刻。特别是原型和原型链，需要下点功夫，才能理解个35成，蛤蛤蛤。。。ok不膜了进入正题。 先来重新再认识一下JavaScript吧。JavaScript，其实是一门脚本、弱类型、轻量级的解释性语言。针对解释性语言，不同于编译性语言。编译性语言编写的程序，在执行之前需要有">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-30T13:43:43.381Z">
+<meta property="og:updated_time" content="2019-03-30T14:40:02.352Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见网络知识点">
-<meta name="twitter:description" content="JavaScript高级写在前面：JavaScript高级，比入门的感觉会抽象很多。所以要结合实际案例还有画图来理解，才能够更加深刻。特别是原型和原型链，需要下点功夫，才能理解个35成，蛤蛤蛤。。。ok不膜了进入正题。">
+<meta name="twitter:description" content="JavaScript高级写在前面：JavaScript高级，比入门的感觉会抽象很多。所以要结合实际案例还有画图来理解，才能够更加深刻。特别是原型和原型链，需要下点功夫，才能理解个35成，蛤蛤蛤。。。ok不膜了进入正题。 先来重新再认识一下JavaScript吧。JavaScript，其实是一门脚本、弱类型、轻量级的解释性语言。针对解释性语言，不同于编译性语言。编译性语言编写的程序，在执行之前需要有">
 
 
 
@@ -323,6 +323,43 @@
 
       
         <h1 id="JavaScript高级"><a href="#JavaScript高级" class="headerlink" title="JavaScript高级"></a>JavaScript高级</h1><p>写在前面：JavaScript高级，比入门的感觉会抽象很多。所以要结合实际案例还有画图来理解，才能够更加深刻。特别是原型和原型链，需要下点功夫，才能理解个35成，蛤蛤蛤。。。ok不膜了进入正题。</p>
+<p>先来重新再认识一下JavaScript吧。JavaScript，其实是一门脚本、弱类型、轻量级的解释性语言。<br>针对解释性语言，不同于编译性语言。编译性语言编写的程序，在执行之前需要有一个专门的编译过程，把程序编译成机器语言的文件，比如exe。然后exe文件运行的时候，直接使用编译的结果就可以了，运行的时候不用再继续编译，所以<strong>执行效率高。具有独立性。</strong><br>而对于解释性语言，比如JavaScript，是<strong>非独立的</strong>，运行需要依赖环境，对于客户端是浏览器，对于服务端是node。<br><strong>效率低</strong>，执行前不需要编译，执行的时候才编译，因此效率也低。</p>
+<h1 id="JavaScript的执行过程"><a href="#JavaScript的执行过程" class="headerlink" title="JavaScript的执行过程"></a>JavaScript的执行过程</h1><p>JavaScript 运行分为两个阶段：</p>
+<ul>
+<li>预解析<ul>
+<li>全局预解析（所有变量和函数声明都会提前；同名的函数和变量函数的优先级高）</li>
+<li>函数内部预解析（所有的变量、函数和形参都会参与预解析）<ul>
+<li>函数</li>
+<li>形参</li>
+<li>普通变量</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>执行</li>
+</ul>
+<p>先预解析全局作用域，然后执行全局作用域中的代码，<br>在执行全局代码的过程中遇到函数调用就会先进行函数预解析，然后再执行函数内代码。</p>
+<h1 id="原型和原型链"><a href="#原型和原型链" class="headerlink" title="原型和原型链"></a>原型和原型链</h1><p>想要了解原型和原型链，那我们首先来了解一下构造函数。<br>JavaScript不像Java一样，可以定义一个class。那在JavaScript中，想要定义一个类，就只能通过构造函数的模式。构造函数咪视中拥有了类和实例的概念。构造函数其实就是一个普通的函数，创建的方式和普通的函数没有区别，但是<strong>首字母需要大写</strong>，另外普通函数可以直接调用，但是构造函数需要通过<strong>new关键字来调用。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age, gender</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name</span><br><span class="line">        <span class="keyword">this</span>.age = age</span><br><span class="line">        <span class="keyword">this</span>.gender = gender</span><br><span class="line">        <span class="keyword">this</span>.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            alert(<span class="keyword">this</span>.name);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(per); <span class="comment">//当我们直接在页面中打印一个对象时，事件上是输出的对象的toString()方法的返回值</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//使用prototype实现数据共享,利用原型添加方法</span></span><br><span class="line">  Person.ptototype.eat = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"我喜欢吃榴莲粥加辣椒"</span>)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>这个时候，每创建一个Person构造函数，在Person构造函数中，为每一个对象添加了一个sayName的方法，所以就是说构造函数每调用一次就会创建一个新的方法，如果调用了1000次就会创建1000个新的方法，而着1000个方法却都是一样的。所以为了节省空间和性能，<strong>需要把这些方法单独放到一个地方，并且可以让每一个实例都可以访问到，目的就是为了共享数据</strong>所以这个时候就需要==原型prototype==</p>
+<h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><p>在javaScript中，每当定义一个<strong>函数数据类型</strong>（普通函数、类）的时候，都会天生自带一个prototype属性，这个属性指向函数的原型对象，并且这个属性是一个==对象数据类型值==</p>
+<p><a href="prototype1.webp">prototype1</a></p>
+<p>所以原型对象相当于一个公共区域，所有同一个类的实例都可以访问到这个原型对象，因此可以将对象中的所有共有的内容，统一设置到原型对象中。<br>在JavaScript中，继承是基于原型的。</p>
+<p>总结：</p>
+<ul>
+<li>任何函数都具有一个 <code>prototype</code> 属性，该属性是一个对象</li>
+<li>构造函数的 <code>prototype</code> 对象默认都有一个 <code>constructor</code> 属性，指向 <code>prototype</code> 对象所在函数</li>
+<li>通过构造函数得到的实例对象内部会包含一个指向构造函数的 <code>prototype</code> 对象的指针 <code>__proto__</code></li>
+<li>所有实例都直接或间接继承了原型对象的成员</li>
+</ul>
+<h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><p>原型链：是一种关系，实例对象和原型对象之间的关系，关系是通过原型<strong>proto</strong>来联系的。<br> 不过在JavaScript中，<strong>proto</strong>这个属性是不标准的。<br>1、<em>proto</em>和constructor<br>在JavaScript中，每一个对象数据类型（普通对象、实例、prototype…）也天生自带一个属性<em>proto</em>，属性值是当前实例所属类的原型（prototype）。原型对象中有一个属性constructor，指向函数对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person()</span><br><span class="line"><span class="built_in">console</span>.log(person.__proto__ === Person.prototype) <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype.constructor === Person) <span class="comment">//true</span></span><br><span class="line"><span class="comment">//顺便学习一个ES5的方法,可以获得对象的原型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(person) === Person.prototype) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p><a href="prototype2.webp">prototype2</a></p>
+<p>在JavaScript中，<strong>万物都是对象，对象和对象之间也有关系，并不是孤立存在的。对象之间的继承关系，在JavaScript中是通过prototype对象指向父类对象，直到指向Object对象为止，这样就形成了一个原型指向的链条，专业术语称之为原型链</strong>。</p>
+<p>举个栗子：person → Person → Object ，普通人继承人类，人类继承对象类</p>
+<p>所以当我们访问对象的一个属性或者方法，首先在对象自身中寻找，如果有的话泽直接使用，没有的话再到原型对象中寻找，直到找到Object对象，如果在Object对象中依然没有找到，则返回undefined。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">Person.prototype.a = <span class="number">123</span>;</span><br><span class="line">Person.prototype.sayHello = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(<span class="string">"hello"</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person()</span><br><span class="line"><span class="built_in">console</span>.log(person.a) <span class="comment">//123</span></span><br><span class="line"><span class="built_in">console</span>.log(person.hasOwnProperty(<span class="string">'a'</span>)); <span class="comment">//false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'a'</span> <span class="keyword">in</span> person) <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<p>person实例中没有a这个属性，从 person 对象中找不到 a 属性就会从 person 的原型也就是 <code>person.__proto__</code> ，也就是 Person.prototype中查找，很幸运地得到a的值为123。<br><a href="prototype3.webp">prototype3</a></p>
 
       
     </div>
@@ -497,7 +534,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript高级"><span class="nav-number">1.</span> <span class="nav-text">JavaScript高级</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript高级"><span class="nav-number">1.</span> <span class="nav-text">JavaScript高级</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript的执行过程"><span class="nav-number">2.</span> <span class="nav-text">JavaScript的执行过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原型和原型链"><span class="nav-number">3.</span> <span class="nav-text">原型和原型链</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原型"><span class="nav-number">3.1.</span> <span class="nav-text">原型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原型链"><span class="nav-number">3.2.</span> <span class="nav-text">原型链</span></a></li></ol></li></ol></div>
             
 
           </div>

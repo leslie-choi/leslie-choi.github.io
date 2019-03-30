@@ -87,7 +87,7 @@
 <meta property="og:description" content="数组Array的对象方法 JS中的类型转换12345678var x = new Boolean(false);if (x) &amp;#123;  alert(&apos;hi&apos;);&amp;#125;var y = Boolean(0);if (y) &amp;#123;  alert(&apos;hello&apos;); &amp;#125; 注意：在JS中，只有0，-0，NaN，“”，undefined这六个值转换为布尔值时，结果才会是false。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2019/03/30/JavaScript/基础零碎点/array.png">
-<meta property="og:updated_time" content="2019-03-30T01:39:38.174Z">
+<meta property="og:updated_time" content="2019-03-30T14:21:03.040Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="404 not found">
 <meta name="twitter:description" content="数组Array的对象方法 JS中的类型转换12345678var x = new Boolean(false);if (x) &amp;#123;  alert(&apos;hi&apos;);&amp;#125;var y = Boolean(0);if (y) &amp;#123;  alert(&apos;hello&apos;); &amp;#125; 注意：在JS中，只有0，-0，NaN，“”，undefined这六个值转换为布尔值时，结果才会是false。">
@@ -304,6 +304,14 @@
         <h1 id="数组Array的对象方法"><a href="#数组Array的对象方法" class="headerlink" title="数组Array的对象方法"></a>数组Array的对象方法</h1><p><img src="/2019/03/30/JavaScript/基础零碎点/array.png" alt="array"></p>
 <h1 id="JS中的类型转换"><a href="#JS中的类型转换" class="headerlink" title="JS中的类型转换"></a>JS中的类型转换</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="keyword">new</span> <span class="built_in">Boolean</span>(<span class="literal">false</span>);</span><br><span class="line"><span class="keyword">if</span> (x) &#123;</span><br><span class="line">  alert(<span class="string">'hi'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> y = <span class="built_in">Boolean</span>(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span> (y) &#123;</span><br><span class="line">  alert(<span class="string">'hello'</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>注意：在JS中，只有0，-0，NaN，“”，undefined这六个值转换为布尔值时，结果才会是false。而所有的对象转化为布尔值时，结果都会是true！</strong><br>所以上面题目的第一部分，有new关键字，所以X就是一个新对象，结果就会输出hi。<br>题目的第二部分，没有new关键字，所以就是进行显示类型的转换，0转换为false，结果域加new的时候相反。</p>
+<h1 id="JavaScript中的类型检测"><a href="#JavaScript中的类型检测" class="headerlink" title="JavaScript中的类型检测"></a>JavaScript中的类型检测</h1><p>1、typeof<br>2、instanceof<br>3、Object.prototype.toString.cll()</p>
+<h1 id="值类型与引用类型的差别"><a href="#值类型与引用类型的差别" class="headerlink" title="值类型与引用类型的差别"></a>值类型与引用类型的差别</h1><ul>
+<li>基本类型在内存中占据固定大小的空间，因此被保存在栈内存中</li>
+<li>从一个变量向另一个变量复制基本类型的值，复制的是值的副本</li>
+<li>引用类型的值是对象，保存在堆内存</li>
+<li>包含引用类型值的变量实际上包含的并不是对象本身，而是一个指向该对象的指针</li>
+<li>从一个变量向另一个变量复制引用类型的值的时候，复制是引用指针，因此两个变量最终都指向同一个对象</li>
+</ul>
 
       
     </div>
@@ -468,7 +476,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数组Array的对象方法"><span class="nav-number">1.</span> <span class="nav-text">数组Array的对象方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JS中的类型转换"><span class="nav-number">2.</span> <span class="nav-text">JS中的类型转换</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数组Array的对象方法"><span class="nav-number">1.</span> <span class="nav-text">数组Array的对象方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JS中的类型转换"><span class="nav-number">2.</span> <span class="nav-text">JS中的类型转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript中的类型检测"><span class="nav-number">3.</span> <span class="nav-text">JavaScript中的类型检测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#值类型与引用类型的差别"><span class="nav-number">4.</span> <span class="nav-text">值类型与引用类型的差别</span></a></li></ol></div>
             
 
           </div>
