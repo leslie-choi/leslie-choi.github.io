@@ -1157,14 +1157,14 @@
 </code></pre><p>jsonp跨域其实也是JavaScript设计模式中的一种代理模式。<br>在html页面中通过相应的标签从不同域名下加载静态资源文件是被浏览器允许的，所以我们<br>可以通过这个“犯罪漏洞”来进行跨域。一般，我们可以动态的创建script标签，再去请求一个带参<br>网址来实现跨域通信</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原生的实现方式	</span></span><br><span class="line"><span class="keyword">let</span>  script  =  <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span><br><span class="line">script.src  =  <span class="string">'http://www.nealyang.cn/login?username=Nealyang&amp;callback=callback'</span>;</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(script);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>  <span class="title">callback</span>(<span class="params">res</span>)  </span>&#123;  </span><br><span class="line">    <span class="built_in">console</span>.log(res);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Jquery实现方式</span></span><br><span class="line">$.ajax(&#123;</span><br><span class="line">    url:<span class="string">'http://www.nealyang.cn/login'</span>,</span><br><span class="line">    type:<span class="string">'GET'</span>,</span><br><span class="line">    dataType:<span class="string">'jsonp'</span>,<span class="comment">//请求方式为jsonp</span></span><br><span class="line">    jsonpCallback:<span class="string">'callback'</span>,</span><br><span class="line">    data:&#123;</span><br><span class="line">        <span class="string">"username"</span>:<span class="string">"Nealyang"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>jsonp的最大缺点，就是只能实现get请求</p>
-<p>另外使用<script>元素进行Ajax请求，这意味着允许Web页面<br><strong>可以执行远程服务器发送过来的任何JavaScript代码，因此对于不信任的服务器，不应该采用该技术</strong>。<br>2、<strong>跨域资源共享 CORS—–目前主流的跨域解决方案</strong><br>CORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing）。</p>
+<p>另外使用script标签元素进行Ajax请求，这意味着允许Web页面<br><strong>可以执行远程服务器发送过来的任何JavaScript代码，因此对于不信任的服务器，不应该采用该技术</strong>。<br>2、<strong>跨域资源共享 CORS—–目前主流的跨域解决方案</strong><br>CORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing）。</p>
 <p>它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。</p>
 <p>CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。<br>IE8+：IE8/9需要使用XDomainRequest对象来支持CORS。<br>整个CORS通信过程，都是浏览器自动完成，不<br>需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。<br>浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的<br>请求，但用户不会有感觉。<br>因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就<br>可以跨源通信。</p>
 <p>一种是简单请求，另一种是非简单请求。只要满足下面条件就是简单请求</p>
 <p>请求方式为HEAD、POST 或者 GET<br>http头信息不超出一下字段：<br>Accept、Accept-Language 、 Content-Language、 Last-Event-ID、 Content-Type(限于三<br>个值：application/x-www-form-urlencoded、multipart/form-data、text/plain)</p>
 <p>为什么要分为简单请求和非简单请求，因为浏览器对这两种请求方式的处理方式是不同的。</p>
 <p>使用方法很简单，在服务端设置：</p>
-<p>Header set Access-Control-Allow-Origin *<br>这种设置将接受所有域名的跨域请求，也可以指定具体网址，也可以对域名进行限定：<br>Header set Access-Control-Allow-Origin <a href="http://www.test.com">http://www.test.com</a></p>
+<p>Header set Access-Control-Allow-Origin *<br>这种设置将接受所有域名的跨域请求，也可以指定具体网址，也可以对域名进行限定：<br>Header set Access-Control-Allow-Origin <a href="http://www.test.com" target="_blank" rel="noopener">http://www.test.com</a></p>
 <pre><code>然而，这种方式的局限性在于要求客户端支持，并且服务端进行相关设置。
 </code></pre><p>在这两者满足的情况下，通过CORS进行跨域不仅支持所有类型的HTTP请求，而且开发者可以使用<br>普通的XMLHttpRequest发起请求和获得数据，比起JSONP有更好的错误处理。</p>
 <pre><code>3）利用window.name进行跨域处理
@@ -1185,7 +1185,7 @@
 <li>session中保存的是对象，cookie中保存的是字符串</li>
 </ul>
 <h2 id="sessionStorage、localStorage和cookie的区别"><a href="#sessionStorage、localStorage和cookie的区别" class="headerlink" title="sessionStorage、localStorage和cookie的区别"></a><strong>sessionStorage、localStorage和cookie的区别</strong></h2><p>共同点：都是保存在浏览器端、且同源的<br>区别：<br>1、cookie数据始终在同源的http请求中携带（即使不需要），即cookie在浏览器和服务器间来回传递，而sessionStorage和localStorage不会自动把数据发送给服务器，仅在本地保存。cookie数据还有路径（path）的概念，可以限制cookie只属于某个路径下<br>2、存储大小限制也不同，cookie数据不能超过4K，同时因为每次http请求都会携带cookie、所以cookie只适合保存很小的数据，如会话标识。sessionStorage和localStorage虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大<br>3、数据有效期不同，sessionStorage：仅在当前浏览器窗口关闭之前有效；localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据；cookie：只在设置的cookie过期时间之前有效，即使窗口关闭或浏览器关闭<br>4、作用域不同，<strong>sessionStorage不在不同的浏览器窗口中共享</strong>，即使是同一个页面；localstorage在所有同源窗口中都是共享的；cookie也是在所有同源窗口中都是共享的</p>
-</script></p>
+
           
         
       
