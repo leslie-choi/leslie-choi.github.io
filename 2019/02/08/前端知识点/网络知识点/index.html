@@ -91,7 +91,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/02/08/前端知识点/网络知识点/images/https.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/08/前端知识点/网络知识点/TCP.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/08/前端知识点/网络知识点/URL.png">
-<meta property="og:updated_time" content="2019-04-12T15:31:37.333Z">
+<meta property="og:updated_time" content="2019-05-11T14:09:49.255Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见网络知识点">
 <meta name="twitter:description" content="常见网络知识点1、常见的http状态码状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：1xx：指示信息–表示请求已接收，继续处理2xx：成功–表示请求已被成功接收、理解、接受3xx：重定向–要完成请求必须进行更进一步的操作4xx：客户端错误–请求有语法错误或请求无法实现5xx：服务器端错误–服务器未能实现合法的请求   200 OK 一切正常，对GET和POST请求的应答文档">
@@ -398,6 +398,7 @@
 <li>session中保存的是对象，cookie中保存的是字符串</li>
 </ul>
 <h2 id="sessionStorage、localStorage和cookie的区别"><a href="#sessionStorage、localStorage和cookie的区别" class="headerlink" title="sessionStorage、localStorage和cookie的区别"></a><strong>sessionStorage、localStorage和cookie的区别</strong></h2><p>共同点：都是保存在浏览器端、且同源的<br>区别：<br>1、cookie数据始终在同源的http请求中携带（即使不需要），即cookie在浏览器和服务器间来回传递，而sessionStorage和localStorage不会自动把数据发送给服务器，仅在本地保存。cookie数据还有路径（path）的概念，可以限制cookie只属于某个路径下<br>2、存储大小限制也不同，cookie数据不能超过4K，同时因为每次http请求都会携带cookie、所以cookie只适合保存很小的数据，如会话标识。sessionStorage和localStorage虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大<br>3、数据有效期不同，sessionStorage：仅在当前浏览器窗口关闭之前有效；localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据；cookie：只在设置的cookie过期时间之前有效，即使窗口关闭或浏览器关闭<br>4、作用域不同，<strong>sessionStorage不在不同的浏览器窗口中共享</strong>，即使是同一个页面；localstorage在所有同源窗口中都是共享的；cookie也是在所有同源窗口中都是共享的</p>
+<p><a href="http://prcfme0aj.bkt.clouddn.com/%E8%A1%A8%E5%85%B3%E7%B3%BB.png" target="_blank" rel="noopener">http://prcfme0aj.bkt.clouddn.com/%E8%A1%A8%E5%85%B3%E7%B3%BB.png</a></p>
 
       
     </div>
@@ -517,7 +518,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -528,7 +529,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
