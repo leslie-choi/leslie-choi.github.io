@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="this指向this的指向有4种类型 1、形式”test()”12345var a = 1function test () &amp;#123;    console.log(this.a)&amp;#125;test() 直接不带任何引用形式去调用函数，则this会指向全局对象，因为没有其他影响去改变this，this默认就是指向全局对象（浏览器是window，Node中是global）的。这个结论是在非严格模">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-13T00:23:11.276Z">
+<meta property="og:updated_time" content="2019-05-14T14:13:16.115Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javaScript中的this指向">
 <meta name="twitter:description" content="this指向this的指向有4种类型 1、形式”test()”12345var a = 1function test () &amp;#123;    console.log(this.a)&amp;#125;test() 直接不带任何引用形式去调用函数，则this会指向全局对象，因为没有其他影响去改变this，this默认就是指向全局对象（浏览器是window，Node中是global）的。这个结论是在非严格模">
@@ -339,7 +339,7 @@
 <p>最后的最后，其实还有一个，就是箭头函数中的this指向。。<br><strong>箭头函数中的this是在定义函数的时候绑定，而不是在执行函数的时候绑定</strong>所谓的定义时候绑定，就是this是继承自父执行上下文中的this！！</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">var test = () =&gt; &#123;</span><br><span class="line">    console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 2,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line">obj.test()</span><br></pre></td></tr></table></figure>
 <p><strong>它this指向的是它的外层作用域this的指向。</strong>。外层作用域是整个window，所以输出的是1.</p>
-
+<h2 id="apply、call和bind的作用。"><a href="#apply、call和bind的作用。" class="headerlink" title="apply、call和bind的作用。"></a>apply、call和bind的作用。</h2>
       
     </div>
     
@@ -513,7 +513,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#this指向"><span class="nav-number">1.</span> <span class="nav-text">this指向</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、形式”test-”"><span class="nav-number">1.1.</span> <span class="nav-text">1、形式”test()”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、形式”xxx-text-”"><span class="nav-number">1.2.</span> <span class="nav-text">2、形式”xxx.text()”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、形式“test-call-xxx-test-apply-xxx-test-bind-”"><span class="nav-number">1.3.</span> <span class="nav-text">3、形式“test.call(xxx) / test.apply(xxx) / test.bind()”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、“new-test-”形式"><span class="nav-number">1.4.</span> <span class="nav-text">4、“new test()”形式</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#this指向"><span class="nav-number">1.</span> <span class="nav-text">this指向</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、形式”test-”"><span class="nav-number">1.1.</span> <span class="nav-text">1、形式”test()”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、形式”xxx-text-”"><span class="nav-number">1.2.</span> <span class="nav-text">2、形式”xxx.text()”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、形式“test-call-xxx-test-apply-xxx-test-bind-”"><span class="nav-number">1.3.</span> <span class="nav-text">3、形式“test.call(xxx) / test.apply(xxx) / test.bind()”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、“new-test-”形式"><span class="nav-number">1.4.</span> <span class="nav-text">4、“new test()”形式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apply、call和bind的作用。"><span class="nav-number">1.5.</span> <span class="nav-text">apply、call和bind的作用。</span></a></li></ol></li></ol></div>
             
 
           </div>
