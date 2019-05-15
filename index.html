@@ -229,7 +229,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/JavaScript/CSS常见知识点/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/css/CSS常见知识点/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
@@ -248,7 +248,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/22/JavaScript/CSS常见知识点/" itemprop="url">CSS常见知识点</a></h1>
+                <a class="post-title-link" href="/2019/04/22/css/CSS常见知识点/" itemprop="url">CSS常见知识点</a></h1>
         
 
         <div class="post-meta">
@@ -338,6 +338,153 @@
 <p>区别3：link是XHTML标签，无兼容问题；@import是在CSS2.1提出的，低版本的浏览器不支持。</p>
 <p>区别4：ink支持使用Javascript控制DOM去改变样式；而@import不支持。 　　import的写法比较多：推荐使用 @import url(index.css);</p>
 
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/20/Ajax/手撕Ajax/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/20/Ajax/手撕Ajax/" itemprop="url">手撕Ajax</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-20T20:52:25+08:00">
+                2019-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ajax/" itemprop="url" rel="index">
+                    <span itemprop="name">Ajax</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="实现原生的AJAX请求"><a href="#实现原生的AJAX请求" class="headerlink" title="实现原生的AJAX请求"></a>实现原生的AJAX请求</h1><p>原生ajax请求</p>
+<p>XMLHttpRequest 对象</p>
+<p>XMLHttpRequest对象是ajax的基础,XMLHttpRequest 用于在后台与服务器交换数据。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。目前所有浏览器都支持XMLHttpRequest。</p>
+<p>get请求</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//步骤一:创建异步对象</span></span><br><span class="line">    <span class="keyword">var</span> ajax = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"><span class="comment">//步骤二:设置请求的url参数,参数一是请求的类型,参数二是请求的url,可以带参数,动态的传递参数starName到服务端</span></span><br><span class="line">    ajax.open(<span class="string">'get'</span>,<span class="string">'getStar.php?starName='</span>+name);</span><br><span class="line"><span class="comment">//步骤三:发送请求</span></span><br><span class="line">    ajax.send();</span><br><span class="line"><span class="comment">//步骤四:注册事件 onreadystatechange 状态改变就会调用</span></span><br><span class="line">    ajax.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (ajax.readyState==<span class="number">4</span> &amp;&amp;ajax.status==<span class="number">200</span>) &#123;</span><br><span class="line">    <span class="comment">//步骤五 如果能够进到这个判断 说明 数据 完美的回来了,并且请求的页面是存在的</span></span><br><span class="line">　　　　<span class="built_in">console</span>.log(ajax.responseText);<span class="comment">//输入相应的内容</span></span><br><span class="line">  　　    &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>post请求</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建异步对象  </span></span><br><span class="line">    <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"><span class="comment">//设置请求的类型及url</span></span><br><span class="line"><span class="comment">//post请求一定要添加请求头才行不然会报错</span></span><br><span class="line">	xhr.setRequestHeader(<span class="string">"Content-type"</span>,<span class="string">"application/x-www-form-urlencoded"</span>);</span><br><span class="line">	xhr.open(<span class="string">'post'</span>, <span class="string">'02.post.php'</span> );</span><br><span class="line"><span class="comment">//发送请求</span></span><br><span class="line">	xhr.send(<span class="string">'name=fox&amp;age=18'</span>);</span><br><span class="line">	xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 这步为判断服务器是否正确响应</span></span><br><span class="line">    <span class="keyword">if</span> (xhr.readyState == <span class="number">4</span> &amp;&amp; xhr.status == <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(xhr.responseText);</span><br><span class="line">      &#125; </span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure>
           
         
       
@@ -588,7 +735,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/05/test2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/05/java/test2/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
@@ -607,7 +754,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/05/test2/" itemprop="url">Untitled</a></h1>
+                <a class="post-title-link" href="/2019/04/05/java/test2/" itemprop="url">Untitled</a></h1>
         
 
         <div class="post-meta">
@@ -659,7 +806,7 @@
       
         
           
-            <p><img src="/2019/04/05/test2/array-1554426017602.png" alt=""></p>
+            <p><img src="/2019/04/05/java/test2/array-1554426017602.png" alt=""></p>
 
           
         
@@ -1365,7 +1512,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/08/前端知识点/网络知识点/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/08/网络/网络知识点/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
@@ -1384,7 +1531,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/08/前端知识点/网络知识点/" itemprop="url">常见网络知识点</a></h1>
+                <a class="post-title-link" href="/2019/02/08/网络/网络知识点/" itemprop="url">常见网络知识点</a></h1>
         
 
         <div class="post-meta">
@@ -1481,12 +1628,12 @@
 <li>保护数据完整性：防止传输的内容被中间人冒充或者篡改<br><img src="images/https.png" alt="https"><h3 id="1）、SSL和TLS"><a href="#1）、SSL和TLS" class="headerlink" title="1）、SSL和TLS"></a>1）、SSL和TLS</h3></li>
 </ol>
 <p>SSL(Secure Sockets Layer 安全套接层),及其继任者传输层安全（Transport Layer Security，TLS）是为网络通信提供安全及数据完整性的一种安全协议。TLS与SSL在传输层对网络连接进行加密</p>
-<h2 id="4、TCP协议"><a href="#4、TCP协议" class="headerlink" title="4、TCP协议"></a>4、TCP协议</h2><p><img src="/2019/02/08/前端知识点/网络知识点/TCP.png" alt="TCP"><br>互联网由一整套协议构成<br>图片说明：顶层协议是应用层协议 =&gt; TCP协议 =&gt; IP协议 =&gt; 以太网协议</p>
+<h2 id="4、TCP协议"><a href="#4、TCP协议" class="headerlink" title="4、TCP协议"></a>4、TCP协议</h2><p><img src="/2019/02/08/网络/网络知识点/TCP.png" alt="TCP"><br>互联网由一整套协议构成<br>图片说明：顶层协议是应用层协议 =&gt; TCP协议 =&gt; IP协议 =&gt; 以太网协议</p>
 <p>以太网协议：最底层的协议，可以解决子网内部的点对点通讯。</p>
 <p>IP协议：IP协议，可以解决多个局域网之间互通，可以连接多个局域网，定义了一套自己的地址规则，实现了路由的功能，允许某个局域网的A主机，向另一个局域网的B主机发送消息。（PS：路由器就是基于IP协议。所以局域网之间要靠路由器连接）</p>
 <p>题外话：路由原理就是路由器内部有一张路由表，规定A段IP地址走出口一，B段IP地址走出口二。。。根据这样实现了数据包的转发。</p>
 <p>TCP协议：IP协议只是一个地址协议，并不能保证数据的完整性。如果缓存满了，新进来的数据包就会丢失，所以这个时候需要发现丢了哪一个包，以及如何重新发送这个包，所以这个时候需要使用到TCP协议。以太网数据包的负载是1500字节，TCP数据包的负载在1400字节左右。</p>
-<h2 id="5、URL和URI的区别"><a href="#5、URL和URI的区别" class="headerlink" title="5、URL和URI的区别"></a>5、URL和URI的区别</h2><p><img src="/2019/02/08/前端知识点/网络知识点/URL.png" alt="URL"><br>URL是Uniform Resource Locator，表示是一个地址。<br>URI是Uniform Resource Identifier,表示是一个资源。<br>URL是URI的子集，所有的URL都是URI，但不是每个URI都是URL，还有可能是URN。<br>在这里举一个栗子：比如这个世界上的电音之王是加拿大炮王XXX。那这个头衔电音之王加拿大炮王就是一个URI，那如果我们想要找到这个人XXX，光知道头衔肯定是不够的，所以我们还需要知道他的住址，而这个住址就是URL。</p>
+<h2 id="5、URL和URI的区别"><a href="#5、URL和URI的区别" class="headerlink" title="5、URL和URI的区别"></a>5、URL和URI的区别</h2><p><img src="/2019/02/08/网络/网络知识点/URL.png" alt="URL"><br>URL是Uniform Resource Locator，表示是一个地址。<br>URI是Uniform Resource Identifier,表示是一个资源。<br>URL是URI的子集，所有的URL都是URI，但不是每个URI都是URL，还有可能是URN。<br>在这里举一个栗子：比如这个世界上的电音之王是加拿大炮王XXX。那这个头衔电音之王加拿大炮王就是一个URI，那如果我们想要找到这个人XXX，光知道头衔肯定是不够的，所以我们还需要知道他的住址，而这个住址就是URL。</p>
 <p>同理，每个人的身份证号码就是一个URI，而每个人的家庭住址也是一个URL。<br>总结：<strong>URI强调的是给资源标记命名，URL强调的是给资源定位，</strong>但是你会发现，URL显然比URI包含信息更多，我通过URL也可以知道张三是总经理，并且我还知道了他的地址，<strong>所以大多数情况下大家觉得给一个网络资源分别命名和给出地址太麻烦，干脆就用地址既当地址用，又当标记名用</strong>，所以，URL也充当了WWW万维网里面URI的角色，但是他比URI多了一层意义，我不光知道你叫什么，我还知道你在哪里。我们在浏览器输入的都是URL，因为我们输入的目的是为了找到某一个资源，当然你输入的是URI也是没错的，因为URL也是URI。</p>
 <h2 id="6、跨域问题"><a href="#6、跨域问题" class="headerlink" title="6、跨域问题"></a>6、跨域问题</h2><pre><code>跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对
 </code></pre><p>JavaScript实施的安全限制。<br>同源策略限制了一下行为：</p>
@@ -1730,200 +1877,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/29/JavaScript/JavaScript入门（三）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/29/JavaScript/JavaScript入门（三）/" itemprop="url">JavaScript入门（三）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-29T13:56:24+08:00">
-                2019-01-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="JavaScript入门（三）"><a href="#JavaScript入门（三）" class="headerlink" title="JavaScript入门（三）"></a>JavaScript入门（三）</h1><h2 id="1、创建对象的三种方式"><a href="#1、创建对象的三种方式" class="headerlink" title="1、创建对象的三种方式"></a>1、创建对象的三种方式</h2><p>1.调用系统的构造函数创建对象</p>
-<p>var 变量名= new Object(); Object 是系统的构造函数  Array</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//工厂模式创建对象</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createObject</span>(<span class="params">name,age</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();<span class="comment">//创建对象</span></span><br><span class="line">  <span class="comment">//添加属性</span></span><br><span class="line">  obj.name = name;</span><br><span class="line">  obj.age = age;</span><br><span class="line">  <span class="comment">//添加方法</span></span><br><span class="line">  obj.sayHi = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"阿涅哈斯诶呦,我叫:"</span> + <span class="keyword">this</span>.name + <span class="string">"我今年:"</span> + <span class="keyword">this</span>.age);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//创建人的对象</span></span><br><span class="line"><span class="keyword">var</span> per1 = createObject(<span class="string">"小芳"</span>,<span class="number">20</span>);</span><br><span class="line">per1.sayHi();</span><br><span class="line"><span class="comment">//创建一个人的对象</span></span><br><span class="line"><span class="keyword">var</span> per2 = createObject(<span class="string">"小红"</span>,<span class="number">30</span>);</span><br><span class="line">per2.sayHi();</span><br></pre></td></tr></table></figure>
-<p>2.自定义构造函数创建对象</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自定义构造函数创建对象,我要自己定义一个构造函数,自定义构造函数,创建对象</span></span><br><span class="line"><span class="comment">//函数和构造函数的区别；名字是不是大写(首字母是大写)</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name,age</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name=name;</span><br><span class="line">  <span class="keyword">this</span>.age=age;</span><br><span class="line">  <span class="keyword">this</span>.sayHi=<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"我叫:"</span>+<span class="keyword">this</span>.name+<span class="string">",年龄是:"</span>+<span class="keyword">this</span>.age);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//自定义构造函数创建对象:先自定义一个构造函数,创建对象</span></span><br><span class="line"><span class="keyword">var</span> obj=<span class="keyword">new</span> Person(<span class="string">"小明"</span>,<span class="number">10</span>);</span><br><span class="line"><span class="built_in">console</span>.log(obj.name);</span><br><span class="line"><span class="built_in">console</span>.log(obj.age);</span><br><span class="line">obj.sayHi();</span><br></pre></td></tr></table></figure>
-<p>3.字面量的方式创建对象</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj=&#123;&#125;;</span><br><span class="line">obj.name=<span class="string">"小白"</span>;</span><br><span class="line">obj.age=<span class="number">10</span>;</span><br><span class="line">obj.sayHi=<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"我是:"</span>+<span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line">obj.sayHi();</span><br><span class="line"><span class="keyword">var</span> obj2=&#123;</span><br><span class="line">  name:<span class="string">"小明"</span>,</span><br><span class="line">  age:<span class="number">20</span>,</span><br><span class="line">  sayHi:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"我是:"</span>+<span class="keyword">this</span>.name);</span><br><span class="line">  &#125;,</span><br><span class="line">  eat:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"吃了"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">obj2.sayHi();</span><br><span class="line">obj2.eat();</span><br></pre></td></tr></table></figure>
-<p>总结：工厂模式和自定义构造函数的异同</p>
-<ul>
-<li><p>共同点:都是函数,都可以创建对象,都可以传入参数</p>
-</li>
-<li><p>工厂模式:</p>
-</li>
-<li><p>函数名是小写</p>
-</li>
-<li><p>有new,</p>
-</li>
-<li><p>有返回值</p>
-</li>
-<li><p>new之后的对象是当前的对象</p>
-</li>
-<li><p>直接调用函数就可以创建对象<br>*</p>
-</li>
-<li><p>自定义构造函数:</p>
-</li>
-<li><p>函数名是大写(首字母)</p>
-</li>
-<li><p>没有new</p>
-</li>
-<li><p>没有返回值</p>
-</li>
-<li><p>this是当前的对象</p>
-</li>
-<li><p>通过new的方式来创建对象</p>
-</li>
-</ul>
-<h2 id="2、json数据格式"><a href="#2、json数据格式" class="headerlink" title="2、json数据格式"></a>2、json数据格式</h2><p>JSON格式的数据:一般都是成对的,是键值对,</p>
-<p>json也是一个对象,数据都是成对的,一般json格式的数据无论是键还是值都是用双引号括起来的</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> json = &#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"小明"</span>,</span><br><span class="line">  <span class="string">"age"</span>: <span class="string">"10"</span>,</span><br><span class="line">  <span class="string">"sex"</span>: <span class="string">"男"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//遍历对象,是不能通过for循环遍历,无序</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//key是一个变量,这个变量中存储的是该对象的所有的属性的名字</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> json) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(key + <span class="string">"==========="</span> + json[key]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="3、简单数据类型和复杂数据类型"><a href="#3、简单数据类型和复杂数据类型" class="headerlink" title="3、简单数据类型和复杂数据类型"></a>3、简单数据类型和复杂数据类型</h2><p>原始数据类型: number,string,boolean,undefined, null,object<br>​    基本类型(简单类型),值类型: number,string,boolean<br>​    复杂类型(引用类型):object<br>​    空类型:undefined,null</p>
-<p>值类型的值在哪一块空间中存储? 栈中存储<br>​    引用类型的值在哪一块空间中存储?对象在堆上存储,地址在栈上存储</p>
-<p>var num=10;//值类型,值在栈上<br>​    var obj={};//复杂类型,对象在堆,地址(引用)在栈</p>
-<p>值类型之间传递,传递的是值<br>​    引用类型之间传递,传递的是地址(引用)</p>
-<p>值类型作为函数的参数,传递的是值<br>​    引用类型作为函数的参数,传递的是</p>
-<h2 id="4、内置对象"><a href="#4、内置对象" class="headerlink" title="4、内置对象"></a>4、内置对象</h2><p>js中的三种对象</p>
-<p>1.内置对象—-js系统自带的对象<br>​    2.自定义对象—自己定义的构造函数创建的对象<br>​    3.浏览器对象</p>
-<p>内置对象:</p>
-<p>​    Math</p>
-<p>​    Date</p>
-<p>​    String</p>
-<p>​    Array</p>
-<p>​    Object</p>
-<p>Math对象：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//静态方法必须通过大写的对象调用</span></span><br><span class="line"><span class="built_in">Math</span>.PI----π---</span><br><span class="line"><span class="built_in">Math</span>.E----常数的底数</span><br><span class="line"><span class="built_in">Math</span>.abs(值)-----绝对值</span><br><span class="line"><span class="built_in">Math</span>.ceil(值)----向上取整</span><br><span class="line"><span class="built_in">Math</span>.floor(值)---向下取整</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1974,7 +1927,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1985,7 +1938,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>

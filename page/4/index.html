@@ -229,7 +229,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/26/test/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/28/java/check-img/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
@@ -248,7 +248,161 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/26/test/" itemprop="url">test</a></h1>
+                <a class="post-title-link" href="/2018/10/28/java/check-img/" itemprop="url">check-img</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-28T10:49:38+08:00">
+                2018-10-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="java-web基础功能（三）—-验证码登录验证功能"><a href="#java-web基础功能（三）—-验证码登录验证功能" class="headerlink" title="java-web基础功能（三）—-验证码登录验证功能"></a>java-web基础功能（三）—-验证码登录验证功能</h1><p>登录验证功能，首先说一下为什么要有这一个功能，如果没有这个功能，那么别人可能会无限测试你的账号密码，盗取你的账号信息，防止暴力破解，说成人话就是账号更安全。但是实际开发中，验证码功能也是有插件的，所以如果你不是专门在开发验证码功能的话，其实是不必自己写的，只要你学会将别人封装好的拿过来用就可以了，所以在这里我也就用了一个很简单的功能实现了。</p>
+<p>（1）在上次登录功能的基础上，再加上一个input标签输入验证码，加上一个img标签，通过checkImg这个Servlet来控制显示的验证码。  </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/WEB13/login"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">	用户名：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">	密码：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"password"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">	验证码：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">onclick</span>=<span class="string">"changeImg(this)"</span> <span class="attr">src</span>=<span class="string">"/WEB14/checkImg"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"登录"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>同样，from表单的数据提交到LoginServlet中进行用户名和密码的验证。另外，由于要加上一个点击图片可以更换验证码，这个功能可以用JS来实现，绑定事件changeImg。js代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">	<span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;		</span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">//点击重新刷新验证码的方法</span></span><br><span class="line"><span class="comment">//单纯封装一个方法不用写进window.onload中，直接写功能代码才写进window.onload之中</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">changeImg</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">		obj.src=<span class="string">"/WEB14/checkImg?time="</span>+<span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span><br><span class="line">	&#125;	</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>（2）准备一个验证码的随机生成库，这里我使用的是成语验证码，随机从提前准备好的成语库，然后导入到WEB-INF目录下面，文件格式是txt格式的，内容大概如下所示：</p>
+<p><img src="http://i2.bvimg.com/645823/05a2922eb2cb43ab.png" alt="Markdown"></p>
+<p>（3）编写CheckImgServlet。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.Dddgle.utils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.awt.Color;</span><br><span class="line"><span class="keyword">import</span> java.awt.Font;</span><br><span class="line"><span class="keyword">import</span> java.awt.Graphics;</span><br><span class="line"><span class="keyword">import</span> java.awt.Graphics2D;</span><br><span class="line"><span class="keyword">import</span> java.awt.image.BufferedImage;</span><br><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.FileReader;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.imageio.ImageIO;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Servlet implementation class CheckImage</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@WebServlet</span>(<span class="string">"/checkImage"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CheckImage</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">	<span class="comment">// 集合中保存所有成语</span></span><br><span class="line">	<span class="keyword">private</span> List&lt;String&gt; words = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">		<span class="comment">// 初始化阶段，读取new_words.txt</span></span><br><span class="line">		<span class="comment">// web工程中读取 文件，必须使用绝对磁盘路径</span></span><br><span class="line">		String path = getServletContext().getRealPath(<span class="string">"/WEB-INF/new_words.txt"</span>);</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(path));</span><br><span class="line">			String line;</span><br><span class="line">			<span class="keyword">while</span> ((line = reader.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">				words.add(line);</span><br><span class="line">			&#125;</span><br><span class="line">			reader.close();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@see</span> HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">		<span class="comment">// 禁止缓存</span></span><br><span class="line">		<span class="comment">// response.setHeader("Cache-Control", "no-cache");</span></span><br><span class="line">		<span class="comment">// response.setHeader("Pragma", "no-cache");</span></span><br><span class="line">		<span class="comment">// response.setDateHeader("Expires", -1);</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">int</span> width = <span class="number">120</span>;</span><br><span class="line">		<span class="keyword">int</span> height = <span class="number">30</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 步骤一 绘制一张内存中图片</span></span><br><span class="line">		BufferedImage bufferedImage = <span class="keyword">new</span> BufferedImage(width, height,</span><br><span class="line">				BufferedImage.TYPE_INT_RGB);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 步骤二 图片绘制背景颜色 ---通过绘图对象</span></span><br><span class="line">		Graphics graphics = bufferedImage.getGraphics();<span class="comment">// 得到画图对象 --- 画笔</span></span><br><span class="line">		<span class="comment">// 绘制任何图形之前 都必须指定一个颜色</span></span><br><span class="line">		graphics.setColor(getRandColor(<span class="number">200</span>, <span class="number">250</span>));</span><br><span class="line">		graphics.fillRect(<span class="number">0</span>, <span class="number">0</span>, width, height);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 步骤三 绘制边框</span></span><br><span class="line">		graphics.setColor(Color.WHITE);</span><br><span class="line">		graphics.drawRect(<span class="number">0</span>, <span class="number">0</span>, width - <span class="number">1</span>, height - <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 步骤四 四个随机数字</span></span><br><span class="line">		Graphics2D graphics2d = (Graphics2D) graphics;</span><br><span class="line">		<span class="comment">// 设置输出字体</span></span><br><span class="line">		graphics2d.setFont(<span class="keyword">new</span> Font(<span class="string">"宋体"</span>, Font.BOLD, <span class="number">18</span>));</span><br><span class="line"></span><br><span class="line">		Random random = <span class="keyword">new</span> Random();<span class="comment">// 生成随机数</span></span><br><span class="line">		<span class="keyword">int</span> index = random.nextInt(words.size());</span><br><span class="line">		String word = words.get(index);<span class="comment">// 获得成语</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">// 定义x坐标</span></span><br><span class="line">		<span class="keyword">int</span> x = <span class="number">10</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; word.length(); i++) &#123;</span><br><span class="line">			<span class="comment">// 随机颜色</span></span><br><span class="line">			graphics2d.setColor(<span class="keyword">new</span> Color(<span class="number">20</span> + random.nextInt(<span class="number">110</span>), <span class="number">20</span> + random</span><br><span class="line">					.nextInt(<span class="number">110</span>), <span class="number">20</span> + random.nextInt(<span class="number">110</span>)));</span><br><span class="line">			<span class="comment">// 旋转 -30 --- 30度</span></span><br><span class="line">			<span class="keyword">int</span> jiaodu = random.nextInt(<span class="number">60</span>) - <span class="number">30</span>;</span><br><span class="line">			<span class="comment">// 换算弧度</span></span><br><span class="line">			<span class="keyword">double</span> theta = jiaodu * Math.PI / <span class="number">180</span>;</span><br><span class="line"></span><br><span class="line">			<span class="comment">// 获得字母数字</span></span><br><span class="line">			<span class="keyword">char</span> c = word.charAt(i);</span><br><span class="line"></span><br><span class="line">			<span class="comment">// 将c 输出到图片</span></span><br><span class="line">			graphics2d.rotate(theta, x, <span class="number">20</span>);</span><br><span class="line">			graphics2d.drawString(String.valueOf(c), x, <span class="number">20</span>);</span><br><span class="line">			graphics2d.rotate(-theta, x, <span class="number">20</span>);</span><br><span class="line">			x += <span class="number">30</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 将验证码内容保存session</span></span><br><span class="line">		request.getSession().setAttribute(<span class="string">"checkcode_session"</span>, word);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 步骤五 绘制干扰线</span></span><br><span class="line">		graphics.setColor(getRandColor(<span class="number">160</span>, <span class="number">200</span>));</span><br><span class="line">		<span class="keyword">int</span> x1;</span><br><span class="line">		<span class="keyword">int</span> x2;</span><br><span class="line">		<span class="keyword">int</span> y1;</span><br><span class="line">		<span class="keyword">int</span> y2;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">30</span>; i++) &#123;</span><br><span class="line">			x1 = random.nextInt(width);</span><br><span class="line">			x2 = random.nextInt(<span class="number">12</span>);</span><br><span class="line">			y1 = random.nextInt(height);</span><br><span class="line">			y2 = random.nextInt(<span class="number">12</span>);</span><br><span class="line">			graphics.drawLine(x1, y1, x1 + x2, x2 + y2);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 将上面图片输出到浏览器 ImageIO</span></span><br><span class="line">		graphics.dispose();<span class="comment">// 释放资源</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">//将图片写到response.getOutputStream()中</span></span><br><span class="line">		ImageIO.write(bufferedImage, <span class="string">"jpg"</span>, response.getOutputStream());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@see</span> HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		doGet(request, response);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 取其某一范围的color</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> fc</span></span><br><span class="line"><span class="comment">	 *            int 范围参数1</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> bc</span></span><br><span class="line"><span class="comment">	 *            int 范围参数2</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> Color</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> Color <span class="title">getRandColor</span><span class="params">(<span class="keyword">int</span> fc, <span class="keyword">int</span> bc)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 取其随机颜色</span></span><br><span class="line">		Random random = <span class="keyword">new</span> Random();</span><br><span class="line">		<span class="keyword">if</span> (fc &gt; <span class="number">255</span>) &#123;</span><br><span class="line">			fc = <span class="number">255</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (bc &gt; <span class="number">255</span>) &#123;</span><br><span class="line">			bc = <span class="number">255</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">int</span> r = fc + random.nextInt(bc - fc);</span><br><span class="line">		<span class="keyword">int</span> g = fc + random.nextInt(bc - fc);</span><br><span class="line">		<span class="keyword">int</span> b = fc + random.nextInt(bc - fc);</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Color(r, g, b);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>大概的代码就是这样，如果需要修改显示效果的话也可以自己去改，但是实际上我觉得是没有必要的。。。。</p>
+<p>（4）测试结果：</p>
+<p><img src="http://i2.bvimg.com/645823/499ead86c6d27a5f.png" alt="Markdown"></p>
+<p>这里的页面和我上面的代码会有点不一样，因为我自己加了样式。输入用户名zhangsan，密码123，然后验证码三长两短，只有验证码输入正确，才能将from表单的数据提交，这时候如果用户信息正确，就可以跳转到index.jsp了。但是如果输入验证码错误的话，这里应该要提示验证码输入错误，这一个需要使用异步Ajax来实现，后面会继续完善此功能。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/26/java/test/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/26/java/test/" itemprop="url">test</a></h1>
         
 
         <div class="post-meta">
@@ -322,7 +476,7 @@
       
         
           
-            <p><img src="/2018/10/26/test/array-1554425483859.png" alt="array">   </p>
+            <p><img src="/2018/10/26/java/test/array-1554425483859.png" alt="array">   </p>
 <h1 id="常见网络知识点"><a href="#常见网络知识点" class="headerlink" title="常见网络知识点"></a>常见网络知识点</h1><h2 id="1、常见的http状态码"><a href="#1、常见的http状态码" class="headerlink" title="1、常见的http状态码"></a>1、常见的http状态码</h2><p>状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：<br>1xx：指示信息–表示请求已接收，继续处理<br>2xx：成功–表示请求已被成功接收、理解、接受<br>3xx：重定向–要完成请求必须进行更进一步的操作<br>4xx：客户端错误–请求有语法错误或请求无法实现<br>5xx：服务器端错误–服务器未能实现合法的请求</p>
 <p>200 OK 一切正常，对GET和POST请求的应答文档跟在后面。</p>
 <p>201 Created服务器已经创建了文档，Location头给出了它的URL。</p>
@@ -346,12 +500,12 @@
 <li>保护数据完整性：防止传输的内容被中间人冒充或者篡改<br><img src="images/https.png" alt="https"><h3 id="1）、SSL和TLS"><a href="#1）、SSL和TLS" class="headerlink" title="1）、SSL和TLS"></a>1）、SSL和TLS</h3></li>
 </ol>
 <p>SSL(Secure Sockets Layer 安全套接层),及其继任者传输层安全（Transport Layer Security，TLS）是为网络通信提供安全及数据完整性的一种安全协议。TLS与SSL在传输层对网络连接进行加密</p>
-<h2 id="4、TCP协议"><a href="#4、TCP协议" class="headerlink" title="4、TCP协议"></a>4、TCP协议</h2><p><img src="/2018/10/26/test/TCP.png" alt="TCP"><br>互联网由一整套协议构成<br>图片说明：顶层协议是应用层协议 =&gt; TCP协议 =&gt; IP协议 =&gt; 以太网协议</p>
+<h2 id="4、TCP协议"><a href="#4、TCP协议" class="headerlink" title="4、TCP协议"></a>4、TCP协议</h2><p><img src="/2018/10/26/java/test/TCP.png" alt="TCP"><br>互联网由一整套协议构成<br>图片说明：顶层协议是应用层协议 =&gt; TCP协议 =&gt; IP协议 =&gt; 以太网协议</p>
 <p>以太网协议：最底层的协议，可以解决子网内部的点对点通讯。</p>
 <p>IP协议：IP协议，可以解决多个局域网之间互通，可以连接多个局域网，定义了一套自己的地址规则，实现了路由的功能，允许某个局域网的A主机，向另一个局域网的B主机发送消息。（PS：路由器就是基于IP协议。所以局域网之间要靠路由器连接）</p>
 <p>题外话：路由原理就是路由器内部有一张路由表，规定A段IP地址走出口一，B段IP地址走出口二。。。根据这样实现了数据包的转发。</p>
 <p>TCP协议：IP协议只是一个地址协议，并不能保证数据的完整性。如果缓存满了，新进来的数据包就会丢失，所以这个时候需要发现丢了哪一个包，以及如何重新发送这个包，所以这个时候需要使用到TCP协议。以太网数据包的负载是1500字节，TCP数据包的负载在1400字节左右。</p>
-<h2 id="5、URL和URI的区别"><a href="#5、URL和URI的区别" class="headerlink" title="5、URL和URI的区别"></a>5、URL和URI的区别</h2><p><img src="/2018/10/26/test/URL.png" alt="URL"><br>URL是Uniform Resource Locator，表示是一个地址。<br>URI是Uniform Resource Identifier,表示是一个资源。<br>URL是URI的子集，所有的URL都是URI，但不是每个URI都是URL，还有可能是URN。<br>在这里举一个栗子：比如这个世界上的电音之王是加拿大炮王XXX。那这个头衔电音之王加拿大炮王就是一个URI，那如果我们想要找到这个人XXX，光知道头衔肯定是不够的，所以我们还需要知道他的住址，而这个住址就是URL。</p>
+<h2 id="5、URL和URI的区别"><a href="#5、URL和URI的区别" class="headerlink" title="5、URL和URI的区别"></a>5、URL和URI的区别</h2><p><img src="/2018/10/26/java/test/URL.png" alt="URL"><br>URL是Uniform Resource Locator，表示是一个地址。<br>URI是Uniform Resource Identifier,表示是一个资源。<br>URL是URI的子集，所有的URL都是URI，但不是每个URI都是URL，还有可能是URN。<br>在这里举一个栗子：比如这个世界上的电音之王是加拿大炮王XXX。那这个头衔电音之王加拿大炮王就是一个URI，那如果我们想要找到这个人XXX，光知道头衔肯定是不够的，所以我们还需要知道他的住址，而这个住址就是URL。</p>
 <p>同理，每个人的身份证号码就是一个URI，而每个人的家庭住址也是一个URL。<br>总结：<strong>URI强调的是给资源标记命名，URL强调的是给资源定位，</strong>但是你会发现，URL显然比URI包含信息更多，我通过URL也可以知道张三是总经理，并且我还知道了他的地址，<strong>所以大多数情况下大家觉得给一个网络资源分别命名和给出地址太麻烦，干脆就用地址既当地址用，又当标记名用</strong>，所以，URL也充当了WWW万维网里面URI的角色，但是他比URI多了一层意义，我不光知道你叫什么，我还知道你在哪里。我们在浏览器输入的都是URL，因为我们输入的目的是为了找到某一个资源，当然你输入的是URI也是没错的，因为URL也是URI。</p>
 <h2 id="6、跨域问题"><a href="#6、跨域问题" class="headerlink" title="6、跨域问题"></a>6、跨域问题</h2><pre><code>跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对
 </code></pre><p>JavaScript实施的安全限制。<br>同源策略限制了一下行为：</p>
@@ -442,7 +596,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/26/MVC/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/26/java/MVC/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
@@ -461,7 +615,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/26/MVC/" itemprop="url">java EE三层架构开发模式</a></h1>
+                <a class="post-title-link" href="/2018/10/26/java/MVC/" itemprop="url">java EE三层架构开发模式</a></h1>
         
 
         <div class="post-meta">
@@ -540,7 +694,7 @@
 <p>如上图所示，web客户端就是我们平时接触到的网页程序，通过传递参数给服务器，然后服务器根据请求再与数据库连接，然后获取到数据库数据之后服务器再将其结果返回到前端页面。而在这个过程之中，服务器端又可以将其分成三层，即web层，service层还有dao层。其中，web层是用来接收客户端传输过来的数据，然后再将其封装到JavaBean中，传递给sevice层，其中使用到的框架有Struts2。而service层接收web层传递过来的数据，然后根据实际需求编写业务逻辑代码。最后一个是dao层，service层所需要用到的数据，则是通过dao层来执行对数据库的操作，然后再一层一层返回，最终在客户端显示结果。这样做的好处是可以使开发的思路更加清晰，各层分工明确。</p>
 <p>至于说到MVC模式和三层架构之间的关系，可以说Mvc是web开发的一种开发模式，而三层架构是针对Java语言的。本身是没有联系，但是三层架构中，分别是web层，service层还有dao层，servlet+JavaBean+jsp刚刚好构成了web层，所以web层是一种mvc的模式。（wen层中，JavaBean是M层，jsp是V层，Servlet是C层）</p>
 <p>这个也有可能是面试题目哦，所以最好记住也不要混淆，嘿嘿嘿嘿~  </p>
-<p><img src="/2018/10/26/MVC/leslie-choi.github.io\source\_posts\vue\images\vue增删改.png" alt="vue增删改"></p>
+<p><img src="/2018/10/26/java/MVC/leslie-choi.github.io\source\_posts\vue\images\vue增删改.png" alt="vue增删改"></p>
 
           
         
@@ -589,7 +743,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/25/java-register/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/25/java/java-register/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
@@ -608,7 +762,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/25/java-register/" itemprop="url">Untitled</a></h1>
+                <a class="post-title-link" href="/2018/10/25/java/java-register/" itemprop="url">Untitled</a></h1>
         
 
         <div class="post-meta">
@@ -725,7 +879,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/22/java-login/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/22/java/java-login/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
@@ -744,7 +898,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/22/java-login/" itemprop="url">java-login</a></h1>
+                <a class="post-title-link" href="/2018/10/22/java/java-login/" itemprop="url">java-login</a></h1>
         
 
         <div class="post-meta">
@@ -891,7 +1045,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/22/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/22/java/hello-world/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
@@ -910,7 +1064,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/22/hello-world/" itemprop="url">Hello World</a></h1>
+                <a class="post-title-link" href="/2018/10/22/java/hello-world/" itemprop="url">Hello World</a></h1>
         
 
         <div class="post-meta">
@@ -1019,7 +1173,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/21/my-first-blog/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/21/java/my-first-blog/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
@@ -1038,7 +1192,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/21/my-first-blog/" itemprop="url">my first blog</a></h1>
+                <a class="post-title-link" href="/2018/10/21/java/my-first-blog/" itemprop="url">my first blog</a></h1>
         
 
         <div class="post-meta">
@@ -1114,12 +1268,12 @@
 <li>保护数据完整性：防止传输的内容被中间人冒充或者篡改<br><img src="images/https.png" alt="https"><h3 id="1）、SSL和TLS"><a href="#1）、SSL和TLS" class="headerlink" title="1）、SSL和TLS"></a>1）、SSL和TLS</h3></li>
 </ol>
 <p>SSL(Secure Sockets Layer 安全套接层),及其继任者传输层安全（Transport Layer Security，TLS）是为网络通信提供安全及数据完整性的一种安全协议。TLS与SSL在传输层对网络连接进行加密</p>
-<h2 id="4、TCP协议"><a href="#4、TCP协议" class="headerlink" title="4、TCP协议"></a>4、TCP协议</h2><p><img src="/2018/10/21/my-first-blog/TCP.png" alt="TCP"><br>互联网由一整套协议构成<br>图片说明：顶层协议是应用层协议 =&gt; TCP协议 =&gt; IP协议 =&gt; 以太网协议</p>
+<h2 id="4、TCP协议"><a href="#4、TCP协议" class="headerlink" title="4、TCP协议"></a>4、TCP协议</h2><p><img src="/2018/10/21/java/my-first-blog/TCP.png" alt="TCP"><br>互联网由一整套协议构成<br>图片说明：顶层协议是应用层协议 =&gt; TCP协议 =&gt; IP协议 =&gt; 以太网协议</p>
 <p>以太网协议：最底层的协议，可以解决子网内部的点对点通讯。</p>
 <p>IP协议：IP协议，可以解决多个局域网之间互通，可以连接多个局域网，定义了一套自己的地址规则，实现了路由的功能，允许某个局域网的A主机，向另一个局域网的B主机发送消息。（PS：路由器就是基于IP协议。所以局域网之间要靠路由器连接）</p>
 <p>题外话：路由原理就是路由器内部有一张路由表，规定A段IP地址走出口一，B段IP地址走出口二。。。根据这样实现了数据包的转发。</p>
 <p>TCP协议：IP协议只是一个地址协议，并不能保证数据的完整性。如果缓存满了，新进来的数据包就会丢失，所以这个时候需要发现丢了哪一个包，以及如何重新发送这个包，所以这个时候需要使用到TCP协议。以太网数据包的负载是1500字节，TCP数据包的负载在1400字节左右。</p>
-<h2 id="5、URL和URI的区别"><a href="#5、URL和URI的区别" class="headerlink" title="5、URL和URI的区别"></a>5、URL和URI的区别</h2><p><img src="/2018/10/21/my-first-blog/URL.png" alt="URL"><br>URL是Uniform Resource Locator，表示是一个地址。<br>URI是Uniform Resource Identifier,表示是一个资源。<br>URL是URI的子集，所有的URL都是URI，但不是每个URI都是URL，还有可能是URN。<br>在这里举一个栗子：比如这个世界上的电音之王是加拿大炮王XXX。那这个头衔电音之王加拿大炮王就是一个URI，那如果我们想要找到这个人XXX，光知道头衔肯定是不够的，所以我们还需要知道他的住址，而这个住址就是URL。</p>
+<h2 id="5、URL和URI的区别"><a href="#5、URL和URI的区别" class="headerlink" title="5、URL和URI的区别"></a>5、URL和URI的区别</h2><p><img src="/2018/10/21/java/my-first-blog/URL.png" alt="URL"><br>URL是Uniform Resource Locator，表示是一个地址。<br>URI是Uniform Resource Identifier,表示是一个资源。<br>URL是URI的子集，所有的URL都是URI，但不是每个URI都是URL，还有可能是URN。<br>在这里举一个栗子：比如这个世界上的电音之王是加拿大炮王XXX。那这个头衔电音之王加拿大炮王就是一个URI，那如果我们想要找到这个人XXX，光知道头衔肯定是不够的，所以我们还需要知道他的住址，而这个住址就是URL。</p>
 <p>同理，每个人的身份证号码就是一个URI，而每个人的家庭住址也是一个URL。<br>总结：<strong>URI强调的是给资源标记命名，URL强调的是给资源定位，</strong>但是你会发现，URL显然比URI包含信息更多，我通过URL也可以知道张三是总经理，并且我还知道了他的地址，<strong>所以大多数情况下大家觉得给一个网络资源分别命名和给出地址太麻烦，干脆就用地址既当地址用，又当标记名用</strong>，所以，URL也充当了WWW万维网里面URI的角色，但是他比URI多了一层意义，我不光知道你叫什么，我还知道你在哪里。我们在浏览器输入的都是URL，因为我们输入的目的是为了找到某一个资源，当然你输入的是URI也是没错的，因为URL也是URI。</p>
 <h2 id="6、跨域问题"><a href="#6、跨域问题" class="headerlink" title="6、跨域问题"></a>6、跨域问题</h2><pre><code>跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对
 </code></pre><p>JavaScript实施的安全限制。<br>同源策略限制了一下行为：</p>
@@ -1247,7 +1401,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1258,7 +1412,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
