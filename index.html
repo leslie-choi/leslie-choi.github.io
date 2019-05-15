@@ -229,6 +229,175 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/11/网络/CSRF和XSS/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/11/网络/CSRF和XSS/" itemprop="url">CSS常见知识点</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-11T14:00:25+08:00">
+                2019-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/internet/" itemprop="url" rel="index">
+                    <span itemprop="name">internet</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="CSRF-跨站点请求伪造-Cross-Site-Request-Forgery"><a href="#CSRF-跨站点请求伪造-Cross-Site-Request-Forgery" class="headerlink" title="CSRF 跨站点请求伪造(Cross Site Request Forgery)"></a>CSRF 跨站点请求伪造(Cross Site Request Forgery)</h1><p>CSRF可以这样理解，攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的。比如以你的名义发送邮件、发消息，盗取你的账号，添加系统管理员，甚至于购买商品、虚拟货币转账等等。</p>
+<p>举一个简单的CSRF的栗子： 舍友A登录了一个全球知名的公益网站<a href="http://www.po**[hub.com](http://hub.com)，然后在没有退出登录的情况下，舍友B和舍友A闹矛盾，于是给舍友A发送了另外一个www.你懂的.com的网站，而舍友A不理会这是一个危险网站，只看到你懂的网站里面有一张无法显示的图片。舍友A便倒回去浏览这个公益网站的时候，发现自己收藏的内容全都不见了。。。" target="_blank" rel="noopener">www.po**[hub.com](http://hub.com)，然后在没有退出登录的情况下，舍友B和舍友A闹矛盾，于是给舍友A发送了另外一个www.你懂的.com的网站，而舍友A不理会这是一个危险网站，只看到你懂的网站里面有一张无法显示的图片。舍友A便倒回去浏览这个公益网站的时候，发现自己收藏的内容全都不见了。。。</a></p>
+<p>这就是一个简单的CSRF攻击，舍友A点开www.你懂的.com网站的时候，携带了公益网站的cookie，而在你懂的网站中，无法显示的图片标签中，执行了一个请求，将舍友A的收藏内容清空，而这个请求正是攻击者所伪造的。</p>
+<h2 id="CSRF防御：防御主要着手于服务端效果更好"><a href="#CSRF防御：防御主要着手于服务端效果更好" class="headerlink" title="CSRF防御：防御主要着手于服务端效果更好"></a>CSRF防御：防御主要着手于服务端效果更好</h2><h2 id="1、验证码"><a href="#1、验证码" class="headerlink" title="1、验证码"></a>1、验证码</h2><p>由于CSRF攻击通常是在用户不知情的情况下发送的请求，所以通过验证码功能，强制用户进行交互，这种方法可以完全杜绝CSRF攻击，但是对于用户的体验性大打折扣，所以只能作为一个辅助的手段。</p>
+<h2 id="2、验证-HTTP-Referer"><a href="#2、验证-HTTP-Referer" class="headerlink" title="2、验证 HTTP Referer"></a>2、验证 HTTP Referer</h2><p>字段根据 HTTP协议，在HTTP头中有一个字段叫 Referer，它记录了HTTP请求的来源地址。在通常情况下，访问一个安全受限页面的请求来自于同一个网站，比如需要访问 <a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory%EF%BC%8C" target="_blank" rel="noopener">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory，</a> 用户必须先登陆 bank.example，然后通过点击页面上的按钮来触发转账事件。这时，该转帐请求的 Referer 值就会是转账按钮所在的页面的 URL，通常是以 bank.example 域名开头的地址。而如果黑客要对银行网站实施 CSRF 攻击，他只能在他自己的网站构造请求，当用户通过黑客的网站发送请求到银行时，该请求的 Referer 是指向黑客自己的网站。因此，要防御 CSRF 攻击，银行网站只需要对于每一个转账请求验证其 Referer 值，如果是以 bank.example 开头的域名，则说明该请求是来自银行网站自己的请求，是合法的。如果 Referer 是其他网站的话，则有可能是黑客的 CSRF 攻击，拒绝该请求。 然而，这种方法并非万无一失。Referer 的值是由浏览器提供的，虽然 HTTP 协议上有明确的要求，但是每个浏览器对于 Referer 的具体实现可能有差别，并不能保证浏览器自身没有安全漏洞。使用验证 Referer 值的方法，就是把安全性都依赖于第三方（即浏览器）来保障，从理论上来讲，这样并不安全。</p>
+<h2 id="3、请求地址中添加-token-并验证"><a href="#3、请求地址中添加-token-并验证" class="headerlink" title="3、请求地址中添加 token 并验证"></a>3、请求地址中添加 token 并验证</h2><p>CSRF 攻击之所以能够成功，是因为黑客可以完全伪造用户的请求，该请求中所有的用户验证信息都是存在于 cookie 中，因此黑客可以在不知道这些验证信息的情况下直接利用用户自己的 cookie 来通过安全验证。要抵御 CSRF，关键在于在请求中放入黑客所不能伪造的信息，并且该信息不存在于 cookie 之中。可以在 HTTP 请求中以参数的形式加入一个随机产生的 token，并在服务器端建立一个拦截器来验证这个 token，如果请求中没有 token 或者 token 内容不正确，则认为可能是 CSRF 攻击而拒绝该请求。</p>
+<h1 id="XSS攻击"><a href="#XSS攻击" class="headerlink" title="XSS攻击"></a>XSS攻击</h1><p>Cross-Site Scripting（跨站脚本攻击）简称 XSS，是一种代码注入攻击。攻击者通过在目标网站上注入恶意脚本，使之在用户的浏览器上运行。利用这些恶意脚本，攻击者可获取用户的敏感信息如 Cookie、SessionID 等，进而危害数据安全。 为了和 CSS 区分，这里把攻击的第一个字母改成了 X，于是叫做 XSS。</p>
+<p>XSS 的本质是：恶意代码未经过滤，与网站正常的代码混在一起；浏览器无法分辨哪些脚本是可信的，导致恶意脚本被执行。 而由于直接在用户的终端执行，恶意代码能够直接获取用户的信息，或者利用这些信息冒充用户向网站发起攻击者定义的请求。</p>
+<p>根据攻击的来源，XSS 攻击可分为存储型、反射型和 DOM 型三种。</p>
+<h2 id="１、存储型-XSS-的攻击步骤："><a href="#１、存储型-XSS-的攻击步骤：" class="headerlink" title="１、存储型 XSS 的攻击步骤："></a>１、存储型 XSS 的攻击步骤：</h2><p>存储型XSS会把用户输入的数据“存储在服务器端”，这种具有很强的稳定性。 这种攻击常见于带有用户保存数据的网站功能，如论坛发帖、商品评论、用户私信等。 举个栗子：黑客A写下了一篇包含有恶意JavaScript代码的博客文章，文章发表之后，所有访问这篇文章的用户，都会在他们浏览器中执行这段恶意的JavaScript代码，黑客把恶意的脚本保存到服务器端，这种XSS攻击就叫做“存储型 XSS”，也叫作持久型XSS，存在的时间是比较长的。</p>
+<h2 id="2、反射型-XSS-的攻击步骤："><a href="#2、反射型-XSS-的攻击步骤：" class="headerlink" title="2、反射型 XSS 的攻击步骤："></a>2、反射型 XSS 的攻击步骤：</h2><p>反射型XSS只是简单地把用户输入的数据“反射”给浏览器。也就是说黑客往往需要诱使用户“点击”一个恶意链接才能攻击成功。所以反射型XSS也叫作“非持久型XSS”。 反射型 XSS 跟存储型 XSS 的区别是：存储型 XSS 的恶意代码存在数据库里，反射型 XSS 的恶意代码存在 URL 里。 由于需要用户主动打开恶意的 URL 才能生效，攻击者往往会结合多种手段诱导用户点击。</p>
+<h2 id="3、DOM-型-XSS-的攻击步骤："><a href="#3、DOM-型-XSS-的攻击步骤：" class="headerlink" title="3、DOM 型 XSS 的攻击步骤："></a>3、DOM 型 XSS 的攻击步骤：</h2><p>a、攻击者构造出特殊的URL，其中包含恶意代码。 b、用户打开带有恶意代码的 URL。 c、用户浏览器接收到响应后解析执行，前端JavaScript 取出 URL 中的恶意代码并执行。 d、恶意代码窃取用户数据并发送到攻击者的网站，或者冒充用户的行为，调用目标网站接口执行攻击者指定的操作。</p>
+<p>DOM 型 XSS 跟前两种 XSS 的区别：DOM 型 XSS 攻击中，取出和执行恶意代码由浏览器端完成，属于前端 JavaScript 自身的安全漏洞，而其他两种 XSS 都属于服务端的安全漏洞。</p>
+<h2 id="XSS攻击的预防"><a href="#XSS攻击的预防" class="headerlink" title="XSS攻击的预防"></a>XSS攻击的预防</h2><p>XSS的攻击主要有两大因素： 1、攻击者提交恶意代码 2、浏览器执行恶意代码</p>
+<h3 id="1、输入过滤"><a href="#1、输入过滤" class="headerlink" title="1、输入过滤"></a>1、输入过滤</h3><p>通过“防止浏览器执行恶意代码”来防范 XSS。这部分分为两类： a、防止HTML中出现注入 b、对HTML做充分转义。</p>
+<h3 id="2、预防存储型和反射型-XSS-攻击"><a href="#2、预防存储型和反射型-XSS-攻击" class="headerlink" title="2、预防存储型和反射型 XSS 攻击"></a>2、预防存储型和反射型 XSS 攻击</h3><p>存储型和反射型 XSS 都是在服务端取出恶意代码后，插入到响应 HTML 里的，攻击者刻意编写的“数据”被内嵌到“代码”中，被浏览器所执行。 预防这两种漏洞，有两种常见做法：</p>
+<p>a、改成纯前端渲染，把代码和数据分隔开。</p>
+<p>1、浏览器先加载一个静态 HTML，此 HTML 中不包含任何跟业务相关的数据。</p>
+<p>2、然后浏览器执行 HTML 中的 JavaScript。</p>
+<p>3、JavaScript 通过 Ajax 加载业务数据，调用 DOM API 更新到页面上 b、对 HTML 做充分转义。。</p>
+<h3 id="3、预防-DOM-型-XSS-攻击"><a href="#3、预防-DOM-型-XSS-攻击" class="headerlink" title="3、预防 DOM 型 XSS 攻击"></a>3、预防 DOM 型 XSS 攻击</h3><p>DOM 型 XSS 攻击，实际上就是网站前端 JavaScript 代码本身不够严谨，把不可信的数据当作代码执行了。</p>
+<p>所以在使用 .innerHTML、.outerHTML、document.write() 时要特别小心，不要把不可信的数据作为 HTML 插到页面上，而应尽量使用 .textContent、.setAttribute() 等。</p>
+<h3 id="4、其他XSS防范措施"><a href="#4、其他XSS防范措施" class="headerlink" title="4、其他XSS防范措施"></a>4、其他XSS防范措施</h3><p>a、HTTP-only Cookie: 禁止 JavaScript 读取某些敏感 Cookie，攻击者完成 XSS 注入后也无法窃取此 Cookie。 b、验证码：防止脚本冒充用户提交危险操作。 c、对于不受信任的输入，都应该限定一个合理的长度。虽然无法完全防止 XSS 发生，但可以增加 XSS 攻击的难度。 d、Content Security Policy</p>
+<p>1)禁止加载外域代码，防止复杂的攻击逻辑。</p>
+<p>2)禁止外域提交，网站被攻击后，用户的数据不会泄露到外域。</p>
+<p>3)禁止内联脚本执行（规则较严格，目前发现 GitHub 使用）。</p>
+<p>4)禁止未授权的脚本执行（新特性，Google Map 移动版在使用）。</p>
+<p>5)合理使用上报可以及时发现 XSS，利于尽快修复问题。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/css/CSS常见知识点/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1712,171 +1881,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/29/JavaScript/JavaScript入门（四）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/29/JavaScript/JavaScript入门（四）/" itemprop="url">JavaScript入门（四）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-29T20:12:44+08:00">
-                2019-01-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="JavaScript入门（四）"><a href="#JavaScript入门（四）" class="headerlink" title="JavaScript入门（四）"></a>JavaScript入门（四）</h1><h2 id="1、BOM内容"><a href="#1、BOM内容" class="headerlink" title="1、BOM内容"></a>1、BOM内容</h2><p>BOM:Browser Object Model:浏览器对象模型</p>
-<p>BOM中的顶级对象就是window</p>
-<p>DOM中页面中有一个顶级对象:Document</p>
-<p>window—-皇上。页面中所有的内容都是window,变量是属于window的,函数也是属于window,对象都是window的（但是实际开发过程为了方便和维护，可以将window省略）<br>​    document–总管太监</p>
-<h2 id="2、BOM中的三个对话框"><a href="#2、BOM中的三个对话框" class="headerlink" title="2、BOM中的三个对话框"></a>2、BOM中的三个对话框</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alert(<span class="string">"哈哈,我又变帅了"</span>);</span><br><span class="line"><span class="built_in">window</span>.alert(<span class="string">"哦也"</span>);</span><br><span class="line"><span class="built_in">window</span>.prompt(<span class="string">"请输入内容"</span>);</span><br></pre></td></tr></table></figure>
-<p>PS：alert对话框是浏览器自带的，所以无法修改其样式。建议使用其他ui自带的对话框。比如element-ui的dialog</p>
-<h2 id="3、页面的加载事件"><a href="#3、页面的加载事件" class="headerlink" title="3、页面的加载事件"></a>3、页面的加载事件</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//页面的加载事件,页面中所有的内容加载完毕后才执行</span></span><br><span class="line"><span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//通过id获取元素</span></span><br><span class="line">  <span class="keyword">var</span> btnObj=<span class="built_in">document</span>.getElementById(<span class="string">"btn"</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(btnObj.value);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="4、定时器"><a href="#4、定时器" class="headerlink" title="4、定时器"></a>4、定时器</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//js中设置定时器的第一种方法</span></span><br><span class="line">	<span class="comment">//参数1:函数</span></span><br><span class="line">    <span class="comment">//参数2:时间---1000毫秒---1秒</span></span><br><span class="line">    <span class="comment">//返回值:该定时器的id</span></span><br><span class="line">    <span class="comment">//执行过程:页面加载后,过了1秒才执行函数中的代码,函数中的代码执行完毕后,又过了一秒再执行函数中的代码,只要定时器不清理,就是执行方式</span></span><br><span class="line">   <span class="keyword">var</span> timeId=setInterval(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">     alert(<span class="string">"你瞅啥?瞅你咋地?"</span>);</span><br><span class="line">   &#125;,<span class="number">1000</span>);</span><br><span class="line">    清理定时器的方法</span><br><span class="line">    clearInterval(timeId);</span><br><span class="line"><span class="comment">//js中设置定时器的第二种方法</span></span><br><span class="line"><span class="comment">//定时器 异步运行</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">hello</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">"hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//使用方法名字执行方法</span></span><br><span class="line">    <span class="keyword">var</span> t1 = <span class="built_in">window</span>.setTimeout(hello,<span class="number">1000</span>);</span><br><span class="line">    <span class="keyword">var</span> t2 = <span class="built_in">window</span>.setTimeout(<span class="string">"hello()"</span>,<span class="number">3000</span>);<span class="comment">//使用字符串执行方法</span></span><br><span class="line">    <span class="built_in">window</span>.clearTimeout(t1);<span class="comment">//去掉定时器</span></span><br></pre></td></tr></table></figure>
-<p>两种方法根据不同的场景和业务需求择而取之，</p>
-<p>一般情况下setTimeout用于延迟执行某方法或功能，是一次性的</p>
-<p>setInterval则一般用于刷新表单，对于一些表单的假实时指定时间刷新同步</p>
-<h2 id="4、JavaScript的location对象"><a href="#4、JavaScript的location对象" class="headerlink" title="4、JavaScript的location对象"></a>4、JavaScript的location对象</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//地址栏上#及后面的内容</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.location.hash);</span><br><span class="line"><span class="comment">//主机名字和端口号</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.location.host);</span><br><span class="line"><span class="comment">//主机名字</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.location.hostname);</span><br><span class="line"><span class="comment">//文件的相对路径</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.location.pathname);</span><br><span class="line"><span class="comment">//端口</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.location.port);</span><br><span class="line"><span class="comment">//协议</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.location.protocol);</span><br><span class="line"><span class="comment">//搜索的内容:获取的是?及后面的内容</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.location.search);</span><br><span class="line"><span class="comment">//和location.href属性是一样的操作,</span></span><br><span class="line">location.assign(<span class="string">"http://www.baidu.com"</span>);</span><br><span class="line"><span class="comment">//替换的地址的,没有历史记录</span></span><br><span class="line">location.replace(<span class="string">"http://www.baidu.com"</span>);</span><br><span class="line">location.reload();<span class="comment">//刷新</span></span><br></pre></td></tr></table></figure>
-<h2 id="5、javaScript的history对象"><a href="#5、javaScript的history对象" class="headerlink" title="5、javaScript的history对象"></a>5、javaScript的history对象</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=<span class="string">"button"</span> value=<span class="string">"跳一下"</span> id=<span class="string">"btn1"</span>/&gt;</span><br><span class="line">第一个页面</span><br><span class="line">&lt;input type=<span class="string">"button"</span> value=<span class="string">"去吧"</span> id=<span class="string">"btn2"</span>/&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">"btn1"</span>).onclick=<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      location.href=<span class="string">"11test.html"</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">"btn2"</span>).onclick=<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//前进</span></span><br><span class="line">    history.forward();</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//想要前进和后退,必须要有历史记录</span></span><br><span class="line">  history.forward();<span class="comment">//前进</span></span><br><span class="line">  history.back();<span class="comment">//后退</span></span><br><span class="line">  history.go();<span class="comment">//如果是正数就是前进,负数就是后退</span></span><br></pre></td></tr></table></figure>
-<h2 id="6、DOM内容"><a href="#6、DOM内容" class="headerlink" title="6、DOM内容"></a>6、DOM内容</h2><pre><code> DOM:Document Object Model 文档对象模型
- 页面中的顶级对象是:document
- element:元素
- node:节点
- parent:父亲
- children:孩子
-
- 节点:页面中所有的内容都是节点:标签,文本(空白项，如空格，换行),属性
- 元素:页面中的标签都是元素,标签
-
-标签----&gt;元素----&gt;对象,---&gt;也可以叫节点
-</code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1927,7 +1931,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1938,7 +1942,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
