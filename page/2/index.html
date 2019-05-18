@@ -229,6 +229,171 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/29/JavaScript/JavaScript入门（四）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/29/JavaScript/JavaScript入门（四）/" itemprop="url">JavaScript入门（四）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-29T20:12:44+08:00">
+                2019-01-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="JavaScript入门（四）"><a href="#JavaScript入门（四）" class="headerlink" title="JavaScript入门（四）"></a>JavaScript入门（四）</h1><h2 id="1、BOM内容"><a href="#1、BOM内容" class="headerlink" title="1、BOM内容"></a>1、BOM内容</h2><p>BOM:Browser Object Model:浏览器对象模型</p>
+<p>BOM中的顶级对象就是window</p>
+<p>DOM中页面中有一个顶级对象:Document</p>
+<p>window—-皇上。页面中所有的内容都是window,变量是属于window的,函数也是属于window,对象都是window的（但是实际开发过程为了方便和维护，可以将window省略）<br>​    document–总管太监</p>
+<h2 id="2、BOM中的三个对话框"><a href="#2、BOM中的三个对话框" class="headerlink" title="2、BOM中的三个对话框"></a>2、BOM中的三个对话框</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alert(<span class="string">"哈哈,我又变帅了"</span>);</span><br><span class="line"><span class="built_in">window</span>.alert(<span class="string">"哦也"</span>);</span><br><span class="line"><span class="built_in">window</span>.prompt(<span class="string">"请输入内容"</span>);</span><br></pre></td></tr></table></figure>
+<p>PS：alert对话框是浏览器自带的，所以无法修改其样式。建议使用其他ui自带的对话框。比如element-ui的dialog</p>
+<h2 id="3、页面的加载事件"><a href="#3、页面的加载事件" class="headerlink" title="3、页面的加载事件"></a>3、页面的加载事件</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//页面的加载事件,页面中所有的内容加载完毕后才执行</span></span><br><span class="line"><span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//通过id获取元素</span></span><br><span class="line">  <span class="keyword">var</span> btnObj=<span class="built_in">document</span>.getElementById(<span class="string">"btn"</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(btnObj.value);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="4、定时器"><a href="#4、定时器" class="headerlink" title="4、定时器"></a>4、定时器</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//js中设置定时器的第一种方法</span></span><br><span class="line">	<span class="comment">//参数1:函数</span></span><br><span class="line">    <span class="comment">//参数2:时间---1000毫秒---1秒</span></span><br><span class="line">    <span class="comment">//返回值:该定时器的id</span></span><br><span class="line">    <span class="comment">//执行过程:页面加载后,过了1秒才执行函数中的代码,函数中的代码执行完毕后,又过了一秒再执行函数中的代码,只要定时器不清理,就是执行方式</span></span><br><span class="line">   <span class="keyword">var</span> timeId=setInterval(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">     alert(<span class="string">"你瞅啥?瞅你咋地?"</span>);</span><br><span class="line">   &#125;,<span class="number">1000</span>);</span><br><span class="line">    清理定时器的方法</span><br><span class="line">    clearInterval(timeId);</span><br><span class="line"><span class="comment">//js中设置定时器的第二种方法</span></span><br><span class="line"><span class="comment">//定时器 异步运行</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">hello</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">"hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//使用方法名字执行方法</span></span><br><span class="line">    <span class="keyword">var</span> t1 = <span class="built_in">window</span>.setTimeout(hello,<span class="number">1000</span>);</span><br><span class="line">    <span class="keyword">var</span> t2 = <span class="built_in">window</span>.setTimeout(<span class="string">"hello()"</span>,<span class="number">3000</span>);<span class="comment">//使用字符串执行方法</span></span><br><span class="line">    <span class="built_in">window</span>.clearTimeout(t1);<span class="comment">//去掉定时器</span></span><br></pre></td></tr></table></figure>
+<p>两种方法根据不同的场景和业务需求择而取之，</p>
+<p>一般情况下setTimeout用于延迟执行某方法或功能，是一次性的</p>
+<p>setInterval则一般用于刷新表单，对于一些表单的假实时指定时间刷新同步</p>
+<h2 id="4、JavaScript的location对象"><a href="#4、JavaScript的location对象" class="headerlink" title="4、JavaScript的location对象"></a>4、JavaScript的location对象</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//地址栏上#及后面的内容</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.location.hash);</span><br><span class="line"><span class="comment">//主机名字和端口号</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.location.host);</span><br><span class="line"><span class="comment">//主机名字</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.location.hostname);</span><br><span class="line"><span class="comment">//文件的相对路径</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.location.pathname);</span><br><span class="line"><span class="comment">//端口</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.location.port);</span><br><span class="line"><span class="comment">//协议</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.location.protocol);</span><br><span class="line"><span class="comment">//搜索的内容:获取的是?及后面的内容</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.location.search);</span><br><span class="line"><span class="comment">//和location.href属性是一样的操作,</span></span><br><span class="line">location.assign(<span class="string">"http://www.baidu.com"</span>);</span><br><span class="line"><span class="comment">//替换的地址的,没有历史记录</span></span><br><span class="line">location.replace(<span class="string">"http://www.baidu.com"</span>);</span><br><span class="line">location.reload();<span class="comment">//刷新</span></span><br></pre></td></tr></table></figure>
+<h2 id="5、javaScript的history对象"><a href="#5、javaScript的history对象" class="headerlink" title="5、javaScript的history对象"></a>5、javaScript的history对象</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=<span class="string">"button"</span> value=<span class="string">"跳一下"</span> id=<span class="string">"btn1"</span>/&gt;</span><br><span class="line">第一个页面</span><br><span class="line">&lt;input type=<span class="string">"button"</span> value=<span class="string">"去吧"</span> id=<span class="string">"btn2"</span>/&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">"btn1"</span>).onclick=<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      location.href=<span class="string">"11test.html"</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">"btn2"</span>).onclick=<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//前进</span></span><br><span class="line">    history.forward();</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//想要前进和后退,必须要有历史记录</span></span><br><span class="line">  history.forward();<span class="comment">//前进</span></span><br><span class="line">  history.back();<span class="comment">//后退</span></span><br><span class="line">  history.go();<span class="comment">//如果是正数就是前进,负数就是后退</span></span><br></pre></td></tr></table></figure>
+<h2 id="6、DOM内容"><a href="#6、DOM内容" class="headerlink" title="6、DOM内容"></a>6、DOM内容</h2><pre><code> DOM:Document Object Model 文档对象模型
+ 页面中的顶级对象是:document
+ element:元素
+ node:节点
+ parent:父亲
+ children:孩子
+
+ 节点:页面中所有的内容都是节点:标签,文本(空白项，如空格，换行),属性
+ 元素:页面中的标签都是元素,标签
+
+标签----&gt;元素----&gt;对象,---&gt;也可以叫节点
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/29/JavaScript/JavaScript入门（三）/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1657,178 +1822,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/24/vue/9、路由/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/24/vue/9、路由/" itemprop="url">九、路由</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-24T15:12:20+08:00">
-                2019-01-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue/" itemprop="url" rel="index">
-                    <span itemprop="name">Vue</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="路由的基本使用"><a href="#路由的基本使用" class="headerlink" title="路由的基本使用"></a>路由的基本使用</h1><p>前端路由和后端路由的区别：</p>
-<p>后端路由：所有的超链接都是url地址，都对应服务器上对应的资源</p>
-<p>前端路由：对于单页面应用程序来说，主要通过url中的hash（#号）来实现不同页面之间的切换，这种通过hash改变页面的切换页面的方法是称为前端路由</p>
-<p>1、需要先安装vue-router模块，且顺序必须放在vue.js后面</p>
-<p>2、使用router-link组件来导航</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-link to=<span class="string">"/login"</span>&gt;登录&lt;<span class="regexp">/router-link&gt;</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/可以使用tag属性指定router-link渲染标签的类型</span></span><br></pre></td></tr></table></figure>
-<p>3、使用 router-view 组件来显示匹配到的组件</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-view&gt;<span class="xml"><span class="tag">&lt;/<span class="name">router-view</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-<p>4、使用vue-entend 创建登录组件</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> login = Vue.extend(&#123;</span><br><span class="line">  template: <span class="string">'&lt;h1&gt;登录组件&lt;/h1&gt;'</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">var</span> register = Vue.extend(&#123;</span><br><span class="line">  template: <span class="string">'&lt;h1&gt;注册组件&lt;/h1&gt;'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>5、创建一个router实例，通过router属性来定义路由匹配规则</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> router111 = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">'/login'</span>, <span class="attr">component</span>: login &#125;,</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">'/register'</span>, <span class="attr">component</span>: register &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>6、使用router属性来使用路由规则</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  router: router111 <span class="comment">// 使用 上面创建的router111 属性来使用路由规则</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>思路：</p>
-<p>1、设置两个login和register子组件</p>
-<p>2、创建一个路由对象，设置路由规则数组，即设置这两个子组件的对应路径</p>
-<p>3、将路由对象与Vue实例关联起来</p>
-<p>4、根据实际需要设置重定向</p>
-<h1 id="使用children属性实现路由嵌套"><a href="#使用children属性实现路由嵌套" class="headerlink" title="使用children属性实现路由嵌套"></a>使用children属性实现路由嵌套</h1><p>account组件下面有两个子组件，login和register，在创建路由实例的时候，将account传入，然后在childrens[]数组内再定义两个子组件，login和register</p>
-<p>这里为了使地址栏能达到效果需要使用redirect进行重定向，如果路径是根路径的话，则设置重定向到login下—-path: ‘/‘, redirect: ‘/account/login’</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">  &lt;router-link to=<span class="string">"/account"</span>&gt;Account&lt;<span class="regexp">/router-link&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  &lt;router-view&gt;&lt;/</span>router-view&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  /</span><span class="regexp">/ 父路由中的组件</span></span><br><span class="line"><span class="regexp">  const account = Vue.extend(&#123;</span></span><br><span class="line"><span class="regexp">    template: `&lt;div&gt;</span></span><br><span class="line"><span class="regexp">      这是account组件</span></span><br><span class="line"><span class="regexp">      &lt;router-link to="/</span>account/login<span class="string">"&gt;login&lt;/router-link&gt; | </span></span><br><span class="line"><span class="string">      &lt;router-link to="</span>/account/register<span class="string">"&gt;register&lt;/router-link&gt;</span></span><br><span class="line"><span class="string">      &lt;router-view&gt;&lt;/router-view&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;`</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  // 子路由中的 login 组件</span></span><br><span class="line"><span class="string">  const login = Vue.extend(&#123;</span></span><br><span class="line"><span class="string">    template: '&lt;div&gt;登录组件&lt;/div&gt;'</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  // 子路由中的 register 组件</span></span><br><span class="line"><span class="string">  const register = Vue.extend(&#123;</span></span><br><span class="line"><span class="string">    template: '&lt;div&gt;注册组件&lt;/div&gt;'</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  // 路由实例</span></span><br><span class="line"><span class="string">  var router = new VueRouter(&#123;</span></span><br><span class="line"><span class="string">    routes: [</span></span><br><span class="line"><span class="string">      &#123; path: '/', redirect: '/account/login' &#125;, // 使用 redirect 实现路由重定向</span></span><br><span class="line"><span class="string">      &#123;</span></span><br><span class="line"><span class="string">        path: '/account',</span></span><br><span class="line"><span class="string">        component: account,</span></span><br><span class="line"><span class="string">        children: [ // 通过 children 数组属性，来实现路由的嵌套</span></span><br><span class="line"><span class="string">          &#123; path: 'login', component: login &#125;, // 注意，子路由的开头位置，不要加 / 路径符</span></span><br><span class="line"><span class="string">          &#123; path: 'register', component: register &#125;</span></span><br><span class="line"><span class="string">        ]</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">    ]</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  // 创建 Vue 实例，得到 ViewModel</span></span><br><span class="line"><span class="string">  var vm = new Vue(&#123;</span></span><br><span class="line"><span class="string">    el: '#app',</span></span><br><span class="line"><span class="string">    data: &#123;&#125;,</span></span><br><span class="line"><span class="string">    methods: &#123;&#125;,</span></span><br><span class="line"><span class="string">    components: &#123;</span></span><br><span class="line"><span class="string">      account</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">    router: router</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
-<h1 id="在路由中实现参数的传递"><a href="#在路由中实现参数的传递" class="headerlink" title="在路由中实现参数的传递"></a>在路由中实现参数的传递</h1><p>1、在规则中定义参数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> router111 = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">'/register/:id'</span>, <span class="attr">component</span>: register &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>2、通过this.$route.params获取路由中的参数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> register = Vue.extend(&#123;</span><br><span class="line">      template: <span class="string">'&lt;h1&gt;注册组件 --- &#123;&#123;this.$route.params.id&#125;&#125;&lt;/h1&gt;'</span></span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
-<p>思路：分别创建account组件作为父组件，login和register作为子组件。</p>
-<p>在#app中使用router-viewi标签显示在页面中显示所有的组件。</p>
-<p>然后使用v-extend创建三个组件，父组件中使用router-link to分别指向两个子组件</p>
-<p>然后创建一个router实例，分别设置父组件和在childrens[]数组中设置子组件，分别设置组件的映射路径</p>
-<p>最后在Vue实例里面的component中注册父组件和router中注册上面新建的router实例</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1879,7 +1872,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
