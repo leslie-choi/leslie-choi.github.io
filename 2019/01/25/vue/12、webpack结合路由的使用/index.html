@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="webpack结合路由的使用1、在main.js中导入vue-router包 2、手动安装VueRouter 3、导入组件 4、创建路由对象 1234567891011121314151617181920212223242526272829import Vue from &apos;vue&apos;// 1. 导入 vue-router 包import VueRouter from &apos;vue-router&apos;// 2">
+<meta name="description" content="webpack结合路由的使用1、在main.js中导入vue-router包 2、手动安装VueRouter 3、导入组件  4、创建路由对象 1234567891011121314151617181920212223242526272829import Vue from &apos;vue&apos;// 1. 导入 vue-router 包import VueRouter from &apos;vue-router&apos;//">
 <meta name="keywords" content="basic">
 <meta property="og:type" content="article">
 <meta property="og:title" content="十二、webpack结合路由的使用">
 <meta property="og:url" content="http://yoursite.com/2019/01/25/vue/12、webpack结合路由的使用/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="webpack结合路由的使用1、在main.js中导入vue-router包 2、手动安装VueRouter 3、导入组件 4、创建路由对象 1234567891011121314151617181920212223242526272829import Vue from &apos;vue&apos;// 1. 导入 vue-router 包import VueRouter from &apos;vue-router&apos;// 2">
+<meta property="og:description" content="webpack结合路由的使用1、在main.js中导入vue-router包 2、手动安装VueRouter 3、导入组件  4、创建路由对象 1234567891011121314151617181920212223242526272829import Vue from &apos;vue&apos;// 1. 导入 vue-router 包import VueRouter from &apos;vue-router&apos;//">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-20T17:18:38.340Z">
+<meta property="og:updated_time" content="2019-05-20T15:43:06.252Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="十二、webpack结合路由的使用">
-<meta name="twitter:description" content="webpack结合路由的使用1、在main.js中导入vue-router包 2、手动安装VueRouter 3、导入组件 4、创建路由对象 1234567891011121314151617181920212223242526272829import Vue from &apos;vue&apos;// 1. 导入 vue-router 包import VueRouter from &apos;vue-router&apos;// 2">
+<meta name="twitter:description" content="webpack结合路由的使用1、在main.js中导入vue-router包 2、手动安装VueRouter 3、导入组件  4、创建路由对象 1234567891011121314151617181920212223242526272829import Vue from &apos;vue&apos;// 1. 导入 vue-router 包import VueRouter from &apos;vue-router&apos;//">
 
 
 
@@ -324,7 +324,7 @@
       
         <h1 id="webpack结合路由的使用"><a href="#webpack结合路由的使用" class="headerlink" title="webpack结合路由的使用"></a>webpack结合路由的使用</h1><p>1、在main.js中导入vue-router包</p>
 <p>2、手动安装VueRouter</p>
-<p>3、导入组件</p>
+<p>3、导入组件 </p>
 <p>4、创建路由对象</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="comment">// 1. 导入 vue-router 包</span></span><br><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">'vue-router'</span></span><br><span class="line"><span class="comment">// 2. 手动安装 VueRouter </span></span><br><span class="line">Vue.use(VueRouter)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 导入 app 组件</span></span><br><span class="line"><span class="keyword">import</span> app <span class="keyword">from</span> <span class="string">'./App.vue'</span></span><br><span class="line"><span class="comment">// 导入 Account 组件</span></span><br><span class="line"><span class="keyword">import</span> account <span class="keyword">from</span> <span class="string">'./main/Account.vue'</span></span><br><span class="line"><span class="keyword">import</span> goodslist <span class="keyword">from</span> <span class="string">'./main/GoodsList.vue'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 创建路由对象</span></span><br><span class="line"><span class="keyword">var</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    <span class="comment">// account  goodslist</span></span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">'/account'</span>, <span class="attr">component</span>: account &#125;,</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">'/goodslist'</span>, <span class="attr">component</span>: goodslist &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  render: <span class="function"><span class="params">c</span> =&gt;</span> c(app), <span class="comment">// render 会把 el 指定的容器中，所有的内容都清空覆盖，所以 不要 把 路由的 router-view 和 router-link 直接写到 el 所控制的元素中</span></span><br><span class="line">  router <span class="comment">// 4. 将路由对象挂载到 vm 上</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注意： App 这个组件，是通过 VM 实例的 render 函数，渲染出来的， render 函数如果要渲染 组件， 渲染出来的组件，只能放到 el: '#app' 所指定的 元素中；</span></span><br><span class="line"><span class="comment">// Account 和 GoodsList 组件， 是通过 路由匹配监听到的，所以， 这两个组件，只能展示到 属于 路由的 &lt;router-view&gt;&lt;/router-view&gt; 中去；</span></span><br></pre></td></tr></table></figure>
 
