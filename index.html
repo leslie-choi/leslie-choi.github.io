@@ -666,12 +666,12 @@
           
             <h1 id="Vuex的基本使用。"><a href="#Vuex的基本使用。" class="headerlink" title="Vuex的基本使用。"></a>Vuex的基本使用。</h1><p>问题的引入：在Vue中，涉及到父子组件之间的传值，我们可以使用<strong>props</strong>和<strong>$emit</strong>方法进行传值，但是兄弟组件之间传值要怎么办呢？所以这个时候就要引入Vuex进行状态管理了，Vuex 是适用于Vue.js应用的状态管理库，为 Vue.js为应用中的所有组件提供集中式的状态存储与操作，保证了所有状态以可预测的方式进行修改。 </p>
 <h2 id="主要的几种状态"><a href="#主要的几种状态" class="headerlink" title="主要的几种状态"></a>主要的几种状态</h2><p>dispatch：操作行为触发方法，是唯一能执行action的方法。</p>
-<p>actions：操作行为处理模块。负责处理Vue Components接收到的所有<strong>交互行为</strong>。包含同步/异步操作，支持多个同名方法，按照注册的顺序依次触发。向后台API请求的操作就在这个模块中进行，包括触发其他action以及提交mutation的操作。该模块提供了Promise的封装，以支持action的链式触发。</p>
+<p>actions：操作行为处理模块。负责处理Vue Components接收到的所有<strong>交互行为</strong>。包含<strong>同步/异步</strong>操作，支持多个同名方法，按照注册的顺序依次触发。向后台API请求的操作就在这个模块中进行，包括触发其他action以及提交mutation的操作。该模块提供了Promise的封装，以支持action的链式触发。</p>
 <p>commit：状态改变提交操作方法。对mutation进行提交，是唯一能执行mutation的方法。</p>
 <p>mutations：状态改变操作方法。是<strong>Vuex修改state的唯一推荐方法</strong>，其他修改方式在严格模式下将会报错。该方法只能进行同步操作，且方法名只能全局唯一。操作之中会有一些hook暴露出来，以进行state的监控等。</p>
 <p>state：页面状态管理容器对象。集中存储Vue components中data对象的零散数据，全局唯一，以进行统一的状态管理。页面显示所需的数据从该对象中进行读取，利用Vue的细粒度数据响应机制来进行高效的状态更新。 </p>
 <p>getters：state对象读取方法。直接通过这个获取数据</p>
-<p>废话不多说了。直接贴代码8.</p>
+<p>废话不多说了。直接贴代码8. </p>
 <p>第一步：在main.js中安装（如果项目大的话，需要全局共享处理的数据比较多，则最好对应的每个状态都建立一个js文件，至少不会把所有的代码糅合在一起，看着舒服一点。。）</p>
 <p>第二步：导入vuex</p>
 <p>第三步：注册vuex到vue中。</p>
