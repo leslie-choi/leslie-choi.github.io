@@ -229,6 +229,168 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/24/vue/10、watch、computed和methods属性的区别/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/24/vue/10、watch、computed和methods属性的区别/" itemprop="url">十、watch、computed和methods属性的区别</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-24T16:23:22+08:00">
+                2019-01-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="watch属性"><a href="#watch属性" class="headerlink" title="watch属性"></a>watch属性</h1><p>1、监听data中属性的改变</p>
+<p>监听一个文本输入框里面数据的改变，可以使用到keyup事件，也可以使用Vue提供的watch属性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">    &lt;input type=<span class="string">"text"</span> v-model=<span class="string">"firstName"</span>&gt; +</span><br><span class="line">    &lt;input type=<span class="string">"text"</span> v-model=<span class="string">"lastName"</span>&gt; =</span><br><span class="line">    &lt;span&gt;&#123;&#123;fullName&#125;&#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    <span class="comment">// 创建 Vue 实例，得到 ViewModel</span></span><br><span class="line">    <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">      el: <span class="string">'#app'</span>,</span><br><span class="line">      data: &#123;</span><br><span class="line">        firstName: <span class="string">'jack'</span>,</span><br><span class="line">        lastName: <span class="string">'chen'</span>,</span><br><span class="line">        fullName: <span class="string">'jack - chen'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      methods: &#123;</span><br><span class="line">          send()&#123;</span><br><span class="line">              </span><br><span class="line">          &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      watch: &#123;</span><br><span class="line">        <span class="string">'firstName'</span>: <span class="function"><span class="keyword">function</span> (<span class="params">newVal, oldVal</span>) </span>&#123; <span class="comment">// 第一个参数是新数据，第二个参数是旧数据</span></span><br><span class="line">          <span class="keyword">this</span>.fullName = newVal + <span class="string">' - '</span> + <span class="keyword">this</span>.lastName;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'lastName'</span>: <span class="function"><span class="keyword">function</span> (<span class="params">newVal, oldVal</span>) </span>&#123;</span><br><span class="line">          <span class="keyword">this</span>.fullName = <span class="keyword">this</span>.firstName + <span class="string">' - '</span> + newVal;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>watch的使用类似于methods，将要监听的变量使用单引号括起</p>
+<p>‘变量名’:function(newVal,oldVal){</p>
+<p>​    //第一个参数是新数据，第二个参数是旧数据，watch可以监听到数据的变化</p>
+<p>}</p>
+<p>2、监听路由对象的改变</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">    &lt;router-link to=<span class="string">"/login"</span>&gt;登录&lt;<span class="regexp">/router-link&gt;</span></span><br><span class="line"><span class="regexp">    &lt;router-link to="/</span>register<span class="string">"&gt;注册&lt;/router-link&gt;</span></span><br><span class="line"><span class="string">    &lt;router-view&gt;&lt;/router-view&gt;</span></span><br><span class="line"><span class="string">&lt;/div&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  &lt;script&gt;</span></span><br><span class="line"><span class="string">    var login = Vue.extend(&#123;</span></span><br><span class="line"><span class="string">      template: '&lt;h1&gt;登录组件&lt;/h1&gt;'</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    var register = Vue.extend(&#123;</span></span><br><span class="line"><span class="string">      template: '&lt;h1&gt;注册组件&lt;/h1&gt;'</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    var router = new VueRouter(&#123;</span></span><br><span class="line"><span class="string">      routes: [</span></span><br><span class="line"><span class="string">        &#123; path: "</span>/login<span class="string">", component: login &#125;,</span></span><br><span class="line"><span class="string">        &#123; path: "</span>/register<span class="string">", component: register &#125;</span></span><br><span class="line"><span class="string">      ]</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    // 创建 Vue 实例，得到 ViewModel</span></span><br><span class="line"><span class="string">    var vm = new Vue(&#123;</span></span><br><span class="line"><span class="string">      el: '#app',</span></span><br><span class="line"><span class="string">      data: &#123;&#125;,</span></span><br><span class="line"><span class="string">      methods: &#123;&#125;,</span></span><br><span class="line"><span class="string">      router: router,</span></span><br><span class="line"><span class="string">      watch: &#123;</span></span><br><span class="line"><span class="string">        '$route': function (newVal, oldVal) &#123;</span></span><br><span class="line"><span class="string">          if (newVal.path === '/login') &#123;</span></span><br><span class="line"><span class="string">            console.log('这是登录组件');</span></span><br><span class="line"><span class="string">          &#125;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string">  &lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>监听路由地址的变化，则在单引号内要输入’$route’或者’$route.path’，其余与监听数据的变化一样。</p>
+<h1 id="computed计算属性"><a href="#computed计算属性" class="headerlink" title="computed计算属性"></a>computed计算属性</h1><p>1、默认只有getter的计算属性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">    &lt;input type=<span class="string">"text"</span> v-model=<span class="string">"firstName"</span>&gt; +</span><br><span class="line">    &lt;input type=<span class="string">"text"</span> v-model=<span class="string">"lastName"</span>&gt; =</span><br><span class="line">    &lt;span&gt;&#123;&#123;fullName&#125;&#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    <span class="comment">// 创建 Vue 实例，得到 ViewModel</span></span><br><span class="line">    <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">      el: <span class="string">'#app'</span>,</span><br><span class="line">      data: &#123;</span><br><span class="line">        firstName: <span class="string">'jack'</span>,</span><br><span class="line">        lastName: <span class="string">'chen'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      methods: &#123;&#125;,</span><br><span class="line">      computed: &#123; <span class="comment">// 计算属性； 特点：当计算属性中所以来的任何一个 data 属性改变之后，都会重新触发 本计算属性 的重新计算，从而更新 fullName 的值</span></span><br><span class="line">        fullName() &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">this</span>.firstName + <span class="string">' - '</span> + <span class="keyword">this</span>.lastName;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>计算属性特点：当计算属性中所以来的任何一个 data 属性改变之后，都会重新触发 本计算属性 的重新计算，从而更新 fullName 的值</p>
+<p>2、定义有getter和setter的计算属性：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">    &lt;input type=<span class="string">"text"</span> v-model=<span class="string">"firstName"</span>&gt;</span><br><span class="line">    &lt;input type=<span class="string">"text"</span> v-model=<span class="string">"lastName"</span>&gt;</span><br><span class="line">    &lt;!-- 点击按钮重新为 计算属性 fullName 赋值 --&gt;</span><br><span class="line">    &lt;input type=<span class="string">"button"</span> value=<span class="string">"修改fullName"</span> @click=<span class="string">"changeName"</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;span&gt;&#123;&#123;fullName&#125;&#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    <span class="comment">// 创建 Vue 实例，得到 ViewModel</span></span><br><span class="line">    <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">      el: <span class="string">'#app'</span>,</span><br><span class="line">      data: &#123;</span><br><span class="line">        firstName: <span class="string">'jack'</span>,</span><br><span class="line">        lastName: <span class="string">'chen'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      methods: &#123;</span><br><span class="line">        changeName() &#123;</span><br><span class="line">          <span class="keyword">this</span>.fullName = <span class="string">'TOM - chen2'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      computed: &#123;</span><br><span class="line">        fullName: &#123;</span><br><span class="line">          get: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.firstName + <span class="string">' - '</span> + <span class="keyword">this</span>.lastName;</span><br><span class="line">          &#125;,</span><br><span class="line">          set: <span class="function"><span class="keyword">function</span> (<span class="params">newVal</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> parts = newVal.split(<span class="string">' - '</span>);</span><br><span class="line">            <span class="keyword">this</span>.fir、</span><br><span class="line">            stName = parts[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">this</span>.lastName = parts[<span class="number">1</span>];</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>watch、computed和methods之间的对比</p>
+<ol>
+<li>computed属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；</li>
+<li>methods方法表示一个具体的操作，主要书写业务逻辑；</li>
+<li>watch一个对象，键是需要观察的表达式，值是对应回调函数。主要用来监听某些特定数据的变化，从而进行某些具体的业务逻辑操作；可以看作是computed和methods的结合体；</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/24/vue/9、路由/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1651,148 +1813,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/01/java/Struts2/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/01/java/Struts2/" itemprop="url">Struts 2（一）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-01T19:46:27+08:00">
-                2018-11-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Struts-2（一）"><a href="#Struts-2（一）" class="headerlink" title="Struts 2（一）"></a>Struts 2（一）</h1><p>Struts 2是一个基于MVC设计模式的web应用框架，本质上是相当于一个servlet。Struts 2是以WebWork为核心，采用拦截器的机制来处理用户的请求，使得业务逻辑控制器与ServletApi完全脱离，所以Struts2是一个基于MVC设计模式的WEB框架。常见的WEB层框架还有SpringMVC，Webwork。</p>
-<p><img src="http://i1.bvimg.com/645823/f91f9de15bc67453.png" alt="Markdown"></p>
-<p>Struts2环境搭建</p>
-<p>1、到官网下载Struts2的开发环境 ：<a href="http://struts.apache.org/" target="_blank" rel="noopener">http://struts.apache.org/</a></p>
-<p>2、解压Struts2的开发包。然后搜索到struts-blank项目，这个项目是一个最基本的Struts项目，找到其中的lib目录，引入jar包。</p>
-<p>​    <img src="http://i1.bvimg.com/645823/a5b1968f0ac718be.png" alt="Markdown"></p>
-<p>3、创建一个jsp页面 </p>
-<p><img src="http://i1.bvimg.com/645823/4c27715088bd1ae8.png" alt="Markdown"></p>
-<p>4、编写对应的Action类，不同于传统的创建servlet，也不需要实现其他的接口</p>
-<p><img src="http://i2.bvimg.com/645823/f5ead895f5ce8203.png"></p>
-<p>5、然后对Action进行配置</p>
-<p>在src目录下面创建名称为struts.xml的配置文件</p>
-<p><img src="http://i2.bvimg.com/645823/a38f3415d845492a.png" alt="Markdown"></p>
-<p>6、然后再WEB-INF下面的web.xml配置前端控制器（核心过滤器）</p>
-<p><img src="http://i2.bvimg.com/645823/1b01e347a0c6167e.png" alt="Markdown"></p>
-<p>7、改写Action中的方法的返回值</p>
-<p><img src="http://i2.bvimg.com/645823/28854e29b3af2aa4.png" alt="Markdown"></p>
-<p>8、然后改写Struts.xml，配置页面的跳转</p>
-<p><a href="http://i2.bvimg.com/645823/66dc493b00ed988e.png" target="_blank" rel="noopener">http://i2.bvimg.com/645823/66dc493b00ed988e.png</a></p>
-<p>9、编写success.jsp</p>
-<p><img src="http://i2.bvimg.com/645823/99e244c47aa1e8a9.png" alt="Markdown"></p>
-<p><img src="/air.png" alt="air"></p>
-<p>   <img src="/../Struts2/lucky.jpg" alt="lucky"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1843,7 +1863,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
