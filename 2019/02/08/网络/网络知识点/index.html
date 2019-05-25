@@ -79,23 +79,25 @@
 
 
 
-<meta name="description" content="常见网络知识点1、常见的http状态码状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：1xx：指示信息–表示请求已接收，继续处理2xx：成功–表示请求已被成功接收、理解、接受3xx：重定向–要完成请求必须进行更进一步的操作4xx：客户端错误–请求有语法错误或请求无法实现5xx：服务器端错误–服务器未能实现合法的请求   200 OK 一切正常，对GET和POST请求的应答文档">
+<meta name="description" content="常见网络知识点1、TCP/IP模型Transmission Control Protocol/Internet Protocol，翻译成人话就是 传输控制协议/互联网协议，基于TCP/IP的参考模型协议分成了四个层次，它们分别是链路层、网络层、传输层和应用层。 应用层定了向用户提供应用服务时通信的活动。HTTP协议存在于该层。（FTP文件传输协议，DNS域名系统） 传输层对上层应用层，提供处于连接">
 <meta name="keywords" content="Interview">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常见网络知识点">
 <meta property="og:url" content="http://yoursite.com/2019/02/08/网络/网络知识点/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="常见网络知识点1、常见的http状态码状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：1xx：指示信息–表示请求已接收，继续处理2xx：成功–表示请求已被成功接收、理解、接受3xx：重定向–要完成请求必须进行更进一步的操作4xx：客户端错误–请求有语法错误或请求无法实现5xx：服务器端错误–服务器未能实现合法的请求   200 OK 一切正常，对GET和POST请求的应答文档">
+<meta property="og:description" content="常见网络知识点1、TCP/IP模型Transmission Control Protocol/Internet Protocol，翻译成人话就是 传输控制协议/互联网协议，基于TCP/IP的参考模型协议分成了四个层次，它们分别是链路层、网络层、传输层和应用层。 应用层定了向用户提供应用服务时通信的活动。HTTP协议存在于该层。（FTP文件传输协议，DNS域名系统） 传输层对上层应用层，提供处于连接">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/02/08/网络/网络知识点/images/http.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/02/08/网络/网络知识点/images/https.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/08/网络/网络知识点/TCP.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/08/网络/网络知识点/URL.png">
-<meta property="og:updated_time" content="2019-05-18T17:43:37.135Z">
+<meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/tcpip%E5%8D%8F%E8%AE%AE.png">
+<meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/TCPIP%E5%8E%9F%E7%90%86%E5%9B%BE.jpg">
+<meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/http.jpg">
+<meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/https.png">
+<meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/TCP.png">
+<meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/URL.png">
+<meta property="og:updated_time" content="2019-05-25T13:23:15.101Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见网络知识点">
-<meta name="twitter:description" content="常见网络知识点1、常见的http状态码状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：1xx：指示信息–表示请求已接收，继续处理2xx：成功–表示请求已被成功接收、理解、接受3xx：重定向–要完成请求必须进行更进一步的操作4xx：客户端错误–请求有语法错误或请求无法实现5xx：服务器端错误–服务器未能实现合法的请求   200 OK 一切正常，对GET和POST请求的应答文档">
-<meta name="twitter:image" content="http://yoursite.com/2019/02/08/网络/网络知识点/images/http.jpg">
+<meta name="twitter:description" content="常见网络知识点1、TCP/IP模型Transmission Control Protocol/Internet Protocol，翻译成人话就是 传输控制协议/互联网协议，基于TCP/IP的参考模型协议分成了四个层次，它们分别是链路层、网络层、传输层和应用层。 应用层定了向用户提供应用服务时通信的活动。HTTP协议存在于该层。（FTP文件传输协议，DNS域名系统） 传输层对上层应用层，提供处于连接">
+<meta name="twitter:image" content="http://prf3dq1at.bkt.clouddn.com/tcpip%E5%8D%8F%E8%AE%AE.png">
 
 
 
@@ -327,7 +329,13 @@
       
 
       
-        <h1 id="常见网络知识点"><a href="#常见网络知识点" class="headerlink" title="常见网络知识点"></a>常见网络知识点</h1><h2 id="1、常见的http状态码"><a href="#1、常见的http状态码" class="headerlink" title="1、常见的http状态码"></a>1、常见的http状态码</h2><p>状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：<br>1xx：指示信息–表示请求已接收，继续处理<br>2xx：成功–表示请求已被成功接收、理解、接受<br>3xx：重定向–要完成请求必须进行更进一步的操作<br>4xx：客户端错误–请求有语法错误或请求无法实现<br>5xx：服务器端错误–服务器未能实现合法的请求  </p>
+        <h1 id="常见网络知识点"><a href="#常见网络知识点" class="headerlink" title="常见网络知识点"></a>常见网络知识点</h1><h2 id="1、TCP-IP模型"><a href="#1、TCP-IP模型" class="headerlink" title="1、TCP/IP模型"></a>1、TCP/IP模型</h2><p>Transmission Control Protocol/Internet Protocol，翻译成人话就是 <strong>传输控制协议/互联网协议</strong>，基于TCP/IP的参考模型协议分成了四个层次，它们分别是链路层、网络层、传输层和应用层。<br><img src="http://prf3dq1at.bkt.clouddn.com/tcpip%E5%8D%8F%E8%AE%AE.png" alt="markdown"></p>
+<h3 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h3><p>定了向用户提供应用服务时通信的活动。HTTP协议存在于该层。（FTP文件传输协议，DNS域名系统）</p>
+<h3 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h3><p>对上层应用层，提供处于连接中的两台计算机之间的数据传输。包含协议：TCP（传输控制协议）和UDP（用户数据报协议）。</p>
+<h3 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h3><p>用于处理在网络上流动的数据包。数据包是网络传输的最小的数据单位。该层规定了通过怎样的路径到达对方计算机，并把数据包传输给对方。（IP协议）</p>
+<h3 id="链路层"><a href="#链路层" class="headerlink" title="链路层"></a>链路层</h3><p>用来处理连接网络的硬件部分。如：控制操作系统、硬件的设备驱动、NIC（网卡）、光纤等物理可见部分。</p>
+<p>扯了那么多，一张图说明原理。。。<br><img src="http://prf3dq1at.bkt.clouddn.com/TCPIP%E5%8E%9F%E7%90%86%E5%9B%BE.jpg" alt="markdown"><br>TCP/IP协议通信的过程其实就对应着数据入栈与出栈的过程。入栈的过程，数据发送方每层不断地封装首部与尾部，添加一些传输的信息，确保能传输到目的地。出栈的过程，数据接收方每层不断地拆除首部与尾部，得到最终传输的数据。</p>
+<h2 id="2、常见的http状态码"><a href="#2、常见的http状态码" class="headerlink" title="2、常见的http状态码"></a>2、常见的http状态码</h2><p>状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：<br>1xx：指示信息–表示请求已接收，继续处理<br>2xx：成功–表示请求已被成功接收、理解、接受<br>3xx：重定向–要完成请求必须进行更进一步的操作<br>4xx：客户端错误–请求有语法错误或请求无法实现<br>5xx：服务器端错误–服务器未能实现合法的请求  </p>
 <p>200 OK 一切正常，对GET和POST请求的应答文档跟在后面。</p>
 <p>201 Created服务器已经创建了文档，Location头给出了它的URL。</p>
 <p>202 Accepted 已经接受请求，但处理尚未完成。</p>
@@ -337,27 +345,28 @@
 <p>405 Method Not Allowed 请求方法（GET、POST、HEAD、DELETE、PUT、TRACE等）对指定的资源不适用。（HTTP 1.1新）</p>
 <p>500 Internal Server Error 服务器遇到了意料不到的情况，不能完成客户的请求。</p>
 <p>502 Bad Gateway 服务器作为网关或者代理时，为了完成请求访问下一个服务器，但该服务器返回了非法的应答。</p>
-<h2 id="2、http协议"><a href="#2、http协议" class="headerlink" title="2、http协议"></a>2、http协议</h2><p>HTTP协议是<strong>Hyper Text Transfer Protocol（超文本传输协议）</strong>的缩写,是用于从万维网（WWW:World Wide Web ）服务器传输超文本到本地浏览器的传送协议，也就是说所有的www服务器都必须要遵循这个标准。</p>
+<h2 id="3、http协议"><a href="#3、http协议" class="headerlink" title="3、http协议"></a>3、http协议</h2><p><img src="http://prf3dq1at.bkt.clouddn.com/http.jpg" alt="markdown"></p>
+<p>HTTP协议是<strong>Hyper Text Transfer Protocol（超文本传输协议）</strong>的缩写,是用于从万维网（WWW:World Wide Web ）服务器传输超文本到本地浏览器的传送协议，也就是说所有的www服务器都必须要遵循这个标准。</p>
 <p>HTTP是一个基于TCP/IP通信协议来传递数据（HTML 文件, 图片文件, 查询结果等）。</p>
-<p>HTTP协议工作于客户端-服务端架构为上。浏览器作为HTTP客户端通过URL向HTTP服务端即WEB服务器发送所有请求。Web服务器根据接收到的请求后，向客户端发送响应信息。<br><img src="images/http.jpg" alt="http"></p>
-<p>HTTP请求由三部分组成，分别是：请求行、请求头、请求正文</p>
+<p>HTTP协议工作于客户端-服务端架构为上。浏览器作为HTTP客户端通过URL向HTTP服务端即WEB服务器发送所有请求。Web服务器根据接收到的请求后，向客户端发送响应信息。</p>
+<p>HTTP请求由三部分组成，分别是：<strong>请求行、请求头、请求正文</strong>+</p>
 <p>请求方法（所有方法全为大写）有多种，各个方法的解释如下：<br>GET     请求获取Request-URI所标识的资源<br>POST    在Request-URI所标识的资源后附加新的数据<br>HEAD    请求获取由Request-URI所标识的资源的响应消息报头<br>PUT     请求服务器存储一个资源，并用Request-URI作为其标识<br>DELETE  请求服务器删除Request-URI所标识的资源<br>TRACE   请求服务器回送收到的请求信息，主要用于测试或诊断<br>CONNECT 保留将来使用<br>OPTIONS 请求查询服务器的性能，或者查询与资源相关的选项和需求</p>
 <p>HTTP缺点：<br>1、通信使用明文（ 不加密） ， 内容可能会被窃听<br>2、不验证通信方的身份， 因此有可能遭遇伪装<br>3、无法证明报文的完整性， 所以有可能已遭篡改</p>
-<h2 id="3、Https"><a href="#3、Https" class="headerlink" title="3、Https"></a>3、Https</h2><p>Https协议其实是基于Http的，多了个s其实就是Secure，所以也就是<strong>Hypertext Transfer Protocol Secure（超文本传输安全协议）</strong><br>相对于HTTP协议，具有以下优点：</p>
+<h2 id="4、Https"><a href="#4、Https" class="headerlink" title="4、Https"></a>4、Https</h2><p>Https协议其实是基于Http的，多了个s其实就是Secure，所以也就是<strong>Hypertext Transfer Protocol Secure（超文本传输安全协议）</strong><br>相对于HTTP协议，具有以下优点：</p>
 <ol>
 <li>内容加密：采用混合加密技术，中间者无法直接查看明文内容</li>
 <li>验证身份：通过证书认证客户端访问的是自己的服务器</li>
-<li>保护数据完整性：防止传输的内容被中间人冒充或者篡改<br><img src="images/https.png" alt="https"><h3 id="1）、SSL和TLS"><a href="#1）、SSL和TLS" class="headerlink" title="1）、SSL和TLS"></a>1）、SSL和TLS</h3></li>
+<li>保护数据完整性：防止传输的内容被中间人冒充或者篡改<br><img src="http://prf3dq1at.bkt.clouddn.com/https.png" alt="markdown"><h3 id="1）、SSL和TLS"><a href="#1）、SSL和TLS" class="headerlink" title="1）、SSL和TLS"></a>1）、SSL和TLS</h3></li>
 </ol>
 <p>SSL(Secure Sockets Layer 安全套接层),及其继任者传输层安全（Transport Layer Security，TLS）是为网络通信提供安全及数据完整性的一种安全协议。TLS与SSL在传输层对网络连接进行加密</p>
-<h2 id="4、TCP协议"><a href="#4、TCP协议" class="headerlink" title="4、TCP协议"></a>4、TCP协议</h2><p><img src="/2019/02/08/网络/网络知识点/TCP.png" alt="TCP"><br>互联网由一整套协议构成<br>图片说明：顶层协议是应用层协议 =&gt; TCP协议 =&gt; IP协议 =&gt; 以太网协议</p>
+<h2 id="5、TCP协议"><a href="#5、TCP协议" class="headerlink" title="5、TCP协议"></a>5、TCP协议</h2><p><img src="http://prf3dq1at.bkt.clouddn.com/TCP.png" alt="markdown"><br>互联网由一整套协议构成<br>图片说明：顶层协议是应用层协议 =&gt; TCP协议 =&gt; IP协议 =&gt; 以太网协议</p>
 <p>以太网协议：最底层的协议，可以解决子网内部的点对点通讯。</p>
 <p>IP协议：IP协议，可以解决多个局域网之间互通，可以连接多个局域网，定义了一套自己的地址规则，实现了路由的功能，允许某个局域网的A主机，向另一个局域网的B主机发送消息。（PS：路由器就是基于IP协议。所以局域网之间要靠路由器连接）</p>
 <p>题外话：路由原理就是路由器内部有一张路由表，规定A段IP地址走出口一，B段IP地址走出口二。。。根据这样实现了数据包的转发。</p>
 <p>TCP协议：IP协议只是一个地址协议，并不能保证数据的完整性。如果缓存满了，新进来的数据包就会丢失，所以这个时候需要发现丢了哪一个包，以及如何重新发送这个包，所以这个时候需要使用到TCP协议。以太网数据包的负载是1500字节，TCP数据包的负载在1400字节左右。</p>
-<h2 id="5、URL和URI的区别"><a href="#5、URL和URI的区别" class="headerlink" title="5、URL和URI的区别"></a>5、URL和URI的区别</h2><p><img src="/2019/02/08/网络/网络知识点/URL.png" alt="URL"><br>URL是Uniform Resource Locator，表示是一个地址。<br>URI是Uniform Resource Identifier,表示是一个资源。<br>URL是URI的子集，所有的URL都是URI，但不是每个URI都是URL，还有可能是URN。<br>在这里举一个栗子：比如这个世界上的电音之王是加拿大炮王XXX。那这个头衔电音之王加拿大炮王就是一个URI，那如果我们想要找到这个人XXX，光知道头衔肯定是不够的，所以我们还需要知道他的住址，而这个住址就是URL。</p>
+<h2 id="6、URL和URI的区别"><a href="#6、URL和URI的区别" class="headerlink" title="6、URL和URI的区别"></a>6、URL和URI的区别</h2><p><img src="http://prf3dq1at.bkt.clouddn.com/URL.png" alt="markdown"><br>URL是Uniform Resource Locator，表示是一个地址。<br>URI是Uniform Resource Identifier,表示是一个资源。<br>URL是URI的子集，所有的URL都是URI，但不是每个URI都是URL，还有可能是URN。<br>在这里举一个栗子：比如这个世界上的电音之王是加拿大炮王XXX。那这个头衔电音之王加拿大炮王就是一个URI，那如果我们想要找到这个人XXX，光知道头衔肯定是不够的，所以我们还需要知道他的住址，而这个住址就是URL。</p>
 <p>同理，每个人的身份证号码就是一个URI，而每个人的家庭住址也是一个URL。<br>总结：<strong>URI强调的是给资源标记命名，URL强调的是给资源定位，</strong>但是你会发现，URL显然比URI包含信息更多，我通过URL也可以知道张三是总经理，并且我还知道了他的地址，<strong>所以大多数情况下大家觉得给一个网络资源分别命名和给出地址太麻烦，干脆就用地址既当地址用，又当标记名用</strong>，所以，URL也充当了WWW万维网里面URI的角色，但是他比URI多了一层意义，我不光知道你叫什么，我还知道你在哪里。我们在浏览器输入的都是URL，因为我们输入的目的是为了找到某一个资源，当然你输入的是URI也是没错的，因为URL也是URI。</p>
-<h2 id="6、跨域问题"><a href="#6、跨域问题" class="headerlink" title="6、跨域问题"></a>6、跨域问题</h2><p>跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。<br>同源策略限制了以下行为：</p>
+<h2 id="7、跨域问题"><a href="#7、跨域问题" class="headerlink" title="7、跨域问题"></a>7、跨域问题</h2><p>跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。<br>同源策略限制了以下行为：</p>
 <p>Cookie、LocalStorage 和 IndexDB 无法读取<br>​    DOM 和 JS 对象无法获取<br>​    Ajax请求发送不出去。</p>
 <p>所谓的同源是指，域名、协议、端口均为相同，主要对XHR的一个主要约束<br><a href="http://www.nealyang.cn/index.html" target="_blank" rel="noopener">http://www.nealyang.cn/index.html</a> 调用   <a href="http://www.nealyang.cn/server.php" target="_blank" rel="noopener">http://www.nealyang.cn/server.php</a>  非跨域</p>
 <p><a href="http://www.nealyang.cn/index.html" target="_blank" rel="noopener">http://www.nealyang.cn/index.html</a> 调用   <a href="http://www.neal.cn/server.php" target="_blank" rel="noopener">http://www.neal.cn/server.php</a>  跨域,主域不同</p>
@@ -371,7 +380,7 @@
 <p>其实就是把别人网站的DOM照搬过来进行伪造，获取用户的信息</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// HTML</span><br><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">name</span>=<span class="string">"yinhang"</span> <span class="attr">src</span>=<span class="string">"www.yinhang.com"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line">// JS</span><br><span class="line">// 由于没有同源策略的限制，钓鱼网站可以直接拿到别的网站的Dom</span><br><span class="line">const iframe = window.frames['yinhang']</span><br><span class="line">const node = iframe.document.getElementById('你输入账号密码的Input')</span><br><span class="line">console.log(`拿到了这个$&#123;node&#125;，我还拿不到你刚刚输入的账号密码吗`)</span><br></pre></td></tr></table></figure>
 <h3 id="解决跨域问题"><a href="#解决跨域问题" class="headerlink" title="解决跨域问题"></a>解决跨域问题</h3><p>1、jsonp解决跨域</p>
-<p>jsonp跨域其实也是JavaScript设计模式中的一种代理模式。由两个部分组成，回调函数和数据（数据指的是下面传入回调函数的res）</p>
+<p>jsonp跨域其实也是JavaScript设计模式中的一种代理模式。由两个部分组成，<strong>回调函数和数据</strong>（数据指的是下面传入回调函数的res）</p>
 <p>在html页面中通过相应的标签（img、script等）从不同域名下加载静态资源文件是被浏览器允许的，所以我们可以通过这个“犯罪漏洞”来进行跨域。一般，我们可以动态的创建script标签，再去请求一个带参网址来实现跨域通信</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原生的实现方式	</span></span><br><span class="line"><span class="keyword">let</span>  script  =  <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span><br><span class="line">script.src  =  <span class="string">'http://www.nealyang.cn/login?username=Nealyang&amp;callback=huidiao'</span>;</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(script);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>  <span class="title">huidiao</span>(<span class="params">res</span>)  </span>&#123;  </span><br><span class="line">    <span class="built_in">console</span>.log(res);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Jquery实现方式</span></span><br><span class="line">$.ajax(&#123;</span><br><span class="line">    url:<span class="string">'http://www.nealyang.cn/login'</span>,</span><br><span class="line">    type:<span class="string">'GET'</span>,</span><br><span class="line">    dataType:<span class="string">'jsonp'</span>,<span class="comment">//请求方式为jsonp</span></span><br><span class="line">    jsonpCallback:<span class="string">'callback'</span>,</span><br><span class="line">    data:&#123;</span><br><span class="line">        <span class="string">"username"</span>:<span class="string">"Nealyang"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>jsonp的最大缺点，就是只能实现get请求</p>
@@ -380,21 +389,20 @@
 <p>它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。</p>
 <p>CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。IE8+：IE8/9需要使用XDomainRequest对象来支持CORS。整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。</p>
 <p>一种是简单请求，另一种是非简单请求。只要满足下面条件就是简单请求</p>
-<p>请求方式为HEAD、POST 或者 GET<br>​    http头信息不超出一下字段：<br>Accept、Accept-Language 、 Content-Language、 Last-Event-ID、 Content-Type(限于三<br>个值：application/x-www-form-urlencoded、multipart/form-data、text/plain)</p>
+<p>请求方式为HEAD、POST 或者 GET<br>http头信息不超出一下字段：Accept、Accept-Language 、 Content-Language、 Last-Event-ID、 Content-Type(限于三个值：application/x-www-form-urlencoded、multipart/form-data、text/plain)</p>
 <p>为什么要分为简单请求和非简单请求，因为浏览器对这两种请求方式的处理方式是不同的。</p>
 <p>使用方法很简单，在服务端设置：</p>
 <p><strong>Header set Access-Control-Allow-Origin</strong><br>这种设置将接受所有域名的跨域请求，也可以指定具体网址，也可以对域名进行限定：<br>Header set Access-Control-Allow-Origin <a href="http://www.test.com" target="_blank" rel="noopener">http://www.test.com</a></p>
 <p>然而，这种方式的局限性在于要求客户端支持，并且服务端进行相关设置。</p>
 <p>在这两者满足的情况下，通过CORS进行跨域不仅支持所有类型的HTTP请求，而且开发者可以使用<br>普通的XMLHttpRequest发起请求和获得数据，比起JSONP有更好的错误处理。</p>
-<pre><code>3）利用window.name进行跨域处理
-4）使用window.postMessage进行跨域
-</code></pre><h2 id="7、Cookie、session和localStorage、以及sessionStorage之间的区别"><a href="#7、Cookie、session和localStorage、以及sessionStorage之间的区别" class="headerlink" title="7、Cookie、session和localStorage、以及sessionStorage之间的区别"></a>7、Cookie、session和localStorage、以及sessionStorage之间的区别</h2><p>前景引入：http是一种无状态的协议，它的无状态可以用翻脸不认人（浏览器）来表示了；以至于服务器不会记得前一秒是哪个客户端向它发出了请求，这就会导致一种情况出现：小熊登录了淘宝；跳转一下页面，需要再登录；加入购物车，需要再登录；付款需要再登陆…影响用户体验。<br>在服务端的解决办法是：用session去管理cookie。</p>
+<p>3、利用window.name进行跨域处理<br>4、使用window.postMessage进行跨域</p>
+<h2 id="8、Cookie、session和localStorage、以及sessionStorage之间的区别"><a href="#8、Cookie、session和localStorage、以及sessionStorage之间的区别" class="headerlink" title="8、Cookie、session和localStorage、以及sessionStorage之间的区别"></a>8、Cookie、session和localStorage、以及sessionStorage之间的区别</h2><p>前景引入：http是一种无状态的协议，它的无状态可以用翻脸不认人（浏览器）来表示了；以至于服务器不会记得前一秒是哪个客户端向它发出了请求，这就会导致一种情况出现：小熊登录了淘宝；跳转一下页面，需要再登录；加入购物车，需要再登录；付款需要再登陆…影响用户体验。<br>在服务端的解决办法是：用session去管理cookie。</p>
 <p>当程序需要为某个客户端的请求创建一个session时，服务器首先检查这个客户端的请求里是否已包含了一个session标识（称为session id），如果已包含则说明以前已经为此客户端创建过session，服务器就按照session id把这个session检索出来使用（检索不到，会新建一个），如果客户端请求不包含session id，则为客户端创建一个session并且生成一个与此session相关联的session id，session id的值应该是一个既不会重复，又不容易被找到规律以仿造的字符串，这个session id将被在本次响应中返回给客户端保存。保存这个session id的方式可以采用cookie，这样在交互过程中浏览器可以自动的按照规则把这个标识发送给服务器。</p>
 <h3 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h3><p>内容主要包括<strong>名字、值、过期时间、路径和域</strong>。路径与域一起构成cookie的作用范围。若不设置时间，则表示这个cookie的生命期为浏览器会话期间，关闭浏览器窗口，cookie就会消失。这种生命期为浏览器会话期的cookie被称为会话cookie。所以会话cookie是保存在内存中，如果设置了过期时间，那么cookie就会保存在磁盘里。</p>
 <h3 id="session"><a href="#session" class="headerlink" title="session"></a>session</h3><p>在WEB开发中，服务器可以为每个用户浏览器创建一个会话对象（session对象），注意：一个浏览器独占一个session对象(默认情况下)。因此，在需要保存用户数据时，服务器程序可以把用户数据写到用户浏览器独占的session中，当用户使用浏览器访问其它程序时，其它程序可以从用户的session中取出该用户的数据，为用户服务。</p>
 <h3 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h3><p>在HTML5中，新加入了一个localStorage特性，这个特性主要是用来作为本地存储来使用的，解决了cookie存储空间不足的问题(cookie中每条cookie的存储空间为4k)，<strong>localStorage中一般浏览器支持的是5M大小</strong>，这个在不同的浏览器中localStorage会有所不同。</p>
 <h3 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h3><p>sessionStorage用于本地存储一个会话（session）中的数据，这些数据只有在同一个会话中的页面才能访问并且当会话结束后数据也随之销毁。因此sessionStorage不是一种持久化的本地存储，仅仅是会话级别的存储。</p>
-<h2 id="session和cookie的主要区别"><a href="#session和cookie的主要区别" class="headerlink" title="session和cookie的主要区别"></a>session和cookie的主要区别</h2><ul>
+<h2 id="9、session和cookie的主要区别"><a href="#9、session和cookie的主要区别" class="headerlink" title="9、session和cookie的主要区别"></a>9、session和cookie的主要区别</h2><ul>
 <li>Cookie是把用户的数据写给用户的浏览器。</li>
 <li>Session技术把用户的数据写到用户独占的session中。</li>
 <li>Session对象由服务器创建，开发人员可以调用request对象的getSession方法得到session对象。</li>
@@ -403,8 +411,7 @@
 <li>单个cookie保存的数*据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。</li>
 <li>session中保存的是对象，cookie中保存的是字符串</li>
 </ul>
-<h2 id="sessionStorage、localStorage和cookie的区别"><a href="#sessionStorage、localStorage和cookie的区别" class="headerlink" title="sessionStorage、localStorage和cookie的区别"></a><strong>sessionStorage、localStorage和cookie的区别</strong></h2><p>共同点：都是保存在浏览器端、且同源的<br>区别：<br>1、cookie数据始终在同源的http请求中携带（即使不需要），即cookie在浏览器和服务器间来回传递，而sessionStorage和localStorage不会自动把数据发送给服务器，仅在本地保存。cookie数据还有路径（path）的概念，可以限制cookie只属于某个路径下<br>2、存储大小限制也不同，cookie数据不能超过4K，同时因为每次http请求都会携带cookie、所以cookie只适合保存很小的数据，如会话标识。sessionStorage和localStorage虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大<br>3、数据有效期不同，sessionStorage：仅在当前浏览器窗口关闭之前有效；localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据；cookie：只在设置的cookie过期时间之前有效，即使窗口关闭或浏览器关闭<br>4、作用域不同，<strong>sessionStorage不在不同的浏览器窗口中共享</strong>，即使是同一个页面；localstorage在所有同源窗口中都是共享的；cookie也是在所有同源窗口中都是共享的</p>
-<p><a href="http://prcfme0aj.bkt.clouddn.com/%E8%A1%A8%E5%85%B3%E7%B3%BB.png" target="_blank" rel="noopener">http://prcfme0aj.bkt.clouddn.com/%E8%A1%A8%E5%85%B3%E7%B3%BB.png</a></p>
+<h2 id="10、sessionStorage、localStorage和cookie的区别"><a href="#10、sessionStorage、localStorage和cookie的区别" class="headerlink" title="10、sessionStorage、localStorage和cookie的区别"></a>10、<strong>sessionStorage、localStorage和cookie的区别</strong></h2><p>共同点：都是保存在浏览器端、且同源的<br>区别：<br>1、cookie数据始终在同源的http请求中携带（即使不需要），即cookie在浏览器和服务器间来回传递，而sessionStorage和localStorage不会自动把数据发送给服务器，仅在本地保存。cookie数据还有路径（path）的概念，可以限制cookie只属于某个路径下<br>2、存储大小限制也不同，cookie数据不能超过4K，同时因为每次http请求都会携带cookie、所以cookie只适合保存很小的数据，如会话标识。sessionStorage和localStorage虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大<br>3、数据有效期不同，sessionStorage：仅在当前浏览器窗口关闭之前有效；localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据；cookie：只在设置的cookie过期时间之前有效，即使窗口关闭或浏览器关闭<br>4、作用域不同，<strong>sessionStorage不在不同的浏览器窗口中共享</strong>，即使是同一个页面；localstorage在所有同源窗口中都是共享的；cookie也是在所有同源窗口中都是共享的</p>
 
       
     </div>
@@ -524,7 +531,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -579,7 +586,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#常见网络知识点"><span class="nav-number">1.</span> <span class="nav-text">常见网络知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、常见的http状态码"><span class="nav-number">1.1.</span> <span class="nav-text">1、常见的http状态码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、http协议"><span class="nav-number">1.2.</span> <span class="nav-text">2、http协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、Https"><span class="nav-number">1.3.</span> <span class="nav-text">3、Https</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1）、SSL和TLS"><span class="nav-number">1.3.1.</span> <span class="nav-text">1）、SSL和TLS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、TCP协议"><span class="nav-number">1.4.</span> <span class="nav-text">4、TCP协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、URL和URI的区别"><span class="nav-number">1.5.</span> <span class="nav-text">5、URL和URI的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、跨域问题"><span class="nav-number">1.6.</span> <span class="nav-text">6、跨域问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a、没有同源策略限制的接口请求"><span class="nav-number">1.6.1.</span> <span class="nav-text">a、没有同源策略限制的接口请求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#b、没有同源策略的DOM查询"><span class="nav-number">1.6.1.1.</span> <span class="nav-text">b、没有同源策略的DOM查询</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决跨域问题"><span class="nav-number">1.6.2.</span> <span class="nav-text">解决跨域问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7、Cookie、session和localStorage、以及sessionStorage之间的区别"><span class="nav-number">1.7.</span> <span class="nav-text">7、Cookie、session和localStorage、以及sessionStorage之间的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cookie"><span class="nav-number">1.7.1.</span> <span class="nav-text">cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#session"><span class="nav-number">1.7.2.</span> <span class="nav-text">session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#localStorage"><span class="nav-number">1.7.3.</span> <span class="nav-text">localStorage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sessionStorage"><span class="nav-number">1.7.4.</span> <span class="nav-text">sessionStorage</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#session和cookie的主要区别"><span class="nav-number">1.8.</span> <span class="nav-text">session和cookie的主要区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sessionStorage、localStorage和cookie的区别"><span class="nav-number">1.9.</span> <span class="nav-text">sessionStorage、localStorage和cookie的区别</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#常见网络知识点"><span class="nav-number">1.</span> <span class="nav-text">常见网络知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、TCP-IP模型"><span class="nav-number">1.1.</span> <span class="nav-text">1、TCP/IP模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用层"><span class="nav-number">1.1.1.</span> <span class="nav-text">应用层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传输层"><span class="nav-number">1.1.2.</span> <span class="nav-text">传输层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络层"><span class="nav-number">1.1.3.</span> <span class="nav-text">网络层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链路层"><span class="nav-number">1.1.4.</span> <span class="nav-text">链路层</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、常见的http状态码"><span class="nav-number">1.2.</span> <span class="nav-text">2、常见的http状态码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、http协议"><span class="nav-number">1.3.</span> <span class="nav-text">3、http协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、Https"><span class="nav-number">1.4.</span> <span class="nav-text">4、Https</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1）、SSL和TLS"><span class="nav-number">1.4.1.</span> <span class="nav-text">1）、SSL和TLS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、TCP协议"><span class="nav-number">1.5.</span> <span class="nav-text">5、TCP协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、URL和URI的区别"><span class="nav-number">1.6.</span> <span class="nav-text">6、URL和URI的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7、跨域问题"><span class="nav-number">1.7.</span> <span class="nav-text">7、跨域问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a、没有同源策略限制的接口请求"><span class="nav-number">1.7.1.</span> <span class="nav-text">a、没有同源策略限制的接口请求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#b、没有同源策略的DOM查询"><span class="nav-number">1.7.1.1.</span> <span class="nav-text">b、没有同源策略的DOM查询</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决跨域问题"><span class="nav-number">1.7.2.</span> <span class="nav-text">解决跨域问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8、Cookie、session和localStorage、以及sessionStorage之间的区别"><span class="nav-number">1.8.</span> <span class="nav-text">8、Cookie、session和localStorage、以及sessionStorage之间的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cookie"><span class="nav-number">1.8.1.</span> <span class="nav-text">cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#session"><span class="nav-number">1.8.2.</span> <span class="nav-text">session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#localStorage"><span class="nav-number">1.8.3.</span> <span class="nav-text">localStorage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sessionStorage"><span class="nav-number">1.8.4.</span> <span class="nav-text">sessionStorage</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9、session和cookie的主要区别"><span class="nav-number">1.9.</span> <span class="nav-text">9、session和cookie的主要区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10、sessionStorage、localStorage和cookie的区别"><span class="nav-number">1.10.</span> <span class="nav-text">10、sessionStorage、localStorage和cookie的区别</span></a></li></ol></li></ol></div>
             
 
           </div>

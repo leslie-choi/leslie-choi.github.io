@@ -323,7 +323,7 @@
         
           
             <h1 id="CSRF-跨站点请求伪造-Cross-Site-Request-Forgery"><a href="#CSRF-跨站点请求伪造-Cross-Site-Request-Forgery" class="headerlink" title="CSRF 跨站点请求伪造(Cross Site Request Forgery)"></a>CSRF 跨站点请求伪造(Cross Site Request Forgery)</h1><p>CSRF可以这样理解，攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的。比如以你的名义发送邮件、发消息，盗取你的账号，添加系统管理员，甚至于购买商品、虚拟货币转账等等。</p>
-<p>举一个简单的CSRF的栗子： 舍友A登录了一个全球知名的公益网站<a href="http://www.po**hub.com，然后在没有退出登录的情况下，舍友B和舍友A闹矛盾，于是给舍友A发送了另外一个www.你懂的.com的网站，而舍友A不理会这是一个危险网站，只看到你懂的网站里面有一张无法显示的图片。舍友A便倒回去浏览这个公益网站的时候，发现自己收藏的内容全都不见了。。。" target="_blank" rel="noopener">www.po**hub.com，然后在没有退出登录的情况下，舍友B和舍友A闹矛盾，于是给舍友A发送了另外一个www.你懂的.com的网站，而舍友A不理会这是一个危险网站，只看到你懂的网站里面有一张无法显示的图片。舍友A便倒回去浏览这个公益网站的时候，发现自己收藏的内容全都不见了。。。</a></p>
+<p>举一个简单的CSRF的栗子： 舍友A登录了一个全球知名的公益网站<a href="http://www.po*nhub.com，然后在没有退出登录的情况下，舍友B和舍友A闹矛盾，于是给舍友A发送了另外一个www.你懂的.com的网站，而舍友A不理会这是一个危险网站，只看到你懂的网站里面有一张无法显示的图片。舍友A便倒回去浏览这个公益网站的时候，发现自己收藏的内容全都不见了。。。" target="_blank" rel="noopener">www.po*nhub.com，然后在没有退出登录的情况下，舍友B和舍友A闹矛盾，于是给舍友A发送了另外一个www.你懂的.com的网站，而舍友A不理会这是一个危险网站，只看到你懂的网站里面有一张无法显示的图片。舍友A便倒回去浏览这个公益网站的时候，发现自己收藏的内容全都不见了。。。</a></p>
 <p>这就是一个简单的CSRF攻击，舍友A点开www.你懂的.com网站的时候，携带了公益网站的cookie，而在你懂的网站中，无法显示的图片标签中，执行了一个请求，将舍友A的收藏内容清空，而这个请求正是攻击者所伪造的。</p>
 <h2 id="CSRF防御：防御主要着手于服务端效果更好"><a href="#CSRF防御：防御主要着手于服务端效果更好" class="headerlink" title="CSRF防御：防御主要着手于服务端效果更好"></a>CSRF防御：防御主要着手于服务端效果更好</h2><h2 id="1、验证码"><a href="#1、验证码" class="headerlink" title="1、验证码"></a>1、验证码</h2><p>由于CSRF攻击通常是在用户不知情的情况下发送的请求，所以通过验证码功能，强制用户进行交互，这种方法可以完全杜绝CSRF攻击，但是对于用户的体验性大打折扣，所以只能作为一个辅助的手段。</p>
 <h2 id="2、验证-HTTP-Referer"><a href="#2、验证-HTTP-Referer" class="headerlink" title="2、验证 HTTP Referer"></a>2、验证 HTTP Referer</h2><p>字段根据 HTTP协议，在HTTP头中有一个字段叫 Referer，它记录了HTTP请求的来源地址。在通常情况下，访问一个安全受限页面的请求来自于同一个网站，比如需要访问 <a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory%EF%BC%8C" target="_blank" rel="noopener">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory，</a> 用户必须先登陆 bank.example，然后通过点击页面上的按钮来触发转账事件。这时，该转帐请求的 Referer 值就会是转账按钮所在的页面的 URL，通常是以 bank.example 域名开头的地址。而如果黑客要对银行网站实施 CSRF 攻击，他只能在他自己的网站构造请求，当用户通过黑客的网站发送请求到银行时，该请求的 Referer 是指向黑客自己的网站。因此，要防御 CSRF 攻击，银行网站只需要对于每一个转账请求验证其 Referer 值，如果是以 bank.example 开头的域名，则说明该请求是来自银行网站自己的请求，是合法的。如果 Referer 是其他网站的话，则有可能是黑客的 CSRF 攻击，拒绝该请求。 然而，这种方法并非万无一失。Referer 的值是由浏览器提供的，虽然 HTTP 协议上有明确的要求，但是每个浏览器对于 Referer 的具体实现可能有差别，并不能保证浏览器自身没有安全漏洞。使用验证 Referer 值的方法，就是把安全性都依赖于第三方（即浏览器）来保障，从理论上来讲，这样并不安全。</p>
@@ -348,7 +348,7 @@
 <p>​    3、JavaScript 通过 Ajax 加载业务数据，调用 DOM API 更新到页面上 </p>
 <p>b、对 HTML 做充分转义。。</p>
 <h3 id="3、预防-DOM-型-XSS-攻击"><a href="#3、预防-DOM-型-XSS-攻击" class="headerlink" title="3、预防 DOM 型 XSS 攻击"></a>3、预防 DOM 型 XSS 攻击</h3><p>DOM 型 XSS 攻击，实际上就是网站前端 JavaScript 代码本身不够严谨，把不可信的数据当作代码执行了。</p>
-<p>所以在使用 .innerHTML、.outerHTML、document.write() 时要特别小心，不要把不可信的数据作为 HTML 插到页面上，而应尽量使用 .textContent、.setAttribute() 等。</p>
+<p>所以在使用 <strong>.innerHTML、.outerHTML、document.write() </strong>时要特别小心，不要把不可信的数据作为 HTML 插到页面上，而应尽量使用 .textContent、.setAttribute() 等。</p>
 <h3 id="4、其他XSS防范措施"><a href="#4、其他XSS防范措施" class="headerlink" title="4、其他XSS防范措施"></a>4、其他XSS防范措施</h3><p>a、HTTP-only Cookie: 禁止 JavaScript 读取某些敏感 Cookie，攻击者完成 XSS 注入后也无法窃取此 Cookie。 b、验证码：防止脚本冒充用户提交危险操作。 c、对于不受信任的输入，都应该限定一个合理的长度。虽然无法完全防止 XSS 发生，但可以增加 XSS 攻击的难度。 d、Content Security Policy</p>
 <p>1)禁止加载外域代码，防止复杂的攻击逻辑。</p>
 <p>2)禁止外域提交，网站被攻击后，用户的数据不会泄露到外域。</p>
@@ -1962,7 +1962,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
