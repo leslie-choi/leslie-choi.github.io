@@ -229,6 +229,173 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/22/vue/1、Vue的增删改/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/22/vue/1、Vue的增删改/" itemprop="url">一、Vue的增删改</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-22T16:59:35+08:00">
+                2019-01-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="一、增"><a href="#一、增" class="headerlink" title="一、增"></a>一、增</h1><ol>
+<li><p>在id的输入框内利用v-model绑定id属性，name属性同样利用v-model进行绑定</p>
+</li>
+<li><p>在添加按钮上面利用v-on:click=’add()’绑定点击事件，触发增加方法</p>
+</li>
+<li><p>实现添加的方法</p>
+</li>
+</ol>
+<p>获取id和name，组织出一个对象，然后把这个对象添加到data中的list中</p>
+<p>在Vue中，已经实现了数据的双向绑定，所以每次修改了data中的数据，Vue会默认监听数据的改动，然后应用到页面上</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> car = &#123; <span class="attr">id</span>: <span class="keyword">this</span>.id, <span class="attr">name</span>: <span class="keyword">this</span>.name, <span class="attr">ctime</span>: <span class="keyword">new</span> <span class="built_in">Date</span>() &#125;</span><br><span class="line"><span class="keyword">this</span>.list.push(car)</span><br><span class="line"><span class="keyword">this</span>.id = <span class="keyword">this</span>.name = <span class="string">''</span></span><br></pre></td></tr></table></figure>
+<h1 id="二、删"><a href="#二、删" class="headerlink" title="二、删"></a>二、删</h1><ol>
+<li><p>添加一个a标签，阻止默认的事件，绑定del(item.id)方法传入参数</p>
+</li>
+<li><p>根据id删除数据，要先找到这一项的索引</p>
+</li>
+<li><p>找到索引之后，调用数组的splice方法</p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> index = <span class="keyword">this</span>.list.findIndex(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (item.id == id) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// console.log(index)</span></span><br><span class="line"><span class="keyword">this</span>.list.splice(index, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="三、查"><a href="#三、查" class="headerlink" title="三、查"></a>三、查</h1><p>1、根据关键字进行数据的搜索，在input标签中使用v-model绑定keywords属性</p>
+<p>2、 foreach  some  filter findIndex  都是属于数组的新方法，会对数组的每一项进行遍历</p>
+<p>ES6中，为字符串提供了一个新方法，叫做  String.prototype.includes(‘要包含的字符串’)</p>
+<p>如果包含，则返回 true ，否则返回 false</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">this</span>.list.filter(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (item.name.includes(keywords)) &#123;</span><br><span class="line">    <span class="keyword">return</span> item</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/01/22/vue/1、Vue的增删改/leslie-choi.github.io\source\_posts\vue\images\vue增删改.png" alt="vue增删改"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/01/java/Struts2/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1450,7 +1617,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

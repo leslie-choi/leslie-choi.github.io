@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Interview,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -79,20 +79,17 @@
 
 
 
-<meta name="description" content="数组Array的对象方法 JS中的类型转换12345678var x = new Boolean(false);if (x) &amp;#123;  alert(&apos;hi&apos;);&amp;#125;var y = Boolean(0);if (y) &amp;#123;  alert(&apos;hello&apos;); &amp;#125; 注意：在JS中，只有0，-0，NaN，“”，undefined这六个值转换为布尔值时，结果才会是false。">
-<meta name="keywords" content="Interview">
+<meta name="description" content="一、任务队列因为Javascript是单线程的，所以意味着任务需要一个接着一个完成。但是如果前面的任务执行时间很长，那么后面的任务就得一直阻塞着，这样用户体验十分差。JavaScript的设计者考虑到了这一点，所以他将JavaScript的任务分为两种，在主线程上执行的任务”同步任务”，被主线程挂载起来的任务”异步任务”,后者一般是放在一个叫任务队列的数据结构中。那么一般异步执行运行机制如下(也是">
 <meta property="og:type" content="article">
-<meta property="og:title" content="零碎知识点">
-<meta property="og:url" content="http://yoursite.com/2019/02/23/JavaScript/基础零碎点/index.html">
+<meta property="og:title" content="404 not found">
+<meta property="og:url" content="http://yoursite.com/2019/05/25/JavaScript/javaScript运行机制/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="数组Array的对象方法 JS中的类型转换12345678var x = new Boolean(false);if (x) &amp;#123;  alert(&apos;hi&apos;);&amp;#125;var y = Boolean(0);if (y) &amp;#123;  alert(&apos;hello&apos;); &amp;#125; 注意：在JS中，只有0，-0，NaN，“”，undefined这六个值转换为布尔值时，结果才会是false。">
+<meta property="og:description" content="一、任务队列因为Javascript是单线程的，所以意味着任务需要一个接着一个完成。但是如果前面的任务执行时间很长，那么后面的任务就得一直阻塞着，这样用户体验十分差。JavaScript的设计者考虑到了这一点，所以他将JavaScript的任务分为两种，在主线程上执行的任务”同步任务”，被主线程挂载起来的任务”异步任务”,后者一般是放在一个叫任务队列的数据结构中。那么一般异步执行运行机制如下(也是">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/array.png">
-<meta property="og:updated_time" content="2019-05-13T00:55:07.817Z">
+<meta property="og:updated_time" content="2019-05-25T13:47:37.658Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="零碎知识点">
-<meta name="twitter:description" content="数组Array的对象方法 JS中的类型转换12345678var x = new Boolean(false);if (x) &amp;#123;  alert(&apos;hi&apos;);&amp;#125;var y = Boolean(0);if (y) &amp;#123;  alert(&apos;hello&apos;); &amp;#125; 注意：在JS中，只有0，-0，NaN，“”，undefined这六个值转换为布尔值时，结果才会是false。">
-<meta name="twitter:image" content="http://prf3dq1at.bkt.clouddn.com/array.png">
+<meta name="twitter:title" content="404 not found">
+<meta name="twitter:description" content="一、任务队列因为Javascript是单线程的，所以意味着任务需要一个接着一个完成。但是如果前面的任务执行时间很长，那么后面的任务就得一直阻塞着，这样用户体验十分差。JavaScript的设计者考虑到了这一点，所以他将JavaScript的任务分为两种，在主线程上执行的任务”同步任务”，被主线程挂载起来的任务”异步任务”,后者一般是放在一个叫任务队列的数据结构中。那么一般异步执行运行机制如下(也是">
 
 
 
@@ -122,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/23/JavaScript/基础零碎点/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/25/JavaScript/javaScript运行机制/">
 
 
 
 
 
-  <title>零碎知识点 | 404 not found</title>
+  <title> | 404 not found</title>
   
 
 
@@ -235,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/23/JavaScript/基础零碎点/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/JavaScript/javaScript运行机制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
@@ -252,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">零碎知识点</h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -264,8 +261,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-23T18:06:21+08:00">
-                2019-02-23
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-25T21:43:49+08:00">
+                2019-05-25
               </time>
             
 
@@ -274,28 +271,6 @@
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -324,17 +299,16 @@
       
 
       
-        <h1 id="数组Array的对象方法"><a href="#数组Array的对象方法" class="headerlink" title="数组Array的对象方法"></a>数组Array的对象方法</h1><p><img src="http://prf3dq1at.bkt.clouddn.com/array.png" alt="markdown"></p>
-<h1 id="JS中的类型转换"><a href="#JS中的类型转换" class="headerlink" title="JS中的类型转换"></a>JS中的类型转换</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="keyword">new</span> <span class="built_in">Boolean</span>(<span class="literal">false</span>);</span><br><span class="line"><span class="keyword">if</span> (x) &#123;</span><br><span class="line">  alert(<span class="string">'hi'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> y = <span class="built_in">Boolean</span>(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span> (y) &#123;</span><br><span class="line">  alert(<span class="string">'hello'</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>注意：在JS中，只有0，-0，NaN，“”，undefined这六个值转换为布尔值时，结果才会是false。而所有的对象转化为布尔值时，结果都会是true！</strong><br>所以上面题目的第一部分，有new关键字，所以X就是一个新对象，结果就会输出hi。<br>题目的第二部分，没有new关键字，所以就是进行显示类型的转换，0转换为false，结果域加new的时候相反。</p>
-<h1 id="JavaScript中的类型检测"><a href="#JavaScript中的类型检测" class="headerlink" title="JavaScript中的类型检测"></a>JavaScript中的类型检测</h1><p>1、typeof<br>2、instanceof<br>3、Object.prototype.toString.cll()</p>
-<h1 id="值类型与引用类型的差别"><a href="#值类型与引用类型的差别" class="headerlink" title="值类型与引用类型的差别"></a>值类型与引用类型的差别</h1><ul>
-<li>基本类型在内存中占据固定大小的空间，因此被保存在栈内存中</li>
-<li>从一个变量向另一个变量复制基本类型的值，复制的是值的副本</li>
-<li>引用类型的值是对象，保存在堆内存</li>
-<li>包含引用类型值的变量实际上包含的并不是对象本身，而是一个指向该对象的指针</li>
-<li>从一个变量向另一个变量复制引用类型的值的时候，复制是引用指针，因此两个变量最终都指向同一个对象</li>
-</ul>
+        <h1 id="一、任务队列"><a href="#一、任务队列" class="headerlink" title="一、任务队列"></a>一、任务队列</h1><p>因为Javascript是单线程的，所以意味着任务需要一个接着一个完成。但是如果前面的任务执行时间很长，那么后面的任务就得一直阻塞着，这样用户体验十分差。<br>JavaScript的设计者考虑到了这一点，所以他将JavaScript的任务分为两种，在主线程上执行的任务”同步任务”，被主线程挂载起来的任务”异步任务”,后者一般是放在一个叫<strong>任务队列</strong>的数据结构中。<br>那么一般异步执行运行机制如下(也是JavaScript的运行机制)：</p>
+<p>(1)所有同步任务都在主线程上执行，形成一个<strong>执行栈</strong>。</p>
+<p>(2)主线程之外，还有一个“任务队列”,只要异步任务有了运行结果，就在“任务队列”之中放置一个事件。</p>
+<p>(3)一旦“执行栈”中的所有同步任务执行完毕了，系统就会读取“任务队列”，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。</p>
+<p>(4)主线程不断重复上面的三步。（事件循环）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var test = function()&#123;</span><br><span class="line">    alert(&quot;test&quot;);</span><br><span class="line">&#125;</span><br><span class="line">var test2 = function()&#123;</span><br><span class="line">    alert(&quot;test2&quot;);</span><br><span class="line">&#125;</span><br><span class="line">setTimeout(function()&#123;</span><br><span class="line">   alert(&quot;setTimeout&quot;);</span><br><span class="line">&#125;,1000);</span><br><span class="line">test();</span><br><span class="line">test2();</span><br><span class="line">//test</span><br><span class="line">//test2</span><br><span class="line">//setTimeout;</span><br></pre></td></tr></table></figure>
+<h1 id="二、事件和回调函数"><a href="#二、事件和回调函数" class="headerlink" title="二、事件和回调函数"></a>二、事件和回调函数</h1><p>test()和test2()属于“执行栈”中的同步任务，而==定时器则是任务队列里面的异步任务==，那么定时器就是属于异步任务中的一种，在讲定时器之前先认识一下任务队列里面的另外一个重要成员，事件。其实<strong>任务队列就是一个事件队列</strong>，因为一般我们绑定一个事件，比如点击事件等等，都是在某一个时刻才触发执行的，这个时候就得放到任务队列里面，等待执行，而在某个DOM节点上绑定了事件，就要有相应的回调函数,它们是相辅相成的。<br>所谓==回调函数，就是那些被挂载起来，等待执行的代码==，主线程执行任务队列里面的异步任务，其实就是执行这些回调函数。<br>一般只有主线程所有任务都执行完毕了，才会执行任务队列里面的异步任务，一般是按照队列的“先进先出”顺序执行，但是因为存在定时器，所以主线程要检查执行时间，只有到了规定的时间，才能返回主线程。</p>
+<h1 id="三、定时器"><a href="#三、定时器" class="headerlink" title="三、定时器"></a>三、定时器</h1><p>定时器主要由setTimeout()和setInterval()两个函数来完成，它们的内部运行机制完全一样，不同的只是，前者一次性执行，而后者反复执行。定时器，属于任务队列中的异步任务，所以才会出现上面的问题，再看几个例子就能理解了，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">console.log(1);</span><br><span class="line"></span><br><span class="line">setTimeout(function()&#123; console.log(2);&#125;,1000);</span><br><span class="line"></span><br><span class="line">console.log(3);</span><br></pre></td></tr></table></figure>
+<p>上面代码的执行结果是1,3,2，因为只有setTimeout里面的代码是异步任务，其它都是主线程里的同步任务，所以只有执行完了主线程中的所有任务，才会执行setTimeout中的任务。</p>
 
       
     </div>
@@ -350,12 +324,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Interview/" rel="tag"># Interview</a>
-          
-        </div>
-      
 
       
       
@@ -365,8 +333,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/23/JavaScript/JavaScript高级（二）/" rel="next" title="javaScript高级（二）">
-                <i class="fa fa-chevron-left"></i> javaScript高级（二）
+              <a href="/2019/05/11/网络/CSRF和XSS/" rel="next" title="前端安全">
+                <i class="fa fa-chevron-left"></i> 前端安全
               </a>
             
           </div>
@@ -374,10 +342,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/21/JavaScript/this指向/" rel="prev" title="javaScript中的this指向">
-                javaScript中的this指向 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -509,7 +473,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数组Array的对象方法"><span class="nav-number">1.</span> <span class="nav-text">数组Array的对象方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JS中的类型转换"><span class="nav-number">2.</span> <span class="nav-text">JS中的类型转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript中的类型检测"><span class="nav-number">3.</span> <span class="nav-text">JavaScript中的类型检测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#值类型与引用类型的差别"><span class="nav-number">4.</span> <span class="nav-text">值类型与引用类型的差别</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、任务队列"><span class="nav-number">1.</span> <span class="nav-text">一、任务队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、事件和回调函数"><span class="nav-number">2.</span> <span class="nav-text">二、事件和回调函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、定时器"><span class="nav-number">3.</span> <span class="nav-text">三、定时器</span></a></li></ol></div>
             
 
           </div>
