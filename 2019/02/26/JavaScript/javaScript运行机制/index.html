@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="basic,">
 
 
 
@@ -80,15 +80,16 @@
 
 
 <meta name="description" content="一、任务队列因为Javascript是单线程的，所以意味着任务需要一个接着一个完成。但是如果前面的任务执行时间很长，那么后面的任务就得一直阻塞着，这样用户体验十分差。JavaScript的设计者考虑到了这一点，所以他将JavaScript的任务分为两种，在主线程上执行的任务”同步任务”，被主线程挂载起来的任务”异步任务”,后者一般是放在一个叫任务队列的数据结构中。那么一般异步执行运行机制如下(也是">
+<meta name="keywords" content="basic">
 <meta property="og:type" content="article">
-<meta property="og:title" content="404 not found">
-<meta property="og:url" content="http://yoursite.com/2019/05/25/JavaScript/javaScript运行机制/index.html">
+<meta property="og:title" content="JavaScript运行机制">
+<meta property="og:url" content="http://yoursite.com/2019/02/26/JavaScript/javaScript运行机制/index.html">
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="一、任务队列因为Javascript是单线程的，所以意味着任务需要一个接着一个完成。但是如果前面的任务执行时间很长，那么后面的任务就得一直阻塞着，这样用户体验十分差。JavaScript的设计者考虑到了这一点，所以他将JavaScript的任务分为两种，在主线程上执行的任务”同步任务”，被主线程挂载起来的任务”异步任务”,后者一般是放在一个叫任务队列的数据结构中。那么一般异步执行运行机制如下(也是">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-25T13:47:37.658Z">
+<meta property="og:updated_time" content="2019-05-25T17:56:52.943Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="404 not found">
+<meta name="twitter:title" content="JavaScript运行机制">
 <meta name="twitter:description" content="一、任务队列因为Javascript是单线程的，所以意味着任务需要一个接着一个完成。但是如果前面的任务执行时间很长，那么后面的任务就得一直阻塞着，这样用户体验十分差。JavaScript的设计者考虑到了这一点，所以他将JavaScript的任务分为两种，在主线程上执行的任务”同步任务”，被主线程挂载起来的任务”异步任务”,后者一般是放在一个叫任务队列的数据结构中。那么一般异步执行运行机制如下(也是">
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/05/25/JavaScript/javaScript运行机制/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/26/JavaScript/javaScript运行机制/">
 
 
 
 
 
-  <title> | 404 not found</title>
+  <title>JavaScript运行机制 | 404 not found</title>
   
 
 
@@ -232,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/JavaScript/javaScript运行机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/26/JavaScript/javaScript运行机制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
@@ -249,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">JavaScript运行机制</h1>
         
 
         <div class="post-meta">
@@ -261,8 +262,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-25T21:43:49+08:00">
-                2019-05-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-26T14:26:24+08:00">
+                2019-02-26
               </time>
             
 
@@ -271,6 +272,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -324,6 +347,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/basic/" rel="tag"># basic</a>
+          
+        </div>
+      
 
       
       
@@ -333,8 +362,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/11/网络/CSRF和XSS/" rel="next" title="前端安全">
-                <i class="fa fa-chevron-left"></i> 前端安全
+              <a href="/2019/02/23/JavaScript/基础零碎点/" rel="next" title="零碎知识点">
+                <i class="fa fa-chevron-left"></i> 零碎知识点
               </a>
             
           </div>
@@ -342,6 +371,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/21/JavaScript/this指向/" rel="prev" title="javaScript中的this指向">
+                javaScript中的this指向 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
