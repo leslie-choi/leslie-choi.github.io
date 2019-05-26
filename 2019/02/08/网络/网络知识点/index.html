@@ -90,10 +90,11 @@
 <meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/tcpip%E5%8D%8F%E8%AE%AE.png">
 <meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/TCPIP%E5%8E%9F%E7%90%86%E5%9B%BE.jpg">
 <meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/http.jpg">
+<meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/get&post.jpeg">
 <meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/https.png">
 <meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/TCP.png">
 <meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/URL.png">
-<meta property="og:updated_time" content="2019-05-25T18:00:56.811Z">
+<meta property="og:updated_time" content="2019-05-26T14:44:11.986Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见网络知识点">
 <meta name="twitter:description" content="常见网络知识点1、TCP/IP模型Transmission Control Protocol/Internet Protocol，翻译成人话就是 传输控制协议/互联网协议，基于TCP/IP的参考模型协议分成了四个层次，它们分别是链路层、网络层、传输层和应用层。 应用层向用户提供应用服务时通信的活动。HTTP协议存在于该层。（FTP文件传输协议，DNS域名系统） 传输层对上层应用层，提供处于连接中的">
@@ -351,6 +352,7 @@
 <p>HTTP协议工作于客户端-服务端架构为上。浏览器作为HTTP客户端通过URL向HTTP服务端即WEB服务器发送所有请求。Web服务器根据接收到的请求后，向客户端发送响应信息。</p>
 <p>HTTP请求由三部分组成，分别是：<strong>请求行、请求头、请求正文</strong>+</p>
 <p>请求方法（所有方法全为大写）有多种，各个方法的解释如下：<br>GET     请求获取Request-URI所标识的资源<br>POST    在Request-URI所标识的资源后附加新的数据<br>HEAD    请求获取由Request-URI所标识的资源的响应消息报头<br>PUT     请求服务器存储一个资源，并用Request-URI作为其标识<br>DELETE  请求服务器删除Request-URI所标识的资源<br>TRACE   请求服务器回送收到的请求信息，主要用于测试或诊断<br>CONNECT 保留将来使用<br>OPTIONS 请求查询服务器的性能，或者查询与资源相关的选项和需求</p>
+<p>题外话：get和post的主要区别<br><img src="http://prf3dq1at.bkt.clouddn.com/get&amp;post.jpeg" alt="markdown"><br><strong>1、get在浏览器回退时是无害的，而post会再次请求</strong><br><strong>2、get产生的url地址可以被收藏（即书签），而post不会</strong><br>3、get请求会被浏览器主动缓存，而post不会，除非手动设置<br>4、get请求只能进行url编码，而post支持多种编码方式<br><strong>5、get请求参数会被完整保留在浏览历史记录里，而post中的参数不会被保留</strong><br><strong>6、get 请求在url中传送的参数有长度限制（2kb），而post没有（实际大小根据服务器情况而定）</strong><br>7、对参数的数据类型，get只接受ascll字符，而post没有限制<br>8、post比get更安全，因为参数直接暴露在url上，所以不能用来传递敏感信息<br><strong>9、get参数通过url传递，poet放在request body中</strong><br>10、GET产生一个TCP数据包;POST产生两个TCP数据包。<br>对于GET方式的请求，浏览器会把<strong>http header和data一并发送出去</strong>，服务器响应200(返回数据);<br>而对于POST，浏览器先发送<strong>header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok(返回数据)</strong></p>
 <p>HTTP缺点：<br>1、通信使用明文（ 不加密） ， 内容可能会被窃听<br>2、不验证通信方的身份， 因此有可能遭遇伪装<br>3、无法证明报文的完整性， 所以有可能已遭篡改</p>
 <h2 id="4、Https"><a href="#4、Https" class="headerlink" title="4、Https"></a>4、Https</h2><p>Https协议其实是基于Http的，多了个s其实就是Secure，所以也就是<strong>Hypertext Transfer Protocol Secure（超文本传输安全协议）</strong><br>相对于HTTP协议，具有以下优点：</p>
 <ol>
