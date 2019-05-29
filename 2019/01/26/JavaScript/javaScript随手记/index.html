@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="一、作用域1、作用域概念作用域：变量可以起作用的范围 全局变量：使用var声明的，在任何地方都可以访问到的变量就是全局变量，对应全局作用域，如果页面不关闭，则内存不会释放，一直占用空间。 局部变量：只在固定的代码片段内可访问到的变量，最常见的例如函数内部。对应局部作用域(函数作用域)。 隐式全局变量：声明的变量没有var,就叫隐式全局变量。 不使用var声明的变量是全局变量，不推荐使用。 1234">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-27T12:37:13.438Z">
+<meta property="og:updated_time" content="2019-05-27T12:44:19.695Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript随手记">
 <meta name="twitter:description" content="一、作用域1、作用域概念作用域：变量可以起作用的范围 全局变量：使用var声明的，在任何地方都可以访问到的变量就是全局变量，对应全局作用域，如果页面不关闭，则内存不会释放，一直占用空间。 局部变量：只在固定的代码片段内可访问到的变量，最常见的例如函数内部。对应局部作用域(函数作用域)。 隐式全局变量：声明的变量没有var,就叫隐式全局变量。 不使用var声明的变量是全局变量，不推荐使用。 1234">
@@ -336,7 +336,7 @@
 <h2 id="4、作用域链"><a href="#4、作用域链" class="headerlink" title="4、作用域链"></a>4、作用域链</h2><p>只有函数可以制造作用域结构， 那么只要是代码，就至少有一个作用域, 即全局作用域。凡是代码中有函数，那么这个函数就构成另一个作用域。如果函数中还有函数，那么在这个作用域中就又可以诞生一个作用域。</p>
 <p>将这样的所有的作用域列出来，可以有一个结构: 函数内指向函数外的链式结构。就称作作用域链。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">f3</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="二、预解析"><a href="#二、预解析" class="headerlink" title="二、预解析"></a>二、预解析</h1><p>JavaScript代码的执行是由浏览器中的JavaScript解析器来执行的。JavaScript解析器执行JavaScript代码的时候，分为两个过程：预解析过程和代码执行过程。预解析就是在全局中寻找var关键字声明的变量和通过function关键字声明的函数。<br>预解析过程：</p>
+<h1 id="二、预解析"><a href="#二、预解析" class="headerlink" title="二、预解析"></a>二、预解析</h1><p>JavaScript代码的执行是由浏览器中的<strong>JavaScript解析器</strong>来执行的。JavaScript解析器执行JavaScript代码的时候，分为两个过程：<strong>预解析过程和代码执行</strong>过程。预解析就是在全局中寻找var关键字声明的变量和通过function关键字声明的函数。<br>预解析过程：</p>
 <ol>
 <li>把变量的声明提升到当前作用域的最前面，只会提升声明，不会提升赋值。</li>
 <li>把函数的声明提升到当前作用域的最前面，只会提升声明，不会提升调用。</li>
