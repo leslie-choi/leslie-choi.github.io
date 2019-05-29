@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="组件中css的作用域、抽离路由模块1、为了使组件中的css样式不影响全局，可以在style标签内多加一个scoped属性 2、抽离路由模块 新建一个router.js a、导入组件 b、创建路由对象 c、设置子路由，并设置路径 d、将该路由暴露出去 document.cookie=”track_id=1545690009|eddde566ae9aa2b35a454e91ee2342a127b111">
+<meta name="description" content="写在前面：上网查资料的时候，发现了《Vue.js权威指南这本书》，作者张耀春人品有问题，真的是被恶心到了，所以先入为主，这书的具体内容就看也不看了。讲道理vue好像没有一本口碑比较好的作品。还是看官方文档好了。官网实例：12&amp;lt;input v-model=&quot;message&quot; placeholder=&quot;edit me&quot;&amp;gt;&amp;lt;p&amp;gt;Message is: &amp;#123;&amp;#123; m">
 <meta name="keywords" content="basic">
 <meta property="og:type" content="article">
-<meta property="og:title" content="十三、组件中css的作用域、抽离路由模块">
-<meta property="og:url" content="http://yoursite.com/2019/01/25/vue/13、组件中css的作用域、抽离路由模块/index.html">
+<meta property="og:title" content="v-model简单实现原理">
+<meta property="og:url" content="http://yoursite.com/2019/05/22/vue/v-model的简单实现原理/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="组件中css的作用域、抽离路由模块1、为了使组件中的css样式不影响全局，可以在style标签内多加一个scoped属性 2、抽离路由模块 新建一个router.js a、导入组件 b、创建路由对象 c、设置子路由，并设置路径 d、将该路由暴露出去 document.cookie=”track_id=1545690009|eddde566ae9aa2b35a454e91ee2342a127b111">
+<meta property="og:description" content="写在前面：上网查资料的时候，发现了《Vue.js权威指南这本书》，作者张耀春人品有问题，真的是被恶心到了，所以先入为主，这书的具体内容就看也不看了。讲道理vue好像没有一本口碑比较好的作品。还是看官方文档好了。官网实例：12&amp;lt;input v-model=&quot;message&quot; placeholder=&quot;edit me&quot;&amp;gt;&amp;lt;p&amp;gt;Message is: &amp;#123;&amp;#123; m">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-20T17:22:13.699Z">
+<meta property="og:updated_time" content="2019-05-29T14:53:43.432Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="十三、组件中css的作用域、抽离路由模块">
-<meta name="twitter:description" content="组件中css的作用域、抽离路由模块1、为了使组件中的css样式不影响全局，可以在style标签内多加一个scoped属性 2、抽离路由模块 新建一个router.js a、导入组件 b、创建路由对象 c、设置子路由，并设置路径 d、将该路由暴露出去 document.cookie=”track_id=1545690009|eddde566ae9aa2b35a454e91ee2342a127b111">
+<meta name="twitter:title" content="v-model简单实现原理">
+<meta name="twitter:description" content="写在前面：上网查资料的时候，发现了《Vue.js权威指南这本书》，作者张耀春人品有问题，真的是被恶心到了，所以先入为主，这书的具体内容就看也不看了。讲道理vue好像没有一本口碑比较好的作品。还是看官方文档好了。官网实例：12&amp;lt;input v-model=&quot;message&quot; placeholder=&quot;edit me&quot;&amp;gt;&amp;lt;p&amp;gt;Message is: &amp;#123;&amp;#123; m">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/25/vue/13、组件中css的作用域、抽离路由模块/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/22/vue/v-model的简单实现原理/">
 
 
 
 
 
-  <title>十三、组件中css的作用域、抽离路由模块 | 404 not found</title>
+  <title>v-model简单实现原理 | 404 not found</title>
   
 
 
@@ -233,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/25/vue/13、组件中css的作用域、抽离路由模块/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/vue/v-model的简单实现原理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">十三、组件中css的作用域、抽离路由模块</h1>
+          <h1 class="post-title" itemprop="name headline">v-model简单实现原理</h1>
         
 
         <div class="post-meta">
@@ -262,8 +262,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-25T15:16:54+08:00">
-                2019-01-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-22T14:43:20+08:00">
+                2019-05-22
               </time>
             
 
@@ -322,15 +322,9 @@
       
 
       
-        <h1 id="组件中css的作用域、抽离路由模块"><a href="#组件中css的作用域、抽离路由模块" class="headerlink" title="组件中css的作用域、抽离路由模块"></a>组件中css的作用域、抽离路由模块</h1><p>1、为了使组件中的css样式不影响全局，可以在style标签内多加一个scoped属性</p>
-<p>2、抽离路由模块</p>
-<p>新建一个router.js</p>
-<p>a、导入组件</p>
-<p>b、创建路由对象</p>
-<p>c、设置子路由，并设置路径</p>
-<p>d、将该路由暴露出去</p>
-<p>document.cookie=”track_id=1545690009|eddde566ae9aa2b35a454e91ee2342a127b11148a8eaec390b|a73c8c1097ae7b5ef779f762abacfb1b; domain=ele.me; path=/“;document.cookie=”USERID=3692924746; domain=ele.me; path=/“;document.cookie=”SID=zkGQB2wu1nCjmOXtiHZmkOMpabWHwiPZgVVg; domain=ele.me; path=/“;</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">'vue-router'</span></span><br><span class="line"><span class="comment">// 导入 Account 组件</span></span><br><span class="line"><span class="keyword">import</span> account <span class="keyword">from</span> <span class="string">'./main/Account.vue'</span></span><br><span class="line"><span class="keyword">import</span> goodslist <span class="keyword">from</span> <span class="string">'./main/GoodsList.vue'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 导入Account的两个子组件</span></span><br><span class="line"><span class="keyword">import</span> login <span class="keyword">from</span> <span class="string">'./subcom/login.vue'</span></span><br><span class="line"><span class="keyword">import</span> register <span class="keyword">from</span> <span class="string">'./subcom/register.vue'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//  创建路由对象</span></span><br><span class="line"><span class="keyword">var</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    <span class="comment">// account  goodslist</span></span><br><span class="line">    &#123;</span><br><span class="line">      path: <span class="string">'/account'</span>,</span><br><span class="line">      component: account,</span><br><span class="line">      children: [</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">'login'</span>, <span class="attr">component</span>: login &#125;,</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">'register'</span>, <span class="attr">component</span>: register &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">'/goodslist'</span>, <span class="attr">component</span>: goodslist &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把路由对象暴露出去</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router</span><br></pre></td></tr></table></figure>
+        <p>写在前面：上网查资料的时候，发现了《Vue.js权威指南这本书》，作者张耀春人品有问题，真的是被恶心到了，所以先入为主，这书的具体内容就看也不看了。讲道理vue好像没有一本口碑比较好的作品。还是看官方文档好了。<br>官网实例：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model</span>=<span class="string">"message"</span> <span class="attr">placeholder</span>=<span class="string">"edit me"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Message is: &#123;&#123; message &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>实现双向数据绑定，v-model只是一个语法糖而已，真正的实现，其实靠的是v-bind绑定响应式的数据，然后触发input事件进行数据的传递。<br>对上面的例子进行重构<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-bind:value</span>=<span class="string">"msg"</span> <span class="attr">v-on:input</span>=<span class="string">"msg=$event.target.value"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>原理：主要还是通过<strong>Object对象的defineProperty属性，重写data的set和get函数来实现</strong><br>下面是一个非常简陋的一个demo<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">      &lt;input type=<span class="string">"text"</span> name=<span class="string">"数据绑定"</span> id=<span class="string">"dataBinding"</span>&gt;</span><br><span class="line">      &lt;span id=<span class="string">"data"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><span class="xml"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line">&lt;script&gt;</span><br><span class="line">methods:&#123;</span><br><span class="line">      showData()&#123;</span><br><span class="line">          var obj1 = &#123;&#125;;                        //新建一个对象obj1</span><br><span class="line">          Object.defineProperty(obj1,'hello',&#123;  //为obj定义一个名为 hello 的访问器属性 </span><br><span class="line">              set: function(newVal)&#123;</span><br><span class="line">                  document.getElementById('dataBinding').value = newVal;</span><br><span class="line">                  document.getElementById('data').innerHTML = newVal;</span><br><span class="line">              &#125;,</span><br><span class="line">              get: function()&#123;</span><br><span class="line">                  return</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">          document.addEventListener('keyup',function(e)&#123;</span><br><span class="line">              obj1.hello = e.target.value;</span><br><span class="line">          &#125;);</span><br><span class="line">          console.log(obj1);</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -361,8 +355,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/25/vue/12、webpack结合路由的使用/" rel="next" title="十二、webpack结合路由的使用">
-                <i class="fa fa-chevron-left"></i> 十二、webpack结合路由的使用
+              <a href="/2019/05/11/网络/CSRF和XSS/" rel="next" title="前端安全">
+                <i class="fa fa-chevron-left"></i> 前端安全
               </a>
             
           </div>
@@ -370,10 +364,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/26/JavaScript/JavaScript/" rel="prev" title="JavaScript前言">
-                JavaScript前言 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -425,17 +415,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -495,22 +476,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#组件中css的作用域、抽离路由模块"><span class="nav-number">1.</span> <span class="nav-text">组件中css的作用域、抽离路由模块</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
