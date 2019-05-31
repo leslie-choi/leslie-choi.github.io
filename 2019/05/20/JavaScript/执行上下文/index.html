@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="basic,">
+  <meta name="keywords" content="Interview,">
 
 
 
@@ -79,18 +79,21 @@
 
 
 
-<meta name="description" content="组件中css的作用域、抽离路由模块1、为了使组件中的css样式不影响全局，可以在style标签内多加一个scoped属性 2、抽离路由模块 新建一个router.js a、导入组件 b、创建路由对象 c、设置子路由，并设置路径 d、将该路由暴露出去 document.cookie=”track_id=1545690009|eddde566ae9aa2b35a454e91ee2342a127b111">
-<meta name="keywords" content="basic">
+<meta name="description" content="#javaScript中执行上下文    JavaScript中的执行上下文。真的是一个挺抽象的概念。逛了思否掘金csdn和博客园，根据自己的理解总结一下。    有人问，能不能用一句话概括一下JavaScript中的执行上下文。评论区有个老哥的回答让我恍然大悟，执行上下文可以理解为和以前语文题目做阅读理解一样，执行上下文其实类似于阅读理解的语境。通过变量提升和this指向的例子，可以很清楚的理解">
+<meta name="keywords" content="Interview">
 <meta property="og:type" content="article">
-<meta property="og:title" content="十三、组件中css的作用域、抽离路由模块">
-<meta property="og:url" content="http://yoursite.com/2019/01/25/vue/13、组件中css的作用域、抽离路由模块/index.html">
+<meta property="og:title" content="javaScript中执行上下文">
+<meta property="og:url" content="http://yoursite.com/2019/05/20/JavaScript/执行上下文/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="组件中css的作用域、抽离路由模块1、为了使组件中的css样式不影响全局，可以在style标签内多加一个scoped属性 2、抽离路由模块 新建一个router.js a、导入组件 b、创建路由对象 c、设置子路由，并设置路径 d、将该路由暴露出去 document.cookie=”track_id=1545690009|eddde566ae9aa2b35a454e91ee2342a127b111">
+<meta property="og:description" content="#javaScript中执行上下文    JavaScript中的执行上下文。真的是一个挺抽象的概念。逛了思否掘金csdn和博客园，根据自己的理解总结一下。    有人问，能不能用一句话概括一下JavaScript中的执行上下文。评论区有个老哥的回答让我恍然大悟，执行上下文可以理解为和以前语文题目做阅读理解一样，执行上下文其实类似于阅读理解的语境。通过变量提升和this指向的例子，可以很清楚的理解">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-20T17:22:13.699Z">
+<meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/stack.png">
+<meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/stack2.png">
+<meta property="og:updated_time" content="2019-05-31T13:46:25.294Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="十三、组件中css的作用域、抽离路由模块">
-<meta name="twitter:description" content="组件中css的作用域、抽离路由模块1、为了使组件中的css样式不影响全局，可以在style标签内多加一个scoped属性 2、抽离路由模块 新建一个router.js a、导入组件 b、创建路由对象 c、设置子路由，并设置路径 d、将该路由暴露出去 document.cookie=”track_id=1545690009|eddde566ae9aa2b35a454e91ee2342a127b111">
+<meta name="twitter:title" content="javaScript中执行上下文">
+<meta name="twitter:description" content="#javaScript中执行上下文    JavaScript中的执行上下文。真的是一个挺抽象的概念。逛了思否掘金csdn和博客园，根据自己的理解总结一下。    有人问，能不能用一句话概括一下JavaScript中的执行上下文。评论区有个老哥的回答让我恍然大悟，执行上下文可以理解为和以前语文题目做阅读理解一样，执行上下文其实类似于阅读理解的语境。通过变量提升和this指向的例子，可以很清楚的理解">
+<meta name="twitter:image" content="http://prf3dq1at.bkt.clouddn.com/stack.png">
 
 
 
@@ -120,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/25/vue/13、组件中css的作用域、抽离路由模块/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/20/JavaScript/执行上下文/">
 
 
 
 
 
-  <title>十三、组件中css的作用域、抽离路由模块 | 404 not found</title>
+  <title>javaScript中执行上下文 | 404 not found</title>
   
 
 
@@ -233,7 +236,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/25/vue/13、组件中css的作用域、抽离路由模块/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/20/JavaScript/执行上下文/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
@@ -250,7 +253,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">十三、组件中css的作用域、抽离路由模块</h1>
+          <h1 class="post-title" itemprop="name headline">javaScript中执行上下文</h1>
         
 
         <div class="post-meta">
@@ -262,8 +265,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-25T15:16:54+08:00">
-                2019-01-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-20T11:22:22+08:00">
+                2019-05-20
               </time>
             
 
@@ -285,8 +288,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue/" itemprop="url" rel="index">
-                    <span itemprop="name">Vue</span>
+                  <a href="/categories/basic/" itemprop="url" rel="index">
+                    <span itemprop="name">basic</span>
                   </a>
                 </span>
 
@@ -322,15 +325,20 @@
       
 
       
-        <h1 id="组件中css的作用域、抽离路由模块"><a href="#组件中css的作用域、抽离路由模块" class="headerlink" title="组件中css的作用域、抽离路由模块"></a>组件中css的作用域、抽离路由模块</h1><p>1、为了使组件中的css样式不影响全局，可以在style标签内多加一个scoped属性</p>
-<p>2、抽离路由模块</p>
-<p>新建一个router.js</p>
-<p>a、导入组件</p>
-<p>b、创建路由对象</p>
-<p>c、设置子路由，并设置路径</p>
-<p>d、将该路由暴露出去</p>
-<p>document.cookie=”track_id=1545690009|eddde566ae9aa2b35a454e91ee2342a127b11148a8eaec390b|a73c8c1097ae7b5ef779f762abacfb1b; domain=ele.me; path=/“;document.cookie=”USERID=3692924746; domain=ele.me; path=/“;document.cookie=”SID=zkGQB2wu1nCjmOXtiHZmkOMpabWHwiPZgVVg; domain=ele.me; path=/“;</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">'vue-router'</span></span><br><span class="line"><span class="comment">// 导入 Account 组件</span></span><br><span class="line"><span class="keyword">import</span> account <span class="keyword">from</span> <span class="string">'./main/Account.vue'</span></span><br><span class="line"><span class="keyword">import</span> goodslist <span class="keyword">from</span> <span class="string">'./main/GoodsList.vue'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 导入Account的两个子组件</span></span><br><span class="line"><span class="keyword">import</span> login <span class="keyword">from</span> <span class="string">'./subcom/login.vue'</span></span><br><span class="line"><span class="keyword">import</span> register <span class="keyword">from</span> <span class="string">'./subcom/register.vue'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//  创建路由对象</span></span><br><span class="line"><span class="keyword">var</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    <span class="comment">// account  goodslist</span></span><br><span class="line">    &#123;</span><br><span class="line">      path: <span class="string">'/account'</span>,</span><br><span class="line">      component: account,</span><br><span class="line">      children: [</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">'login'</span>, <span class="attr">component</span>: login &#125;,</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">'register'</span>, <span class="attr">component</span>: register &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">'/goodslist'</span>, <span class="attr">component</span>: goodslist &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把路由对象暴露出去</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router</span><br></pre></td></tr></table></figure>
+        <p>#javaScript中执行上下文<br>    JavaScript中的执行上下文。真的是一个挺抽象的概念。逛了思否掘金csdn和博客园，根据自己的理解总结一下。<br>    有人问，能不能用一句话概括一下JavaScript中的执行上下文。评论区有个老哥的回答让我恍然大悟，执行上下文可以理解为和以前语文题目做阅读理解一样，执行上下文其实类似于阅读理解<br>的语境。通过变量提升和this指向的例子，可以很清楚的理解执行上下文的概念了。<br>举个例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a);     <span class="comment">//控制台直接报错，Uncaught ReferenceError: a is not defined</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a);</span><br><span class="line"><span class="keyword">var</span> a;              <span class="comment">//控制台会输出undefined</span></span><br></pre></td></tr></table></figure>
+<p>第二个之所以不会报错，是因为存在变量提升，而变量提升恰恰与执行上下文有关。包括this的指向也是（这里不包括ES6中的箭头函数），都是在运行的时候才能确定this的指向，因为this的指向取决于执行的位置，也与执行上下文密切相关。</p>
+<p>接下来谈一谈执行上下文的类型：</p>
+<p>##三种执行上下文的类型：</p>
+<p>全局执行上下文 — 这是默认或者说基础的上下文，任何不在函数内部的代码都在全局上下文中。它会执行两件事：创建一个全局的 window 对象（浏览器的情况下），并且设置 this 的值等于这个全局对象。一个程序中只会有一个全局执行上下文。</p>
+<p>函数执行上下文 — 每当一个函数被调用时, 都会为该函数创建一个新的上下文。每个函数都有它自己的执行上下文，不过是在函数被调用时创建的。函数上下文可以有任意多个。每当一个新的执行上下文被创建，它会按定义的顺序（将在后文讨论）执行一系列步骤。</p>
+<p>Eval 函数执行上下文 — 执行在 eval 函数内部的代码也会有它属于自己的执行上下文，但是这里不建议采用。</p>
+<p>##执行栈：</p>
+<p>在JavaScript中，js引擎的工作原理是，每次需要执行JavaScript代码的时候，js引擎都会创建一个全局执行的上下文，而这个全局的执行上下文会首先压入执行栈中，存在于栈底，有且只有一个，只会在关闭浏览器的时候出栈。接下来，Js引擎每次遇到一个<strong>函数调用</strong>（不调用不会创建）的时候，都会再新建一个函数的执行上下文，然后再将这个执行上下文压入栈顶。然后js引擎会执行上下文中位于栈顶的函数，函数执行结束之后，便将栈顶的执行上下文从栈中弹出，控制流程就会进入下一个执行上下文。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> color = <span class="string">'blue'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeColor</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> anotherColor = <span class="string">'red'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">swapColors</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> tempColor = anotherColor;</span><br><span class="line">        anotherColor = color;</span><br><span class="line">        color = tempColor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    swapColors();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">changeColor();</span><br></pre></td></tr></table></figure>
+<p>整个的执行流程：<br><img src="http://prf3dq1at.bkt.clouddn.com/stack.png" alt="markdown"></p>
+<p>再看一个例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> n=<span class="number">999</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        alert(n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> f2;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> result=f1();</span><br><span class="line">result(); <span class="comment">// 999</span></span><br></pre></td></tr></table></figure></p>
+<p>因为f1中的函数f2在f1的可执行代码中，<strong>并没有被调用执行</strong>，因此执行f1时，f2不会创建新的上下文，而直到result执行时，再创建了一个新的执行栈。流程如下；<br><img src="http://prf3dq1at.bkt.clouddn.com/stack2.png" alt="markdown"></p>
 
       
     </div>
@@ -348,7 +356,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/basic/" rel="tag"># basic</a>
+            <a href="/tags/Interview/" rel="tag"># Interview</a>
           
         </div>
       
@@ -361,8 +369,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/25/vue/12、webpack结合路由的使用/" rel="next" title="十二、webpack结合路由的使用">
-                <i class="fa fa-chevron-left"></i> 十二、webpack结合路由的使用
+              <a href="/2019/05/11/网络/CSRF和XSS/" rel="next" title="前端安全">
+                <i class="fa fa-chevron-left"></i> 前端安全
               </a>
             
           </div>
@@ -371,8 +379,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/26/JavaScript/JavaScript/" rel="prev" title="JavaScript前言">
-                JavaScript前言 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/22/vue/v-model的简单实现原理/" rel="prev" title="v-model简单实现原理">
+                v-model简单实现原理 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -425,17 +433,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -495,22 +494,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#组件中css的作用域、抽离路由模块"><span class="nav-number">1.</span> <span class="nav-text">组件中css的作用域、抽离路由模块</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

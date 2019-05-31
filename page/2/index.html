@@ -229,6 +229,157 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/26/JavaScript/javaScript运行机制/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/26/JavaScript/javaScript运行机制/" itemprop="url">JavaScript运行机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-26T14:26:24+08:00">
+                2019-02-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="一、任务队列"><a href="#一、任务队列" class="headerlink" title="一、任务队列"></a>一、任务队列</h1><p>因为Javascript是单线程的，所以意味着任务需要一个接着一个完成。但是如果前面的任务执行时间很长，那么后面的任务就得一直阻塞着，这样用户体验十分差。<br>JavaScript的设计者考虑到了这一点，所以他将JavaScript的任务分为两种，在主线程上执行的任务”同步任务”，被主线程挂载起来的任务”异步任务”,后者一般是放在一个叫<strong>任务队列</strong>的数据结构中。<br>那么一般异步执行运行机制如下(也是JavaScript的运行机制)：</p>
+<p>(1)所有同步任务都在主线程上执行，形成一个<strong>执行栈</strong>。</p>
+<p>(2)主线程之外，还有一个“任务队列”,只要异步任务有了运行结果，就在“任务队列”之中放置一个事件。</p>
+<p>(3)一旦“执行栈”中的所有同步任务执行完毕了，系统就会读取“任务队列”，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。</p>
+<p>(4)主线程不断重复上面的三步。（事件循环）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var test = function()&#123;</span><br><span class="line">    alert(&quot;test&quot;);</span><br><span class="line">&#125;</span><br><span class="line">var test2 = function()&#123;</span><br><span class="line">    alert(&quot;test2&quot;);</span><br><span class="line">&#125;</span><br><span class="line">setTimeout(function()&#123;</span><br><span class="line">   alert(&quot;setTimeout&quot;);</span><br><span class="line">&#125;,1000);</span><br><span class="line">test();</span><br><span class="line">test2();</span><br><span class="line">//test</span><br><span class="line">//test2</span><br><span class="line">//setTimeout;</span><br></pre></td></tr></table></figure>
+<h1 id="二、事件和回调函数"><a href="#二、事件和回调函数" class="headerlink" title="二、事件和回调函数"></a>二、事件和回调函数</h1><p>test()和test2()属于“执行栈”中的同步任务，而==定时器则是任务队列里面的异步任务==，那么定时器就是属于异步任务中的一种，在讲定时器之前先认识一下任务队列里面的另外一个重要成员，事件。其实<strong>任务队列就是一个事件队列</strong>，因为一般我们绑定一个事件，比如点击事件等等，都是在某一个时刻才触发执行的，这个时候就得放到任务队列里面，等待执行，而在某个DOM节点上绑定了事件，就要有相应的回调函数,它们是相辅相成的。<br>所谓==回调函数，就是那些被挂载起来，等待执行的代码==，主线程执行任务队列里面的异步任务，其实就是执行这些回调函数。<br>一般只有主线程所有任务都执行完毕了，才会执行任务队列里面的异步任务，一般是按照队列的“先进先出”顺序执行，但是因为存在定时器，所以主线程要检查执行时间，只有到了规定的时间，才能返回主线程。</p>
+<h1 id="三、定时器"><a href="#三、定时器" class="headerlink" title="三、定时器"></a>三、定时器</h1><p>定时器主要由setTimeout()和setInterval()两个函数来完成，它们的内部运行机制完全一样，不同的只是，前者一次性执行，而后者反复执行。定时器，属于任务队列中的异步任务，所以才会出现上面的问题，再看几个例子就能理解了，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">console.log(1);</span><br><span class="line"></span><br><span class="line">setTimeout(function()&#123; console.log(2);&#125;,1000);</span><br><span class="line"></span><br><span class="line">console.log(3);</span><br></pre></td></tr></table></figure>
+<p>上面代码的执行结果是1,3,2，因为只有setTimeout里面的代码是异步任务，其它都是主线程里的同步任务，所以只有执行完了主线程中的所有任务，才会执行setTimeout中的任务。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/23/JavaScript/基础零碎点/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1834,148 +1985,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/JavaScript/JavaScript/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/26/JavaScript/JavaScript/" itemprop="url">JavaScript前言</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-26T13:26:54+08:00">
-                2019-01-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="JS前言"><a href="#JS前言" class="headerlink" title="JS前言"></a>JS前言</h1><p>隔了差不多一年半的时间，又重新开始学习javaScript。当初一开始学前端，只是为了后续学Java做后台更容易上手一点，但是由于个人兴趣和其他原因，又重头开始学习JS，所以Java目前止步于SSM框架。前段时间接触过一个项目经理，03年入行至今，虽说中间有两年换了别的行业，但是他的一句话依然是令我印象深刻：想要学习一门语言，最重要的是了解他的机制。真的是醍醐灌顶，所以JS全部归零重新开始，希望能过有新的收获。^_^</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2026,7 +2035,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
