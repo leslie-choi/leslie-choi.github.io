@@ -229,6 +229,142 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/25/java/java-register/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/25/java/java-register/" itemprop="url">Untitled</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-25T10:38:54+08:00">
+                2018-10-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="java-web基础功能（二）—-实现用户注册"><a href="#java-web基础功能（二）—-实现用户注册" class="headerlink" title="java-web基础功能（二）—-实现用户注册"></a>java-web基础功能（二）—-实现用户注册</h1><p>思路：同登录的思路大同小异。首先写一个注册表单，将你注册需要的数据写进去，同样因为懒，所以在这里的功能我只需用username还有password，其他邮箱生日性别什么的就不加进去了。然后将注册表单的数据传递到RegisterServlet，获取到表单的数据，然后再将这些数据存储到你的数据库，下次登录就可以使用了。</p>
+<p>前期准备：和实现用户登录功能前期准备一样。不再赘述。</p>
+<p>代码实现： </p>
+<p>(1)前端页面代码，在这里我同样不加样式。</p>
+<p>register.jsp代码如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span> contentType=<span class="string">"text/html; charset=UTF-8"</span></span><br><span class="line">	pageEncoding=<span class="string">"UTF-8"</span>%&gt;</span><br><span class="line">&lt;!DOCTYPE html PUBLIC <span class="string">"-//W3C//DTD HTML 4.01 Transitional//EN"</span> <span class="string">"http://www.w3.org/TR/html4/loose.dtd"</span>&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;Insert title here&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;form action=<span class="string">"/Demo/login"</span> method=<span class="string">"post"</span>&gt;</span><br><span class="line">		&lt;input name=<span class="string">"username"</span> type=<span class="string">"text"</span> placeholder=<span class="string">"please input your username"</span>&gt;</span><br><span class="line">		&lt;input name=<span class="string">"password"</span> type=<span class="string">"password"</span> placeholder=<span class="string">"please input your password"</span>&gt;</span><br><span class="line">		&lt;input type=<span class="string">"submit"</span> value=<span class="string">"注册"</span>&gt;</span><br><span class="line">	&lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>（2）因为其他步骤在用户登录功能中已经完成了，所以剩下的只需要从前端页面接收参数，传递给register.servlet，然后再将数据存进本地数据库就可以了。（注意：在这里我们考虑中文乱码只是针对表单是以post方式提交的，get方式暂时不考虑）</p>
+<p>register.servlet代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.Demo.service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.UUID;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.commons.beanutils.BeanUtils;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.dbutils.QueryRunner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.Demo.domain.User;</span><br><span class="line"><span class="keyword">import</span> com.Demo.utils.DataSourceUtils;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Servlet implementation class RegisterServlet</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@WebServlet</span>(<span class="string">"/register"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RegisterServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">       </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@see</span> HttpServlet#HttpServlet()</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RegisterServlet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="comment">// TODO Auto-generated constructor stub</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@see</span> HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">		<span class="comment">//设置request的编码---只适合post方式</span></span><br><span class="line">		request.setCharacterEncoding(<span class="string">"UTF-8"</span>);			</span><br><span class="line">		<span class="comment">//使用BeanUtils进行自动映射封装</span></span><br><span class="line">		<span class="comment">//BeanUtils工作原理：将map中的数据 根据key与实体的属性的对应关系封装</span></span><br><span class="line">		<span class="comment">//只要key的名字与实体的属性 的名字一样 就自动封装到实体中</span></span><br><span class="line">		Map&lt;String, String[]&gt; properties = request.getParameterMap();</span><br><span class="line">		User user = <span class="keyword">new</span> User();</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			BeanUtils.populate(user, properties);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (IllegalAccessException | InvocationTargetException e) &#123;</span><br><span class="line">			((Throwable) e).printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//现在这个位置 user对象已经封装好了</span></span><br><span class="line">		<span class="comment">//手动封装uid----uuid---随机不重复的字符串32位--java代码生成后是36位</span></span><br><span class="line">		user.setUid(UUID.randomUUID().toString());</span><br><span class="line"></span><br><span class="line">		<span class="comment">//3、将参数传递给一个业务操作方法</span></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			regist(user);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//4、认为注册成功跳转到登录页面</span></span><br><span class="line">		response.sendRedirect(request.getContextPath()+<span class="string">"/login.jsp"</span>);				</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//注册的方法</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">regist</span><span class="params">(User user)</span> <span class="keyword">throws</span> SQLException</span>&#123;</span><br><span class="line">		<span class="comment">//操作数据库</span></span><br><span class="line">		QueryRunner runner = <span class="keyword">new</span> QueryRunner(DataSourceUtils.getDataSource());</span><br><span class="line">		String sql = <span class="string">"insert into user values(?,?,?)"</span>;		</span><br><span class="line">		runner.update(sql,user.getUid(),user.getUsername(),user.getPassword());</span><br><span class="line">		System.out.println(<span class="string">"注册成功"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@see</span> HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		doGet(request, response);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>(3)测试注册功能。</p>
+<p><img src="http://i1.bvimg.com/645823/621a3a90911d7151.png" alt="Markdown"></p>
+<p>这个时候就可以到数据库看有没有这一条数据了</p>
+<p><img src="http://i1.bvimg.com/645823/76839752170790b0.png" alt="Markdown"></p>
+<p>显示这一条数据的时候，就说明已经注册成功了，这时候会自动跳转到login.jsp，可以测试一下刚刚注册的账号。</p>
+<p><img src="http://i1.bvimg.com/645823/bb297bde8516a387.png" alt="Markdown"></p>
+<p>跳转到index.jsp，说明登录成功，奈斯啊~ </p>
+<p><img src="http://i1.bvimg.com/645823/7e36c8f3d789324e.png" alt="Markdown"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/22/java/java-login/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -751,7 +887,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Interview,">
 
 
 
@@ -79,13 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="404 not found">
-<meta property="og:url" content="http://yoursite.com/archives/2019/01/index.html">
+<meta name="description" content="作用域链JS中，只有全局作用域和局部作用域（eval开发中比较少使用不做讨论），并且作用域和执行上下文其实是完全不同的两个概念，在执行上下文这篇文章中也有谈到。 闭包JS中的闭包，真的是一个老生常谈的一个话题了。。。1000个人心中总有1000个哈姆雷特，就连《JavaScript高级程序设计》和《JavaScript权威指南》对闭包的解释，都会有一点点的差异。所以还是看了好多的博客，再根据自己的">
+<meta name="keywords" content="Interview">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javaScript中的作用域链与闭包">
+<meta property="og:url" content="http://yoursite.com/2019/05/22/JavaScript/作用域链与闭包/index.html">
 <meta property="og:site_name" content="404 not found">
+<meta property="og:description" content="作用域链JS中，只有全局作用域和局部作用域（eval开发中比较少使用不做讨论），并且作用域和执行上下文其实是完全不同的两个概念，在执行上下文这篇文章中也有谈到。 闭包JS中的闭包，真的是一个老生常谈的一个话题了。。。1000个人心中总有1000个哈姆雷特，就连《JavaScript高级程序设计》和《JavaScript权威指南》对闭包的解释，都会有一点点的差异。所以还是看了好多的博客，再根据自己的">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-01T09:03:14.078Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="404 not found">
+<meta name="twitter:title" content="javaScript中的作用域链与闭包">
+<meta name="twitter:description" content="作用域链JS中，只有全局作用域和局部作用域（eval开发中比较少使用不做讨论），并且作用域和执行上下文其实是完全不同的两个概念，在执行上下文这篇文章中也有谈到。 闭包JS中的闭包，真的是一个老生常谈的一个话题了。。。1000个人心中总有1000个哈姆雷特，就连《JavaScript高级程序设计》和《JavaScript权威指南》对闭包的解释，都会有一点点的差异。所以还是看了好多的博客，再根据自己的">
 
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2019/01/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/22/JavaScript/作用域链与闭包/">
 
 
 
 
 
-  <title>Archive | 404 not found</title>
+  <title>javaScript中的作用域链与闭包 | 404 not found</title>
   
 
 
@@ -140,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -214,215 +219,170 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      <span class="archive-page-counter">
-        
-        
-         
-        
-        OK! 44 posts in total. Keep on posting.
-      </span>
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/JavaScript/作用域链与闭包/">
 
-      
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
 
         
         
+          <h1 class="post-title" itemprop="name headline">javaScript中的作用域链与闭包</h1>
         
 
-        
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-22T19:21:12+08:00">
+                2019-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/29/JavaScript/JavaScript入门（四）/" itemprop="url">
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
               
-                <span itemprop="name">JavaScript入门（四）</span>
+                <span class="post-meta-item-text">In</span>
               
-            </a>
-        
-      </h2>
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/basic/" itemprop="url" rel="index">
+                    <span itemprop="name">basic</span>
+                  </a>
+                </span>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-29T20:12:44+08:00" content="2019-01-29">
-          01-29
-        </time>
-      </div>
+                
+                
+              
+            </span>
+          
 
-    </header>
-  </article>
+          
+            
+          
 
+          
+          
 
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/29/JavaScript/JavaScript入门（三）/" itemprop="url">
-              
-                <span itemprop="name">JavaScript入门（三）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-29T13:56:24+08:00" content="2019-01-29">
-          01-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/28/JavaScript/JavaScript入门（二）/" itemprop="url">
-              
-                <span itemprop="name">JavaScript入门（二）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-28T11:46:24+08:00" content="2019-01-28">
-          01-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <h1 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h1><p>JS中，只有全局作用域和局部作用域（eval开发中比较少使用不做讨论），并且作用域和执行上下文其实是完全不同的两个概念，在执行上下文这篇文章中也有谈到。</p>
+<h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><p>JS中的闭包，真的是一个老生常谈的一个话题了。。。1000个人心中总有1000个哈姆雷特，就连《JavaScript高级程序设计》和《JavaScript权威指南》对闭包的解释，都会有一点点的差异。所以还是看了好多的博客，再根据自己的理解来，不再浅尝辄止，稍稍深入一点点来了解闭包。</p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/26/JavaScript/javaScript随手记/" itemprop="url">
-              
-                <span itemprop="name">JavaScript随手记</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-26T16:16:24+08:00" content="2019-01-26">
-          01-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/26/JavaScript/JavaScript入门（一）/" itemprop="url">
-              
-                <span itemprop="name">JavaScript入门（一）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-01-26T16:16:24+08:00" content="2019-01-26">
-          01-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Interview/" rel="tag"># Interview</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/22/vue/v-model的简单实现原理/" rel="next" title="v-model简单实现原理">
+                <i class="fa fa-chevron-left"></i> v-model简单实现原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2019/01/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2019/01/page/4/">4</a><a class="extend next" rel="next" href="/archives/2019/01/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -430,6 +390,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -450,8 +414,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -511,6 +484,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#作用域链"><span class="nav-number">1.</span> <span class="nav-text">作用域链</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#闭包"><span class="nav-number">2.</span> <span class="nav-text">闭包</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -644,6 +633,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

@@ -229,6 +229,168 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/21/JavaScript/this指向/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/21/JavaScript/this指向/" itemprop="url">javaScript中的this指向</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-21T16:12:22+08:00">
+                2019-03-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/basic/" itemprop="url" rel="index">
+                    <span itemprop="name">basic</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="this指向"><a href="#this指向" class="headerlink" title="this指向"></a>this指向</h1><p>this的指向有4种类型</p>
+<h2 id="1、形式”test-”"><a href="#1、形式”test-”" class="headerlink" title="1、形式”test()”"></a>1、形式”test()”</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">function test () &#123;</span><br><span class="line">    console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">test()</span><br></pre></td></tr></table></figure>
+<p>直接不带任何引用形式去调用函数，则this会指向全局对象，因为没有其他影响去改变this，this默认就是指向全局对象（浏览器是window，Node中是global）的。这个结论是在非严格模式的情况下，严格模式下这个this其实是undefined的。</p>
+<h2 id="2、形式”xxx-text-”"><a href="#2、形式”xxx-text-”" class="headerlink" title="2、形式”xxx.text()”"></a>2、形式”xxx.text()”</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">function test () &#123;</span><br><span class="line">    console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 2,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line">obj.test()</span><br></pre></td></tr></table></figure>
+<p>这种形式相对于第一中，this指向已经很明显，谁去调用这个函数的，这个函数中的this就绑定到谁身上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">function test () &#123;</span><br><span class="line">    console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 2,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line">var obj0 = &#123;</span><br><span class="line">    a: 3,</span><br><span class="line">    obj </span><br><span class="line">&#125;</span><br><span class="line">obj0.obj.test()</span><br></pre></td></tr></table></figure>
+<p>虽然比上面复杂了一点，但是结果依然和上面的一样，this指向obj，指向直接调用的对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">function test () &#123;</span><br><span class="line">    console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 2,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line">var testCopy = obj.test</span><br><span class="line">testCopy()</span><br></pre></td></tr></table></figure>
+<p>道理同上，虽然说换了一个名字，但是实际上依然是obj调用的，所以结果一样。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">function test () &#123;</span><br><span class="line">    console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 2,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line">setTimeout(obj.test)  //输出1</span><br></pre></td></tr></table></figure>
+<h2 id="3、形式“test-call-xxx-test-apply-xxx-test-bind-”"><a href="#3、形式“test-call-xxx-test-apply-xxx-test-bind-”" class="headerlink" title="3、形式“test.call(xxx) / test.apply(xxx) / test.bind()”"></a>3、形式“test.call(xxx) / test.apply(xxx) / test.bind()”</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">function test () &#123;</span><br><span class="line">    console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 2,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line">var testCopy = obj.test</span><br><span class="line">testCopy.call(obj)//2</span><br></pre></td></tr></table></figure>
+<p>可以看到，我们通过call（apply跟call的区别只是传参，作用是一样的，bind有点区别，bind能让我们的函数延迟执行，apply与call调用就执行，所以bind这样的形式我们也称为函数柯里化，这些就不是我们这里要说的啦）来调用testCopy，并且传入了你想要this指向的上下文，那么this指向你要的对象。看到这里，我们也可以想象第一、二种形式其实可以转化成call/apply的形式</p>
+<h2 id="4、“new-test-”形式"><a href="#4、“new-test-”形式" class="headerlink" title="4、“new test()”形式"></a>4、“new test()”形式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">function test (a) &#123;</span><br><span class="line">    this.a = a</span><br><span class="line">&#125;</span><br><span class="line">var b = new test(2)</span><br><span class="line">console.log(b.a)</span><br></pre></td></tr></table></figure>
+<p>new这个操作符其实是new了一个新对象出来，而被new的test我们称为构造函数，我们可以在这个构造函数里定义一下将要到来的新对象的一些属性。所以构造函数里的this指的就是将要被new出来的新对象。</p>
+<p>最后的最后，其实还有一个，就是箭头函数中的this指向。。<br><strong>箭头函数中的this是在定义函数的时候绑定，而不是在执行函数的时候绑定</strong>所谓的定义时候绑定，就是this是继承自父执行上下文中的this！！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">var test = () =&gt; &#123;</span><br><span class="line">    console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 2,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line">obj.test()</span><br></pre></td></tr></table></figure>
+<p><strong>它this指向的是它的外层作用域this的指向。</strong>。外层作用域是整个window，所以输出的是1.</p>
+<h2 id="apply、call和bind的作用。"><a href="#apply、call和bind的作用。" class="headerlink" title="apply、call和bind的作用。"></a>apply、call和bind的作用。</h2><p>apply和call、bind的目的就是为了改变函数内部this的指向。</p>
+<p>如果使用apply或者call方法，那么this指向他们的第一个参数，apply的第二个参数是一个参数数组，call的第二个及其以后的参数都是数组里面的元素。bind是es5的语法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">var</span> name = <span class="string">'global'</span>;</span><br><span class="line">    <span class="keyword">var</span> person = &#123;</span><br><span class="line">      name: <span class="string">'zero'</span></span><br><span class="line">    &#125;;</span><br><span class="line"><span class="comment">// 输出姓名、年龄和职业</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">printInfo</span>(<span class="params">age, job</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.name, age, job);</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">// 直接调用</span></span><br><span class="line">    printInfo(<span class="number">20</span>, <span class="string">'前端工程师'</span>);</span><br><span class="line"><span class="comment">// 打印：global 20 前端工程师</span></span><br><span class="line"><span class="comment">// 因为默认的上下文是window，所以this.name是全局定义的global，如果我们想打印出来zero的话，就需要改变函数执行的上下文</span></span><br><span class="line">    printInfo.call(person, <span class="number">20</span>, <span class="string">'前端工程师'</span>);<span class="comment">// zero 20 前端工程师</span></span><br><span class="line">    printInfo.apply(person, [<span class="number">20</span>, <span class="string">'前端工程师'</span>]);<span class="comment">// zero 20 前端工程师</span></span><br><span class="line"><span class="comment">// 这两种方式是一样的，第一个参数都是传进去的上下文，this.name取的是person.name，所以打印出来的名字就是zero了，后面的为age和job，只是参数传递的方式不一样，apply比较特殊，把要传的参数放在数组里面</span></span><br><span class="line"><span class="comment">// 而bind和以上两种有区别，bind是es5定义的新方法，用来返回一个有自己上下文的函数，用法也比较类似：</span></span><br><span class="line">    printInfo.bind(person)(<span class="number">20</span>, <span class="string">'前端工程师'</span>);<span class="comment">// zero 20 前端工程师</span></span><br><span class="line"><span class="comment">// printInfo.bind(person)这一块是返回的以peron为上下文的函数，后面的(20, '前端工程师')是函数调用</span></span><br></pre></td></tr></table></figure>
+<p>bind后函数不会执行，而只是返回一个改变了上下文的函数副本，而call和apply是直接执行函数。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/26/JavaScript/javaScript运行机制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1831,160 +1993,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/JavaScript/JavaScript入门（一）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/26/JavaScript/JavaScript入门（一）/" itemprop="url">JavaScript入门（一）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-26T16:16:24+08:00">
-                2019-01-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="JavaScript入门（一）"><a href="#JavaScript入门（一）" class="headerlink" title="JavaScript入门（一）"></a>JavaScript入门（一）</h1><h2 id="一、js中的数据类型"><a href="#一、js中的数据类型" class="headerlink" title="一、js中的数据类型"></a>一、js中的数据类型</h2><p>js中的原始数据类型:number , string , boolean , null , undefined , object</p>
-<p>number:数字类型(整数和小数)</p>
-<p>string:字符串类型(的值一般都是用单引号或者是双引号括起来)  “34”</p>
-<p>boolean:布尔类型(值只有两个,true(真1),false(假0))<br>​    null:空类型,值只有一个:null,一个对象指向为空了,此时可以赋值为null<br>     undefined:未定义,值只有一个:undefined<br>      什么情况下的结果是undefined<br>      变量声明了,没有赋值,结果是undefined<br>     函数没有明确返回值,如果接收了,结果也是undefined<br>      如果一个变量的结果是undefined和一个数字进行计算,结果:NaN不是一个数字,也没有意义</p>
-<p>如果想要获取一个变量的数据类型，可以适用typeof获取</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">var</span> str = <span class="string">"小白"</span>;</span><br><span class="line"><span class="keyword">var</span> flag = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">var</span> nll = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> undef;</span><br><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="comment">//是使用typeof 获取变量的类型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> num);<span class="comment">//number</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> str);<span class="comment">//string</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> flag);<span class="comment">//boolean</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>(nll));<span class="comment">//是null</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> nll);<span class="comment">//不是null</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> undef);<span class="comment">//undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> obj);<span class="comment">//object</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span>(num));</span><br></pre></td></tr></table></figure>
-<h2 id="二、类型转换"><a href="#二、类型转换" class="headerlink" title="二、类型转换"></a>二、类型转换</h2><p>1、其他类型转数字类型有三种方式：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.parseInt();//转整数</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">"10"</span>));<span class="comment">//10</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">"10afrswfdsf"</span>));<span class="comment">//10</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">"g10"</span>));<span class="comment">//NaN</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">"1fds0"</span>));<span class="comment">//1</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">"10.98"</span>));<span class="comment">//10</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseInt</span>(<span class="string">"10.98fdsfd"</span>));<span class="comment">//10</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//2.parseFloat()//转小数</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseFloat</span>(<span class="string">"10"</span>));<span class="comment">//10</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseFloat</span>(<span class="string">"10afrswfdsf"</span>));<span class="comment">//10</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseFloat</span>(<span class="string">"g10"</span>));<span class="comment">//NaN</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseFloat</span>(<span class="string">"1fds0"</span>));<span class="comment">//1    </span></span><br><span class="line">	<span class="built_in">console</span>.log(<span class="built_in">parseFloat</span>(<span class="string">"10.98"</span>));<span class="comment">//10.98</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">parseFloat</span>(<span class="string">"10.98fdsfd"</span>));<span class="comment">//10.98</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//3.Number();//转数字</span></span><br><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="string">"10"</span>));<span class="comment">//10</span></span><br><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="string">"10afrswfdsf"</span>));<span class="comment">//NaN</span></span><br><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="string">"g10"</span>));<span class="comment">//NaN    </span></span><br><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="string">"1fds0"</span>));<span class="comment">//NaN</span></span><br><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="string">"10.98"</span>));<span class="comment">//10.98</span></span><br><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">Number</span>(<span class="string">"10.98fdsfd"</span>));<span class="comment">//</span></span><br><span class="line"><span class="comment">//总结:想要转整数用parseInt(),想要转小数用parseFloat()</span></span><br><span class="line"><span class="comment">//想要转数字:Number();要比上面的两种方式严格</span></span><br></pre></td></tr></table></figure>
-<h2 id="2、其他类型转字符串类型"><a href="#2、其他类型转字符串类型" class="headerlink" title="2、其他类型转字符串类型"></a>2、其他类型转字符串类型</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1    .toString()</span></span><br><span class="line">    <span class="keyword">var</span> num=<span class="number">10</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(num.toString());<span class="comment">//字符串类型</span></span><br><span class="line"><span class="comment">//2  String();</span></span><br><span class="line">    <span class="keyword">var</span> num1=<span class="number">20</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">String</span>(num1));</span><br><span class="line"><span class="comment">//如果变量有意义调用.toString()使用转换</span></span><br><span class="line"><span class="comment">//如果变量没有意义使用String()转换</span></span><br></pre></td></tr></table></figure>
-<h2 id="3、其他类型转Boolean"><a href="#3、其他类型转Boolean" class="headerlink" title="3、其他类型转Boolean"></a>3、其他类型转Boolean</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//1  Boolean(值);</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Boolean</span>(<span class="number">1</span>));<span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Boolean</span>(<span class="number">0</span>));<span class="comment">//false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Boolean</span>(<span class="number">11</span>));<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-<h1 id="三、操作符"><a href="#三、操作符" class="headerlink" title="三、操作符"></a>三、操作符</h1><p>  算数运算符:  +  -  <em> / %<br>  算数运算表达式:由算数运算符连接起来的表达式<br>  一元运算符: 这个操作符只需要一个操作数就可以运算的符号  ++  –<br>  二元运算符: 这个操作符需要两个操作数就可以运算,<br>  三元运算符: a &gt; b ? a : b<br>  复合运算符: +=  -=  </em>= /= %=<br>  复合运算表达式:由复合运算符连接起来的表达式<br>  var num=10;<br>  num+=10;——&gt;就是:num=num+10;<br>  console.log(num);20</p>
-<p>关系运算符: &gt;  &lt;  &gt;=  &lt;=  ==不严格的 ===严格的 !=不严格的不等 !==严格的不等<br>  关系运算表达式:由关系运算符连接起来的表达式<br>  关系运算表达式的结果是布尔类型<br>  逻辑运算符:<br>  &amp;&amp;—逻辑与–并且<br>  ||—逻辑或—或者<br>  !—逻辑非—取反–取非<br>  逻辑运算表达式:由逻辑运算符连接起来的表达式<br>  表达式1&amp;&amp;表达式2<br>  如果有一个为false,整个的结果就是false<br>  表达式1||表达式2<br>  如果有一个为true,整个的结果为true<br>  !表达式1<br>  表达式1的结果是true,整个结果为false<br>  表达式1的结果是false,整个结果为true</p>
-<p>  赋值运算符:  =</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2035,7 +2043,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
