@@ -87,22 +87,22 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="一、Flex布局常见属性1、flex-directionflex-direction属性决定主轴的方向（即项目的排列方向）。 .box { display:flex; flex-direction: row | row-reverse | column | column-reverse; } row（默认值）：主轴为水平方向，起点在左端。 row-reverse：主轴为水平方向，起点在右端。 co">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/81969-aac8f9bd41366fb5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/796/format/webp&ynotemdtimestamp=1557934251294">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/81969-1b94ff11d136538f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700/format/webp&ynotemdtimestamp=1557934251294">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/81969-d41a2a2662c0f270.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/700/format/webp&ynotemdtimestamp=1557934251294">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/81969-068ce0ca63a7755c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/700/format/webp&ynotemdtimestamp=1557934251294">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/81969-6b101bdb3e4b8b9c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/637/format/webp&ynotemdtimestamp=1557934251294">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/81969-ddbf30dd643018e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/617/format/webp&ynotemdtimestamp=1557934251294">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/81969-15904f4ed50b4004.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/620/format/webp&ynotemdtimestamp=1557934251294">
+<meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/flex1.PNG">
+<meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/flex2.PNG">
+<meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/flex3.PNG">
+<meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/flex4.PNG">
+<meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/flex5.PNG">
+<meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/flex6.PNG">
+<meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/flex7.PNG">
 <meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/absolute2.png">
 <meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/relative.jpg">
 <meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/fixed.png">
 <meta property="og:image" content="http://prf3dq1at.bkt.clouddn.com/static.png">
-<meta property="og:updated_time" content="2019-05-29T00:55:02.857Z">
+<meta property="og:updated_time" content="2019-06-02T03:31:54.726Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS常见知识点">
 <meta name="twitter:description" content="一、Flex布局常见属性1、flex-directionflex-direction属性决定主轴的方向（即项目的排列方向）。 .box { display:flex; flex-direction: row | row-reverse | column | column-reverse; } row（默认值）：主轴为水平方向，起点在左端。 row-reverse：主轴为水平方向，起点在右端。 co">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/81969-aac8f9bd41366fb5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/796/format/webp&ynotemdtimestamp=1557934251294">
+<meta name="twitter:image" content="http://prf3dq1at.bkt.clouddn.com/flex1.PNG">
 
 
 
@@ -335,16 +335,16 @@
 
       
         <h1 id="一、Flex布局常见属性"><a href="#一、Flex布局常见属性" class="headerlink" title="一、Flex布局常见属性"></a>一、Flex布局常见属性</h1><h2 id="1、flex-direction"><a href="#1、flex-direction" class="headerlink" title="1、flex-direction"></a>1、flex-direction</h2><p>flex-direction属性决定主轴的方向（即项目的排列方向）。 .box { display:flex; flex-direction: row | row-reverse | column | column-reverse; } row（默认值）：主轴为水平方向，起点在左端。 row-reverse：主轴为水平方向，起点在右端。 column：主轴为垂直方向，起点在上沿,自上而下。 column-reverse：主轴为垂直方向，起点在下沿,自下而上。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/81969-aac8f9bd41366fb5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/796/format/webp&amp;ynotemdtimestamp=1557934251294" alt="markdown"></p>
-<h2 id="2、flex-wrap"><a href="#2、flex-wrap" class="headerlink" title="2、flex-wrap"></a>2、flex-wrap</h2><p>//默认情况下，项目都排在一条线（又称”轴线”）上。flex-wrap属性定义 //如果一条轴线排不下，应该如何换行。 .box{ display:flex; flex-wrap: nowrap | wrap | wrap-reverse; } nowrap（默认）：不换行,宽度自动压缩。 wrap：换行，第一行在上方。 wrap-reverse：换行，第一行在下方。 <img src="https://upload-images.jianshu.io/upload_images/81969-1b94ff11d136538f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700/format/webp&amp;ynotemdtimestamp=1557934251294" alt="markdown"> <img src="https://upload-images.jianshu.io/upload_images/81969-d41a2a2662c0f270.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/700/format/webp&amp;ynotemdtimestamp=1557934251294" alt="markdown"> <img src="https://upload-images.jianshu.io/upload_images/81969-068ce0ca63a7755c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/700/format/webp&amp;ynotemdtimestamp=1557934251294" alt="markdown"></p>
+<p><img src="http://prf3dq1at.bkt.clouddn.com/flex1.PNG" alt="markdown"></p>
+<h2 id="2、flex-wrap"><a href="#2、flex-wrap" class="headerlink" title="2、flex-wrap"></a>2、flex-wrap</h2><p>//默认情况下，项目都排在一条线（又称”轴线”）上。flex-wrap属性定义 //如果一条轴线排不下，应该如何换行。 .box{ display:flex; flex-wrap: nowrap | wrap | wrap-reverse; } nowrap（默认）：不换行,宽度自动压缩。 wrap：换行，第一行在上方。 wrap-reverse：换行，第一行在下方。 <img src="http://prf3dq1at.bkt.clouddn.com/flex2.PNG" alt="markdown"> <img src="http://prf3dq1at.bkt.clouddn.com/flex3.PNG" alt="markdown"> <img src="http://prf3dq1at.bkt.clouddn.com/flex4.PNG" alt="markdown"></p>
 <h2 id="3、flex-flow"><a href="#3、flex-flow" class="headerlink" title="3、flex-flow"></a>3、flex-flow</h2><p>flex-flow属性是flex-direction属性和flex-wrap属性的简写形式 ，默认值为row nowrap。 .box { flex-flow: <flex-direction> || <flex-wrap>; } .box{ flex-flow:row||nowrap; }</flex-wrap></flex-direction></p>
 <h2 id="4、justify-content"><a href="#4、justify-content" class="headerlink" title="4、justify-content"></a>4、justify-content</h2><p>justify-content属性定义了项目在主轴上(即横向)的对齐方式。</p>
 <p>flex-start（默认值）：左对齐 flex-end：右对齐 center： 居中 space-between：两端对齐，组件之间的间隔都相等。 space-around：距边界两侧的间隔相等，元素之间的间隔比项目与边框的间隔大一倍。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/81969-6b101bdb3e4b8b9c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/637/format/webp&amp;ynotemdtimestamp=1557934251294" alt="markdown"></p>
-<h2 id="5、align-items"><a href="#5、align-items" class="headerlink" title="5、align-items"></a>5、align-items</h2><p>align-items属性定义项目在交叉轴上(即纵向,垂直)如何对齐。 .box { align-items: flex-start | flex-end | center | baseline | stretch; } flex-start：交叉轴的起点(顶部)对齐。 flex-end：交叉轴的终点(底部)对齐。 center：交叉轴的中点(中间)对齐。 baseline: 项目的第一行文字的基线(即根据内容对齐,不再根据容器)对齐。 stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。 <img src="https://upload-images.jianshu.io/upload_images/81969-ddbf30dd643018e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/617/format/webp&amp;ynotemdtimestamp=1557934251294" alt="markdown"></p>
+<p><img src="http://prf3dq1at.bkt.clouddn.com/flex5.PNG" alt="markdown"></p>
+<h2 id="5、align-items"><a href="#5、align-items" class="headerlink" title="5、align-items"></a>5、align-items</h2><p>align-items属性定义项目在交叉轴上(即纵向,垂直)如何对齐。 .box { align-items: flex-start | flex-end | center | baseline | stretch; } flex-start：交叉轴的起点(顶部)对齐。 flex-end：交叉轴的终点(底部)对齐。 center：交叉轴的中点(中间)对齐。 baseline: 项目的第一行文字的基线(即根据内容对齐,不再根据容器)对齐。 stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。 <img src="http://prf3dq1at.bkt.clouddn.com/flex6.PNG" alt="markdown"></p>
 <h2 id="6、align-content"><a href="#6、align-content" class="headerlink" title="6、align-content"></a>6、align-content</h2><p>align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。 .box { align-content: flex-start | flex-end | center | space-between | space-around | stretch; } flex-start：与交叉轴的起点对齐。 flex-end：与交叉轴的终点对齐。 center：与交叉轴的中点对齐。</p>
 <p>space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。 space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。 stretch（默认值）：轴线占满整个交叉轴</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/81969-15904f4ed50b4004.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/620/format/webp&amp;ynotemdtimestamp=1557934251294" alt="markdown"></p>
+<p><img src="http://prf3dq1at.bkt.clouddn.com/flex7.PNG" alt="markdown"></p>
 <h1 id="link与-import的区别"><a href="#link与-import的区别" class="headerlink" title="link与@import的区别"></a>link与@import的区别</h1><p>区别1：link是XHTML标签，除了加载CSS外，还可以定义RSS等其他事务；@import属于CSS范畴，只能加载CSS。</p>
 <p>区别2：link引用CSS时，在页面载入时同时加载；@import需要页面网页完全载入以后加载。</p>
 <p>区别3：link是XHTML标签，无兼容问题；@import是在CSS2.1提出的，低版本的浏览器不支持。</p>

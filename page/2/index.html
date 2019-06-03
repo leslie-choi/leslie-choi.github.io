@@ -1142,8 +1142,9 @@
 <p>200 OK 一切正常，对GET和POST请求的应答文档跟在后面。</p>
 <p>201 Created服务器已经创建了文档，Location头给出了它的URL。</p>
 <p>202 Accepted 已经接受请求，但处理尚未完成。</p>
-<p>304 Not Modified 客户端有缓冲的文档并发出了一个条件性的请求（一般是提供If-Modified-Since头表示客户只想比指定日期更新的文档）。服务器告 诉客户，原来缓冲的文档还可以继续使用。</p>
+<p><strong>304 Not Modified 客户端有缓冲的文档并发出了一个条件性的请求（一般是提供If-Modified-Since头表示客户只想比指定日期更新的文档）。服务器告诉客户，原来缓冲的文档还可以继续使用。</strong>(虽然是3开头，但是和重定向没有关系)</p>
 <p>400 Bad Request 请求出现语法错误。</p>
+<p>403 服务器拒绝请求。</p>
 <p>404 Not Found 无法找到指定位置的资源。这也是一个常用的应答。</p>
 <p>405 Method Not Allowed 请求方法（GET、POST、HEAD、DELETE、PUT、TRACE等）对指定的资源不适用。（HTTP 1.1新）</p>
 <p>500 Internal Server Error 服务器遇到了意料不到的情况，不能完成客户的请求。</p>
@@ -1163,7 +1164,7 @@
 <li>保护数据完整性：防止传输的内容被中间人冒充或者篡改<br><img src="http://prf3dq1at.bkt.clouddn.com/https.png" alt="markdown"><h3 id="1）、SSL和TLS"><a href="#1）、SSL和TLS" class="headerlink" title="1）、SSL和TLS"></a>1）、SSL和TLS</h3></li>
 </ol>
 <p>SSL(Secure Sockets Layer 安全套接层),及其继任者传输层安全（Transport Layer Security，TLS）是为网络通信提供安全及数据完整性的一种安全协议。TLS与SSL在传输层对网络连接进行加密</p>
-<h2 id="5、TCP协议"><a href="#5、TCP协议" class="headerlink" title="5、TCP协议"></a>5、TCP协议</h2><p><img src="http://prf3dq1at.bkt.clouddn.com/TCP.png" alt="markdown"><br>互联网由一整套协议构成<br>图片说明：顶层协议是应用层协议 =&gt; TCP协议 =&gt; IP协议 =&gt; 以太网协议</p>
+<h2 id="5、TCP协议"><a href="#5、TCP协议" class="headerlink" title="5、TCP协议"></a>5、TCP协议</h2><p><img src="http://prf3dq1at.bkt.clouddn.com/TCP.png" alt="markdown"><br>互联网由一整套协议构成<br>图片说明：顶层协议是应用层协议 =&gt; TCP协议 =&gt; IP协议 =&gt; 以太网协议（应用层=&gt;传输层=&gt;网络层=&gt;链路层）</p>
 <p>以太网协议：最底层的协议，可以解决子网内部的点对点通讯。</p>
 <p>IP协议：IP协议，可以解决多个局域网之间互通，可以连接多个局域网，定义了一套自己的地址规则，实现了路由的功能，允许某个局域网的A主机，向另一个局域网的B主机发送消息。（PS：路由器就是基于IP协议。所以局域网之间要靠路由器连接）</p>
 <p>题外话：路由原理就是路由器内部有一张路由表，规定A段IP地址走出口一，B段IP地址走出口二。。。根据这样实现了数据包的转发。</p>
@@ -1202,7 +1203,7 @@
 <p>3、利用window.name进行跨域处理<br>4、使用window.postMessage进行跨域</p>
 <h2 id="8、Cookie、session和localStorage、以及sessionStorage之间的区别"><a href="#8、Cookie、session和localStorage、以及sessionStorage之间的区别" class="headerlink" title="8、Cookie、session和localStorage、以及sessionStorage之间的区别"></a>8、Cookie、session和localStorage、以及sessionStorage之间的区别</h2><p>前景引入：http是一种无状态的协议，它的无状态可以用翻脸不认人（浏览器）来表示了；以至于服务器不会记得前一秒是哪个客户端向它发出了请求，这就会导致一种情况出现：小熊登录了淘宝；跳转一下页面，需要再登录；加入购物车，需要再登录；付款需要再登陆…影响用户体验。<br>在服务端的解决办法是：用session去管理cookie。</p>
 <p>当程序需要为某个客户端的请求创建一个session时，服务器首先检查这个客户端的请求里是否已包含了一个session标识（称为session id），如果已包含则说明以前已经为此客户端创建过session，服务器就按照session id把这个session检索出来使用（检索不到，会新建一个），如果客户端请求不包含session id，则为客户端创建一个session并且生成一个与此session相关联的session id，session id的值应该是一个既不会重复，又不容易被找到规律以仿造的字符串，这个session id将被在本次响应中返回给客户端保存。保存这个session id的方式可以采用cookie，这样在交互过程中浏览器可以自动的按照规则把这个标识发送给服务器。</p>
-<h3 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h3><p>内容主要包括<strong>名字、值、过期时间、路径和域</strong>。路径与域一起构成cookie的作用范围。若不设置时间，则表示这个cookie的生命期为浏览器会话期间，关闭浏览器窗口，cookie就会消失。这种生命期为浏览器会话期的cookie被称为会话cookie。所以会话cookie是保存在内存中，如果设置了过期时间，那么cookie就会保存在磁盘里。</p>
+<h3 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h3><p>内容主要包括<strong>名字、值、过期时间、路径和域</strong>。路径与域一起构成cookie的作用范围。若不设置时间，则表示这个cookie的生命期为浏览器会话期间，关闭浏览器窗口，cookie就会消失。这种生命期为浏览器会话期的cookie被称为会话cookie。所以会话cookie是保存在内存中，如果设置了过期时间，那么cookie就会保存在磁盘里。Cookie技术通过在<strong>请求和响应报文</strong>                                      中写入Cookie信息来控制客户端的状态。</p>
 <h3 id="session"><a href="#session" class="headerlink" title="session"></a>session</h3><p>在WEB开发中，服务器可以为每个用户浏览器创建一个会话对象（session对象），注意：一个浏览器独占一个session对象(默认情况下)。因此，在需要保存用户数据时，服务器程序可以把用户数据写到用户浏览器独占的session中，当用户使用浏览器访问其它程序时，其它程序可以从用户的session中取出该用户的数据，为用户服务。</p>
 <h3 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h3><p>在HTML5中，新加入了一个localStorage特性，这个特性主要是用来作为本地存储来使用的，解决了cookie存储空间不足的问题(cookie中每条cookie的存储空间为4k)，<strong>localStorage中一般浏览器支持的是5M大小</strong>，这个在不同的浏览器中localStorage会有所不同。</p>
 <h3 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h3><p>sessionStorage用于本地存储一个会话（session）中的数据，这些数据只有在同一个会话中的页面才能访问并且当会话结束后数据也随之销毁。因此sessionStorage不是一种持久化的本地存储，仅仅是会话级别的存储。</p>
@@ -1216,6 +1217,8 @@
 <li>session中保存的是对象，cookie中保存的是字符串</li>
 </ul>
 <h2 id="10、sessionStorage、localStorage和cookie的区别"><a href="#10、sessionStorage、localStorage和cookie的区别" class="headerlink" title="10、sessionStorage、localStorage和cookie的区别"></a>10、<strong>sessionStorage、localStorage和cookie的区别</strong></h2><p>共同点：都是保存在浏览器端、且同源的<br>区别：<br>1、cookie数据始终在同源的http请求中携带（即使不需要），即cookie在浏览器和服务器间来回传递，而sessionStorage和localStorage不会自动把数据发送给服务器，仅在本地保存。cookie数据还有路径（path）的概念，可以限制cookie只属于某个路径下<br>2、存储大小限制也不同，cookie数据不能超过4K，同时因为每次http请求都会携带cookie、所以cookie只适合保存很小的数据，如会话标识。sessionStorage和localStorage虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大<br>3、数据有效期不同，sessionStorage：仅在当前浏览器窗口关闭之前有效；localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据；cookie：只在设置的cookie过期时间之前有效，即使窗口关闭或浏览器关闭<br>4、作用域不同，<strong>sessionStorage不在不同的浏览器窗口中共享</strong>，即使是同一个页面；localstorage在所有同源窗口中都是共享的；cookie也是在所有同源窗口中都是共享的</p>
+<p>##11、HTTP报文<br>用于HTTP协议交互的信息被称为http报文。HTTP报文大致可分为报文首部和报文主体两块。两者由最初出现的空行（CE+LF）来划分。通常，并不一定要有报文主体。在http1.1中，报文是通信的基本单位，由8位组字节流组成，用于HTTP通信。（http2.0采用二进制分帧）<br><img src="http://prf3dq1at.bkt.clouddn.com/%E6%8A%A5%E6%96%87.png" alt="markdown"></p>
+<p>请求行：包含用于请求的方法，请求uri和http版本   （GET/HTTP/1.1）<br>状态行：包含表明响应结果的状态码，原因短语和http版本    （HTTP/1.1 200 OK）<br>实体：<strong>作为请求或响应的有效载荷数据被传输</strong>，内容由实体首部和实体主体组成。</p>
 
           
         
