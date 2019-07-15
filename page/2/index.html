@@ -229,6 +229,209 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/13/ES6/ES6新语法规范常用/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/13/ES6/ES6新语法规范常用/" itemprop="url">ES6新特性</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-13T23:06:21+08:00">
+                2019-04-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="ES6新语法规范"><a href="#ES6新语法规范" class="headerlink" title="ES6新语法规范"></a>ES6新语法规范</h1><h2 id="一、关键字let和const"><a href="#一、关键字let和const" class="headerlink" title="一、关键字let和const"></a>一、关键字<strong>let</strong>和<strong>const</strong></h2><h3 id="1、let关键字的使用"><a href="#1、let关键字的使用" class="headerlink" title="1、let关键字的使用"></a>1、let关键字的使用</h3><p>let声明的变量只在let命令所在的<strong>代码块内有效，是块级作用域的前提，不存在变量提升，存在暂时性死区</strong>（加粗的是le和const的相同点）。<br>PS：暂时性死区的本质是，只要进入当前作用域，所要使用的变量就已经存在但是不可获取，只有等到变量声明的那一行代码出现，才可以获取和操作该变量。</p>
+<p>const声明一个只读的常量，一旦声明，常量的值就不能改变，所以声明的时候必须初始化，同时也不存在变量提升。<br>let的基本用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  let a = 0;</span><br><span class="line">  var b = 1;</span><br><span class="line">  console.log(a);   // 0</span><br><span class="line">&#125;</span><br><span class="line">console.log(a);    // 报错 ReferenceError: a is not defined</span><br><span class="line">console.log(b);//  1 </span><br><span class="line">//=========&gt;分割线</span><br><span class="line">//let只能声明一次，而var可以声明多次，所以for的循环计时器适合用let</span><br><span class="line">let a = 1;</span><br><span class="line">let a = 2;</span><br><span class="line">var b = 3;</span><br><span class="line">var b = 4;</span><br><span class="line">console.log(a); // Identifier &apos;a&apos; has already been declared</span><br><span class="line">console.log(b);  // 4</span><br></pre></td></tr></table></figure>
+<p>举一个栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">for (var i = 0; i &lt; 10; i++) &#123;</span><br><span class="line">  setTimeout(function()&#123;</span><br><span class="line">    console.log(i);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">// 输出十个 10</span><br><span class="line">for (let j = 0; j &lt; 10; j++) &#123;</span><br><span class="line">  setTimeout(function()&#123;</span><br><span class="line">    console.log(j);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">//输出0到9</span><br></pre></td></tr></table></figure>
+<p>var声明的变量在全局范围内只有一个变量i，循环里的十个 setTimeout 是在循环结束后才执行，用于计数的变量泄露成为全局变量，所以此时的 i 都是 10；<br>变量 j 是用 let 声明的，当前的 j 只在本轮循环中有效，每次循环的 j 其实都是一个新的变量，所以 setTimeout 定时器里面的 j 其实是不同的变量，即最后输出0123456789。（JS引擎内部会记住前一次循环的值），所以这与JS的运行机制并不冲突。</p>
+<p>注意点：使用let声明变量。并不存<strong>在变量提升</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">console.log(a);  //ReferenceError: a is not defined</span><br><span class="line">let a = &quot;apple&quot;;</span><br><span class="line"> </span><br><span class="line">console.log(b);  //undefined</span><br><span class="line">var b = &quot;banana&quot;;</span><br></pre></td></tr></table></figure>
+<h3 id="2、const关键字的使用"><a href="#2、const关键字的使用" class="headerlink" title="2、const关键字的使用"></a>2、const关键字的使用</h3><p>const 声明一个只读变量，声明之后不允许改变。意味着，一但声明<strong>必须初始化</strong>，否则会报错。但是如果是一个对象，可以改变对象里面属性值。</p>
+<p><strong>const使用的注意点：</strong><br><strong>其实 const保证的不是变量的值不变，而是保证变量指向的内存地址所保存的数据不允许改动</strong>。但是简单类型和复合类型保存值的方式是不同的。对于简单类型（数值 number、字符串 string 、布尔值 boolean）,值就保存在变量指向的那个内存地址，因此 const 声明的简单类型变量等同于常量。而复杂类型（对象 object，数组 array，函数 function），变量指向的内存地址其实是保存了一个指向实际数据的指针，所以 const 只能<strong>保证指针是固定</strong>的，至于指针指向的数据结构则无法来控制了，所以使用 const 声明复杂类型对象时要慎重。</p>
+<h2 id="二、ES6提供了对函数的扩展"><a href="#二、ES6提供了对函数的扩展" class="headerlink" title="二、ES6提供了对函数的扩展"></a>二、ES6提供了对函数的扩展</h2><h3 id="1、ES6为参数提供了默认值"><a href="#1、ES6为参数提供了默认值" class="headerlink" title="1、ES6为参数提供了默认值"></a>1、ES6为参数<strong>提供了默认值</strong></h3><p>在定义函数时便初始化了这个参数，以便在参数没有被传递进去时使用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function A(a,b=1)&#123;</span><br><span class="line">    console.log(a+b);</span><br><span class="line">&#125;</span><br><span class="line">A(1);    //2</span><br><span class="line">A(2,3); //5</span><br></pre></td></tr></table></figure>
+<h3 id="2、箭头函数"><a href="#2、箭头函数" class="headerlink" title="2、箭头函数"></a>2、箭头函数</h3><p>在es6中，提供了一种简洁的函数写法，我们称作“箭头函数”。</p>
+<p>写法：函数名=(形参)=&gt;{……}     当函数体中只有一个表达式时，{}和return可以省略，当函数体中形参只有一个时，()可以省略。所以当函数体内代码多于1行时，必须使用{}，并且使用return语句返回</p>
+<p>在函数执行时，<strong>this 总是指向调用该函数的对象</strong>。要判断 this 的指向，其实就是判断 this 所在的函数属于谁</p>
+<p><strong>特点：箭头函数使得this的指向固定化，this始终指向箭头函数定义时的离this最近的一个函数，如果没有最近的函数就指向window</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//省略写法</span><br><span class="line">var f1 = f =&gt; &#123; hhh &#125;</span><br><span class="line"></span><br><span class="line">//es5写法</span><br><span class="line">var f1 = function(f)&#123;</span><br><span class="line">    return hhh</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="三、对象的扩展"><a href="#三、对象的扩展" class="headerlink" title="三、对象的扩展"></a>三、对象的扩展</h2><h3 id="1、属性的简写。"><a href="#1、属性的简写。" class="headerlink" title="1、属性的简写。"></a>1、属性的简写。</h3><p>ES6 允许在对象之中，直接写变量。这时，属性名为变量名, 属性值为变量的值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var foo = &apos;bar&apos;;</span><br><span class="line">var baz = &#123;foo&#125;;  //等同于  var baz = &#123;foo: foo&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="2、方法的简写，省略冒号与function关键字"><a href="#2、方法的简写，省略冒号与function关键字" class="headerlink" title="2、方法的简写，省略冒号与function关键字"></a>2、方法的简写，省略冒号与function关键字</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var o = &#123;</span><br><span class="line">  method() &#123;</span><br><span class="line">    return &quot;Hello!&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">// 等同于</span><br><span class="line">var o = &#123;</span><br><span class="line">  method: function() &#123;</span><br><span class="line">    return &quot;Hello!&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="3、Object-keys-方法"><a href="#3、Object-keys-方法" class="headerlink" title="3、Object.keys()方法"></a>3、Object.keys()方法</h3><p>获取对象的所有属性名或方法名（不包括原形的内容），返回一个数组。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var obj=&#123;name: &quot;john&quot;, age: &quot;21&quot;, getName: function () &#123; alert(this.name)&#125;&#125;;</span><br><span class="line">console.log(Object.keys(obj));    // [&quot;name&quot;, &quot;age&quot;, &quot;getName&quot;]</span><br><span class="line">console.log(Object.keys(obj).length);    //3</span><br><span class="line"> </span><br><span class="line">console.log(Object.keys([&quot;aa&quot;, &quot;bb&quot;, &quot;cc&quot;]));    //[&quot;0&quot;, &quot;1&quot;, &quot;2&quot;]</span><br><span class="line">console.log(Object.keys(&quot;abcdef&quot;));    //[&quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;]</span><br></pre></td></tr></table></figure>
+<h3 id="4、for…of-循环"><a href="#4、for…of-循环" class="headerlink" title="4、for…of  循环"></a>4、for…of  循环</h3><p>是遍历所有数据结构的统一的方法。for…of循环可以使用的范围包括数组、Set 和 Map 结构、某些类似数组的对象（比如arguments对象、DOM NodeList 对象）、Generator 对象，以及字符串。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">var arr=[&quot;小林&quot;,&quot;小吴&quot;,&quot;小佳&quot;];</span><br><span class="line">for(var v of arr)&#123;</span><br><span class="line">    console.log(v);	</span><br><span class="line">&#125;</span><br><span class="line">//小林 </span><br><span class="line">//小吴 </span><br><span class="line">//小佳</span><br></pre></td></tr></table></figure>
+<h3 id="四、import和export"><a href="#四、import和export" class="headerlink" title="四、import和export"></a>四、import和export</h3><p>ES6标准中，JavaScript原生支持模块(module)了。这种将JS代码分割成不同功能的小块进行模块化，将不同功能的代码分别写在不同文件中，各模块只需导出公共接口部分，然后通过模块的导入的方式可以在其他地方使用。</p>
+<p>export用于对外输出本模块（一个文件可以理解为一个模块）变量的接口。</p>
+<p>import用于在一个模块中加载另一个含有export接口的模块。</p>
+<p>import和export命令只能在模块的顶部，不能在代码块之中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//导入部分</span><br><span class="line">//全部导入</span><br><span class="line">import Person from &apos;./example&apos;</span><br><span class="line"> </span><br><span class="line">//将整个模块所有导出内容当做单一对象，用as起别名</span><br><span class="line">import * as example from &quot;./example.js&quot;</span><br><span class="line">console.log(example.name)</span><br><span class="line">console.log(example.getName())</span><br><span class="line"> </span><br><span class="line">//导入部分</span><br><span class="line">import &#123; name &#125; from &apos;./example&apos;</span><br><span class="line"> </span><br><span class="line">//导出部分</span><br><span class="line">// 导出默认</span><br><span class="line">export default App</span><br><span class="line"> </span><br><span class="line">// 部分导出</span><br><span class="line">export class User extend Component &#123;&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="五、模板字符串"><a href="#五、模板字符串" class="headerlink" title="五、模板字符串"></a>五、模板字符串</h2><p>所有的空格和缩进都会被保留在输出之中。。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">`Hello $&#123;name&#125;`</span><br><span class="line"></span><br><span class="line">//如果说不想要换行，就可以使用trim方法去除空格和换行</span><br><span class="line"></span><br><span class="line">$(&apos;#list&apos;).html(`</span><br><span class="line">&lt;ul&gt;</span><br><span class="line">  &lt;li&gt;first&lt;/li&gt;</span><br><span class="line">  &lt;li&gt;second&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line">`.trim());</span><br></pre></td></tr></table></figure>
+<h2 id="六、promise对象"><a href="#六、promise对象" class="headerlink" title="六、promise对象"></a>六、promise对象</h2><p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/promise.png" alt="markdown"><br>概念：Promise是异步编程的一种解决方案，比传统的解决方案（回调函数和事件）更合合理、强大。所谓Promise，简单来说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说<strong>，Promise是一个对象，从它可以获取异步操作的消息</strong>。Promise提供统一的API，各种异步操作都可以用同样的方法进行处理。将异步操作以同步操作的流程表达出来，<strong>避免了层层嵌套的回调函数</strong>，解决了JQuery的回调地狱问题。</p>
+<p>它有三种状态，分别是<strong>pending-进行中、resolved-已完成、rejected-已失败。</strong></p>
+<p>可以把 Promise 看成一个状态机。初始是 pending 状态，可以通过函数 resolve 和reject，将状态转变为 resolved 或者 rejected 状态，状态一旦改变就不能再次变化<br>then 函数会返回一个 Promise 实例，并且该返回值是一个<strong>新的实例</strong>而不是之前的实例。因为Promise 规范规定除了 pending 状态，其他状态是不可以改变的，如果返回的是一个相同实例的话，多个 then调用就失去意义了<br>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var promise = new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    var success = true;</span><br><span class="line">    if (success) &#123;</span><br><span class="line">        resolve(&apos;成功&apos;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        reject(&apos;失败&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).then(</span><br><span class="line">    (data) =&gt; &#123; console.log(data)&#125;,</span><br><span class="line">    (data) =&gt; &#123; console.log(data)&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>分析<strong>promise的执行过程</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">setTimeout(function() &#123;</span><br><span class="line">    console.log(0);</span><br><span class="line">&#125;, 0);</span><br><span class="line">var promise = new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    console.log(1);</span><br><span class="line">    setTimeout(function () &#123;</span><br><span class="line">        var success = true;</span><br><span class="line">        if (success) &#123;</span><br><span class="line">            resolve(&apos;成功&apos;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            reject(&apos;失败&apos;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,2000);</span><br><span class="line">&#125;).then(</span><br><span class="line">    (data) =&gt; &#123; console.log(data)&#125;,</span><br><span class="line">    (data) =&gt; &#123; console.log(data)&#125;</span><br><span class="line">);</span><br><span class="line">console.log(promise);	//&lt;pending&gt; 进行中</span><br><span class="line">setTimeout(function () &#123;</span><br><span class="line">    console.log(promise);	//&lt;resolved&gt; 已完成</span><br><span class="line">&#125;,2500);</span><br><span class="line">console.log(2);</span><br><span class="line"> </span><br><span class="line">//1  </span><br><span class="line">//Promise &#123;&lt;pending&gt;&#125;</span><br><span class="line">//2</span><br><span class="line">//0</span><br><span class="line">//成功</span><br><span class="line">//Promise &#123;&lt;resolved&gt;: undefined&#125;</span><br></pre></td></tr></table></figure>
+<p>用Promise对象实现的 Ajax</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">const getJSON = function(url) &#123;</span><br><span class="line">  const promise = new Promise(function(resolve, reject)&#123;</span><br><span class="line">    const handler = function() &#123;</span><br><span class="line">      if (this.readyState !== 4) &#123;</span><br><span class="line">        return;</span><br><span class="line">      &#125;</span><br><span class="line">      if (this.status === 200) &#123;</span><br><span class="line">        resolve(this.response);</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        reject(new Error(this.statusText));</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    const client = new XMLHttpRequest();</span><br><span class="line">    client.open(&quot;GET&quot;, url);</span><br><span class="line">    client.onreadystatechange = handler;</span><br><span class="line">    client.responseType = &quot;json&quot;;</span><br><span class="line">    client.setRequestHeader(&quot;Accept&quot;, &quot;application/json&quot;);</span><br><span class="line">    client.send();</span><br><span class="line"></span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  return promise;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">getJSON(&quot;/posts.json&quot;).then(function(json) &#123;</span><br><span class="line">  console.log(&apos;Contents: &apos; + json);</span><br><span class="line">&#125;, function(error) &#123;</span><br><span class="line">  console.error(&apos;出错了&apos;, error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h1 id="七、新增symbol基础数据类型"><a href="#七、新增symbol基础数据类型" class="headerlink" title="七、新增symbol基础数据类型"></a>七、新增symbol基础数据类型</h1><p>功能类似于一种标识唯一性的ID。通常情况下，我们可以通过调用Symbol()函数来创建一个Symbol实例。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let s1 = Symbol()</span><br></pre></td></tr></table></figure>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><h2 id="1、使用Symbol来替代常量"><a href="#1、使用Symbol来替代常量" class="headerlink" title="1、使用Symbol来替代常量"></a>1、使用Symbol来替代常量</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">const TYPE_AUDIO = &apos;AUDIO&apos;</span><br><span class="line">const TYPE_VIDEO = &apos;VIDEO&apos;</span><br><span class="line">const TYPE_IMAGE = &apos;IMAGE&apos;</span><br><span class="line">function handleFileResource(resource) &#123;</span><br><span class="line">  switch(resource.type) &#123;</span><br><span class="line">    case TYPE_AUDIO:</span><br><span class="line">      playAudio(resource)</span><br><span class="line">      break</span><br><span class="line">    case TYPE_VIDEO:</span><br><span class="line">      playVideo(resource)</span><br><span class="line">      break</span><br><span class="line">    case TYPE_IMAGE:</span><br><span class="line">      previewImage(resource)</span><br><span class="line">      break</span><br><span class="line">    default:</span><br><span class="line">      throw new Error(&apos;Unknown type of resource&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用Symbol，就不必一直为起变量的名字头疼了。一下这样定义就可以保证三个变量是完全独一无二的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const TYPE_AUDIO = Symbol()</span><br><span class="line">const TYPE_VIDEO = Symbol()</span><br><span class="line">const TYPE_IMAGE = Symbol()</span><br></pre></td></tr></table></figure>
+<h2 id="2、使用Symbol定义类的私有属性-方法"><a href="#2、使用Symbol定义类的私有属性-方法" class="headerlink" title="2、使用Symbol定义类的私有属性/方法"></a>2、使用Symbol定义类的私有属性/方法</h2><p>JavaScript中，是没有如Java等面向对象语言的访问控制关键字private的，类上所有定义的属性或方法都是可公开访问的。因此这对我们进行API的设计时造成了一些困扰。<br>有了Symbol以及模块化机制，类的私有属性和方法才变成可能。<br>新建一个a.js文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const PASSWORD = Symbol()</span><br><span class="line">class Login &#123;</span><br><span class="line">  constructor(username, password) &#123;</span><br><span class="line">    this.username = username</span><br><span class="line">    this[PASSWORD] = password</span><br><span class="line">  &#125;</span><br><span class="line">  checkPassword(pwd) &#123;</span><br><span class="line">      return this[PASSWORD] === pwd</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">export default Login</span><br></pre></td></tr></table></figure>
+<p>另建b.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import Login from &apos;./a&apos;</span><br><span class="line"></span><br><span class="line">const login = new Login(&apos;admin&apos;, &apos;123456&apos;)</span><br><span class="line"></span><br><span class="line">login.checkPassword(&apos;123456&apos;)  // true</span><br><span class="line">login.PASSWORD  // 无法访问到</span><br><span class="line">login[PASSWORD] // 同上</span><br><span class="line">login[&quot;PASSWORD&quot;] // 同上</span><br></pre></td></tr></table></figure>
+<p>由于Symbol常量PASSWORD被定义在a.js所在的模块中，外面的模块获取不到这个Symbol，也不可能再创建一个一模一样的Symbol出来（因为Symbol是唯一的），因此这个PASSWORD的Symbol只能被限制在a.js内部使用，所以使用它来定义的类属性是没有办法被模块外访问到的，达到了一个私有化的效果。</p>
+<h2 id="3、注册和获取全局Symbol"><a href="#3、注册和获取全局Symbol" class="headerlink" title="3、注册和获取全局Symbol"></a>3、注册和获取全局Symbol</h2><p>通常情况下，我们在一个浏览器窗口中（window），使用Symbol()函数来定义和Symbol实例就足够了。但是，如果你的应用涉及到多个window（最典型的就是页面中使用了 iframe ），并需要这些window中使用的某些Symbol是同一个，那就不能使用Symbol()函数了，因为用它在不同window中创建的Symbol实例总是唯一的，而我们需要的是在所有这些window环境下保持一个共享的Symbol。这种情况下，我们就需要使用另一个API来创建或获取Symbol，那就是<strong>Symbol.for()</strong>，它可以注册或获取一个window间全局的Symbol实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let gs1 = Symbol.for(&apos;global_symbol_1&apos;)  //注册一个全局Symbol</span><br><span class="line">let gs2 = Symbol.for(&apos;global_symbol_1&apos;)  //获取全局Symbol</span><br><span class="line"></span><br><span class="line">gs1 === gs2  // true</span><br></pre></td></tr></table></figure>
+<p>这样一个Symbol不光在单个window中是唯一的，在多个相关window间也是唯一的了。</p>
+<h1 id="八、新增set数据类型"><a href="#八、新增set数据类型" class="headerlink" title="八、新增set数据类型"></a>八、新增set数据类型</h1><p>ES6中新增了Set数据结构，类似于数组，但是 它的成员都是唯一的 ，其构造函数可以接受一个数组作为参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let array = [1, 1, 1, 1, 2, 3, 4, 4, 5, 3];</span><br><span class="line">let set = new Set(array);</span><br><span class="line">console.log(set); // 此时打印的是set 结构 Set(5) &#123;1, 2, 3, 4, 5&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="九、class、-extends、-super"><a href="#九、class、-extends、-super" class="headerlink" title="九、class、 extends、 super"></a>九、class、 extends、 super</h1><p>这三个特性设计到ES5几个点，就是原型，继承还有多态，确实是令人挺烦的。。但那是ES6之前的事了蛤蛤。</p>
+<p>ES6提供了更接近传统语言的写法，引入了Class（类）这个概念。新的class写法让对象原型的写法更加清晰、更像面向对象编程的语法，也更加通俗易懂。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class MyClass &#123;</span><br><span class="line">  constructor() &#123;  // 构造函数</span><br><span class="line">    // ...</span><br><span class="line">  &#125;</span><br><span class="line">  get prop() &#123;  // 取值</span><br><span class="line">    return &apos;getter&apos;;</span><br><span class="line">  &#125;</span><br><span class="line">  set prop(value) &#123; // 存值</span><br><span class="line">    console.log(&apos;setter: &apos;+value);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let inst = new MyClass();</span><br><span class="line">inst.prop = 123;</span><br><span class="line">// setter: 123</span><br><span class="line">console.log(inst.prop);</span><br><span class="line">// &apos;getter&apos;</span><br></pre></td></tr></table></figure>
+<p>extends用法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Point &#123;</span><br><span class="line">  constructor(x, y) &#123;</span><br><span class="line">    this.x = x;</span><br><span class="line">    this.y = y;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class ColorPoint extends Point &#123;</span><br><span class="line">  constructor(x, y, color) &#123;</span><br><span class="line">    this.color = color; // ReferenceError</span><br><span class="line">    super(x, y);</span><br><span class="line">    this.color = color; // 正确</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在子类的构造函数中，<strong>只有调用super之后</strong>，才可以使用this关键字，否则会报错。这是因为子类实例的构建，是基于对父类实例加工，只有super方法才能返回父类实例。父类的静态方法，也会被子类继承。</p>
+<p>注意，super虽然代表了父类Point的构造函数，但是返回的是子类ColorPoint的实例，即super内部的this指的是ColorPoint，因此super()在这里相当于Point.prototype.constructor.call(this)。</p>
+<p>作为函数时，super()只能用在子类的构造函数之中，用在其他地方就会报错。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class A &#123;&#125;</span><br><span class="line">class B extends A &#123;</span><br><span class="line">  m() &#123;</span><br><span class="line">     super(); // 报错</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="十、解构赋值"><a href="#十、解构赋值" class="headerlink" title="十、解构赋值"></a>十、解构赋值</h1>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/21/JavaScript/this指向/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1791,211 +1994,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/JavaScript/javaScript随手记/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/26/JavaScript/javaScript随手记/" itemprop="url">JavaScript随手记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-26T16:16:24+08:00">
-                2019-01-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="一、作用域"><a href="#一、作用域" class="headerlink" title="一、作用域"></a>一、作用域</h1><h2 id="1、作用域概念"><a href="#1、作用域概念" class="headerlink" title="1、作用域概念"></a>1、作用域概念</h2><p>作用域：变量可以起作用的范围</p>
-<p>全局变量：使用var声明的，在任何地方都可以访问到的变量就是全局变量，对应全局作用域，如果页面不关闭，则内存不会释放，一直占用空间。</p>
-<p>局部变量：只在固定的代码片段内可访问到的变量，最常见的例如函数内部。对应局部作用域(函数作用域)。</p>
-<p>隐式全局变量：声明的变量没有var,就叫隐式全局变量。</p>
-<p>不使用var声明的变量是全局变量，不推荐使用。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  number=<span class="number">1000</span>;<span class="comment">//是隐式全局变量</span></span><br><span class="line">&#125;</span><br><span class="line">f1();</span><br><span class="line"><span class="built_in">console</span>.log(number);</span><br></pre></td></tr></table></figure>
-<h2 id="2、块级作用域"><a href="#2、块级作用域" class="headerlink" title="2、块级作用域"></a>2、块级作用域</h2><p>任何一对花括号（｛和｝）中的语句集都属于一个块，在这之中定义的所有变量在代码块外都是不可见的，我们称之为块级作用域。在es5之前没有块级作用域的的概念,只有函数作用域。</p>
-<h2 id="3、-js-中词法作用域规则"><a href="#3、-js-中词法作用域规则" class="headerlink" title="3、 js 中词法作用域规则:"></a>3、 js 中词法作用域规则:</h2><p>函数允许访问函数外的数据.</p>
-<p>整个代码结构中只有函数可以限定作用域.</p>
-<p>作用域规则首先使用提升规则分析</p>
-<p>如果当前作用规则中有名字了, 就不考虑外面的名字</p>
-<h2 id="4、作用域链"><a href="#4、作用域链" class="headerlink" title="4、作用域链"></a>4、作用域链</h2><p>只有函数可以制造作用域结构， 那么只要是代码，就至少有一个作用域, 即全局作用域。凡是代码中有函数，那么这个函数就构成另一个作用域。如果函数中还有函数，那么在这个作用域中就又可以诞生一个作用域。</p>
-<p>将这样的所有的作用域列出来，可以有一个结构: 函数内指向函数外的链式结构。就称作作用域链。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">f3</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="二、预解析"><a href="#二、预解析" class="headerlink" title="二、预解析"></a>二、预解析</h1><p>JavaScript代码的执行是由浏览器中的<strong>JavaScript解析器</strong>来执行的。JavaScript解析器执行JavaScript代码的时候，分为两个过程：<strong>预解析过程和代码执行</strong>过程。预解析就是在全局中寻找var关键字声明的变量和通过function关键字声明的函数。<br>预解析过程：</p>
-<ol>
-<li>把变量的声明提升到当前作用域的最前面，只会提升声明，不会提升赋值。</li>
-<li>把函数的声明提升到当前作用域的最前面，只会提升声明，不会提升调用。</li>
-<li>先提升函数，然后再提升变量。</li>
-<li>只有变量和函数才会发生声明提升，并且变量在提升声明的时候不会赋值，默认值是undefined，函数声明也不会将函数调用。</li>
-<li>通过声明提升，函数可以在声明的函数体之上进行调用，变量也可以在赋值之前进行输出，而且不会报错，如果说直接输出一个没有声明的变量就会报错。</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">f1(); <span class="comment">// 'hello'</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'hello'</span>);</span><br><span class="line">&#125; <span class="comment">// 此时预解析函数 f1 声明提升, 所以上面的调用控制台中调用不会报错</span></span><br><span class="line"><span class="built_in">console</span>.log(num); <span class="comment">// undefined  此时预解析变量 num 声明提升（没有赋值）</span></span><br><span class="line"><span class="keyword">var</span> num = <span class="number">5</span>; <span class="comment">//  所以上面在控制台中调用不会报错，只是显示 undefined</span></span><br></pre></td></tr></table></figure>
-<h1 id="三、SPA单页面应用的优缺点"><a href="#三、SPA单页面应用的优缺点" class="headerlink" title="三、SPA单页面应用的优缺点"></a>三、SPA单页面应用的优缺点</h1><p>SPA分为2种。 第一种，SPA即指水疗、芳香按摩、沐浴、去死角等等。现代SPA主要透过人体的五大感官功能，即听觉（疗效音乐）、味觉（花草茶、健康饮食）、触觉（按摩）、视觉等达到全方位的放松，将精、气、神三者合一，实现身心的放松。</p>
-<p>第二种，spa指的是single page application，就是只有一张Web页面的应用。单页应用程序 (SPA) 是加载单个HTML 页面并在用户与应用程序交互时动态更新该页面的Web应用程序，它在加载页面时，不会加载整个页面，而是只更新某个指定的容器中内容。 浏览器一开始会加载必需的HTML、CSS和JavaScript，所有的操作都在这张页面上完成，都由JavaScript来控制。因此，对单页应用来说模块化的开发和设计显得相当重要。</p>
-<h2 id="优点"><a href="#优点" class="headerlink" title="优点:"></a>优点:</h2><p>1.用户体验好,快,内容的改变不需要重新加载整个页面</p>
-<p>2.基于上面一点,spa相对于服务器压力小</p>
-<p>3.良好的前后端分离</p>
-<p>4.同一套后端程序代码,不用修改就可以用web界面,手机,平板等多种客户端</p>
-<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点:"></a>缺点:</h2><p>1.不利于seo</p>
-<p>2.初次加载耗时相对增多</p>
-<p>3.导航不可用,如果一定要导航需要自行实现前进,后退</p>
-<p>而前端路由router就是管理SPA单页面应用的路径管理器。vue的单页面应用是基于路由和组件的，路由用于设定访问路径，并将路径和组件映射起来。传统的页面应用，是用一些超链接来实现页面切换和跳转的。在vue-router单页面应用中，则是路径之间的切换，也就是组件的切换。路由模块的本质 就是建立起url和页面之间的映射关系。</p>
-<h1 id="四、router的实现原理"><a href="#四、router的实现原理" class="headerlink" title="四、router的实现原理"></a>四、router的实现原理</h1><p><strong>更新视图而不重新请求页面</strong>;vue-router在实现单页面前端路由时，提供了两种方式：Hash模式和History模式；根据mode参数来决定采用哪一种方式。</p>
-<h3 id="1、Hash模式："><a href="#1、Hash模式：" class="headerlink" title="1、Hash模式："></a>1、Hash模式：</h3><p>vue-router 默认 hash 模式 —— 使用 URL 的 hash 来模拟一个完整的 URL，于是当 URL 改变时，页面不会重新加载。 hash（#）是URL 的锚点，代表的是网页中的一个位置，单单改变#后的部分，浏览器只会滚动到相应位置，不会重新加载网页，也就是说hash 出现在 URL 中，但<strong>不会被包含在 http 请求中，对后端完全没有影响</strong>，因此改变 hash 不会重新加载页面；同时每一次改变#后的部分，都会在浏览器的访问历史中增加一个记录，使用”后退”按钮，就可以回到上一个位置；所以说Hash模式通过锚点值的改变，根据不同的值，渲染指定DOM位置的不同数据。hash 模式的原理是 <strong>onhashchange 事件(监测hash值变化)</strong>，可以在 window 对象上监听这个事件</p>
-<h3 id="2、History模式："><a href="#2、History模式：" class="headerlink" title="2、History模式："></a>2、History模式：</h3><p>由于hash模式会在url中自带#，如果不想要很丑的 hash，我们可以用路由的 history 模式，只需要在配置路由规则时，加入”mode: ‘history’，不过这种模式需要后台再进行配置，如果后台配置不正确，访问页面则会返回404错误。</p>
-<h3 id="3、vue-router的使用方式"><a href="#3、vue-router的使用方式" class="headerlink" title="3、vue-router的使用方式"></a>3、vue-router的使用方式</h3><h4 id="1、npm-i-vue-router-S下载路由"><a href="#1、npm-i-vue-router-S下载路由" class="headerlink" title="1、npm i vue-router -S下载路由"></a>1、npm i vue-router -S下载路由</h4><h4 id="2、在main-js中引入-import-VueRouter-from-‘vue-router’"><a href="#2、在main-js中引入-import-VueRouter-from-‘vue-router’" class="headerlink" title="2、在main.js中引入 import VueRouter from ‘vue-router’;"></a>2、在main.js中引入 import VueRouter from ‘vue-router’;</h4><h4 id="3、安装插件Vue-use-VueRouter"><a href="#3、安装插件Vue-use-VueRouter" class="headerlink" title="3、安装插件Vue.use(VueRouter);"></a>3、安装插件Vue.use(VueRouter);</h4><h4 id="4、创建路由对象并配置路由规则-let-router-new-VueRouter-routes-path-’-home’-component-Home"><a href="#4、创建路由对象并配置路由规则-let-router-new-VueRouter-routes-path-’-home’-component-Home" class="headerlink" title="4、创建路由对象并配置路由规则 let router = new VueRouter({routes:[{path:’/home’,component:Home}]});"></a>4、创建路由对象并配置路由规则 let router = new VueRouter({routes:[{path:’/home’,component:Home}]});</h4><h4 id="5、将其路由对象传递给Vue的实例，options中加入-router-router"><a href="#5、将其路由对象传递给Vue的实例，options中加入-router-router" class="headerlink" title="5、将其路由对象传递给Vue的实例，options中加入 router:router"></a>5、将其路由对象传递给Vue的实例，options中加入 router:router</h4><h4 id="6、在app-vue中留坑"><a href="#6、在app-vue中留坑" class="headerlink" title="6、在app.vue中留坑 "></a>6、在app.vue中留坑 <router-view></router-view></h4><p>（router-view即页面中需要切换的部分）</p>
-<h1 id="五、this指向"><a href="#五、this指向" class="headerlink" title="五、this指向"></a>五、this指向</h1><h2 id="1、形式”test-””"><a href="#1、形式”test-””" class="headerlink" title="1、形式”test()””"></a>1、形式”test()””</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">function test () &#123;</span><br><span class="line">    console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">test()  //1</span><br></pre></td></tr></table></figure>
-<p>直接不带任何引用形式去调用函数，则this会指向全局对象，因为没有其他影响去改变this，this默认就是指向全局对象（浏览器是window，Node中是global）的。这个结论是在非严格模式的情况下，严格模式下这个this其实是undefined的。</p>
-<h2 id="2、形式”xxx-text-”"><a href="#2、形式”xxx-text-”" class="headerlink" title="2、形式”xxx.text()”"></a>2、形式”xxx.text()”</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">function test () &#123;</span><br><span class="line">    console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 2,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line">obj.test()      //2</span><br></pre></td></tr></table></figure>
-<p>这种形式相对于第一中，this指向已经很明显，谁去调用这个函数的，这个函数中的this就绑定到谁身上。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">function test () &#123;</span><br><span class="line">    console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 2,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line">var obj0 = &#123;</span><br><span class="line">    a: 3,</span><br><span class="line">    obj </span><br><span class="line">&#125;</span><br><span class="line">obj0.obj.test()     //2</span><br></pre></td></tr></table></figure>
-<p>虽然比上面复杂了一点，但是结果依然和上面的一样，this指向obj，指向直接调用的对象。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">function test () &#123;</span><br><span class="line">    console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 2,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line">var testCopy = obj.test</span><br><span class="line">testCopy()      //testCopy()是由window调用的，所以this指向window</span><br></pre></td></tr></table></figure>
-<p>道理同上，虽然说换了一个名字，但是只认定函数调用的时候，是由哪个对象进行调用的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">function test () &#123;</span><br><span class="line">    console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 2,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line">setTimeout(obj.test)  //输出1</span><br></pre></td></tr></table></figure>
-<h2 id="3、形式“test-call-xxx-test-apply-xxx-test-bind-”"><a href="#3、形式“test-call-xxx-test-apply-xxx-test-bind-”" class="headerlink" title="3、形式“test.call(xxx) / test.apply(xxx) / test.bind()”"></a>3、形式“test.call(xxx) / test.apply(xxx) / test.bind()”</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">function test () &#123;</span><br><span class="line">    console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 2,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line">var obj3 = &#123;</span><br><span class="line">    a: 3,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line">var testCopy = obj.test</span><br><span class="line">testCopy.call(obj)//2</span><br></pre></td></tr></table></figure>
-<p>可以看到，我们通过call（apply跟call的区别只是传参，作用是一样的，bind有点区别，bind能让我们的函数延迟执行，apply与call调用就执行，所以bind这样的形式我们也称为函数柯里化，这些就不是我们这里要说的啦）来调用testCopy，并且传入了你想要this指向的上下文，那么this指向你要的对象。看到这里，我们也可以想象第一、二种形式其实可以转化成call/apply的形式</p>
-<h2 id="4、“new-test-”形式"><a href="#4、“new-test-”形式" class="headerlink" title="4、“new test()”形式"></a>4、“new test()”形式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">function test (a) &#123;</span><br><span class="line">    this.a = a</span><br><span class="line">&#125;</span><br><span class="line">var b = new test(2)</span><br><span class="line">console.log(b.a)        //2</span><br></pre></td></tr></table></figure>
-<p>new这个操作符其实是new了一个新对象出来，而被new的test我们称为构造函数，我们可以在这个构造函数里定义一下将要到来的新对象的一些属性。所以构造函数里的this指的就是将要被new出来的新对象。</p>
-<p>最后的最后，其实还有一个，就是箭头函数中的this指向。。<br><strong>箭头函数中的this是在定义函数的时候绑定，而不是在执行函数的时候绑定</strong>所谓的定义时候绑定，就是this是继承自父执行上下文中的this！！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">var test = () =&gt; &#123;</span><br><span class="line">    console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 2,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line">obj.test()</span><br></pre></td></tr></table></figure>
-<p><strong>它this指向的是它的外层作用域this的指向。</strong>。外层作用域是整个window，所以输出的是1.</p>
-<h1 id="六、typeof和instanceof的区别"><a href="#六、typeof和instanceof的区别" class="headerlink" title="六、typeof和instanceof的区别"></a>六、typeof和instanceof的区别</h1><h2 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h2><p>typeof 是一个一元运算，放在一个运算数之前，运算数可以是任意类型。<strong>它返回值是一个字符串，该字符串说明运算数的类型。</strong></p>
-<p>typeof 一般只能返回如下几个结果：<br>“number”、”string”、”boolean”、”object”、”function” 和 “undefined”。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">运算数为数字 typeof(x) = &quot;number&quot; </span><br><span class="line"></span><br><span class="line">字符串 typeof(x) = &quot;string&quot; </span><br><span class="line"></span><br><span class="line">布尔值 typeof(x) = &quot;boolean&quot; </span><br><span class="line"></span><br><span class="line">对象,数组和null typeof(x) = &quot;object&quot; </span><br><span class="line"></span><br><span class="line">函数 typeof(x) = &quot;function&quot;</span><br></pre></td></tr></table></figure>
-<h2 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h2><p>instanceof 运算符用来测试一个对象在其原型链中是否存在一个构造函数的 prototype 属性。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var a=new Array();</span><br><span class="line"></span><br><span class="line">alert(a instanceof Array); // true，</span><br><span class="line"></span><br><span class="line">//同时 alert(a instanceof Object) //也会返回 true;</span><br><span class="line"></span><br><span class="line">//这是因为 Array 是 object 的子类。</span><br></pre></td></tr></table></figure>
-<p>另外，更重的一点是 instanceof 可以在继承关系中用来判断一个实例是否属于它的父类型。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>)</span>&#123;&#125; </span><br><span class="line">Foo.prototype = <span class="keyword">new</span> Aoo();<span class="comment">//JavaScript 原型继承 </span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="keyword">new</span> Foo(); </span><br><span class="line"><span class="built_in">console</span>.log(foo <span class="keyword">instanceof</span> Foo)<span class="comment">//true </span></span><br><span class="line"><span class="built_in">console</span>.log(foo <span class="keyword">instanceof</span> Aoo)<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-<h1 id="七、null和undefined-区别"><a href="#七、null和undefined-区别" class="headerlink" title="七、null和undefined 区别"></a>七、null和undefined 区别</h1><p>null： Null类型，代表“空值”，代表一个<strong>空对象指针</strong>，使用typeof运算得到 <strong>“object”</strong>，所以可以认为它是一个特殊的对象值。</p>
-<p>undefined： Undefined类型，声明但是未初始化变量时，得到的就是undefined。</p>
-<p>null是javascript的关键字，可以认为是对象类型，它是一个空对象指针，和其它语言一样都是代表“空值”，不过 undefined 却是javascript才有的。undefined是在ECMAScript第三版引入的，为了区分空指针对象和未初始化的变量，它是一个预定义的全局变量。没有返回值的函数返回为undefined，没有实参的形参也是undefined。</p>
-<p>也可以认为undefined是表示系统级的、出乎意料的或类似错误的值的空缺，而null是表示程序级的、正常的或在意料之中的值的空缺</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2046,7 +2044,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

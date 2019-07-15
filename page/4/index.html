@@ -229,6 +229,172 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/vue/6、数据库获取数据并进行操作/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/23/vue/6、数据库获取数据并进行操作/" itemprop="url">六、vue-resource发起get和post以及jsonp请求</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-23T17:03:21+08:00">
+                2019-01-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="获取数据库数据操作"><a href="#获取数据库数据操作" class="headerlink" title="获取数据库数据操作"></a>获取数据库数据操作</h1><p>1、导入vue-resource包，才能使用this.$http来发起请求</p>
+<p>2、根据提供的接口api文档，判断使用get或者post请求</p>
+<p>3、this.$http.get(‘url’).then(function(result){})</p>
+<p>4、当通过 then 指定回调函数之后，在回调函数中，可以拿到数据服务器返回的 result</p>
+<p>5、先判断result的status，根据接口文档判断是否成功，然后再把result.message赋值给this.list</p>
+<p>,如果失败则显示弹框</p>
+<p>在创建的vue实例中，添加一个getList方法，然后在生命周期函数中执行这个方法，利用AJAX异步获取数据的时候，要尽量在生命周期内前阶段，所以这里使用的是在created</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">created() &#123; <span class="comment">// 当 vm 实例 的 data 和 methods 初始化完毕后，vm实例会自动执行created 这个生命周期函数</span></span><br><span class="line">  <span class="keyword">this</span>.getAllList()</span><br><span class="line">&#125;,</span><br><span class="line">methods: &#123;</span><br><span class="line">  getAllList() &#123; <span class="comment">// 获取所有的品牌列表 </span></span><br><span class="line">    <span class="keyword">this</span>.$http.get(<span class="string">'api/getprodlist'</span>).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 注意： 通过 $http 获取到的数据，都在 result.body 中放着</span></span><br><span class="line">      <span class="keyword">var</span> result = result.body</span><br><span class="line">      <span class="keyword">if</span> (result.status === <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 成功了</span></span><br><span class="line">        <span class="keyword">this</span>.list = result.message</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 失败了</span></span><br><span class="line">        alert(<span class="string">'获取数据失败！'</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="增加功能"><a href="#增加功能" class="headerlink" title="增加功能"></a>增加功能</h1><p>1、为按钮绑定点击事件实现add方法</p>
+<p>2、通过查看接口文档，确定使用post发送请求，this.$http.post</p>
+<p>3、this.$http.post需要接收三个参数</p>
+<p>3.1 第一个参数： 要请求的URL地址</p>
+<p>3.2 第二个参数： 要提交给服务器的数据 ，要以对象形式提交给服务器 { name: this.name }</p>
+<p>3.3 第三个参数： 是一个配置对象，要以哪种表单数据类型提交过去， { emulateJSON: true }, 以普通表单格式，将数据提交给服务器</p>
+<p>4、在 post 方法中，使用 .then 来设置成功的回调函数，如果想要拿到成功的结果，需要 result.body</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$http.post(<span class="string">'api/addproduct'</span>, &#123; <span class="attr">name</span>: <span class="keyword">this</span>.name &#125;, &#123; <span class="attr">emulateJSON</span>: <span class="literal">true</span> &#125;).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (result.body.status === <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="comment">// 成功了！状态码根据接口文档提供</span></span><br><span class="line">          <span class="comment">// 添加完成后，只需要手动，再调用一下 getAllList 就能刷新品牌列表了</span></span><br><span class="line">          <span class="keyword">this</span>.getAllList()</span><br><span class="line">          <span class="comment">// 清空 name </span></span><br><span class="line">          <span class="keyword">this</span>.name = <span class="string">''</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="comment">// 失败了</span></span><br><span class="line">          alert(<span class="string">'添加失败！'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br></pre></td></tr></table></figure>
+<h1 id="删除功能"><a href="#删除功能" class="headerlink" title="删除功能"></a>删除功能</h1><p>一、在a链接上阻止默认点击事件，然后绑定删除的方法，根据传入的id进行删除</p>
+<p><a href="" @click.prevent="del(item.id)">删除</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">del(id) &#123; <span class="comment">// 删除品牌</span></span><br><span class="line">  <span class="keyword">this</span>.$http.get(<span class="string">'api/delproduct/'</span> + id).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (result.body.status === <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="comment">// 删除成功</span></span><br><span class="line">      <span class="keyword">this</span>.getAllList()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      alert(<span class="string">'删除失败！'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>二、全局根路径的配置</p>
+<p>   如果我们通过全局配置了，请求的数据接口 根域名，则 ，在每次单独发起 http 请求的时候，请求的 url 路径，应该以相对路径开头，前面不能带 /  ，否则 不会启用根路径做拼接；</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Vue.http.options.root = <span class="string">'http://vue.studyit.io/'</span>;</span><br><span class="line">    <span class="comment">//原来为'http://vue.studyit.io/api/getproduct'</span></span><br><span class="line">    <span class="comment">//此时的请求路径写为</span></span><br><span class="line">    <span class="keyword">this</span>.$http.get(<span class="string">'api/getprodlist'</span>).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">	&#125;)</span><br></pre></td></tr></table></figure>
+<p>三、全局启用 emulateJSON选项</p>
+<p>Vue.http.options.emulateJSON = true;</p>
+<p>配置之后在post请求中不再需要加入{emulateJSON : true}</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/vue/5、vue-resource发起get和post以及jsonp请求/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1556,153 +1722,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/26/java/MVC/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/26/java/MVC/" itemprop="url">java EE三层架构开发模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-26T20:12:32+08:00">
-                2018-10-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>三层架构开发模式前面关于login和register功能已经有所涉及到一点，但是由于业务简单所以我的代码没有按照这个模式来，所以接下来的功能我都会按照这个模式来开发，因为这样可以使得我们的开发思路更加清晰。</p>
-<p><img src="http://i4.bvimg.com/645823/212f26a953a5f121.png" alt="Markdown"></p>
-<p>如上图所示，web客户端就是我们平时接触到的网页程序，通过传递参数给服务器，然后服务器根据请求再与数据库连接，然后获取到数据库数据之后服务器再将其结果返回到前端页面。而在这个过程之中，服务器端又可以将其分成三层，即web层，service层还有dao层。其中，web层是用来接收客户端传输过来的数据，然后再将其封装到JavaBean中，传递给sevice层，其中使用到的框架有Struts2。而service层接收web层传递过来的数据，然后根据实际需求编写业务逻辑代码。最后一个是dao层，service层所需要用到的数据，则是通过dao层来执行对数据库的操作，然后再一层一层返回，最终在客户端显示结果。这样做的好处是可以使开发的思路更加清晰，各层分工明确。</p>
-<p>至于说到MVC模式和三层架构之间的关系，可以说Mvc是web开发的一种开发模式，而三层架构是针对Java语言的。本身是没有联系，但是三层架构中，分别是web层，service层还有dao层，servlet+JavaBean+jsp刚刚好构成了web层，所以web层是一种mvc的模式。（wen层中，JavaBean是M层，jsp是V层，Servlet是C层）</p>
-<p>这个也有可能是面试题目哦，所以最好记住也不要混淆，嘿嘿嘿嘿~  </p>
-<p><img src="/2018/10/26/java/MVC/leslie-choi.github.io\source\_posts\vue\images\vue增删改.png" alt="vue增删改"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1753,7 +1772,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
