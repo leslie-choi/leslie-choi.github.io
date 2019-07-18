@@ -79,21 +79,21 @@
 
 
 
-<meta name="description" content="JavaScript高级写在前面：JavaScript高级，比入门的感觉会抽象很多。所以要结合实际案例还有画图来理解，才能够更加深刻。特别是原型和原型链，需要下点功夫，才能理解个35成，蛤蛤蛤。。。ok不膜了进入正题。 先来重新再认识一下JavaScript吧。JavaScript，其实是一门脚本、弱类型、轻量级的解释性语言。针对解释性语言，不同于编译性语言。编译性语言编写的程序，在执行之前需要有">
+<meta name="description" content="原型和原型链想要了解原型和原型链，那我们首先来了解一下构造函数。JavaScript不像Java一样，可以定义一个class。那在JavaScript中，想要定义一个类，就只能通过构造函数的模式。构造函数咪视中拥有了类和实例的概念。构造函数其实就是一个普通的函数，创建的方式和普通的函数没有区别，但是首字母需要大写，另外普通函数可以直接调用，但是构造函数需要通过new关键字来调用。 12345678">
 <meta name="keywords" content="Interview">
 <meta property="og:type" content="article">
-<meta property="og:title" content="javaScript高级（一）">
-<meta property="og:url" content="http://yoursite.com/2019/02/19/JavaScript/JavaScript高级（一）/index.html">
+<meta property="og:title" content="原型与原型链">
+<meta property="og:url" content="http://yoursite.com/2019/02/19/JavaScript/原型与原型链/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="JavaScript高级写在前面：JavaScript高级，比入门的感觉会抽象很多。所以要结合实际案例还有画图来理解，才能够更加深刻。特别是原型和原型链，需要下点功夫，才能理解个35成，蛤蛤蛤。。。ok不膜了进入正题。 先来重新再认识一下JavaScript吧。JavaScript，其实是一门脚本、弱类型、轻量级的解释性语言。针对解释性语言，不同于编译性语言。编译性语言编写的程序，在执行之前需要有">
+<meta property="og:description" content="原型和原型链想要了解原型和原型链，那我们首先来了解一下构造函数。JavaScript不像Java一样，可以定义一个class。那在JavaScript中，想要定义一个类，就只能通过构造函数的模式。构造函数咪视中拥有了类和实例的概念。构造函数其实就是一个普通的函数，创建的方式和普通的函数没有区别，但是首字母需要大写，另外普通函数可以直接调用，但是构造函数需要通过new关键字来调用。 12345678">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/prototype1.PNG">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/prototype2.PNG">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/prototype3.PNG">
-<meta property="og:updated_time" content="2019-07-14T13:02:23.586Z">
+<meta property="og:updated_time" content="2019-07-18T08:07:12.244Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="javaScript高级（一）">
-<meta name="twitter:description" content="JavaScript高级写在前面：JavaScript高级，比入门的感觉会抽象很多。所以要结合实际案例还有画图来理解，才能够更加深刻。特别是原型和原型链，需要下点功夫，才能理解个35成，蛤蛤蛤。。。ok不膜了进入正题。 先来重新再认识一下JavaScript吧。JavaScript，其实是一门脚本、弱类型、轻量级的解释性语言。针对解释性语言，不同于编译性语言。编译性语言编写的程序，在执行之前需要有">
+<meta name="twitter:title" content="原型与原型链">
+<meta name="twitter:description" content="原型和原型链想要了解原型和原型链，那我们首先来了解一下构造函数。JavaScript不像Java一样，可以定义一个class。那在JavaScript中，想要定义一个类，就只能通过构造函数的模式。构造函数咪视中拥有了类和实例的概念。构造函数其实就是一个普通的函数，创建的方式和普通的函数没有区别，但是首字母需要大写，另外普通函数可以直接调用，但是构造函数需要通过new关键字来调用。 12345678">
 <meta name="twitter:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/prototype1.PNG">
 
 
@@ -124,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/19/JavaScript/JavaScript高级（一）/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/19/JavaScript/原型与原型链/">
 
 
 
 
 
-  <title>javaScript高级（一） | 404 not found</title>
+  <title>原型与原型链 | 404 not found</title>
   
 
 
@@ -237,7 +237,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/JavaScript/JavaScript高级（一）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/JavaScript/原型与原型链/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
@@ -254,7 +254,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">javaScript高级（一）</h1>
+          <h1 class="post-title" itemprop="name headline">原型与原型链</h1>
         
 
         <div class="post-meta">
@@ -326,24 +326,7 @@
       
 
       
-        <h1 id="JavaScript高级"><a href="#JavaScript高级" class="headerlink" title="JavaScript高级"></a>JavaScript高级</h1><p>写在前面：JavaScript高级，比入门的感觉会抽象很多。所以要结合实际案例还有画图来理解，才能够更加深刻。特别是原型和原型链，需要下点功夫，才能理解个35成，蛤蛤蛤。。。ok不膜了进入正题。</p>
-<p>先来重新再认识一下JavaScript吧。JavaScript，其实是一门脚本、弱类型、轻量级的解释性语言。<br>针对解释性语言，不同于编译性语言。编译性语言编写的程序，在执行之前需要有一个专门的编译过程，把程序编译成机器语言的文件，比如exe。然后exe文件运行的时候，直接使用编译的结果就可以了，运行的时候不用再继续编译，所以<strong>执行效率高。具有独立性。</strong><br>而对于解释性语言，比如JavaScript，是<strong>非独立的</strong>，运行需要依赖环境，对于客户端是浏览器，对于服务端是node。<br><strong>效率低</strong>，执行前不需要编译，执行的时候才编译，因此效率也低。</p>
-<h1 id="JavaScript的执行过程"><a href="#JavaScript的执行过程" class="headerlink" title="JavaScript的执行过程"></a>JavaScript的执行过程</h1><p>JavaScript 运行分为两个阶段：</p>
-<ul>
-<li>预解析<ul>
-<li>全局预解析（所有变量和函数声明都会提前；同名的函数和变量函数的优先级高）</li>
-<li>函数内部预解析（所有的变量、函数和形参都会参与预解析）<ul>
-<li>函数</li>
-<li>形参</li>
-<li>普通变量</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>执行</li>
-</ul>
-<p>先预解析全局作用域，然后执行全局作用域中的代码，<br>在执行全局代码的过程中遇到函数调用就会先进行函数预解析，然后再执行函数内代码。</p>
-<h1 id="原型和原型链"><a href="#原型和原型链" class="headerlink" title="原型和原型链"></a>原型和原型链</h1><p>想要了解原型和原型链，那我们首先来了解一下构造函数。<br>JavaScript不像Java一样，可以定义一个class。那在JavaScript中，想要定义一个类，就只能通过构造函数的模式。构造函数咪视中拥有了类和实例的概念。构造函数其实就是一个普通的函数，创建的方式和普通的函数没有区别，但是<strong>首字母需要大写</strong>，另外普通函数可以直接调用，但是构造函数需要通过<strong>new关键字来调用。</strong></p>
+        <h1 id="原型和原型链"><a href="#原型和原型链" class="headerlink" title="原型和原型链"></a>原型和原型链</h1><p>想要了解原型和原型链，那我们首先来了解一下构造函数。<br>JavaScript不像Java一样，可以定义一个class。那在JavaScript中，想要定义一个类，就只能通过构造函数的模式。构造函数咪视中拥有了类和实例的概念。构造函数其实就是一个普通的函数，创建的方式和普通的函数没有区别，但是<strong>首字母需要大写</strong>，另外普通函数可以直接调用，但是构造函数需要通过<strong>new关键字来调用。</strong></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age, gender</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name</span><br><span class="line">        <span class="keyword">this</span>.age = age</span><br><span class="line">        <span class="keyword">this</span>.gender = gender</span><br><span class="line">        <span class="keyword">this</span>.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            alert(<span class="keyword">this</span>.name);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(per); <span class="comment">//当我们直接在页面中打印一个对象时，事件上是输出的对象的toString()方法的返回值</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//使用prototype实现数据共享,利用原型添加方法</span></span><br><span class="line">  Person.ptototype.eat = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"我喜欢吃榴莲粥加辣椒"</span>)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 <p>这个时候，每创建一个Person构造函数，在Person构造函数中，为每一个对象添加了一个sayName的方法，所以就是说构造函数每调用一次就会创建一个新的方法，如果调用了1000次就会创建1000个新的方法，而着1000个方法却都是一样的。所以为了节省空间和性能，<strong>需要把这些方法单独放到一个地方，并且可以让每一个实例都可以访问到，目的就是为了共享数据</strong>所以这个时候就需要==原型prototype==</p>
 <h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><p>在javaScript中，每当定义一个<strong>函数数据类型</strong>（普通函数、类）的时候，都会天生自带一个prototype属性，这个属性指向函数的原型对象，并且这个属性是一个==对象数据类型值==</p>
@@ -408,8 +391,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/23/JavaScript/JavaScript高级（二）/" rel="prev" title="javaScript高级（二）">
-                javaScript高级（二） <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/19/JavaScript/JavaScript进阶/" rel="prev" title="javaScript高级（一）">
+                javaScript高级（一） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -487,7 +470,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -542,7 +525,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript高级"><span class="nav-number">1.</span> <span class="nav-text">JavaScript高级</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript的执行过程"><span class="nav-number">2.</span> <span class="nav-text">JavaScript的执行过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原型和原型链"><span class="nav-number">3.</span> <span class="nav-text">原型和原型链</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原型"><span class="nav-number">3.1.</span> <span class="nav-text">原型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原型链"><span class="nav-number">3.2.</span> <span class="nav-text">原型链</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单的原型语法"><span class="nav-number">3.3.</span> <span class="nav-text">简单的原型语法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#原型和原型链"><span class="nav-number">1.</span> <span class="nav-text">原型和原型链</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原型"><span class="nav-number">1.1.</span> <span class="nav-text">原型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原型链"><span class="nav-number">1.2.</span> <span class="nav-text">原型链</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单的原型语法"><span class="nav-number">1.3.</span> <span class="nav-text">简单的原型语法</span></a></li></ol></li></ol></div>
             
 
           </div>
