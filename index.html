@@ -229,6 +229,376 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/13/JavaScript/提高页面性能/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/13/JavaScript/提高页面性能/" itemprop="url">浏览器的渲染机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-13T22:12:24+08:00">
+                2019-07-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="一、资源压缩合并，减少HTTP请求"><a href="#一、资源压缩合并，减少HTTP请求" class="headerlink" title="一、资源压缩合并，减少HTTP请求"></a>一、资源压缩合并，减少HTTP请求</h1><h1 id="二、非核心代码异步加载"><a href="#二、非核心代码异步加载" class="headerlink" title="二、非核心代码异步加载"></a>二、非核心代码异步加载</h1><ol>
+<li>异步加载的方式：</li>
+</ol>
+<ul>
+<li><p>动态脚本加载：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</span><br><span class="line">script.src = <span class="string">"js/test.js"</span>;</span><br><span class="line"><span class="built_in">document</span>.head.appendChild(script);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>defer <script src="defer.js" defer> </script></p>
+</li>
+<li>async <script src="defer.js" async> </script></li>
+</ul>
+<ol start="2">
+<li>异步加载的区别</li>
+</ol>
+<ul>
+<li>defer是在HTML解析完之后才会执行，如果是多个，则按照加载的顺序执行</li>
+<li>async是在加载完之后立即执行，如果是多个，执行顺序和加载顺序无关</li>
+</ul>
+<h1 id="三、利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理"><a href="#三、利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理" class="headerlink" title="三、利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理"></a>三、利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理</h1><ol>
+<li>缓存的分类<br>强缓存发现本地有请求文件的副本，直接使用；协商缓存则需要和服务器进行交流，通过确认之后才可以使用。</li>
+</ol>
+<p>a 强缓存：不会向服务器发送请求，直接从缓存中读取资源</p>
+<ul>
+<li><p>Expires Wed, 22 Oct 2018 08:41:00 GMT<br><strong>缓存过期时间，用来指定资源到期的时间，是服务器端的具体的时间点，如果过期则会再次请求</strong></p>
+</li>
+<li><p>Cache—Control:max-age=300<br><strong>代表在这个请求正确返回时间（浏览器也会记录下来）的5分钟内再次加载资源，就会命中强缓存。</strong></p>
+</li>
+</ul>
+<p>但是如果服务器同时下发了两个，则以相对时间为准。</p>
+<p>b 协商缓存<br>协商缓存就是强制缓存失效后，浏览器携带缓存标识向服务器发起请求，由服务器根据缓存标识决定是否使用缓存的过程，主要有以下两种情况：</p>
+<ul>
+<li>Last-Modified 和 If-Modified-Since</li>
+</ul>
+<p>浏览器在第一次访问资源时，服务器返回资源的同时，在response header中添加 Last-Modified的header，值是这个资源在服务器上的最后修改时间，浏览器接收后缓存文件和header；<br>浏览器下一次请求这个资源，浏览器检测到有 Last-Modified这个header，于是添加If-Modified-Since这个header，<strong>值就是Last-Modified中的值</strong> ；服务器再次收到这个资源请求，会根据 If-Modified-Since 中的值与服务器中这个资源的最后修改时间对比，如果没有变化，返回304和空的响应体，直接从缓存读取，如果If-Modified-Since的时间小于服务器中这个资源的最后修改时间，说明文件有更新，于是返回新的资源文件和200。</p>
+<p>存在的弊端：</p>
+<ul>
+<li>如果本地打开缓存文件，即使没有对文件进行修改，但还是会造成 Last-Modified 被修改，服务端不能命中缓存导致发送相同的资源</li>
+<li><p>因为 Last-Modified 只能以秒计时，如果在不可感知的时间内修改完成文件，那么服务端会认为资源还是命中了，不会返回正确的资源</p>
+</li>
+<li><p>Etag 和 If-None-Match<br>Etag是服务器响应请求时，返回当前资源文件的一个唯一标识(由服务器生成，类似一个哈希值)，只要资源有变化，Etag就会重新生成。浏览器在下一次加载资源向服务器发送请求时，会将上一次返回的Etag值放到request header里的If-None-Match里，服务器只需要比较客户端传来的If-None-Match跟自己服务器上该资源的ETag是否一致，就能很好地判断资源相对客户端而言是否被修改过了。<br>如果ETag是一致的，则直接返回304知会客户端直接使用本地缓存即可。</p>
+</li>
+</ul>
+<h1 id="四、利用cdn"><a href="#四、利用cdn" class="headerlink" title="四、利用cdn"></a>四、利用cdn</h1><p>CDN又称为内容分发网络，使内容传输的更快，更稳定。<br>也就是说，<strong>把静态资源文件和动态网页分集群部署</strong>，静态资源会被部署到CDN节点上，网页中引用的资源也会变成对应的部署路径.<br>CDN 的核心点有两个: 一个是缓存，一个是回源。</p>
+<ul>
+<li>缓存<br>将从根服务器请求来的资源按要求缓存。</li>
+<li>回源<br>当有用户访问某个资源的时候，如果被解析到的那个 CDN 节点没有缓存响应的内容，或者是缓存已经到期，就会回源站去获取。没有人访问，CDN 节点不会主动去源站请求资源。</li>
+</ul>
+<p>原理：不同地区的用户会访问到离自己最近的相同网络线路上的CDN节点，当请求达到CDN节点后，节点会判断自己的内容缓存是否有效，如果有效，则立即响应缓存内容给用户，从而加快响应速度。如果CDN节点的缓存失效，它会根据服务配置去我们的内容源服务器获取最新的资源响应给用户，并将内容缓存下来以便响应给后续访问的用户。因此，一个地区内只要有一个用户先加载资源，在CDN中建立了缓存，该地区的其他后续用户都能因此而受益。<br>不同地区的用户访问同一个域名却能得到不同CDN节点的IP地址，这要依赖于CDN服务商提供的智能域名解析服务，浏览器发起域名查询时，这种智能DNS服务会根据用户IP计算并返回离它最近的同网络CDN节点IP，引导浏览器与此节点建立连接以获取资源。</p>
+<p>优点：</p>
+<ul>
+<li>CDN 节点解决了跨运营商和跨地域访问的问题，访问延时大大降低；</li>
+<li>大部分请求在 CDN 边缘节点完成，CDN 起到了分流作用，减轻了源站的负载；</li>
+<li>提高网络访问的稳定性；</li>
+</ul>
+<h1 id="五、预解析DNS"><a href="#五、预解析DNS" class="headerlink" title="五、预解析DNS"></a>五、预解析DNS</h1><p>浏览器输入URL到页面显示发生什么事情</p>
+<p>参考文章：</p>
+<p><a href="https://www.jianshu.com/p/54cc04190252" target="_blank" rel="noopener">深入理解浏览器的缓存机制</a><br><a href="https://juejin.im/post/59a50dc1f265da246e6e108f" target="_blank" rel="noopener">web前端资源文件的部署和优化</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/06/JavaScript/浏览器的渲染机制/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/06/JavaScript/浏览器的渲染机制/" itemprop="url">浏览器的渲染机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-06T16:06:24+08:00">
+                2019-07-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="DOCTYPE及其作用"><a href="#DOCTYPE及其作用" class="headerlink" title="DOCTYPE及其作用"></a>DOCTYPE及其作用</h1><p>由于历史的原因，浏览器对页面的渲染方式是不一样的。在W3C标准出来之前，浏览器对页面的渲染没有同一的标准，产生了差异，quirks mod（混杂模式或者兼容模式），但在W3C标准出台之后，浏览器对页面的渲染有了同一的标准即（严格模式或标准模式）。但是为了保证以前就得页面仍然正常显示，有的浏览器就保存了这两种渲染模式（标准兼容模式）。那么究竟采用哪一种方式进行渲染，就要看DOCTYPE生命中的DTD。</p>
+<p><strong>文档类型定义（DTD）Document Type Definition</strong> </p>
+<p>简单说 DOCTYPE 是用来声明<strong>文档类型和DTD规范</strong> 的，一个主要用途就是文件的合法性验证。如果文件代码不合法，那么浏览器解析的时候就会出错。<br>是一系列的语法规则，用来定义XML或者HTML的文件类型。浏览器会使用它来判断文档类型，决定使用何种协议来解析，以及切换浏览器模式。<br>html5没有DTD，也就没有严格模式与宽松模式的区别，html5有相对宽松的语法，事实上，已经尽可能大的实现了向后兼容（老版本）。</p>
+<p>常见的html的DOCTYPE</p>
+<p>HTML5 &lt;!DOCTYPE html&gt;</p>
+<p>HTML4 严格模式 &lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01//EN” “<a href="http://www.w3.org/TR/html4/strict.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/html4/strict.dtd&quot;&gt;</a> </p>
+<p>HTML4 宽松模式 &lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01 Transitional//EN” “<a href="http://www.w3.org/TR/html4/loose.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/html4/loose.dtd&quot;&gt;</a></p>
+<p>这里可以看到严格模式和宽松模式的区别主要在于后缀的dtd文件的引用。严格模式不包含展示性和弃用元素（比如font），宽松模式包含所有的HTML元素和属性。</p>
+<h1 id="浏览器的渲染机制"><a href="#浏览器的渲染机制" class="headerlink" title="浏览器的渲染机制"></a>浏览器的渲染机制</h1><p><a href="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/tree.png" target="_blank" rel="noopener">markdown</a></p>
+<p>要了解浏览器的渲染机制，需要先明白以下的概念：</p>
+<ol>
+<li>DOM：Document Object Model，浏览器将HTML解析成树形的数据结构，简称DOM。</li>
+<li>CSSOM：CSS Object Model，浏览器将CSS解析成树形的数据结构，简称CSSOM。</li>
+<li>Render Tree: DOM和CSSOM合并后生成Render Tree</li>
+<li>Layout: 计算出Render Tree每个节点的具体位置。</li>
+<li>Painting：通过显卡，将Layout后的节点内容分别呈现到屏幕上。</li>
+</ol>
+<h1 id="重排Reflow"><a href="#重排Reflow" class="headerlink" title="重排Reflow"></a>重排Reflow</h1><p>DOM结构中的各个元素都有自己的盒子，这些都需要浏览器根据各种样式来计算并根据计算结果将元素放到它该出现的位置，这个过程称为reflow。<br>以下是触发reflow的几种方法：</p>
+<ol>
+<li>增加、删除、修改DOM节点的时候，会导致Reflow或者Repaint</li>
+<li>移动DOM的位置，或者生成动画的时候</li>
+<li>修改CSS样式的时候</li>
+<li>Resize窗口的时候（移动端没有这个问题），或者滚动的时候</li>
+<li>修改网页的默认字体时</li>
+</ol>
+<h1 id="重绘Repaint"><a href="#重绘Repaint" class="headerlink" title="重绘Repaint"></a>重绘Repaint</h1><p>当各种盒子的位置、大小以及其他属性，例如颜色、字体大小等都确定下来之后，浏览器于是便把这些元素都按照各自的特性绘制了一遍，于是页面的内容出现了，这个过程称为Repaint</p>
+<p>触发Repaint</p>
+<ol>
+<li>DOM改动</li>
+<li>CSS改动</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/03/前后端通信方式/手撕webSocket/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1450,335 +1820,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/11/JavaScript/面向对象编程/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/11/JavaScript/面向对象编程/" itemprop="url">面向对象编程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-11T13:56:24+08:00">
-                2019-05-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/basic/" itemprop="url" rel="index">
-                    <span itemprop="name">basic</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="面向对象编程"><a href="#面向对象编程" class="headerlink" title="面向对象编程"></a>面向对象编程</h1><h2 id="类的声明和创建类的实例"><a href="#类的声明和创建类的实例" class="headerlink" title="类的声明和创建类的实例"></a>类的声明和创建类的实例</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal2</span>()</span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> Animal(),<span class="keyword">new</span> Animal2());</span><br></pre></td></tr></table></figure>
-<h2 id="实现JS的继承"><a href="#实现JS的继承" class="headerlink" title="实现JS的继承"></a>实现JS的继承</h2><ol>
-<li><p>构造函数实现继承</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Parent1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  	<span class="keyword">this</span>.name = <span class="string">'Parent1'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  Parent1.prototype.say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  	Parent1.call(<span class="keyword">this</span>);</span><br><span class="line">  	<span class="keyword">this</span>.type = <span class="string">'Child'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">new</span> Child);</span><br><span class="line"><span class="comment">// 有个缺点：就是如果属性都是在父类上则可以实现全部继承，但是无法继承父类的原型对象上面的属性和方法</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">new</span> Child().say());   <span class="comment">//报错</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>原型链继承</p>
-</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.name = <span class="string">'Parent2'</span>;</span><br><span class="line">	<span class="keyword">this</span>.arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.type = <span class="string">'Child2'</span>;</span><br><span class="line">&#125;</span><br><span class="line">Child2.prototype = <span class="keyword">new</span> Parent2();</span><br><span class="line"><span class="built_in">console</span>.log(Child2.prototype === <span class="keyword">new</span> Child2().__proto__);	<span class="comment">//true</span></span><br><span class="line"><span class="comment">// 因为上一句代码的输出是true，所以实例化出来的child2对象的__proto__引用的是父类的实例化对象，实现了继承</span></span><br><span class="line"><span class="keyword">var</span> c1 = <span class="keyword">new</span> Child2();</span><br><span class="line"><span class="keyword">var</span> c2 = <span class="keyword">new</span> Child2();</span><br><span class="line"><span class="built_in">console</span>.log(c1.arr,c2.arr);</span><br><span class="line">c1.arr.push(<span class="number">4</span>);</span><br><span class="line"><span class="built_in">console</span>.log(c1.arr,c2.arr);</span><br><span class="line"><span class="comment">// 由于原型链中的原型对象是公用的。所以任何一个实例改变原型对象，会影响到另一个对象的取值</span></span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>组合继承</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent3</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.name = <span class="string">'Parent3'</span>;</span><br><span class="line">	<span class="keyword">this</span>.arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child3</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	Parent3.call(<span class="keyword">this</span>);</span><br><span class="line">	<span class="keyword">this</span>.type = <span class="string">'child3'</span></span><br><span class="line">&#125;</span><br><span class="line">Child3.prototype = <span class="keyword">new</span> Parent3();</span><br><span class="line"><span class="keyword">var</span> c3 = <span class="keyword">new</span> Child3();</span><br><span class="line"><span class="keyword">var</span> c4 = <span class="keyword">new</span> Child3();</span><br><span class="line">c3.arr.push(<span class="number">4</span>);</span><br><span class="line"><span class="built_in">console</span>.log(c3.arr,c4.arr);</span><br><span class="line"><span class="comment">// 存在一个缺点：在Parent3.call(this)和new Parent3()中，执行了两次Parent3,事实上没有必要</span></span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>组合继承优化1</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent4</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.name = <span class="string">'Parent4'</span>;</span><br><span class="line">	<span class="keyword">this</span>.arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child4</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	Parent4.call(<span class="keyword">this</span>);</span><br><span class="line">	<span class="keyword">this</span>.type = <span class="string">'child4'</span></span><br><span class="line">&#125;</span><br><span class="line">Child4.prototype = Parent4.prototype;		<span class="comment">//引用了同一个原型对象，是下面问题根源所在</span></span><br><span class="line"><span class="keyword">var</span> c5 = <span class="keyword">new</span> Child4();</span><br><span class="line"><span class="keyword">var</span> c6 = <span class="keyword">new</span> Child4();</span><br><span class="line">c3.arr.push(<span class="number">4</span>);</span><br><span class="line"><span class="built_in">console</span>.log(c5,c6);</span><br><span class="line"><span class="comment">// 存在问题</span></span><br><span class="line"><span class="built_in">console</span>.log(c5.constructor);	<span class="comment">//结果是parent4,明显不符合要求，就是因为Child4.prototype = Parent4.prototype，情况和上面的组合继承是一样的</span></span><br></pre></td></tr></table></figure>
-<ol start="5">
-<li>组合继承优化2</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Parent5</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  	<span class="keyword">this</span>.name = <span class="string">'Parent5'</span>;</span><br><span class="line">  	<span class="keyword">this</span>.arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Child5</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  	Parent5.call(<span class="keyword">this</span>);</span><br><span class="line">  	<span class="keyword">this</span>.type = <span class="string">'child5'</span></span><br><span class="line">  &#125;</span><br><span class="line">  Child5.prototype = <span class="built_in">Object</span>.create(Parent5.prototype);</span><br><span class="line"><span class="comment">// 通过创建中间对象的方法，把两个对象区分开，中间对象具备一个特性，他的原型对象是父类的原型对象；作为一个桥梁,Child5的原型对象等于Object.create方法创建的对象，Object.create方法创建的对象又等于Parent5的原型对象。</span></span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/08/网络/webpack/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/08/网络/webpack/" itemprop="url">webpack入门</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-08T15:30:25+08:00">
-                2019-05-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/network/" itemprop="url" rel="index">
-                    <span itemprop="name">network</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>webpack是收把项目当作一个整体，通过一个给定的的主文件，webpack将从这个文件开始找到你的项目的所有依赖文件，使用loaders处理它们，最后打包成一个或多个浏览器可识别的js文件。<br><img src="https://user-gold-cdn.xitu.io/2017/9/27/2395e1d01728fbb0d740d53c4530ed5b?imageView2/0/w/1280/h/960&amp;ynotemdtimestamp=1558167915965" alt="markdown"></p>
-<h2 id="install"><a href="#install" class="headerlink" title="install"></a>install</h2><p>首先添加我们即将使用的包：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install webpack webpack-dev-server --save-dev</span><br></pre></td></tr></table></figure>
-<p>webpack是我们需要的模块打包机，webpack-dev-server用来创建本地服务器，监听你的代码修改，并自动刷新修改后的结果。这些是有关devServer的配置</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">contentBase,  <span class="comment">// 为文件提供本地服务器</span></span><br><span class="line">port, <span class="comment">// 监听端口，默认8080</span></span><br><span class="line">inline, <span class="comment">// 设置为true,源文件发生改变自动刷新页面</span></span><br><span class="line">historyApiFallback  <span class="comment">// 依赖HTML5 history API,如果设置为true,所有的页面跳转指向index.html</span></span><br><span class="line">devServer:&#123;</span><br><span class="line">    contentBase: <span class="string">'./src'</span> <span class="comment">// 本地服务器所加载的页面所在的目录</span></span><br><span class="line">    historyApiFallback: <span class="literal">true</span>, <span class="comment">// 不跳转</span></span><br><span class="line">    inline: <span class="literal">true</span> <span class="comment">// 实时刷新</span></span><br><span class="line">&#125;</span><br><span class="line">然后我们在根目录下创建一个<span class="string">'webpack.config.js'</span>，在<span class="string">'package.json'</span>添加两个命令用于本地开发和生产发布</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="string">"scripts"</span>: &#123;</span><br><span class="line">            <span class="string">"start"</span>: <span class="string">"webpack-dev-server"</span>,</span><br><span class="line">            <span class="string">"build"</span>: <span class="string">"webpack"</span></span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="entry"><a href="#entry" class="headerlink" title="entry"></a>entry</h2><p>entry: 用来写入口文件，它将是整个依赖关系的根,当我们需要多个入口文件的时候，可以把entry写成一个对象.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> baseConfig = &#123;</span><br><span class="line">        entry: &#123;</span><br><span class="line">            main: <span class="string">'./src/index.js'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="output"><a href="#output" class="headerlink" title="output"></a>output</h2><p>output: 即使入口文件有多个，但是只有一个输出配置</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line">    <span class="keyword">var</span> baseConfig = &#123;</span><br><span class="line">        entry: &#123;</span><br><span class="line">            main: <span class="string">'./src/index.js'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        output: &#123;</span><br><span class="line">            filename: <span class="string">'main.js'</span>,</span><br><span class="line">            path: path.resolve(<span class="string">'./build'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">module</span>.exports = baseConfig</span><br></pre></td></tr></table></figure>
-<p>如果你定义的入口文件有多个，那么我们需要使用占位符来确保输出文件的唯一性</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">output: &#123;</span><br><span class="line">        filename: <span class="string">'[name].js'</span>,</span><br><span class="line">        path: path.resolve(<span class="string">'./build'</span>)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>如今这么少的配置，就能够让你运行一个服务器并在本地使用命令npm start或者npm run build来打包我们的代码进行发布</p>
-<h2 id="Loader"><a href="#Loader" class="headerlink" title="Loader"></a>Loader</h2><p>loader的作用： 1、实现对不同格式的文件的处理，比如说将scss转换为css，或者typescript转化为js 2、转换这些文件，从而使其能够被添加到依赖图中 loader是webpack最重要的部分之一，通过使用不同的Loader，我们能够调用外部的脚本或者工具，实现对不同格式文件的处理，loader需要在webpack.config.js里边单独用module进行配置，配置如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">test: 匹配所处理文件的扩展名的正则表达式（必须）</span><br><span class="line">    loader: loader的名称（必须）</span><br><span class="line">    include/exclude: 手动添加处理的文件，屏蔽不需要处理的文件（可选）</span><br><span class="line">    query: 为loaders提供额外的设置选项</span><br><span class="line">    ex: </span><br><span class="line">        <span class="keyword">var</span> baseConfig = &#123;</span><br><span class="line">            <span class="comment">// ...</span></span><br><span class="line">            <span class="built_in">module</span>: &#123;</span><br><span class="line">                rules: [</span><br><span class="line">                    &#123;</span><br><span class="line">                        test: <span class="comment">/*匹配文件后缀名的正则*/</span>,</span><br><span class="line">                        use: [</span><br><span class="line">                            loader: <span class="comment">/*loader名字*/</span>,</span><br><span class="line">                            query: <span class="comment">/*额外配置*/</span></span><br><span class="line">                        ]</span><br><span class="line">                    &#125;</span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-<p>要是loader工作，我们需要一个正则表达式来标识我们要修改的文件，然后有一个数组表示 我们表示我们即将使用的Loader,当然我们需要的loader需要通过npm 进行安装。例如我们需要解析less的文件，那么webpack.config.js的配置如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> baseConfig = &#123;</span><br><span class="line">                entry: &#123;</span><br><span class="line">                    main: <span class="string">'./src/index.js'</span></span><br><span class="line">                &#125;,</span><br><span class="line">                output: &#123;</span><br><span class="line">                    filename: <span class="string">'[name].js'</span>,</span><br><span class="line">                    path: path.resolve(<span class="string">'./build'</span>)</span><br><span class="line">                &#125;,</span><br><span class="line">                devServer: &#123;</span><br><span class="line">                    contentBase: <span class="string">'./src'</span>,</span><br><span class="line">                    historyApiFallBack: <span class="literal">true</span>,</span><br><span class="line">                    inline: <span class="literal">true</span></span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="built_in">module</span>: &#123;</span><br><span class="line">                    rules: [</span><br><span class="line">                        &#123;</span><br><span class="line">                            test: <span class="regexp">/\.less$/</span>,</span><br><span class="line">                            use: [</span><br><span class="line">                                &#123;<span class="attr">loader</span>: <span class="string">'style-loader'</span>&#125;,</span><br><span class="line">                                &#123;<span class="attr">loader</span>: <span class="string">'css-loader'</span>&#125;,</span><br><span class="line">                                &#123;<span class="attr">loader</span>: <span class="string">'less-loader'</span>&#125;</span><br><span class="line">                            ],</span><br><span class="line">                            exclude: <span class="regexp">/node_modules/</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    ]</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
-<p>这里介绍几个常用的loader：</p>
-<p>babel-loader： 让下一代的js文件转换成现代浏览器能够支持的JS文件。</p>
-<p>babel有些复杂，所以大多数都会新建一个.babelrc进行配置</p>
-<p>css-loader,style-loader:两个建议配合使用，用来解析css文件，能够解释@import,url()如果需要解析less就在后面加一个less-loader</p>
-<p>file-loader: 生成的文件名就是文件内容的MD5哈希值并会保留所引用资源的原始扩展名</p>
-<p>url-loader: 功能类似</p>
-<p>file-loader,但是文件大小低于指定的限制时，可以返回一个DataURL事实上，在使用less,scss,stylus这些的时候，npm会提示你差什么插件，差什么，你就安上就行了</p>
-<h2 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h2><p>plugins和loader很容易搞混，说都是外部引用有什么区别呢？ 事实上他们是两个完全不同的东西。这么说loaders负责的是处理源文件的如css、jsx，一次处理一个文件。而plugins并不是直接操作单个文件，它直接对整个构建过程起作用下面列举了一些我们常用的plugins和他的用法</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">ExtractTextWebpackPlugin: 它会将入口中引用css文件，都打包都独立的css文件中，而不是内嵌在js打包文件中。下面是他的应用</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ExtractTextPlugin = <span class="built_in">require</span>(<span class="string">'extract-text-webpack-plugin'</span>)</span><br><span class="line">        <span class="keyword">var</span> lessRules = &#123;</span><br><span class="line">            use: [</span><br><span class="line">                &#123;<span class="attr">loader</span>: <span class="string">'css-loader'</span>&#125;,</span><br><span class="line">                &#123;<span class="attr">loader</span>: <span class="string">'less-loader'</span>&#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">var</span> baseConfig = &#123;</span><br><span class="line">            <span class="comment">// ... </span></span><br><span class="line">            <span class="built_in">module</span>: &#123;</span><br><span class="line">                rules: [</span><br><span class="line">                    <span class="comment">// ...</span></span><br><span class="line">                    &#123;<span class="attr">test</span>: <span class="regexp">/\.less$/</span>, <span class="attr">use</span>: ExtractTextPlugin.extract(lessRules)&#125;</span><br><span class="line">                ]</span><br><span class="line">            &#125;,</span><br><span class="line">            plugins: [</span><br><span class="line">                <span class="keyword">new</span> ExtractTextPlugin(<span class="string">'main.css'</span>)</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-<p>手写 WebPack 配置</p>
-<p>。。。。算了吧 手写容易出错（#滑稽）</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1829,7 +1870,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
