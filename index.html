@@ -484,6 +484,174 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/14/JavaScript/DOM事件类/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/14/JavaScript/DOM事件类/" itemprop="url">DOM事件类</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-14T23:56:24+08:00">
+                2019-06-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/basic/" itemprop="url" rel="index">
+                    <span itemprop="name">basic</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="DOM事件的级别"><a href="#DOM事件的级别" class="headerlink" title="DOM事件的级别"></a>DOM事件的级别</h1><p>(注意DOM1设计的时候，没有设计与事件相关的东西，所以在这里就没有谈及DOM1了)</p>
+<ol>
+<li>DOM0  - &gt;  element.onclik = function(){}</li>
+<li>DOM2  - &gt;  element.addEventListener(‘click’,function(){},false)</li>
+<li>DOM3  - &gt;  element.addEventListener(‘keyup’,function(){},false)<br>参数true则为事件捕获，参数false则为事件冒泡<br>DOM3和DOM2其实相差不多，只是DOM3的事件类型增加了很多，鼠标的移入移出和键盘的监听等等</li>
+</ol>
+<h1 id="DOM事件模型"><a href="#DOM事件模型" class="headerlink" title="DOM事件模型"></a>DOM事件模型</h1><ol>
+<li>事件捕获<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;button&gt;</span><br><span class="line">        &lt;p&gt;点击捕获&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>button&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">    var oP=document.querySelector('p');</span></span><br><span class="line"><span class="regexp">    var oB=document.querySelector('button');</span></span><br><span class="line"><span class="regexp">    var oD=document.querySelector('div');</span></span><br><span class="line"><span class="regexp">    var oBody=document.querySelector('body');</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    oP.addEventListener('click',function()&#123;</span></span><br><span class="line"><span class="regexp">        console.log('p标签被点击')</span></span><br><span class="line"><span class="regexp">    &#125;,true);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    oB.addEventListener('click',function()&#123;</span></span><br><span class="line"><span class="regexp">        console.log("button被点击")</span></span><br><span class="line"><span class="regexp">    &#125;,true);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    oD.addEventListener('click',  function()&#123;</span></span><br><span class="line"><span class="regexp">        console.log('div被点击')</span></span><br><span class="line"><span class="regexp">    &#125;,true);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    oBody.addEventListener('click',function()&#123;</span></span><br><span class="line"><span class="regexp">        console.log('body被点击')</span></span><br><span class="line"><span class="regexp">    &#125;,true);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>默认是false。<br>改为false即为冒泡了。输出的结果是body -&gt;  div -&gt; button -&gt; p。</p>
+<ol start="2">
+<li>事件冒泡</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"box1"</span> onclick=<span class="string">"box1()"</span>&gt;</span><br><span class="line">    &lt;ul onclick=<span class="string">"ul()"</span>&gt;</span><br><span class="line">        &lt;li onclick=<span class="string">"li()"</span>&gt;&lt;/li&gt;</span><br><span class="line">    &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">box1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"box1被点击了"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">ul</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"ul被点击了"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">li</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"li被点击了"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>点击li，则输出的结果为 li -&gt; ul -&gt; box1</p>
+<h1 id="DOM事件流"><a href="#DOM事件流" class="headerlink" title="DOM事件流"></a>DOM事件流</h1><p>一个完整的事件流包括了3个阶段，事件捕获 - &gt; 目标阶段 - &gt; 冒泡阶段 </p>
+<h1 id="描述DOM事件捕获的具体流程"><a href="#描述DOM事件捕获的具体流程" class="headerlink" title="描述DOM事件捕获的具体流程"></a>描述DOM事件捕获的具体流程</h1><p>window -&gt; document -&gt; html -&gt; body -&gt; … -&gt; 目标元素<br>（冒泡则相反）</p>
+<h1 id="Event对象的常见应用"><a href="#Event对象的常见应用" class="headerlink" title="Event对象的常见应用"></a>Event对象的常见应用</h1><ol>
+<li>event.preventDefault()       - &gt; 阻止默认事件</li>
+<li>event.stopPropagation()      - &gt; 阻止冒泡</li>
+<li>event.stopImmediatePropagation()     - &gt; 事件的响应优先级。（场景：按钮绑定两个事件a和b，要求点击按钮的时候a事件触发的同时不会触发b，则可以在其中加入该代码）</li>
+<li>event.currentTarget()    - &gt; 指的是当前绑定的事件</li>
+<li>event.target()           - &gt; 事件代理情况下使用。（场景：有一个ul列表下面有很多的li标签，每个li都可以触发一个事件，那么可以将该事件委托在其父元素ul上，但是触发事件的时候，就要用到event.target判断是哪一个li触发了事件）</li>
+</ol>
+<h1 id="自定义事件（模拟事件）"><a href="#自定义事件（模拟事件）" class="headerlink" title="自定义事件（模拟事件）"></a>自定义事件（模拟事件）</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ev = <span class="built_in">document</span>.getElementsByClassName(<span class="string">"box1"</span>);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">var</span> eve = <span class="keyword">new</span> Event(<span class="string">'cusstome'</span>); <span class="comment">//eve类似于click，传入的参数是事件名称</span></span><br><span class="line">   ev.addEventListener(<span class="string">'custome'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;   <span class="comment">//ev是获取到的DOM节点</span></span><br><span class="line">       <span class="built_in">console</span>.log(<span class="string">"custome"</span>)</span><br><span class="line">   &#125;);</span><br><span class="line">   ev.dispatchEvent(eve);</span><br></pre></td></tr></table></figure>
+<p>还有一个CustomEvent，用法一样，不过CustomerEvent()可以多传一个对象参数。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/JavaScript/作用域链与闭包/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1295,6 +1463,167 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/11/JavaScript/面向对象编程/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/11/JavaScript/面向对象编程/" itemprop="url">面向对象编程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-11T13:56:24+08:00">
+                2019-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/basic/" itemprop="url" rel="index">
+                    <span itemprop="name">basic</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="面向对象编程"><a href="#面向对象编程" class="headerlink" title="面向对象编程"></a>面向对象编程</h1><h2 id="类的声明和创建类的实例"><a href="#类的声明和创建类的实例" class="headerlink" title="类的声明和创建类的实例"></a>类的声明和创建类的实例</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal2</span>()</span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> Animal(),<span class="keyword">new</span> Animal2());</span><br></pre></td></tr></table></figure>
+<h2 id="实现JS的继承"><a href="#实现JS的继承" class="headerlink" title="实现JS的继承"></a>实现JS的继承</h2><ol>
+<li><p>构造函数实现继承</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Parent1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  	<span class="keyword">this</span>.name = <span class="string">'Parent1'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  Parent1.prototype.say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  	Parent1.call(<span class="keyword">this</span>);</span><br><span class="line">  	<span class="keyword">this</span>.type = <span class="string">'Child'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">new</span> Child);</span><br><span class="line"><span class="comment">// 有个缺点：就是如果属性都是在父类上则可以实现全部继承，但是无法继承父类的原型对象上面的属性和方法</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">new</span> Child().say());   <span class="comment">//报错</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>原型链继承</p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.name = <span class="string">'Parent2'</span>;</span><br><span class="line">	<span class="keyword">this</span>.arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.type = <span class="string">'Child2'</span>;</span><br><span class="line">&#125;</span><br><span class="line">Child2.prototype = <span class="keyword">new</span> Parent2();</span><br><span class="line"><span class="built_in">console</span>.log(Child2.prototype === <span class="keyword">new</span> Child2().__proto__);	<span class="comment">//true</span></span><br><span class="line"><span class="comment">// 因为上一句代码的输出是true，所以实例化出来的child2对象的__proto__引用的是父类的实例化对象，实现了继承</span></span><br><span class="line"><span class="keyword">var</span> c1 = <span class="keyword">new</span> Child2();</span><br><span class="line"><span class="keyword">var</span> c2 = <span class="keyword">new</span> Child2();</span><br><span class="line"><span class="built_in">console</span>.log(c1.arr,c2.arr);</span><br><span class="line">c1.arr.push(<span class="number">4</span>);</span><br><span class="line"><span class="built_in">console</span>.log(c1.arr,c2.arr);</span><br><span class="line"><span class="comment">// 由于原型链中的原型对象是公用的。所以任何一个实例改变原型对象，会影响到另一个对象的取值</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>组合继承</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent3</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.name = <span class="string">'Parent3'</span>;</span><br><span class="line">	<span class="keyword">this</span>.arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child3</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	Parent3.call(<span class="keyword">this</span>);</span><br><span class="line">	<span class="keyword">this</span>.type = <span class="string">'child3'</span></span><br><span class="line">&#125;</span><br><span class="line">Child3.prototype = <span class="keyword">new</span> Parent3();</span><br><span class="line"><span class="keyword">var</span> c3 = <span class="keyword">new</span> Child3();</span><br><span class="line"><span class="keyword">var</span> c4 = <span class="keyword">new</span> Child3();</span><br><span class="line">c3.arr.push(<span class="number">4</span>);</span><br><span class="line"><span class="built_in">console</span>.log(c3.arr,c4.arr);</span><br><span class="line"><span class="comment">// 存在一个缺点：在Parent3.call(this)和new Parent3()中，执行了两次Parent3,事实上没有必要</span></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>组合继承优化1</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent4</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.name = <span class="string">'Parent4'</span>;</span><br><span class="line">	<span class="keyword">this</span>.arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child4</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	Parent4.call(<span class="keyword">this</span>);</span><br><span class="line">	<span class="keyword">this</span>.type = <span class="string">'child4'</span></span><br><span class="line">&#125;</span><br><span class="line">Child4.prototype = Parent4.prototype;		<span class="comment">//引用了同一个原型对象，是下面问题根源所在</span></span><br><span class="line"><span class="keyword">var</span> c5 = <span class="keyword">new</span> Child4();</span><br><span class="line"><span class="keyword">var</span> c6 = <span class="keyword">new</span> Child4();</span><br><span class="line">c3.arr.push(<span class="number">4</span>);</span><br><span class="line"><span class="built_in">console</span>.log(c5,c6);</span><br><span class="line"><span class="comment">// 存在问题</span></span><br><span class="line"><span class="built_in">console</span>.log(c5.constructor);	<span class="comment">//结果是parent4,明显不符合要求，就是因为Child4.prototype = Parent4.prototype，情况和上面的组合继承是一样的</span></span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>组合继承优化2</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Parent5</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  	<span class="keyword">this</span>.name = <span class="string">'Parent5'</span>;</span><br><span class="line">  	<span class="keyword">this</span>.arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Child5</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  	Parent5.call(<span class="keyword">this</span>);</span><br><span class="line">  	<span class="keyword">this</span>.type = <span class="string">'child5'</span></span><br><span class="line">  &#125;</span><br><span class="line">  Child5.prototype = <span class="built_in">Object</span>.create(Parent5.prototype);</span><br><span class="line"><span class="comment">// 通过创建中间对象的方法，把两个对象区分开，中间对象具备一个特性，他的原型对象是父类的原型对象；作为一个桥梁,Child5的原型对象等于Object.create方法创建的对象，Object.create方法创建的对象又等于Parent5的原型对象。</span></span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/08/网络/webpack/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1450,319 +1779,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/26/vue/Vuex的基本使用/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/26/vue/Vuex的基本使用/" itemprop="url">Vuex的基本使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-26T14:53:20+08:00">
-                2019-04-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue/" itemprop="url" rel="index">
-                    <span itemprop="name">Vue</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Vuex的基本使用。"><a href="#Vuex的基本使用。" class="headerlink" title="Vuex的基本使用。"></a>Vuex的基本使用。</h1><p>问题的引入：在Vue中，涉及到父子组件之间的传值，我们可以使用<strong>props</strong>和<strong>$emit</strong>方法进行传值，但是兄弟组件之间传值要怎么办呢？所以这个时候就要引入Vuex进行状态管理了，Vuex 是适用于Vue.js应用的状态管理库，为 Vue.js为应用中的所有组件提供集中式的状态存储与操作，保证了所有状态以可预测的方式进行修改。 </p>
-<h2 id="主要的几种状态"><a href="#主要的几种状态" class="headerlink" title="主要的几种状态"></a>主要的几种状态</h2><p>dispatch：操作行为触发方法，是唯一能执行action的方法。</p>
-<p>actions：操作行为处理模块。负责处理Vue Components接收到的所有<strong>交互行为</strong>。包含<strong>同步/异步</strong>操作，支持多个同名方法，按照注册的顺序依次触发。向后台API请求的操作就在这个模块中进行，包括触发其他action以及提交mutation的操作。该模块提供了Promise的封装，以支持action的链式触发。</p>
-<p>commit：状态改变提交操作方法。对mutation进行提交，是唯一能执行mutation的方法。</p>
-<p>mutations：状态改变操作方法。是<strong>Vuex修改state的唯一推荐方法</strong>，其他修改方式在严格模式下将会报错。该方法只能进行同步操作，且方法名只能全局唯一。操作之中会有一些hook暴露出来，以进行state的监控等。</p>
-<p>state：页面状态管理容器对象。集中存储Vue components中data对象的零散数据，全局唯一，以进行统一的状态管理。页面显示所需的数据从该对象中进行读取，利用Vue的细粒度数据响应机制来进行高效的状态更新。 </p>
-<p>getters：state对象读取方法。直接通过这个获取数据</p>
-<p>废话不多说了。直接贴代码8. </p>
-<p>第一步：在main.js中安装（如果项目大的话，需要全局共享处理的数据比较多，则最好对应的每个状态都建立一个js文件，至少不会把所有的代码糅合在一起，看着舒服一点。。）</p>
-<p>第二步：导入vuex</p>
-<p>第三步：注册vuex到vue中。</p>
-<p>第四步：新建一个store实例，然后可以在这个state里面写对应的状态方法。</p>
-<p>第五步：<strong>将vuex创建的store挂载到vm实例上，才能全局都访问到这个store数据</strong>。（敲黑板划重点，第一次忘记挂载结果找了好久的错误）</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 入口文件</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="comment">// 配置vuex的步骤</span></span><br><span class="line"><span class="comment">// 1. 运行 cnpm i vuex -S </span></span><br><span class="line"><span class="comment">// 2. 导入包</span></span><br><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex'</span></span><br><span class="line"><span class="comment">// 3. 注册vuex到vue中</span></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"><span class="comment">// 4. new Vuex.Store() 实例，得到一个 数据仓储对象</span></span><br><span class="line"><span class="keyword">var</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  state: &#123;</span><br><span class="line">    <span class="comment">// 大家可以把 state 想象成 组件中的 data ,专门用来存储数据的</span></span><br><span class="line">    <span class="comment">// 如果在 组件中，想要访问，store 中的数据，只能通过 this.$store.state.*** 来访问</span></span><br><span class="line">    count: <span class="number">0</span></span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;</span><br><span class="line">    <span class="comment">// 注意： 如果要操作 store 中的 state 值，只能通过 调用 mutations 提供的方法，才能操作对应的数据，不推荐直接操作 state 中的数据，因为 万一导致了数据的紊乱，不能快速定位到错误的原因，因为，每个组件都可能有操作数据的方法；</span></span><br><span class="line">    increment(state) &#123;</span><br><span class="line">      state.count++</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 注意： 如果组件想要调用 mutations 中的方法，只能使用 this.$store.commit('方法名')</span></span><br><span class="line">    <span class="comment">// 这种 调用 mutations 方法的格式，和 this.$emit('父组件中方法名')</span></span><br><span class="line">    subtract(state, obj) &#123;</span><br><span class="line">      <span class="comment">// 注意： mutations 的 函数参数列表中，最多支持两个参数，其中，参数1： 是 state 状态； 参数2： 通过 commit 提交过来的参数；</span></span><br><span class="line">      <span class="built_in">console</span>.log(obj)</span><br><span class="line">      state.count -= (obj.c + obj.d)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  getters: &#123;</span><br><span class="line">    <span class="comment">// 注意：这里的 getters， 只负责 对外提供数据，不负责 修改数据，如果想要修改 state 中的数据，请 去找 mutations</span></span><br><span class="line">    optCount: <span class="function"><span class="keyword">function</span> (<span class="params">state</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">'当前最新的count值是：'</span> + state.count</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 经过对比，发现 getters 中的方法， 和组件中的过滤器比较类似，因为 过滤器和 getters 都没有修改原数据， 都是把原数据做了一层包装，提供给了 调用者；</span></span><br><span class="line">    <span class="comment">// 其次， getters 也和 computed 比较像， 只要 state 中的数据发生变化了，那么，如果 getters 正好也引用了这个数据，那么 就会立即触发 getters 的重新求值；</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App.vue'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  render: <span class="function"><span class="params">c</span> =&gt;</span> c(App),</span><br><span class="line">  store <span class="comment">// 5. 将 vuex 创建的 store 挂载到 VM 实例上， 只要挂载到了 vm 上，任何组件都能使用 store 来存取数据</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>总结：</p>
-<ol>
-<li>state中的数据，不能直接修改，如果想要修改，必须通过 mutations</li>
-<li>如果组件想要直接 从 state 上获取数据： 需要 this.$store.state.</li>
-<li>如果 组件，想要修改数据，必须使用 mutations 提供的方法，需要通过 this.$store.commit(‘方法的称’， 唯一的一个参数)</li>
-<li>如果 store 中 state 上的数据， 在对外提供的时候，需要做一层包装，那么 ，推荐使用 getters, 如果需要使用 getters ,则用 this.$store.getters.</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/24/css/CSS预处理器/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/24/css/CSS预处理器/" itemprop="url">CSS预处理器</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-24T14:19:35+08:00">
-                2019-04-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="CSS预处理器"><a href="#CSS预处理器" class="headerlink" title="CSS预处理器"></a>CSS预处理器</h1><p>CSS预处理器主要有以下三个比较流行。sass、less和stylus。在vue项目中的使用方法，就是安装对应处理器的对应loader就可以了。<br>接下来讲一讲预处理器的几大特性。由于本人习惯于sass,至于less的语法其实和sass差不多，stylus那个复杂的写法第一次看到后直接劝退，所以下文主要是针对sass而言的。</p>
-<h2 id="1、节点可以嵌套，对父子级元素一目了然"><a href="#1、节点可以嵌套，对父子级元素一目了然" class="headerlink" title="1、节点可以嵌套，对父子级元素一目了然"></a>1、节点可以嵌套，对父子级元素一目了然</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">//传统写法</span><br><span class="line">.parent &#123;</span><br><span class="line">    margin:10px;</span><br><span class="line">&#125;</span><br><span class="line">.child &#123;</span><br><span class="line">    padding:10px;</span><br><span class="line">&#125;</span><br><span class="line">a&#123;</span><br><span class="line">    font-size:16px;</span><br><span class="line">&#125;</span><br><span class="line">//sass</span><br><span class="line">.parent&#123;</span><br><span class="line">    margin-10px;</span><br><span class="line">        .child&#123;</span><br><span class="line">            padding: 10px;</span><br><span class="line">            a&#123;</span><br><span class="line">                font-size: 16px;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="2、可以声明变量"><a href="#2、可以声明变量" class="headerlink" title="2、可以声明变量"></a>2、可以声明变量</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//通常可以给网站的基础变量（基础字体、主题色调等）赋值一个变量，然后样式中调用这个变量就可以了。</span><br><span class="line">//sass中变量的声明必须是一$号开头的</span><br><span class="line">    $mainColor: #233233;</span><br><span class="line">    $mainFont: 12px red;</span><br><span class="line"></span><br><span class="line">    .header&#123;</span><br><span class="line">        background: $mainColor;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="3、使用Mixin，提高可重用性"><a href="#3、使用Mixin，提高可重用性" class="headerlink" title="3、使用Mixin，提高可重用性"></a>3、使用Mixin，提高可重用性</h2><p>通过@mixin加名称的方式就可以定义一个Mixins模块，在模块内你可以添加任何你想重复使用的样式。(比如清除浮动)</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">mixin</span> button &#123;  </span><br><span class="line">    <span class="selector-tag">font-size</span>: 1<span class="selector-tag">em</span>;  </span><br><span class="line">    <span class="selector-tag">padding</span>: 0<span class="selector-class">.5em</span> 1<span class="selector-class">.0em</span>;  </span><br><span class="line">    <span class="selector-tag">text-decoration</span>: <span class="selector-tag">none</span>;  </span><br><span class="line">    <span class="selector-tag">color</span>: <span class="selector-id">#fff</span>;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//使用@include引入</span><br><span class="line"><span class="selector-class">.button-green</span> &#123;  </span><br><span class="line">    @include button;  </span><br><span class="line">    <span class="selector-tag">background-color</span>: <span class="selector-tag">green</span>;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//解析之后的样式</span><br><span class="line"><span class="selector-class">.button-green</span> &#123;  </span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">1em</span>;  </span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0.5em</span> <span class="number">1.0em</span>;  </span><br><span class="line">    <span class="attribute">text-decoration</span>: none;  </span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#fff</span>;  </span><br><span class="line">    <span class="attribute">background-color</span>: green;  </span><br><span class="line">&#125;</span><br><span class="line">//mixin另一个强大的地方是还可以接收参数！！无敌，定义一个全局的变量之后，就不必每次都去赋值了~~~</span><br><span class="line"></span><br><span class="line">$background: red;</span><br><span class="line">@<span class="keyword">mixin</span> button($background) &#123;  </span><br><span class="line">    <span class="selector-tag">font-size</span>: 1<span class="selector-tag">em</span>;  </span><br><span class="line">    <span class="selector-tag">padding</span>: 0<span class="selector-class">.5em</span> 1<span class="selector-class">.0em</span>;  </span><br><span class="line">    <span class="selector-tag">text-decoration</span>: <span class="selector-tag">none</span>;  </span><br><span class="line">    <span class="selector-tag">color</span>: <span class="selector-id">#fff</span>;  </span><br><span class="line">    background: $background;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="4、-extend继承选择器"><a href="#4、-extend继承选择器" class="headerlink" title="4、 @extend继承选择器"></a>4、 @extend继承选择器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">　　.a1 &#123;</span><br><span class="line">　　　　color: blue;</span><br><span class="line">　　&#125;</span><br><span class="line">　　.a2 &#123;</span><br><span class="line">　　　　@extend .a1;</span><br><span class="line">　　　　font-size: 12px;</span><br><span class="line">　　&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="5、-function函数的功能"><a href="#5、-function函数的功能" class="headerlink" title="5、@function函数的功能"></a>5、@function函数的功能</h2><p>使用 @function+函数名称，每个函数都需要有返回值的内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">　　@function du($r) &#123;</span><br><span class="line">　　　　@return $r*2</span><br><span class="line">　　&#125;</span><br><span class="line"></span><br><span class="line">　　.a8 &#123;</span><br><span class="line">　　　　border: solid #&#123;du(2)&#125;px red;</span><br><span class="line">　　&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="6、引用父元素-amp-：在编译时，-amp-将被替换成父选择符"><a href="#6、引用父元素-amp-：在编译时，-amp-将被替换成父选择符" class="headerlink" title="6、引用父元素&amp;：在编译时，&amp;将被替换成父选择符"></a>6、引用父元素&amp;：在编译时，&amp;将被替换成父选择符</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">　a &#123;</span><br><span class="line">　　　font-size: 20px;</span><br><span class="line">　　　text-decoration: none;</span><br><span class="line">　　　&amp;:hover &#123;</span><br><span class="line">　　　　　text-decoration: underline;</span><br><span class="line">　　　&#125;</span><br><span class="line">　&#125;</span><br><span class="line">//编译之后</span><br><span class="line">　a &#123;</span><br><span class="line">　　　font-size: 20px;</span><br><span class="line">　　　text-decoration: none;</span><br><span class="line">　　&#125;</span><br><span class="line">　a:hover &#123;</span><br><span class="line">　　　text-decoration: underline;</span><br><span class="line">　　&#125;</span><br></pre></td></tr></table></figure>
-<p>以上算是sass中比较常见的用法吧。得益于sass，css的编写不再那样千篇一律。而scss则是sass的最新语法，完全兼容css，如果写习惯了css，可能不太习惯于sass的那种严格的缩进式语法，相比其他几种，scss更适合我。。。。。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1813,7 +1829,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
