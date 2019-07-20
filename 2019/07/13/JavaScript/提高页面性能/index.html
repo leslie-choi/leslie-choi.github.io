@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="一、资源压缩合并，减少HTTP请求二、非核心代码异步加载 异步加载的方式：   动态脚本加载： 123var script = document.createElement(&quot;script&quot;);script.src = &quot;js/test.js&quot;;document.head.appendChild(script);  defer    async     异步加载的区别   defer是在HTML解">
+<meta name="description" content="一、资源压缩合并，减少HTTP请求二、非核心代码异步加载通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。因此，通常会将JavaScript分为两个部分（一部分是渲染初始化页面所必须的，另一部分则是剩下的脚本）来进行加载。这样就可以尽可能快速地渲染出网页。  异步加载的方式：   动态脚本加载： 123var script = document.createElement">
 <meta name="keywords" content="basic">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浏览器的渲染机制">
 <meta property="og:url" content="http://yoursite.com/2019/07/13/JavaScript/提高页面性能/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="一、资源压缩合并，减少HTTP请求二、非核心代码异步加载 异步加载的方式：   动态脚本加载： 123var script = document.createElement(&quot;script&quot;);script.src = &quot;js/test.js&quot;;document.head.appendChild(script);  defer    async     异步加载的区别   defer是在HTML解">
+<meta property="og:description" content="一、资源压缩合并，减少HTTP请求二、非核心代码异步加载通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。因此，通常会将JavaScript分为两个部分（一部分是渲染初始化页面所必须的，另一部分则是剩下的脚本）来进行加载。这样就可以尽可能快速地渲染出网页。  异步加载的方式：   动态脚本加载： 123var script = document.createElement">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-20T13:57:50.061Z">
+<meta property="og:updated_time" content="2019-07-20T14:25:12.549Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器的渲染机制">
-<meta name="twitter:description" content="一、资源压缩合并，减少HTTP请求二、非核心代码异步加载 异步加载的方式：   动态脚本加载： 123var script = document.createElement(&quot;script&quot;);script.src = &quot;js/test.js&quot;;document.head.appendChild(script);  defer    async     异步加载的区别   defer是在HTML解">
+<meta name="twitter:description" content="一、资源压缩合并，减少HTTP请求二、非核心代码异步加载通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。因此，通常会将JavaScript分为两个部分（一部分是渲染初始化页面所必须的，另一部分则是剩下的脚本）来进行加载。这样就可以尽可能快速地渲染出网页。  异步加载的方式：   动态脚本加载： 123var script = document.createElement">
 
 
 
@@ -322,7 +322,8 @@
       
 
       
-        <h1 id="一、资源压缩合并，减少HTTP请求"><a href="#一、资源压缩合并，减少HTTP请求" class="headerlink" title="一、资源压缩合并，减少HTTP请求"></a>一、资源压缩合并，减少HTTP请求</h1><h1 id="二、非核心代码异步加载"><a href="#二、非核心代码异步加载" class="headerlink" title="二、非核心代码异步加载"></a>二、非核心代码异步加载</h1><ol>
+        <h1 id="一、资源压缩合并，减少HTTP请求"><a href="#一、资源压缩合并，减少HTTP请求" class="headerlink" title="一、资源压缩合并，减少HTTP请求"></a>一、资源压缩合并，减少HTTP请求</h1><h1 id="二、非核心代码异步加载"><a href="#二、非核心代码异步加载" class="headerlink" title="二、非核心代码异步加载"></a>二、非核心代码异步加载</h1><p>通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。因此，通常会将JavaScript分为两个部分（一部分是渲染初始化页面所必须的，另一部分则是剩下的脚本）来进行加载。这样就可以尽可能快速地渲染出网页。</p>
+<ol>
 <li>异步加载的方式：</li>
 </ol>
 <ul>
