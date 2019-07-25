@@ -356,7 +356,7 @@
 <ul>
 <li>Last-Modified 和 If-Modified-Since</li>
 </ul>
-<p>浏览器在第一次访问资源时，服务器返回资源的同时，在response header中添加 Last-Modified的header，值是这个资源在服务器上的最后修改时间，浏览器接收后缓存文件和header；<br>浏览器下一次请求这个资源，浏览器检测到有 Last-Modified这个header，于是添加If-Modified-Since这个header，<strong>值就是Last-Modified中的值</strong> ；服务器再次收到这个资源请求，会根据 If-Modified-Since 中的值与服务器中这个资源的最后修改时间对比，如果没有变化，返回304和空的响应体，直接从缓存读取，如果If-Modified-Since的时间小于服务器中这个资源的最后修改时间，说明文件有更新，于是返回新的资源文件和200。</p>
+<p>浏览器在第一次访问资源时，服务器返回资源的同时，在response header中添加 Last-Modified的header，值是这个资源在服务器上的最后修改时间，浏览器接收后缓存文件和header；<br>浏览器下一次请求这个资源，浏览器检测到有 Last-Modified这个header，于是添加If-Modified-Since这个header，<strong>值就是Last-Modified中的值</strong> ；服务器再次收到这个资源请求，会根据 If-Modified-Since 中的值与服务器中这个资源的最后修改时间对比，如果没有变化，返回304和空的响应体，直接从缓存读取，如果If-Modified-Since的时间小于服务器中这个资源的最后修改时间，说明文件有更新，于是返回新的资源文件和200。 </p>
 <p>存在的弊端：</p>
 <ul>
 <li>如果本地打开缓存文件，即使没有对文件进行修改，但还是会造成 Last-Modified 被修改，服务端不能命中缓存导致发送相同的资源</li>
@@ -377,9 +377,21 @@
 <li>大部分请求在 CDN 边缘节点完成，CDN 起到了分流作用，减轻了源站的负载；</li>
 <li>提高网络访问的稳定性；</li>
 </ul>
-<h1 id="五、预解析DNS"><a href="#五、预解析DNS" class="headerlink" title="五、预解析DNS"></a>五、预解析DNS</h1><p>浏览器输入URL到页面显示发生什么事情</p>
+<h1 id="五、预解析DNS"><a href="#五、预解析DNS" class="headerlink" title="五、预解析DNS"></a>五、预解析DNS</h1><p>还有一个可以优化网页速度的方式是利用dns的预解析技术。同preload类似，DNS Prefetch在网络层面上优化了资源加载的速度。<br>我们知道，针对DNS的前端优化，主要分为减少DNS的请求次数，还有就是进行DNS预先获取。DNS prefetch就是为了实现这后者。其用法也很简单，只要在link标签上加上对应的属性就行了。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"x-dns-prefetch-control"</span> <span class="attr">content</span>=<span class="string">"on"</span> /&gt;</span> /* 这是用来告知浏览器当前页面要做DNS预解析，可以选择on或者off */</span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"dns-prefetch"</span> <span class="attr">href</span>=<span class="string">"//example.com"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>复制代码在支持该标准的浏览器上，会自动对链接中的地址域名做DNS解析缓存。不过，像Goolge、火狐这样的现代浏览器即使不设置这个属性，也能在后台做自动预解析。如果你的页面中需要大量访问不同域名的资源，可以利用这项技术加快资源的获取，从而获得更好的用户体验。需要注意的是，DNS预解析虽好，但是也不能滥用。如果对多页面重复DNS预解析，会增加DNS的查询次数</p>
+<h1 id="六、输入URL到浏览器显示页面发生了什么"><a href="#六、输入URL到浏览器显示页面发生了什么" class="headerlink" title="六、输入URL到浏览器显示页面发生了什么"></a>六、输入URL到浏览器显示页面发生了什么</h1><ol>
+<li>输入网址github.com</li>
+<li>DNS域名解析系统解析域名</li>
+<li>建立TCP链接</li>
+<li>浏览器向web服务器发起Http请求</li>
+<li>HTTP服务器处理</li>
+<li>关闭TCP链接</li>
+<li>浏览器解析资源</li>
+<li>浏览器布局渲染</li>
+</ol>
 <p>参考文章：</p>
-<p><a href="https://www.jianshu.com/p/54cc04190252" target="_blank" rel="noopener">深入理解浏览器的缓存机制</a><br><a href="https://juejin.im/post/59a50dc1f265da246e6e108f" target="_blank" rel="noopener">web前端资源文件的部署和优化</a></p>
+<p><a href="https://www.jianshu.com/p/54cc04190252" target="_blank" rel="noopener">深入理解浏览器的缓存机制</a><br><a href="https://juejin.im/post/59a50dc1f265da246e6e108f" target="_blank" rel="noopener">web前端资源文件的部署和优化</a><br><a href="https://juejin.im/post/59b73ef75188253db70acdb5" target="_blank" rel="noopener">前端性能优化之加载技术</a></p>
 
           
         
