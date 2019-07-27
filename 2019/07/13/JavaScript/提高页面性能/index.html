@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="一、资源压缩合并，减少HTTP请求二、非核心代码异步加载通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。因此，通常会将JavaScript分为两个部分（一部分是渲染初始化页面所必须的，另一部分则是剩下的脚本）来进行加载。这样就可以尽可能快速地渲染出网页。  异步加载的方式：   动态脚本加载： 123var script = document.createElement">
+<meta name="description" content="一、资源压缩合并，减少HTTP请求比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。 二、非核心代码异步加载通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。因此，通常会将JavaScript分为两个部分（一部分是渲染初始化页面所必须的，另一部分则是剩下的脚本）来进行加载。这样就可以尽可能快速地渲染出网页。  异步加载的方式：   动态脚本加载： 1">
 <meta name="keywords" content="basic">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浏览器的渲染机制">
 <meta property="og:url" content="http://yoursite.com/2019/07/13/JavaScript/提高页面性能/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="一、资源压缩合并，减少HTTP请求二、非核心代码异步加载通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。因此，通常会将JavaScript分为两个部分（一部分是渲染初始化页面所必须的，另一部分则是剩下的脚本）来进行加载。这样就可以尽可能快速地渲染出网页。  异步加载的方式：   动态脚本加载： 123var script = document.createElement">
+<meta property="og:description" content="一、资源压缩合并，减少HTTP请求比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。 二、非核心代码异步加载通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。因此，通常会将JavaScript分为两个部分（一部分是渲染初始化页面所必须的，另一部分则是剩下的脚本）来进行加载。这样就可以尽可能快速地渲染出网页。  异步加载的方式：   动态脚本加载： 1">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-25T15:57:33.444Z">
+<meta property="og:updated_time" content="2019-07-27T14:07:41.434Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器的渲染机制">
-<meta name="twitter:description" content="一、资源压缩合并，减少HTTP请求二、非核心代码异步加载通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。因此，通常会将JavaScript分为两个部分（一部分是渲染初始化页面所必须的，另一部分则是剩下的脚本）来进行加载。这样就可以尽可能快速地渲染出网页。  异步加载的方式：   动态脚本加载： 123var script = document.createElement">
+<meta name="twitter:description" content="一、资源压缩合并，减少HTTP请求比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。 二、非核心代码异步加载通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。因此，通常会将JavaScript分为两个部分（一部分是渲染初始化页面所必须的，另一部分则是剩下的脚本）来进行加载。这样就可以尽可能快速地渲染出网页。  异步加载的方式：   动态脚本加载： 1">
 
 
 
@@ -322,7 +322,8 @@
       
 
       
-        <h1 id="一、资源压缩合并，减少HTTP请求"><a href="#一、资源压缩合并，减少HTTP请求" class="headerlink" title="一、资源压缩合并，减少HTTP请求"></a>一、资源压缩合并，减少HTTP请求</h1><h1 id="二、非核心代码异步加载"><a href="#二、非核心代码异步加载" class="headerlink" title="二、非核心代码异步加载"></a>二、非核心代码异步加载</h1><p>通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。因此，通常会将JavaScript分为两个部分（一部分是渲染初始化页面所必须的，另一部分则是剩下的脚本）来进行加载。这样就可以尽可能快速地渲染出网页。</p>
+        <h1 id="一、资源压缩合并，减少HTTP请求"><a href="#一、资源压缩合并，减少HTTP请求" class="headerlink" title="一、资源压缩合并，减少HTTP请求"></a>一、资源压缩合并，减少HTTP请求</h1><p>比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。</p>
+<h1 id="二、非核心代码异步加载"><a href="#二、非核心代码异步加载" class="headerlink" title="二、非核心代码异步加载"></a>二、非核心代码异步加载</h1><p>通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。因此，通常会将JavaScript分为两个部分（一部分是渲染初始化页面所必须的，另一部分则是剩下的脚本）来进行加载。这样就可以尽可能快速地渲染出网页。</p>
 <ol>
 <li>异步加载的方式：</li>
 </ol>
@@ -379,17 +380,22 @@
 </ul>
 <h1 id="五、预解析DNS"><a href="#五、预解析DNS" class="headerlink" title="五、预解析DNS"></a>五、预解析DNS</h1><p>还有一个可以优化网页速度的方式是利用dns的预解析技术。同preload类似，DNS Prefetch在网络层面上优化了资源加载的速度。<br>我们知道，针对DNS的前端优化，主要分为减少DNS的请求次数，还有就是进行DNS预先获取。DNS prefetch就是为了实现这后者。其用法也很简单，只要在link标签上加上对应的属性就行了。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"x-dns-prefetch-control"</span> <span class="attr">content</span>=<span class="string">"on"</span> /&gt;</span> /* 这是用来告知浏览器当前页面要做DNS预解析，可以选择on或者off */</span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"dns-prefetch"</span> <span class="attr">href</span>=<span class="string">"//example.com"</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>复制代码在支持该标准的浏览器上，会自动对链接中的地址域名做DNS解析缓存。不过，像Goolge、火狐这样的现代浏览器即使不设置这个属性，也能在后台做自动预解析。如果你的页面中需要大量访问不同域名的资源，可以利用这项技术加快资源的获取，从而获得更好的用户体验。需要注意的是，DNS预解析虽好，但是也不能滥用。如果对多页面重复DNS预解析，会增加DNS的查询次数</p>
-<h1 id="六、输入URL到浏览器显示页面发生了什么"><a href="#六、输入URL到浏览器显示页面发生了什么" class="headerlink" title="六、输入URL到浏览器显示页面发生了什么"></a>六、输入URL到浏览器显示页面发生了什么</h1><ol>
-<li>输入网址github.com</li>
-<li>DNS域名解析系统解析域名</li>
-<li>建立TCP链接</li>
-<li>浏览器向web服务器发起Http请求</li>
-<li>HTTP服务器处理</li>
-<li>关闭TCP链接</li>
-<li>浏览器解析资源</li>
-<li>浏览器布局渲染</li>
-</ol>
+<p>复制代码在支持该标准的浏览器上，会自动对链接中的地址域名做DNS解析缓存。不过，像Goolge、火狐这样的现代浏览器即使不设置这个属性，也能在后台做自动预解析。如果你的页面中需要大量访问不同域名的资源，可以利用这项技术加快资源的获取，从而获得更好的用户体验。需要注意的是，DNS预解析虽好，但是也不能滥用。如果对多页面重复DNS预解析，会增加DNS的查询次数。</p>
+<h1 id="六、使用SSR（server-side-render）后端渲染，数据直接输出到HTML中"><a href="#六、使用SSR（server-side-render）后端渲染，数据直接输出到HTML中" class="headerlink" title="六、使用SSR（server side render）后端渲染，数据直接输出到HTML中"></a>六、使用SSR（server side render）后端渲染，数据直接输出到HTML中</h1><h1 id="七、渲染优化"><a href="#七、渲染优化" class="headerlink" title="七、渲染优化"></a>七、渲染优化</h1><ul>
+<li>css放在head里面，JS放在body的底部</li>
+<li>懒加载（图片懒加载、下拉加载更多）</li>
+<li>减少对DOM查询，对DOM查询做缓存</li>
+<li>减少DOM操作，多个操作尽量合并在一起执行</li>
+</ul>
+<h1 id="八、事件节流"><a href="#八、事件节流" class="headerlink" title="八、事件节流"></a>八、事件节流</h1><h1 id="九、使用DOMContentLoaded，尽早执行操作"><a href="#九、使用DOMContentLoaded，尽早执行操作" class="headerlink" title="九、使用DOMContentLoaded，尽早执行操作"></a>九、使用DOMContentLoaded，尽早执行操作</h1><p>相比window.oonload，需要页面的全部资源加载完成才会执行，包括了图片还有视频等等<br>而DOMContentLoaded，只要DOM渲染完成即可执行，此时的图片和视频可能还没有加载完</p>
+<h1 id="十、减少对DOM的操作"><a href="#十、减少对DOM的操作" class="headerlink" title="十、减少对DOM的操作"></a>十、减少对DOM的操作</h1><ul>
+<li><p>缓存DOM查询</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 未缓存 DOM 查询</span></span><br><span class="line">    <span class="keyword">var</span> i</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="built_in">document</span>.getElementsByTagName(<span class="string">'p'</span>).length;i++)&#123;</span><br><span class="line">        <span class="comment">//todo</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//缓存 DOM 查询   使用一个变量接收查询到的DOM</span></span><br><span class="line">    <span class="keyword">var</span> pList = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'p'</span>)</span><br><span class="line">    <span class="keyword">var</span> i</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; pList.length;i++)&#123;</span><br><span class="line">        <span class="comment">//todo</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>合并DOM的操作</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">element.style.borderColor = <span class="string">'#f00'</span>;</span><br><span class="line">element.style.borderStyle = <span class="string">'solid'</span>;</span><br><span class="line">element.style.borderWidth = <span class="string">'1px'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 优化</span></span><br><span class="line">element.style.cssText += <span class="string">'border: 1px solid #f00;'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 <p>参考文章：</p>
 <p><a href="https://www.jianshu.com/p/54cc04190252" target="_blank" rel="noopener">深入理解浏览器的缓存机制</a><br><a href="https://juejin.im/post/59a50dc1f265da246e6e108f" target="_blank" rel="noopener">web前端资源文件的部署和优化</a><br><a href="https://juejin.im/post/59b73ef75188253db70acdb5" target="_blank" rel="noopener">前端性能优化之加载技术</a></p>
 
@@ -562,7 +568,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、资源压缩合并，减少HTTP请求"><span class="nav-number">1.</span> <span class="nav-text">一、资源压缩合并，减少HTTP请求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、非核心代码异步加载"><span class="nav-number">2.</span> <span class="nav-text">二、非核心代码异步加载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理"><span class="nav-number">3.</span> <span class="nav-text">三、利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、利用cdn"><span class="nav-number">4.</span> <span class="nav-text">四、利用cdn</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、预解析DNS"><span class="nav-number">5.</span> <span class="nav-text">五、预解析DNS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六、输入URL到浏览器显示页面发生了什么"><span class="nav-number">6.</span> <span class="nav-text">六、输入URL到浏览器显示页面发生了什么</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、资源压缩合并，减少HTTP请求"><span class="nav-number">1.</span> <span class="nav-text">一、资源压缩合并，减少HTTP请求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、非核心代码异步加载"><span class="nav-number">2.</span> <span class="nav-text">二、非核心代码异步加载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理"><span class="nav-number">3.</span> <span class="nav-text">三、利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、利用cdn"><span class="nav-number">4.</span> <span class="nav-text">四、利用cdn</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、预解析DNS"><span class="nav-number">5.</span> <span class="nav-text">五、预解析DNS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六、使用SSR（server-side-render）后端渲染，数据直接输出到HTML中"><span class="nav-number">6.</span> <span class="nav-text">六、使用SSR（server side render）后端渲染，数据直接输出到HTML中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#七、渲染优化"><span class="nav-number">7.</span> <span class="nav-text">七、渲染优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#八、事件节流"><span class="nav-number">8.</span> <span class="nav-text">八、事件节流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#九、使用DOMContentLoaded，尽早执行操作"><span class="nav-number">9.</span> <span class="nav-text">九、使用DOMContentLoaded，尽早执行操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#十、减少对DOM的操作"><span class="nav-number">10.</span> <span class="nav-text">十、减少对DOM的操作</span></a></li></ol></div>
             
 
           </div>
