@@ -90,7 +90,8 @@
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/prototype1.PNG">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/prototype2.PNG">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/prototype3.PNG">
-<meta property="og:updated_time" content="2019-07-19T03:51:11.068Z">
+<meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/instanceof.png">
+<meta property="og:updated_time" content="2019-07-30T09:51:33.546Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="原型与原型链">
 <meta name="twitter:description" content="原型和原型链想要了解原型和原型链，那我们首先来了解一下构造函数。JavaScript不像Java一样，可以定义一个class。那在JavaScript中，想要定义一个类，就只能通过构造函数的模式。构造函数咪视中拥有了类和实例的概念。构造函数其实就是一个普通的函数，创建的方式和普通的函数没有区别，但是 首字母需要大写 ，另外普通函数可以直接调用，但是构造函数需要通过 new关键字来调用。  1234">
@@ -363,7 +364,7 @@
 <li>通过Object.create创建对象</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = &#123;<span class="attr">name</span>:<span class="string">'p'</span>&#125;</span><br><span class="line"><span class="keyword">var</span> o4 = <span class="built_in">Object</span>.create(p);  <span class="comment">//事实是根据原型链的原理，需要一个中间对象。o4.__proto__指向p。继承p的属性</span></span><br></pre></td></tr></table></figure>
-<h1 id="instanceof的原理"><a href="#instanceof的原理" class="headerlink" title="instanceof的原理"></a>instanceof的原理</h1><p>首先看一下这一张图片：<br><a href="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/instanceof.png" target="_blank" rel="noopener">markdown</a></p>
+<h1 id="instanceof的原理"><a href="#instanceof的原理" class="headerlink" title="instanceof的原理"></a>instanceof的原理</h1><p>首先看一下这一张图片：<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/instanceof.png" alt="markdown"></p>
 <p>所以instanceof的原理，可以理解为，实例对象的<strong>proto</strong>属性和构造函数的prototype属性指向的是不是同一个地址。</p>
 <p>下面通过一段代码来举个例子：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span> Person(<span class="string">'james'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(p1 <span class="keyword">instanceof</span> Person);    <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(p1 <span class="keyword">instanceof</span> <span class="built_in">Object</span>);    <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(p1.__proto__ === Person.prototype);     <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype.__proto__ === <span class="built_in">Object</span>.prototype);   <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
