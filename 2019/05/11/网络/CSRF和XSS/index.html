@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="CSRF 跨站点请求伪造(Cross Site Request Forgery)CSRF可以这样理解，攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的。比如以你的名义发送邮件、发消息，盗取你的账号，添加系统管理员，甚至于购买商品、虚拟货币转账等等。 举一个简单的CSRF的栗子： 舍友A登录了一个全球知名的公益网站www.po?nhub.com，然后在没有退出登录的情况">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-27T12:39:38.930Z">
+<meta property="og:updated_time" content="2019-07-30T15:48:47.740Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端安全">
 <meta name="twitter:description" content="CSRF 跨站点请求伪造(Cross Site Request Forgery)CSRF可以这样理解，攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的。比如以你的名义发送邮件、发消息，盗取你的账号，添加系统管理员，甚至于购买商品、虚拟货币转账等等。 举一个简单的CSRF的栗子： 舍友A登录了一个全球知名的公益网站www.po?nhub.com，然后在没有退出登录的情况">
@@ -331,14 +331,14 @@
 <h1 id="XSS攻击"><a href="#XSS攻击" class="headerlink" title="XSS攻击"></a>XSS攻击</h1><p>Cross-Site Scripting（跨站脚本攻击）简称 XSS，是一种代码注入攻击。攻击者通过在目标网站上注入恶意脚本，使之在用户的浏览器上运行。利用这些恶意脚本，攻击者可获取用户的敏感信息如 Cookie、SessionID 等，进而危害数据安全。 为了和 CSS 区分，这里把攻击的第一个字母改成了 X，于是叫做 XSS。</p>
 <p>XSS 的本质是：恶意代码未经过滤，与网站正常的代码混在一起；浏览器无法分辨哪些脚本是可信的，导致恶意脚本被执行。 而由于直接在用户的终端执行，恶意代码能够直接获取用户的信息，或者利用这些信息冒充用户向网站发起攻击者定义的请求。</p>
 <p>根据攻击的来源，XSS 攻击可分为存储型、反射型和 DOM 型三种。</p>
-<h2 id="１、存储型-XSS-的攻击步骤："><a href="#１、存储型-XSS-的攻击步骤：" class="headerlink" title="１、存储型 XSS 的攻击步骤："></a>１、存储型 XSS 的攻击步骤：</h2><p>存储型XSS会把用户输入的数据“存储在服务器端”，这种具有很强的稳定性。 这种攻击常见于带有用户保存数据的网站功能，如论坛发帖、商品评论、用户私信等。 举个栗子：黑客A写下了一篇包含有恶意JavaScript代码的博客文章，文章发表之后，所有访问这篇文章的用户，都会在他们浏览器中执行这段恶意的JavaScript代码，黑客把恶意的脚本保存到服务器端，这种XSS攻击就叫做“存储型 XSS”，也叫作持久型XSS，存在的时间是比较长的。还有个论坛发帖的例子，用户在评论区回复中回复恶意的脚本,然后被</p>
+<h2 id="１、存储型-XSS-的攻击步骤："><a href="#１、存储型-XSS-的攻击步骤：" class="headerlink" title="１、存储型 XSS 的攻击步骤："></a>１、存储型 XSS 的攻击步骤：</h2><p>存储型XSS会把用户输入的数据“存储在服务器端”，这种具有很强的稳定性。 这种攻击常见于带有用户保存数据的网站功能，如论坛发帖、商品评论、用户私信等。 举个栗子：黑客A写下了一篇包含有恶意JavaScript代码的博客文章，文章发表之后，所有访问这篇文章的用户，都会在他们浏览器中执行这段恶意的JavaScript代码，黑客把恶意的脚本保存到服务器端，这种XSS攻击就叫做“存储型 XSS”，也叫作持久型XSS，存在的时间是比较长的。还有个论坛发帖的例子，用户在评论区回复中回复恶意的脚本</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(<span class="string">"papapa"</span>)&lt;<span class="regexp">/script&gt;&gt;</span></span><br></pre></td></tr></table></figure>
 <p>但是服务器没有进行过滤，所以导致了每一位用户加载到这个评论的时候，都会弹出个弹框。</p>
 <h2 id="2、反射型-XSS-的攻击步骤："><a href="#2、反射型-XSS-的攻击步骤：" class="headerlink" title="2、反射型 XSS 的攻击步骤："></a>2、反射型 XSS 的攻击步骤：</h2><p>反射型XSS只是简单地把用户输入的数据“反射”给浏览器。也就是说黑客往往需要诱使用户“点击”一个恶意链接才能攻击成功。所以反射型XSS也叫作“非持久型XSS”。 反射型 XSS 跟存储型 XSS 的区别是：存储型 XSS 的恶意代码存在数据库里，反射型 XSS 的恶意代码存在 URL 里。 由于需要用户主动打开恶意的 URL 才能生效，攻击者往往会结合多种手段诱导用户点击。</p>
 <p>如：<code>www.abc.com/?params=&lt;script&gt;alert(/xss/)&lt;/script&gt;</code>。 </p>
 <h2 id="3、DOM-型-XSS-："><a href="#3、DOM-型-XSS-：" class="headerlink" title="3、DOM 型 XSS ："></a>3、DOM 型 XSS ：</h2><p>主要是通过修改页面中的DOM节点形成的XSS。</p>
 <p>例如页面存在一个input输入框，用户输入之后执行一个函数，函数中使用innerHTML的方法插入了一个a标签，修改了页面 的DOM元素，形成一次DOM型的XSS攻击。</p>
-<p>DOM 型 XSS 跟前两种 XSS 的区别：DOM 型 XSS 攻击中，取出和执行恶意代码由浏览器端完成，属于前端 JavaScript 自身的安全漏洞，而其他两种 XSS 都属于服务端的安全漏洞。dom醒XSS也是一种特殊的反射型XSS</p>
+<p>DOM 型 XSS 跟前两种 XSS 的区别：DOM 型 XSS 攻击中，取出和执行恶意代码由浏览器端完成，属于前端 JavaScript 自身的安全漏洞，而其他两种 XSS 都属于服务端的安全漏洞。dom型XSS也是一种特殊的反射型XSS</p>
 <h2 id="XSS攻击的预防"><a href="#XSS攻击的预防" class="headerlink" title="XSS攻击的预防"></a>XSS攻击的预防</h2><p>XSS的攻击主要有两大因素： 1、攻击者提交恶意代码 2、浏览器执行恶意代码</p>
 <h3 id="1、输入过滤"><a href="#1、输入过滤" class="headerlink" title="1、输入过滤"></a>1、输入过滤</h3><p>通过“防止浏览器执行恶意代码”来防范 XSS。这部分分为两类： a、防止HTML中出现注入 b、对HTML做充分转义。</p>
 <h3 id="2、预防存储型和反射型-XSS-攻击"><a href="#2、预防存储型和反射型-XSS-攻击" class="headerlink" title="2、预防存储型和反射型 XSS 攻击"></a>2、预防存储型和反射型 XSS 攻击</h3><p>存储型和反射型 XSS 都是在服务端取出恶意代码后，插入到响应 HTML 里的，攻击者刻意编写的“数据”被内嵌到“代码”中，被浏览器所执行。 预防这两种漏洞，有两种常见做法：</p>
@@ -474,7 +474,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

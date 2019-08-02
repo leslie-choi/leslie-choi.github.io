@@ -229,6 +229,180 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/11/网络/CSRF和XSS/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/11/网络/CSRF和XSS/" itemprop="url">前端安全</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-11T14:00:25+08:00">
+                2019-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/network/" itemprop="url" rel="index">
+                    <span itemprop="name">network</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="CSRF-跨站点请求伪造-Cross-Site-Request-Forgery"><a href="#CSRF-跨站点请求伪造-Cross-Site-Request-Forgery" class="headerlink" title="CSRF 跨站点请求伪造(Cross Site Request Forgery)"></a>CSRF 跨站点请求伪造(Cross Site Request Forgery)</h1><p>CSRF可以这样理解，攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的。比如以你的名义发送邮件、发消息，盗取你的账号，添加系统管理员，甚至于购买商品、虚拟货币转账等等。</p>
+<p>举一个简单的CSRF的栗子： 舍友A登录了一个全球知名的公益网站<a href="http://www.po?nhub.com，然后在没有退出登录的情况下，舍友B和舍友A闹矛盾，于是给舍友A发送了另外一个www.你懂的.com的网站，而舍友A不理会这是一个危险网站，只看到你懂的网站里面有一张无法显示的图片。舍友A便倒回去浏览这个公益网站的时候，发现自己收藏的内容全都不见了。。。" target="_blank" rel="noopener">www.po?nhub.com，然后在没有退出登录的情况下，舍友B和舍友A闹矛盾，于是给舍友A发送了另外一个www.你懂的.com的网站，而舍友A不理会这是一个危险网站，只看到你懂的网站里面有一张无法显示的图片。舍友A便倒回去浏览这个公益网站的时候，发现自己收藏的内容全都不见了。。。</a></p>
+<p>这就是一个简单的CSRF攻击，舍友A点开www.你懂的.com网站的时候，携带了公益网站的cookie，而在你懂的网站中，无法显示的图片标签中，执行了一个请求，将舍友A的收藏内容清空，而这个请求正是攻击者所伪造的。</p>
+<h2 id="CSRF防御：防御主要着手于服务端效果更好"><a href="#CSRF防御：防御主要着手于服务端效果更好" class="headerlink" title="CSRF防御：防御主要着手于服务端效果更好"></a>CSRF防御：防御主要着手于服务端效果更好</h2><h2 id="1、验证码"><a href="#1、验证码" class="headerlink" title="1、验证码"></a>1、验证码</h2><p>由于CSRF攻击通常是在用户不知情的情况下发送的请求，所以通过验证码功能，强制用户进行交互，这种方法可以完全杜绝CSRF攻击，但是对于用户的体验性大打折扣，所以只能作为一个辅助的手段。</p>
+<h2 id="2、验证-HTTP-Referer"><a href="#2、验证-HTTP-Referer" class="headerlink" title="2、验证 HTTP Referer"></a>2、验证 HTTP Referer</h2><p>字段根据 HTTP协议，在HTTP头中有一个字段叫 Referer，它记录了HTTP请求的来源地址。在通常情况下，访问一个安全受限页面的请求来自于同一个网站，比如需要访问 <a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory%EF%BC%8C" target="_blank" rel="noopener">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory，</a> 用户必须先登陆 bank.example，然后通过点击页面上的按钮来触发转账事件。这时，该转帐请求的 Referer 值就会是转账按钮所在的页面的 URL，通常是以 bank.example 域名开头的地址。而如果黑客要对银行网站实施 CSRF 攻击，他只能在他自己的网站构造请求，当用户通过黑客的网站发送请求到银行时，该请求的 Referer 是指向黑客自己的网站。因此，要防御 CSRF 攻击，银行网站只需要对于每一个转账请求验证其 Referer 值，如果是以 bank.example 开头的域名，则说明该请求是来自银行网站自己的请求，是合法的。如果 Referer 是其他网站的话，则有可能是黑客的 CSRF 攻击，拒绝该请求。 然而，这种方法并非万无一失。Referer 的值是由浏览器提供的，虽然 HTTP 协议上有明确的要求，但是每个浏览器对于 Referer 的具体实现可能有差别，并不能保证浏览器自身没有安全漏洞。使用验证 Referer 值的方法，就是把安全性都依赖于第三方（即浏览器）来保障，从理论上来讲，这样并不安全。</p>
+<h2 id="3、请求地址中添加-token-并验证"><a href="#3、请求地址中添加-token-并验证" class="headerlink" title="3、请求地址中添加 token 并验证"></a>3、请求地址中添加 token 并验证</h2><p>CSRF 攻击之所以能够成功，是因为黑客可以完全伪造用户的请求，该请求中所有的用户验证信息都是存在于 cookie 中，因此黑客可以在不知道这些验证信息的情况下直接利用用户自己的 cookie 来通过安全验证。要抵御 CSRF，关键在于在请求中放入黑客所不能伪造的信息，并且该信息不存在于 cookie 之中。可以在 HTTP 请求中以参数的形式加入一个随机产生的 token，并在<strong>服务器端建立一个拦截器</strong>来验证这个 token，如果请求中没有 token 或者 token 内容不正确，则认为可能是 CSRF 攻击而拒绝该请求。</p>
+<h1 id="XSS攻击"><a href="#XSS攻击" class="headerlink" title="XSS攻击"></a>XSS攻击</h1><p>Cross-Site Scripting（跨站脚本攻击）简称 XSS，是一种代码注入攻击。攻击者通过在目标网站上注入恶意脚本，使之在用户的浏览器上运行。利用这些恶意脚本，攻击者可获取用户的敏感信息如 Cookie、SessionID 等，进而危害数据安全。 为了和 CSS 区分，这里把攻击的第一个字母改成了 X，于是叫做 XSS。</p>
+<p>XSS 的本质是：恶意代码未经过滤，与网站正常的代码混在一起；浏览器无法分辨哪些脚本是可信的，导致恶意脚本被执行。 而由于直接在用户的终端执行，恶意代码能够直接获取用户的信息，或者利用这些信息冒充用户向网站发起攻击者定义的请求。</p>
+<p>根据攻击的来源，XSS 攻击可分为存储型、反射型和 DOM 型三种。</p>
+<h2 id="１、存储型-XSS-的攻击步骤："><a href="#１、存储型-XSS-的攻击步骤：" class="headerlink" title="１、存储型 XSS 的攻击步骤："></a>１、存储型 XSS 的攻击步骤：</h2><p>存储型XSS会把用户输入的数据“存储在服务器端”，这种具有很强的稳定性。 这种攻击常见于带有用户保存数据的网站功能，如论坛发帖、商品评论、用户私信等。 举个栗子：黑客A写下了一篇包含有恶意JavaScript代码的博客文章，文章发表之后，所有访问这篇文章的用户，都会在他们浏览器中执行这段恶意的JavaScript代码，黑客把恶意的脚本保存到服务器端，这种XSS攻击就叫做“存储型 XSS”，也叫作持久型XSS，存在的时间是比较长的。还有个论坛发帖的例子，用户在评论区回复中回复恶意的脚本</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(<span class="string">"papapa"</span>)&lt;<span class="regexp">/script&gt;&gt;</span></span><br></pre></td></tr></table></figure>
+<p>但是服务器没有进行过滤，所以导致了每一位用户加载到这个评论的时候，都会弹出个弹框。</p>
+<h2 id="2、反射型-XSS-的攻击步骤："><a href="#2、反射型-XSS-的攻击步骤：" class="headerlink" title="2、反射型 XSS 的攻击步骤："></a>2、反射型 XSS 的攻击步骤：</h2><p>反射型XSS只是简单地把用户输入的数据“反射”给浏览器。也就是说黑客往往需要诱使用户“点击”一个恶意链接才能攻击成功。所以反射型XSS也叫作“非持久型XSS”。 反射型 XSS 跟存储型 XSS 的区别是：存储型 XSS 的恶意代码存在数据库里，反射型 XSS 的恶意代码存在 URL 里。 由于需要用户主动打开恶意的 URL 才能生效，攻击者往往会结合多种手段诱导用户点击。</p>
+<p>如：<code>www.abc.com/?params=&lt;script&gt;alert(/xss/)&lt;/script&gt;</code>。 </p>
+<h2 id="3、DOM-型-XSS-："><a href="#3、DOM-型-XSS-：" class="headerlink" title="3、DOM 型 XSS ："></a>3、DOM 型 XSS ：</h2><p>主要是通过修改页面中的DOM节点形成的XSS。</p>
+<p>例如页面存在一个input输入框，用户输入之后执行一个函数，函数中使用innerHTML的方法插入了一个a标签，修改了页面 的DOM元素，形成一次DOM型的XSS攻击。</p>
+<p>DOM 型 XSS 跟前两种 XSS 的区别：DOM 型 XSS 攻击中，取出和执行恶意代码由浏览器端完成，属于前端 JavaScript 自身的安全漏洞，而其他两种 XSS 都属于服务端的安全漏洞。dom型XSS也是一种特殊的反射型XSS</p>
+<h2 id="XSS攻击的预防"><a href="#XSS攻击的预防" class="headerlink" title="XSS攻击的预防"></a>XSS攻击的预防</h2><p>XSS的攻击主要有两大因素： 1、攻击者提交恶意代码 2、浏览器执行恶意代码</p>
+<h3 id="1、输入过滤"><a href="#1、输入过滤" class="headerlink" title="1、输入过滤"></a>1、输入过滤</h3><p>通过“防止浏览器执行恶意代码”来防范 XSS。这部分分为两类： a、防止HTML中出现注入 b、对HTML做充分转义。</p>
+<h3 id="2、预防存储型和反射型-XSS-攻击"><a href="#2、预防存储型和反射型-XSS-攻击" class="headerlink" title="2、预防存储型和反射型 XSS 攻击"></a>2、预防存储型和反射型 XSS 攻击</h3><p>存储型和反射型 XSS 都是在服务端取出恶意代码后，插入到响应 HTML 里的，攻击者刻意编写的“数据”被内嵌到“代码”中，被浏览器所执行。 预防这两种漏洞，有两种常见做法：</p>
+<p>a、改成纯前端渲染，把代码和数据分隔开。</p>
+<p>​    1、浏览器先加载一个静态 HTML，此 HTML 中不包含任何跟业务相关的数据。</p>
+<p>​    2、然后浏览器执行 HTML 中的 JavaScript。</p>
+<p>​    3、JavaScript 通过 Ajax 加载业务数据，调用 DOM API 更新到页面上 </p>
+<p>b、对 HTML 做充分转义。。</p>
+<h3 id="3、预防-DOM-型-XSS-攻击"><a href="#3、预防-DOM-型-XSS-攻击" class="headerlink" title="3、预防 DOM 型 XSS 攻击"></a>3、预防 DOM 型 XSS 攻击</h3><p>DOM 型 XSS 攻击，实际上就是网站前端 JavaScript 代码本身不够严谨，把不可信的数据当作代码执行了。</p>
+<p>所以在使用 <strong>.innerHTML、.outerHTML、document.write() </strong>时要特别小心，不要把不可信的数据作为 HTML 插到页面上，而应尽量使用 .textContent、.setAttribute() 等。</p>
+<h3 id="4、其他XSS防范措施"><a href="#4、其他XSS防范措施" class="headerlink" title="4、其他XSS防范措施"></a>4、其他XSS防范措施</h3><p>a、HTTP-only Cookie: 禁止 JavaScript 读取某些敏感 Cookie，攻击者完成 XSS 注入后也无法窃取此 Cookie。 b、验证码：防止脚本冒充用户提交危险操作。 c、对于不受信任的输入，都应该限定一个合理的长度。虽然无法完全防止 XSS 发生，但可以增加 XSS 攻击的难度。 d、Content Security Policy</p>
+<p>1)禁止加载外域代码，防止复杂的攻击逻辑。</p>
+<p>2)禁止外域提交，网站被攻击后，用户的数据不会泄露到外域。</p>
+<p>3)禁止内联脚本执行（规则较严格，目前发现 GitHub 使用）。</p>
+<p>4)禁止未授权的脚本执行（新特性，Google Map 移动版在使用）。</p>
+<p>5)合理使用上报可以及时发现 XSS，利于尽快修复问题。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/11/JavaScript/面向对象编程/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -986,13 +1160,18 @@
 <h1 id="二、position属性"><a href="#二、position属性" class="headerlink" title="二、position属性"></a>二、position属性</h1><h2 id="1、position-absolute"><a href="#1、position-absolute" class="headerlink" title="1、position:absolute;"></a>1、position:absolute;</h2><p>绝对定位，<strong>脱离文档流</strong>的布局。相对于最近的已经定位的父元素，起始位置为最近的父元素(postion不为static)，否则为Body文档本身。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">`<span class="tag">&lt;<span class="name">!``DOCTYPE`</span> `<span class="attr">html</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;<span class="name">``html`</span> `<span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;<span class="name">``head``</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;<span class="name">``meta`</span> `<span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;<span class="name">``title``</span>&gt;</span>绝对定位<span class="tag">&lt;/<span class="name">``title``</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;<span class="name">``style``</span>&gt;</span>                </span><br><span class="line">  body&#123;background:green;&#125;`</span><br><span class="line">  `.parent&#123; width: 500px;height: 500px;background: #ccc;&#125;`</span><br><span class="line">  `.son&#123; width: 300px;height: 300px;background: #aaa;&#125;`</span><br><span class="line">  `span&#123;position: absolute; right: 30px; background: #888;&#125;`</span><br><span class="line">`<span class="tag">&lt;/<span class="name">``style``</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;/<span class="name">``head``</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;<span class="name">``body``</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;<span class="name">``div`</span> `<span class="attr">class</span>=<span class="string">"parent"</span>&gt;</span>`</span><br><span class="line">  `<span class="tag">&lt;<span class="name">``div`</span> `<span class="attr">class</span>=<span class="string">"son"</span>&gt;</span>`</span><br><span class="line">    `<span class="tag">&lt;<span class="name">``span``</span>&gt;</span>什么？<span class="tag">&lt;/<span class="name">``span``</span>&gt;</span>`</span><br><span class="line">  `<span class="tag">&lt;/<span class="name">``div``</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;/<span class="name">``div``</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;/<span class="name">``body``</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;/<span class="name">``html``</span>&gt;</span>`</span><br></pre></td></tr></table></figure>
 <p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/absolute2.png" alt="markdown"></p>
-<h2 id="2、position-relative"><a href="#2、position-relative" class="headerlink" title="2、position:relative"></a>2、position:relative</h2><p><strong>相对定位元素的定位是相对它自己的正常位置的定位</strong><br>所以关键在于如何确定其正常的位置。</p>
+<h2 id="2、position-relative"><a href="#2、position-relative" class="headerlink" title="2、position:relative"></a>2、position:relative</h2><p><strong>相对定位元素的定位是相对它自己的正常位置的定位</strong><br>所以关键在于如何确定其正常的位置。不会脱离文档流</p>
 <p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/relative.jpg" alt="markdown"></p>
 <p>在relative中，RLTB属性后的值如果是负数，则与其相同方向移动<br>如果值是正数，则与其反方向移动</p>
 <h2 id="3、position-fixed"><a href="#3、position-fixed" class="headerlink" title="3、position:fixed"></a>3、position:fixed</h2><p>fixed定位是指元素的位置相对于<strong>浏览器窗口是固定位置</strong>，即使窗口是滚动的它也不会滚动，且fixed定位使元素的位置与<strong>文档流无关</strong>，因此不占据空间，且它会和其他元素发生重叠。<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/fixed.png" alt="markdown"><br>所以这个属性的应用就类似于网站的小广告一样！！！<br>但是这个属性在IE7和IE8不支持，需要另外声明。</p>
 <h2 id="4、position：static"><a href="#4、position：static" class="headerlink" title="4、position：static"></a>4、position：static</h2><p>默认的属性，只要有了这个属性，元素就会出现在<strong>正常的文档流</strong>，不会收到top、bottom、left和right的影响。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">`<span class="tag">&lt;<span class="name">div</span> ``<span class="attr">class</span>``=``"<span class="attr">wrap</span>"``&gt;</span>`</span><br><span class="line">  `<span class="tag">&lt;<span class="name">div</span> ``<span class="attr">class</span>``=``"<span class="attr">content</span>"``&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;/<span class="name">div</span>&gt;</span>`</span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--对应的css样式--&gt;</span></span><br><span class="line">`.wrap&#123;width: 300px;height: 300px; background: red;&#125;`</span><br><span class="line">`.content&#123;position: ``static``; top:100px; width: 100px;height: 100px; background: blue;&#125;`</span><br></pre></td></tr></table></figure></p>
 <p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/stack.png" alt="markdown"><br>从图片上可以看到，position设置了static属性，但是没有受到TBRL的影响</p>
-<h1 id="三、CSS清除浮动的几种方式"><a href="#三、CSS清除浮动的几种方式" class="headerlink" title="三、CSS清除浮动的几种方式"></a>三、CSS清除浮动的几种方式</h1><h2 id="1、父级div定义伪类：after和zoom"><a href="#1、父级div定义伪类：after和zoom" class="headerlink" title="1、父级div定义伪类：after和zoom"></a>1、父级div定义伪类：after和zoom</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"> </span></span><br><span class="line"><span class="undefined">   .div1&#123;background:#000080;border:1px solid red;&#125;</span></span><br><span class="line"><span class="undefined">   .div2&#123;background:#800080;border:1px solid red;height:100px;margin-top:10px&#125;</span></span><br><span class="line"><span class="undefined">   </span></span><br><span class="line"><span class="undefined">   .left&#123;float:left;width:20%;height:200px;background:#DDD&#125;</span></span><br><span class="line"><span class="undefined">   .right&#123;float:right;width:30%;height:80px;background:#DDD&#125;</span></span><br><span class="line"><span class="undefined">   </span></span><br><span class="line"><span class="undefined">   /*清除浮动代码*/</span></span><br><span class="line"><span class="undefined">   .clearfloat:after&#123;</span></span><br><span class="line"><span class="undefined">                display:block;</span></span><br><span class="line"><span class="undefined">                clear:both;</span></span><br><span class="line"><span class="undefined">                content:"";</span></span><br><span class="line"><span class="undefined">                visibility:hidden;</span></span><br><span class="line"><span class="undefined">                height:0</span></span><br><span class="line"><span class="undefined">   &#125;</span></span><br><span class="line"><span class="undefined">   .clearfloat&#123;zoom:1&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"div1 clearfloat"</span>&gt;</span> </span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span>Left<span class="tag">&lt;/<span class="name">div</span>&gt;</span> </span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span>Right<span class="tag">&lt;/<span class="name">div</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"div2"</span>&gt;</span></span><br><span class="line">   div2</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="5、position：sticky"><a href="#5、position：sticky" class="headerlink" title="5、position：sticky"></a>5、position：sticky</h2><p>基于用户的滚动位置来定位。<br>粘性定位的元素是依赖于用户的滚动，在 position:relative 与 position:fixed 定位之间切换。<br>它的行为就像 position:relative; 而当页面滚动超出目标区域时，它的表现就像 position:fixed;，它会固定在目标位置。<br>元素定位表现为在跨越特定阈值前为相对定位，之后为固定定位。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">div.sticky &#123;</span><br><span class="line">position: -webkit-sticky;</span><br><span class="line">position: sticky;</span><br><span class="line">top: <span class="number">0</span>;</span><br><span class="line">padding: <span class="number">5</span>px;</span><br><span class="line">background-color: #cae8ca;</span><br><span class="line">border: 2px solid #4CAF50;</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/style&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;div class="sticky"&gt;我是粘性定位!&lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line">&lt;div style=<span class="string">"padding-bottom:2000px"</span>&gt;</span><br><span class="line">&lt;p&gt;滚动我&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">&lt;p&gt;来回滚动我&lt;/</span>p&gt;</span><br><span class="line">&lt;p&gt;滚动我&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">&lt;p&gt;来回滚动我&lt;/</span>p&gt;</span><br><span class="line">&lt;p&gt;滚动我&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">&lt;p&gt;来回滚动我&lt;/</span>p&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="6、position：inherit"><a href="#6、position：inherit" class="headerlink" title="6、position：inherit"></a>6、position：inherit</h2><p>继承父类的position属性</p>
+<h2 id="7、position：initial"><a href="#7、position：initial" class="headerlink" title="7、position：initial"></a>7、position：initial</h2><p>将属性设置为初始值</p>
+<p><strong>脱离文档流只有浮动属性，绝对定位以及固定定位</strong></p>
+<h1 id="三、CSS清除浮动的几种方式"><a href="#三、CSS清除浮动的几种方式" class="headerlink" title="三、CSS清除浮动的几种方式"></a>三、CSS清除浮动的几种方式</h1><h2 id="1、父级div定义伪元素：after和zoom"><a href="#1、父级div定义伪元素：after和zoom" class="headerlink" title="1、父级div定义伪元素：after和zoom"></a>1、父级div定义伪元素：after和zoom</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"> </span></span><br><span class="line"><span class="undefined">   .div1&#123;background:#000080;border:1px solid red;&#125;</span></span><br><span class="line"><span class="undefined">   .div2&#123;background:#800080;border:1px solid red;height:100px;margin-top:10px&#125;</span></span><br><span class="line"><span class="undefined">   </span></span><br><span class="line"><span class="undefined">   .left&#123;float:left;width:20%;height:200px;background:#DDD&#125;</span></span><br><span class="line"><span class="undefined">   .right&#123;float:right;width:30%;height:80px;background:#DDD&#125;</span></span><br><span class="line"><span class="undefined">   </span></span><br><span class="line"><span class="undefined">   /*清除浮动代码*/</span></span><br><span class="line"><span class="undefined">   .clearfloat:after&#123;</span></span><br><span class="line"><span class="undefined">                display:block;</span></span><br><span class="line"><span class="undefined">                clear:both;</span></span><br><span class="line"><span class="undefined">                content:"";</span></span><br><span class="line"><span class="undefined">                visibility:hidden;</span></span><br><span class="line"><span class="undefined">                height:0</span></span><br><span class="line"><span class="undefined">   &#125;</span></span><br><span class="line"><span class="undefined">   .clearfloat&#123;zoom:1&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"div1 clearfloat"</span>&gt;</span> </span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span>Left<span class="tag">&lt;/<span class="name">div</span>&gt;</span> </span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span>Right<span class="tag">&lt;/<span class="name">div</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"div2"</span>&gt;</span></span><br><span class="line">   div2</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>IE8以上和非IE浏览器才支持:after，原理和方法2有点类似，==zoom(IE转有属性)==可解决ie6,ie7浮动问题。这个方法相对而言更加推荐使用。</p>
 <h2 id="2-在结尾处添加空div标签clear-both"><a href="#2-在结尾处添加空div标签clear-both" class="headerlink" title="2.在结尾处添加空div标签clear:both"></a>2.在结尾处添加空div标签clear:both</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"> </span></span><br><span class="line"><span class="undefined">   .div1&#123;background:#000080;border:1px solid red&#125;</span></span><br><span class="line"><span class="undefined">   .div2&#123;background:#800080;border:1px solid red;height:100px;margin-top:10px&#125;</span></span><br><span class="line"><span class="undefined">   .left&#123;float:left;width:20%;height:200px;background:#DDD&#125;</span></span><br><span class="line"><span class="undefined">   .right&#123;float:right;width:30%;height:80px;background:#DDD&#125;</span></span><br><span class="line"><span class="undefined">   </span></span><br><span class="line"><span class="undefined">   /*清除浮动代码*/</span></span><br><span class="line"><span class="undefined">   .clearfloat&#123;clear:both&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"div1"</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span>Left<span class="tag">&lt;/<span class="name">div</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span>Right<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"clearfloat"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"div2"</span>&gt;</span></span><br><span class="line">   div2</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>不推荐使用，如果页面的浮动布局多，会新增了空的div，但此方法是以前主要使用的一种清除浮动方法，不过代码量少，对浏览器的兼容性好。</p>
@@ -1042,7 +1221,38 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    .wrap &#123;</span></span><br><span class="line"><span class="undefined">        overflow: hidden;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    p &#123;</span></span><br><span class="line"><span class="undefined">        color: #f55;</span></span><br><span class="line"><span class="undefined">        background: #fcc;</span></span><br><span class="line"><span class="undefined">        width: 200px;</span></span><br><span class="line"><span class="undefined">        line-height: 100px;</span></span><br><span class="line"><span class="undefined">        text-align:center;</span></span><br><span class="line"><span class="undefined">        margin: 100px;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Haha<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrap"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>Hehe<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p><a href="(https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/BFC5.png">markdown</a>)<br>按照BFC的定义，只有同属于一个BFC时，两个元素才有可能发生垂直Margin的重叠，这个包括相邻元素，嵌套元素，只要他们之间没有阻挡(例如边框，非空内容，padding等)就会发生margin重叠。<br>因此要解决margin重叠问题，只要让它们不在同一个BFC就行了，但是对于两个相邻元素来说，意义不大，没有必要给它们加个外壳，但是对于嵌套元素来说就很有必要了，只要把父元素设为BFC就可以了。这样子元素的margin就不会和父元素的margin发生重叠了。</p>
 <p>参考文章：<br><a href="https://juejin.im/post/5a4dbe026fb9a0452207ebe6" target="_blank" rel="noopener">什么是BFC?</a><br><a href="https://juejin.im/post/59b73d5bf265da064618731d" target="_blank" rel="noopener">学习 BFC (Block Formatting Context)</a></p>
-
+<h1 id="九、css选择器以及优先级"><a href="#九、css选择器以及优先级" class="headerlink" title="九、css选择器以及优先级"></a>九、css选择器以及优先级</h1><p>优先级从上往下递减。</p>
+<ol>
+<li><p>!important<br> 在属性后面写上这条样式，会覆盖掉页面上任何位置定义的元素的样式。</p>
+</li>
+<li><p>行内样式，在style属性里面写的样式。</p>
+</li>
+<li><p>id选择器            #box</p>
+</li>
+<li><p>class选择器        .class{}</p>
+</li>
+<li><p>标签选择器        p ul li</p>
+</li>
+<li><p>通配符选择器        *{}</p>
+</li>
+<li><p>浏览器的自定义属性和继承</p>
+</li>
+</ol>
+<h1 id="十、伪类和伪元素"><a href="#十、伪类和伪元素" class="headerlink" title="十、伪类和伪元素"></a>十、伪类和伪元素</h1><p><strong>伪类包含两种：状态伪类和结构性伪类。</strong> </p>
+<h2 id="状态伪类是基于元素当前状态进行选择的。在与用户的交互过程中元素的状态是动态变化的，因此该元素会根据其状态呈现不同的样式。当元素处于某状态时会呈现该样式，而进入另一状态后，该样式也会失去。常见的状态伪类主要包括："><a href="#状态伪类是基于元素当前状态进行选择的。在与用户的交互过程中元素的状态是动态变化的，因此该元素会根据其状态呈现不同的样式。当元素处于某状态时会呈现该样式，而进入另一状态后，该样式也会失去。常见的状态伪类主要包括：" class="headerlink" title="状态伪类是基于元素当前状态进行选择的。在与用户的交互过程中元素的状态是动态变化的，因此该元素会根据其状态呈现不同的样式。当元素处于某状态时会呈现该样式，而进入另一状态后，该样式也会失去。常见的状态伪类主要包括："></a>状态伪类是基于元素当前状态进行选择的。在与用户的交互过程中元素的状态是动态变化的，因此该元素会根据其状态呈现不同的样式。当元素处于某状态时会呈现该样式，而进入另一状态后，该样式也会失去。常见的状态伪类主要包括：</h2><p>:link 应用于未被访问过的链接；</p>
+<p>:hover 应用于鼠标悬停到的元素；</p>
+<p>:active 应用于被激活的元素；</p>
+<p>:visited 应用于被访问过的链接，与:link互斥。</p>
+<p>:focus 应用于拥有键盘输入焦点的元素。（比如输入框）</p>
+<h2 id="结构性伪类是css3新增选择器，利用dom树进行元素过滤，通过文档结构的互相关系来匹配元素，能够减少class和id属性的定义，使文档结构更简洁。常见的包括："><a href="#结构性伪类是css3新增选择器，利用dom树进行元素过滤，通过文档结构的互相关系来匹配元素，能够减少class和id属性的定义，使文档结构更简洁。常见的包括：" class="headerlink" title="结构性伪类是css3新增选择器，利用dom树进行元素过滤，通过文档结构的互相关系来匹配元素，能够减少class和id属性的定义，使文档结构更简洁。常见的包括："></a>结构性伪类是css3新增选择器，利用dom树进行元素过滤，通过文档结构的互相关系来匹配元素，能够减少class和id属性的定义，使文档结构更简洁。常见的包括：</h2><p>:first-child 选择某个元素的第一个子元素；</p>
+<p>:last-child 选择某个元素的最后一个子元素；</p>
+<p>:first-of-type 选择一个上级元素下的第一个同类子元素；</p>
+<p>:last-of-type 选择一个上级元素的最后一个同类子元素；</p>
+<p>等等。。。</p>
+<p><strong>伪元素的本质是在不增加dom结构的基础上添加的一个元素，在用法上跟真正的dom无本质区别。普通元素能实现的效果，伪元素都可以。有些用伪元素效果更好，代码更精简。</strong> </p>
+<p>一般使用单冒号(:)用于 CSS3 伪类，双冒号(::)用于 CSS3 伪元素，</p>
+<p>最常见的应用场景就是清除浮动了：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.clear</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           
         
       
@@ -1787,163 +1997,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/23/JavaScript/基础零碎点/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/23/JavaScript/基础零碎点/" itemprop="url">零碎知识点</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-23T18:06:21+08:00">
-                2019-02-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="数组Array的对象方法"><a href="#数组Array的对象方法" class="headerlink" title="数组Array的对象方法"></a>数组Array的对象方法</h1><p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/array.png?Expires=1563078432&amp;OSSAccessKeyId=TMP.hUzM36nMKvB1zXcz26YFpTsu24yAPsxCEviigxyofZfAf7vpheogc79FXodgi9beanthKLNsYSGivUwr4yZ8JRSoiZkeRrzZfzNuQud3QTaMZM6fB7trfbW4Se4ko3.tmp&amp;Signature=DMI2kn2EpQCfvRZuu651pb4Q2GE%3D" alt="markdown"></p>
-<h1 id="JS中的类型转换"><a href="#JS中的类型转换" class="headerlink" title="JS中的类型转换"></a>JS中的类型转换</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="keyword">new</span> <span class="built_in">Boolean</span>(<span class="literal">false</span>);</span><br><span class="line"><span class="keyword">if</span> (x) &#123;</span><br><span class="line">  alert(<span class="string">'hi'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> y = <span class="built_in">Boolean</span>(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span> (y) &#123;</span><br><span class="line">  alert(<span class="string">'hello'</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>注意：在JS中，只有0，-0，NaN，“”，undefined这六个值转换为布尔值时，结果才会是false。而所有的对象转化为布尔值时，结果都会是true！</strong><br>所以上面题目的第一部分，有new关键字，所以X就是一个新对象，结果就会输出hi。<br>题目的第二部分，没有new关键字，所以就是进行显示类型的转换，0转换为false，结果域加new的时候相反。</p>
-<h1 id="JavaScript中的类型检测"><a href="#JavaScript中的类型检测" class="headerlink" title="JavaScript中的类型检测"></a>JavaScript中的类型检测</h1><p>1、typeof<br>2、instanceof<br>3、Object.prototype.toString.call()</p>
-<h1 id="值类型与引用类型的差别"><a href="#值类型与引用类型的差别" class="headerlink" title="值类型与引用类型的差别"></a>值类型与引用类型的差别</h1><ul>
-<li>基本类型在内存中占据固定大小的空间，因此被保存在栈内存中</li>
-<li>从一个变量向另一个变量复制基本类型的值，复制的是值的副本</li>
-<li>引用类型的值是对象，保存在堆内存</li>
-<li>包含引用类型值的变量实际上包含的并不是对象本身，而是一个指向该对象的指针</li>
-<li>从一个变量向另一个变量复制引用类型的值的时候，复制是引用指针，因此两个变量最终都指向同一个对象</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1989,7 +2047,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
