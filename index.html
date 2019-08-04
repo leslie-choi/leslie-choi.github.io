@@ -322,7 +322,7 @@
       
         
           
-            <h1 id="HTML语义化"><a href="#HTML语义化" class="headerlink" title="HTML语义化"></a>HTML语义化</h1><p>在我的理解为：根据内容，使用最合适的HTML标签。<br>场景：加入一个文章标题，要求这个标题的字体比正文的要大一些，还要加粗。能够实现这种效果的方法有很多，比如用CSS样式进行渲染。这样的效果看起来像是一个标题，但是他对浏览器来说，只是一个被渲染过的文本，无法知道他是一个标题。若要让浏览器知道他是一个标题，应该用hx标签来进行标记。<br>从这个例子可以总结出： 语义化的HTML文档，不关心内容的显示效果。 说的通俗一点： 标题脱了CSS这层外衣，它还是一个标题。</p>
+            <h1 id="HTML语义化"><a href="#HTML语义化" class="headerlink" title="HTML语义化"></a>HTML语义化</h1><p>在我的理解为：根据内容，使用最合适的HTML标签。<br>场景：加入一个文章标题，要求这个标题的字体比正文的要大一些，还要加粗。能够实现这种效果的方法有很多，比如用CSS样式进行渲染。这样的效果看起来像是一个标题，但是他对浏览器来说，只是一个被渲染过的文本，无法知道他是一个标题。若要让浏览器知道他是一个标题，应该用hn标签来进行标记。<br>从这个例子可以总结出： 语义化的HTML文档，不关心内容的显示效果。 说的通俗一点： 标题脱了CSS这层外衣，它还是一个标题。</p>
 <h2 id="语义化标签的优势"><a href="#语义化标签的优势" class="headerlink" title="语义化标签的优势"></a>语义化标签的优势</h2><ul>
 <li>代码结构清晰，方便阅读，有利于团队合作开发。</li>
 <li>方便其他设备解析（如屏幕阅读器、盲人阅读器、移动设备）以语义的方式来渲染网页。</li>
@@ -696,7 +696,7 @@
           
             <h1 id="DOCTYPE及其作用"><a href="#DOCTYPE及其作用" class="headerlink" title="DOCTYPE及其作用"></a>DOCTYPE及其作用</h1><p>由于历史的原因，浏览器对页面的渲染方式是不一样的。在W3C标准出来之前，浏览器对页面的渲染没有同一的标准，产生了差异，quirks mod（混杂模式或者兼容模式），但在W3C标准出台之后，浏览器对页面的渲染有了同一的标准即（严格模式或标准模式）。但是为了保证以前就得页面仍然正常显示，有的浏览器就保存了这两种渲染模式（标准兼容模式）。那么究竟采用哪一种方式进行渲染，就要看DOCTYPE生命中的DTD。</p>
 <p><strong>文档类型定义（DTD）Document Type Definition</strong> </p>
-<p>简单说 DOCTYPE 是用来声明<strong>文档类型和DTD规范</strong> 的，一个主要用途就是文件的合法性验证。如果文件代码不合法，那么浏览器解析的时候就会出错。<br>是一系列的语法规则，用来定义XML或者HTML的文件类型。浏览器会使用它来判断文档类型，决定使用何种协议来解析，以及切换浏览器模式。<br>html5没有DTD，也就没有严格模式与宽松模式的区别，html5有相对宽松的语法，事实上，已经尽可能大的实现了向后兼容（老版本）。</p>
+<p>简单说 DOCTYPE 是用来声明<strong>文档类型和DTD规范</strong> 的,告知浏览器的解析器用什么文档标准解析这个文档。，一个主要用途就是文件的合法性验证。如果文件代码不合法，那么浏览器解析的时候就会出错。<br>是一系列的语法规则，用来定义XML或者HTML的文件类型。浏览器会使用它来判断文档类型，决定使用何种协议来解析，以及切换浏览器模式。<br>html5不基于 SGML，因此不需要对DTD进行引用，也就没有严格模式与宽松模式的区别，html5有相对宽松的语法，事实上，已经尽可能大的实现了向后兼容（老版本）。</p>
 <p>常见的html的DOCTYPE</p>
 <p>HTML5 &lt;!DOCTYPE html&gt;</p>
 <p>HTML4 严格模式 &lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01//EN” “<a href="http://www.w3.org/TR/html4/strict.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/html4/strict.dtd&quot;&gt;</a> </p>
@@ -1777,9 +1777,7 @@
       
         
           
-            <h1 id="javaScript中执行上下文"><a href="#javaScript中执行上下文" class="headerlink" title="javaScript中执行上下文"></a>javaScript中执行上下文</h1><pre><code>JavaScript中的执行上下文。真的是一个挺抽象的概念。逛了思否掘金csdn和博客园，根据自己的理解总结一下。
-有人问，能不能用一句话概括一下JavaScript中的执行上下文。评论区有个老哥的回答让我恍然大悟，执行上下文可以理解为和以前语文题目做阅读理解一样，执行上下文其实类似于阅读理解
-</code></pre><p>的语境。通过变量提升和this指向的例子，可以很清楚的理解执行上下文的概念了。<br>举个例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a);     <span class="comment">//控制台直接报错，Uncaught ReferenceError: a is not defined</span></span><br></pre></td></tr></table></figure></p>
+            <h1 id="javaScript中执行上下文"><a href="#javaScript中执行上下文" class="headerlink" title="javaScript中执行上下文"></a>javaScript中执行上下文</h1><p>JavaScript中的执行上下文。真的是一个挺抽象的概念。逛了思否掘金csdn和博客园，根据自己的理解总结一下。<br>有人问，能不能用一句话概括一下JavaScript中的执行上下文。评论区有个老哥的回答让我恍然大悟，执行上下文可以理解为和以前语文题目做阅读理解一样，执行上下文其实类似于阅读理解<br>的语境。通过变量提升和this指向的例子，可以很清楚的理解执行上下文的概念了。<br>举个例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a);     <span class="comment">//控制台直接报错，Uncaught ReferenceError: a is not defined</span></span><br></pre></td></tr></table></figure></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a);</span><br><span class="line"><span class="keyword">var</span> a;              <span class="comment">//控制台会输出undefined</span></span><br></pre></td></tr></table></figure>
 <p>第二个之所以不会报错，是因为存在变量提升，而变量提升恰恰与执行上下文有关。包括this的指向也是（这里不包括ES6中的箭头函数），都是在运行的时候才能确定this的指向，因为this的指向取决于执行的位置，也与执行上下文密切相关。</p>
 <p>接下来谈一谈执行上下文的类型：</p>
