@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="HTML语义化在我的理解为：根据内容，使用最合适的HTML标签。场景：加入一个文章标题，要求这个标题的字体比正文的要大一些，还要加粗。能够实现这种效果的方法有很多，比如用CSS样式进行渲染。这样的效果看起来像是一个标题，但是他对浏览器来说，只是一个被渲染过的文本，无法知道他是一个标题。若要让浏览器知道他是一个标题，应该用hn标签来进行标记。从这个例子可以总结出： 语义化的HTML文档，不关心内容的">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-16T14:56:24.683Z">
+<meta property="og:updated_time" content="2019-08-17T04:53:24.252Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTML">
 <meta name="twitter:description" content="HTML语义化在我的理解为：根据内容，使用最合适的HTML标签。场景：加入一个文章标题，要求这个标题的字体比正文的要大一些，还要加粗。能够实现这种效果的方法有很多，比如用CSS样式进行渲染。这样的效果看起来像是一个标题，但是他对浏览器来说，只是一个被渲染过的文本，无法知道他是一个标题。若要让浏览器知道他是一个标题，应该用hn标签来进行标记。从这个例子可以总结出： 语义化的HTML文档，不关心内容的">
@@ -336,6 +336,75 @@
 <li>section：定义文档中的节（section、区段）。比如章节、页眉、页脚或文档中的其他部分</li>
 <li>footer：页脚，只有当父级是body时，才是整个页面的页脚</li>
 </ul>
+<h1 id="meta标签的理解和总结"><a href="#meta标签的理解和总结" class="headerlink" title="meta标签的理解和总结"></a>meta标签的理解和总结</h1><p>meta常用于定义页面的说明，关键字，最后修改日期，和其它的元数据。它不会显示在页面上，但是机器却可以识别。<br>这些元数据将服务于浏览器（如何布局或重载页面），搜索引擎和其它网络服务。</p>
+<p><strong>组成：meta标签一共有两个属性，分别是http-equiv属性和name属性</strong></p>
+<h2 id="name属性"><a href="#name属性" class="headerlink" title="name属性"></a>name属性</h2><p>name属性主要用于描述网页，比如网页的关键词，叙述等。与之对应的属性值为content，content中的内容是对name填入类型的具体描述，便于搜索引擎抓取。<br>meta标签中name属性语法格式是：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"参数"</span> <span class="attr">content</span>=<span class="string">"具体的描述"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>A. keywords(关键字)</strong><br>说明：用于告诉搜索引擎，你网页的关键字。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"keywords"</span> <span class="attr">content</span>=<span class="string">"Lxxyx,博客，文科生，前端"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>B. description(网站内容的描述)</strong><br>说明：用于告诉搜索引擎，你网站的主要内容。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"description"</span> <span class="attr">content</span>=<span class="string">"文科生，热爱前端与编程。目前大二，这是我的前端博客"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>C. viewport(移动端的窗口)</strong><br>说明：这个概念较为复杂，具体的会在下篇博文中讲述。<br>这个属性常用于设计移动端网页。在用bootstrap,AmazeUI等框架时候都有用过viewport。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>C. viewport(移动端的窗口)</strong><br>说明：robots用来告诉爬虫哪些页面需要索引，哪些页面不需要索引。<br>content的参数有all,none,index,noindex,follow,nofollow。默认是all。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"robots"</span> <span class="attr">content</span>=<span class="string">"none"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>E. author(作者)</strong><br>说明：用于标注网页作者</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"author"</span> <span class="attr">content</span>=<span class="string">"leslie,leslie_choi@yeah.net"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>G. copyright(版权)</strong><br>说明：用于标注版权信息</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"copyright"</span> <span class="attr">content</span>=<span class="string">"leslie"</span>&gt;</span> //代表该网站为leslie个人版权所有。</span><br></pre></td></tr></table></figure>
+<h2 id="http-equiv属性"><a href="#http-equiv属性" class="headerlink" title="http-equiv属性"></a>http-equiv属性</h2><p>equiv的全称是”equivalent”，意思是相等，相当于。<br>所以在这里的作用就是相当于HTTP的作用，类似于定义http参数。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"参数"</span> <span class="attr">content</span>=<span class="string">"具体的描述"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><strong>A. content-Type(设定网页字符集)(推荐使用HTML5的方式)</strong></li>
+</ul>
+<p>说明：用于设定网页字符集，便于浏览器解析与渲染页面</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html;charset=utf-8"</span>&gt;</span>  //旧的HTML，不推荐</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span> //HTML5设定网页字符集的方式，推荐使用UTF-8</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>B. X-UA-Compatible(浏览器采取何种版本渲染当前页面)</strong></li>
+</ul>
+<p>说明：用于告知浏览器以何种版本来渲染页面。（一般都设置为最新模式，在各大框架中这个设置也很常见。）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"IE=edge,chrome=1"</span>/&gt;</span> //指定IE和Chrome使用最新版本渲染当前页面</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>C.cache-control(指定请求和响应遵循的缓存机制)</strong></li>
+</ul>
+<p><strong>用法一：指导浏览器如何缓存某个响应以及缓存多长时间。</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"cache-control"</span> <span class="attr">content</span>=<span class="string">"no-cache"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>共有以下几种用法：</p>
+<p>1、no-cache: 先发送请求，与服务器确认该资源是否被更改，如果未被更改，则使用缓存。</p>
+<p>2、no-store: 不允许缓存，每次都要去服务器上，下载完整的响应。（安全措施）</p>
+<p>3、public : 缓存所有响应，但并非必须。因为max-age也可以做到相同效果</p>
+<p>4、private : 只为单个用户缓存，因此不允许任何中继进行缓存。（比如说CDN就不允许缓存private的响应）</p>
+<p>5、maxage : 表示当前请求开始，该响应在多久内能被缓存和重用，而不去服务器重新请求。例如：max-age=60表示响应可以再缓存和重用 60 秒。</p>
+<p><strong>用法二：禁止百度自动转码。</strong></p>
+<p>用于禁止当前页面在移动端浏览时，被百度自动转码。虽然百度的本意是好的，但是转码效果很多时候却不尽人意。所以可以在head中加入例子中的那句话，就可以避免百度自动转码了。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Cache-Control"</span> <span class="attr">content</span>=<span class="string">"no-siteapp"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>D. expires(网页到期时间)</strong></li>
+</ul>
+<p>用于设定网页的到期时间，过期后网页必须到服务器上重新传输。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"expires"</span> <span class="attr">content</span>=<span class="string">"Sunday 26 October 2016 01:00 GMT"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>refresh(自动刷新并指向某页面)</strong></li>
+</ul>
+<p>网页将在设定的时间内，自动刷新并调向设定的网址。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"refresh"</span> <span class="attr">content</span>=<span class="string">"2；URL=http://www.baidu.com"</span>&gt;</span> //意思是2秒后跳转</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>Set-Cookie(cookie设定)</strong> </li>
+</ul>
+<p>如果网页过期。那么这个网页存在本地的cookies也会被自动删除。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Set-Cookie"</span> <span class="attr">content</span>=<span class="string">"name, date"</span>&gt;</span> //格式</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Set-Cookie"</span> <span class="attr">content</span>=<span class="string">"User=Lxxyx; path=/; expires=Sunday, 10-Jan-16 10:00:00 GMT"</span>&gt;</span> //具体范例</span><br></pre></td></tr></table></figure>
+<p>参考文章：<br><a href="https://juejin.im/entry/588074c62f301e00696b481d" target="_blank" rel="noopener">关于 HTML 中 meta 标签的理解和总结</a></p>
 
       
     </div>
@@ -366,8 +435,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/13/JavaScript/提高页面性能/" rel="next" title="浏览器的渲染机制">
-                <i class="fa fa-chevron-left"></i> 浏览器的渲染机制
+              <a href="/2019/07/13/JavaScript/提高页面性能/" rel="next" title="提高页面性能">
+                <i class="fa fa-chevron-left"></i> 提高页面性能
               </a>
             
           </div>
@@ -506,7 +575,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML语义化"><span class="nav-number">1.</span> <span class="nav-text">HTML语义化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语义化标签的优势"><span class="nav-number">1.1.</span> <span class="nav-text">语义化标签的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5新增的语义化标签"><span class="nav-number">1.2.</span> <span class="nav-text">HTML5新增的语义化标签</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML语义化"><span class="nav-number">1.</span> <span class="nav-text">HTML语义化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语义化标签的优势"><span class="nav-number">1.1.</span> <span class="nav-text">语义化标签的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5新增的语义化标签"><span class="nav-number">1.2.</span> <span class="nav-text">HTML5新增的语义化标签</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#meta标签的理解和总结"><span class="nav-number">2.</span> <span class="nav-text">meta标签的理解和总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#name属性"><span class="nav-number">2.1.</span> <span class="nav-text">name属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-equiv属性"><span class="nav-number">2.2.</span> <span class="nav-text">http-equiv属性</span></a></li></ol></li></ol></div>
             
 
           </div>
