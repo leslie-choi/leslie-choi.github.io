@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="生命周期1、 beforeCreate:在该方法中data和mothods都没有被初始化 created：在该方法中data和methods都已经被初始化好了（最重要） beforeMount：最新的模板页面（虚拟DOM）并没有被挂载到页面中去，但是在内存中已经被编译好 mounted：最新的虚拟DOM被挂载到页面中去（最重要） 只要执行完整个mounted，就表示整个Vue实例已经完成初始化。此">
+<meta name="description" content="生命周期 beforeCreate:在该方法中data和mothods都没有被初始化  created：在该方法中data和methods都已经被初始化好了（最重要）  beforeMount：最新的模板页面（虚拟DOM）并没有被挂载到页面中去，但是在内存中已经被编译好  mounted：最新的虚拟DOM被挂载到页面中去（最重要）   只要执行完整个mounted，就表示整个Vue实例已经完成初始">
 <meta name="keywords" content="basic">
 <meta property="og:type" content="article">
 <meta property="og:title" content="四、生命周期">
 <meta property="og:url" content="http://yoursite.com/2019/01/23/vue/4、生命周期/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="生命周期1、 beforeCreate:在该方法中data和mothods都没有被初始化 created：在该方法中data和methods都已经被初始化好了（最重要） beforeMount：最新的模板页面（虚拟DOM）并没有被挂载到页面中去，但是在内存中已经被编译好 mounted：最新的虚拟DOM被挂载到页面中去（最重要） 只要执行完整个mounted，就表示整个Vue实例已经完成初始化。此">
+<meta property="og:description" content="生命周期 beforeCreate:在该方法中data和mothods都没有被初始化  created：在该方法中data和methods都已经被初始化好了（最重要）  beforeMount：最新的模板页面（虚拟DOM）并没有被挂载到页面中去，但是在内存中已经被编译好  mounted：最新的虚拟DOM被挂载到页面中去（最重要）   只要执行完整个mounted，就表示整个Vue实例已经完成初始">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-19T17:01:11.713Z">
+<meta property="og:updated_time" content="2019-08-19T15:16:03.644Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="四、生命周期">
-<meta name="twitter:description" content="生命周期1、 beforeCreate:在该方法中data和mothods都没有被初始化 created：在该方法中data和methods都已经被初始化好了（最重要） beforeMount：最新的模板页面（虚拟DOM）并没有被挂载到页面中去，但是在内存中已经被编译好 mounted：最新的虚拟DOM被挂载到页面中去（最重要） 只要执行完整个mounted，就表示整个Vue实例已经完成初始化。此">
+<meta name="twitter:description" content="生命周期 beforeCreate:在该方法中data和mothods都没有被初始化  created：在该方法中data和methods都已经被初始化好了（最重要）  beforeMount：最新的模板页面（虚拟DOM）并没有被挂载到页面中去，但是在内存中已经被编译好  mounted：最新的虚拟DOM被挂载到页面中去（最重要）   只要执行完整个mounted，就表示整个Vue实例已经完成初始">
 
 
 
@@ -322,17 +322,38 @@
       
 
       
-        <h1 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h1><p>1、</p>
-<p>beforeCreate:在该方法中data和mothods都没有被初始化</p>
-<p>created：在该方法中data和methods都已经被初始化好了（最重要）</p>
-<p>beforeMount：最新的模板页面（虚拟DOM）并没有被挂载到页面中去，但是在内存中已经被编译好</p>
-<p>mounted：最新的虚拟DOM被挂载到页面中去（最重要）</p>
+        <h1 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h1><ol>
+<li><p>beforeCreate:在该方法中data和mothods都没有被初始化</p>
+</li>
+<li><p>created：在该方法中data和methods都已经被初始化好了（最重要）</p>
+</li>
+<li><p>beforeMount：最新的模板页面（虚拟DOM）并没有被挂载到页面中去，但是在内存中已经被编译好</p>
+</li>
+<li><p>mounted：最新的虚拟DOM被挂载到页面中去（最重要）</p>
+</li>
+</ol>
 <p>只要执行完整个mounted，就表示整个Vue实例已经完成初始化。此时组件已经脱离了创建阶段，进入运行阶段</p>
 <p>运行阶段的两个生命周期函数，这两个事件会根据data数据的改变，有选择性触发0到多次</p>
-<p>beforeUpdate：表示界面还没有被更新，但是数据被更新了</p>
-<p>update： 事件执行的时候，页面和data数据已经保持同步，都是最新的</p>
-<p>beforeDestroy：执行该函数的时候，实例身上的所有data和所有的methods以及过滤器、指令等等都处于可用状态，还没有真正执行销毁的过程</p>
-<p>Destroyed：执行到该函数的时候，组件中的而所有数据、方法、指令过滤器都不可用</p>
+<ol start="5">
+<li><p>beforeUpdate：表示界面还没有被更新，但是数据被更新了</p>
+</li>
+<li><p>update： 事件执行的时候，页面和data数据已经保持同步，都是最新的</p>
+</li>
+<li><p>beforeDestroy：执行该函数的时候，实例身上的所有data和所有的methods以及过滤器、指令等等都处于可用状态，还没有真正执行销毁的过程</p>
+</li>
+<li><p>Destroyed：执行到该函数的时候，组件中的而所有数据、方法、指令过滤器都不可用</p>
+</li>
+</ol>
+<p>除了以上8个比较常见的生命周期之外，vue其实还有其他3个生命周期</p>
+<p>如果我们在组件中使用了keep-alive用来缓存组件,避免多次加载相应的组件,减少性能消耗，那么这个时候生命周期会多出来两个，并且上面的8个生命周期钩子将会失效。</p>
+<ol start="9">
+<li><p>activated：被包裹的组件被激活的状态下使用的生命周期钩子。</p>
+</li>
+<li><p>deactivated：在被包裹的组件停止的时候停用。</p>
+</li>
+<li><p>errorCaptured: 当捕获一个来自子孙组件的错误时被调用。此钩子会收到三个参数：错误对象、发生错误的组件实例以及一个包含错误来源信息的字符串。此钩子可以返回 false 以阻止该错误继续向上传播。</p>
+</li>
+</ol>
 
       
     </div>
