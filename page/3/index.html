@@ -229,6 +229,199 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/26/JavaScript/javaScript运行机制/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/26/JavaScript/javaScript运行机制/" itemprop="url">JavaScript运行机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-26T14:26:24+08:00">
+                2019-02-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>首先必须了解JS是单线程的，最主要的原因就是为了避免DOM的冲突，虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中</strong></p>
+<h1 id="一、任务队列"><a href="#一、任务队列" class="headerlink" title="一、任务队列"></a>一、任务队列</h1><p>因为Javascript是单线程的，所以意味着任务需要一个接着一个完成。但是如果前面的任务执行时间很长，那么后面的任务就得一直阻塞着，这样用户体验十分差。<br>JavaScript的设计者考虑到了这一点，所以他将JavaScript的任务分为两种，在主线程上执行的任务”同步任务”，被主线程挂载起来的任务”异步任务”,后者一般是放在一个叫<strong>任务队列</strong>的数据结构中。<br>那么一般异步执行运行机制如下(也是JavaScript的运行机制)：</p>
+<p>(1)所有同步任务都在主线程上执行，形成一个<strong>执行栈</strong>。</p>
+<p>(2)主线程之外，还有一个“任务队列”,只要异步任务有了运行结果，就在“任务队列”之中放置一个事件。</p>
+<p>(3)一旦“执行栈”中的所有同步任务执行完毕了，系统就会读取“任务队列”，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。</p>
+<p>(4)主线程不断重复上面的三步。（事件循环，轮询执行异步队列中的函数）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">"test"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> test2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">"test2"</span>);</span><br><span class="line">&#125;</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">   alert(<span class="string">"setTimeout"</span>);</span><br><span class="line">&#125;,<span class="number">1000</span>);</span><br><span class="line">test();</span><br><span class="line">test2();</span><br><span class="line"><span class="comment">//test</span></span><br><span class="line"><span class="comment">//test2</span></span><br><span class="line"><span class="comment">//setTimeout;</span></span><br></pre></td></tr></table></figure>
+<h1 id="二、事件和回调函数"><a href="#二、事件和回调函数" class="headerlink" title="二、事件和回调函数"></a>二、事件和回调函数</h1><p>test()和test2()属于“执行栈”中的同步任务，而==定时器则是任务队列里面的异步任务==，那么定时器就是属于异步任务中的一种，在讲定时器之前先认识一下任务队列里面的另外一个重要成员，事件。其实<strong>任务队列就是一个事件队列</strong>，因为一般我们绑定一个事件，比如点击事件等等，都是在某一个时刻才触发执行的，这个时候就得放到任务队列里面，等待执行，而在某个DOM节点上绑定了事件，就要有相应的回调函数,它们是相辅相成的。<br>所谓回调函数，就是那些被挂载起来，等待执行的代码，主线程执行任务队列里面的异步任务，其实就是执行这些回调函数。<br>一般只有主线程所有任务都执行完毕了，才会执行任务队列里面的异步任务，一般是按照队列的“先进先出”顺序执行，但是因为存在定时器，所以主线程要检查执行时间，只有到了规定的时间，才能返回主线程。</p>
+<h1 id="三、定时器"><a href="#三、定时器" class="headerlink" title="三、定时器"></a>三、定时器</h1><p>定时器主要由setTimeout()和setInterval()两个函数来完成，它们的内部运行机制完全一样，不同的只是，前者一次性执行，而后者反复执行。定时器，属于任务队列中的异步任务，所以才会出现上面的问题，再看几个例子就能理解了，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">console.log(1);</span><br><span class="line"></span><br><span class="line">setTimeout(function()&#123; console.log(2);&#125;,1000);</span><br><span class="line"></span><br><span class="line">console.log(3);</span><br></pre></td></tr></table></figure>
+<p>上面代码的执行结果是1,3,2，因为只有setTimeout里面的代码是异步任务，其它都是主线程里的同步任务，所以只有执行完了主线程中的所有任务，才会执行setTimeout中的任务。</p>
+<h1 id="四、Even-Loop"><a href="#四、Even-Loop" class="headerlink" title="四、Even Loop"></a>四、Even Loop</h1><p>javascript提供的与 <strong>“任务队列”</strong> 有关的方法有：setTimeout、setInterval、process.nextTick和setImmediate。</p>
+<p>process.nextTick方法可以在当前“执行栈”的尾部——下一次Event Loop(主线程读取“任务队列”)之前——触发回调函数。也就是说，它指定的任务总是发生在所有异步任务之前。<br>setImmediate方法则是在当前“任务队列”的尾部添加事件，也即是说，它指定的任务总是在下一次Event Loop时执行。</p>
+<p>在JavaScript中，任务被详细分为两种，一种宏任务（MacroTask）也叫Task，一种叫微任务（MicroTask）。</p>
+<p><strong>MacroTask（宏任务）</strong></p>
+<p>script全部代码、setTimeout、setInterval、setImmediate（浏览器暂时不支持，只有IE10支持，具体可见MDN）、I/O、UI Rendering。</p>
+<p><strong>MicroTask（微任务）</strong></p>
+<p>Process.nextTick（Node独有）、<strong>Promise</strong>、Object.observe(废弃)、MutationObserver</p>
+<p>接下来介绍浏览器的JavaScript代码的具体流程：</p>
+<ol>
+<li>执行全局Script同步代码，这些同步代码有一些是同步语句，有一些是异步语句（比如setTimeout等）；</li>
+<li>全局Script代码执行完毕后，调用栈Stack会清空；</li>
+<li>从微队列microtask queue中取出位于队首的回调任务，放入调用栈Stack中执行，执行完后microtask queue长度减1；</li>
+<li>继续取出位于队首的任务，放入调用栈Stack中执行，以此类推，直到直到把microtask queue中的所有任务都执行完毕。注意，如果在执行microtask的过程中，又产生了microtask，那么会加入到队列的末尾，也会在这个周期被调用执行；</li>
+<li>microtask queue中的所有任务都执行完毕，此时microtask queue为空队列，调用栈Stack也为空；</li>
+<li>取出宏队列macrotask queue中位于队首的任务，放入Stack中执行；</li>
+<li>执行完毕后，调用栈Stack为空；</li>
+<li>重复第3-7个步骤；</li>
+<li>重复第3-7个步骤；</li>
+<li>……<br>可以看到，这就是浏览器的事件循环Event Loop</li>
+</ol>
+<p>举个例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line">  <span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">3</span>)</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">4</span>)</span><br><span class="line">  resolve(<span class="number">5</span>)</span><br><span class="line">&#125;).then(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">6</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">7</span>);</span><br></pre></td></tr></table></figure></p>
+<p>按照上面的步骤，将各个任务代入同步任务、宏队列和微队列中，就可以得出结果1、4、7、5、2、3、6。需要特别注意的是在这里的console.log(“4”)其实是同步任务。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'script start'</span>);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'setTimeout'</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise1'</span>);</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise2'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script end'</span>);</span><br></pre></td></tr></table></figure>
+<p>输出结果是：script start -&gt; script end -&gt; promise1 -&gt; promise2 -&gt; setTimeout</p>
+<p>为了验证是否真的掌握还是要再举个例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'script start'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">await</span> async2()</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'async1 end'</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'async2 end'</span>) </span><br><span class="line">&#125;</span><br><span class="line">async1()</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'setTimeout'</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'Promise'</span>)</span><br><span class="line">  resolve()</span><br><span class="line">&#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise1'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise2'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script end'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>这里需要先理解async/await。实际上转换了</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">'async2 end'</span>)</span><br><span class="line"> <span class="comment">// Promise.resolve() 将代码插入微任务队列尾部</span></span><br><span class="line"> <span class="comment">// resolve 再次插入微任务队列尾部</span></span><br><span class="line"> resolve(<span class="built_in">Promise</span>.resolve())</span><br><span class="line">&#125;).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">'async1 end'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>async/await 在底层转换成了 promise 和 then 回调函数。<br>也就是说，这是 promise 的语法糖。<br>每次我们使用 await, 解释器都创建一个 promise 对象，然后把剩下的 async 函数中的操作放到 then 回调函数中。<br>async/await 的实现，离不开 Promise。从字面意思来理解，async 是“异步”的简写，而 await 是 async wait 的简写可以认为是等待异步方法执行完成。</p>
+<p>输出的结果是：<br> script start<br> async2 end<br> Promise<br> script end<br> async1 end<br> promise1<br> promise2<br> setTimeout</p>
+<p>详细过程：</p>
+<ul>
+<li>首先，打印script start，调用async1()时，返回一个Promise，所以打印出来async2 end。</li>
+<li>每个 await，会新产生一个promise,但这个过程本身是异步的，所以该await后面不会立即调用。</li>
+<li>继续执行同步代码，打印Promise和script end，将then函数放入微任务队列中等待执行。</li>
+<li>同步执行完成之后，检查微任务队列是否为null，然后按照先入先出规则，依次执行。</li>
+<li>然后先执行打印promise1,此时then的回调函数返回undefined，此时又有then的链式调用，又放入微任务队列中，再次打印promise2。</li>
+<li>再回到await的位置执行返回的 Promise 的 resolve 函数，这又会把 resolve 丢到微任务队列中，打印async1 end。</li>
+<li>当微任务队列为空时，执行宏任务,打印setTimeout。<br>这里的主要问题是把async和await弄清楚。。。</li>
+</ul>
+<p>参考文章：</p>
+<p><a href="https://juejin.im/post/5c3d8956e51d4511dc72c200" target="_blank" rel="noopener">一次弄懂Event Loop（彻底解决此类面试问题）</a><br><a href="https://segmentfault.com/a/1190000016278115?utm_source=tag-newest#articleHeader8" target="_blank" rel="noopener">带你彻底弄懂 Event Loop</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/23/JavaScript/基础零碎点/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -427,172 +620,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/JavaScript/JavaScript进阶/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/19/JavaScript/JavaScript进阶/" itemprop="url">javaScript高级（一）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-19T14:16:24+08:00">
-                2019-02-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="JavaScript高级"><a href="#JavaScript高级" class="headerlink" title="JavaScript高级"></a>JavaScript高级</h1><p>写在前面：JavaScript高级，比入门的感觉会抽象很多。所以要结合实际案例还有画图来理解，才能够更加深刻。特别是原型和原型链，需要下点功夫，才能理解个35成，蛤蛤蛤。。。ok不膜了进入正题。</p>
-<p>先来重新再认识一下JavaScript吧。JavaScript，其实是一门脚本、弱类型、轻量级的解释性语言。<br>针对解释性语言，不同于编译性语言。编译性语言编写的程序，在执行之前需要有一个专门的编译过程，把程序编译成机器语言的文件，比如exe。然后exe文件运行的时候，直接使用编译的结果就可以了，运行的时候不用再继续编译，所以<strong>执行效率高。具有独立性。</strong><br>而对于解释性语言，比如JavaScript，是<strong>非独立的</strong>，运行需要依赖环境，对于客户端是浏览器，对于服务端是node。<br><strong>效率低</strong>，执行前不需要编译，执行的时候才编译，因此效率也低。</p>
-<h2 id="JavaScript的执行过程"><a href="#JavaScript的执行过程" class="headerlink" title="JavaScript的执行过程"></a>JavaScript的执行过程</h2><p>JavaScript 运行分为两个阶段：</p>
-<ul>
-<li>预解析<ul>
-<li>全局预解析（所有变量和函数声明都会提前；同名的函数和变量函数的优先级高）</li>
-<li>函数内部预解析（所有的变量、函数和形参都会参与预解析）<ul>
-<li>函数</li>
-<li>形参</li>
-<li>普通变量</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>执行</li>
-</ul>
-<p>先预解析全局作用域，然后执行全局作用域中的代码，<br>在执行全局代码的过程中遇到函数调用就会先进行函数预解析，然后再执行函数内代码。</p>
-<h2 id="apply和call方法的使用"><a href="#apply和call方法的使用" class="headerlink" title="apply和call方法的使用"></a>apply和call方法的使用</h2><p>apply和call作用是都可以<strong>改变函数执行时的上下文</strong> ，也就是说可以改变当前this的指向。apply和call方法也是函数的调用的方式。<br><strong>apply的使用语法</strong><br>​    函数名字.apply(对象,[参数1,参数2,…]);<br>​    方法名字.apply(对象,[参数1,参数2,…]);<br><strong>call的使用语法</strong><br>​    函数名字.call(对象,参数1,参数2,…);<br>​    方法名字.call(对象,参数1,参数2,…);</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"结果是:"</span> + (x + y) + <span class="keyword">this</span>);</span><br><span class="line">    <span class="comment">// return "10000";</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// apply和call都可以让函数或者方法来调用,传入参数和函数自己调用的写法不一样,但是效果是一样的</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result1 = f1.apply(<span class="literal">null</span>, [<span class="number">10</span>, <span class="number">20</span>]);</span><br><span class="line"><span class="keyword">var</span> result2 = f1.call(<span class="literal">null</span>, <span class="number">10</span>, <span class="number">20</span>);</span><br><span class="line"><span class="built_in">console</span>.log(result1);  <span class="comment">//30 object window</span></span><br><span class="line"><span class="built_in">console</span>.log(result2);  <span class="comment">//30 object window</span></span><br></pre></td></tr></table></figure>
-<p>apply和call方法中如果没有传入参数,或者是传入的是null,那么调用该方法的函数对象中的<strong>this就是默认的window</strong><br>两个方法的区别在于apply需要传入的是一个数组，而call不是。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"这个函数是window对象的一个方法:"</span> + (x + y) + <span class="keyword">this</span>.sex);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.f1(<span class="number">10</span>, <span class="number">20</span>);    <span class="comment">// 30 undefined</span></span><br><span class="line"><span class="comment">//obj是一个对象</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    age: <span class="number">10</span>,</span><br><span class="line">    sex: <span class="string">"男"</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.f1.apply(obj, [<span class="number">10</span>, <span class="number">20</span>]);  <span class="comment">//  30 男</span></span><br><span class="line"><span class="built_in">window</span>.f1.call(obj, <span class="number">10</span>, <span class="number">20</span>);    <span class="comment">//同上</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">age, sex</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">    <span class="keyword">this</span>.sex = sex;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//通过原型添加方法</span></span><br><span class="line">Person.prototype.sayHi = <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"您好啊:"</span> + <span class="keyword">this</span>.sex);</span><br><span class="line">    <span class="keyword">return</span> x+y;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> per = <span class="keyword">new</span> Person(<span class="number">10</span>, <span class="string">"男"</span>);</span><br><span class="line">per.sayHi();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"=============="</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">name, sex</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.sex = sex;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> stu = <span class="keyword">new</span> Student(<span class="string">"小明"</span>, <span class="string">"男"</span>);</span><br><span class="line"><span class="keyword">var</span> r1 = per.sayHi.apply(stu, [<span class="number">10</span>, <span class="number">20</span>]);</span><br><span class="line"><span class="keyword">var</span> r2 = per.sayHi.call(stu, <span class="number">40</span>, <span class="number">20</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(r1);  <span class="comment">//男  30</span></span><br><span class="line"><span class="built_in">console</span>.log(r2);  <span class="comment">//男   60</span></span><br></pre></td></tr></table></figure>
-<p>这两个方法的作用是：改变了this 的指向，并且第一个参数为你要传入的对象，传入后函数的this就指向了这个对象,后面的参数为你为函数传递的参数值。上面的两个数字就是sayHi方法中的两个参数。</p>
-<h2 id="bind方法"><a href="#bind方法" class="headerlink" title="bind方法"></a>bind方法</h2><p>bind，就是复制一份的意思。<br>使用的语法是：<br>​    <em> 函数名字.bind(对象,参数1,参数2,…);—-&gt;返回值是复制之后的这个函数<br>​    </em> 方法名字.bind(对象,参数1,参数2,…);—-&gt;返回值是复制之后的这个方法</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">age</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.play = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span> + <span class="string">"====&gt;"</span> + <span class="keyword">this</span>.age);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">age</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> per = <span class="keyword">new</span> Person(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">var</span> stu = <span class="keyword">new</span> Student(<span class="number">20</span>);</span><br><span class="line"><span class="comment">//将play方法复制了一份，然后传给stu，但是里面传进的参数还是使用的是stu的</span></span><br><span class="line"><span class="keyword">var</span> ff = per.play.bind(stu);</span><br><span class="line">ff();    <span class="comment">//输出object 20</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/JavaScript/原型与原型链/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -736,6 +763,172 @@
 <li>构造函数Person被执行，执行的时候传入参数，同时上下文this会指向这个新创建的实例，这样才能建立关联。</li>
 <li>如果构造函数返回了一个“对象”，那么这个对象就会取代刚才new出来的结果（说明刚才的操作都是无效的）。如果构造函数没有返回对象，那么new出来的结果为步骤1创建的对象。</li>
 </ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/JavaScript/JavaScript进阶/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/19/JavaScript/JavaScript进阶/" itemprop="url">javaScript高级（一）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-19T14:16:24+08:00">
+                2019-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="JavaScript高级"><a href="#JavaScript高级" class="headerlink" title="JavaScript高级"></a>JavaScript高级</h1><p>写在前面：JavaScript高级，比入门的感觉会抽象很多。所以要结合实际案例还有画图来理解，才能够更加深刻。特别是原型和原型链，需要下点功夫，才能理解个35成，蛤蛤蛤。。。ok不膜了进入正题。</p>
+<p>先来重新再认识一下JavaScript吧。JavaScript，其实是一门脚本、弱类型、轻量级的解释性语言。<br>针对解释性语言，不同于编译性语言。编译性语言编写的程序，在执行之前需要有一个专门的编译过程，把程序编译成机器语言的文件，比如exe。然后exe文件运行的时候，直接使用编译的结果就可以了，运行的时候不用再继续编译，所以<strong>执行效率高。具有独立性。</strong><br>而对于解释性语言，比如JavaScript，是<strong>非独立的</strong>，运行需要依赖环境，对于客户端是浏览器，对于服务端是node。<br><strong>效率低</strong>，执行前不需要编译，执行的时候才编译，因此效率也低。</p>
+<h2 id="JavaScript的执行过程"><a href="#JavaScript的执行过程" class="headerlink" title="JavaScript的执行过程"></a>JavaScript的执行过程</h2><p>JavaScript 运行分为两个阶段：</p>
+<ul>
+<li>预解析<ul>
+<li>全局预解析（所有变量和函数声明都会提前；同名的函数和变量函数的优先级高）</li>
+<li>函数内部预解析（所有的变量、函数和形参都会参与预解析）<ul>
+<li>函数</li>
+<li>形参</li>
+<li>普通变量</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>执行</li>
+</ul>
+<p>先预解析全局作用域，然后执行全局作用域中的代码，<br>在执行全局代码的过程中遇到函数调用就会先进行函数预解析，然后再执行函数内代码。</p>
+<h2 id="apply和call方法的使用"><a href="#apply和call方法的使用" class="headerlink" title="apply和call方法的使用"></a>apply和call方法的使用</h2><p>apply和call作用是都可以<strong>改变函数执行时的上下文</strong> ，也就是说可以改变当前this的指向。apply和call方法也是函数的调用的方式。<br><strong>apply的使用语法</strong><br>​    函数名字.apply(对象,[参数1,参数2,…]);<br>​    方法名字.apply(对象,[参数1,参数2,…]);<br><strong>call的使用语法</strong><br>​    函数名字.call(对象,参数1,参数2,…);<br>​    方法名字.call(对象,参数1,参数2,…);</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"结果是:"</span> + (x + y) + <span class="keyword">this</span>);</span><br><span class="line">    <span class="comment">// return "10000";</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// apply和call都可以让函数或者方法来调用,传入参数和函数自己调用的写法不一样,但是效果是一样的</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result1 = f1.apply(<span class="literal">null</span>, [<span class="number">10</span>, <span class="number">20</span>]);</span><br><span class="line"><span class="keyword">var</span> result2 = f1.call(<span class="literal">null</span>, <span class="number">10</span>, <span class="number">20</span>);</span><br><span class="line"><span class="built_in">console</span>.log(result1);  <span class="comment">//30 object window</span></span><br><span class="line"><span class="built_in">console</span>.log(result2);  <span class="comment">//30 object window</span></span><br></pre></td></tr></table></figure>
+<p>apply和call方法中如果没有传入参数,或者是传入的是null,那么调用该方法的函数对象中的<strong>this就是默认的window</strong><br>两个方法的区别在于apply需要传入的是一个数组，而call不是。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"这个函数是window对象的一个方法:"</span> + (x + y) + <span class="keyword">this</span>.sex);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.f1(<span class="number">10</span>, <span class="number">20</span>);    <span class="comment">// 30 undefined</span></span><br><span class="line"><span class="comment">//obj是一个对象</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    age: <span class="number">10</span>,</span><br><span class="line">    sex: <span class="string">"男"</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.f1.apply(obj, [<span class="number">10</span>, <span class="number">20</span>]);  <span class="comment">//  30 男</span></span><br><span class="line"><span class="built_in">window</span>.f1.call(obj, <span class="number">10</span>, <span class="number">20</span>);    <span class="comment">//同上</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">age, sex</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">    <span class="keyword">this</span>.sex = sex;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//通过原型添加方法</span></span><br><span class="line">Person.prototype.sayHi = <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"您好啊:"</span> + <span class="keyword">this</span>.sex);</span><br><span class="line">    <span class="keyword">return</span> x+y;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> per = <span class="keyword">new</span> Person(<span class="number">10</span>, <span class="string">"男"</span>);</span><br><span class="line">per.sayHi();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"=============="</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">name, sex</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.sex = sex;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> stu = <span class="keyword">new</span> Student(<span class="string">"小明"</span>, <span class="string">"男"</span>);</span><br><span class="line"><span class="keyword">var</span> r1 = per.sayHi.apply(stu, [<span class="number">10</span>, <span class="number">20</span>]);</span><br><span class="line"><span class="keyword">var</span> r2 = per.sayHi.call(stu, <span class="number">40</span>, <span class="number">20</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(r1);  <span class="comment">//男  30</span></span><br><span class="line"><span class="built_in">console</span>.log(r2);  <span class="comment">//男   60</span></span><br></pre></td></tr></table></figure>
+<p>这两个方法的作用是：改变了this 的指向，并且第一个参数为你要传入的对象，传入后函数的this就指向了这个对象,后面的参数为你为函数传递的参数值。上面的两个数字就是sayHi方法中的两个参数。</p>
+<h2 id="bind方法"><a href="#bind方法" class="headerlink" title="bind方法"></a>bind方法</h2><p>bind，就是复制一份的意思。<br>使用的语法是：<br>​    <em> 函数名字.bind(对象,参数1,参数2,…);—-&gt;返回值是复制之后的这个函数<br>​    </em> 方法名字.bind(对象,参数1,参数2,…);—-&gt;返回值是复制之后的这个方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">age</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.play = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span> + <span class="string">"====&gt;"</span> + <span class="keyword">this</span>.age);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">age</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> per = <span class="keyword">new</span> Person(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">var</span> stu = <span class="keyword">new</span> Student(<span class="number">20</span>);</span><br><span class="line"><span class="comment">//将play方法复制了一份，然后传给stu，但是里面传进的参数还是使用的是stu的</span></span><br><span class="line"><span class="keyword">var</span> ff = per.play.bind(stu);</span><br><span class="line">ff();    <span class="comment">//输出object 20</span></span><br></pre></td></tr></table></figure>
 
           
         
@@ -1932,156 +2125,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/25/vue/13、组件中css的作用域、抽离路由模块/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/25/vue/13、组件中css的作用域、抽离路由模块/" itemprop="url">十三、组件中css的作用域、抽离路由模块</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-25T15:16:54+08:00">
-                2019-01-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue/" itemprop="url" rel="index">
-                    <span itemprop="name">Vue</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="组件中css的作用域、抽离路由模块"><a href="#组件中css的作用域、抽离路由模块" class="headerlink" title="组件中css的作用域、抽离路由模块"></a>组件中css的作用域、抽离路由模块</h1><p>1、为了使组件中的css样式不影响全局，可以在style标签内多加一个scoped属性</p>
-<p>2、抽离路由模块</p>
-<p>新建一个router.js</p>
-<p>a、导入组件</p>
-<p>b、创建路由对象</p>
-<p>c、设置子路由，并设置路径</p>
-<p>d、将该路由暴露出去</p>
-<p>document.cookie=”track_id=1545690009|eddde566ae9aa2b35a454e91ee2342a127b11148a8eaec390b|a73c8c1097ae7b5ef779f762abacfb1b; domain=ele.me; path=/“;document.cookie=”USERID=3692924746; domain=ele.me; path=/“;document.cookie=”SID=zkGQB2wu1nCjmOXtiHZmkOMpabWHwiPZgVVg; domain=ele.me; path=/“;</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">'vue-router'</span></span><br><span class="line"><span class="comment">// 导入 Account 组件</span></span><br><span class="line"><span class="keyword">import</span> account <span class="keyword">from</span> <span class="string">'./main/Account.vue'</span></span><br><span class="line"><span class="keyword">import</span> goodslist <span class="keyword">from</span> <span class="string">'./main/GoodsList.vue'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 导入Account的两个子组件</span></span><br><span class="line"><span class="keyword">import</span> login <span class="keyword">from</span> <span class="string">'./subcom/login.vue'</span></span><br><span class="line"><span class="keyword">import</span> register <span class="keyword">from</span> <span class="string">'./subcom/register.vue'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//  创建路由对象</span></span><br><span class="line"><span class="keyword">var</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    <span class="comment">// account  goodslist</span></span><br><span class="line">    &#123;</span><br><span class="line">      path: <span class="string">'/account'</span>,</span><br><span class="line">      component: account,</span><br><span class="line">      children: [</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">'login'</span>, <span class="attr">component</span>: login &#125;,</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">'register'</span>, <span class="attr">component</span>: register &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">'/goodslist'</span>, <span class="attr">component</span>: goodslist &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把路由对象暴露出去</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2132,7 +2175,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
