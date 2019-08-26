@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="首先必须了解JS是单线程的，最主要的原因就是为了避免DOM的冲突，虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中 一、任务队列因为Javascript是单线程的，所以意味着任务需要一个接着一个完成。但是如果前面的任务执行时间很长，那么后面的任务就得一直阻塞着，这样用户体">
+<meta name="description" content="首先必须了解JS是单线程的，最主要的原因就是为了避免DOM的冲突，虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中。 PS:进程和线程的区别  进程：是并发执行的程序在执行过程中分配和管理资源的基本单位，是一个动态概念，竞争计算机系统资源的基本单位。 线程：是进程中的一部">
 <meta name="keywords" content="basic">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript运行机制">
 <meta property="og:url" content="http://yoursite.com/2019/02/26/JavaScript/javaScript运行机制/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="首先必须了解JS是单线程的，最主要的原因就是为了避免DOM的冲突，虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中 一、任务队列因为Javascript是单线程的，所以意味着任务需要一个接着一个完成。但是如果前面的任务执行时间很长，那么后面的任务就得一直阻塞着，这样用户体">
+<meta property="og:description" content="首先必须了解JS是单线程的，最主要的原因就是为了避免DOM的冲突，虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中。 PS:进程和线程的区别  进程：是并发执行的程序在执行过程中分配和管理资源的基本单位，是一个动态概念，竞争计算机系统资源的基本单位。 线程：是进程中的一部">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-05T07:09:52.553Z">
+<meta property="og:updated_time" content="2019-08-26T12:08:32.796Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript运行机制">
-<meta name="twitter:description" content="首先必须了解JS是单线程的，最主要的原因就是为了避免DOM的冲突，虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中 一、任务队列因为Javascript是单线程的，所以意味着任务需要一个接着一个完成。但是如果前面的任务执行时间很长，那么后面的任务就得一直阻塞着，这样用户体">
+<meta name="twitter:description" content="首先必须了解JS是单线程的，最主要的原因就是为了避免DOM的冲突，虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中。 PS:进程和线程的区别  进程：是并发执行的程序在执行过程中分配和管理资源的基本单位，是一个动态概念，竞争计算机系统资源的基本单位。 线程：是进程中的一部">
 
 
 
@@ -322,16 +322,21 @@
       
 
       
-        <p><strong>首先必须了解JS是单线程的，最主要的原因就是为了避免DOM的冲突，虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中</strong></p>
+        <p><strong>首先必须了解JS是单线程的，最主要的原因就是为了避免DOM的冲突，虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中。</strong></p>
+<p>PS:进程和线程的区别</p>
+<ul>
+<li>进程：是并发执行的程序在执行过程中分配和管理资源的基本单位，是一个动态概念，竞争计算机系统资源的基本单位。</li>
+<li>线程：是进程中的一部分，一个没有线程的进程也可以被看作是单线程的，是CPU调度的一个基本单位。</li>
+</ul>
 <h1 id="一、任务队列"><a href="#一、任务队列" class="headerlink" title="一、任务队列"></a>一、任务队列</h1><p>因为Javascript是单线程的，所以意味着任务需要一个接着一个完成。但是如果前面的任务执行时间很长，那么后面的任务就得一直阻塞着，这样用户体验十分差。<br>JavaScript的设计者考虑到了这一点，所以他将JavaScript的任务分为两种，在主线程上执行的任务”同步任务”，被主线程挂载起来的任务”异步任务”,后者一般是放在一个叫<strong>任务队列</strong>的数据结构中。<br>那么一般异步执行运行机制如下(也是JavaScript的运行机制)：</p>
 <p>(1)所有同步任务都在主线程上执行，形成一个<strong>执行栈</strong>。</p>
 <p>(2)主线程之外，还有一个“任务队列”,只要异步任务有了运行结果，就在“任务队列”之中放置一个事件。</p>
 <p>(3)一旦“执行栈”中的所有同步任务执行完毕了，系统就会读取“任务队列”，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。</p>
 <p>(4)主线程不断重复上面的三步。（事件循环，轮询执行异步队列中的函数）</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">"test"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> test2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">"test2"</span>);</span><br><span class="line">&#125;</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">   alert(<span class="string">"setTimeout"</span>);</span><br><span class="line">&#125;,<span class="number">1000</span>);</span><br><span class="line">test();</span><br><span class="line">test2();</span><br><span class="line"><span class="comment">//test</span></span><br><span class="line"><span class="comment">//test2</span></span><br><span class="line"><span class="comment">//setTimeout;</span></span><br></pre></td></tr></table></figure>
-<h1 id="二、事件和回调函数"><a href="#二、事件和回调函数" class="headerlink" title="二、事件和回调函数"></a>二、事件和回调函数</h1><p>test()和test2()属于“执行栈”中的同步任务，而==定时器则是任务队列里面的异步任务==，那么定时器就是属于异步任务中的一种，在讲定时器之前先认识一下任务队列里面的另外一个重要成员，事件。其实<strong>任务队列就是一个事件队列</strong>，因为一般我们绑定一个事件，比如点击事件等等，都是在某一个时刻才触发执行的，这个时候就得放到任务队列里面，等待执行，而在某个DOM节点上绑定了事件，就要有相应的回调函数,它们是相辅相成的。<br>所谓回调函数，就是那些被挂载起来，等待执行的代码，主线程执行任务队列里面的异步任务，其实就是执行这些回调函数。<br>一般只有主线程所有任务都执行完毕了，才会执行任务队列里面的异步任务，一般是按照队列的“先进先出”顺序执行，但是因为存在定时器，所以主线程要检查执行时间，只有到了规定的时间，才能返回主线程。</p>
+<h1 id="二、事件和回调函数"><a href="#二、事件和回调函数" class="headerlink" title="二、事件和回调函数"></a>二、事件和回调函数</h1><p>test()和test2()属于“执行栈”中的同步任务，而<strong>定时器则是任务队列里面的异步任务</strong>，那么定时器就是属于异步任务中的一种，在讲定时器之前先认识一下任务队列里面的另外一个重要成员，事件。其实<strong>任务队列就是一个事件队列</strong>，因为一般我们绑定一个事件，比如点击事件等等，都是在某一个时刻才触发执行的，这个时候就得放到任务队列里面，等待执行，而在某个DOM节点上绑定了事件，就要有相应的回调函数,它们是相辅相成的。<br>所谓回调函数，就是那些被挂载起来，等待执行的代码，主线程执行任务队列里面的异步任务，其实就是执行这些回调函数。<br>一般只有主线程所有任务都执行完毕了，才会执行任务队列里面的异步任务，一般是按照队列的“先进先出”顺序执行，但是因为存在定时器，所以主线程要检查执行时间，只有到了规定的时间，才能返回主线程。</p>
 <h1 id="三、定时器"><a href="#三、定时器" class="headerlink" title="三、定时器"></a>三、定时器</h1><p>定时器主要由setTimeout()和setInterval()两个函数来完成，它们的内部运行机制完全一样，不同的只是，前者一次性执行，而后者反复执行。定时器，属于任务队列中的异步任务，所以才会出现上面的问题，再看几个例子就能理解了，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">console.log(1);</span><br><span class="line"></span><br><span class="line">setTimeout(function()&#123; console.log(2);&#125;,1000);</span><br><span class="line"></span><br><span class="line">console.log(3);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="built_in">console</span>.log(<span class="number">2</span>);&#125;,<span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
 <p>上面代码的执行结果是1,3,2，因为只有setTimeout里面的代码是异步任务，其它都是主线程里的同步任务，所以只有执行完了主线程中的所有任务，才会执行setTimeout中的任务。</p>
 <h1 id="四、Even-Loop"><a href="#四、Even-Loop" class="headerlink" title="四、Even Loop"></a>四、Even Loop</h1><p>javascript提供的与 <strong>“任务队列”</strong> 有关的方法有：setTimeout、setInterval、process.nextTick和setImmediate。</p>
 <p>process.nextTick方法可以在当前“执行栈”的尾部——下一次Event Loop(主线程读取“任务队列”)之前——触发回调函数。也就是说，它指定的任务总是发生在所有异步任务之前。<br>setImmediate方法则是在当前“任务队列”的尾部添加事件，也即是说，它指定的任务总是在下一次Event Loop时执行。</p>
