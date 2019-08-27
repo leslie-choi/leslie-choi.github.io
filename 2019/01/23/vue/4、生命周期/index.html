@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="生命周期 beforeCreate:在该方法中data和mothods都没有被初始化dom元素都没有被创建出来，在这个期间我们一般不做事情  created：在该方法中data和methods都已经被初始化好了（最重要）数据和data中的数据绑定完成，这里我们可以做初级的数据获取  beforeMount：最新的模板页面（虚拟DOM）并没有被挂载到页面中去，但是在内存中已经被编译好el元素被创建出">
+<meta name="description" content="#   beforeCreate:在该方法中data和mothods都没有被初始化dom元素都没有被创建出来，在这个期间我们一般不做事情  created：在该方法中data和methods都已经被初始化好了（最重要）数据和data中的数据绑定完成，这里我们可以做初级的数据获取  beforeMount：最新的模板页面（虚拟DOM）并没有被挂载到页面中去，但是在内存中已经被编译好$el元素被创建出">
 <meta name="keywords" content="basic">
 <meta property="og:type" content="article">
-<meta property="og:title" content="四、生命周期">
+<meta property="og:title" content="四、Vue的生命周期">
 <meta property="og:url" content="http://yoursite.com/2019/01/23/vue/4、生命周期/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="生命周期 beforeCreate:在该方法中data和mothods都没有被初始化dom元素都没有被创建出来，在这个期间我们一般不做事情  created：在该方法中data和methods都已经被初始化好了（最重要）数据和data中的数据绑定完成，这里我们可以做初级的数据获取  beforeMount：最新的模板页面（虚拟DOM）并没有被挂载到页面中去，但是在内存中已经被编译好el元素被创建出">
+<meta property="og:description" content="#   beforeCreate:在该方法中data和mothods都没有被初始化dom元素都没有被创建出来，在这个期间我们一般不做事情  created：在该方法中data和methods都已经被初始化好了（最重要）数据和data中的数据绑定完成，这里我们可以做初级的数据获取  beforeMount：最新的模板页面（虚拟DOM）并没有被挂载到页面中去，但是在内存中已经被编译好$el元素被创建出">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-20T09:05:49.617Z">
+<meta property="og:updated_time" content="2019-08-27T06:22:53.587Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="四、生命周期">
-<meta name="twitter:description" content="生命周期 beforeCreate:在该方法中data和mothods都没有被初始化dom元素都没有被创建出来，在这个期间我们一般不做事情  created：在该方法中data和methods都已经被初始化好了（最重要）数据和data中的数据绑定完成，这里我们可以做初级的数据获取  beforeMount：最新的模板页面（虚拟DOM）并没有被挂载到页面中去，但是在内存中已经被编译好el元素被创建出">
+<meta name="twitter:title" content="四、Vue的生命周期">
+<meta name="twitter:description" content="#   beforeCreate:在该方法中data和mothods都没有被初始化dom元素都没有被创建出来，在这个期间我们一般不做事情  created：在该方法中data和methods都已经被初始化好了（最重要）数据和data中的数据绑定完成，这里我们可以做初级的数据获取  beforeMount：最新的模板页面（虚拟DOM）并没有被挂载到页面中去，但是在内存中已经被编译好$el元素被创建出">
 
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>四、生命周期 | 404 not found</title>
+  <title>四、Vue的生命周期 | 404 not found</title>
   
 
 
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">四、生命周期</h1>
+          <h1 class="post-title" itemprop="name headline">四、Vue的生命周期</h1>
         
 
         <div class="post-meta">
@@ -322,14 +322,15 @@
       
 
       
-        <h1 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h1><ol>
+        <p># </p>
+<ol>
 <li><p>beforeCreate:在该方法中data和mothods都没有被初始化<br>dom元素都没有被创建出来，在这个期间我们一般不做事情</p>
 </li>
 <li><p>created：在该方法中data和methods都已经被初始化好了（最重要）<br>数据和data中的数据绑定完成，这里我们可以做初级的数据获取</p>
 </li>
-<li><p>beforeMount：最新的模板页面（虚拟DOM）并没有被挂载到页面中去，但是在内存中已经被编译好<br>el元素被创建出来</p>
+<li><p>beforeMount：最新的模板页面（虚拟DOM）并没有被挂载到页面中去，但是在内存中已经被编译好<br>$el元素被创建出来</p>
 </li>
-<li><p>mounted：最新的虚拟DOM被挂载到页面中去（最重要）<br>官方实例的异步请求是在mounted生命周期中调用的，而实际上也可以在created生命周期中调用。</p>
+<li><p>mounted：最新的虚拟DOM被挂载到页面中去（最重要）<br>官方实例的异步请求是在mounted生命周期中调用的，而实际上也可以在created生命周期中调用(推荐)。</p>
 </li>
 </ol>
 <p>只要执行完整个mounted，就表示整个Vue实例已经完成初始化。此时组件已经脱离了创建阶段，进入运行阶段<br>运行阶段的两个生命周期函数，这两个事件会根据data数据的改变，有选择性触发0到多次</p>
@@ -447,17 +448,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -517,22 +509,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#生命周期"><span class="nav-number">1.</span> <span class="nav-text">生命周期</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

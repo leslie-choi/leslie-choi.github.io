@@ -322,16 +322,16 @@
       
         
           
-            <h1 id="MVVM的理解"><a href="#MVVM的理解" class="headerlink" title="MVVM的理解"></a>MVVM的理解</h1><p>MVVM 模式，顾名思义即 Model-View-ViewModel 模式。</p>
+            <h1 id="MVVM的理解"><a href="#MVVM的理解" class="headerlink" title="MVVM的理解"></a>MVVM的理解</h1><p>MVVM 模式，顾名思义即 Model-View-ViewModel 模式,是一个软件架构设计模式。</p>
 <ol>
 <li><p>Model 层: 对应数据层模型，它主要做域模型的同步。通过 Ajax/fetch 等 API 完成客户端和服务端业务 Model 的同步。</p>
 </li>
 <li><p>View 层：作为视图模板存在，在 MVVM 里，整个 View 是一个动态模板。除了定义结构、布局外，它展示的是 ViewModel 层的数据和状态。View 层不负责处理状态，View 层做的是 数据绑定的声明、 指令的声明、 事件绑定的声明。</p>
 </li>
-<li><p>ViewModel 层:ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而View 和 Model 之间的同步工作完全是自动的，无需人为干涉，因此开发者只需关注业务逻辑，不需要手动操作DOM, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。</p>
-</li>
+<li><p>ViewModel 层(核心):ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而View 和 Model 之间的同步工作完全是自动的，无需人为干涉，<strong>因此开发者只需关注业务逻辑，不需要手动操作DOM, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。</strong> 这就完全解耦了 View 层和 Model 层，这个解耦是至关重要的，它是前后端分离方案实施的重要一环。<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/MVVM.png" alt="markdown"></p>
+<h2 id="MVVM的优缺点"><a href="#MVVM的优缺点" class="headerlink" title="MVVM的优缺点"></a>MVVM的优缺点</h2></li>
 </ol>
-<h2 id="MVVM的优缺点"><a href="#MVVM的优缺点" class="headerlink" title="MVVM的优缺点"></a>MVVM的优缺点</h2><p><strong>优点</strong></p>
+<p><strong>优点</strong></p>
 <ol>
 <li><p>分离视图（View）和模型（Model）,降低代码耦合，提高视图或者逻辑的重用性。</p>
 </li>
@@ -353,14 +353,33 @@
 <p>区别：vue数据驱动，通过数据来显示视图层而不是节点操作。<br>场景：数据操作比较多的场景，更加便捷</p>
 <h1 id="Vue的生命周期"><a href="#Vue的生命周期" class="headerlink" title="Vue的生命周期"></a>Vue的生命周期</h1><p>Vue 实例有一个完整的生命周期，也就是从开始创建、初始化数据、编译模版、挂载Dom -&gt; 渲染、更新 -&gt; 渲染、卸载等一系列过程，我们称这是Vue的生命周期。<br>具体移步同栏目其他文章。</p>
 <h1 id="Vue组件之间的通信"><a href="#Vue组件之间的通信" class="headerlink" title="Vue组件之间的通信"></a>Vue组件之间的通信</h1><ul>
-<li><strong>props/$emit+v-on: 通过props将数据自上而下传递，而通过$emit和v-on来向上传递信息。</strong></li>
+<li><strong>props/$emit+v-on: 通过props将数据自上而下传递，而通过$emit和v-on来向上传递信息。</strong> （适用于父子组件之间的通信）</li>
 <li>EventBus: 通过EventBus进行信息的发布与订阅</li>
 <li><strong>vuex: 是全局数据管理库，可以通过vuex管理全局的数据流</strong></li>
-<li>$attrs/$listeners: Vue2.4中加入的$attrs/$listeners可以进行跨级的组件通信</li>
-<li>provide/inject：以允许一个祖先组件向其所有子孙后代注入一个依赖，不论组件层次有多深，并在起上下游关系成立的时间里始终生效，这成为了跨组件通信的基础</li>
+<li>$attrs/$listeners: Vue2.4中加入的$attrs/$listeners可以进行跨级的组件通信 （适用于 隔代组件通信）</li>
+<li>provide/inject：祖先组件中通过 provider 来提供变量，然后在子孙组件中通过 inject 来注入变量。 provide / inject API 主要解决了跨级组件间的通信问题，不过它的使用场景，主要是子组件获取上级组件的状态，跨级组件间建立了一种主动提供与依赖注入的关系。（适用于 隔代组件通信）</li>
+</ul>
+<h1 id="Vuex状态管理"><a href="#Vuex状态管理" class="headerlink" title="Vuex状态管理"></a>Vuex状态管理</h1><p>Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。每一个 Vuex 应用的核心就是 store（仓库）。“store” 基本上就是一个容器，它包含着你的应用中大部分的状态 ( state )。</p>
+<ol>
+<li>Vuex 的状态存储是响应式的。当 Vue 组件从 store 中读取状态的时候，若 store 中的状态发生变化，那么相应的组件也会相应地得到高效更新。</li>
+<li>改变 store 中的状态的唯一途径就是显式地提交 (commit) mutation。这样使得我们可以方便地跟踪每一个状态的变化。<br>主要包括以下几个模块：</li>
+</ol>
+<ul>
+<li>State：存放基本数据，可以在这里设置默认的初始状态。</li>
+<li>Getters：允许组件从 Store 中获取数据，mapGetters 辅助函数仅仅是将 store 中的 getter 映射到局部计算属性。</li>
+<li>Mutations：是唯一更改 store 中状态的方法，且必须是同步函数。</li>
+<li>Actions：用于提交 mutation，而不是直接变更状态，可以包含任意异步操作。</li>
+<li>Modules：允许将单一的 Store 拆分为多个 store 且同时保存在单一的状态树中,模块化vuex。</li>
 </ul>
 <h1 id="Vue实现双向数据绑定"><a href="#Vue实现双向数据绑定" class="headerlink" title="Vue实现双向数据绑定"></a>Vue实现双向数据绑定</h1><p>是采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。在vue3.0中通过Proxy代理对象进行类似的操作。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;input type=<span class="string">"text"</span> name=<span class="string">"数据绑定"</span> id=<span class="string">"dataBinding"</span>&gt;</span><br><span class="line">&lt;span id=<span class="string">"data"</span>&gt;&lt;/span&gt;&lt;br&gt;</span><br><span class="line"></span><br><span class="line">mounted() &#123;</span><br><span class="line">    this.showData()</span><br><span class="line">&#125;,</span><br><span class="line">methods:&#123;</span><br><span class="line">      showData()&#123;</span><br><span class="line">          var obj1 = &#123;&#125;;                        //新建一个对象obj1</span><br><span class="line">          Object.defineProperty(obj1,'hello',&#123;  //为obj定义一个名为 hello 的访问器属性 </span><br><span class="line">              set: function(newVal)&#123;</span><br><span class="line">                  document.getElementById('dataBinding').value = newVal;</span><br><span class="line">                  document.getElementById('data').innerHTML = newVal;</span><br><span class="line">              &#125;,</span><br><span class="line">              get: function()&#123;</span><br><span class="line">                  return</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">          document.addEventListener('keyup',function(e)&#123;</span><br><span class="line">              obj1.hello = e.target.value;</span><br><span class="line">          &#125;);</span><br><span class="line">          console.log(obj1);</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Vue主要通过以下4个步骤实现双向数据绑定</p>
+<ul>
+<li>实现一个监听器 Observer：对数据对象进行遍历，包括子属性对象的属性，利用 Object.defineProperty() 对属性都加上 setter 和 getter。这样的话，给这个对象的某个值赋值，就会触发 setter，那么就能监听到了数据变化。</li>
+<li>实现一个解析器 Compile：解析 Vue 模板指令，将模板中的变量都替换成数据，然后初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加监听数据的订阅者，一旦数据有变动，收到通知，调用更新函数进行数据更新。</li>
+<li>实现一个订阅者 Watcher：Watcher 订阅者是 Observer 和 Compile 之间通信的桥梁 ，主要的任务是订阅 Observer 中的属性值变化的消息，当收到属性值变化的消息时，触发解析器 Compile 中对应的更新函数。</li>
+<li>实现一个订阅器 Dep：订阅器采用 发布-订阅 设计模式，用来收集订阅者 Watcher，对监听器 Observer 和 订阅者 Watcher 进行统一管理。</li>
+</ul>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/observer.png" alt="markdown"><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=<span class="string">"text"</span> name=<span class="string">"数据绑定"</span> id=<span class="string">"dataBinding"</span>&gt;</span><br><span class="line">&lt;span id=<span class="string">"data"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><span class="xml"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">mounted() &#123;</span></span><br><span class="line"><span class="xml">    this.showData()</span></span><br><span class="line"><span class="xml">&#125;,</span></span><br><span class="line"><span class="xml">methods:&#123;</span></span><br><span class="line"><span class="xml">      showData()&#123;</span></span><br><span class="line"><span class="xml">          var obj1 = &#123;&#125;;                        //新建一个对象obj1</span></span><br><span class="line"><span class="xml">          Object.defineProperty(obj1,'hello',&#123;  //为obj定义一个名为 hello 的访问器属性 </span></span><br><span class="line"><span class="xml">              set: function(newVal)&#123;</span></span><br><span class="line"><span class="xml">                  document.getElementById('dataBinding').value = newVal;</span></span><br><span class="line"><span class="xml">                  document.getElementById('data').innerHTML = newVal;</span></span><br><span class="line"><span class="xml">              &#125;,</span></span><br><span class="line"><span class="xml">              get: function()&#123;</span></span><br><span class="line"><span class="xml">                  return</span></span><br><span class="line"><span class="xml">              &#125;</span></span><br><span class="line"><span class="xml">          &#125;);</span></span><br><span class="line"><span class="xml">          document.addEventListener('keyup',function(e)&#123;</span></span><br><span class="line"><span class="xml">              obj1.hello = e.target.value;</span></span><br><span class="line"><span class="xml">          &#125;);</span></span><br><span class="line"><span class="xml">          console.log(obj1);</span></span><br><span class="line"><span class="xml">      &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="proxy和Object-defineProperty的优劣对比"><a href="#proxy和Object-defineProperty的优劣对比" class="headerlink" title="proxy和Object.defineProperty的优劣对比?"></a>proxy和Object.defineProperty的优劣对比?</h2><p><strong>Proxy的优势</strong></p>
 <ul>
 <li>Proxy可以直接监听对象而非属性</li>
@@ -384,7 +403,11 @@
 <p>例子：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"demo"</span>&gt;&#123;&#123; fullName &#125;&#125;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">var vm = new Vue(&#123;</span></span><br><span class="line"><span class="regexp">  el: '#demo',</span></span><br><span class="line"><span class="regexp">  data: &#123;</span></span><br><span class="line"><span class="regexp">    firstName: 'Foo',</span></span><br><span class="line"><span class="regexp">    lastName: 'Bar',</span></span><br><span class="line"><span class="regexp">    fullName: 'Foo Bar'</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  watch: &#123;</span></span><br><span class="line"><span class="regexp">    firstName: function (val) &#123;</span></span><br><span class="line"><span class="regexp">      this.fullName = val + ' ' + this.lastName</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    lastName: function (val) &#123;</span></span><br><span class="line"><span class="regexp">      this.fullName = this.firstName + ' ' + val</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  computed: &#123;</span></span><br><span class="line"><span class="regexp">    fullName: function () &#123;</span></span><br><span class="line"><span class="regexp">      return this.firstName + ' ' + this.lastName</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;)</span></span><br></pre></td></tr></table></figure>
 <p>虽然说methods和computed、watch都可以完成相同的功能，但是需要根据不同的场景选择对应的方法，大多数场景下，使用computed属性，能够在简化代码的同时，提高性能。</p>
-<p>小结:<br>当我们要进行数值计算,而且依赖于其他数据，那么把这个数据设计为computed<br>如果你需要在某个数据变化时做一些事情，使用watch来观察这个数据变化</p>
+<p>小结:</p>
+<ul>
+<li>当我们要进行数值计算,而且依赖于其他数据，那么把这个数据设计为computed</li>
+<li>当我们需要在数据变化时执行异步或开销较大的操作时，应该使用 watch，使用 watch 选项允许我们执行异步操作 ( 访问一个 API )，限制我们执行该操作的频率，并在我们得到最终结果前，设置中间状态。这些都是计算属性无法做到的</li>
+</ul>
 <h1 id="虚拟DOM"><a href="#虚拟DOM" class="headerlink" title="虚拟DOM"></a>虚拟DOM</h1><ol>
 <li>什么是虚拟DOM</li>
 </ol>
@@ -394,9 +417,9 @@
 </ol>
 <p>优点：</p>
 <ul>
-<li><p>保证性能下限: 虚拟DOM可以经过diff找出最小差异,然后批量进行patch,这种操作虽然比不上手动优化,但是比起粗暴的DOM操作性能要好很多,因此虚拟DOM可以保证性能下限</p>
+<li><p>保证性能下限: 虚拟DOM可以经过diff找出最小差异,然后批量进行patch,这种操作虽然比不上手动优化,但是比起粗暴的DOM操作性能要好很多,因此框架的虚拟 DOM至少可以保证在你不需要手动优化的情况下，依然可以提供还不错的性能，即保证性能的下限；</p>
 </li>
-<li><p>无需手动操作DOM: 虚拟DOM的diff和patch都是在一次更新中自动进行的,我们无需手动操作DOM,极大提高开发效率</p>
+<li><p>无需手动操作DOM: 我们不再需要手动去操作 DOM，只需要写好 View-Model 的代码逻辑，框架会根据虚拟 DOM 和 数据双向绑定，极大提高开发效率</p>
 </li>
 <li><p>跨平台: 虚拟DOM本质上是JavaScript对象,而DOM与平台强相关,相比之下虚拟DOM可以进行更方便地跨平台操作,例如服务器渲染、移动端开发等等</p>
 </li>
@@ -405,15 +428,12 @@
 <ul>
 <li>无法进行极致优化: 在一些性能要求极高的应用中虚拟DOM无法进行针对性的极致优化,比如VScode采用直接手动操作DOM的方式进行极端的性能优化</li>
 </ul>
-<ol start="3">
-<li>虚拟DOM的实现原理</li>
-</ol>
-<ul>
+<h1 id="虚拟DOM的实现原理"><a href="#虚拟DOM的实现原理" class="headerlink" title="虚拟DOM的实现原理"></a>虚拟DOM的实现原理</h1><ul>
 <li><p>用JS对象描述出DOM树的结构，然后在初始化构建中，用这个描述树去构建真正的DOM，并实际展现到页面中</p>
 </li>
-<li><p>当有数据状态变更时，重新构建一个新的JS的DOM树，通过新旧对比DOM数的变化diff，并记录两棵树差异</p>
+<li><p>使用diff算法，当有数据状态变更时，重新构建一个新的JS的DOM树，通过新旧对比DOM数的变化diff，<strong>并记录两棵树差异</strong></p>
 </li>
-<li><p>把步骤2中对应的差异通过步骤1重新构建真正的DOM，并重新渲染到页面中，这样整个虚拟DOM的操作就完成了，视图也就更新了<br>所以虚拟dom的本质可以理解为在JS和DOM之间做了一个缓存。 </p>
+<li><p>使用patch算法，将两个虚拟 DOM 对象的差异应用到真正的 DOM 树，视图也就更新了。所以虚拟dom的本质可以理解为在JS和DOM之间做了一个缓存。 </p>
 </li>
 </ul>
 <h1 id="如何理解Vue的响应式系统？"><a href="#如何理解Vue的响应式系统？" class="headerlink" title="如何理解Vue的响应式系统？"></a>如何理解Vue的响应式系统？</h1><p>响应式系统简述:</p>
@@ -424,7 +444,90 @@
 <li>data 被改动时（主要是用户操作）, 即被写, setter 方法会被调用, 此时 Vue 会去通知所有依赖于此 data 的组件去调用他们的 render 函数进行更新。</li>
 </ul>
 <p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/vueWatcher.png" alt="markdown"></p>
-
+<h1 id="谈谈你对-keep-alive-的了解？"><a href="#谈谈你对-keep-alive-的了解？" class="headerlink" title="谈谈你对 keep-alive 的了解？"></a>谈谈你对 keep-alive 的了解？</h1><p>keep-alive 是 Vue 内置的一个组件，可以使被包含的组件保留状态，避免重新渲染 ，其有以下特性：</p>
+<ul>
+<li>一般结合路由和动态组件一起使用，用于缓存组件；</li>
+<li>提供 include 和 exclude 属性，两者都支持字符串或正则表达式， include 表示只有名称匹配的组件会被缓存，exclude 表示任何名称匹配的组件都不会被缓存 ，<strong>其中 exclude 的优先级比 include 高；</strong></li>
+<li>对应两个生命周期钩子函数 activated 和 deactivated ，当组件被激活时，触发钩子函数 activated，当组件被移除时，触发钩子函数 deactivated。</li>
+</ul>
+<h1 id="组件中的data为什么是一个函数"><a href="#组件中的data为什么是一个函数" class="headerlink" title="组件中的data为什么是一个函数?"></a>组件中的data为什么是一个函数?</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// data</span></span><br><span class="line">data() &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">	message: <span class="string">"子组件"</span>,</span><br><span class="line">	childName:<span class="keyword">this</span>.name</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// new Vue</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  router,</span><br><span class="line">  template: <span class="string">'&lt;App/&gt;'</span>,</span><br><span class="line">  components: &#123;App&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>因为<strong>组件是用来复用的，且 JS 里对象是引用关系，如果组件中 data 是一个对象，那么这样作用域没有隔离，子组件中的 data 属性值会相互影响</strong>，如果组件中 data 选项是一个函数，那么每个实例可以维护一份被返回对象的独立的拷贝，组件实例之间的 data 属性值不会互相影响；而 <strong>new Vue 的实例，是不会被复用的</strong>，因此不存在引用对象的问题。</p>
+<h1 id="vue-ssr-服务端渲染"><a href="#vue-ssr-服务端渲染" class="headerlink" title="vue-ssr 服务端渲染"></a>vue-ssr 服务端渲染</h1><p>ssr是Server-Side Rendering的简写，即由服务端负责渲染页面直出，亦即同构应用。程序的大部分代码都可以在服务端和客户端运行。在服务端vue组件渲染为html字符串，然后直接返回给客户端，在客户端生成dom和操作dom。</p>
+<p>能在服务端渲染为html字符串得益于vue组件结构是基于vnode的。vnode是dom的抽象表达，它不是真实的dom，它是由js对象组成的树，每个节点代表了一个dom。因为vnode所以在服务端vue可以把js对象解析为html字符串。同样在客户端vnode因为是存在内存之中的，操作内存总比操作dom快的多，每次数据变化需要更新dom时，新旧vnode树经过diff算法，计算出最小变化集，大大提高了性能。</p>
+<p><strong>服务端渲染 SSR 的优缺点如下：</strong></p>
+<p>(1) 服务端渲染的优点：</p>
+<ul>
+<li>更好的 SEO： 因为 SPA 页面的内容是通过 Ajax 获取，而搜索引擎爬取工具并不会等待 Ajax 异步完成后再抓取页面内容，所以在 SPA 中是抓取不到页面通过 Ajax 获取到的内容；而 SSR 是直接由服务端返回已经渲染好的页面（数据已经包含在页面中），所以搜索引擎爬取工具可以抓取渲染好的页面</li>
+<li>更快的内容到达时间（首屏加载更快）： SPA 会等待所有 Vue 编译后的 js 文件都下载完成后，才开始进行页面的渲染，文件下载等需要一定的时间等，所以首屏渲染需要一定的时间；SSR 直接由服务端渲染好页面直接返回显示，无需等待下载 js 文件及再去渲染等，所以 SSR 有更快的内容到达时间</li>
+</ul>
+<p>(2) 服务端渲染的缺点：</p>
+<ul>
+<li>更多的开发条件限制： <strong>例如服务端渲染只支持 beforCreate 和 created 两个钩子函数</strong>，这会导致一些外部扩展库需要特殊处理，才能在服务端渲染应用程序中运行；并且与可以部署在任何静态文件服务器上的完全静态单页面应用程序 SPA 不同，服务端渲染应用程序，需要处于 Node.js server 运行环境；</li>
+<li>更多的服务器负载：在 Node.js  中渲染完整的应用程序，显然会比仅仅提供静态文件的  server 更加大量占用CPU 资源 (CPU-intensive - CPU 密集)，因此如果你预料在高流量环境 ( high traffic ) 下使用，请准备相应的服务器负载，并明智地采用缓存策略。</li>
+</ul>
+<h1 id="vue-router-路由模式有几种？"><a href="#vue-router-路由模式有几种？" class="headerlink" title="vue-router 路由模式有几种？"></a>vue-router 路由模式有几种？</h1><p>vue-router 有 3 种路由模式：hash、history、abstract</p>
+<ul>
+<li>hash:  使用 URL hash 值来作路由。支持所有浏览器，包括不支持 HTML5 History Api 的浏览器；</li>
+<li>history :  依赖 HTML5 History API 和服务器配置。具体可以查看 HTML5 History 模式；</li>
+<li>abstract :  支持所有 JavaScript 运行环境，如 Node.js 服务器端。如果发现没有浏览器的 API，路由会自动强制进入这个模式.</li>
+</ul>
+<h1 id="router的实现原理"><a href="#router的实现原理" class="headerlink" title="router的实现原理"></a>router的实现原理</h1><p><strong>更新视图而不重新请求页面</strong>,vue-router在实现单页面前端路由时，提供了两种方式：Hash模式和History模式；根据mode参数来决定采用哪一种方式。</p>
+<ol>
+<li>Hash模式：</li>
+</ol>
+<p>vue-router 默认 hash 模式 —— 使用 URL 的 hash 来模拟一个完整的 URL，于是当 URL 改变时，页面不会重新加载。 hash（#）是URL 的锚点，代表的是网页中的一个位置，单单改变#后的部分，浏览器只会滚动到相应位置，不会重新加载网页，也就是说hash 出现在 URL 中，但<strong>不会被包含在 http 请求中，对后端完全没有影响</strong>，因此改变 hash 不会重新加载页面；同时每一次改变#后的部分，都会在浏览器的访问历史中增加一个记录，使用”后退”按钮，就可以回到上一个位置；所以说Hash模式通过锚点值的改变，根据不同的值，渲染指定DOM位置的不同数据。hash 模式的原理是 <strong>onhashchange 事件(监测hash值变化)</strong>，可以在 window 对象上监听这个事件，从而进行页面的跳转和渲染</p>
+<ol start="2">
+<li>History模式：</li>
+</ol>
+<p>由于hash模式会在url中自带#，如果不想要很丑的 hash，我们可以用路由的 history 模式，只需要在配置路由规则时，加入”mode: ‘history’，不过这种模式需要后台再进行配置，如果后台配置不正确，访问页面则会返回404错误。HTML5 提供了 History API 来实现 URL 的变化。其中做最主要的 API 有以下两个：history.pushState() 和 history.repalceState()。这两个 API 可以在不进行刷新的情况下，操作浏览器的历史纪录。唯一不同的是，前者是新增一个历史记录，后者是直接替换当前的历史记录，如下所示：</p>
+<p>history 路由模式的实现主要基于存在下面几个特性：</p>
+<ul>
+<li>pushState 和 repalceState 两个 API 来操作实现 URL 的变化 ；</li>
+<li>我们可以使用 popstate  事件来监听 url 的变化，从而对页面进行跳转（渲染）；</li>
+<li>history.pushState() 或 history.replaceState() 不会触发 popstate 事件，这时我们需要手动触发页面跳转（渲染）。</li>
+</ul>
+<ol start="3">
+<li>vue-router的使用方式</li>
+</ol>
+<ul>
+<li>npm i vue-router -S下载路由</li>
+<li>在main.js中引入 import VueRouter from ‘vue-router’;</li>
+<li>安装插件Vue.use(VueRouter);</li>
+<li>创建路由对象并配置路由规则 let router = new VueRouter({routes:[{path:’/home’,component:Home}]});</li>
+<li>将其路由对象传递给Vue的实例，options中加入 router:router</li>
+<li>在app.vue中留坑 <router-view></router-view><br>（router-view即页面中需要切换的部分）</li>
+</ul>
+<h1 id="SPA单页面应用的优缺点"><a href="#SPA单页面应用的优缺点" class="headerlink" title="SPA单页面应用的优缺点"></a>SPA单页面应用的优缺点</h1><p>SPA分为2种。 第一种，SPA即指水疗、芳香按摩、沐浴、去死角等等。现代SPA主要透过人体的五大感官功能，即听觉（疗效音乐）、味觉（花草茶、健康饮食）、触觉（按摩）、视觉等达到全方位的放松，将精、气、神三者合一，实现身心的放松。</p>
+<p>第二种，spa指的是single page application，就是只有一张Web页面的应用。单页应用程序 (SPA) 是加载单个HTML 页面并在用户与应用程序交互时动态更新该页面的Web应用程序，它在加载页面时，不会加载整个页面，而是只更新某个指定的容器中内容。 浏览器一开始会加载必需的HTML、CSS和JavaScript，所有的操作都在这张页面上完成，都由JavaScript来控制。因此，对单页应用来说模块化的开发和设计显得相当重要。</p>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点:"></a>优点:</h2><ol>
+<li>用户体验好,快,内容的改变不需要重新加载整个页面</li>
+<li>基于上面一点,spa相对于服务器压力小</li>
+<li>良好的前后端分离</li>
+<li>同一套后端程序代码,不用修改就可以用web界面,手机,平板等多种客户端</li>
+</ol>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点:"></a>缺点:</h2><p>1.不利于seo：右键点击SEO应用查看源码，所有的页面和业务逻辑都封装在app.js中，对于搜索引擎来说，只能够抓取到app.js中的代码，有的搜索引擎会执行js查看页面内容，有的却无法执行，所以无法知道页面的具体内容，故而对SEO不友好。</p>
+<p>2.初次加载耗时相对增多</p>
+<p>3.导航不可用,如果一定要导航需要自行实现前进,后退</p>
+<p>而前端路由router就是管理SPA单页面应用的路径管理器。vue的单页面应用是基于路由和组件的，路由用于设定访问路径，并将路径和组件映射起来。传统的页面应用，是用一些超链接来实现页面切换和跳转的。在vue-router单页面应用中，则是路径之间的切换，也就是组件的切换。路由模块的本质 就是建立起url和页面之间的映射关系。</p>
+<h1 id="Vue框架怎么实现对象和数组的监听"><a href="#Vue框架怎么实现对象和数组的监听" class="headerlink" title="Vue框架怎么实现对象和数组的监听"></a>Vue框架怎么实现对象和数组的监听</h1><p>如果被问到 Vue 怎么实现数据双向绑定，大家肯定都会回答 通过 Object.defineProperty() 对数据进行劫持，但是  Object.defineProperty() 只能对属性进行数据劫持，不能对整个对象进行劫持，同理无法对数组进行劫持，但是我们在使用 Vue 框架中都知道，Vue 能检测到对象和数组（部分方法的操作）的变化，那它是怎么实现的呢？我们查看相关代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Observe a list of Array items.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">observeArray (items: <span class="built_in">Array</span>&lt;any&gt;) &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, l = items.length; i &lt; l; i++) &#123;</span><br><span class="line">    observe(items[i])  <span class="comment">// observe 功能为监测数据的变化</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 对属性进行递归遍历</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">let</span> childOb = !shallow &amp;&amp; observe(val) <span class="comment">// observe 功能为监测数据的变化</span></span><br></pre></td></tr></table></figure>
+<p>通过以上 Vue 源码部分查看，我们就能知道 Vue 框架是<strong>通过遍历数组 和递归遍历对象</strong>，从而达到利用 Object.defineProperty() 也能对对象和数组（部分方法的操作）进行监听。</p>
+<h1 id="Vue-中的-key-有什么作用？"><a href="#Vue-中的-key-有什么作用？" class="headerlink" title="Vue 中的 key 有什么作用？"></a>Vue 中的 key 有什么作用？</h1><p><strong>key 是为 Vue 中 vnode 的唯一标记，通过这个 key，我们的 diff 操作可以更准确、更快速。没有设置key时，有些节点不会复用，而是直接创建新的，删除旧的。</strong></p>
+<p>首先讲一下diff算法的处理方法，对操作前后的dom树同一层的节点进行对比，一层一层对比，如下图：</p>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff1.png" alt="markdown"></p>
+<p>当某一层有很多相同的节点时，也就是列表节点时，Diff算法的更新过程默认情况下也是遵循以上原则。</p>
+<p>比如以下的情况，想要在B和C之间添加一个F<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff2.png" alt="markdown"></p>
+<p>在没有绑定key的时候，diff算法执行起来是这样子的</p>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff3.png" alt="markdown"></p>
+<p>即把C更新成F，D更新成C，E更新成D，最后再插入E，这样导致了节点没有得到复用，也造成了误差。<br>所以我们需要使用key来给每个节点做一个唯一标识，Diff算法就可以正确的识别此节点，找到正确的位置区插入新的节点。</p>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff4.png" alt="markdown"></p>
+<h1 id="Vue中的diff算法"><a href="#Vue中的diff算法" class="headerlink" title="Vue中的diff算法"></a>Vue中的diff算法</h1><p>Vue中的diff算法，就是用来比较虚拟DOM和需要渲染的真实DOM之间的差异。所以下面这张图可以很好的解释这个过程。<strong>比较只会在同个层级之间进行，不会跨层级比较</strong></p>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff1.png" alt="markdown"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 之前 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>           <span class="comment">&lt;!-- 层级1 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>            <span class="comment">&lt;!-- 层级2 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">b</span>&gt;</span> aoy <span class="tag">&lt;/<span class="name">b</span>&gt;</span>   <span class="comment">&lt;!-- 层级3 --&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>diff<span class="tag">&lt;/<span class="name">Span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">P</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 之后 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>            <span class="comment">&lt;!-- 层级1 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>             <span class="comment">&lt;!-- 层级2 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">b</span>&gt;</span> aoy <span class="tag">&lt;/<span class="name">b</span>&gt;</span>        <span class="comment">&lt;!-- 层级3 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>&gt;</span>diff<span class="tag">&lt;/<span class="name">Span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>最理想的就是将<span>直接移动到<p>的后边，这是最优的操作。但是实际的diff操作是移除</p><p>里的<span>，然后再创建一个新的<span>插到<p>的后边。<br>因为新加的<span>在层级2，旧的在层级3，属于不同层级的比较。</span></p>
+<p>diff算法的过程其实就是调用patch函数，就像是打补丁一样修改真实DOM。<br>patch函数有两个参数，vnode和oldVnode，也就是新旧两个虚拟节点。在这之前，我们先了解完整的vnode都有什么属性，举个一个简单的例子</p>
+<h1 id="30-道-Vue-面试题，内含详细讲解（涵盖入门到精通，自测-Vue-掌握程度）"><a href="#30-道-Vue-面试题，内含详细讲解（涵盖入门到精通，自测-Vue-掌握程度）" class="headerlink" title="30 道 Vue 面试题，内含详细讲解（涵盖入门到精通，自测 Vue 掌握程度）"></a><a href="https://juejin.im/post/5d59f2a451882549be53b170" target="_blank" rel="noopener">30 道 Vue 面试题，内含详细讲解（涵盖入门到精通，自测 Vue 掌握程度）</a></h1><p>解析vue2.0的diff算法<br><a href="https://github.com/aooy/blog/issues/2" target="_blank" rel="noopener">解析vue2.0的diff算法</a></p>
+</span></span></p></span></p>
           
         
       
@@ -1783,7 +1886,7 @@
           
             <p>写在前面：上网查资料的时候，发现了《Vue.js权威指南这本书》，作者张耀春人品有问题，真的是被恶心到了，所以先入为主，这书的具体内容就看也不看了。讲道理vue好像没有一本口碑比较好的作品。还是看官方文档好了。<br>官网实例：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model</span>=<span class="string">"message"</span> <span class="attr">placeholder</span>=<span class="string">"edit me"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Message is: &#123;&#123; message &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>实现双向数据绑定，v-model只是一个语法糖而已，真正的实现，其实靠的是v-bind绑定响应式的数据，然后触发input事件进行数据的传递。<br>对上面的例子进行重构<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-bind:value</span>=<span class="string">"msg"</span> <span class="attr">v-on:input</span>=<span class="string">"msg=$event.target.value"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>原理：主要还是通过<strong>Object对象的defineProperty属性，重写data的set和get函数来实现</strong><br>下面是一个非常简陋的一个demo<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    &lt;input type=<span class="string">"text"</span> name=<span class="string">"数据绑定"</span> id=<span class="string">"dataBinding"</span>&gt;</span><br><span class="line">    &lt;span id=<span class="string">"data"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><span class="xml"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">mounted() &#123;</span></span><br><span class="line"><span class="xml">    this.showData()</span></span><br><span class="line"><span class="xml">&#125;,</span></span><br><span class="line"><span class="xml">methods:&#123;</span></span><br><span class="line"><span class="xml">      showData()&#123;</span></span><br><span class="line"><span class="xml">          var obj1 = &#123;&#125;;                        //新建一个对象obj1</span></span><br><span class="line"><span class="xml">          Object.defineProperty(obj1,'hello',&#123;  //为obj定义一个名为 hello 的访问器属性 </span></span><br><span class="line"><span class="xml">              set: function(newVal)&#123;</span></span><br><span class="line"><span class="xml">                  document.getElementById('dataBinding').value = newVal;</span></span><br><span class="line"><span class="xml">                  document.getElementById('data').innerHTML = newVal;</span></span><br><span class="line"><span class="xml">              &#125;,</span></span><br><span class="line"><span class="xml">              get: function()&#123;</span></span><br><span class="line"><span class="xml">                  return</span></span><br><span class="line"><span class="xml">              &#125;</span></span><br><span class="line"><span class="xml">          &#125;);</span></span><br><span class="line"><span class="xml">          document.addEventListener('keyup',function(e)&#123;</span></span><br><span class="line"><span class="xml">              obj1.hello = e.target.value;</span></span><br><span class="line"><span class="xml">          &#125;);</span></span><br><span class="line"><span class="xml">          console.log(obj1);</span></span><br><span class="line"><span class="xml">      &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>原理：主要还是通过<strong>Object对象的defineProperty属性，重写data的set和get函数来实现</strong><br>下面是一个非常简陋的一个demo<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    &lt;input type=<span class="string">"text"</span> name=<span class="string">"数据绑定"</span> id=<span class="string">"dataBinding"</span>&gt;</span><br><span class="line">    &lt;span id=<span class="string">"data"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><span class="xml"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">mounted() &#123;</span></span><br><span class="line"><span class="xml">    this.showData()</span></span><br><span class="line"><span class="xml">&#125;,</span></span><br><span class="line"><span class="xml">methods:&#123;</span></span><br><span class="line"><span class="xml">      showData()&#123;</span></span><br><span class="line"><span class="xml">          var obj1 = &#123;&#125;;                        //新建一个对象obj1</span></span><br><span class="line"><span class="xml">          Object.defineProperty(obj1,'hello',&#123;  //为obj定义一个名为 hello 的访问器属性 </span></span><br><span class="line"><span class="xml">              set: function(newVal)&#123;</span></span><br><span class="line"><span class="xml">                  document.getElementById('dataBinding').value = newVal;</span></span><br><span class="line"><span class="xml">                  document.getElementById('data').innerHTML = newVal;</span></span><br><span class="line"><span class="xml">              &#125;,</span></span><br><span class="line"><span class="xml">              get: function()&#123;</span></span><br><span class="line"><span class="xml">                  return</span></span><br><span class="line"><span class="xml">              &#125;</span></span><br><span class="line"><span class="xml">          &#125;);</span></span><br><span class="line"><span class="xml">          document.addEventListener('keyup',function(e)&#123;</span></span><br><span class="line"><span class="xml">              obj1.hello = e.target.value;</span></span><br><span class="line"><span class="xml">          &#125;);</span></span><br><span class="line"><span class="xml">          console.log(obj1);</span></span><br><span class="line"><span class="xml">      &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure></p>
 
           
         

@@ -1663,7 +1663,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/01/23/vue/4、生命周期/" itemprop="url">四、生命周期</a></h1>
+                <a class="post-title-link" href="/2019/01/23/vue/4、生命周期/" itemprop="url">四、Vue的生命周期</a></h1>
         
 
         <div class="post-meta">
@@ -1737,14 +1737,15 @@
       
         
           
-            <h1 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h1><ol>
+            <p># </p>
+<ol>
 <li><p>beforeCreate:在该方法中data和mothods都没有被初始化<br>dom元素都没有被创建出来，在这个期间我们一般不做事情</p>
 </li>
 <li><p>created：在该方法中data和methods都已经被初始化好了（最重要）<br>数据和data中的数据绑定完成，这里我们可以做初级的数据获取</p>
 </li>
-<li><p>beforeMount：最新的模板页面（虚拟DOM）并没有被挂载到页面中去，但是在内存中已经被编译好<br>el元素被创建出来</p>
+<li><p>beforeMount：最新的模板页面（虚拟DOM）并没有被挂载到页面中去，但是在内存中已经被编译好<br>$el元素被创建出来</p>
 </li>
-<li><p>mounted：最新的虚拟DOM被挂载到页面中去（最重要）<br>官方实例的异步请求是在mounted生命周期中调用的，而实际上也可以在created生命周期中调用。</p>
+<li><p>mounted：最新的虚拟DOM被挂载到页面中去（最重要）<br>官方实例的异步请求是在mounted生命周期中调用的，而实际上也可以在created生命周期中调用(推荐)。</p>
 </li>
 </ol>
 <p>只要执行完整个mounted，就表示整个Vue实例已经完成初始化。此时组件已经脱离了创建阶段，进入运行阶段<br>运行阶段的两个生命周期函数，这两个事件会根据data数据的改变，有选择性触发0到多次</p>
