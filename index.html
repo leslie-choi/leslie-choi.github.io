@@ -933,8 +933,8 @@
 <li>异步加载的区别</li>
 </ol>
 <ul>
-<li>defer是在HTML解析完之后才会执行，如果是多个，则按照加载的顺序执行</li>
-<li>async是在加载完之后立即执行，如果是多个，执行顺序和加载顺序无关</li>
+<li>defer是在HTML渲染完之后（DOM结构完全生成，以及其他脚本执行完成之后）才会执行，如果是多个，则按照加载的顺序执行，优先级比async高</li>
+<li>async是在下载完脚本之后立即执行，渲染引擎会中断，执行完脚本之后才会继续渲染，如果是多个，执行顺序和加载顺序无关</li>
 </ul>
 <h1 id="三、利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理"><a href="#三、利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理" class="headerlink" title="三、利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理"></a>三、利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理</h1><ol>
 <li>缓存的分类</li>
@@ -958,13 +958,15 @@
 <p>浏览器在第一次访问资源时，服务器返回资源的同时，在response header中添加 Last-Modified的header，值是这个资源在服务器上的最后修改时间，浏览器接收后缓存文件和header；<br>浏览器下一次请求这个资源，浏览器检测到有 Last-Modified这个header，于是添加If-Modified-Since这个header，<strong>值就是Last-Modified中的值</strong> ；服务器再次收到这个资源请求，会根据 If-Modified-Since 中的值与服务器中这个资源的最后修改时间对比，如果没有变化，返回304和空的响应体，直接从缓存读取，如果If-Modified-Since的时间小于服务器中这个资源的最后修改时间，说明文件有更新，于是返回新的资源文件和200。 </p>
 <p>存在的弊端：</p>
 <ul>
-<li>如果本地打开缓存文件，即使没有对文件进行修改，但还是会造成 Last-Modified 被修改，服务端不能命中缓存导致发送相同的资源</li>
+<li><p>如果本地打开缓存文件，即使没有对文件进行修改，但还是会造成 Last-Modified 被修改，服务端不能命中缓存导致发送相同的资源</p>
+</li>
 <li><p>因为 Last-Modified 只能以秒计时，如果在不可感知的时间内修改完成文件，那么服务端会认为资源还是命中了，不会返回正确的资源</p>
 </li>
 <li><p>Etag 和 If-None-Match<br>Etag是服务器响应请求时，返回当前资源文件的一个唯一标识(由服务器生成，类似一个哈希值)，只要资源有变化，Etag就会重新生成。浏览器在下一次加载资源向服务器发送请求时，会将上一次返回的Etag值放到request header里的If-None-Match里，服务器只需要比较客户端传来的If-None-Match跟自己服务器上该资源的ETag是否一致，就能很好地判断资源相对客户端而言是否被修改过了。<br>如果ETag是一致的，则直接返回304知会客户端直接使用本地缓存即可。</p>
 </li>
 </ul>
-<h1 id="四、利用cdn"><a href="#四、利用cdn" class="headerlink" title="四、利用cdn"></a>四、利用cdn</h1><p>CDN又称为内容分发网络，使内容传输的更快，更稳定。<br>也就是说，<strong>把静态资源文件和动态网页分集群部署</strong>，静态资源会被部署到CDN节点上，网页中引用的资源也会变成对应的部署路径.<br>CDN 的核心点有两个: 一个是缓存，一个是回源。</p>
+<p><strong>PS：强缓存的优先级会比协商缓存优先级高，cache-control优先级 &gt; expire，Etag优先级 &gt; Last-modified</strong></p>
+<h1 id="四、利用cdn"><a href="#四、利用cdn" class="headerlink" title="四、利用cdn"></a>四、利用cdn</h1><p>CDN又称为内容分发网络，使内容传输的更快，更稳定。<br>也就是说，<strong>把静态资源文件和动态网页分集群部署</strong>，静态资源会被部署到CDN节点上，网页中引用的资源也会变成对应的部署路径。<br>CDN 的核心点有两个: 一个是缓存，一个是回源。</p>
 <ul>
 <li>缓存<br>将从根服务器请求来的资源按要求缓存。</li>
 <li>回源<br>当有用户访问某个资源的时候，如果被解析到的那个 CDN 节点没有缓存响应的内容，或者是缓存已经到期，就会回源站去获取。没有人访问，CDN 节点不会主动去源站请求资源。</li>
@@ -1158,7 +1160,7 @@
 <p>HTML4 严格模式 &lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01//EN” “<a href="http://www.w3.org/TR/html4/strict.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/html4/strict.dtd&quot;&gt;</a> </p>
 <p>HTML4 宽松模式 &lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01 Transitional//EN” “<a href="http://www.w3.org/TR/html4/loose.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/html4/loose.dtd&quot;&gt;</a></p>
 <p>这里可以看到严格模式和宽松模式的区别主要在于后缀的dtd文件的引用。严格模式不包含展示性和弃用元素（比如font），宽松模式包含所有的HTML元素和属性。</p>
-<h1 id="浏览器的渲染机制"><a href="#浏览器的渲染机制" class="headerlink" title="浏览器的渲染机制"></a>浏览器的渲染机制</h1><p><a href="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/tree.png" target="_blank" rel="noopener">markdown</a></p>
+<h1 id="浏览器的渲染机制"><a href="#浏览器的渲染机制" class="headerlink" title="浏览器的渲染机制"></a>浏览器的渲染机制</h1><p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/tree.png" alt="markdown"></p>
 <p>要了解浏览器的渲染机制，需要先明白以下的概念：</p>
 <ol>
 <li>DOM：Document Object Model，浏览器将HTML解析成树形的数据结构，简称DOM。</li>
@@ -1167,7 +1169,7 @@
 <li>Layout: 计算出Render Tree每个节点的具体位置。</li>
 <li>Painting：通过显卡，将Layout后的节点内容分别呈现到屏幕上。</li>
 </ol>
-<h1 id="重排Reflow-（引起DOM树重新计算的行为）"><a href="#重排Reflow-（引起DOM树重新计算的行为）" class="headerlink" title="重排Reflow （引起DOM树重新计算的行为）"></a>重排Reflow <strong>（引起DOM树重新计算的行为）</strong></h1><p>DOM结构中的各个元素都有自己的盒子，这些都需要浏览器根据各种样式来计算并根据计算结果将元素放到它该出现的位置，这个过程称为reflow。<br>以下是触发reflow的几种方法：</p>
+<h1 id="重排Reflow-（引起DOM树重新计算的行为）"><a href="#重排Reflow-（引起DOM树重新计算的行为）" class="headerlink" title="重排Reflow （引起DOM树重新计算的行为）"></a>重排Reflow <strong>（引起DOM树重新计算的行为）</strong></h1><p>DOM结构中的各个元素都有自己的盒子，这些都需要浏览器根据各种样式来计算，并根据计算结果将元素放到它该出现的位置，这个过程称为reflow。<br>以下是触发reflow的几种方法：</p>
 <ol>
 <li>增加、删除、修改DOM节点的时候，会导致Reflow</li>
 <li>移动DOM的位置，或者生成动画的时候</li>
@@ -1191,11 +1193,21 @@
 </ul>
 <h1 id="输入URL到浏览器显示页面发生了什么"><a href="#输入URL到浏览器显示页面发生了什么" class="headerlink" title="输入URL到浏览器显示页面发生了什么"></a>输入URL到浏览器显示页面发生了什么</h1><ol>
 <li>输入网址github.com</li>
-<li>DNS域名解析系统解析域名</li>
-<li>建立TCP链接</li>
+<li>浏览器查找域名的IP地址</li>
+</ol>
+<ul>
+<li>请求发起后，游览器首先会解析这个域名，首先它会查看本地硬盘的 hosts 文件，看看其中有没有和这个域名对应的规则，如果有的话就直接使用 hosts 文件里面的 ip 地址。</li>
+<li>如果在本地的 hosts 文件没有能够找到对应的 ip 地址，浏览器会发出一个 DNS请求到本地DNS(域名分布系统)服务器 。本地DNS服务器一般都是你的网络接入服务器商提供，比如中国电信，中国移动。</li>
+<li>查询你输入的网址的DNS请求到达本地DNS服务器之后，本地DNS服务器会首先查询它的缓存记录，如果缓存中有此条记录，就可以直接返回结果，此过程是递归的方式进行查询。如果没有，本地DNS服务器还要向DNS根服务器进行查询</li>
+<li>根DNS服务器没有记录具体的域名和IP地址的对应关系，而是告诉本地DNS服务器，你可以到域服务器上去继续查询，并给出域服务器的地址。这种过程是迭代的过程</li>
+<li>本地DNS服务器继续向域服务器发出请求，在这个例子中，请求的对象是.com域服务器。.com域服务器收到请求之后，也不会直接返回域名和IP地址的对应关系，而是告诉本地DNS服务器，你的域名的解析服务器的地址</li>
+<li>最后，本地DNS服务器向域名的解析服务器发出请求，这时就能收到一个域名和IP地址对应关系，本地DNS服务器不仅要把IP地址返回给用户电脑，还要把这个对应关系保存在缓存中，以备下次别的用户查询时，可以直接返回结果，加快网络访问。</li>
+</ul>
+<ol start="3">
+<li>建立TCP链接<br>TCP链接涉及到客户端和服务端之间的三次握手</li>
 <li>浏览器向web服务器发起Http请求</li>
 <li>HTTP服务器处理</li>
-<li>关闭TCP链接</li>
+<li>关闭TCP链接<br>关闭TCP链接涉及客户端和服务端之间的四次挥手</li>
 <li>浏览器解析资源</li>
 <li>浏览器布局渲染</li>
 </ol>

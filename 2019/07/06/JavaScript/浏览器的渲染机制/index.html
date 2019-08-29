@@ -87,10 +87,12 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="DOCTYPE及其作用由于历史的原因，浏览器对页面的渲染方式是不一样的。在W3C标准出来之前，浏览器对页面的渲染没有同一的标准，产生了差异，quirks mod（混杂模式或者兼容模式），但在W3C标准出台之后，浏览器对页面的渲染有了同一的标准即（严格模式或标准模式）。但是为了保证以前就得页面仍然正常显示，有的浏览器就保存了这两种渲染模式（标准兼容模式）。那么究竟采用哪一种方式进行渲染，就要看DOC">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-26T03:36:39.695Z">
+<meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/tree.png">
+<meta property="og:updated_time" content="2019-08-29T06:45:30.375Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器的渲染机制">
 <meta name="twitter:description" content="DOCTYPE及其作用由于历史的原因，浏览器对页面的渲染方式是不一样的。在W3C标准出来之前，浏览器对页面的渲染没有同一的标准，产生了差异，quirks mod（混杂模式或者兼容模式），但在W3C标准出台之后，浏览器对页面的渲染有了同一的标准即（严格模式或标准模式）。但是为了保证以前就得页面仍然正常显示，有的浏览器就保存了这两种渲染模式（标准兼容模式）。那么究竟采用哪一种方式进行渲染，就要看DOC">
+<meta name="twitter:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/tree.png">
 
 
 
@@ -330,7 +332,7 @@
 <p>HTML4 严格模式 &lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01//EN” “<a href="http://www.w3.org/TR/html4/strict.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/html4/strict.dtd&quot;&gt;</a> </p>
 <p>HTML4 宽松模式 &lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01 Transitional//EN” “<a href="http://www.w3.org/TR/html4/loose.dtd&quot;&gt;" target="_blank" rel="noopener">http://www.w3.org/TR/html4/loose.dtd&quot;&gt;</a></p>
 <p>这里可以看到严格模式和宽松模式的区别主要在于后缀的dtd文件的引用。严格模式不包含展示性和弃用元素（比如font），宽松模式包含所有的HTML元素和属性。</p>
-<h1 id="浏览器的渲染机制"><a href="#浏览器的渲染机制" class="headerlink" title="浏览器的渲染机制"></a>浏览器的渲染机制</h1><p><a href="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/tree.png" target="_blank" rel="noopener">markdown</a></p>
+<h1 id="浏览器的渲染机制"><a href="#浏览器的渲染机制" class="headerlink" title="浏览器的渲染机制"></a>浏览器的渲染机制</h1><p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/tree.png" alt="markdown"></p>
 <p>要了解浏览器的渲染机制，需要先明白以下的概念：</p>
 <ol>
 <li>DOM：Document Object Model，浏览器将HTML解析成树形的数据结构，简称DOM。</li>
@@ -339,7 +341,7 @@
 <li>Layout: 计算出Render Tree每个节点的具体位置。</li>
 <li>Painting：通过显卡，将Layout后的节点内容分别呈现到屏幕上。</li>
 </ol>
-<h1 id="重排Reflow-（引起DOM树重新计算的行为）"><a href="#重排Reflow-（引起DOM树重新计算的行为）" class="headerlink" title="重排Reflow （引起DOM树重新计算的行为）"></a>重排Reflow <strong>（引起DOM树重新计算的行为）</strong></h1><p>DOM结构中的各个元素都有自己的盒子，这些都需要浏览器根据各种样式来计算并根据计算结果将元素放到它该出现的位置，这个过程称为reflow。<br>以下是触发reflow的几种方法：</p>
+<h1 id="重排Reflow-（引起DOM树重新计算的行为）"><a href="#重排Reflow-（引起DOM树重新计算的行为）" class="headerlink" title="重排Reflow （引起DOM树重新计算的行为）"></a>重排Reflow <strong>（引起DOM树重新计算的行为）</strong></h1><p>DOM结构中的各个元素都有自己的盒子，这些都需要浏览器根据各种样式来计算，并根据计算结果将元素放到它该出现的位置，这个过程称为reflow。<br>以下是触发reflow的几种方法：</p>
 <ol>
 <li>增加、删除、修改DOM节点的时候，会导致Reflow</li>
 <li>移动DOM的位置，或者生成动画的时候</li>
@@ -363,11 +365,21 @@
 </ul>
 <h1 id="输入URL到浏览器显示页面发生了什么"><a href="#输入URL到浏览器显示页面发生了什么" class="headerlink" title="输入URL到浏览器显示页面发生了什么"></a>输入URL到浏览器显示页面发生了什么</h1><ol>
 <li>输入网址github.com</li>
-<li>DNS域名解析系统解析域名</li>
-<li>建立TCP链接</li>
+<li>浏览器查找域名的IP地址</li>
+</ol>
+<ul>
+<li>请求发起后，游览器首先会解析这个域名，首先它会查看本地硬盘的 hosts 文件，看看其中有没有和这个域名对应的规则，如果有的话就直接使用 hosts 文件里面的 ip 地址。</li>
+<li>如果在本地的 hosts 文件没有能够找到对应的 ip 地址，浏览器会发出一个 DNS请求到本地DNS(域名分布系统)服务器 。本地DNS服务器一般都是你的网络接入服务器商提供，比如中国电信，中国移动。</li>
+<li>查询你输入的网址的DNS请求到达本地DNS服务器之后，本地DNS服务器会首先查询它的缓存记录，如果缓存中有此条记录，就可以直接返回结果，此过程是递归的方式进行查询。如果没有，本地DNS服务器还要向DNS根服务器进行查询</li>
+<li>根DNS服务器没有记录具体的域名和IP地址的对应关系，而是告诉本地DNS服务器，你可以到域服务器上去继续查询，并给出域服务器的地址。这种过程是迭代的过程</li>
+<li>本地DNS服务器继续向域服务器发出请求，在这个例子中，请求的对象是.com域服务器。.com域服务器收到请求之后，也不会直接返回域名和IP地址的对应关系，而是告诉本地DNS服务器，你的域名的解析服务器的地址</li>
+<li>最后，本地DNS服务器向域名的解析服务器发出请求，这时就能收到一个域名和IP地址对应关系，本地DNS服务器不仅要把IP地址返回给用户电脑，还要把这个对应关系保存在缓存中，以备下次别的用户查询时，可以直接返回结果，加快网络访问。</li>
+</ul>
+<ol start="3">
+<li>建立TCP链接<br>TCP链接涉及到客户端和服务端之间的三次握手</li>
 <li>浏览器向web服务器发起Http请求</li>
 <li>HTTP服务器处理</li>
-<li>关闭TCP链接</li>
+<li>关闭TCP链接<br>关闭TCP链接涉及客户端和服务端之间的四次挥手</li>
 <li>浏览器解析资源</li>
 <li>浏览器布局渲染</li>
 </ol>

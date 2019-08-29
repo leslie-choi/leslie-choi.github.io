@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。 一、资源压缩合并，减少HTTP请求比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。 二、非核心代码异步加载通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。因此，通常会将JavaScript分为两个部分（一部分是渲染初始化页面所必须的，另一部分则是剩下的脚本）">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-29T02:08:17.921Z">
+<meta property="og:updated_time" content="2019-08-29T11:44:54.164Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="提高页面性能">
 <meta name="twitter:description" content="我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。 一、资源压缩合并，减少HTTP请求比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。 二、非核心代码异步加载通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。因此，通常会将JavaScript分为两个部分（一部分是渲染初始化页面所必须的，另一部分则是剩下的脚本）">
@@ -340,8 +340,8 @@
 <li>异步加载的区别</li>
 </ol>
 <ul>
-<li>defer是在HTML解析完之后才会执行，如果是多个，则按照加载的顺序执行</li>
-<li>async是在加载完之后立即执行，如果是多个，执行顺序和加载顺序无关</li>
+<li>defer是在HTML渲染完之后（DOM结构完全生成，以及其他脚本执行完成之后）才会执行，如果是多个，则按照加载的顺序执行，优先级比async高</li>
+<li>async是在下载完脚本之后立即执行，渲染引擎会中断，执行完脚本之后才会继续渲染，如果是多个，执行顺序和加载顺序无关</li>
 </ul>
 <h1 id="三、利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理"><a href="#三、利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理" class="headerlink" title="三、利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理"></a>三、利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理</h1><ol>
 <li>缓存的分类</li>
@@ -365,13 +365,15 @@
 <p>浏览器在第一次访问资源时，服务器返回资源的同时，在response header中添加 Last-Modified的header，值是这个资源在服务器上的最后修改时间，浏览器接收后缓存文件和header；<br>浏览器下一次请求这个资源，浏览器检测到有 Last-Modified这个header，于是添加If-Modified-Since这个header，<strong>值就是Last-Modified中的值</strong> ；服务器再次收到这个资源请求，会根据 If-Modified-Since 中的值与服务器中这个资源的最后修改时间对比，如果没有变化，返回304和空的响应体，直接从缓存读取，如果If-Modified-Since的时间小于服务器中这个资源的最后修改时间，说明文件有更新，于是返回新的资源文件和200。 </p>
 <p>存在的弊端：</p>
 <ul>
-<li>如果本地打开缓存文件，即使没有对文件进行修改，但还是会造成 Last-Modified 被修改，服务端不能命中缓存导致发送相同的资源</li>
+<li><p>如果本地打开缓存文件，即使没有对文件进行修改，但还是会造成 Last-Modified 被修改，服务端不能命中缓存导致发送相同的资源</p>
+</li>
 <li><p>因为 Last-Modified 只能以秒计时，如果在不可感知的时间内修改完成文件，那么服务端会认为资源还是命中了，不会返回正确的资源</p>
 </li>
 <li><p>Etag 和 If-None-Match<br>Etag是服务器响应请求时，返回当前资源文件的一个唯一标识(由服务器生成，类似一个哈希值)，只要资源有变化，Etag就会重新生成。浏览器在下一次加载资源向服务器发送请求时，会将上一次返回的Etag值放到request header里的If-None-Match里，服务器只需要比较客户端传来的If-None-Match跟自己服务器上该资源的ETag是否一致，就能很好地判断资源相对客户端而言是否被修改过了。<br>如果ETag是一致的，则直接返回304知会客户端直接使用本地缓存即可。</p>
 </li>
 </ul>
-<h1 id="四、利用cdn"><a href="#四、利用cdn" class="headerlink" title="四、利用cdn"></a>四、利用cdn</h1><p>CDN又称为内容分发网络，使内容传输的更快，更稳定。<br>也就是说，<strong>把静态资源文件和动态网页分集群部署</strong>，静态资源会被部署到CDN节点上，网页中引用的资源也会变成对应的部署路径.<br>CDN 的核心点有两个: 一个是缓存，一个是回源。</p>
+<p><strong>PS：强缓存的优先级会比协商缓存优先级高，cache-control优先级 &gt; expire，Etag优先级 &gt; Last-modified</strong></p>
+<h1 id="四、利用cdn"><a href="#四、利用cdn" class="headerlink" title="四、利用cdn"></a>四、利用cdn</h1><p>CDN又称为内容分发网络，使内容传输的更快，更稳定。<br>也就是说，<strong>把静态资源文件和动态网页分集群部署</strong>，静态资源会被部署到CDN节点上，网页中引用的资源也会变成对应的部署路径。<br>CDN 的核心点有两个: 一个是缓存，一个是回源。</p>
 <ul>
 <li>缓存<br>将从根服务器请求来的资源按要求缓存。</li>
 <li>回源<br>当有用户访问某个资源的时候，如果被解析到的那个 CDN 节点没有缓存响应的内容，或者是缓存已经到期，就会回源站去获取。没有人访问，CDN 节点不会主动去源站请求资源。</li>
