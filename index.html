@@ -525,8 +525,31 @@
 <p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff1.png" alt="markdown"></p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 之前 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>           <span class="comment">&lt;!-- 层级1 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>            <span class="comment">&lt;!-- 层级2 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">b</span>&gt;</span> aoy <span class="tag">&lt;/<span class="name">b</span>&gt;</span>   <span class="comment">&lt;!-- 层级3 --&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>diff<span class="tag">&lt;/<span class="name">Span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">P</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 之后 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>            <span class="comment">&lt;!-- 层级1 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>             <span class="comment">&lt;!-- 层级2 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">b</span>&gt;</span> aoy <span class="tag">&lt;/<span class="name">b</span>&gt;</span>        <span class="comment">&lt;!-- 层级3 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>&gt;</span>diff<span class="tag">&lt;/<span class="name">Span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>最理想的就是将<span>直接移动到<p>的后边，这是最优的操作。但是实际的diff操作是移除</p><p>里的<span>，然后再创建一个新的<span>插到<p>的后边。<br>因为新加的<span>在层级2，旧的在层级3，属于不同层级的比较。</span></p>
-<p>diff算法的过程其实就是调用patch函数，就像是打补丁一样修改真实DOM。<br>patch函数有两个参数，vnode和oldVnode，也就是新旧两个虚拟节点。在这之前，我们先了解完整的vnode都有什么属性，举个一个简单的例子</p>
-<h1 id="30-道-Vue-面试题，内含详细讲解（涵盖入门到精通，自测-Vue-掌握程度）"><a href="#30-道-Vue-面试题，内含详细讲解（涵盖入门到精通，自测-Vue-掌握程度）" class="headerlink" title="30 道 Vue 面试题，内含详细讲解（涵盖入门到精通，自测 Vue 掌握程度）"></a><a href="https://juejin.im/post/5d59f2a451882549be53b170" target="_blank" rel="noopener">30 道 Vue 面试题，内含详细讲解（涵盖入门到精通，自测 Vue 掌握程度）</a></h1><p>解析vue2.0的diff算法<br><a href="https://github.com/aooy/blog/issues/2" target="_blank" rel="noopener">解析vue2.0的diff算法</a></p>
+<p>diff算法的过程其实就是调用patch函数，就像是打补丁一样修改真实DOM。<br>patch函数有两个参数，vnode和oldVnode，也就是新旧两个虚拟节点。</p>
+<h2 id="sameVnode"><a href="#sameVnode" class="headerlink" title="sameVnode"></a><strong>sameVnode</strong></h2><p>在这之前，我们先了解完整的vnode都有什么属性，举个一个简单的例子:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// body下的 &lt;div id="v" class="classA"&gt;&lt;div&gt; 对应的 oldVnode 就是</span></span><br><span class="line">&#123;</span><br><span class="line">  el:  div  <span class="comment">//对真实的节点的引用，本例中就是document.querySelector('#id.classA')</span></span><br><span class="line">  tagName: <span class="string">'DIV'</span>,   <span class="comment">//节点的标签</span></span><br><span class="line">  sel: <span class="string">'div#v.classA'</span>  <span class="comment">//节点的选择器</span></span><br><span class="line">  data: <span class="literal">null</span>,       <span class="comment">// 一个存储节点属性的对象，对应节点的el[prop]属性，例如onclick , style</span></span><br><span class="line">  children: [], <span class="comment">//存储子节点的数组，每个子节点也是vnode结构</span></span><br><span class="line">  text: <span class="literal">null</span>,    <span class="comment">//如果是文本节点，对应文本节点的textContent，否则为null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>来到patch的第一部分，sameVnode函数就是看这两个节点是否值得比较：<br>判断两个Vnode节点是否是同一个节点，需要满足下面的条件</p>
+<ul>
+<li>key相同</li>
+<li>tag（当前节点的标签名）相同</li>
+<li>isComment（是否为注释节点）相同</li>
+<li>是否data（当前节点对应的对象，包含了具体的一些数据信息，是一个VNodeData类型，可以参考VNodeData类型中的数据信息）都有定义</li>
+<li>当标签是<input>的时候，type必须相同</li>
+</ul>
+<p>当两个VNode的tag、key、isComment都相同，并且同时定义或未定义data的时候，且如果标签为input则type必须相同。这时候这两个VNode则算sameVnode，可以直接进行patchVnode操作。</p>
+<h2 id="patchVnode"><a href="#patchVnode" class="headerlink" title="patchVnode"></a><strong>patchVnode</strong></h2><p>patchVnode的规则是这样的：</p>
+<ol>
+<li><p>如果新旧VNode都是静态的，同时它们的key相同（代表同一节点），并且新的VNode是clone或者是标记了once（标记v-once属性，只渲染一次），那么只需要替换elm以及componentInstance即可。</p>
+</li>
+<li><p>新老节点均有children子节点，则对子节点进行diff操作，调用updateChildren，这个updateChildren也是diff的核心。</p>
+</li>
+<li><p>如果老节点没有子节点而新节点存在子节点，先清空老节点DOM的文本内容，然后为当前DOM节点加入子节点。</p>
+</li>
+<li><p>当新节点没有子节点而老节点有子节点的时候，则移除该DOM节点的所有子节点。</p>
+</li>
+<li><p>当新老节点都无子节点的时候，只是文本的替换。</p>
+</li>
+</ol>
+<h2 id=""><a href="#" class="headerlink" title="**"></a><em>**</em></h2><p><a href="https://juejin.im/post/5d59f2a451882549be53b170" target="_blank" rel="noopener">30 道 Vue 面试题，内含详细讲解（涵盖入门到精通，自测 Vue 掌握程度）</a><br><a href="https://github.com/aooy/blog/issues/2" target="_blank" rel="noopener">解析vue2.0的diff算法</a><br><a href="https://github.com/answershuto/learnVue/blob/master/docs/VirtualDOM与diff(Vue实现" target="_blank" rel="noopener">VirtualDOM与diff(Vue实现)</a>.MarkDown)</p>
 </span></span></p></span></p>
           
         
@@ -892,7 +915,8 @@
       
         
           
-            <h1 id="一、资源压缩合并，减少HTTP请求"><a href="#一、资源压缩合并，减少HTTP请求" class="headerlink" title="一、资源压缩合并，减少HTTP请求"></a>一、资源压缩合并，减少HTTP请求</h1><p>比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。</p>
+            <p>我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。</p>
+<h1 id="一、资源压缩合并，减少HTTP请求"><a href="#一、资源压缩合并，减少HTTP请求" class="headerlink" title="一、资源压缩合并，减少HTTP请求"></a>一、资源压缩合并，减少HTTP请求</h1><p>比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。</p>
 <h1 id="二、非核心代码异步加载"><a href="#二、非核心代码异步加载" class="headerlink" title="二、非核心代码异步加载"></a>二、非核心代码异步加载</h1><p>通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。因此，通常会将JavaScript分为两个部分（一部分是渲染初始化页面所必须的，另一部分则是剩下的脚本）来进行加载。这样就可以尽可能快速地渲染出网页。</p>
 <ol>
 <li>异步加载的方式：</li>
@@ -913,8 +937,12 @@
 <li>async是在加载完之后立即执行，如果是多个，执行顺序和加载顺序无关</li>
 </ul>
 <h1 id="三、利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理"><a href="#三、利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理" class="headerlink" title="三、利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理"></a>三、利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理</h1><ol>
-<li>缓存的分类<br>强缓存发现本地有请求文件的副本，直接使用；协商缓存则需要和服务器进行交流，通过确认之后才可以使用。</li>
+<li>缓存的分类</li>
 </ol>
+<ul>
+<li>强缓存发现本地有请求文件的副本，直接使用，也就是说如果我们在服务端更新了文件，并不会被浏览器所得知，就无法替换失效的缓存</li>
+<li>协商缓存则需要和服务器进行交流，通过确认之后才可以使用</li>
+</ul>
 <p>a 强缓存：不会向服务器发送请求，直接从缓存中读取资源</p>
 <ul>
 <li><p>Expires Wed, 22 Oct 2018 08:41:00 GMT<br><strong>缓存过期时间，用来指定资源到期的时间，是服务器端的具体的时间点，如果过期则会再次请求</strong></p>
@@ -951,7 +979,20 @@
 <h1 id="五、预解析DNS"><a href="#五、预解析DNS" class="headerlink" title="五、预解析DNS"></a>五、预解析DNS</h1><p>还有一个可以优化网页速度的方式是利用dns的预解析技术。同preload类似，DNS Prefetch在网络层面上优化了资源加载的速度。<br>我们知道，针对DNS的前端优化，主要分为减少DNS的请求次数，还有就是进行DNS预先获取。DNS prefetch就是为了实现这后者。其用法也很简单，只要在link标签上加上对应的属性就行了。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"x-dns-prefetch-control"</span> <span class="attr">content</span>=<span class="string">"on"</span> /&gt;</span> /* 这是用来告知浏览器当前页面要做DNS预解析，可以选择on或者off */</span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"dns-prefetch"</span> <span class="attr">href</span>=<span class="string">"//example.com"</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>复制代码在支持该标准的浏览器上，会自动对链接中的地址域名做DNS解析缓存。不过，像Goolge、火狐这样的现代浏览器即使不设置这个属性，也能在后台做自动预解析。如果你的页面中需要大量访问不同域名的资源，可以利用这项技术加快资源的获取，从而获得更好的用户体验。需要注意的是，DNS预解析虽好，但是也不能滥用。如果对多页面重复DNS预解析，会增加DNS的查询次数。</p>
-<h1 id="六、使用SSR（server-side-render）后端渲染，数据直接输出到HTML中"><a href="#六、使用SSR（server-side-render）后端渲染，数据直接输出到HTML中" class="headerlink" title="六、使用SSR（server side render）后端渲染，数据直接输出到HTML中"></a>六、使用SSR（server side render）后端渲染，数据直接输出到HTML中</h1><h1 id="七、渲染优化"><a href="#七、渲染优化" class="headerlink" title="七、渲染优化"></a>七、渲染优化</h1><ul>
+<h1 id="六、使用SSR（server-side-render）服务端渲染，数据直接输出到HTML中"><a href="#六、使用SSR（server-side-render）服务端渲染，数据直接输出到HTML中" class="headerlink" title="六、使用SSR（server side render）服务端渲染，数据直接输出到HTML中"></a>六、使用SSR（server side render）服务端渲染，数据直接输出到HTML中</h1><p>ssr是Server-Side Rendering的简写，即由服务端负责渲染页面直出，亦即同构应用。程序的大部分代码都可以在服务端和客户端运行。在服务端vue组件渲染为html字符串，然后直接返回给客户端，在客户端生成dom和操作dom。</p>
+<p>能在服务端渲染为html字符串得益于vue组件结构是基于vnode的。vnode是dom的抽象表达，它不是真实的dom，它是由js对象组成的树，每个节点代表了一个dom。因为vnode，所以在服务端vue可以把js对象解析为html字符串。同样在客户端vnode因为是存在内存之中的，操作内存总比操作dom快的多，每次数据变化需要更新dom时，新旧vnode树经过diff算法，计算出最小变化集，大大提高了性能。</p>
+<p><strong>服务端渲染 SSR 的优缺点如下：</strong></p>
+<p>(1) 服务端渲染的优点：</p>
+<ul>
+<li>更好的 SEO： 因为 SPA 页面的内容是通过 Ajax 获取，而搜索引擎爬取工具并不会等待 Ajax 异步完成后再抓取页面内容，所以在 SPA 中是抓取不到页面通过 Ajax 获取到的内容；而 SSR 是直接由服务端返回已经渲染好的页面（数据已经包含在页面中），所以搜索引擎爬取工具可以抓取渲染好的页面</li>
+<li>更快的内容到达时间（首屏加载更快）： SPA 会等待所有 Vue 编译后的 js 文件都下载完成后，才开始进行页面的渲染，文件下载等需要一定的时间等，所以首屏渲染需要一定的时间；SSR 直接由服务端渲染好页面直接返回显示，无需等待下载 js 文件及再去渲染等，所以 SSR 有更快的内容到达时间</li>
+</ul>
+<p>(2) 服务端渲染的缺点：</p>
+<ul>
+<li>更多的开发条件限制： <strong>例如服务端渲染只支持 beforCreate 和 created 两个钩子函数</strong>，这会导致一些外部扩展库需要特殊处理，才能在服务端渲染应用程序中运行；并且与可以部署在任何静态文件服务器上的完全静态单页面应用程序 SPA 不同，服务端渲染应用程序，需要处于 Node.js server 运行环境；</li>
+<li>更多的服务器负载：在 Node.js  中渲染完整的应用程序，显然会比仅仅提供静态文件的  server 更加大量占用CPU 资源 (CPU-intensive - CPU 密集)，因此如果你预料在高流量环境 ( high traffic ) 下使用，请准备相应的服务器负载，并明智地采用缓存策略。</li>
+</ul>
+<h1 id="七、渲染优化"><a href="#七、渲染优化" class="headerlink" title="七、渲染优化"></a>七、渲染优化</h1><ul>
 <li>css放在head里面，JS放在body的底部</li>
 <li>懒加载（图片懒加载、下拉加载更多）</li>
 <li>减少对DOM查询，对DOM查询做缓存</li>
@@ -1737,11 +1778,31 @@
 <p>在正常情况下，函数的执行上下文，在执行完毕之后，生命周期结束，那么该函数的执行上下文就会失去引用。其占用的内存空间很快就会被垃圾回收器释放。可是闭包的存在，会阻止这一过程。<br>上面的例子中。foo()执行完毕之后，按照常理，其执行环境生命周期会结束，所占内存被垃圾收集器释放。但是通过返回innerFoo，函数innerFoo的引用被保留了下来，将foo复制给了全局变量fn。这个行为，导致了foo中的变量对象a，也被保留了下来。于是，函数fn执行时，依然可以访问这个被保留下来的变量对象。所以此刻仍然能够访问到变量a的值。<br>所以可以把foo当成一个闭包，下图是foo的作用域链：<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/foo.PNG" alt="markdown"></p>
 <p>经典例子<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> tmp = <span class="number">3</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">y</span>)</span>&#123;</span><br><span class="line">        alert(x+y+(++tmp));</span><br><span class="line">    &#125;</span><br><span class="line">    bar(<span class="number">10</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(<span class="number">2</span>);            <span class="comment">//永远是16</span></span><br><span class="line">foo(<span class="number">2</span>);            <span class="comment">//永远是16</span></span><br><span class="line">foo(<span class="number">2</span>);            <span class="comment">//永远是16</span></span><br></pre></td></tr></table></figure></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> tmp = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">y</span>)</span>&#123;</span><br><span class="line">        alert(x+y+(++tmp));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> bar = foo(<span class="number">2</span>);</span><br><span class="line">bar(<span class="number">10</span>);        <span class="comment">//16</span></span><br><span class="line">bar(<span class="number">10</span>);        <span class="comment">//17</span></span><br><span class="line">bar(<span class="number">10</span>);        <span class="comment">//18</span></span><br></pre></td></tr></table></figure>
+<p>由于闭包的使用内存不会被回收，所以滥用闭包在低版本IE浏览器中可能会导致内存泄漏<br>导致内存泄漏的几种情况：</p>
+<ul>
+<li>意外的全局变量（没有通过var声明，导致被挂在window上）：使用严格模式避免。</li>
+<li>未销毁的定时器或者回调函数：手动删除定时器</li>
+<li>闭包：将事件处理函数定义在外部，解除闭包<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bindEvent</span>(<span class="params"></span>) </span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line">    <span class="keyword">var</span> obj=<span class="built_in">document</span>.createElement(<span class="string">"XXX"</span>); </span><br><span class="line">    obj.οnclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span><br><span class="line">        <span class="comment">//Even if it's a empty function </span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//转化为以下函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bindEvent</span>(<span class="params"></span>) </span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line">    <span class="keyword">var</span> obj=<span class="built_in">document</span>.createElement(<span class="string">"XXX"</span>); </span><br><span class="line">    obj.οnclick=onclickHandler; </span><br><span class="line">&#125; </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onclickHandler</span>(<span class="params"></span>)</span>&#123; </span><br><span class="line">    <span class="comment">//do something </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 <ul>
 <li><code>stopPropagation()</code> 阻止事件冒泡。 这个事件不会阻止定义在元素上的其他事件。</li>
 <li><code>stopImmediatePropagation()</code> 会彻底的阻止事件， 在其之后的绑定在元素上的其他监听事件都不会触发</li>
 <li><code>preventDefault()</code> 阻止事件的默认动作</li>
 </ul>
+<h1 id="垃圾回收机制"><a href="#垃圾回收机制" class="headerlink" title="垃圾回收机制"></a>垃圾回收机制</h1><p>必要性：由于字符串、对象和数组没有固定大小，所有当他们的大小已知时，才能对他们进行动态的存储分配。JavaScript程序每次创建字符串、数组或对象时，解释器都必须分配内存来存储那个实体。只要像这样动态地分配了内存，最终都要释放这些内存以便他们能够被再用，否则，JavaScript的解释器将会消耗完系统中所有可用的内存，造成系统崩溃。</p>
+<p>现在各大浏览器通常用采用的垃圾回收有两种方法：标记清除、引用计数（已经淘汰）。</p>
+<ul>
+<li><strong>标记清除：</strong>这是javascript中最常用的垃圾回收方式。当变量进入执行环境时（例如在函数中声明一个变量），就标记这个变量为“进入环境”。从逻辑上讲，永远不能释放进入环境的变量所占用的内存，因为只要执行流进入相应的环境，就可能会用到他们。当变量离开环境时，则将其标记为“离开环境”。</li>
+</ul>
+<p>垃圾收集器在运行的时候会给存储在内存中的所有变量都加上标记。然后，它会去掉环境中的变量以及被环境中的变量引用的标记。而在此之后再被加上标记的变量将被视为准备删除的变量，原因是环境中的变量已经无法访问到这些变量了。最后。垃圾收集器完成内存清除工作，销毁那些带标记的值，并回收他们所占用的内存空间。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;<span class="comment">//被标记进入环境  </span></span><br><span class="line">&#125;</span><br><span class="line">test();<span class="comment">//执行结束后被标记离开环境 被回收</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>引用计数：</strong>另一种不太常见的垃圾回收策略是引用计数。引用计数的含义是跟踪记录每个值被引用的次数。当声明了一个变量并将一个<strong>引用类型</strong>赋值给该变量时，则这个值的引用次数就是1。相反，如果包含对这个值引用的变量又取得了另外一个值，则这个值的引用次数就减1。当这个引用次数变成0时，则说明没有办法再访问这个值了，因而就可以将其所占的内存空间给收回来。这样，垃圾收集器下次再运行时，它就会释放那些引用次数为0的值所占的内存。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;&#125;; <span class="comment">//a的引用次数为0，需要时一个引用类型的值</span></span><br><span class="line"><span class="keyword">var</span> b = a; <span class="comment">//a的引用次数为1</span></span><br><span class="line"><span class="keyword">var</span> c = a;<span class="comment">//a的引用次数为2</span></span><br><span class="line"><span class="keyword">var</span> b = &#123;&#125;;  <span class="comment">//a的引用次数减1 为 1</span></span><br></pre></td></tr></table></figure>
+<p>但是引用计数存在以下问题：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">problem</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> objA = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    <span class="keyword">var</span> objB = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"></span><br><span class="line">    objA.someOtherObject = objB;</span><br><span class="line">    objB.anotherObject = objA;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这个例子中，<strong>objA和objB通过各自的属性相互引用；</strong>也就是说这两个对象的引用次数都是2。在采用引用计数的策略中，由于函数执行之后，这两个对象都离开了作用域，函数执行完成之后，objA和objB还将会继续存在，<strong>因为他们的引用次数永远不会是0。</strong>这样的相互引用如果说很大量的存在就会导致大量的内存泄露。</p>
 <p>参考文章：<br><a href="https://www.jianshu.com/p/21a16d44f150" target="_blank" rel="noopener">前端基础进阶（四）：详细图解作用域链与闭包</a></p>
 
           

@@ -322,11 +322,11 @@
       
         
           
-            <p><strong>首先必须了解JS是单线程的，最主要的原因就是为了避免DOM的冲突，虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中。</strong></p>
+            <p><strong>首先必须了解JS是单线程的（语言核心），最主要的原因就是为了避免DOM的冲突，虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中。</strong></p>
 <p>PS:进程和线程的区别</p>
 <ul>
-<li>进程：是并发执行的程序在执行过程中分配和管理资源的基本单位，是一个动态概念，竞争计算机系统资源的基本单位。</li>
-<li>线程：是进程中的一部分，一个没有线程的进程也可以被看作是单线程的，是CPU调度的一个基本单位。</li>
+<li>进程：是并发执行的程序在执行过程中分配和管理资源的基本单位，是一个动态概念，竞争计算机系统资源的基本单位。（类比工厂。浏览器就是多进程的，一个窗口就是一个进程）</li>
+<li>线程：是进程中的一部分，一个没有线程的进程也可以被看作是单线程的，是CPU调度的一个基本单位。（类比工人）</li>
 </ul>
 <h1 id="一、任务队列"><a href="#一、任务队列" class="headerlink" title="一、任务队列"></a>一、任务队列</h1><p>因为Javascript是单线程的，所以意味着任务需要一个接着一个完成。但是如果前面的任务执行时间很长，那么后面的任务就得一直阻塞着，这样用户体验十分差。<br>JavaScript的设计者考虑到了这一点，所以他将JavaScript的任务分为两种，在主线程上执行的任务”同步任务”，被主线程挂载起来的任务”异步任务”,后者一般是放在一个叫<strong>任务队列</strong>的数据结构中。<br>那么一般异步执行运行机制如下(也是JavaScript的运行机制)：</p>
 <p>(1)所有同步任务都在主线程上执行，形成一个<strong>执行栈</strong>。</p>
@@ -340,7 +340,7 @@
 <p>上面代码的执行结果是1,3,2，因为只有setTimeout里面的代码是异步任务，其它都是主线程里的同步任务，所以只有执行完了主线程中的所有任务，才会执行setTimeout中的任务。</p>
 <h1 id="四、Even-Loop"><a href="#四、Even-Loop" class="headerlink" title="四、Even Loop"></a>四、Even Loop</h1><p>javascript提供的与 <strong>“任务队列”</strong> 有关的方法有：setTimeout、setInterval、process.nextTick和setImmediate。</p>
 <p>process.nextTick方法可以在当前“执行栈”的尾部——下一次Event Loop(主线程读取“任务队列”)之前——触发回调函数。也就是说，它指定的任务总是发生在所有异步任务之前。<br>setImmediate方法则是在当前“任务队列”的尾部添加事件，也即是说，它指定的任务总是在下一次Event Loop时执行。</p>
-<p>在JavaScript中，任务被详细分为两种，一种宏任务（MacroTask）也叫Task，一种叫微任务（MicroTask）。</p>
+<p>在JavaScript中，异步任务被详细分为两种，一种宏任务（MacroTask）也叫Task，一种叫微任务（MicroTask）。</p>
 <p><strong>MacroTask（宏任务）</strong></p>
 <p>script全部代码、setTimeout、setInterval、setImmediate（浏览器暂时不支持，只有IE10支持，具体可见MDN）、I/O、UI Rendering。</p>
 <p><strong>MicroTask（微任务）</strong></p>
@@ -348,9 +348,9 @@
 <p>接下来介绍浏览器的JavaScript代码的具体流程：</p>
 <ol>
 <li>执行全局Script同步代码，这些同步代码有一些是同步语句，有一些是异步语句（比如setTimeout等）；</li>
-<li>全局Script代码执行完毕后，调用栈Stack会清空；</li>
+<li>全局Script同步代码执行完毕后，调用栈Stack会清空；</li>
 <li>从微队列microtask queue中取出位于队首的回调任务，放入调用栈Stack中执行，执行完后microtask queue长度减1；</li>
-<li>继续取出位于队首的任务，放入调用栈Stack中执行，以此类推，直到直到把microtask queue中的所有任务都执行完毕。注意，如果在执行microtask的过程中，又产生了microtask，那么会加入到队列的末尾，也会在这个周期被调用执行；</li>
+<li>继续取出位于队首的任务，放入调用栈Stack中执行，以此类推，直到直到把microtask queue中的所有任务都执行完毕。<strong>注意，如果在执行microtask的过程中，又产生了microtask，那么会加入到队列的末尾，也会在这个周期被调用执行；</strong></li>
 <li>microtask queue中的所有任务都执行完毕，此时microtask queue为空队列，调用栈Stack也为空；</li>
 <li>取出宏队列macrotask queue中位于队首的任务，放入Stack中执行；</li>
 <li>执行完毕后，调用栈Stack为空；</li>
@@ -377,8 +377,8 @@
 <li>再回到await的位置执行返回的 Promise 的 resolve 函数，这又会把 resolve 丢到微任务队列中，打印async1 end。</li>
 <li>当微任务队列为空时，执行宏任务,打印setTimeout。<br>这里的主要问题是把async和await弄清楚。。。</li>
 </ul>
-<p>参考文章：</p>
-<p><a href="https://juejin.im/post/5c3d8956e51d4511dc72c200" target="_blank" rel="noopener">一次弄懂Event Loop（彻底解决此类面试问题）</a><br><a href="https://segmentfault.com/a/1190000016278115?utm_source=tag-newest#articleHeader8" target="_blank" rel="noopener">带你彻底弄懂 Event Loop</a></p>
+<p>小结：执行顺序：同步代码 =&gt; 微任务(.then) =&gt; 宏任务 </p>
+<p>参考文章：<br><a href="https://juejin.im/post/5c3d8956e51d4511dc72c200" target="_blank" rel="noopener">一次弄懂Event Loop（彻底解决此类面试问题）</a><br><a href="https://segmentfault.com/a/1190000016278115?utm_source=tag-newest#articleHeader8" target="_blank" rel="noopener">带你彻底弄懂 Event Loop</a></p>
 
           
         
@@ -1669,23 +1669,7 @@
 <li>通过声明提升，函数可以在声明的函数体之上进行调用，变量也可以在赋值之前进行输出，而且不会报错，如果说直接输出一个没有声明的变量就会报错。</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">f1(); <span class="comment">// 'hello'</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'hello'</span>);</span><br><span class="line">&#125; <span class="comment">// 此时预解析函数 f1 声明提升, 所以上面的调用控制台中调用不会报错</span></span><br><span class="line"><span class="built_in">console</span>.log(num); <span class="comment">// undefined  此时预解析变量 num 声明提升（没有赋值）</span></span><br><span class="line"><span class="keyword">var</span> num = <span class="number">5</span>; <span class="comment">//  所以上面在控制台中调用不会报错，只是显示 undefined</span></span><br></pre></td></tr></table></figure>
-<h1 id="三、SPA单页面应用的优缺点"><a href="#三、SPA单页面应用的优缺点" class="headerlink" title="三、SPA单页面应用的优缺点"></a>三、SPA单页面应用的优缺点</h1><p>SPA分为2种。 第一种，SPA即指水疗、芳香按摩、沐浴、去死角等等。现代SPA主要透过人体的五大感官功能，即听觉（疗效音乐）、味觉（花草茶、健康饮食）、触觉（按摩）、视觉等达到全方位的放松，将精、气、神三者合一，实现身心的放松。</p>
-<p>第二种，spa指的是single page application，就是只有一张Web页面的应用。单页应用程序 (SPA) 是加载单个HTML 页面并在用户与应用程序交互时动态更新该页面的Web应用程序，它在加载页面时，不会加载整个页面，而是只更新某个指定的容器中内容。 浏览器一开始会加载必需的HTML、CSS和JavaScript，所有的操作都在这张页面上完成，都由JavaScript来控制。因此，对单页应用来说模块化的开发和设计显得相当重要。</p>
-<h2 id="优点"><a href="#优点" class="headerlink" title="优点:"></a>优点:</h2><ol>
-<li>用户体验好,快,内容的改变不需要重新加载整个页面</li>
-<li>基于上面一点,spa相对于服务器压力小</li>
-<li>良好的前后端分离</li>
-<li>同一套后端程序代码,不用修改就可以用web界面,手机,平板等多种客户端</li>
-</ol>
-<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点:"></a>缺点:</h2><p>1.不利于seo：右键点击SEO应用查看源码，所有的页面和业务逻辑都封装在app.js中，对于搜索引擎来说，只能够抓取到app.js中的代码，有的搜索引擎会执行js查看页面内容，有的却无法执行，所以无法知道页面的具体内容，故而对SEO不友好。</p>
-<p>2.初次加载耗时相对增多</p>
-<p>3.导航不可用,如果一定要导航需要自行实现前进,后退</p>
-<p>而前端路由router就是管理SPA单页面应用的路径管理器。vue的单页面应用是基于路由和组件的，路由用于设定访问路径，并将路径和组件映射起来。传统的页面应用，是用一些超链接来实现页面切换和跳转的。在vue-router单页面应用中，则是路径之间的切换，也就是组件的切换。路由模块的本质 就是建立起url和页面之间的映射关系。</p>
-<h1 id="四、router的实现原理"><a href="#四、router的实现原理" class="headerlink" title="四、router的实现原理"></a>四、router的实现原理</h1><p><strong>更新视图而不重新请求页面</strong>;vue-router在实现单页面前端路由时，提供了两种方式：Hash模式和History模式；根据mode参数来决定采用哪一种方式。</p>
-<h3 id="1、Hash模式："><a href="#1、Hash模式：" class="headerlink" title="1、Hash模式："></a>1、Hash模式：</h3><p>vue-router 默认 hash 模式 —— 使用 URL 的 hash 来模拟一个完整的 URL，于是当 URL 改变时，页面不会重新加载。 hash（#）是URL 的锚点，代表的是网页中的一个位置，单单改变#后的部分，浏览器只会滚动到相应位置，不会重新加载网页，也就是说hash 出现在 URL 中，但<strong>不会被包含在 http 请求中，对后端完全没有影响</strong>，因此改变 hash 不会重新加载页面；同时每一次改变#后的部分，都会在浏览器的访问历史中增加一个记录，使用”后退”按钮，就可以回到上一个位置；所以说Hash模式通过锚点值的改变，根据不同的值，渲染指定DOM位置的不同数据。hash 模式的原理是 <strong>onhashchange 事件(监测hash值变化)</strong>，可以在 window 对象上监听这个事件，从而进行页面的跳转和渲染</p>
-<h3 id="2、History模式："><a href="#2、History模式：" class="headerlink" title="2、History模式："></a>2、History模式：</h3><p>由于hash模式会在url中自带#，如果不想要很丑的 hash，我们可以用路由的 history 模式，只需要在配置路由规则时，加入”mode: ‘history’，不过这种模式需要后台再进行配置，如果后台配置不正确，访问页面则会返回404错误。</p>
-<h3 id="3、vue-router的使用方式"><a href="#3、vue-router的使用方式" class="headerlink" title="3、vue-router的使用方式"></a>3、vue-router的使用方式</h3><h4 id="1、npm-i-vue-router-S下载路由"><a href="#1、npm-i-vue-router-S下载路由" class="headerlink" title="1、npm i vue-router -S下载路由"></a>1、npm i vue-router -S下载路由</h4><h4 id="2、在main-js中引入-import-VueRouter-from-‘vue-router’"><a href="#2、在main-js中引入-import-VueRouter-from-‘vue-router’" class="headerlink" title="2、在main.js中引入 import VueRouter from ‘vue-router’;"></a>2、在main.js中引入 import VueRouter from ‘vue-router’;</h4><h4 id="3、安装插件Vue-use-VueRouter"><a href="#3、安装插件Vue-use-VueRouter" class="headerlink" title="3、安装插件Vue.use(VueRouter);"></a>3、安装插件Vue.use(VueRouter);</h4><h4 id="4、创建路由对象并配置路由规则-let-router-new-VueRouter-routes-path-’-home’-component-Home"><a href="#4、创建路由对象并配置路由规则-let-router-new-VueRouter-routes-path-’-home’-component-Home" class="headerlink" title="4、创建路由对象并配置路由规则 let router = new VueRouter({routes:[{path:’/home’,component:Home}]});"></a>4、创建路由对象并配置路由规则 let router = new VueRouter({routes:[{path:’/home’,component:Home}]});</h4><h4 id="5、将其路由对象传递给Vue的实例，options中加入-router-router"><a href="#5、将其路由对象传递给Vue的实例，options中加入-router-router" class="headerlink" title="5、将其路由对象传递给Vue的实例，options中加入 router:router"></a>5、将其路由对象传递给Vue的实例，options中加入 router:router</h4><h4 id="6、在app-vue中留坑"><a href="#6、在app-vue中留坑" class="headerlink" title="6、在app.vue中留坑 "></a>6、在app.vue中留坑 <router-view></router-view></h4><p>（router-view即页面中需要切换的部分）</p>
-<h1 id="五、this指向"><a href="#五、this指向" class="headerlink" title="五、this指向"></a>五、this指向</h1><h2 id="1、形式”test-””"><a href="#1、形式”test-””" class="headerlink" title="1、形式”test()””"></a>1、形式”test()””</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">function test () &#123;</span><br><span class="line">    console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">test()  //1</span><br></pre></td></tr></table></figure>
+<h1 id="三、this指向"><a href="#三、this指向" class="headerlink" title="三、this指向"></a>三、this指向</h1><h2 id="1、形式”test-””"><a href="#1、形式”test-””" class="headerlink" title="1、形式”test()””"></a>1、形式”test()””</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">function test () &#123;</span><br><span class="line">    console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">test()  //1</span><br></pre></td></tr></table></figure>
 <p>直接不带任何引用形式去调用函数，则this会指向全局对象，因为没有其他影响去改变this，this默认就是指向全局对象（浏览器是window，Node中是global）的。这个结论是在非严格模式的情况下，严格模式下这个this其实是undefined的。</p>
 <h2 id="2、形式”xxx-text-”"><a href="#2、形式”xxx-text-”" class="headerlink" title="2、形式”xxx.text()”"></a>2、形式”xxx.text()”</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">function test () &#123;</span><br><span class="line">    console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 2,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line">obj.test()      //2</span><br></pre></td></tr></table></figure>
 <p>这种形式相对于第一中，this指向已经很明显，谁去调用这个函数的，这个函数中的this就绑定到谁身上。</p>
@@ -1701,14 +1685,14 @@
 <p>最后的最后，其实还有一个，就是箭头函数中的this指向。。<br><strong>箭头函数中的this是在定义函数的时候绑定，而不是在执行函数的时候绑定</strong>所谓的定义时候绑定，就是this是继承自父执行上下文中的this！！</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var a = 1</span><br><span class="line">var test = () =&gt; &#123;</span><br><span class="line">    console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 2,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line">obj.test()</span><br></pre></td></tr></table></figure>
 <p><strong>它this指向的是它的外层作用域this的指向。</strong>。外层作用域是整个window，所以输出的是1.</p>
-<h1 id="六、typeof和instanceof的区别"><a href="#六、typeof和instanceof的区别" class="headerlink" title="六、typeof和instanceof的区别"></a>六、typeof和instanceof的区别</h1><h2 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h2><p>typeof 是一个一元运算，放在一个运算数之前，运算数可以是任意类型。<strong>它返回值是一个字符串，该字符串说明运算数的类型。</strong></p>
+<h1 id="四、typeof和instanceof的区别"><a href="#四、typeof和instanceof的区别" class="headerlink" title="四、typeof和instanceof的区别"></a>四、typeof和instanceof的区别</h1><h2 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h2><p>typeof 是一个一元运算，放在一个运算数之前，运算数可以是任意类型。<strong>它返回值是一个字符串，该字符串说明运算数的类型。</strong></p>
 <p>typeof 一般只能返回如下几个结果：<br>“number”、”string”、”boolean”、”object”、”function” 和 “undefined”。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">运算数为数字 typeof(x) = &quot;number&quot; </span><br><span class="line"></span><br><span class="line">字符串 typeof(x) = &quot;string&quot; </span><br><span class="line"></span><br><span class="line">布尔值 typeof(x) = &quot;boolean&quot; </span><br><span class="line"></span><br><span class="line">对象,数组和null typeof(x) = &quot;object&quot; </span><br><span class="line"></span><br><span class="line">函数 typeof(x) = &quot;function&quot;</span><br></pre></td></tr></table></figure>
 <h2 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h2><p>instanceof 运算符用来测试一个对象在其原型链中是否存在一个构造函数的 prototype 属性。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var a=new Array();</span><br><span class="line"></span><br><span class="line">alert(a instanceof Array); // true，</span><br><span class="line"></span><br><span class="line">//同时 alert(a instanceof Object) //也会返回 true;</span><br><span class="line"></span><br><span class="line">//这是因为 Array 是 object 的子类。</span><br></pre></td></tr></table></figure>
 <p>另外，更重的一点是 instanceof 可以在继承关系中用来判断一个实例是否属于它的父类型。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>)</span>&#123;&#125; </span><br><span class="line">Foo.prototype = <span class="keyword">new</span> Aoo();<span class="comment">//JavaScript 原型继承 </span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="keyword">new</span> Foo(); </span><br><span class="line"><span class="built_in">console</span>.log(foo <span class="keyword">instanceof</span> Foo)<span class="comment">//true </span></span><br><span class="line"><span class="built_in">console</span>.log(foo <span class="keyword">instanceof</span> Aoo)<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-<h1 id="七、null和undefined-区别"><a href="#七、null和undefined-区别" class="headerlink" title="七、null和undefined 区别"></a>七、null和undefined 区别</h1><p>null： Null类型，代表“空值”，代表一个<strong>空对象指针</strong>，使用typeof运算得到 <strong>“object”</strong>，所以可以认为它是一个特殊的对象值。</p>
+<h1 id="五、null和undefined-区别"><a href="#五、null和undefined-区别" class="headerlink" title="五、null和undefined 区别"></a>五、null和undefined 区别</h1><p>null： Null类型，代表“空值”，代表一个<strong>空对象指针</strong>，使用typeof运算得到 <strong>“object”</strong>，所以可以认为它是一个特殊的对象值。</p>
 <p>undefined： Undefined类型，声明但是未初始化变量时，得到的就是undefined。</p>
 <p>null是javascript的关键字，可以认为是对象类型，它是一个空对象指针，和其它语言一样都是代表“空值”，不过 undefined 却是javascript才有的。undefined是在ECMAScript第三版引入的，为了区分空指针对象和未初始化的变量，它是一个预定义的全局变量。没有返回值的函数返回为undefined，没有实参的形参也是undefined。</p>
 <p>也可以认为undefined是表示系统级的、出乎意料的或类似错误的值的空缺，而null是表示程序级的、正常的或在意料之中的值的空缺</p>

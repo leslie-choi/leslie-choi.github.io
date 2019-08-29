@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="一、资源压缩合并，减少HTTP请求比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。 二、非核心代码异步加载通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。因此，通常会将JavaScript分为两个部分（一部分是渲染初始化页面所必须的，另一部分则是剩下的脚本）来进行加载。这样就可以尽可能快速地渲染出网页。  异步加载的方式：   动态脚本加载： 1">
+<meta name="description" content="我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。 一、资源压缩合并，减少HTTP请求比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。 二、非核心代码异步加载通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。因此，通常会将JavaScript分为两个部分（一部分是渲染初始化页面所必须的，另一部分则是剩下的脚本）">
 <meta name="keywords" content="basic">
 <meta property="og:type" content="article">
 <meta property="og:title" content="提高页面性能">
 <meta property="og:url" content="http://yoursite.com/2019/07/13/JavaScript/提高页面性能/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="一、资源压缩合并，减少HTTP请求比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。 二、非核心代码异步加载通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。因此，通常会将JavaScript分为两个部分（一部分是渲染初始化页面所必须的，另一部分则是剩下的脚本）来进行加载。这样就可以尽可能快速地渲染出网页。  异步加载的方式：   动态脚本加载： 1">
+<meta property="og:description" content="我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。 一、资源压缩合并，减少HTTP请求比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。 二、非核心代码异步加载通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。因此，通常会将JavaScript分为两个部分（一部分是渲染初始化页面所必须的，另一部分则是剩下的脚本）">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-16T14:58:19.481Z">
+<meta property="og:updated_time" content="2019-08-29T02:08:17.921Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="提高页面性能">
-<meta name="twitter:description" content="一、资源压缩合并，减少HTTP请求比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。 二、非核心代码异步加载通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。因此，通常会将JavaScript分为两个部分（一部分是渲染初始化页面所必须的，另一部分则是剩下的脚本）来进行加载。这样就可以尽可能快速地渲染出网页。  异步加载的方式：   动态脚本加载： 1">
+<meta name="twitter:description" content="我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。 一、资源压缩合并，减少HTTP请求比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。 二、非核心代码异步加载通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。因此，通常会将JavaScript分为两个部分（一部分是渲染初始化页面所必须的，另一部分则是剩下的脚本）">
 
 
 
@@ -322,7 +322,8 @@
       
 
       
-        <h1 id="一、资源压缩合并，减少HTTP请求"><a href="#一、资源压缩合并，减少HTTP请求" class="headerlink" title="一、资源压缩合并，减少HTTP请求"></a>一、资源压缩合并，减少HTTP请求</h1><p>比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。</p>
+        <p>我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。</p>
+<h1 id="一、资源压缩合并，减少HTTP请求"><a href="#一、资源压缩合并，减少HTTP请求" class="headerlink" title="一、资源压缩合并，减少HTTP请求"></a>一、资源压缩合并，减少HTTP请求</h1><p>比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。</p>
 <h1 id="二、非核心代码异步加载"><a href="#二、非核心代码异步加载" class="headerlink" title="二、非核心代码异步加载"></a>二、非核心代码异步加载</h1><p>通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。因此，通常会将JavaScript分为两个部分（一部分是渲染初始化页面所必须的，另一部分则是剩下的脚本）来进行加载。这样就可以尽可能快速地渲染出网页。</p>
 <ol>
 <li>异步加载的方式：</li>
@@ -343,8 +344,12 @@
 <li>async是在加载完之后立即执行，如果是多个，执行顺序和加载顺序无关</li>
 </ul>
 <h1 id="三、利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理"><a href="#三、利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理" class="headerlink" title="三、利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理"></a>三、利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理</h1><ol>
-<li>缓存的分类<br>强缓存发现本地有请求文件的副本，直接使用；协商缓存则需要和服务器进行交流，通过确认之后才可以使用。</li>
+<li>缓存的分类</li>
 </ol>
+<ul>
+<li>强缓存发现本地有请求文件的副本，直接使用，也就是说如果我们在服务端更新了文件，并不会被浏览器所得知，就无法替换失效的缓存</li>
+<li>协商缓存则需要和服务器进行交流，通过确认之后才可以使用</li>
+</ul>
 <p>a 强缓存：不会向服务器发送请求，直接从缓存中读取资源</p>
 <ul>
 <li><p>Expires Wed, 22 Oct 2018 08:41:00 GMT<br><strong>缓存过期时间，用来指定资源到期的时间，是服务器端的具体的时间点，如果过期则会再次请求</strong></p>
@@ -381,7 +386,20 @@
 <h1 id="五、预解析DNS"><a href="#五、预解析DNS" class="headerlink" title="五、预解析DNS"></a>五、预解析DNS</h1><p>还有一个可以优化网页速度的方式是利用dns的预解析技术。同preload类似，DNS Prefetch在网络层面上优化了资源加载的速度。<br>我们知道，针对DNS的前端优化，主要分为减少DNS的请求次数，还有就是进行DNS预先获取。DNS prefetch就是为了实现这后者。其用法也很简单，只要在link标签上加上对应的属性就行了。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"x-dns-prefetch-control"</span> <span class="attr">content</span>=<span class="string">"on"</span> /&gt;</span> /* 这是用来告知浏览器当前页面要做DNS预解析，可以选择on或者off */</span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"dns-prefetch"</span> <span class="attr">href</span>=<span class="string">"//example.com"</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>复制代码在支持该标准的浏览器上，会自动对链接中的地址域名做DNS解析缓存。不过，像Goolge、火狐这样的现代浏览器即使不设置这个属性，也能在后台做自动预解析。如果你的页面中需要大量访问不同域名的资源，可以利用这项技术加快资源的获取，从而获得更好的用户体验。需要注意的是，DNS预解析虽好，但是也不能滥用。如果对多页面重复DNS预解析，会增加DNS的查询次数。</p>
-<h1 id="六、使用SSR（server-side-render）后端渲染，数据直接输出到HTML中"><a href="#六、使用SSR（server-side-render）后端渲染，数据直接输出到HTML中" class="headerlink" title="六、使用SSR（server side render）后端渲染，数据直接输出到HTML中"></a>六、使用SSR（server side render）后端渲染，数据直接输出到HTML中</h1><h1 id="七、渲染优化"><a href="#七、渲染优化" class="headerlink" title="七、渲染优化"></a>七、渲染优化</h1><ul>
+<h1 id="六、使用SSR（server-side-render）服务端渲染，数据直接输出到HTML中"><a href="#六、使用SSR（server-side-render）服务端渲染，数据直接输出到HTML中" class="headerlink" title="六、使用SSR（server side render）服务端渲染，数据直接输出到HTML中"></a>六、使用SSR（server side render）服务端渲染，数据直接输出到HTML中</h1><p>ssr是Server-Side Rendering的简写，即由服务端负责渲染页面直出，亦即同构应用。程序的大部分代码都可以在服务端和客户端运行。在服务端vue组件渲染为html字符串，然后直接返回给客户端，在客户端生成dom和操作dom。</p>
+<p>能在服务端渲染为html字符串得益于vue组件结构是基于vnode的。vnode是dom的抽象表达，它不是真实的dom，它是由js对象组成的树，每个节点代表了一个dom。因为vnode，所以在服务端vue可以把js对象解析为html字符串。同样在客户端vnode因为是存在内存之中的，操作内存总比操作dom快的多，每次数据变化需要更新dom时，新旧vnode树经过diff算法，计算出最小变化集，大大提高了性能。</p>
+<p><strong>服务端渲染 SSR 的优缺点如下：</strong></p>
+<p>(1) 服务端渲染的优点：</p>
+<ul>
+<li>更好的 SEO： 因为 SPA 页面的内容是通过 Ajax 获取，而搜索引擎爬取工具并不会等待 Ajax 异步完成后再抓取页面内容，所以在 SPA 中是抓取不到页面通过 Ajax 获取到的内容；而 SSR 是直接由服务端返回已经渲染好的页面（数据已经包含在页面中），所以搜索引擎爬取工具可以抓取渲染好的页面</li>
+<li>更快的内容到达时间（首屏加载更快）： SPA 会等待所有 Vue 编译后的 js 文件都下载完成后，才开始进行页面的渲染，文件下载等需要一定的时间等，所以首屏渲染需要一定的时间；SSR 直接由服务端渲染好页面直接返回显示，无需等待下载 js 文件及再去渲染等，所以 SSR 有更快的内容到达时间</li>
+</ul>
+<p>(2) 服务端渲染的缺点：</p>
+<ul>
+<li>更多的开发条件限制： <strong>例如服务端渲染只支持 beforCreate 和 created 两个钩子函数</strong>，这会导致一些外部扩展库需要特殊处理，才能在服务端渲染应用程序中运行；并且与可以部署在任何静态文件服务器上的完全静态单页面应用程序 SPA 不同，服务端渲染应用程序，需要处于 Node.js server 运行环境；</li>
+<li>更多的服务器负载：在 Node.js  中渲染完整的应用程序，显然会比仅仅提供静态文件的  server 更加大量占用CPU 资源 (CPU-intensive - CPU 密集)，因此如果你预料在高流量环境 ( high traffic ) 下使用，请准备相应的服务器负载，并明智地采用缓存策略。</li>
+</ul>
+<h1 id="七、渲染优化"><a href="#七、渲染优化" class="headerlink" title="七、渲染优化"></a>七、渲染优化</h1><ul>
 <li>css放在head里面，JS放在body的底部</li>
 <li>懒加载（图片懒加载、下拉加载更多）</li>
 <li>减少对DOM查询，对DOM查询做缓存</li>
@@ -572,7 +590,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、资源压缩合并，减少HTTP请求"><span class="nav-number">1.</span> <span class="nav-text">一、资源压缩合并，减少HTTP请求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、非核心代码异步加载"><span class="nav-number">2.</span> <span class="nav-text">二、非核心代码异步加载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理"><span class="nav-number">3.</span> <span class="nav-text">三、利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、利用cdn"><span class="nav-number">4.</span> <span class="nav-text">四、利用cdn</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、预解析DNS"><span class="nav-number">5.</span> <span class="nav-text">五、预解析DNS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六、使用SSR（server-side-render）后端渲染，数据直接输出到HTML中"><span class="nav-number">6.</span> <span class="nav-text">六、使用SSR（server side render）后端渲染，数据直接输出到HTML中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#七、渲染优化"><span class="nav-number">7.</span> <span class="nav-text">七、渲染优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#八、事件节流"><span class="nav-number">8.</span> <span class="nav-text">八、事件节流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#九、使用DOMContentLoaded，尽早执行操作"><span class="nav-number">9.</span> <span class="nav-text">九、使用DOMContentLoaded，尽早执行操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#十、减少对DOM的操作"><span class="nav-number">10.</span> <span class="nav-text">十、减少对DOM的操作</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、资源压缩合并，减少HTTP请求"><span class="nav-number">1.</span> <span class="nav-text">一、资源压缩合并，减少HTTP请求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、非核心代码异步加载"><span class="nav-number">2.</span> <span class="nav-text">二、非核心代码异步加载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理"><span class="nav-number">3.</span> <span class="nav-text">三、利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、利用cdn"><span class="nav-number">4.</span> <span class="nav-text">四、利用cdn</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、预解析DNS"><span class="nav-number">5.</span> <span class="nav-text">五、预解析DNS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六、使用SSR（server-side-render）服务端渲染，数据直接输出到HTML中"><span class="nav-number">6.</span> <span class="nav-text">六、使用SSR（server side render）服务端渲染，数据直接输出到HTML中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#七、渲染优化"><span class="nav-number">7.</span> <span class="nav-text">七、渲染优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#八、事件节流"><span class="nav-number">8.</span> <span class="nav-text">八、事件节流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#九、使用DOMContentLoaded，尽早执行操作"><span class="nav-number">9.</span> <span class="nav-text">九、使用DOMContentLoaded，尽早执行操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#十、减少对DOM的操作"><span class="nav-number">10.</span> <span class="nav-text">十、减少对DOM的操作</span></a></li></ol></div>
             
 
           </div>
