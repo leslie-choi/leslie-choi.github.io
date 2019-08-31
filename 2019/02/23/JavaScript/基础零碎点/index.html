@@ -88,7 +88,7 @@
 <meta property="og:description" content="数组Array的对象方法 JS中的类型转换显式类型的转换（强制类型转换） String   toString()方法(但是注意null和undefined两个值没有toString，调用该方法会报错)，当数字调用该方法的时候，可以在括号内传入转换的进制数。  1234567891011var a = 123a.toString()//&quot;123&quot;var b = null;b.toString()//">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/array.png?Expires=1563078432&OSSAccessKeyId=TMP.hUzM36nMKvB1zXcz26YFpTsu24yAPsxCEviigxyofZfAf7vpheogc79FXodgi9beanthKLNsYSGivUwr4yZ8JRSoiZkeRrzZfzNuQud3QTaMZM6fB7trfbW4Se4ko3.tmp&Signature=DMI2kn2EpQCfvRZuu651pb4Q2GE%3D">
-<meta property="og:updated_time" content="2019-08-03T15:49:25.950Z">
+<meta property="og:updated_time" content="2019-08-30T15:19:25.817Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="零碎知识点">
 <meta name="twitter:description" content="数组Array的对象方法 JS中的类型转换显式类型的转换（强制类型转换） String   toString()方法(但是注意null和undefined两个值没有toString，调用该方法会报错)，当数字调用该方法的时候，可以在括号内传入转换的进制数。  1234567891011var a = 123a.toString()//&quot;123&quot;var b = null;b.toString()//">
@@ -381,6 +381,20 @@
 <li>包含引用类型值的变量实际上包含的并不是对象本身，而是一个指向该对象的指针</li>
 <li>从一个变量向另一个变量复制引用类型的值的时候，复制是引用指针，因此两个变量最终都指向同一个对象</li>
 </ul>
+<h1 id="判断是否是数组的几种方法"><a href="#判断是否是数组的几种方法" class="headerlink" title="判断是否是数组的几种方法"></a>判断是否是数组的几种方法</h1><p>1。 使用instanceof方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr=[]</span><br><span class="line"><span class="built_in">console</span>.log(arr <span class="keyword">instanceof</span> <span class="built_in">Array</span>)</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>使用constructor方法</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log([].constructor == <span class="built_in">Array</span>);  <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>使用Object.prototype.toString.call(arr)</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = []</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(arr))		<span class="comment">//[object Array]</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>Array.isArray()</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = []</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.isArray(arr))				<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -555,7 +569,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数组Array的对象方法"><span class="nav-number">1.</span> <span class="nav-text">数组Array的对象方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JS中的类型转换"><span class="nav-number">2.</span> <span class="nav-text">JS中的类型转换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#显式类型的转换（强制类型转换）"><span class="nav-number">2.1.</span> <span class="nav-text">显式类型的转换（强制类型转换）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自动转换"><span class="nav-number">3.</span> <span class="nav-text">自动转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript中的类型检测"><span class="nav-number">4.</span> <span class="nav-text">JavaScript中的类型检测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#值类型与引用类型的差别"><span class="nav-number">5.</span> <span class="nav-text">值类型与引用类型的差别</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数组Array的对象方法"><span class="nav-number">1.</span> <span class="nav-text">数组Array的对象方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JS中的类型转换"><span class="nav-number">2.</span> <span class="nav-text">JS中的类型转换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#显式类型的转换（强制类型转换）"><span class="nav-number">2.1.</span> <span class="nav-text">显式类型的转换（强制类型转换）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自动转换"><span class="nav-number">3.</span> <span class="nav-text">自动转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript中的类型检测"><span class="nav-number">4.</span> <span class="nav-text">JavaScript中的类型检测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#值类型与引用类型的差别"><span class="nav-number">5.</span> <span class="nav-text">值类型与引用类型的差别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#判断是否是数组的几种方法"><span class="nav-number">6.</span> <span class="nav-text">判断是否是数组的几种方法</span></a></li></ol></div>
             
 
           </div>

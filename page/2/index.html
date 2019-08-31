@@ -903,7 +903,7 @@
 <p>file-loader: 生成的文件名就是文件内容的MD5哈希值并会保留所引用资源的原始扩展名</p>
 <p>url-loader: 功能类似</p>
 <p>file-loader,但是文件大小低于指定的限制时，可以返回一个DataURL事实上，在使用less,scss,stylus这些的时候，npm会提示你差什么插件，差什么，你就安上就行了</p>
-<h3 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h3><p>plugins和loader很容易搞混，说都是外部引用有什么区别呢？ 事实上他们是两个完全不同的东西。这么说loaders负责的是处理源文件的如css、jsx，一次处理一个文件。而plugins并不是直接操作单个文件，它直接对整个构建过程起作用下面列举了一些我们常用的plugins和他的用法</p>
+<h3 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h3><p>plugins和loader很容易搞混，说都是外部引用有什么区别呢？ 事实上他们是两个完全不同的东西。这么说loaders负责的是处理源文件的如css、jsx，一次处理一个文件。而plugins并不是直接操作单个文件，它直接对整个构建过程起作用。下面列举了一些我们常用的plugins和他的用法</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">ExtractTextWebpackPlugin: 它会将入口中引用css文件，都打包都独立的css文件中，而不是内嵌在js打包文件中。下面是他的应用</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ExtractTextPlugin = <span class="built_in">require</span>(<span class="string">'extract-text-webpack-plugin'</span>)</span><br><span class="line">        <span class="keyword">var</span> lessRules = &#123;</span><br><span class="line">            use: [</span><br><span class="line">                &#123;<span class="attr">loader</span>: <span class="string">'css-loader'</span>&#125;,</span><br><span class="line">                &#123;<span class="attr">loader</span>: <span class="string">'less-loader'</span>&#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">var</span> baseConfig = &#123;</span><br><span class="line">            <span class="comment">// ... </span></span><br><span class="line">            <span class="built_in">module</span>: &#123;</span><br><span class="line">                rules: [</span><br><span class="line">                    <span class="comment">// ...</span></span><br><span class="line">                    &#123;<span class="attr">test</span>: <span class="regexp">/\.less$/</span>, <span class="attr">use</span>: ExtractTextPlugin.extract(lessRules)&#125;</span><br><span class="line">                ]</span><br><span class="line">            &#125;,</span><br><span class="line">            plugins: [</span><br><span class="line">                <span class="keyword">new</span> ExtractTextPlugin(<span class="string">'main.css'</span>)</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
 <p>手写 WebPack 配置</p>
 <p>。。。。算了吧 手写容易出错（#滑稽）</p>
@@ -1383,7 +1383,7 @@
 <p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/relative.jpg" alt="markdown"></p>
 <p>在relative中，RLTB属性后的值如果是负数，则与其相同方向移动<br>如果值是正数，则与其反方向移动</p>
 <h2 id="3、position-fixed"><a href="#3、position-fixed" class="headerlink" title="3、position:fixed"></a>3、position:fixed</h2><p>fixed定位是指元素的位置相对于<strong>浏览器窗口是固定位置</strong>，即使窗口是滚动的它也不会滚动，且fixed定位使元素的位置与<strong>文档流无关</strong>，因此不占据空间，且它会和其他元素发生重叠。<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/fixed.png" alt="markdown"><br>所以这个属性的应用就类似于网站的小广告一样！！！<br>但是这个属性在IE7和IE8不支持，需要另外声明。</p>
-<h2 id="4、position：static"><a href="#4、position：static" class="headerlink" title="4、position：static"></a>4、position：static</h2><p>默认的属性，只要有了这个属性，元素就会出现在<strong>正常的文档流</strong>，不会收到top、bottom、left和right的影响。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">`<span class="tag">&lt;<span class="name">div</span> ``<span class="attr">class</span>``=``"<span class="attr">wrap</span>"``&gt;</span>`</span><br><span class="line">  `<span class="tag">&lt;<span class="name">div</span> ``<span class="attr">class</span>``=``"<span class="attr">content</span>"``&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;/<span class="name">div</span>&gt;</span>`</span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--对应的css样式--&gt;</span></span><br><span class="line">`.wrap&#123;width: 300px;height: 300px; background: red;&#125;`</span><br><span class="line">`.content&#123;position: ``static``; top:100px; width: 100px;height: 100px; background: blue;&#125;`</span><br></pre></td></tr></table></figure></p>
+<h2 id="4、position：static"><a href="#4、position：static" class="headerlink" title="4、position：static"></a>4、position：static</h2><p>默认的属性，只要有了这个属性，元素就会出现在<strong>正常的文档流</strong>，不会收到top、bottom、left和right的影响。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrap"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--对应的css样式--&gt;</span></span><br><span class="line">.wrap&#123;width: 300px;height: 300px; background: red;&#125;</span><br><span class="line">.content&#123;position: static; top:100px; width: 100px;height: 100px; background: blue;&#125;</span><br></pre></td></tr></table></figure></p>
 <p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/stack.png" alt="markdown"><br>从图片上可以看到，position设置了static属性，但是没有受到TBRL的影响</p>
 <h2 id="5、position：sticky"><a href="#5、position：sticky" class="headerlink" title="5、position：sticky"></a>5、position：sticky</h2><p>基于用户的滚动位置来定位。<br>粘性定位的元素是依赖于用户的滚动，在 position:relative 与 position:fixed 定位之间切换。<br>它的行为就像 position:relative; 而当页面滚动超出目标区域时，它的表现就像 position:fixed;，它会固定在目标位置。<br>元素定位表现为在跨越特定阈值前为相对定位，之后为固定定位。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">div.sticky &#123;</span><br><span class="line">position: -webkit-sticky;</span><br><span class="line">position: sticky;</span><br><span class="line">top: <span class="number">0</span>;</span><br><span class="line">padding: <span class="number">5</span>px;</span><br><span class="line">background-color: #cae8ca;</span><br><span class="line">border: 2px solid #4CAF50;</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/style&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;div class="sticky"&gt;我是粘性定位!&lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line">&lt;div style=<span class="string">"padding-bottom:2000px"</span>&gt;</span><br><span class="line">&lt;p&gt;滚动我&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">&lt;p&gt;来回滚动我&lt;/</span>p&gt;</span><br><span class="line">&lt;p&gt;滚动我&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">&lt;p&gt;来回滚动我&lt;/</span>p&gt;</span><br><span class="line">&lt;p&gt;滚动我&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">&lt;p&gt;来回滚动我&lt;/</span>p&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure>
@@ -1447,13 +1447,13 @@
 </li>
 <li><p>行内样式（1000），在style属性里面写的样式。</p>
 </li>
-<li><p>id选择器（100）            #box</p>
+<li><p>id选择器（100）    #box</p>
 </li>
-<li><p>class选择器和伪类选择器（10）        .class{}</p>
+<li><p>class选择器和伪类选择器（10）.class{}</p>
 </li>
-<li><p>标签选择器（1）        p ul li</p>
+<li><p>标签选择器（1）    p ul li</p>
 </li>
-<li><p>通配符选择器（0）    *{}</p>
+<li><p>通配符选择器（0）*{}</p>
 </li>
 <li><p>浏览器的自定义属性和继承</p>
 </li>
@@ -1473,6 +1473,76 @@
 <p>一般使用单冒号(:)用于 CSS3 伪类，双冒号(::)用于 CSS3 伪元素，</p>
 <p>最常见的应用场景就是清除浮动了：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.clear</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="十一、css有哪些属性是可以继承的？"><a href="#十一、css有哪些属性是可以继承的？" class="headerlink" title="十一、css有哪些属性是可以继承的？"></a>十一、css有哪些属性是可以继承的？</h1><ol>
+<li>字体系列</li>
+</ol>
+<ul>
+<li>font-family：字体系列</li>
+<li>font-weight：字体的粗细</li>
+<li>font-size：字体的大小</li>
+<li>font-style：字体的风格</li>
+</ul>
+<ol start="2">
+<li>文本系列属性</li>
+</ol>
+<ul>
+<li>text-indent：文本缩进</li>
+<li>text-align：文本水平对齐</li>
+<li>line-height：行高</li>
+<li>word-spacing：单词之间的间距</li>
+<li>letter-spacing：中文或者字母之间的间距</li>
+<li>text-transform：控制文本大小写（就是uppercase、lowercase、capitalize这三个）</li>
+<li>color：文本颜色</li>
+</ul>
+<ol start="3">
+<li>元素可见性</li>
+</ol>
+<ul>
+<li>visibility：控制元素显示隐藏</li>
+</ul>
+<ol start="4">
+<li><p>list-style：列表风格，包括list-style-type、list-style-image等</p>
+</li>
+<li><p>光标属性：cursor：光标显示为何种形态</p>
+</li>
+</ol>
+<h1 id="十二、CSS中哪些是不可继承的？"><a href="#十二、CSS中哪些是不可继承的？" class="headerlink" title="十二、CSS中哪些是不可继承的？"></a>十二、CSS中哪些是不可继承的？</h1><ol>
+<li><p>display属性</p>
+</li>
+<li><p>文本属性</p>
+</li>
+</ol>
+<ul>
+<li>vertical-align：垂直文本对齐</li>
+<li>text-decoration：规定添加到文本的装饰</li>
+<li>text-shadow：文本阴影效果</li>
+<li>white-space：空白符的处理</li>
+<li>unicode-bidi：设置文本的方向</li>
+</ul>
+<ol start="3">
+<li>盒子模型属性</li>
+</ol>
+<p>width、height、margin 、margin-top、margin-right、margin-bottom、margin-left、border、border-style、border-top-style、border-right-style、border-bottom-style、border-left-style、border-width、border-top-width、border-right-right、border-bottom-width、border-left-width、border-color、border-top-color、border-right-color、border-bottom-color、border-left-color、border-top、border-right、border-bottom、border-left、padding、padding-top、padding-right、padding-bottom、padding-left</p>
+<ol start="4">
+<li>背景属性：</li>
+</ol>
+<p>background、background-color、background-image、background-repeat、background-position、background-attachment</p>
+<ol start="5">
+<li>定位属性：</li>
+</ol>
+<p>float、clear、position、top、right、bottom、left、min-width、min-height、max-width、max-height、overflow、clip、z-index<br>等等。。。。</p>
+<h1 id="十三、块级元素和行内元素"><a href="#十三、块级元素和行内元素" class="headerlink" title="十三、块级元素和行内元素"></a>十三、块级元素和行内元素</h1><ol>
+<li>块级元素，独占一行，会自动填满父元素，并且可以设置margin和padding以及宽度和高度(前后有换行符)</li>
+</ol>
+<p>p div hn form table ul li ol dl</p>
+<ol start="2">
+<li>行内元素，不会独占一行，并且宽度和高度会失效，垂直方向的padding和margin会失效(前后无换行符)</li>
+</ol>
+<p>span a b input img i textarea select </p>
+<ol start="3">
+<li>行内块级元素，能设置宽度和高度，padding和margin水平垂直方向都有效(前后没有换行符)</li>
+</ol>
+
           
         
       
