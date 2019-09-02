@@ -93,7 +93,7 @@
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/sanwo.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/sihui.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/URL.png">
-<meta property="og:updated_time" content="2019-08-30T08:32:42.181Z">
+<meta property="og:updated_time" content="2019-09-02T11:29:04.255Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见网络知识点">
 <meta name="twitter:description" content="常见网络知识点1、TCP/IP模型Transmission Control Protocol/Internet Protocol，翻译成人话就是 传输控制协议/互联网协议，基于TCP/IP的参考模型协议分成了四个层次，它们分别是链路层、网络层、传输层和应用层。 应用层向用户提供应用服务时通信的活动。HTTP协议存在于该层。（FTP文件传输协议，DNS域名系统） 传输层对上层应用层，提供处于连接中的">
@@ -399,7 +399,7 @@
 </ol>
 <h2 id="websocket协议"><a href="#websocket协议" class="headerlink" title="websocket协议"></a>websocket协议</h2><p>WebSocket 是 HTML5 开始提供的一种基于单个 TCP 连接上进行全双工通讯的协议。</p>
 <p>WebSocket 使得客户端和服务器之间的数据交换变得更加简单，允许服务端主动向客户端推送数据。在 WebSocket API 中，浏览器和服务器只需要完成一次握手，两者之间就直接可以创建持久性的连接，并进行双向数据传输。</p>
-<p>现在，很多网站为了实现推送技术，所用的技术都是 Ajax 轮询。轮询是在特定的的时间间隔（如每1秒），由浏览器对服务器发出HTTP请求，然后由服务器返回最新的数据给客户端的浏览器。这种传统的模式带来很明显的缺点，即浏览器需要不断的向服务器发出请求，然而HTTP请求可能包含较长的头部，其中真正有效的数据可能只是很小的一部分，显然这样会浪费很多的带宽等资源。</p>
+<p>现在，很多网站为了实现推送技术，所用的技术都是 Ajax 轮询。轮询是在特定的的时间间隔（如每1秒），由浏览器对服务器发出HTTP请求，然后由服务器返回最新的数据给客户端的浏览器。这种传统的模式带来很明显的缺点，即浏览器需要不断的向服务器发出请求，然而HTTP请求可能包含较长的头部，其中真正有效的数据可能只是很小的一部分，显然这样会浪费很多的带宽等资源。使用这个协议可以在客户端和服务端之间发送很少的数据，而不必担心像HTTP那样的字节级开销，由于移动网络带宽以及网络延迟的问题，所以非常适合应用在移动应用上</p>
 <p>HTML5 定义的 WebSocket 协议，能更好的节省服务器资源和带宽，并且能够更实时地进行通讯，<strong>同时也允许跨域通讯</strong><br>websocket的实现，在握手阶段与http是相同的，多了两个新属性<br>Upgrade:WebSocket<br>Connection:Upgrade</p>
 <p>同样类似AJAX的是，WebSocket对象也有一个readyState属性，用来表示对象实例当前所处的链接状态，有四个值：</p>
 <ul>
@@ -533,7 +533,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

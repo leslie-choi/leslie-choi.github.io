@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="跨域问题跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。同源策略限制了以下行为： Cookie、LocalStorage 和 IndexDB 无法读取DOM 和 JS 对象无法获取Ajax请求发送不出去。 所谓的同源是指，域名、协议、端口均为相同，主要对XHR的一个主要约束http://www.nealyang.cn/index.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-18T14:56:07.165Z">
+<meta property="og:updated_time" content="2019-09-02T11:23:09.111Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="跨域问题">
 <meta name="twitter:description" content="跨域问题跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。同源策略限制了以下行为： Cookie、LocalStorage 和 IndexDB 无法读取DOM 和 JS 对象无法获取Ajax请求发送不出去。 所谓的同源是指，域名、协议、端口均为相同，主要对XHR的一个主要约束http://www.nealyang.cn/index.">
@@ -362,14 +362,17 @@
 <p>栗子：浏览器发送一个简单请求的时候，在请求头加个额外的origin头部，其中包含源信息（协议端口和域名），服务器根据这个头部信息决定是否响应。如origin：<a href="http://www.nidongde.net，服务器认为请求可以接收的话，就在Access-Control-Allow-Origin挥发相同的源信息，如果是公共资源，则可以回发&quot;*&quot;" target="_blank" rel="noopener">http://www.nidongde.net，服务器认为请求可以接收的话，就在Access-Control-Allow-Origin挥发相同的源信息，如果是公共资源，则可以回发&quot;*&quot;</a></p>
 <p>它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。</p>
 <p>CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。IE8+：IE8/9需要使用XDomainRequest对象来支持CORS。整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。</p>
-<p>一种是简单请求，另一种是非简单请求。只要满足下面条件就是简单请求</p>
-<p>请求方式为HEAD、POST 或者 GET<br>http头信息不超出一下字段：Accept、Accept-Language 、 Content-Language、 Last-Event-ID、 Content-Type(限于三个值：application/x-www-form-urlencoded、multipart/form-data、text/plain)</p>
-<p>为什么要分为简单请求和非简单请求，因为浏览器对这两种请求方式的处理方式是不同的。</p>
 <p>使用方法很简单，在服务端设置：</p>
 <p><strong>Header set Access-Control-Allow-Origin</strong><br>这种设置将接受所有域名的跨域请求，也可以指定具体网址，也可以对域名进行限定：<br>Header set Access-Control-Allow-Origin <a href="http://www.test.com" target="_blank" rel="noopener">http://www.test.com</a></p>
 <p>然而，这种方式的局限性在于要求客户端支持，并且服务端进行相关设置。</p>
 <p>在这两者满足的情况下，通过CORS进行跨域不仅支持所有类型的HTTP请求，而且开发者可以使用<br>普通的XMLHttpRequest发起请求和获得数据，比起JSONP有更好的错误处理。</p>
-<p>3、利用window.name进行跨域处理<br>4、使用window.postMessage进行跨域</p>
+<p>3、使用window.postMessage进行跨域</p>
+<p>这是由H5提出来的的API，IE8以上支持这个功能。window.postMessage() 方法可以安全地实现跨源通信。通常，对于两个不同页面的脚本，只有当执行它们的页面位于具有相同的协议（通常为https），端口号（443为https的默认值），以及主机  (两个页面的模数 Document.domain设置为相同的值) 时，这两个脚本才能相互通信。<strong>window.postMessage() 方法提供了一种受控机制来规避此限制，</strong>只要正确的使用，这种方法就很安全。</p>
+<p>4、nginx代理跨域</p>
+<p>跨域原理： 同源策略是浏览器的安全策略，不是HTTP协议的一部分。服务器端调用HTTP接口只是使用HTTP协议，不会执行JS脚本，不需要同源策略，也就不存在跨越问题。</p>
+<p>实现思路： 通过nginx配置一个代理服务器（域名与domain1相同，端口不同）做跳板机，反向代理访问<br>domain2接口，并且可以顺便修改cookie中domain信息，方便当前域cookie写入，实现跨域登录。</p>
+<p>5、WebSocket</p>
+<p>WebSocket虽然不受同源策略的限制，但是WebSocket不会专门用来做跨域,而是作为消息推送或者聊天等</p>
 
       
     </div>
@@ -489,7 +492,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
