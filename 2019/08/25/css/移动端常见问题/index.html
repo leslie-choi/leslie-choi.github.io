@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="300毫秒延迟的由来和解决方法 300 毫秒延迟的主要原因是解决双击缩放。双击缩放，顾名思义，即用手指在屏幕上快速点击两次，iOS 自带的 Safari 浏览器会将网页缩放至原始比例。 那么这和 300 毫秒延迟有什么联系呢？ 假定这么一个场景。用户在 iOS Safari 里边点击了一个链接。由于用户可以进行双击缩放或者双击滚动的操作，当用户一次点击屏幕之后，浏览器并不能立刻判断用户是确实要打开">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-02T09:18:54.347Z">
+<meta property="og:updated_time" content="2019-09-03T07:42:52.255Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="移动端常见问题">
 <meta name="twitter:description" content="300毫秒延迟的由来和解决方法 300 毫秒延迟的主要原因是解决双击缩放。双击缩放，顾名思义，即用手指在屏幕上快速点击两次，iOS 自带的 Safari 浏览器会将网页缩放至原始比例。 那么这和 300 毫秒延迟有什么联系呢？ 假定这么一个场景。用户在 iOS Safari 里边点击了一个链接。由于用户可以进行双击缩放或者双击滚动的操作，当用户一次点击屏幕之后，浏览器并不能立刻判断用户是确实要打开">
@@ -426,6 +426,23 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"initial-scale=0.3333333333333333, maximum-scale=0.3333333333333333, minimum-scale=0.3333333333333333, user-scalable=no"</span>&gt;</span><br></pre></td></tr></table></figure>
 <p>这种兼容方案相对比较完美，适合新的项目，老的项目修改成本过大</p>
 <p>使用rem布局时，个人习惯将字体设置为50px(浏览器默认是16px)，这样在换算成rem单位的时候，就可以直接乘以0.2就好了。（50px换算成10rem）</p>
+<h1 id="vh和vw"><a href="#vh和vw" class="headerlink" title="vh和vw"></a>vh和vw</h1><p>视口：在桌面端，视口指的是在桌面端，指的是浏览器的可视区域；而在移动端，它涉及3个视口：Layout Viewport（布局视口），Visual Viewport（视觉视口），Ideal Viewport（理想视口）。</p>
+<p>视口单位中的“视口”，桌面端指的是浏览器的可视区域；移动端指的就是Viewport中的Layout Viewport。</p>
+<p> 根据CSS3规范，视口单位主要包括以下4个：</p>
+<ol>
+<li><p>vw：1vw等于视口宽度的1%。</p>
+</li>
+<li><p>vh：1vh等于视口高度的1%。</p>
+</li>
+<li><p>vmin：选取vw和vh中最小的那个。</p>
+</li>
+<li><p>vmax：选取vw和vh中最大的那个。</p>
+<p>vh and vw：相对于视口的高度和宽度，而不是父元素的（CSS百分比是相对于包含它的最近的父元素的高度和宽度）。1vh 等于1/100的视口高度，1vw 等于1/100的视口宽度。</p>
+</li>
+</ol>
+<p>比如：浏览器高度950px，宽度为1920px, 1 vh = 950px/100 = 9.5 px，1vw = 1920px/100 =19.2 px。</p>
+<p>vmax相对于视口的宽度或高度中较大的那个。其中最大的那个被均分为100单位的vmax。</p>
+<p>vmin相对于视口的宽度或高度中较小的那个。其中最小的那个被均分为100单位的vmin。</p>
 <p><a href="https://juejin.im/post/5bcc169ae51d450e85308d86" target="_blank" rel="noopener">首页白屏的引发的思考(一)</a><br><a href="https://mp.weixin.qq.com/s?__biz=MzUxMzcxMzE5Ng==&amp;mid=2247489586&amp;idx=1&amp;sn=2168d42df837521da50b3ed7f8932698&amp;chksm=f951ad71ce262467728b7940de1a2311c523f264f4ca7e705712bf655a844fab93706cbe1ca3&amp;token=1792152421&amp;lang=zh_CN#rd" target="_blank" rel="noopener">首屏时间从12.67s到1.06s，我是如何做到的？</a></p>
 
       
@@ -597,7 +614,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#300毫秒延迟的由来和解决方法"><span class="nav-number">1.</span> <span class="nav-text">300毫秒延迟的由来和解决方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SPA单页面应用优化"><span class="nav-number">2.</span> <span class="nav-text">SPA单页面应用优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#科普PWA"><span class="nav-number">3.</span> <span class="nav-text">科普PWA</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#移动端资源压缩"><span class="nav-number">4.</span> <span class="nav-text">移动端资源压缩</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1像素边框问题"><span class="nav-number">5.</span> <span class="nav-text">1像素边框问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#300毫秒延迟的由来和解决方法"><span class="nav-number">1.</span> <span class="nav-text">300毫秒延迟的由来和解决方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SPA单页面应用优化"><span class="nav-number">2.</span> <span class="nav-text">SPA单页面应用优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#科普PWA"><span class="nav-number">3.</span> <span class="nav-text">科普PWA</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#移动端资源压缩"><span class="nav-number">4.</span> <span class="nav-text">移动端资源压缩</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1像素边框问题"><span class="nav-number">5.</span> <span class="nav-text">1像素边框问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vh和vw"><span class="nav-number">6.</span> <span class="nav-text">vh和vw</span></a></li></ol></div>
             
 
           </div>
