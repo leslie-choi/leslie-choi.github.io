@@ -95,7 +95,7 @@
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff3.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff4.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff1.png">
-<meta property="og:updated_time" content="2019-09-04T02:22:15.467Z">
+<meta property="og:updated_time" content="2019-09-06T06:34:53.638Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue常见面试题">
 <meta name="twitter:description" content="MVVM的理解MVVM 模式，顾名思义即 Model-View-ViewModel 模式,是一个软件架构设计模式。  Model 层: 对应数据层模型，它主要做域模型的同步。通过 Ajax/fetch 等 API 完成客户端和服务端业务 Model 的同步。  View 层：作为视图模板存在，在 MVVM 里，整个 View 是一个动态模板。除了定义结构、布局外，它展示的是 ViewModel 层">
@@ -337,7 +337,7 @@
 </li>
 <li><p>View 层：作为视图模板存在，在 MVVM 里，整个 View 是一个动态模板。除了定义结构、布局外，它展示的是 ViewModel 层的数据和状态。View 层不负责处理状态，View 层做的是 数据绑定的声明、 指令的声明、 事件绑定的声明。</p>
 </li>
-<li><p>ViewModel 层(核心):ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而View 和 Model 之间的同步工作完全是自动的，无需人为干涉，<strong>因此开发者只需关注业务逻辑，不需要手动操作DOM, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。</strong> 这就完全解耦了 View 层和 Model 层，这个解耦是至关重要的，它是前后端分离方案实施的重要一环。<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/MVVM.png" alt="markdown"></p>
+<li><p>ViewModel 层(核心):MVVM 的核心是 ViewModel 层，它就像是一个中转站（value converter），负责转换 Model 中的数据对象来让数据变得更容易管理和使用，该层向上与视图层进行双向数据绑定，向下与 Model 层通过接口请求进行数据交互，起呈上启下作用。View 层展现的不是 Model 层的数据，而是 ViewModel 的数据，由 ViewModel 负责与 Model 层交互，这就完全解耦了 View 层和 Model 层，这个解耦是至关重要的，<strong>因此开发者只需关注业务逻辑，不需要手动操作DOM, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。</strong> 这就完全解耦了 View 层和 Model 层，这个解耦是至关重要的，它是前后端分离方案实施的重要一环。<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/MVVM.png" alt="markdown"></p>
 <h2 id="MVVM的优缺点"><a href="#MVVM的优缺点" class="headerlink" title="MVVM的优缺点"></a>MVVM的优缺点</h2></li>
 </ol>
 <p><strong>优点</strong></p>
@@ -360,7 +360,38 @@
 </ol>
 <h2 id="MVVM和MVC的区别是什么？与其他框架（jquery）的区别是什么？哪些场景适合？"><a href="#MVVM和MVC的区别是什么？与其他框架（jquery）的区别是什么？哪些场景适合？" class="headerlink" title="MVVM和MVC的区别是什么？与其他框架（jquery）的区别是什么？哪些场景适合？"></a>MVVM和MVC的区别是什么？与其他框架（jquery）的区别是什么？哪些场景适合？</h2><p>mvc和mvvm其实区别并不大。都是一种设计思想。主要就是mvc中Controller演变成mvvm中的viewModel。mvvm主要解决了mvc中大量的DOM 操作使页面渲染性能降低，加载速度变慢，影响用户体验。</p>
 <p>区别：vue数据驱动，通过数据来显示视图层而不是节点操作。<br>场景：数据操作比较多的场景，更加便捷</p>
-<h1 id="Vue的生命周期"><a href="#Vue的生命周期" class="headerlink" title="Vue的生命周期"></a>Vue的生命周期</h1><p>Vue 实例有一个完整的生命周期，也就是从开始创建、初始化数据、编译模版、挂载Dom -&gt; 渲染、更新 -&gt; 渲染、卸载等一系列过程，我们称这是Vue的生命周期。<br>具体移步同栏目其他文章。</p>
+<h1 id="Vue的生命周期"><a href="#Vue的生命周期" class="headerlink" title="Vue的生命周期"></a>Vue的生命周期</h1><p>Vue 实例有一个完整的生命周期，也就是从开始创建、初始化数据、编译模版、挂载Dom -&gt; 渲染、更新 -&gt; 渲染、卸载等一系列过程，我们称这是Vue的生命周期。</p>
+<ol>
+<li><p>beforeCreate:挂载元素el和数据对象都是为undefined<br>dom元素都没有被创建出来，在这个期间我们一般不做事情</p>
+</li>
+<li><p>created：挂载元素el未初始化，但是data和methods都已经被初始化好了（最重要）<br>数据和data中的数据绑定完成，这里我们可以做初级的数据获取</p>
+</li>
+<li><p>beforeMount：挂载元素el和data已经初始化，但是此时是虚拟dom节点</p>
+</li>
+<li><p>mounted：Vue实例挂载完成，数据成功渲染（最重要）<br>官方实例的异步请求是在mounted生命周期中调用的，而实际上也可以在created生命周期中调用(推荐)。</p>
+</li>
+</ol>
+<p>只要执行完整个mounted，就表示整个Vue实例已经完成初始化。此时组件已经脱离了创建阶段，进入运行阶段<br>运行阶段的两个生命周期函数，这两个事件会根据data数据的改变，有选择性触发0到多次</p>
+<ol start="5">
+<li><p>beforeUpdate：表示界面还没有被更新，但是数据被更新了</p>
+</li>
+<li><p>update： 事件执行的时候，页面和data数据已经保持同步，都是最新的</p>
+</li>
+<li><p>beforeDestroy：执行该函数的时候，实例身上的所有data和所有的methods以及过滤器、指令等等都处于可用状态，还没有真正执行销毁的过程</p>
+</li>
+<li><p>Destroyed：执行到该函数的时候，组件中的而所有数据、方法、指令过滤器都不可用</p>
+</li>
+</ol>
+<p>除了以上8个比较常见的生命周期之外，vue其实还有其他3个生命周期</p>
+<p>如果我们在组件中使用了keep-alive用来缓存组件,避免多次加载相应的组件,减少性能消耗，那么这个时候生命周期会多出来两个，并且上面的8个生命周期钩子将会失效。</p>
+<ol start="9">
+<li><p>activated：被包裹的组件被激活的状态下使用的生命周期钩子。</p>
+</li>
+<li><p>deactivated：在被包裹的组件停止的时候停用。</p>
+</li>
+<li><p>errorCaptured: 当捕获一个来自子孙组件的错误时被调用。此钩子会收到三个参数：错误对象、发生错误的组件实例以及一个包含错误来源信息的字符串。此钩子可以返回 false 以阻止该错误继续向上传播。</p>
+</li>
+</ol>
 <h1 id="Vue组件之间的通信"><a href="#Vue组件之间的通信" class="headerlink" title="Vue组件之间的通信"></a>Vue组件之间的通信</h1><ul>
 <li><strong>props/$emit+v-on: 通过props将数据自上而下传递，而通过$emit和v-on来向上传递信息。</strong> （适用于父子组件之间的通信）</li>
 <li>EventBus: 通过EventBus进行信息的发布与订阅</li>
@@ -388,7 +419,7 @@
 <li>实现一个订阅者 Watcher：Watcher 订阅者是 Observer 和 Compile 之间通信的桥梁 ，主要的任务是订阅 Observer 中的属性值变化的消息，当收到属性值变化的消息时，触发解析器 Compile 中对应的更新函数。</li>
 <li>实现一个订阅器 Dep：订阅器采用 发布-订阅 设计模式，用来收集订阅者 Watcher，对监听器 Observer 和 订阅者 Watcher 进行统一管理。</li>
 </ul>
-<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/observer.png" alt="markdown"><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=<span class="string">"text"</span> name=<span class="string">"数据绑定"</span> id=<span class="string">"dataBinding"</span>&gt;</span><br><span class="line">&lt;span id=<span class="string">"data"</span>&gt;&lt;/span&gt;&lt;br&gt;</span><br><span class="line"></span><br><span class="line">mounted() &#123;</span><br><span class="line">    this.showData()</span><br><span class="line">&#125;,</span><br><span class="line">methods:&#123;</span><br><span class="line">      showData()&#123;</span><br><span class="line">          var obj1 = &#123;&#125;;                        //新建一个对象obj1</span><br><span class="line">          Object.defineProperty(obj1,'hello',&#123;  //为obj定义一个名为 hello 的访问器属性 </span><br><span class="line">              set: function(newVal)&#123;</span><br><span class="line">                  document.getElementById('dataBinding').value = newVal;</span><br><span class="line">                  document.getElementById('data').innerHTML = newVal;</span><br><span class="line">              &#125;,</span><br><span class="line">              get: function()&#123;</span><br><span class="line">                  return</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">          document.addEventListener('keyup',function(e)&#123;</span><br><span class="line">              obj1.hello = e.target.value;</span><br><span class="line">          &#125;);</span><br><span class="line">          console.log(obj1);</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/observer.png" alt="markdown"><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=<span class="string">"text"</span> name=<span class="string">"数据绑定"</span> id=<span class="string">"dataBinding"</span>&gt;</span><br><span class="line">&lt;span id=<span class="string">"data"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><span class="xml"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">mounted() &#123;</span></span><br><span class="line"><span class="xml">    this.showData()</span></span><br><span class="line"><span class="xml">&#125;,</span></span><br><span class="line"><span class="xml">methods:&#123;</span></span><br><span class="line"><span class="xml">      showData()&#123;</span></span><br><span class="line"><span class="xml">          var obj1 = &#123;&#125;;                        //新建一个对象obj1</span></span><br><span class="line"><span class="xml">          Object.defineProperty(obj1,'hello',&#123;  //为obj定义一个名为 hello 的访问器属性 </span></span><br><span class="line"><span class="xml">              set: function(newVal)&#123;</span></span><br><span class="line"><span class="xml">                  document.getElementById('dataBinding').value = newVal;</span></span><br><span class="line"><span class="xml">                  document.getElementById('data').innerHTML = newVal;</span></span><br><span class="line"><span class="xml">              &#125;,</span></span><br><span class="line"><span class="xml">              get: function()&#123;</span></span><br><span class="line"><span class="xml">                  return</span></span><br><span class="line"><span class="xml">              &#125;</span></span><br><span class="line"><span class="xml">          &#125;);</span></span><br><span class="line"><span class="xml">          document.addEventListener('keyup',function(e)&#123;</span></span><br><span class="line"><span class="xml">              obj1.hello = e.target.value;</span></span><br><span class="line"><span class="xml">          &#125;);</span></span><br><span class="line"><span class="xml">          console.log(obj1);</span></span><br><span class="line"><span class="xml">      &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="proxy和Object-defineProperty的优劣对比"><a href="#proxy和Object-defineProperty的优劣对比" class="headerlink" title="proxy和Object.defineProperty的优劣对比?"></a>proxy和Object.defineProperty的优劣对比?</h2><p><strong>Proxy的优势</strong></p>
 <ul>
 <li>Proxy可以直接监听对象而非属性</li>
@@ -548,7 +579,7 @@
 <li>tag（当前节点的标签名）相同</li>
 <li>isComment（是否为注释节点）相同</li>
 <li>是否data（当前节点对应的对象，包含了具体的一些数据信息，是一个VNodeData类型，可以参考VNodeData类型中的数据信息）都有定义</li>
-<li>当标签是<input>的时候，type必须相同</li>
+<li>当标签是 input 的时候，type必须相同</li>
 </ul>
 <p>当两个VNode的tag、key、isComment都相同，并且同时定义或未定义data的时候，且如果标签为input则type必须相同。这时候这两个VNode则算sameVnode，可以直接进行patchVnode操作。</p>
 <h2 id="patchVnode"><a href="#patchVnode" class="headerlink" title="patchVnode"></a><strong>patchVnode</strong></h2><p>patchVnode的规则是这样的：</p>
@@ -568,7 +599,22 @@
 <p>用于对模块源码的转换，loader描述了webpack如何处理非javascript模块，并且在buld中引入这些依赖。loader可以将文件从不同的语言（如TypeScript）转换为JavaScript，SCSS转换为CSS</p>
 <p><strong>plugin：</strong></p>
 <p>对于plugin，它就是一个扩展器，它丰富了wepack本身，针对是loader结束后，webpack打包的整个过程，它并不直接操作文件，<strong>而是直接对整个构建过程起作用。，</strong>不仅局限于资源的加载。</p>
-<p><a href="https://juejin.im/post/5d59f2a451882549be53b170" target="_blank" rel="noopener">30 道 Vue 面试题，内含详细讲解（涵盖入门到精通，自测 Vue 掌握程度）</a><br><a href="https://github.com/aooy/blog/issues/2" target="_blank" rel="noopener">解析vue2.0的diff算法</a><br><a href="https://github.com/answershuto/learnVue/blob/master/docs/VirtualDOM与diff(Vue实现" target="_blank" rel="noopener">VirtualDOM与diff(Vue实现)</a>.MarkDown)</p>
+<h1 id="内置的过渡动画"><a href="#内置的过渡动画" class="headerlink" title="内置的过渡动画"></a>内置的过渡动画</h1><ul>
+<li><p>v-enter：定义进入过渡的开始状态。在元素被插入之前生效，在元素被插入之后的下一帧移除。</p>
+</li>
+<li><p>v-enter-active：定义进入过渡生效时的状态。在整个进入过渡的阶段中应用，在元素被插入之前生效，在过渡/动画完成之后移除。这个类可以被用来定义进入过渡的过程时间，延迟和曲线函数。</p>
+</li>
+<li><p>v-enter-to: 2.1.8版及以上 定义进入过渡的结束状态。在元素被插入之后下一帧生效 (与此同时 v-enter 被移除)，在过渡/动画完成之后移除。</p>
+</li>
+<li><p>v-leave: 定义离开过渡的开始状态。在离开过渡被触发时立刻生效，下一帧被移除。</p>
+</li>
+<li><p>v-leave-active：定义离开过渡生效时的状态。在整个离开过渡的阶段中应用，在离开过渡被触发时立刻生效，在过渡/动画完成之后移除。这个类可以被用来定义离开过渡的过程时间，延迟和曲线函数。</p>
+</li>
+<li><p>v-leave-to: 2.1.8版及以上 定义离开过渡的结束状态。在离开过渡被触发之后下一帧生效 (与此同时 v-leave 被删除)，在过渡/动画完成之后移除。</p>
+</li>
+</ul>
+<p>对于这些在过渡中切换的类名来说，如果你使用一个没有名字的 transition，则 v- 是这些类名的默认前缀。如果你使用了 <transition name="my-transition">，那么 v-enter 会替换为 my-transition-enter。</transition></p>
+<h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a><strong>参考文章：</strong></h1><p><a href="https://juejin.im/post/5d59f2a451882549be53b170" target="_blank" rel="noopener">30 道 Vue 面试题，内含详细讲解（涵盖入门到精通，自测 Vue 掌握程度）</a><br><a href="https://github.com/aooy/blog/issues/2" target="_blank" rel="noopener">解析vue2.0的diff算法</a><br><a href="https://github.com/answershuto/learnVue/blob/master/docs/VirtualDOM与diff(Vue实现" target="_blank" rel="noopener">VirtualDOM与diff(Vue实现)</a>.MarkDown)</p>
 </span></span></p></span></p>
       
     </div>
@@ -609,8 +655,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/08/25/css/移动端常见问题/" rel="prev" title="移动端常见问题">
-                移动端常见问题 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/08/21/前后端通信方式/ajax、axios、fetch的区别/" rel="prev" title="ajax、axios、fetch的区别">
+                ajax、axios、fetch的区别 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -688,7 +734,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -743,7 +789,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MVVM的理解"><span class="nav-number">1.</span> <span class="nav-text">MVVM的理解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MVVM的优缺点"><span class="nav-number">1.1.</span> <span class="nav-text">MVVM的优缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVVM和MVC的区别是什么？与其他框架（jquery）的区别是什么？哪些场景适合？"><span class="nav-number">1.2.</span> <span class="nav-text">MVVM和MVC的区别是什么？与其他框架（jquery）的区别是什么？哪些场景适合？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue的生命周期"><span class="nav-number">2.</span> <span class="nav-text">Vue的生命周期</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue组件之间的通信"><span class="nav-number">3.</span> <span class="nav-text">Vue组件之间的通信</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vuex状态管理"><span class="nav-number">4.</span> <span class="nav-text">Vuex状态管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue实现双向数据绑定"><span class="nav-number">5.</span> <span class="nav-text">Vue实现双向数据绑定</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#proxy和Object-defineProperty的优劣对比"><span class="nav-number">5.1.</span> <span class="nav-text">proxy和Object.defineProperty的优劣对比?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#computed和watch有什么区别"><span class="nav-number">6.</span> <span class="nav-text">computed和watch有什么区别?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#computed实现原理"><span class="nav-number">7.</span> <span class="nav-text">computed实现原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟DOM"><span class="nav-number">8.</span> <span class="nav-text">虚拟DOM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟DOM的实现原理"><span class="nav-number">9.</span> <span class="nav-text">虚拟DOM的实现原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何理解Vue的响应式系统？"><span class="nav-number">10.</span> <span class="nav-text">如何理解Vue的响应式系统？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谈谈你对-keep-alive-的了解？"><span class="nav-number">11.</span> <span class="nav-text">谈谈你对 keep-alive 的了解？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组件中的data为什么是一个函数"><span class="nav-number">12.</span> <span class="nav-text">组件中的data为什么是一个函数?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vue-ssr-服务端渲染"><span class="nav-number">13.</span> <span class="nav-text">vue-ssr 服务端渲染</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vue-router-路由模式有几种？"><span class="nav-number">14.</span> <span class="nav-text">vue-router 路由模式有几种？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#router的实现原理"><span class="nav-number">15.</span> <span class="nav-text">router的实现原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SPA单页面应用的优缺点"><span class="nav-number">16.</span> <span class="nav-text">SPA单页面应用的优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#优点"><span class="nav-number">16.1.</span> <span class="nav-text">优点:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缺点"><span class="nav-number">16.2.</span> <span class="nav-text">缺点:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue框架怎么实现对象和数组的监听"><span class="nav-number">17.</span> <span class="nav-text">Vue框架怎么实现对象和数组的监听</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue-中的-key-有什么作用？"><span class="nav-number">18.</span> <span class="nav-text">Vue 中的 key 有什么作用？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue中的diff算法"><span class="nav-number">19.</span> <span class="nav-text">Vue中的diff算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#sameVnode"><span class="nav-number">19.1.</span> <span class="nav-text">sameVnode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#patchVnode"><span class="nav-number">19.2.</span> <span class="nav-text">patchVnode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">19.3.</span> <span class="nav-text">**</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#webpack的plugin与loader区别"><span class="nav-number">20.</span> <span class="nav-text">webpack的plugin与loader区别</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MVVM的理解"><span class="nav-number">1.</span> <span class="nav-text">MVVM的理解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MVVM的优缺点"><span class="nav-number">1.1.</span> <span class="nav-text">MVVM的优缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVVM和MVC的区别是什么？与其他框架（jquery）的区别是什么？哪些场景适合？"><span class="nav-number">1.2.</span> <span class="nav-text">MVVM和MVC的区别是什么？与其他框架（jquery）的区别是什么？哪些场景适合？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue的生命周期"><span class="nav-number">2.</span> <span class="nav-text">Vue的生命周期</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue组件之间的通信"><span class="nav-number">3.</span> <span class="nav-text">Vue组件之间的通信</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vuex状态管理"><span class="nav-number">4.</span> <span class="nav-text">Vuex状态管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue实现双向数据绑定"><span class="nav-number">5.</span> <span class="nav-text">Vue实现双向数据绑定</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#proxy和Object-defineProperty的优劣对比"><span class="nav-number">5.1.</span> <span class="nav-text">proxy和Object.defineProperty的优劣对比?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#computed和watch有什么区别"><span class="nav-number">6.</span> <span class="nav-text">computed和watch有什么区别?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#computed实现原理"><span class="nav-number">7.</span> <span class="nav-text">computed实现原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟DOM"><span class="nav-number">8.</span> <span class="nav-text">虚拟DOM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟DOM的实现原理"><span class="nav-number">9.</span> <span class="nav-text">虚拟DOM的实现原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何理解Vue的响应式系统？"><span class="nav-number">10.</span> <span class="nav-text">如何理解Vue的响应式系统？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谈谈你对-keep-alive-的了解？"><span class="nav-number">11.</span> <span class="nav-text">谈谈你对 keep-alive 的了解？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组件中的data为什么是一个函数"><span class="nav-number">12.</span> <span class="nav-text">组件中的data为什么是一个函数?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vue-ssr-服务端渲染"><span class="nav-number">13.</span> <span class="nav-text">vue-ssr 服务端渲染</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vue-router-路由模式有几种？"><span class="nav-number">14.</span> <span class="nav-text">vue-router 路由模式有几种？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#router的实现原理"><span class="nav-number">15.</span> <span class="nav-text">router的实现原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SPA单页面应用的优缺点"><span class="nav-number">16.</span> <span class="nav-text">SPA单页面应用的优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#优点"><span class="nav-number">16.1.</span> <span class="nav-text">优点:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缺点"><span class="nav-number">16.2.</span> <span class="nav-text">缺点:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue框架怎么实现对象和数组的监听"><span class="nav-number">17.</span> <span class="nav-text">Vue框架怎么实现对象和数组的监听</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue-中的-key-有什么作用？"><span class="nav-number">18.</span> <span class="nav-text">Vue 中的 key 有什么作用？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue中的diff算法"><span class="nav-number">19.</span> <span class="nav-text">Vue中的diff算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#sameVnode"><span class="nav-number">19.1.</span> <span class="nav-text">sameVnode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#patchVnode"><span class="nav-number">19.2.</span> <span class="nav-text">patchVnode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">19.3.</span> <span class="nav-text">**</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#webpack的plugin与loader区别"><span class="nav-number">20.</span> <span class="nav-text">webpack的plugin与loader区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内置的过渡动画"><span class="nav-number">21.</span> <span class="nav-text">内置的过渡动画</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文章："><span class="nav-number">22.</span> <span class="nav-text">参考文章：</span></a></li></ol></div>
             
 
           </div>

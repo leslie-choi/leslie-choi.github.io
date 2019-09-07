@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="#   beforeCreate:挂载元素el和数据对象都是为undefineddom元素都没有被创建出来，在这个期间我们一般不做事情  created：在该方法中data和methods都已经被初始化好了（最重要）数据和data中的数据绑定完成，这里我们可以做初级的数据获取  beforeMount：挂载元素el和data已经初始化，但是此时是虚拟dom节点  mounted：Vue实例挂载完成">
+<meta name="description" content="Vue的生命周期 beforeCreate:挂载元素el和数据对象都是为undefineddom元素都没有被创建出来，在这个期间我们一般不做事情  created：挂载元素el未初始化，但是data和methods都已经被初始化好了（最重要）数据和data中的数据绑定完成，这里我们可以做初级的数据获取  beforeMount：挂载元素el和data已经初始化，但是此时是虚拟dom节点  moun">
 <meta name="keywords" content="basic">
 <meta property="og:type" content="article">
 <meta property="og:title" content="四、Vue的生命周期">
 <meta property="og:url" content="http://yoursite.com/2019/01/23/vue/4、生命周期/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="#   beforeCreate:挂载元素el和数据对象都是为undefineddom元素都没有被创建出来，在这个期间我们一般不做事情  created：在该方法中data和methods都已经被初始化好了（最重要）数据和data中的数据绑定完成，这里我们可以做初级的数据获取  beforeMount：挂载元素el和data已经初始化，但是此时是虚拟dom节点  mounted：Vue实例挂载完成">
+<meta property="og:description" content="Vue的生命周期 beforeCreate:挂载元素el和数据对象都是为undefineddom元素都没有被创建出来，在这个期间我们一般不做事情  created：挂载元素el未初始化，但是data和methods都已经被初始化好了（最重要）数据和data中的数据绑定完成，这里我们可以做初级的数据获取  beforeMount：挂载元素el和data已经初始化，但是此时是虚拟dom节点  moun">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-01T13:08:40.295Z">
+<meta property="og:updated_time" content="2019-09-05T15:42:38.651Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="四、Vue的生命周期">
-<meta name="twitter:description" content="#   beforeCreate:挂载元素el和数据对象都是为undefineddom元素都没有被创建出来，在这个期间我们一般不做事情  created：在该方法中data和methods都已经被初始化好了（最重要）数据和data中的数据绑定完成，这里我们可以做初级的数据获取  beforeMount：挂载元素el和data已经初始化，但是此时是虚拟dom节点  mounted：Vue实例挂载完成">
+<meta name="twitter:description" content="Vue的生命周期 beforeCreate:挂载元素el和数据对象都是为undefineddom元素都没有被创建出来，在这个期间我们一般不做事情  created：挂载元素el未初始化，但是data和methods都已经被初始化好了（最重要）数据和data中的数据绑定完成，这里我们可以做初级的数据获取  beforeMount：挂载元素el和data已经初始化，但是此时是虚拟dom节点  moun">
 
 
 
@@ -322,11 +322,10 @@
       
 
       
-        <p># </p>
-<ol>
+        <h1 id="Vue的生命周期"><a href="#Vue的生命周期" class="headerlink" title="Vue的生命周期"></a>Vue的生命周期</h1><ol>
 <li><p>beforeCreate:挂载元素el和数据对象都是为undefined<br>dom元素都没有被创建出来，在这个期间我们一般不做事情</p>
 </li>
-<li><p>created：在该方法中data和methods都已经被初始化好了（最重要）<br>数据和data中的数据绑定完成，这里我们可以做初级的数据获取</p>
+<li><p>created：挂载元素el未初始化，但是data和methods都已经被初始化好了（最重要）<br>数据和data中的数据绑定完成，这里我们可以做初级的数据获取</p>
 </li>
 <li><p>beforeMount：挂载元素el和data已经初始化，但是此时是虚拟dom节点</p>
 </li>
@@ -448,8 +447,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -464,7 +472,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -509,6 +517,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue的生命周期"><span class="nav-number">1.</span> <span class="nav-text">Vue的生命周期</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

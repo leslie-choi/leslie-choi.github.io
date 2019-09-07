@@ -492,6 +492,168 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/前后端通信方式/ajax、axios、fetch的区别/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/21/前后端通信方式/ajax、axios、fetch的区别/" itemprop="url">ajax、axios、fetch的区别</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-21T11:43:20+08:00">
+                2019-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>背景</strong></p>
+<p>前端的技术发展速度非常的快，异步请求也是其重要的体现之一，从最早的原生XHR，再到JqueryAjax的统治时代，再到近来，fetch、axios等技术也开始出现并大量投入使用。</p>
+<h1 id="原生Ajax"><a href="#原生Ajax" class="headerlink" title="原生Ajax"></a>原生Ajax</h1><p>Ajax是指一种<strong>创建交互式网页应用</strong>的网页开发技术，并且可以做到无需重新加载整个网页的情况下，能够更新部分网页，也叫作局部更新。是最早出现的发送后端请求技术，隶属于原始js中，核心是使用XMLHttpRequest对象，多个请求之间如果有先后关系的话，就会出现回调地狱。</p>
+<p><strong>使用步骤：</strong><br>1.创建XmlHttpRequest对象<br>2.调用open方法设置基本请求信息<br>3.设置发送的数据，发送请求（send）<br>4.注册监听的回调函数（onreadystatechange）<br>5.拿到返回值，对页面进行更新</p>
+<p><strong>状态值：</strong></p>
+<p>0    请求还未初始化，还未调用open()          —-未初始化<br>1    请求已建立但未发送，还未调用send()       —-载入<br>2    接受原始响应数据，为解析做准备            —-载入完成<br>3    正在解析数据                             —-解析<br>4    响应完成，数据解析完成                     —-解析完成</p>
+<p><strong>优点：可以实现局部刷新，并且原生支持不需要使用任何插件</strong></p>
+<p><strong>缺点：可能破坏浏览器后退功能，并且会出现回调地狱</strong></p>
+<h1 id="Jquery-Ajax"><a href="#Jquery-Ajax" class="headerlink" title="Jquery Ajax"></a>Jquery Ajax</h1><p>jquery的ajax就是在原生的ajax的基础上进行了封装，并且添加上了对JSONP的支持。</p>
+<p>优点：</p>
+<ul>
+<li>使用方便</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>本身是针对mvc的编程模式，不太适合目前mvvm的编程模式</li>
+<li>jQuery本身比较大，如果单纯的使用ajax可以自己封装一个，不然会影响性能体验</li>
+<li>回调地狱</li>
+</ul>
+<h1 id="axios"><a href="#axios" class="headerlink" title="axios"></a>axios</h1><p>axios是vue官方推荐使用的一个库，<strong>axios 一个基于Promise 用于浏览器和 nodejs 的 HTTP 客户端，本质上也是对原生XHR的封装，只不过它是Promise的实现版本，</strong>不是原生js,使用时需要对其进行安装，符合最新的ES规范，它本身具有以下优点：</p>
+<ul>
+<li>支持 Promise API</li>
+<li>客户端支持防止CSRF</li>
+<li>自动转换JSON数据</li>
+<li>从 node.js 创建 http 请求</li>
+<li>拦截请求和响应</li>
+<li>从浏览器中创建 XMLHttpReques</li>
+</ul>
+<p>PS:防止CSRF:就是让你的每个请求都带一个从cookie中拿到的key, 根据浏览器同源策略，假冒的网站是拿不到你cookie中得key的，这样，后台就可以轻松辨别出这个请求是否是用户在假冒网站上的误导输入，从而采取正确的策略。</p>
+<h1 id="fetch"><a href="#fetch" class="headerlink" title="fetch"></a>fetch</h1><p>fetch号称是AJAX的替代品，是在ES6出现的，使用了ES6中的promise对象。Fetch是基于promise设计的。fetch不是ajax的进一步封装，而是原生js，没有使用XMLHttpRequest对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fetch(url).then(fun2)</span><br><span class="line">        .then(fun3)</span><br><span class="line">        .....</span><br><span class="line">        .catch(fun)</span><br></pre></td></tr></table></figure>
+<p>优点：</p>
+<ul>
+<li>解决回调地狱</li>
+<li>使用起来更加简洁<br>缺点：</li>
+<li>API 偏底层，需要封装</li>
+<li>默认不带Cookie，需要手动添加</li>
+<li>浏览器支持情况不是很友好，需要第三方的ployfill</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>ajax是最早出现发送后端请求的技术，属于原生js范畴,核心是使用XMLHttpRequest对象,使用较多并有先后顺序的话，容易产生回调地狱。</p>
+<p>fetch号称可以代替ajax的技术，是基于es6中的Promise对象设计的，参数和jQuery中的ajax类似，它并不是对ajax进一步封装，它属于原生js范畴。没有使用XMLHttpRequest对象。</p>
+<p>axios不是原生js,使用时需要对其进行安装，客户端和服务器端都可以使用，可以在请求和响应阶段进行拦截，基于promise对象。<br>axios既提供了并发的封装，也没有fetch的各种问题，而且体积也较小，当之无愧现在最应该选用的请求的方式。这大概就是目前官方推荐使用axios的原因了吧。</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://blog.csdn.net/jennyya/article/details/83687622" target="_blank" rel="noopener">ajax、fetch、axios区别</a><br><a href="https://www.jianshu.com/p/8bc48f8fde75" target="_blank" rel="noopener">ajax和axios、fetch的区别</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/27/vue/vue常见面试题目/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -591,7 +753,7 @@
 </li>
 <li><p>View 层：作为视图模板存在，在 MVVM 里，整个 View 是一个动态模板。除了定义结构、布局外，它展示的是 ViewModel 层的数据和状态。View 层不负责处理状态，View 层做的是 数据绑定的声明、 指令的声明、 事件绑定的声明。</p>
 </li>
-<li><p>ViewModel 层(核心):ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而View 和 Model 之间的同步工作完全是自动的，无需人为干涉，<strong>因此开发者只需关注业务逻辑，不需要手动操作DOM, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。</strong> 这就完全解耦了 View 层和 Model 层，这个解耦是至关重要的，它是前后端分离方案实施的重要一环。<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/MVVM.png" alt="markdown"></p>
+<li><p>ViewModel 层(核心):MVVM 的核心是 ViewModel 层，它就像是一个中转站（value converter），负责转换 Model 中的数据对象来让数据变得更容易管理和使用，该层向上与视图层进行双向数据绑定，向下与 Model 层通过接口请求进行数据交互，起呈上启下作用。View 层展现的不是 Model 层的数据，而是 ViewModel 的数据，由 ViewModel 负责与 Model 层交互，这就完全解耦了 View 层和 Model 层，这个解耦是至关重要的，<strong>因此开发者只需关注业务逻辑，不需要手动操作DOM, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。</strong> 这就完全解耦了 View 层和 Model 层，这个解耦是至关重要的，它是前后端分离方案实施的重要一环。<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/MVVM.png" alt="markdown"></p>
 <h2 id="MVVM的优缺点"><a href="#MVVM的优缺点" class="headerlink" title="MVVM的优缺点"></a>MVVM的优缺点</h2></li>
 </ol>
 <p><strong>优点</strong></p>
@@ -614,7 +776,38 @@
 </ol>
 <h2 id="MVVM和MVC的区别是什么？与其他框架（jquery）的区别是什么？哪些场景适合？"><a href="#MVVM和MVC的区别是什么？与其他框架（jquery）的区别是什么？哪些场景适合？" class="headerlink" title="MVVM和MVC的区别是什么？与其他框架（jquery）的区别是什么？哪些场景适合？"></a>MVVM和MVC的区别是什么？与其他框架（jquery）的区别是什么？哪些场景适合？</h2><p>mvc和mvvm其实区别并不大。都是一种设计思想。主要就是mvc中Controller演变成mvvm中的viewModel。mvvm主要解决了mvc中大量的DOM 操作使页面渲染性能降低，加载速度变慢，影响用户体验。</p>
 <p>区别：vue数据驱动，通过数据来显示视图层而不是节点操作。<br>场景：数据操作比较多的场景，更加便捷</p>
-<h1 id="Vue的生命周期"><a href="#Vue的生命周期" class="headerlink" title="Vue的生命周期"></a>Vue的生命周期</h1><p>Vue 实例有一个完整的生命周期，也就是从开始创建、初始化数据、编译模版、挂载Dom -&gt; 渲染、更新 -&gt; 渲染、卸载等一系列过程，我们称这是Vue的生命周期。<br>具体移步同栏目其他文章。</p>
+<h1 id="Vue的生命周期"><a href="#Vue的生命周期" class="headerlink" title="Vue的生命周期"></a>Vue的生命周期</h1><p>Vue 实例有一个完整的生命周期，也就是从开始创建、初始化数据、编译模版、挂载Dom -&gt; 渲染、更新 -&gt; 渲染、卸载等一系列过程，我们称这是Vue的生命周期。</p>
+<ol>
+<li><p>beforeCreate:挂载元素el和数据对象都是为undefined<br>dom元素都没有被创建出来，在这个期间我们一般不做事情</p>
+</li>
+<li><p>created：挂载元素el未初始化，但是data和methods都已经被初始化好了（最重要）<br>数据和data中的数据绑定完成，这里我们可以做初级的数据获取</p>
+</li>
+<li><p>beforeMount：挂载元素el和data已经初始化，但是此时是虚拟dom节点</p>
+</li>
+<li><p>mounted：Vue实例挂载完成，数据成功渲染（最重要）<br>官方实例的异步请求是在mounted生命周期中调用的，而实际上也可以在created生命周期中调用(推荐)。</p>
+</li>
+</ol>
+<p>只要执行完整个mounted，就表示整个Vue实例已经完成初始化。此时组件已经脱离了创建阶段，进入运行阶段<br>运行阶段的两个生命周期函数，这两个事件会根据data数据的改变，有选择性触发0到多次</p>
+<ol start="5">
+<li><p>beforeUpdate：表示界面还没有被更新，但是数据被更新了</p>
+</li>
+<li><p>update： 事件执行的时候，页面和data数据已经保持同步，都是最新的</p>
+</li>
+<li><p>beforeDestroy：执行该函数的时候，实例身上的所有data和所有的methods以及过滤器、指令等等都处于可用状态，还没有真正执行销毁的过程</p>
+</li>
+<li><p>Destroyed：执行到该函数的时候，组件中的而所有数据、方法、指令过滤器都不可用</p>
+</li>
+</ol>
+<p>除了以上8个比较常见的生命周期之外，vue其实还有其他3个生命周期</p>
+<p>如果我们在组件中使用了keep-alive用来缓存组件,避免多次加载相应的组件,减少性能消耗，那么这个时候生命周期会多出来两个，并且上面的8个生命周期钩子将会失效。</p>
+<ol start="9">
+<li><p>activated：被包裹的组件被激活的状态下使用的生命周期钩子。</p>
+</li>
+<li><p>deactivated：在被包裹的组件停止的时候停用。</p>
+</li>
+<li><p>errorCaptured: 当捕获一个来自子孙组件的错误时被调用。此钩子会收到三个参数：错误对象、发生错误的组件实例以及一个包含错误来源信息的字符串。此钩子可以返回 false 以阻止该错误继续向上传播。</p>
+</li>
+</ol>
 <h1 id="Vue组件之间的通信"><a href="#Vue组件之间的通信" class="headerlink" title="Vue组件之间的通信"></a>Vue组件之间的通信</h1><ul>
 <li><strong>props/$emit+v-on: 通过props将数据自上而下传递，而通过$emit和v-on来向上传递信息。</strong> （适用于父子组件之间的通信）</li>
 <li>EventBus: 通过EventBus进行信息的发布与订阅</li>
@@ -642,7 +835,7 @@
 <li>实现一个订阅者 Watcher：Watcher 订阅者是 Observer 和 Compile 之间通信的桥梁 ，主要的任务是订阅 Observer 中的属性值变化的消息，当收到属性值变化的消息时，触发解析器 Compile 中对应的更新函数。</li>
 <li>实现一个订阅器 Dep：订阅器采用 发布-订阅 设计模式，用来收集订阅者 Watcher，对监听器 Observer 和 订阅者 Watcher 进行统一管理。</li>
 </ul>
-<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/observer.png" alt="markdown"><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=<span class="string">"text"</span> name=<span class="string">"数据绑定"</span> id=<span class="string">"dataBinding"</span>&gt;</span><br><span class="line">&lt;span id=<span class="string">"data"</span>&gt;&lt;/span&gt;&lt;br&gt;</span><br><span class="line"></span><br><span class="line">mounted() &#123;</span><br><span class="line">    this.showData()</span><br><span class="line">&#125;,</span><br><span class="line">methods:&#123;</span><br><span class="line">      showData()&#123;</span><br><span class="line">          var obj1 = &#123;&#125;;                        //新建一个对象obj1</span><br><span class="line">          Object.defineProperty(obj1,'hello',&#123;  //为obj定义一个名为 hello 的访问器属性 </span><br><span class="line">              set: function(newVal)&#123;</span><br><span class="line">                  document.getElementById('dataBinding').value = newVal;</span><br><span class="line">                  document.getElementById('data').innerHTML = newVal;</span><br><span class="line">              &#125;,</span><br><span class="line">              get: function()&#123;</span><br><span class="line">                  return</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">          document.addEventListener('keyup',function(e)&#123;</span><br><span class="line">              obj1.hello = e.target.value;</span><br><span class="line">          &#125;);</span><br><span class="line">          console.log(obj1);</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/observer.png" alt="markdown"><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=<span class="string">"text"</span> name=<span class="string">"数据绑定"</span> id=<span class="string">"dataBinding"</span>&gt;</span><br><span class="line">&lt;span id=<span class="string">"data"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><span class="xml"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">mounted() &#123;</span></span><br><span class="line"><span class="xml">    this.showData()</span></span><br><span class="line"><span class="xml">&#125;,</span></span><br><span class="line"><span class="xml">methods:&#123;</span></span><br><span class="line"><span class="xml">      showData()&#123;</span></span><br><span class="line"><span class="xml">          var obj1 = &#123;&#125;;                        //新建一个对象obj1</span></span><br><span class="line"><span class="xml">          Object.defineProperty(obj1,'hello',&#123;  //为obj定义一个名为 hello 的访问器属性 </span></span><br><span class="line"><span class="xml">              set: function(newVal)&#123;</span></span><br><span class="line"><span class="xml">                  document.getElementById('dataBinding').value = newVal;</span></span><br><span class="line"><span class="xml">                  document.getElementById('data').innerHTML = newVal;</span></span><br><span class="line"><span class="xml">              &#125;,</span></span><br><span class="line"><span class="xml">              get: function()&#123;</span></span><br><span class="line"><span class="xml">                  return</span></span><br><span class="line"><span class="xml">              &#125;</span></span><br><span class="line"><span class="xml">          &#125;);</span></span><br><span class="line"><span class="xml">          document.addEventListener('keyup',function(e)&#123;</span></span><br><span class="line"><span class="xml">              obj1.hello = e.target.value;</span></span><br><span class="line"><span class="xml">          &#125;);</span></span><br><span class="line"><span class="xml">          console.log(obj1);</span></span><br><span class="line"><span class="xml">      &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="proxy和Object-defineProperty的优劣对比"><a href="#proxy和Object-defineProperty的优劣对比" class="headerlink" title="proxy和Object.defineProperty的优劣对比?"></a>proxy和Object.defineProperty的优劣对比?</h2><p><strong>Proxy的优势</strong></p>
 <ul>
 <li>Proxy可以直接监听对象而非属性</li>
@@ -802,7 +995,7 @@
 <li>tag（当前节点的标签名）相同</li>
 <li>isComment（是否为注释节点）相同</li>
 <li>是否data（当前节点对应的对象，包含了具体的一些数据信息，是一个VNodeData类型，可以参考VNodeData类型中的数据信息）都有定义</li>
-<li>当标签是<input>的时候，type必须相同</li>
+<li>当标签是 input 的时候，type必须相同</li>
 </ul>
 <p>当两个VNode的tag、key、isComment都相同，并且同时定义或未定义data的时候，且如果标签为input则type必须相同。这时候这两个VNode则算sameVnode，可以直接进行patchVnode操作。</p>
 <h2 id="patchVnode"><a href="#patchVnode" class="headerlink" title="patchVnode"></a><strong>patchVnode</strong></h2><p>patchVnode的规则是这样的：</p>
@@ -822,7 +1015,22 @@
 <p>用于对模块源码的转换，loader描述了webpack如何处理非javascript模块，并且在buld中引入这些依赖。loader可以将文件从不同的语言（如TypeScript）转换为JavaScript，SCSS转换为CSS</p>
 <p><strong>plugin：</strong></p>
 <p>对于plugin，它就是一个扩展器，它丰富了wepack本身，针对是loader结束后，webpack打包的整个过程，它并不直接操作文件，<strong>而是直接对整个构建过程起作用。，</strong>不仅局限于资源的加载。</p>
-<p><a href="https://juejin.im/post/5d59f2a451882549be53b170" target="_blank" rel="noopener">30 道 Vue 面试题，内含详细讲解（涵盖入门到精通，自测 Vue 掌握程度）</a><br><a href="https://github.com/aooy/blog/issues/2" target="_blank" rel="noopener">解析vue2.0的diff算法</a><br><a href="https://github.com/answershuto/learnVue/blob/master/docs/VirtualDOM与diff(Vue实现" target="_blank" rel="noopener">VirtualDOM与diff(Vue实现)</a>.MarkDown)</p>
+<h1 id="内置的过渡动画"><a href="#内置的过渡动画" class="headerlink" title="内置的过渡动画"></a>内置的过渡动画</h1><ul>
+<li><p>v-enter：定义进入过渡的开始状态。在元素被插入之前生效，在元素被插入之后的下一帧移除。</p>
+</li>
+<li><p>v-enter-active：定义进入过渡生效时的状态。在整个进入过渡的阶段中应用，在元素被插入之前生效，在过渡/动画完成之后移除。这个类可以被用来定义进入过渡的过程时间，延迟和曲线函数。</p>
+</li>
+<li><p>v-enter-to: 2.1.8版及以上 定义进入过渡的结束状态。在元素被插入之后下一帧生效 (与此同时 v-enter 被移除)，在过渡/动画完成之后移除。</p>
+</li>
+<li><p>v-leave: 定义离开过渡的开始状态。在离开过渡被触发时立刻生效，下一帧被移除。</p>
+</li>
+<li><p>v-leave-active：定义离开过渡生效时的状态。在整个离开过渡的阶段中应用，在离开过渡被触发时立刻生效，在过渡/动画完成之后移除。这个类可以被用来定义离开过渡的过程时间，延迟和曲线函数。</p>
+</li>
+<li><p>v-leave-to: 2.1.8版及以上 定义离开过渡的结束状态。在离开过渡被触发之后下一帧生效 (与此同时 v-leave 被删除)，在过渡/动画完成之后移除。</p>
+</li>
+</ul>
+<p>对于这些在过渡中切换的类名来说，如果你使用一个没有名字的 transition，则 v- 是这些类名的默认前缀。如果你使用了 <transition name="my-transition">，那么 v-enter 会替换为 my-transition-enter。</transition></p>
+<h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a><strong>参考文章：</strong></h1><p><a href="https://juejin.im/post/5d59f2a451882549be53b170" target="_blank" rel="noopener">30 道 Vue 面试题，内含详细讲解（涵盖入门到精通，自测 Vue 掌握程度）</a><br><a href="https://github.com/aooy/blog/issues/2" target="_blank" rel="noopener">解析vue2.0的diff算法</a><br><a href="https://github.com/answershuto/learnVue/blob/master/docs/VirtualDOM与diff(Vue实现" target="_blank" rel="noopener">VirtualDOM与diff(Vue实现)</a>.MarkDown)</p>
 </span></span></p></span></p>
           
         
@@ -1748,6 +1956,8 @@
             <h1 id="实现jsonp通信"><a href="#实现jsonp通信" class="headerlink" title="实现jsonp通信"></a>实现jsonp通信</h1><p>JSONP(JSON with Padding) 是一种跨域请求方式。主要原理是利用了script 标签可以跨域请求的特性，由其 src 属性发送请求到服务器，服务器返回 JavaScript 代码，浏览器接受响应，然后就直接执行了，这和通过 script 标签引用外部文件的原理是一样的。</p>
 <p>JSONP由两部分组成：<strong>回调函数和数据</strong> ，回调函数一般是在浏览器控制，作为参数发往服务器端（当然，你也可以固定回调函数的名字，但客户端和服务器端的名称一定要一致）。当服务器响应时，服务器端就会把该函数和数据拼成字符串返回。<br>JSONP的请求过程：</p>
 <p>请求阶段：浏览器创建一个 script 标签，并给其src 赋值(类似 <a href="http://example.com/api/?callback=jsonpCallback）。" target="_blank" rel="noopener">http://example.com/api/?callback=jsonpCallback）。</a><br>发送请求：当给script的src赋值时，浏览器就会发起一个请求。<br>数据响应：服务端将要返回的数据作为参数和函数名称拼接在一起(格式类似”jsonpCallback({name: ‘abc’})”)返回。当浏览器接收到了响应数据，由于发起请求的是 script，所以相当于直接调用 jsonpCallback 方法，并且传入了一个参数。</p>
+<p>最简单版本：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> script = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>)</span><br><span class="line">script.src = <span class="string">'http://github.com&amp;callback=callback'</span></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(script)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">callback</span>(<span class="params">ress</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//对请求data进行格式化处理</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">formateData</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> arr = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> data) &#123;</span><br><span class="line">        <span class="comment">//避免有&amp;,=,?字符，对这些字符进行序列化</span></span><br><span class="line">        arr.push(<span class="built_in">encodeURIComponent</span>(key) + <span class="string">'='</span> + data[key])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr.join(<span class="string">'&amp;'</span>);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//跨域jsonp请求</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">jsonp</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//先对params进行处理，防止为空</span></span><br><span class="line">    params = params || &#123;&#125;;</span><br><span class="line">    params.data = params.data || &#123;&#125;;</span><br><span class="line">    <span class="comment">//后台传递数据时调用的函数名</span></span><br><span class="line">    <span class="keyword">var</span> callbackName = params.jsonp;</span><br><span class="line">    <span class="comment">// 拿到dom元素head，先不进行操作</span></span><br><span class="line">    <span class="keyword">var</span> head = <span class="built_in">document</span>.querySelector(<span class="string">'head'</span>);</span><br><span class="line">    <span class="comment">//创建script元素，先不进行操作</span></span><br><span class="line">    <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span><br><span class="line">    <span class="comment">//传递给后台的data数据中，需要包含回调参数callback。</span></span><br><span class="line">    <span class="comment">//callback的值是 一个回调函数的函数名，后台通过该回调函数名调用传递数据，这个参数名的key由双方约定，默认为callback</span></span><br><span class="line">    params.data[<span class="string">'callback'</span>] = callbackName;</span><br><span class="line">    <span class="comment">//对data数据进行格式化</span></span><br><span class="line">    <span class="keyword">var</span> data = formateData(params.data);</span><br><span class="line">    <span class="comment">//设置script请求的url跟数据</span></span><br><span class="line">    script.src = <span class="string">`<span class="subst">$&#123;params.url&#125;</span>?<span class="subst">$&#123;data&#125;</span>`</span>;</span><br><span class="line">    <span class="comment">//全局函数 由script请求后台，被调用的函数，只有后台成功响应才会调用该函数</span></span><br><span class="line">    <span class="built_in">window</span>[callbackName] = <span class="function"><span class="keyword">function</span> (<span class="params">jsonData</span>) </span>&#123;</span><br><span class="line">        <span class="comment">//请求移除scipt标签</span></span><br><span class="line">        head.removeChild(script);</span><br><span class="line">        clearTimeout(script.timer);</span><br><span class="line">        <span class="built_in">window</span>[callbackName] = <span class="literal">null</span>;</span><br><span class="line">        params.success &amp;&amp; params.success(jsonData)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//请求超时的处理函数</span></span><br><span class="line">    <span class="keyword">if</span> (params.time) &#123;</span><br><span class="line">        script.timer = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">//请求超时对window下的[callbackName]函数进行清除，由于有可能下次callbackName发生改变了</span></span><br><span class="line">            <span class="built_in">window</span>[callbackName] = <span class="literal">null</span>;</span><br><span class="line">            <span class="comment">//移除script元素，无论请求成不成功</span></span><br><span class="line">            head.removeChild(script)</span><br><span class="line">            <span class="comment">//这里不需要清除定时器了，clearTimeout(script.timer); 因为定时器调用之后就被清除了</span></span><br><span class="line"> </span><br><span class="line">            <span class="comment">//调用失败回调</span></span><br><span class="line">            params.error &amp;&amp; params.error(&#123;</span><br><span class="line">                message: <span class="string">'超时'</span></span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;, time);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//往head元素插入script元素，这个时候，script就插入文档中了，请求并加载src</span></span><br><span class="line">    head.appendChild(script);</span><br><span class="line"> </span><br><span class="line">    <span class="comment">//无论是请求超时，还是请求成功，都要移除script元素，script元素只有在第一次插入页面文档的时候，才会请求src</span></span><br><span class="line">    <span class="comment">//无论请求失败还是成功，都还是要移除window[callbackName]避免增加没用的全局方法，因为每次请求的callbackName可能是不同的</span></span><br><span class="line">    <span class="comment">//之前有个无聊的问题：为啥jsonp只能是get请求呢？看了实现过程，知道其实是因为script的加载就是get方式的~</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">    &lt;script&gt;</span><br><span class="line"><span class="comment">//这个是jsonp的请求demo</span></span><br><span class="line">        jsonp(&#123;</span><br><span class="line">            url: <span class="string">'http://127.0.0.1:3000/jsonp'</span>,</span><br><span class="line">            jsonp: <span class="string">'callback'</span>,</span><br><span class="line">            data: &#123;</span><br><span class="line">                name: <span class="string">'jgchen'</span>,</span><br><span class="line">                stuNo: <span class="number">2016130201</span>,</span><br><span class="line">                method: <span class="string">'jsonp'</span></span><br><span class="line">            &#125;,</span><br><span class="line">            success(res) &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'jsonp success:'</span>,res);</span><br><span class="line">            &#125;,</span><br><span class="line">            error(err) &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(err);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
           
@@ -2134,150 +2344,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/vue/v-model的简单实现原理/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/22/vue/v-model的简单实现原理/" itemprop="url">v-model简单实现原理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-22T14:43:20+08:00">
-                2019-05-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue/" itemprop="url" rel="index">
-                    <span itemprop="name">Vue</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>写在前面：上网查资料的时候，发现了《Vue.js权威指南这本书》，作者张耀春人品有问题，真的是被恶心到了，所以先入为主，这书的具体内容就看也不看了。讲道理vue好像没有一本口碑比较好的作品。还是看官方文档好了。<br>官网实例：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model</span>=<span class="string">"message"</span> <span class="attr">placeholder</span>=<span class="string">"edit me"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Message is: &#123;&#123; message &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>实现双向数据绑定，v-model只是一个语法糖而已，真正的实现，其实靠的是v-bind绑定响应式的数据，然后触发input事件进行数据的传递。<br>对上面的例子进行重构<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-bind:value</span>=<span class="string">"msg"</span> <span class="attr">v-on:input</span>=<span class="string">"msg=$event.target.value"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>原理：主要还是通过<strong>Object对象的defineProperty属性，重写data的set和get函数来实现</strong><br>下面是一个非常简陋的一个demo<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    &lt;input type=<span class="string">"text"</span> name=<span class="string">"数据绑定"</span> id=<span class="string">"dataBinding"</span>&gt;</span><br><span class="line">    &lt;span id=<span class="string">"data"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><span class="xml"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">mounted() &#123;</span></span><br><span class="line"><span class="xml">    this.showData()</span></span><br><span class="line"><span class="xml">&#125;,</span></span><br><span class="line"><span class="xml">methods:&#123;</span></span><br><span class="line"><span class="xml">      showData()&#123;</span></span><br><span class="line"><span class="xml">          var obj1 = &#123;&#125;;                        //新建一个对象obj1</span></span><br><span class="line"><span class="xml">          Object.defineProperty(obj1,'hello',&#123;  //为obj定义一个名为 hello 的访问器属性 </span></span><br><span class="line"><span class="xml">              set: function(newVal)&#123;</span></span><br><span class="line"><span class="xml">                  document.getElementById('dataBinding').value = newVal;</span></span><br><span class="line"><span class="xml">                  document.getElementById('data').innerHTML = newVal;</span></span><br><span class="line"><span class="xml">              &#125;,</span></span><br><span class="line"><span class="xml">              get: function()&#123;</span></span><br><span class="line"><span class="xml">                  return</span></span><br><span class="line"><span class="xml">              &#125;</span></span><br><span class="line"><span class="xml">          &#125;);</span></span><br><span class="line"><span class="xml">          document.addEventListener('keyup',function(e)&#123;</span></span><br><span class="line"><span class="xml">              obj1.hello = e.target.value;</span></span><br><span class="line"><span class="xml">          &#125;);</span></span><br><span class="line"><span class="xml">          console.log(obj1);</span></span><br><span class="line"><span class="xml">      &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2328,7 +2394,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
