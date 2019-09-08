@@ -88,7 +88,7 @@
 <meta property="og:description" content="DOCTYPE及其作用由于历史的原因，浏览器对页面的渲染方式是不一样的。在W3C标准出来之前，浏览器对页面的渲染没有同一的标准，产生了差异，quirks mod（混杂模式或者兼容模式），但在W3C标准出台之后，浏览器对页面的渲染有了同一的标准即（严格模式或标准模式）。但是为了保证以前就得页面仍然正常显示，有的浏览器就保存了这两种渲染模式（标准兼容模式）。那么究竟采用哪一种方式进行渲染，就要看DOC">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/tree.png">
-<meta property="og:updated_time" content="2019-09-04T07:46:23.683Z">
+<meta property="og:updated_time" content="2019-09-08T07:03:51.051Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器的渲染机制">
 <meta name="twitter:description" content="DOCTYPE及其作用由于历史的原因，浏览器对页面的渲染方式是不一样的。在W3C标准出来之前，浏览器对页面的渲染没有同一的标准，产生了差异，quirks mod（混杂模式或者兼容模式），但在W3C标准出台之后，浏览器对页面的渲染有了同一的标准即（严格模式或标准模式）。但是为了保证以前就得页面仍然正常显示，有的浏览器就保存了这两种渲染模式（标准兼容模式）。那么究竟采用哪一种方式进行渲染，就要看DOC">
@@ -338,8 +338,8 @@
 <li>DOM：Document Object Model，浏览器将HTML解析成树形的数据结构，简称DOM。</li>
 <li>CSSOM：CSS Object Model，浏览器将CSS解析成树形的数据结构，简称CSSOM。</li>
 <li>Render Tree: DOM和CSSOM合并后生成Render Tree(但是如果遇到script标签的时候，会执行并阻塞渲染)</li>
-<li>Layout: 计算出Render Tree每个节点的具体位置。</li>
-<li>Painting：通过显卡，将Layout后的节点内容分别呈现到屏幕上。</li>
+<li>Layout: 计算出Render Tree每个节点的具体位置。（布局）</li>
+<li>Painting：通过显卡，将Layout后的节点内容分别呈现到屏幕上。（渲染）</li>
 </ol>
 <h1 id="重排（回流）Reflow-（引起DOM树重新计算的行为）"><a href="#重排（回流）Reflow-（引起DOM树重新计算的行为）" class="headerlink" title="重排（回流）Reflow （引起DOM树重新计算的行为）"></a>重排（回流）Reflow <strong>（引起DOM树重新计算的行为）</strong></h1><p>DOM结构中的各个元素都有自己的盒子，这些都需要浏览器根据各种样式来计算，并根据计算结果将元素放到它该出现的位置，这个过程称为reflow。<br>以下是触发reflow的几种方法：</p>
 <ol>

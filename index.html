@@ -1647,8 +1647,8 @@
 <li>DOM：Document Object Model，浏览器将HTML解析成树形的数据结构，简称DOM。</li>
 <li>CSSOM：CSS Object Model，浏览器将CSS解析成树形的数据结构，简称CSSOM。</li>
 <li>Render Tree: DOM和CSSOM合并后生成Render Tree(但是如果遇到script标签的时候，会执行并阻塞渲染)</li>
-<li>Layout: 计算出Render Tree每个节点的具体位置。</li>
-<li>Painting：通过显卡，将Layout后的节点内容分别呈现到屏幕上。</li>
+<li>Layout: 计算出Render Tree每个节点的具体位置。（布局）</li>
+<li>Painting：通过显卡，将Layout后的节点内容分别呈现到屏幕上。（渲染）</li>
 </ol>
 <h1 id="重排（回流）Reflow-（引起DOM树重新计算的行为）"><a href="#重排（回流）Reflow-（引起DOM树重新计算的行为）" class="headerlink" title="重排（回流）Reflow （引起DOM树重新计算的行为）"></a>重排（回流）Reflow <strong>（引起DOM树重新计算的行为）</strong></h1><p>DOM结构中的各个元素都有自己的盒子，这些都需要浏览器根据各种样式来计算，并根据计算结果将元素放到它该出现的位置，这个过程称为reflow。<br>以下是触发reflow的几种方法：</p>
 <ol>
