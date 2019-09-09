@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="300毫秒延迟的由来和解决方法 300 毫秒延迟的主要原因是解决双击缩放。双击缩放，顾名思义，即用手指在屏幕上快速点击两次，iOS 自带的 Safari 浏览器会将网页缩放至原始比例。 那么这和 300 毫秒延迟有什么联系呢？ 假定这么一个场景。用户在 iOS Safari 里边点击了一个链接。由于用户可以进行双击缩放或者双击滚动的操作，当用户一次点击屏幕之后，浏览器并不能立刻判断用户是确实要打开">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-03T07:42:52.255Z">
+<meta property="og:updated_time" content="2019-09-08T08:13:46.156Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="移动端常见问题">
 <meta name="twitter:description" content="300毫秒延迟的由来和解决方法 300 毫秒延迟的主要原因是解决双击缩放。双击缩放，顾名思义，即用手指在屏幕上快速点击两次，iOS 自带的 Safari 浏览器会将网页缩放至原始比例。 那么这和 300 毫秒延迟有什么联系呢？ 假定这么一个场景。用户在 iOS Safari 里边点击了一个链接。由于用户可以进行双击缩放或者双击滚动的操作，当用户一次点击屏幕之后，浏览器并不能立刻判断用户是确实要打开">
@@ -329,7 +329,7 @@
 </li>
 </ol>
 <ul>
-<li>添加viewpoint meta标签</li>
+<li>添加viewport meta标签</li>
 </ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 <ul>
@@ -341,6 +341,19 @@
 <li>SSR服务端渲染直出</li>
 </ol>
 <p>服务端渲染主要有两个目的，一是 SEO，二是加快内容展现。<br>在带来这两个好处的同时，<strong>我们也需要评估服务端渲染的成本，首先我们需要服务端的支持，因此涉及到了服务构建、部署等，同时 web 项目是一个流量较大的网站，也需要考虑服务器的负载，以及相应的缓存策略，</strong>特别像我们行业，由于地理位置的不同，不同用户看到的页面也是不一样的，也就是所谓的千人千面，这也为缓存造成了一定困难。</p>
+<p>ssr是Server-Side Rendering的简写，即由服务端负责渲染页面直出，亦即同构应用。程序的大部分代码都可以在服务端和客户端运行。在服务端vue组件渲染为html字符串，然后直接返回给客户端，在客户端生成dom和操作dom。</p>
+<p>能在服务端渲染为html字符串得益于vue组件结构是基于vnode的。vnode是dom的抽象表达，它不是真实的dom，它是由js对象组成的树，每个节点代表了一个dom。因为vnode，所以在服务端vue可以把js对象解析为html字符串。同样在客户端vnode因为是存在内存之中的，操作内存总比操作dom快的多，每次数据变化需要更新dom时，新旧vnode树经过diff算法，计算出最小变化集，大大提高了性能。</p>
+<p><strong>服务端渲染 SSR 的优缺点如下：</strong></p>
+<p>(1) 服务端渲染的优点：</p>
+<ul>
+<li>更好的 SEO： 因为 SPA 页面的内容是通过 Ajax 获取，而搜索引擎爬取工具并不会等待 Ajax 异步完成后再抓取页面内容，所以在 SPA 中是抓取不到页面通过 Ajax 获取到的内容；而 SSR 是直接由服务端返回已经渲染好的页面（数据已经包含在页面中），所以搜索引擎爬取工具可以抓取渲染好的页面</li>
+<li>更快的内容到达时间（首屏加载更快）： SPA 会等待所有 Vue 编译后的 js 文件都下载完成后，才开始进行页面的渲染，文件下载等需要一定的时间等，所以首屏渲染需要一定的时间；SSR 直接由服务端渲染好页面直接返回显示，无需等待下载 js 文件及再去渲染等，所以 SSR 有更快的内容到达时间</li>
+</ul>
+<p>(2) 服务端渲染的缺点：</p>
+<ul>
+<li>更多的开发条件限制： <strong>例如服务端渲染只支持 beforCreate 和 created 两个钩子函数</strong>，这会导致一些外部扩展库需要特殊处理，才能在服务端渲染应用程序中运行；并且与可以部署在任何静态文件服务器上的完全静态单页面应用程序 SPA 不同，服务端渲染应用程序，需要处于 Node.js server 运行环境；</li>
+<li>更多的服务器负载：在 Node.js  中渲染完整的应用程序，显然会比仅仅提供静态文件的  server 更加大量占用CPU 资源 (CPU-intensive - CPU 密集)，因此如果你预料在高流量环境 ( high traffic ) 下使用，请准备相应的服务器负载，并明智地采用缓存策略。</li>
+</ul>
 <ol start="2">
 <li>使用预渲染</li>
 </ol>
@@ -407,7 +420,7 @@
 <li><p>dpr(devicePixelRatio)设备像素比</p>
 </li>
 </ol>
-<p>dpr = 物理像素/css像素<br>这就是为什么移动端css里面写了1px, 实际看起来比1px粗. 其实原因很好理解。因为css中的1px并不等于移动设备的1px，而是变成了2px。一般设计是根据iphone的dpr = 2标准进行设计的。</p>
+<p>dpr = 物理像素/css像素<br>这就是为什么移动端css里面写了1px, 实际看起来比1px粗. 其实原因很好理解。因为css中的1px并不等于移动设备的1px，而是变成了2px。一般设计是根据iphone6的dpr = 2标准进行设计的。</p>
 <p>解决方法：</p>
 <ul>
 <li><p>使用border-image</p>
