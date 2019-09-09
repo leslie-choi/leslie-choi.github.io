@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="首先必须了解JS是单线程的（语言核心），最主要的原因就是为了避免DOM的冲突，虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中。 PS:进程和线程的区别  进程：是并发执行的程序在执行过程中分配和管理资源的基本单位，是一个动态概念，竞争计算机系统资源的基本单位。（类比工厂">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-28T03:02:04.373Z">
+<meta property="og:updated_time" content="2019-09-09T17:34:58.135Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript运行机制">
 <meta name="twitter:description" content="首先必须了解JS是单线程的（语言核心），最主要的原因就是为了避免DOM的冲突，虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中。 PS:进程和线程的区别  进程：是并发执行的程序在执行过程中分配和管理资源的基本单位，是一个动态概念，竞争计算机系统资源的基本单位。（类比工厂">
@@ -378,7 +378,25 @@
 <li>当微任务队列为空时，执行宏任务,打印setTimeout。<br>这里的主要问题是把async和await弄清楚。。。</li>
 </ul>
 <p>小结：执行顺序：同步代码 =&gt; 微任务(.then) =&gt; 宏任务 </p>
-<p>参考文章：<br><a href="https://juejin.im/post/5c3d8956e51d4511dc72c200" target="_blank" rel="noopener">一次弄懂Event Loop（彻底解决此类面试问题）</a><br><a href="https://segmentfault.com/a/1190000016278115?utm_source=tag-newest#articleHeader8" target="_blank" rel="noopener">带你彻底弄懂 Event Loop</a></p>
+<h1 id="javaScript和Java、C-的区别"><a href="#javaScript和Java、C-的区别" class="headerlink" title="javaScript和Java、C++的区别"></a>javaScript和Java、C++的区别</h1><ol>
+<li>从静态类型看还是动态类型看</li>
+</ol>
+<ul>
+<li><p><strong>静态类型，编译的时候就能够知道每个变量的类型，编程的时候也需要给定类型。</strong>如Java中的整型int，浮点型float等。</p>
+</li>
+<li><p><strong>动态类型，运行的时候才知道每个变量的类型，编程的时候无需显示指定类型，</strong>如JavaScript中的var、PHP中的$。JavaScript、Ruby、Python都属于动态类型语言。</p>
+</li>
+</ul>
+<p><strong>静态类型还是动态类型对语言的性能有很大影响。</strong><br>对于静态类型，在编译后会大量利用已知类型的优势，如int类型，占用4个字节，编译后的代码就可以用内存地址加偏移量的方法存取变量，而地址加偏移量的算法汇编很容易实现。<br>对于动态类型，会当做字符串通通存下来，之后存取就用字符串匹配。 </p>
+<ol start="2">
+<li>从编译型还是解释型来看</li>
+</ol>
+<p><strong>编译型语言，像C、C++，在程序执行之前，有一个单独的编译过程，将程序翻译成机器语言，以后执行这个程序的时候，就不用再进行编译了。</strong>用户只使用这些编译好的本地代码，这些本地代码由系统加载器执行，由操作系统的CPU直接执行，无需其他额外的虚拟机等。 </p>
+<p><strong>解释型语言，是在运行的时候将程序翻译成机器语言，所以运行速度相对于编译型语言要慢。用户使用脚本解释器将脚本文件解释执行，没有编译过程。</strong>对于JavaScript，随着Java虚拟机JIT技术的引入，工作方式也发生了改变。可以将抽象语法树转成中间表示（字节码），再转成本地代码，如JavaScriptCore，这样可以大大提高执行效率。也可以从抽象语法树直接转成本地代码，如V8</p>
+<p><strong>Java语言，分为两个阶段。</strong>Java语言，分为两个阶段。第一阶段，Java编译后，生成字节码，字节码与平台无关。第二阶段，在运行的时候，由JVM将字节码再翻译成机器语言。</p>
+<h1 id="为什么JS中-0-1-0-2-不等于-0-3"><a href="#为什么JS中-0-1-0-2-不等于-0-3" class="headerlink" title="为什么JS中 0.1+0.2 不等于 0.3"></a>为什么JS中 0.1+0.2 不等于 0.3</h1><p>JS中的数字是用IEEE 754 双精度 64 位浮点数来存储的，它由64位组成,但是当<strong>十进制小数的二进制表示</strong>的有限数字超过 52 位时，在 JavaScript 里是不能精确存储的，超过的会被舍弃，所以存在误差。<br>如果想要使得  0.1+0.2  == 0.3，在ES6中，已经为我们提供了这样一个属性：Number.EPSILON，小于这个范围内的误差则可以认为两个数字是相等的</p>
+<p>或者 (0.1<em>1000+0.2</em>1000)/1000==0.3 //true</p>
+<h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h1><p><a href="https://juejin.im/post/5c3d8956e51d4511dc72c200" target="_blank" rel="noopener">一次弄懂Event Loop（彻底解决此类面试问题）</a><br><a href="https://segmentfault.com/a/1190000016278115?utm_source=tag-newest#articleHeader8" target="_blank" rel="noopener">带你彻底弄懂 Event Loop</a></p>
 
       
     </div>
@@ -553,7 +571,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、任务队列"><span class="nav-number">1.</span> <span class="nav-text">一、任务队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、事件和回调函数"><span class="nav-number">2.</span> <span class="nav-text">二、事件和回调函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、定时器"><span class="nav-number">3.</span> <span class="nav-text">三、定时器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、Even-Loop"><span class="nav-number">4.</span> <span class="nav-text">四、Even Loop</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、任务队列"><span class="nav-number">1.</span> <span class="nav-text">一、任务队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、事件和回调函数"><span class="nav-number">2.</span> <span class="nav-text">二、事件和回调函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、定时器"><span class="nav-number">3.</span> <span class="nav-text">三、定时器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、Even-Loop"><span class="nav-number">4.</span> <span class="nav-text">四、Even Loop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#javaScript和Java、C-的区别"><span class="nav-number">5.</span> <span class="nav-text">javaScript和Java、C++的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么JS中-0-1-0-2-不等于-0-3"><span class="nav-number">6.</span> <span class="nav-text">为什么JS中 0.1+0.2 不等于 0.3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文章："><span class="nav-number">7.</span> <span class="nav-text">参考文章：</span></a></li></ol></div>
             
 
           </div>
