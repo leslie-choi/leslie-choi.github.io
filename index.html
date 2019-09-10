@@ -1411,25 +1411,24 @@
           
             <p>我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。</p>
 <h1 id="一、资源压缩合并，减少HTTP请求"><a href="#一、资源压缩合并，减少HTTP请求" class="headerlink" title="一、资源压缩合并，减少HTTP请求"></a>一、资源压缩合并，减少HTTP请求</h1><p>比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。</p>
-<h1 id="二、非核心代码异步加载"><a href="#二、非核心代码异步加载" class="headerlink" title="二、非核心代码异步加载"></a>二、非核心代码异步加载</h1><p>通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。因此，通常会将JavaScript分为两个部分（一部分是渲染初始化页面所必须的，另一部分则是剩下的脚本）来进行加载。这样就可以尽可能快速地渲染出网页。</p>
+<h1 id="二、非核心代码异步加载"><a href="#二、非核心代码异步加载" class="headerlink" title="二、非核心代码异步加载"></a>二、非核心代码异步加载</h1><p>通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。在页面渲染的这样一个过程中，有一个关键点是如果在解析内容的过程中遇到了脚本标签，如：<script src="example.js"></script>，浏览器就会暂停内容的解析，转而开始下载脚本。并且只有等脚本下载完并执行结束后，渲染引擎才会继续解析。那么这样一来，页面显示的时间必然会被延长。因此我们需要优化的点就是尽可能地让页面更早地被渲染出来。要解决上面说到的脚本加载问题，通常有三种解决方案：将脚本放在HTML末尾、动态加载脚本以及异步加载脚本。</p>
 <ol>
 <li>异步加载的方式：</li>
 </ol>
 <ul>
-<li><p>动态脚本加载：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</span><br><span class="line">script.src = <span class="string">"js/test.js"</span>;</span><br><span class="line"><span class="built_in">document</span>.head.appendChild(script);</span><br></pre></td></tr></table></figure>
+<li>动态脚本加载：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</span><br><span class="line">script.src = <span class="string">"js/test.js"</span>;</span><br><span class="line"><span class="built_in">document</span>.head.appendChild(script);</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>defer <script src="defer.js" defer> </script></p>
-</li>
-<li>async <script src="defer.js" async> </script></li>
 </ul>
 <ol start="2">
-<li>异步加载的区别</li>
+<li>异步加载的方式</li>
 </ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">defer &lt;script src=<span class="string">"defer.js"</span> defer&gt; <span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="keyword">async</span> &lt;script src=<span class="string">"defer.js"</span> <span class="keyword">async</span>&gt; <span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>defer是在HTML渲染完之后（DOM结构完全生成，以及其他脚本执行完成之后）才会执行，如果是多个，则按照加载的顺序执行，优先级比async高</li>
 <li>async是在下载完脚本之后立即执行，渲染引擎会中断，执行完脚本之后才会继续渲染，如果是多个，执行顺序和加载顺序无关</li>
 </ul>
+<h2 id="解决异步加载脚本的问题"><a href="#解决异步加载脚本的问题" class="headerlink" title="解决异步加载脚本的问题"></a>解决异步加载脚本的问题</h2><p>如何处理加载过程中这些脚本的互相依赖关系，就成了实现异步加载过程中所需要考虑的问题。一方面，对于页面中那些独立的脚本，如用户统计等插件就可以放心大胆地使用异步加载。而另一方面，对于那些确实需要处理依赖关系的脚本，业界已经有很成熟的解决方案了。如采用AMD规范的RequireJS,CMD规范的seaJS，或者使用ES6中的模块化开发。另一方面，也可以使用promise技术来实现处理异步脚本加载过程中de的依赖问题：</p>
+<p>针对每个脚本依赖都会创建一个promise对象来管理其状态。采用动态插入脚本的方式来管理脚本，然后利用脚本onload和onreadystatechange(兼容性处理)事件来监听脚本是否加载完成。一旦加载完毕，就会触发promise的resovle方法。最后，针对依赖的处理，是promise的all方法，这个方法只有在所有promise对象都resolved的时候才会触发resolve方法，这样一来，我们就可以确保在执行回调之前，所有依赖的脚本都已经加载并执行完毕。</p>
 <h1 id="三、利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理"><a href="#三、利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理" class="headerlink" title="三、利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理"></a>三、利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理</h1><ol>
 <li>缓存的分类</li>
 </ol>
@@ -1669,6 +1668,12 @@
 <li>Layout: 计算出Render Tree每个节点的具体位置。（布局）</li>
 <li>Painting：通过显卡，将Layout后的节点内容分别呈现到屏幕上。（渲染）</li>
 </ol>
+<p>PS：</p>
+<ul>
+<li>css加载不会阻塞DOM树的解析</li>
+<li>css加载会阻塞DOM树的渲染（白屏）</li>
+<li>css加载会阻塞后面js语句的执行</li>
+</ul>
 <h1 id="重排（回流）Reflow-（引起DOM树重新计算的行为）"><a href="#重排（回流）Reflow-（引起DOM树重新计算的行为）" class="headerlink" title="重排（回流）Reflow （引起DOM树重新计算的行为）"></a>重排（回流）Reflow <strong>（引起DOM树重新计算的行为）</strong></h1><p>DOM结构中的各个元素都有自己的盒子，这些都需要浏览器根据各种样式来计算，并根据计算结果将元素放到它该出现的位置，这个过程称为reflow。<br>以下是触发reflow的几种方法：</p>
 <ol>
 <li>增加、删除、修改DOM节点的时候，会导致Reflow</li>

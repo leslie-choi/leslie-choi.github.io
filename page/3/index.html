@@ -744,7 +744,7 @@
 <li>当微任务队列为空时，执行宏任务,打印setTimeout。<br>这里的主要问题是把async和await弄清楚。。。</li>
 </ul>
 <p>小结：执行顺序：同步代码 =&gt; 微任务(.then) =&gt; 宏任务 </p>
-<h1 id="javaScript和Java、C-的区别"><a href="#javaScript和Java、C-的区别" class="headerlink" title="javaScript和Java、C++的区别"></a>javaScript和Java、C++的区别</h1><ol>
+<h1 id="五、javaScript和Java、C-的区别"><a href="#五、javaScript和Java、C-的区别" class="headerlink" title="五、javaScript和Java、C++的区别"></a>五、javaScript和Java、C++的区别</h1><ol>
 <li>从静态类型看还是动态类型看</li>
 </ol>
 <ul>
@@ -760,9 +760,9 @@
 <p><strong>编译型语言，像C、C++，在程序执行之前，有一个单独的编译过程，将程序翻译成机器语言，以后执行这个程序的时候，就不用再进行编译了。</strong>用户只使用这些编译好的本地代码，这些本地代码由系统加载器执行，由操作系统的CPU直接执行，无需其他额外的虚拟机等。 </p>
 <p><strong>解释型语言，是在运行的时候将程序翻译成机器语言，所以运行速度相对于编译型语言要慢。用户使用脚本解释器将脚本文件解释执行，没有编译过程。</strong>对于JavaScript，随着Java虚拟机JIT技术的引入，工作方式也发生了改变。可以将抽象语法树转成中间表示（字节码），再转成本地代码，如JavaScriptCore，这样可以大大提高执行效率。也可以从抽象语法树直接转成本地代码，如V8</p>
 <p><strong>Java语言，分为两个阶段。</strong>Java语言，分为两个阶段。第一阶段，Java编译后，生成字节码，字节码与平台无关。第二阶段，在运行的时候，由JVM将字节码再翻译成机器语言。</p>
-<h1 id="为什么JS中-0-1-0-2-不等于-0-3"><a href="#为什么JS中-0-1-0-2-不等于-0-3" class="headerlink" title="为什么JS中 0.1+0.2 不等于 0.3"></a>为什么JS中 0.1+0.2 不等于 0.3</h1><p>JS中的数字是用IEEE 754 双精度 64 位浮点数来存储的，它由64位组成,但是当<strong>十进制小数的二进制表示</strong>的有限数字超过 52 位时，在 JavaScript 里是不能精确存储的，超过的会被舍弃，所以存在误差。<br>如果想要使得  0.1+0.2  == 0.3，在ES6中，已经为我们提供了这样一个属性：Number.EPSILON，小于这个范围内的误差则可以认为两个数字是相等的</p>
+<h1 id="六、为什么JS中-0-1-0-2-不等于-0-3"><a href="#六、为什么JS中-0-1-0-2-不等于-0-3" class="headerlink" title="六、为什么JS中 0.1+0.2 不等于 0.3"></a>六、为什么JS中 0.1+0.2 不等于 0.3</h1><p>JS中的数字是用IEEE 754 双精度 64 位浮点数来存储的，它由64位组成,但是当<strong>十进制小数的二进制表示</strong>的有限数字超过 52 位时，在 JavaScript 里是不能精确存储的，超过的会被舍弃，所以存在误差。<br>如果想要使得  0.1+0.2  == 0.3，在ES6中，已经为我们提供了这样一个属性：Number.EPSILON，小于这个范围内的误差则可以认为两个数字是相等的</p>
 <p>或者 (0.1<em>1000+0.2</em>1000)/1000==0.3 //true</p>
-<h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h1><p><a href="https://juejin.im/post/5c3d8956e51d4511dc72c200" target="_blank" rel="noopener">一次弄懂Event Loop（彻底解决此类面试问题）</a><br><a href="https://segmentfault.com/a/1190000016278115?utm_source=tag-newest#articleHeader8" target="_blank" rel="noopener">带你彻底弄懂 Event Loop</a></p>
+<h1 id="七、参考文章"><a href="#七、参考文章" class="headerlink" title="七、参考文章"></a>七、参考文章</h1><p><a href="https://juejin.im/post/5c3d8956e51d4511dc72c200" target="_blank" rel="noopener">一次弄懂Event Loop（彻底解决此类面试问题）</a><br><a href="https://segmentfault.com/a/1190000016278115?utm_source=tag-newest#articleHeader8" target="_blank" rel="noopener">带你彻底弄懂 Event Loop</a></p>
 
           
         
@@ -1682,6 +1682,15 @@
 <p><a href="http://www.nealyang.cn:8080/index.html" target="_blank" rel="noopener">http://www.nealyang.cn:8080/index.html</a> 调用   <a href="http://www.nealyang.cn/server.php" target="_blank" rel="noopener">http://www.nealyang.cn/server.php</a>  跨域,端口不同</p>
 <p><a href="https://www.nealyang.cn/index.html" target="_blank" rel="noopener">https://www.nealyang.cn/index.html</a> 调用   <a href="http://www.nealyang.cn/server.php" target="_blank" rel="noopener">http://www.nealyang.cn/server.php</a>  跨域,协议不同</p>
 <p>localhost   调用 127.0.0.1 则造成跨域</p>
+<p><strong>同源策略对于js的限制有3点</strong></p>
+<ul>
+<li><p>无法用js读取非同源的Cookie、LocalStorage 和 IndexDB 无法读取。<br>为了防止恶意网站通过js获取用户其他网站的cookie。</p>
+</li>
+<li><p>无法用js获取非同源的DOM<br>如果没有这一条，恶意网站可以通过iframe打开银行页面，可以获取dom就相当于可以获取整个银行页面的信息。</p>
+</li>
+<li><p>无法用js发送非同源的AJAX请求 。</p>
+</li>
+</ul>
 <p><strong>举两个例子。没有同源策略限制的两大危险场景（接口请求和DOM查询）</strong></p>
 <h2 id="a、没有同源策略限制的接口请求"><a href="#a、没有同源策略限制的接口请求" class="headerlink" title="a、没有同源策略限制的接口请求"></a>a、没有同源策略限制的接口请求</h2><ol>
 <li>你准备去清空你的购物车，于是打开了买买买网站<a href="http://www.maimaimai.com，然后登录成功，一看，购物车东西这么少，不行，还得买多点。" target="_blank" rel="noopener">www.maimaimai.com，然后登录成功，一看，购物车东西这么少，不行，还得买多点。</a></li>

@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="跨域问题跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。同源策略限制了以下行为： Cookie、LocalStorage 和 IndexDB 无法读取DOM 和 JS 对象无法获取Ajax请求发送不出去。 所谓的同源是指，域名、协议、端口均为相同，主要对XHR的一个主要约束http://www.nealyang.cn/index.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-05T16:21:33.024Z">
+<meta property="og:updated_time" content="2019-09-10T05:33:16.492Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="跨域问题">
 <meta name="twitter:description" content="跨域问题跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。同源策略限制了以下行为： Cookie、LocalStorage 和 IndexDB 无法读取DOM 和 JS 对象无法获取Ajax请求发送不出去。 所谓的同源是指，域名、协议、端口均为相同，主要对XHR的一个主要约束http://www.nealyang.cn/index.">
@@ -330,6 +330,15 @@
 <p><a href="http://www.nealyang.cn:8080/index.html" target="_blank" rel="noopener">http://www.nealyang.cn:8080/index.html</a> 调用   <a href="http://www.nealyang.cn/server.php" target="_blank" rel="noopener">http://www.nealyang.cn/server.php</a>  跨域,端口不同</p>
 <p><a href="https://www.nealyang.cn/index.html" target="_blank" rel="noopener">https://www.nealyang.cn/index.html</a> 调用   <a href="http://www.nealyang.cn/server.php" target="_blank" rel="noopener">http://www.nealyang.cn/server.php</a>  跨域,协议不同</p>
 <p>localhost   调用 127.0.0.1 则造成跨域</p>
+<p><strong>同源策略对于js的限制有3点</strong></p>
+<ul>
+<li><p>无法用js读取非同源的Cookie、LocalStorage 和 IndexDB 无法读取。<br>为了防止恶意网站通过js获取用户其他网站的cookie。</p>
+</li>
+<li><p>无法用js获取非同源的DOM<br>如果没有这一条，恶意网站可以通过iframe打开银行页面，可以获取dom就相当于可以获取整个银行页面的信息。</p>
+</li>
+<li><p>无法用js发送非同源的AJAX请求 。</p>
+</li>
+</ul>
 <p><strong>举两个例子。没有同源策略限制的两大危险场景（接口请求和DOM查询）</strong></p>
 <h2 id="a、没有同源策略限制的接口请求"><a href="#a、没有同源策略限制的接口请求" class="headerlink" title="a、没有同源策略限制的接口请求"></a>a、没有同源策略限制的接口请求</h2><ol>
 <li>你准备去清空你的购物车，于是打开了买买买网站<a href="http://www.maimaimai.com，然后登录成功，一看，购物车东西这么少，不行，还得买多点。" target="_blank" rel="noopener">www.maimaimai.com，然后登录成功，一看，购物车东西这么少，不行，还得买多点。</a></li>
