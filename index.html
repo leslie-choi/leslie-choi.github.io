@@ -854,7 +854,7 @@
 <li>实现一个订阅者 Watcher：Watcher 订阅者是 Observer 和 Compile 之间通信的桥梁 ，主要的任务是订阅 Observer 中的属性值变化的消息，当收到属性值变化的消息时，触发解析器 Compile 中对应的更新函数。</li>
 <li>实现一个订阅器 Dep：订阅器采用 发布-订阅 设计模式，用来收集订阅者 Watcher，对监听器 Observer 和 订阅者 Watcher 进行统一管理。</li>
 </ul>
-<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/observer.png" alt="markdown"><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=<span class="string">"text"</span> name=<span class="string">"数据绑定"</span> id=<span class="string">"dataBinding"</span>&gt;</span><br><span class="line">&lt;span id=<span class="string">"data"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><span class="xml"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">mounted() &#123;</span></span><br><span class="line"><span class="xml">    this.showData()</span></span><br><span class="line"><span class="xml">&#125;,</span></span><br><span class="line"><span class="xml">methods:&#123;</span></span><br><span class="line"><span class="xml">      showData()&#123;</span></span><br><span class="line"><span class="xml">          var obj1 = &#123;&#125;;                        //新建一个对象obj1</span></span><br><span class="line"><span class="xml">          Object.defineProperty(obj1,'hello',&#123;  //为obj定义一个名为 hello 的访问器属性 </span></span><br><span class="line"><span class="xml">              set: function(newVal)&#123;</span></span><br><span class="line"><span class="xml">                  document.getElementById('dataBinding').value = newVal;</span></span><br><span class="line"><span class="xml">                  document.getElementById('data').innerHTML = newVal;</span></span><br><span class="line"><span class="xml">              &#125;,</span></span><br><span class="line"><span class="xml">              get: function()&#123;</span></span><br><span class="line"><span class="xml">                  return</span></span><br><span class="line"><span class="xml">              &#125;</span></span><br><span class="line"><span class="xml">          &#125;);</span></span><br><span class="line"><span class="xml">          document.addEventListener('keyup',function(e)&#123;</span></span><br><span class="line"><span class="xml">              obj1.hello = e.target.value;</span></span><br><span class="line"><span class="xml">          &#125;);</span></span><br><span class="line"><span class="xml">          console.log(obj1);</span></span><br><span class="line"><span class="xml">      &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/observer.png" alt="markdown"><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=<span class="string">"text"</span> name=<span class="string">"数据绑定"</span> id=<span class="string">"dataBinding"</span>&gt;</span><br><span class="line">&lt;span id=<span class="string">"data"</span>&gt;&lt;/span&gt;&lt;br&gt;</span><br><span class="line"></span><br><span class="line">mounted() &#123;</span><br><span class="line">    this.showData()</span><br><span class="line">&#125;,</span><br><span class="line">methods:&#123;</span><br><span class="line">      showData()&#123;</span><br><span class="line">          var obj1 = &#123;&#125;;                        //新建一个对象obj1</span><br><span class="line">          Object.defineProperty(obj1,'hello',&#123;  //为obj定义一个名为 hello 的访问器属性 </span><br><span class="line">              set: function(newVal)&#123;</span><br><span class="line">                  document.getElementById('dataBinding').value = newVal;</span><br><span class="line">                  document.getElementById('data').innerHTML = newVal;</span><br><span class="line">              &#125;,</span><br><span class="line">              get: function()&#123;</span><br><span class="line">                  return</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">          document.addEventListener('keyup',function(e)&#123;</span><br><span class="line">              obj1.hello = e.target.value;</span><br><span class="line">          &#125;);</span><br><span class="line">          console.log(obj1);</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="proxy和Object-defineProperty的优劣对比"><a href="#proxy和Object-defineProperty的优劣对比" class="headerlink" title="proxy和Object.defineProperty的优劣对比?"></a>proxy和Object.defineProperty的优劣对比?</h2><p><strong>Proxy的优势</strong></p>
 <ul>
 <li>Proxy可以直接监听对象而非属性</li>
@@ -912,7 +912,7 @@
 <h1 id="虚拟DOM的实现原理"><a href="#虚拟DOM的实现原理" class="headerlink" title="虚拟DOM的实现原理"></a>虚拟DOM的实现原理</h1><ul>
 <li><p>用JS对象描述出DOM树的结构，然后在初始化构建中，用这个描述树去构建真正的DOM，并实际展现到页面中</p>
 </li>
-<li><p>使用diff算法，当有数据状态变更时，重新构建一个新的JS的DOM树，通过新旧对比DOM数的变化diff，<strong>并记录两棵树差异</strong></p>
+<li><p>使用diff算法，当有数据状态变更时，重新构建一个新的JS的DOM树，通过新旧对比DOM树的变化diff，<strong>并记录两棵树差异</strong></p>
 </li>
 <li><p>使用patch算法，将两个虚拟 DOM 对象的差异应用到真正的 DOM 树，视图也就更新了。所以虚拟dom的本质可以理解为在JS和DOM之间做了一个缓存。 </p>
 </li>
@@ -1030,7 +1030,40 @@
 <li><p>当新老节点都无子节点的时候，只是文本的替换。</p>
 </li>
 </ol>
-<h2 id=""><a href="#" class="headerlink" title="**"></a><em>**</em></h2><h1 id="webpack的plugin与loader区别"><a href="#webpack的plugin与loader区别" class="headerlink" title="webpack的plugin与loader区别"></a>webpack的plugin与loader区别</h1><p><strong>loader：</strong></p>
+<h2 id="updateChildren"><a href="#updateChildren" class="headerlink" title="updateChildren"></a><strong>updateChildren</strong></h2><p>首先代码很发杂，所以在这里直接上图。</p>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff1.png" alt="markdown"></p>
+<p>首先，在新老两个VNode节点的左右头尾两侧都有一个变量标记，在遍历过程中这几个变量都会向中间靠拢。当oldStartIdx &gt; oldEndIdx或者newStartIdx &gt; newEndIdx时结束循环。</p>
+<p>首先，在新老两个VNode节点的左右头尾两侧都有一个变量标记，在遍历过程中这几个变量都会向中间靠拢。当oldStartIdx &gt; oldEndIdx或者newStartIdx &gt; newEndIdx时结束循环。</p>
+<p>索引与VNode节点的对应关系： oldStartIdx =&gt; oldStartVnode oldEndIdx =&gt; oldEndVnode newStartIdx =&gt; newStartVnode newEndIdx =&gt; newEndVnode</p>
+<p>在遍历中，如果存在key，并且满足sameVnode，会将该DOM节点进行复用，否则则会创建一个新的DOM节点。</p>
+<p>首先，oldStartVnode、oldEndVnode与newStartVnode、newEndVnode两两比较一共有2*2=4种比较方法。</p>
+<h3 id="sameVnode-oldStartVnode-newStartVnode-或者sameVnode-oldEndVnode-newEndVnode"><a href="#sameVnode-oldStartVnode-newStartVnode-或者sameVnode-oldEndVnode-newEndVnode" class="headerlink" title="sameVnode(oldStartVnode, newStartVnode)或者sameVnode(oldEndVnode, newEndVnode)"></a>sameVnode(oldStartVnode, newStartVnode)或者sameVnode(oldEndVnode, newEndVnode)</h3><p>当新老VNode节点的start或者end满足sameVnode时，也就是sameVnode(oldStartVnode, newStartVnode)或者sameVnode(oldEndVnode, newEndVnode)，直接将该VNode节点进行patchVnode即可。</p>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff2.png" alt="markdown"></p>
+<h3 id="sameVnode-oldStartVnode-newEndVnode"><a href="#sameVnode-oldStartVnode-newEndVnode" class="headerlink" title="sameVnode(oldStartVnode, newEndVnode)"></a>sameVnode(oldStartVnode, newEndVnode)</h3><p>如果oldStartVnode与newEndVnode满足sameVnode</p>
+<p>这时候说明oldStartVnode已经跑到了oldEndVnode后面去了，进行patchVnode的同时还需要将真实DOM节点移动到oldEndVnode的后面</p>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff3.png" alt="markdown"></p>
+<h3 id="sameVnode-oldEndVnode-newStartVnode"><a href="#sameVnode-oldEndVnode-newStartVnode" class="headerlink" title="sameVnode(oldEndVnode, newStartVnode)"></a>sameVnode(oldEndVnode, newStartVnode)</h3><p>如果oldEndVnode与newStartVnode满足sameVnode</p>
+<p>这说明oldEndVnode跑到了oldStartVnode的前面，进行patchVnode的同时真实的DOM节点移动到了oldStartVnode的前面</p>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff4.png" alt="markdown"></p>
+<h3 id="sameVnode-newStartVnode"><a href="#sameVnode-newStartVnode" class="headerlink" title="sameVnode(?, newStartVnode)"></a>sameVnode(?, newStartVnode)</h3><p>则通过createKeyToOldIdx会得到一个oldKeyToIdx，里面存放了一个key为旧的VNode，value为对应index序列的哈希表。从这个哈希表中可以找到是否有与newStartVnode一致key的旧的VNode节点，如果同时满足sameVnode，patchVnode的同时会将这个真实DOM（elmToMove）移动到oldStartVnode对应的真实DOM的前面。</p>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff5.png" alt="markdown"></p>
+<p>当然也有可能newStartVnode在旧的VNode节点找不到一致的key，或者是即便key相同却不是sameVnode，这个时候会调用createElm创建一个新的DOM节点</p>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff6.png" alt="markdown"></p>
+<p>到这里循环已经结束了，那么剩下我们还需要处理多余或者不够的真实DOM节点。</p>
+<h3 id="处理剩余节点"><a href="#处理剩余节点" class="headerlink" title="处理剩余节点"></a>处理剩余节点</h3><ol>
+<li>当结束时oldStartIdx &gt; oldEndIdx，这个时候老的VNode节点已经遍历完了，但是新的节点还没有。说明了新的VNode节点实际上比老的VNode节点多，也就是比真实DOM多，需要将剩下的（也就是新增的）VNode节点插入到真实DOM节点中去，此时调用addVnodes（批量调用createElm的接口将这些节点加入到真实DOM中去）。</li>
+</ol>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff7.png" alt="markdown"></p>
+<ol start="2">
+<li>同理，当newStartIdx &gt; newEndIdx时，新的VNode节点已经遍历完了，但是老的节点还有剩余，说明真实DOM节点多余了，需要从文档中删除，这时候调用removeVnodes将这些多余的真实DOM删除。</li>
+</ol>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff8.png" alt="markdown"></p>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><ul>
+<li>尽量不要跨层级的修改dom</li>
+<li>设置key可以最大化的利用节点</li>
+<li>diff的效率并不是每种情况下都是最优的</li>
+</ul>
+<h1 id="webpack的plugin与loader区别"><a href="#webpack的plugin与loader区别" class="headerlink" title="webpack的plugin与loader区别"></a>webpack的plugin与loader区别</h1><p><strong>loader：</strong></p>
 <p>用于对模块源码的转换，loader描述了webpack如何处理非javascript模块，并且在buld中引入这些依赖。loader可以将文件从不同的语言（如TypeScript）转换为JavaScript，SCSS转换为CSS</p>
 <p><strong>plugin：</strong></p>
 <p>对于plugin，它就是一个扩展器，它丰富了wepack本身，针对是loader结束后，webpack打包的整个过程，它并不直接操作文件，<strong>而是直接对整个构建过程起作用。，</strong>不仅局限于资源的加载。</p>

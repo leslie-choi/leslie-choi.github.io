@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/27/2395e1d01728fbb0d740d53c4530ed5b?imageView2/0/w/1280/h/960&ynotemdtimestamp=1558167915965">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/webpackJizhi.PNG">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/AST.png">
-<meta property="og:updated_time" content="2019-09-11T18:01:14.749Z">
+<meta property="og:updated_time" content="2019-09-12T07:42:05.624Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端模块化开发和打包工具">
 <meta name="twitter:description" content="前端模块化开发前言：历史上，JavaScript 一直没有模块（module）体系，无法将一个大程序拆分成互相依赖的小文件，再用简单的方法拼装起来。其他语言都有这项功能，比如 Ruby 的require、Python 的import，甚至就连 CSS 都有@import，但是 JavaScript 任何这方面的支持都没有，这对开发大型的、复杂的项目形成了巨大障碍。而现在的前端开发，不仅仅是完成浏览">
@@ -437,11 +437,65 @@
 <p>抽象语法树，简称语法树，是源代码语法结构的一种抽象表示。它以树状的形式表现编程语言的语法结构，树上的每个节点都表示源代码中的一种结构。</p>
 <p>转换成AST的目的就是将我们书写的字符串文件转换成计算机更容易识别的数据结构，这样更容易提取其中的关键信息，而这棵树在计算机上的表现形式，其实就是一个单纯的Object。</p>
 <h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a><strong>总结：</strong></h2><p>纵观webpack构建流程，我们可以发现整个构建过程主要花费时间的部分也就是递归遍历各个entry然后寻找依赖逐个编译的过程，每次递归都需要经历 String-&gt;AST-&gt;String 的流程，经过loader还需要处理一些字符串或者执行一些JS脚本，由于JS单线程的缘故，webpack构建慢一直成为它饱受诟病的原因。</p>
-<h1 id="webpack打包优化"><a href="#webpack打包优化" class="headerlink" title="webpack打包优化"></a>webpack打包优化</h1><ol>
-<li><p>使用HappyPack开启多进程Loader转换<br>在整个构建流程中，最耗时的就是Loader对文件的转换操作了，而运行在Node.js之上的Webpack是单线程模型的，也就是只能一个一个文件进行处理，不能并行处理。HappyPack可以将任务分解给多个子进程，最后将结果发给主进程。JS是单线程模型，只能通过这种多进程的方式提高性能。</p>
-</li>
-<li></li>
+<h1 id="webpack打包优化"><a href="#webpack打包优化" class="headerlink" title="webpack打包优化"></a>webpack打包优化</h1><p>Webpack在启动后会根据Entry配置的入口出发，递归地解析所依赖的文件。这个过程分为搜索文件和把匹配的文件进行分析、转化的两个过程，因此可以从这两个角度来进行优化配置</p>
+<h2 id="优化构建速度"><a href="#优化构建速度" class="headerlink" title="优化构建速度"></a>优化构建速度</h2><h3 id="缩小文件的搜索范围"><a href="#缩小文件的搜索范围" class="headerlink" title="缩小文件的搜索范围"></a>缩小文件的搜索范围</h3><ol>
+<li>resolve字段告诉webpack怎么去搜索文件，所以首先要重视resolve字段的配置</li>
 </ol>
+<ul>
+<li><p>设置resolve.modules:[path.resolve(__dirname, ‘node_modules’)]避免层层查找<br>resolve.modules告诉webpack去哪些目录下寻找第三方模块，默认值为[‘node_modules’]，会依次查找./node_modules、../node_modules、../../node_modules</p>
+</li>
+<li><p>设置resolve.mainFields:[‘main’]，设置尽量少的值可以减少入口文件的搜索步骤</p>
+</li>
+</ul>
+<p>第三方模块为了适应不同的使用环境，会定义多个入口文件，mainFields定义使用第三方模块的哪个入口文件，由于大多数第三方模块都使用main字段描述入口文件的位置，所以可以设置单独一个main值，减少搜索</p>
+<ul>
+<li>对庞大的第三方模块设置resolve.alias, 使webpack直接使用库的min文件，避免库内解析</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//如对于react：</span></span><br><span class="line">    resolve.alias:&#123;</span><br><span class="line">        <span class="string">'react'</span>:patch.resolve(__dirname, <span class="string">'./node_modules/react/dist/react.min.js'</span>)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这样会影响Tree-Shaking，适合对整体性比较强的库使用，如果是像lodash这类工具类的比较分散的库，比较适合Tree-Shaking，避免使用这种方式</p>
+<ul>
+<li>合理配置resolve.extensions，减少文件查找</li>
+</ul>
+<p>默认值：extensions:[‘.js’, ‘.json’],当导入语句没带文件后缀时，Webpack会根据extensions定义的后缀列表进行文件查找，所以：</p>
+<p>a.列表值尽量少<br>b.频率高的文件类型的后缀写在前面<br>c.源码中的导入语句尽可能的写上文件后缀，如require(./data)要写成require(./data.json)</p>
+<ol start="2">
+<li>module.noParse字段告诉Webpack不必解析哪些文件，可以用来排除对非模块化库文件的解析</li>
+</ol>
+<p>如jQuery、ChartJS，另外如果使用resolve.alias配置了react.min.js，则也应该排除解析，因为react.min.js经过构建，已经是可以直接运行在浏览器的、非模块化的文件了。noParse值可以是RegExp、[RegExp]、function</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>:&#123; <span class="attr">noParse</span>:[<span class="regexp">/jquery|chartjs/</span>, /react\.min\.js$/] &#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>配置loader时，通过test、exclude、include缩小搜索范围</li>
+</ol>
+<h3 id="使用DllPlugin减少基础模块编译次数"><a href="#使用DllPlugin减少基础模块编译次数" class="headerlink" title="使用DllPlugin减少基础模块编译次数"></a>使用DllPlugin减少基础模块编译次数</h3><p>DllPlugin动态链接库插件，其原理是把网页依赖的基础模块抽离出来打包到dll文件中，当需要导入的模块存在于某个dll中时，这个模块不再被打包，而是去dll中获取。<strong>为什么会提升构建速度呢？</strong>原因在于dll中大多包含的是常用的第三方模块，如react、react-dom，所以只要这些模块版本不升级，就只需被编译一次。我认为这样做和配置resolve.alias和module.noParse的效果有异曲同工的效果</p>
+<h3 id="使用HappyPack开启多进程Loader转换"><a href="#使用HappyPack开启多进程Loader转换" class="headerlink" title="使用HappyPack开启多进程Loader转换"></a>使用HappyPack开启多进程Loader转换</h3><p>在整个构建流程中，最耗时的就是Loader对文件的转换操作了，而运行在Node.js之上的Webpack是单线程模型的，也就是只能一个一个文件进行处理，不能并行处理。HappyPack可以将任务分解给多个子进程，多个子进程去并发的执行，最后将结果发给主进程。JS是单线程模型，只能通过这种多进程的方式提高性能</p>
+<h3 id="使用ParallelUglifyPlugin开启多进程压缩JS文件"><a href="#使用ParallelUglifyPlugin开启多进程压缩JS文件" class="headerlink" title="使用ParallelUglifyPlugin开启多进程压缩JS文件"></a>使用ParallelUglifyPlugin开启多进程压缩JS文件</h3><p>使用UglifyJS插件压缩JS代码时，需要先将代码解析成Object表示的AST（抽象语法树），再去应用各种规则去分析和处理AST，所以这个过程计算量大耗时较多。ParallelUglifyPlugin可以开启多个子进程，每个子进程使用UglifyJS压缩代码，可以并行执行，能显著缩短压缩时间</p>
+<h2 id="优化输出质量-压缩文件体积"><a href="#优化输出质量-压缩文件体积" class="headerlink" title="优化输出质量-压缩文件体积"></a>优化输出质量-压缩文件体积</h2><h3 id="区分环境–减小生产环境代码体积"><a href="#区分环境–减小生产环境代码体积" class="headerlink" title="区分环境–减小生产环境代码体积"></a>区分环境–减小生产环境代码体积</h3><p>代码运行环境分为开发环境和生产环境，代码需要根据不同环境做不同的操作，许多第三方库中也有大量的根据开发环境判断的if else代码，构建也需要根据不同环境输出不同的代码，所以需要一套机制可以在源码中区分环境，区分环境之后可以使输出的生产环境的代码体积减小。Webpack中使用DefinePlugin插件来定义配置文件适用的环境</p>
+<h3 id="压缩代码-JS、ES、CSS"><a href="#压缩代码-JS、ES、CSS" class="headerlink" title="压缩代码-JS、ES、CSS"></a>压缩代码-JS、ES、CSS</h3><ol>
+<li>Webpack内置UglifyJS插件、ParallelUglifyPlugin</li>
+</ol>
+<p>会分析JS代码语法树，理解代码的含义，从而做到去掉无效代码、去掉日志输入代码、缩短变量名等优化。</p>
+<ol start="2">
+<li><p>压缩ES6：第三方UglifyJS插件<br>随着越来越多的浏览器支持直接执行ES6代码，应尽可能的运行原生ES6，这样比起转换后的ES5代码，代码量更少，且ES6代码性能更好。直接运行ES6代码时，也需要代码压缩，第三方的uglify-webpack-plugin提供了压缩ES6代码的功能</p>
+</li>
+<li><p>压缩CSS：css-loader?minimize、PurifyCSSPlugin</p>
+</li>
+</ol>
+<p>cssnano基于PostCSS，不仅是删掉空格，还能理解代码含义，例如把color:#ff0000 转换成 color:red，css-loader内置了cssnano，只需要使用 css-loader?minimize 就可以开启cssnano压缩</p>
+<p>另外一种压缩CSS的方式是使用PurifyCSSPlugin，需要配合 extract-text-webpack-plugin 使用，它主要的作用是可以去除没有用到的CSS代码，类似JS的Tree Shaking</p>
+<h3 id="使用Tree-Shaking剔除JS死代码"><a href="#使用Tree-Shaking剔除JS死代码" class="headerlink" title="使用Tree Shaking剔除JS死代码"></a>使用Tree Shaking剔除JS死代码</h3><p>Tree Shaking可以剔除用不上的死代码，<strong>它依赖ES6的import、export的模块化语法，最先在Rollup中出现，</strong>Webpack 2.0将其引入。适合用于Lodash、utils.js等工具类较分散的文件。它正常工作的前提是代码必须采用ES6的模块化语法，因为ES6模块化语法是静态的（在导入、导出语句中的路径必须是静态字符串，且不能放入其他代码块中）。如果采用了ES5中的模块化，例如module.export = {…}、require( x+y )、if (x) { require( ‘./util’ ) }，则Webpack无法分析出可以剔除哪些代码</p>
+<h2 id="优化输出质量–加速网络请求"><a href="#优化输出质量–加速网络请求" class="headerlink" title="优化输出质量–加速网络请求"></a>优化输出质量–加速网络请求</h2><h3 id="使用CDN加速静态资源加载"><a href="#使用CDN加速静态资源加载" class="headerlink" title="使用CDN加速静态资源加载"></a>使用CDN加速静态资源加载</h3><p>CDN又称为内容分发网络，使内容传输的更快，更稳定。<br>也就是说，<strong>把静态资源文件和动态网页分集群部署</strong>，静态资源会被部署到CDN节点上，网页中引用的资源也会变成对应的部署路径。</p>
+<p>由于CDN会为资源开启长时间的缓存，例如用户从CDN上获取了index.html，即使之后替换了CDN上的index.html，用户那边仍会在使用之前的版本直到缓存时间过期。业界做法：</p>
+<ul>
+<li>HTML文件：放在自己的服务器上且关闭缓存，不接入CDN</li>
+<li>静态的JS、CSS、图片等资源：开启CDN和缓存，同时文件名带上由内容计算出的Hash值，这样只要内容变化hash就会变化，文件名就会变化，就会被重新下载而不论缓存时间多长。</li>
+</ul>
+<p>另外，HTTP1.x版本的协议下，浏览器会对于向同一域名并行发起的请求数限制在4~8个。那么把所有静态资源放在同一域名下的CDN服务上就会遇到这种限制，所以可以把他们分散放在不同的CDN服务上，例如JS文件放在js.cdn.com下，将CSS文件放在css.cdn.com下等。这样又会带来一个新的问题：增加了域名解析时间，这个可以通过dns-prefetch来解决 <link rel="dns-prefetch" href="//js.cdn.com"> 来缩减域名解析的时间。形如<strong>//xx.com 这样的URL省略了协议</strong>，这样做的好处是，浏览器在访问资源时会自动根据当前URL采用的模式来决定使用HTTP还是HTTPS协议。</p>
+<h3 id="多页面应用提取页面间公共代码，以利用缓存"><a href="#多页面应用提取页面间公共代码，以利用缓存" class="headerlink" title="多页面应用提取页面间公共代码，以利用缓存"></a>多页面应用提取页面间公共代码，以利用缓存</h3><p>大型网站通常由多个页面组成，每个页面都是一个独立的单页应用，多个页面间肯定会依赖同样的样式文件、技术栈等。如果不把这些公共文件提取出来，那么每个单页打包出来的chunk中都会包含公共代码，相当于要传输n份重复代码。如果把公共文件提取出一个文件，那么当用户访问了一个网页，加载了这个公共文件，再访问其他依赖公共文件的网页时，就直接使用文件在浏览器的缓存，这样公共文件就只用被传输一次</p>
+<h3 id="分割代码以按需加载"><a href="#分割代码以按需加载" class="headerlink" title="分割代码以按需加载"></a>分割代码以按需加载</h3><ul>
+<li>将网站功能按照相关程度划分成几类</li>
+<li>每一类合并成一个Chunk，按需加载对应的Chunk</li>
+<li>例如，只把首屏相关的功能放入执行入口所在的Chunk，这样首次加载少量的代码，其他代码要用到的时候再去加载。最好提前预估用户接下来的操作，提前加载对应代码，让用户感知不到网络加载</li>
+</ul>
 <h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h1><p><a href="https://juejin.im/post/5aa3d2056fb9a028c36868aa#heading-7" target="_blank" rel="noopener">webpack详解</a><br><a href="https://juejin.im/post/5badd0c5e51d450e4437f07a#heading-7" target="_blank" rel="noopener">Webpack揭秘——走向高阶前端的必经之路</a><br><a href="https://juejin.im/post/5b652b036fb9a04fa01d616b" target="_blank" rel="noopener">三十分钟掌握Webpack性能优化</a><br><a href="https://juejin.im/post/5b4609f5e51d4519596b66a7" target="_blank" rel="noopener">手写一个webpack4.0配置</a></p>
 
       
@@ -617,7 +671,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前端模块化开发"><span class="nav-number">1.</span> <span class="nav-text">前端模块化开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是模块化"><span class="nav-number">1.1.</span> <span class="nav-text">什么是模块化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目前前端模块化的解决方案"><span class="nav-number">1.2.</span> <span class="nav-text">目前前端模块化的解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CommonJS"><span class="nav-number">1.2.1.</span> <span class="nav-text">CommonJS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AMD规范（Asyncchronous-Module-Definition-异步模块定义）"><span class="nav-number">1.2.2.</span> <span class="nav-text">AMD规范（Asyncchronous Module Definition 异步模块定义）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CMD规范-Common-Module-Definition-通用模块定义"><span class="nav-number">1.2.3.</span> <span class="nav-text">CMD规范(Common Module Definition 通用模块定义)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6-Module-面向未来的标准"><span class="nav-number">1.2.4.</span> <span class="nav-text">ES6 Module(面向未来的标准)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模块化打包工具"><span class="nav-number">2.</span> <span class="nav-text">模块化打包工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#webpack概念"><span class="nav-number">3.</span> <span class="nav-text">webpack概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack的运行流程"><span class="nav-number">3.1.</span> <span class="nav-text">webpack的运行流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack事件流"><span class="nav-number">3.2.</span> <span class="nav-text">webpack事件流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结："><span class="nav-number">3.3.</span> <span class="nav-text">总结：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#webpack打包优化"><span class="nav-number">4.</span> <span class="nav-text">webpack打包优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文章："><span class="nav-number">5.</span> <span class="nav-text">参考文章：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前端模块化开发"><span class="nav-number">1.</span> <span class="nav-text">前端模块化开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是模块化"><span class="nav-number">1.1.</span> <span class="nav-text">什么是模块化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目前前端模块化的解决方案"><span class="nav-number">1.2.</span> <span class="nav-text">目前前端模块化的解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CommonJS"><span class="nav-number">1.2.1.</span> <span class="nav-text">CommonJS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AMD规范（Asyncchronous-Module-Definition-异步模块定义）"><span class="nav-number">1.2.2.</span> <span class="nav-text">AMD规范（Asyncchronous Module Definition 异步模块定义）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CMD规范-Common-Module-Definition-通用模块定义"><span class="nav-number">1.2.3.</span> <span class="nav-text">CMD规范(Common Module Definition 通用模块定义)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6-Module-面向未来的标准"><span class="nav-number">1.2.4.</span> <span class="nav-text">ES6 Module(面向未来的标准)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模块化打包工具"><span class="nav-number">2.</span> <span class="nav-text">模块化打包工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#webpack概念"><span class="nav-number">3.</span> <span class="nav-text">webpack概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack的运行流程"><span class="nav-number">3.1.</span> <span class="nav-text">webpack的运行流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack事件流"><span class="nav-number">3.2.</span> <span class="nav-text">webpack事件流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结："><span class="nav-number">3.3.</span> <span class="nav-text">总结：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#webpack打包优化"><span class="nav-number">4.</span> <span class="nav-text">webpack打包优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#优化构建速度"><span class="nav-number">4.1.</span> <span class="nav-text">优化构建速度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缩小文件的搜索范围"><span class="nav-number">4.1.1.</span> <span class="nav-text">缩小文件的搜索范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用DllPlugin减少基础模块编译次数"><span class="nav-number">4.1.2.</span> <span class="nav-text">使用DllPlugin减少基础模块编译次数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用HappyPack开启多进程Loader转换"><span class="nav-number">4.1.3.</span> <span class="nav-text">使用HappyPack开启多进程Loader转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用ParallelUglifyPlugin开启多进程压缩JS文件"><span class="nav-number">4.1.4.</span> <span class="nav-text">使用ParallelUglifyPlugin开启多进程压缩JS文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化输出质量-压缩文件体积"><span class="nav-number">4.2.</span> <span class="nav-text">优化输出质量-压缩文件体积</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#区分环境–减小生产环境代码体积"><span class="nav-number">4.2.1.</span> <span class="nav-text">区分环境–减小生产环境代码体积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#压缩代码-JS、ES、CSS"><span class="nav-number">4.2.2.</span> <span class="nav-text">压缩代码-JS、ES、CSS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Tree-Shaking剔除JS死代码"><span class="nav-number">4.2.3.</span> <span class="nav-text">使用Tree Shaking剔除JS死代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化输出质量–加速网络请求"><span class="nav-number">4.3.</span> <span class="nav-text">优化输出质量–加速网络请求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用CDN加速静态资源加载"><span class="nav-number">4.3.1.</span> <span class="nav-text">使用CDN加速静态资源加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多页面应用提取页面间公共代码，以利用缓存"><span class="nav-number">4.3.2.</span> <span class="nav-text">多页面应用提取页面间公共代码，以利用缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分割代码以按需加载"><span class="nav-number">4.3.3.</span> <span class="nav-text">分割代码以按需加载</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文章："><span class="nav-number">5.</span> <span class="nav-text">参考文章：</span></a></li></ol></div>
             
 
           </div>
