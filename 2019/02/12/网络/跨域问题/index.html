@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="跨域问题跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。同源策略限制了以下行为： Cookie、LocalStorage 和 IndexDB 无法读取DOM 和 JS 对象无法获取Ajax请求发送不出去。 所谓的同源是指，域名、协议、端口均为相同，主要对XHR的一个主要约束http://www.nealyang.cn/index.">
+<meta name="description" content="跨域问题跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。同源策略限制了以下行为： Cookie、LocalStorage 和 IndexDB 无法读取DOM 和 JS 对象无法获取Ajax请求发送不出去。 所谓的同源是指，域名、协议、端口均为相同，主要对XHR的一个主要约束。其实主要是用来防止 CSRF 攻击的。 http://w">
 <meta name="keywords" content="Interview">
 <meta property="og:type" content="article">
 <meta property="og:title" content="跨域问题">
 <meta property="og:url" content="http://yoursite.com/2019/02/12/网络/跨域问题/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="跨域问题跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。同源策略限制了以下行为： Cookie、LocalStorage 和 IndexDB 无法读取DOM 和 JS 对象无法获取Ajax请求发送不出去。 所谓的同源是指，域名、协议、端口均为相同，主要对XHR的一个主要约束http://www.nealyang.cn/index.">
+<meta property="og:description" content="跨域问题跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。同源策略限制了以下行为： Cookie、LocalStorage 和 IndexDB 无法读取DOM 和 JS 对象无法获取Ajax请求发送不出去。 所谓的同源是指，域名、协议、端口均为相同，主要对XHR的一个主要约束。其实主要是用来防止 CSRF 攻击的。 http://w">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-10T05:33:16.492Z">
+<meta property="og:updated_time" content="2019-09-11T13:42:49.085Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="跨域问题">
-<meta name="twitter:description" content="跨域问题跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。同源策略限制了以下行为： Cookie、LocalStorage 和 IndexDB 无法读取DOM 和 JS 对象无法获取Ajax请求发送不出去。 所谓的同源是指，域名、协议、端口均为相同，主要对XHR的一个主要约束http://www.nealyang.cn/index.">
+<meta name="twitter:description" content="跨域问题跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。同源策略限制了以下行为： Cookie、LocalStorage 和 IndexDB 无法读取DOM 和 JS 对象无法获取Ajax请求发送不出去。 所谓的同源是指，域名、协议、端口均为相同，主要对XHR的一个主要约束。其实主要是用来防止 CSRF 攻击的。 http://w">
 
 
 
@@ -324,7 +324,8 @@
       
         <h1 id="跨域问题"><a href="#跨域问题" class="headerlink" title="跨域问题"></a>跨域问题</h1><p>跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。<br>同源策略限制了以下行为：</p>
 <p>Cookie、LocalStorage 和 IndexDB 无法读取<br>DOM 和 JS 对象无法获取<br>Ajax请求发送不出去。</p>
-<p>所谓的同源是指，域名、协议、端口均为相同，主要对XHR的一个主要约束<br><a href="http://www.nealyang.cn/index.html" target="_blank" rel="noopener">http://www.nealyang.cn/index.html</a> 调用   <a href="http://www.nealyang.cn/server.php" target="_blank" rel="noopener">http://www.nealyang.cn/server.php</a>  非跨域</p>
+<p><strong>所谓的同源是指，域名、协议、端口均为相同，主要对XHR的一个主要约束。其实主要是用来防止 CSRF 攻击的。</strong></p>
+<p><a href="http://www.nealyang.cn/index.html" target="_blank" rel="noopener">http://www.nealyang.cn/index.html</a> 调用   <a href="http://www.nealyang.cn/server.php" target="_blank" rel="noopener">http://www.nealyang.cn/server.php</a>  非跨域</p>
 <p><a href="http://www.nealyang.cn/index.html" target="_blank" rel="noopener">http://www.nealyang.cn/index.html</a> 调用   <a href="http://www.neal.cn/server.php" target="_blank" rel="noopener">http://www.neal.cn/server.php</a>  跨域,主域不同</p>
 <p><a href="http://abc.nealyang.cn/index.html" target="_blank" rel="noopener">http://abc.nealyang.cn/index.html</a> 调用   <a href="http://def.neal.cn/server.php" target="_blank" rel="noopener">http://def.neal.cn/server.php</a>  跨域,子域名不同</p>
 <p><a href="http://www.nealyang.cn:8080/index.html" target="_blank" rel="noopener">http://www.nealyang.cn:8080/index.html</a> 调用   <a href="http://www.nealyang.cn/server.php" target="_blank" rel="noopener">http://www.nealyang.cn/server.php</a>  跨域,端口不同</p>
@@ -343,7 +344,7 @@
 <h2 id="a、没有同源策略限制的接口请求"><a href="#a、没有同源策略限制的接口请求" class="headerlink" title="a、没有同源策略限制的接口请求"></a>a、没有同源策略限制的接口请求</h2><ol>
 <li>你准备去清空你的购物车，于是打开了买买买网站<a href="http://www.maimaimai.com，然后登录成功，一看，购物车东西这么少，不行，还得买多点。" target="_blank" rel="noopener">www.maimaimai.com，然后登录成功，一看，购物车东西这么少，不行，还得买多点。</a></li>
 <li>你在看有什么东西买的过程中，你的好基友发给你一个链接<a href="http://www.nidongde.com，一脸yin笑地跟你说：“你懂的”，你毫不犹豫打开了。" target="_blank" rel="noopener">www.nidongde.com，一脸yin笑地跟你说：“你懂的”，你毫不犹豫打开了。</a></li>
-<li>你饶有兴致地浏览着<a href="http://www.nidongde.com，谁知这个网站暗地里做了些不可描述的事情！由于没有同源策略的限制，它向www.maimaimai.com发起了请求！聪明的你一定想到上面的话“服务端验证通过后会在响应头加入Set-Cookie字段，然后下次再发请求的时候，浏览器会自动将cookie附加在HTTP请求的头字段Cookie中”，这样一来，这个不法网站就相当于登录了你的账号，可以为所欲为了！如果这不是一个买买买账号，而是你的银行账号。。。这就造成了一个简单的CSRF攻击。" target="_blank" rel="noopener">www.nidongde.com，谁知这个网站暗地里做了些不可描述的事情！由于没有同源策略的限制，它向www.maimaimai.com发起了请求！聪明的你一定想到上面的话“服务端验证通过后会在响应头加入Set-Cookie字段，然后下次再发请求的时候，浏览器会自动将cookie附加在HTTP请求的头字段Cookie中”，这样一来，这个不法网站就相当于登录了你的账号，可以为所欲为了！如果这不是一个买买买账号，而是你的银行账号。。。这就造成了一个简单的CSRF攻击。</a></li>
+<li>你饶有兴致地浏览着<a href="http://www.nidongde.com，谁知这个网站暗地里做了些不可描述的事情！由于没有同源策略的限制，它向www.maimaimai.com发起了请求！聪明的你一定想到上面的话“服务端验证通过后会在响应头加入Set-Cookie字段，然后下次再发请求的时候，浏览器会自动将cookie附加在HTTP请求的头字段Cookie中”，这样一来，这个不法网站就相当于登录了你的账号，可以为所欲为了！如果这不是一个买买买账号，而是你的银行账号。。。这就造成了一个简单的CSRF攻击，CSRF" target="_blank" rel="noopener">www.nidongde.com，谁知这个网站暗地里做了些不可描述的事情！由于没有同源策略的限制，它向www.maimaimai.com发起了请求！聪明的你一定想到上面的话“服务端验证通过后会在响应头加入Set-Cookie字段，然后下次再发请求的时候，浏览器会自动将cookie附加在HTTP请求的头字段Cookie中”，这样一来，这个不法网站就相当于登录了你的账号，可以为所欲为了！如果这不是一个买买买账号，而是你的银行账号。。。这就造成了一个简单的CSRF攻击，CSRF</a> 攻击是利用用户的登录态发起恶意请求。</li>
 </ol>
 <h2 id="b、没有同源策略的DOM查询"><a href="#b、没有同源策略的DOM查询" class="headerlink" title="b、没有同源策略的DOM查询"></a>b、没有同源策略的DOM查询</h2><ol>
 <li>有一天你刚睡醒，收到一封邮件，说是你的银行账号有风险，赶紧点进<a href="http://www.yinghang.com改密码。你吓尿了，赶紧点进去，还是熟悉的银行登录界面，你果断输入你的账号密码，登录进去看看钱有没有少了。" target="_blank" rel="noopener">www.yinghang.com改密码。你吓尿了，赶紧点进去，还是熟悉的银行登录界面，你果断输入你的账号密码，登录进去看看钱有没有少了。</a><br>​2. 睡眼朦胧的你没看清楚，平时访问的银行网站是<a href="http://www.yinhang.com，而现在访问的是www.yinghang.com，这个钓鱼网站做了什么呢？" target="_blank" rel="noopener">www.yinhang.com，而现在访问的是www.yinghang.com，这个钓鱼网站做了什么呢？</a></li>
@@ -397,6 +398,9 @@
 <p>实现思路： 通过nginx配置一个代理服务器（域名与domain1相同，端口不同）做跳板机，反向代理访问<br>domain2接口，并且可以顺便修改cookie中domain信息，方便当前域cookie写入，实现跨域登录。</p>
 <p>5、WebSocket</p>
 <p>WebSocket虽然不受同源策略的限制，但是WebSocket不会专门用来做跨域,而是作为消息推送或者聊天等</p>
+<p>6、document.domain</p>
+<p><strong>该方式只能用于二级域名相同的情况下，比如 a.test.com 和 b.test.com 适用于该方式。</strong></p>
+<p>只需要给页面添加 document.domain = ‘test.com’ 表示二级域名都相同就可以实现跨域</p>
 
       
     </div>

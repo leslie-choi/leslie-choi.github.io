@@ -79,24 +79,27 @@
 
 
 
-<meta name="description" content="http协议 HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写,是用于从万维网（WWW:World Wide Web ）服务器传输超文本到本地浏览器的传送协议，也就是说所有的www服务器都必须要遵循这个标准。 HTTP是一个基于TCP/IP通信协议来传递数据（HTML 文件, 图片文件, 查询结果等）。 HTTP协议工作于客户端-服务端架构为上。浏览器">
+<meta name="description" content="TCP协议互联网由一整套协议构成图片说明：顶层协议是应用层协议 =&amp;gt; TCP协议 =&amp;gt; IP协议 =&amp;gt; 以太网协议（应用层=&amp;gt;传输层=&amp;gt;网络层=&amp;gt;链路层） 以太网协议：最底层的协议，可以解决子网内部的点对点通讯。 IP协议：IP协议，可以解决多个局域网之间互通，可以连接多个局域网，定义了一套自己的地址规则，实现了路由的功能，允许某个局域网的A主机，向另一个局域网">
 <meta name="keywords" content="Interview">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HTTP">
 <meta property="og:url" content="http://yoursite.com/2019/02/12/网络/Http协议/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="http协议 HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写,是用于从万维网（WWW:World Wide Web ）服务器传输超文本到本地浏览器的传送协议，也就是说所有的www服务器都必须要遵循这个标准。 HTTP是一个基于TCP/IP通信协议来传递数据（HTML 文件, 图片文件, 查询结果等）。 HTTP协议工作于客户端-服务端架构为上。浏览器">
+<meta property="og:description" content="TCP协议互联网由一整套协议构成图片说明：顶层协议是应用层协议 =&amp;gt; TCP协议 =&amp;gt; IP协议 =&amp;gt; 以太网协议（应用层=&amp;gt;传输层=&amp;gt;网络层=&amp;gt;链路层） 以太网协议：最底层的协议，可以解决子网内部的点对点通讯。 IP协议：IP协议，可以解决多个局域网之间互通，可以连接多个局域网，定义了一套自己的地址规则，实现了路由的功能，允许某个局域网的A主机，向另一个局域网">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/TCP.png">
+<meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/sanwo.png">
+<meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/sihui.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/http.jpg">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/%E6%8A%A5%E6%96%872.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/get%26post.jpeg">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/httpVersion.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/https.png">
-<meta property="og:updated_time" content="2019-08-19T14:49:00.355Z">
+<meta property="og:updated_time" content="2019-09-11T00:49:10.933Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP">
-<meta name="twitter:description" content="http协议 HTTP协议是Hyper Text Transfer Protocol（超文本传输协议）的缩写,是用于从万维网（WWW:World Wide Web ）服务器传输超文本到本地浏览器的传送协议，也就是说所有的www服务器都必须要遵循这个标准。 HTTP是一个基于TCP/IP通信协议来传递数据（HTML 文件, 图片文件, 查询结果等）。 HTTP协议工作于客户端-服务端架构为上。浏览器">
-<meta name="twitter:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/http.jpg">
+<meta name="twitter:description" content="TCP协议互联网由一整套协议构成图片说明：顶层协议是应用层协议 =&amp;gt; TCP协议 =&amp;gt; IP协议 =&amp;gt; 以太网协议（应用层=&amp;gt;传输层=&amp;gt;网络层=&amp;gt;链路层） 以太网协议：最底层的协议，可以解决子网内部的点对点通讯。 IP协议：IP协议，可以解决多个局域网之间互通，可以连接多个局域网，定义了一套自己的地址规则，实现了路由的功能，允许某个局域网的A主机，向另一个局域网">
+<meta name="twitter:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/TCP.png">
 
 
 
@@ -328,7 +331,28 @@
       
 
       
-        <h1 id="http协议"><a href="#http协议" class="headerlink" title="http协议"></a>http协议</h1><p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/http.jpg" alt="markdown"></p>
+        <h1 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h1><p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/TCP.png" alt="markdown"><br>互联网由一整套协议构成<br>图片说明：顶层协议是应用层协议 =&gt; TCP协议 =&gt; IP协议 =&gt; 以太网协议（应用层=&gt;传输层=&gt;网络层=&gt;链路层）</p>
+<p>以太网协议：最底层的协议，可以解决子网内部的点对点通讯。</p>
+<p>IP协议：IP协议，可以解决多个局域网之间互通，可以连接多个局域网，定义了一套自己的地址规则，实现了路由的功能，允许某个局域网的A主机，向另一个局域网的B主机发送消息。（PS：路由器就是基于IP协议。所以局域网之间要靠路由器连接）</p>
+<p>题外话：路由原理就是路由器内部有一张路由表，规定A段IP地址走出口一，B段IP地址走出口二。。。根据这样实现了数据包的转发。</p>
+<p>TCP协议：IP协议只是一个地址协议，并不能保证数据的完整性。如果缓存满了，新进来的数据包就会丢失，所以这个时候需要发现丢了哪一个包，以及如何重新发送这个包，所以这个时候需要使用到TCP协议。以太网数据包的负载是1500字节，TCP数据包的负载在1400字节左右。</p>
+<h2 id="TCP建立连接（三次握手）"><a href="#TCP建立连接（三次握手）" class="headerlink" title="TCP建立连接（三次握手）"></a>TCP建立连接（三次握手）</h2><p>HTTP 是基于 TCP 协议的，浏览器最快也要在第三次握手时才能捎带 HTTP 请求报文，达到真正的建立连接，但是这些连接无法复用会导致每次请求都经历三次握手和慢启动。三次握手在高延迟的场景下影响较明显，慢启动则对文件类大请求影响较大。</p>
+<ul>
+<li>第一次握手：建立连接时，客户端发送syn包（syn=j）到服务器，并进入SYN_SENT状态，<strong>服务端得到结论：客户端的发送能力、服务端的接收能力正常。</strong></li>
+<li>第二次握手：服务器收到syn包，必须确认客户的SYN（ack=j+1），同时自己也发送一个SYN包（syn=k），即SYN+ACK包，此时服务器进入SYN_RECV状态，客户端接收到，<strong>于是客户端得到结论：服务端的接收和发送能力正常，客户端的接收发送能力正常，但是此时服务器并不能确认客户端的接收能力是否正常</strong></li>
+<li>第三次握手：客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=k+1），此包发送完毕，客户端和服务器进入ESTABLISHED（TCP连接成功）状态，<strong>服务端得到结论：客户端和服务端的接收发送能力都正常，完成三次握手。</strong></li>
+</ul>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/sanwo.png" alt="markdown"></p>
+<h2 id="TCP关闭连接（四次挥手）"><a href="#TCP关闭连接（四次挥手）" class="headerlink" title="TCP关闭连接（四次挥手）"></a>TCP关闭连接（四次挥手）</h2><p>由于TCP连接是全双工的，因此每个方向都必须单独进行关闭。这个原则是当一方完成它的数据发送任务后就能发送一个FIN来终止这个方向的连接。收到一个 FIN只意味着这一方向上没有数据流动，一个TCP连接在收到一个FIN后仍能发送数据。首先进行关闭的一方将执行主动关闭，而另一方执行被动关闭。</p>
+<p>TCP的连接的拆除需要发送四个包，因此称为四次挥手(four-way handshake)。客户端或服务器均可主动发起挥手动作，在socket编程中，任何一方执行close()操作即可产生挥手操作。</p>
+<ul>
+<li>客户端A发送一个FIN，用来关闭客户A到服务器B的数据传送，但是仍然可以接收数据(Fin_wait_1)</li>
+<li>服务器B收到这个FIN，它发回一个ACK应答，表明接收到请求但是还未准备关闭连接，然后确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号(服务端closed_wait，客户端Fin_wait_2)</li>
+<li>服务器B关闭与客户端A的连接，发送一个FIN给客户端A(服务端Last_ack,客户端time_wait)</li>
+<li>客户端A发回ACK报文确认，并将确认序号设置为收到序号加1 (服务端closed，然后经过2MSL后服务端进入closed)</li>
+</ul>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/sihui.png" alt="markdown"></p>
+<h1 id="http协议"><a href="#http协议" class="headerlink" title="http协议"></a>http协议</h1><p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/http.jpg" alt="markdown"></p>
 <p>HTTP协议是<strong>Hyper Text Transfer Protocol（超文本传输协议）</strong>的缩写,是用于从万维网（WWW:World Wide Web ）服务器传输超文本到本地浏览器的传送协议，也就是说所有的www服务器都必须要遵循这个标准。</p>
 <p>HTTP是一个基于TCP/IP通信协议来传递数据（HTML 文件, 图片文件, 查询结果等）。</p>
 <p>HTTP协议工作于客户端-服务端架构为上。浏览器作为HTTP客户端通过URL向HTTP服务端即WEB服务器发送所有请求。Web服务器根据接收到的请求后，向客户端发送响应信息。</p>
@@ -385,10 +409,70 @@
 <ol>
 <li>内容加密：采用混合加密技术，中间者无法直接查看明文内容</li>
 <li>验证身份：通过证书认证客户端访问的是自己的服务器</li>
-<li>保护数据完整性：防止传输的内容被中间人冒充或者篡改<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/https.png" alt="markdown"><h3 id="1）、SSL和TLS"><a href="#1）、SSL和TLS" class="headerlink" title="1）、SSL和TLS"></a>1）、SSL和TLS</h3></li>
+<li>保护数据完整性：防止传输的内容被中间人冒充或者篡改<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/https.png" alt="markdown"></li>
 </ol>
-<p>SSL(Secure Sockets Layer 安全套接层),及其继任者传输层安全（Transport Layer Security，TLS）是为网络通信提供安全及数据完整性的一种安全协议。TLS与SSL在传输层对网络连接进行加密</p>
-<h1 id="http2-0"><a href="#http2-0" class="headerlink" title="http2.0"></a>http2.0</h1>
+<h2 id="SSL和TLS"><a href="#SSL和TLS" class="headerlink" title="SSL和TLS"></a>SSL和TLS</h2><p>HTTPS 还是通过了 HTTP 来传输信息，但是信息通过 TLS 协议进行了加密。TLS与SSL在传输层对网络连接进行加密，在 TLS 中使用了两种加密技术，分别为：对称加密和非对称加密。</p>
+<p><strong>对称加密（通信过程）：</strong></p>
+<p>对称加密就是两边拥有相同的秘钥，两边都知道如何将密文加密解密。<br>这种加密方式固然很好，但是问题就在于如何让双方知道秘钥。因为传输数据都是走的网络，如果将秘钥通过网络的方式传递的话，一旦秘钥被截获就没有加密的意义的。</p>
+<p><strong>非对称加密（认证过程）：</strong></p>
+<p>有公钥私钥之分，公钥所有人都可以知道，可以将数据用公钥加密，但是将数据解密必须使用私钥解密，私钥只有分发公钥的一方才知道（服务端）。<br>这种加密方式就可以完美解决对称加密存在的问题。假设现在两端需要使用对称加密，那么在这之前，可以先使用非对称加密交换秘钥。</p>
+<p>简单流程如下：首先服务端将公钥公布出去，那么客户端也就知道公钥了。接下来客户端创建一个秘钥，然后通过公钥加密并发送给服务端，服务端接收到密文以后通过私钥解密出正确的秘钥，这时候两端就都知道秘钥是什么了。</p>
+<h2 id="SSL-TLS-四次握手"><a href="#SSL-TLS-四次握手" class="headerlink" title="SSL/TLS 四次握手"></a>SSL/TLS 四次握手</h2><p>四次握手主要交换了3个信息：</p>
+<ol>
+<li>数字证书：该证书包含了公钥等信息，一般是由服务器发给客户端，接收方通过验证这个证书是不是信赖的CA签发的，或者与本地的证书相比，来判断证书是否可信，防止身份被冒充</li>
+<li>三个随机数</li>
+<li>加密通信协议</li>
+</ol>
+<p><strong>四次握手过程</strong></p>
+<ul>
+<li>客户端发送通信请求，和第一个随机数N1</li>
+<li>服务器确定加密通信协议的版本，然后返回CA机构签发的数字证书和公钥以及第二个随机数N2，确认加密方法</li>
+<li>客户端验证证书的合法性，使用证书中的公钥和HASH算法对消息进行加密，返回服务端第三个随机数N3</li>
+<li>服务端使用私密对消息进行解密，验证HASH，N1+N2+N3生成对话密钥，进行对称通信。</li>
+</ul>
+<p>理论上只要服务端私钥不泄露就无法被破解。</p>
+<p><strong>HTTPS优缺点:</strong></p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>内容加密：无法直接查看明文内容</li>
+<li>验证身份：CA签发证书判断是否访问自己的服务器</li>
+<li>保证数据完整性：防止传输内容被窜改</li>
+<li>在谷歌 搜索引擎中排名更高</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>成本高，证书费用大</li>
+<li>握手耗时延长50%，耗电增加10%到20%</li>
+<li>连接缓存不如http高效，会增加性能功耗</li>
+<li>SSL证书需要绑定IP，不能在同一个IP上绑定多个域名</li>
+</ul>
+<h1 id="http2-0"><a href="#http2-0" class="headerlink" title="http2.0"></a>http2.0</h1><p>HTTP/2 相比于 HTTP/1，可以说是大幅度提高了网页的性能。</p>
+<h2 id="二进制分帧"><a href="#二进制分帧" class="headerlink" title="二进制分帧"></a>二进制分帧</h2><p>HTTP/2 中所有加强性能的核心点在于此。在之前的 HTTP 版本中，我们是通过文本的方式传输数据。在 HTTP/2 中引入了新的编码机制，所有传输的数据都会被分割，并采用二进制格式编码。</p>
+<p>帧代表着最小的数据单位，每个帧会标识出该帧属于哪个流，流也就是多个帧组成的数据流。</p>
+<h2 id="多路复用"><a href="#多路复用" class="headerlink" title="多路复用"></a>多路复用</h2><p>在 HTTP/1 中，为了性能考虑，我们会引入雪碧图、将小图内联、使用多个域名等等的方式。这一切都是因为浏览器限制了同一个域名下的请求数量（Chrome 下一般是限制六个连接），当页面中需要请求很多资源的时候，队头阻塞（Head of line blocking）会导致在达到最大请求数量时，剩余的资源需要等待其他资源请求完成后才能发起请求。</p>
+<p>多路复用允许同时通过单一的HTTP/2 连接发起多重的请求响应消息。有了新的分帧后。HTTP/2 不再依赖多个TCP连接去实现多流并行了，每个数据流拆分成很多互不依赖的帧，还可以分优先级。不必通过多个TCP 连接去实现并行执行，避免 HTTP 旧版本中的队头阻塞问题，极大的提高传输性能。</p>
+<h2 id="header压缩"><a href="#header压缩" class="headerlink" title="header压缩"></a>header压缩</h2><p>HTTP1.x的header带有大量信息，而且每次都要重复发送，HTTP/2使用encoder来减少需要传输的header大小，通讯双方各自cache一份header fields表，既避免了重复header的传输，又减小了需要传输的大小。</p>
+<h2 id="服务端推送"><a href="#服务端推送" class="headerlink" title="服务端推送"></a>服务端推送</h2><p>服务器可以对一个客户端请求发送多个响应。服务器向客户端推送资源无需客户端明确地请求。</p>
+<p>可以想象以下情况，某些资源客户端是一定会请求的，这时就可以采取服务端 push 的技术，提前给客户端推送必要的资源，这样就可以相对减少一点延迟时间。</p>
+<h1 id="http3-0"><a href="#http3-0" class="headerlink" title="http3.0"></a>http3.0</h1><p>虽然 HTTP/2 解决了很多之前旧版本的问题，但是它还是存在一个巨大的问题，虽然这个问题并不是它本身造成的，而是底层支撑的 TCP 协议的问题。</p>
+<p>因为 HTTP/2 使用了多路复用，一般来说同一域名下只需要使用一个 TCP 连接。当这个连接中出现了丢包的情况，那就会导致 HTTP/2 的表现情况反倒不如 HTTP/1 了。</p>
+<p>因为在出现丢包的情况下，整个 TCP 都要开始等待重传，也就导致了后面的所有数据都被阻塞了。但是对于 HTTP/1 来说，可以开启多个 TCP 连接，出现这种情况反到只会影响其中一个连接，剩余的 TCP 连接还可以正常传输数据。</p>
+<p>那么可能就会有人考虑到去修改 TCP 协议，其实这已经是一件不可能完成的任务了。因为 TCP 存在的时间实在太长，已经充斥在各种设备中，并且这个协议是由操作系统实现的，更新起来不大现实。</p>
+<p><strong>基于这个原因，Google 就更起炉灶搞了一个基于 UDP 协议的 QUIC 协议，并且使用在了 HTTP/3 上。</strong></p>
+<h2 id="QUIC"><a href="#QUIC" class="headerlink" title="QUIC"></a>QUIC</h2><p>UDP 这个协议虽然效率很高，但是并不是那么的可靠。QUIC 虽然基于 UDP，但是在原本的基础上新增了很多功能，比如多路复用、0-RTT、使用 TLS1.3 加密、流量控制、有序交付、重传等等功能。</p>
+<h3 id="多路复用-1"><a href="#多路复用-1" class="headerlink" title="多路复用"></a>多路复用</h3><p>虽然 HTTP/2 支持了多路复用，但是 TCP 协议终究是没有这个功能的。QUIC 原生就实现了这个功能，并且传输的单个数据流可以保证有序交付且不会影响其他的数据流，这样的技术就解决了之前 TCP 存在的问题。</p>
+<p>并且 QUIC 在移动端的表现也会比 TCP 好。因为 TCP 是<strong>基于 IP 和端口</strong>去识别连接的，这种方式在多变的移动端网络环境下是很脆弱的。但是 QUIC 是通过 ID 的方式去识别一个连接，不管你网络环境如何变化，只要 ID 不变，就能迅速重连上。</p>
+<h3 id="0-RTT"><a href="#0-RTT" class="headerlink" title="0-RTT"></a>0-RTT</h3><p>通过使用类似 TCP 快速打开的技术，缓存当前会话的上下文，在下次恢复会话的时候，只需要将之前的缓存传递给服务端验证通过就可以进行传输了。</p>
+<h3 id="纠错机制"><a href="#纠错机制" class="headerlink" title="纠错机制"></a>纠错机制</h3><p>假如说这次我要发送三个包，那么协议会算出这三个包的异或值并单独发出一个校验包，也就是总共发出了四个包。</p>
+<p><strong>当出现其中的非校验包丢包的情况时，可以通过另外三个包计算出丢失的数据包的内容。</strong></p>
+<p>当然这种技术只能使用在丢失一个包的情况下，如果出现丢失多个包就不能使用纠错机制了，只能使用重传的方式了。</p>
+<h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><h2 id="为什么连接的时候是三次握手，关闭的时候却是四次挥手？"><a href="#为什么连接的时候是三次握手，关闭的时候却是四次挥手？" class="headerlink" title="为什么连接的时候是三次握手，关闭的时候却是四次挥手？"></a>为什么连接的时候是三次握手，关闭的时候却是四次挥手？</h2><p>ACK报文是用来应答的，SYN报文是用来同步的。但是关闭连接时，当Server端收到FIN报文时，很可能并不会立即关闭SOCKET，所以只能先回复一个ACK报文，告诉Client端，”你发的FIN报文我收到了”。只有等到我Server端所有的报文都发送完了，我才能发送FIN报文，因此不能一起发送。故需要四次挥手。</p>
+<h2 id="为什么TIME-WAIT状态需要经过2MSL-最大报文段生存时间-才能返回到CLOSE状态？"><a href="#为什么TIME-WAIT状态需要经过2MSL-最大报文段生存时间-才能返回到CLOSE状态？" class="headerlink" title="为什么TIME_WAIT状态需要经过2MSL(最大报文段生存时间)才能返回到CLOSE状态？"></a>为什么TIME_WAIT状态需要经过2MSL(最大报文段生存时间)才能返回到CLOSE状态？</h2><p>虽然按道理，四个报文都发送完毕，我们可以直接进入CLOSE状态了，但是我们必须假象网络是不可靠的，有可以最后一个ACK丢失。所以TIME_WAIT状态就是用来重发可能丢失的ACK报文。在Client发送出最后的ACK回复，但该ACK可能丢失。Server如果没有收到ACK，将不断重复发送FIN片段。所以Client不能立即关闭，它必须确认Server接收到了该ACK。Client会在发送出ACK之后进入到TIME_WAIT状态。Client会设置一个计时器，等待2MSL的时间。如果在该时间内再次收到FIN，那么Client会重发ACK并再次等待2MSL。所谓的2MSL是两倍的MSL(Maximum Segment Lifetime)。MSL指一个片段在网络中最大的存活时间，2MSL就是一个发送和一个回复所需的最大时间。如果直到2MSL，Client都没有再次收到FIN，那么Client推断ACK已经被成功接收，则结束TCP连接。</p>
+<h2 id="为什么不能用两次握手进行连接？"><a href="#为什么不能用两次握手进行连接？" class="headerlink" title="为什么不能用两次握手进行连接？"></a>为什么不能用两次握手进行连接？</h2><p>3次握手完成两个重要的功能，既要双方做好发送数据的准备工作(双方都知道彼此已准备好)，也要允许双方就初始序列号进行协商，这个序列号在握手过程中被发送和确认。</p>
+<p><strong>现在把三次握手改成仅需要两次握手，死锁是可能发生的。</strong>作为例子，考虑计算机S和C之间的通信，假定C给S发送一个连接请求分组，S收到了这个分组，并发 送了确认应答分组。按照两次握手的协定，S认为连接已经成功地建立了，可以开始发送数据分组。可是，C在S的应答分组在传输中被丢失的情况下，将不知道S 是否已准备好，不知道S建立什么样的序列号，C甚至怀疑S是否收到自己的连接请求分组。在这种情况下，C认为连接还未建立成功，将忽略S发来的任何数据分 组，只等待连接确认应答分组。而S在发出的分组超时后，重复发送同样的分组。这样就形成了死锁。</p>
+<h2 id="如果已经建立了连接，但是客户端突然出现故障了怎么办？"><a href="#如果已经建立了连接，但是客户端突然出现故障了怎么办？" class="headerlink" title="如果已经建立了连接，但是客户端突然出现故障了怎么办？"></a>如果已经建立了连接，但是客户端突然出现故障了怎么办？</h2><p>TCP还设有一个保活计时器，显然，客户端如果出现故障，服务器不能一直等下去，白白浪费资源。服务器每收到一次客户端的请求后都会重新复位这个计时器，时间通常是设置为2小时，若两小时还没有收到客户端的任何数据，服务器就会发送一个探测报文段，以后每隔75S发送一次。若一连发送10个探测报文仍然没反应，服务器就认为客户端出了故障，接着就关闭连接。</p>
+<h2 id="HTTP-2的多路复用和HTTP1-1中的长连接复用有什么区别？"><a href="#HTTP-2的多路复用和HTTP1-1中的长连接复用有什么区别？" class="headerlink" title="HTTP/2的多路复用和HTTP1.1中的长连接复用有什么区别？"></a>HTTP/2的多路复用和HTTP1.1中的长连接复用有什么区别？</h2><p>HTTP/1.0 一次请求-响应，建立一个连接，用完关闭；每一个请求都要建立一个连接；<br>HTTP/1.1 Pipeling解决方式为，若干个请求排队串行化单线程处理，后面的请求等待前面请求的返回才能获得执行机会，一旦有某请求超时等，后续请求只能被阻塞，毫无办法，也就是人们常说的线头阻塞；<br>HTTP/2多个请求可同时在一个连接上并行执行。某个请求任务耗时严重，不会影响到其它连接的正常执行； </p>
+
       
     </div>
     
@@ -562,7 +646,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#http协议"><span class="nav-number">1.</span> <span class="nav-text">http协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#http的两个重要特点"><span class="nav-number">1.1.</span> <span class="nav-text">http的两个重要特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http报文"><span class="nav-number">1.2.</span> <span class="nav-text">http报文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#get和post的主要区别"><span class="nav-number">1.3.</span> <span class="nav-text">get和post的主要区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Http的版本"><span class="nav-number">1.4.</span> <span class="nav-text">Http的版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http管线化"><span class="nav-number">1.5.</span> <span class="nav-text">http管线化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-1-1-做了哪些升级"><span class="nav-number">1.6.</span> <span class="nav-text">http 1.1 做了哪些升级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Http-1-1-中的八种方法"><span class="nav-number">1.7.</span> <span class="nav-text">Http 1.1 中的八种方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Https"><span class="nav-number">2.</span> <span class="nav-text">Https</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1）、SSL和TLS"><span class="nav-number">2.0.1.</span> <span class="nav-text">1）、SSL和TLS</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#http2-0"><span class="nav-number">3.</span> <span class="nav-text">http2.0</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP协议"><span class="nav-number">1.</span> <span class="nav-text">TCP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP建立连接（三次握手）"><span class="nav-number">1.1.</span> <span class="nav-text">TCP建立连接（三次握手）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP关闭连接（四次挥手）"><span class="nav-number">1.2.</span> <span class="nav-text">TCP关闭连接（四次挥手）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#http协议"><span class="nav-number">2.</span> <span class="nav-text">http协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#http的两个重要特点"><span class="nav-number">2.1.</span> <span class="nav-text">http的两个重要特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http报文"><span class="nav-number">2.2.</span> <span class="nav-text">http报文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#get和post的主要区别"><span class="nav-number">2.3.</span> <span class="nav-text">get和post的主要区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Http的版本"><span class="nav-number">2.4.</span> <span class="nav-text">Http的版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http管线化"><span class="nav-number">2.5.</span> <span class="nav-text">http管线化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-1-1-做了哪些升级"><span class="nav-number">2.6.</span> <span class="nav-text">http 1.1 做了哪些升级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Http-1-1-中的八种方法"><span class="nav-number">2.7.</span> <span class="nav-text">Http 1.1 中的八种方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Https"><span class="nav-number">3.</span> <span class="nav-text">Https</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SSL和TLS"><span class="nav-number">3.1.</span> <span class="nav-text">SSL和TLS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSL-TLS-四次握手"><span class="nav-number">3.2.</span> <span class="nav-text">SSL/TLS 四次握手</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#http2-0"><span class="nav-number">4.</span> <span class="nav-text">http2.0</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二进制分帧"><span class="nav-number">4.1.</span> <span class="nav-text">二进制分帧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多路复用"><span class="nav-number">4.2.</span> <span class="nav-text">多路复用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#header压缩"><span class="nav-number">4.3.</span> <span class="nav-text">header压缩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务端推送"><span class="nav-number">4.4.</span> <span class="nav-text">服务端推送</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#http3-0"><span class="nav-number">5.</span> <span class="nav-text">http3.0</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#QUIC"><span class="nav-number">5.1.</span> <span class="nav-text">QUIC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多路复用-1"><span class="nav-number">5.1.1.</span> <span class="nav-text">多路复用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0-RTT"><span class="nav-number">5.1.2.</span> <span class="nav-text">0-RTT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#纠错机制"><span class="nav-number">5.1.3.</span> <span class="nav-text">纠错机制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见问题"><span class="nav-number">6.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么连接的时候是三次握手，关闭的时候却是四次挥手？"><span class="nav-number">6.1.</span> <span class="nav-text">为什么连接的时候是三次握手，关闭的时候却是四次挥手？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么TIME-WAIT状态需要经过2MSL-最大报文段生存时间-才能返回到CLOSE状态？"><span class="nav-number">6.2.</span> <span class="nav-text">为什么TIME_WAIT状态需要经过2MSL(最大报文段生存时间)才能返回到CLOSE状态？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么不能用两次握手进行连接？"><span class="nav-number">6.3.</span> <span class="nav-text">为什么不能用两次握手进行连接？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果已经建立了连接，但是客户端突然出现故障了怎么办？"><span class="nav-number">6.4.</span> <span class="nav-text">如果已经建立了连接，但是客户端突然出现故障了怎么办？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-2的多路复用和HTTP1-1中的长连接复用有什么区别？"><span class="nav-number">6.5.</span> <span class="nav-text">HTTP/2的多路复用和HTTP1.1中的长连接复用有什么区别？</span></a></li></ol></li></ol></div>
             
 
           </div>

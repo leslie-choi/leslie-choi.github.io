@@ -373,7 +373,13 @@
 <li>通过网络缓存提升页面访问速度，达到渐进式的页面甚至离线访问，提升用户体验</li>
 <li>实现类似app的推送功能，生成系统通知推送给用户</li>
 </ul>
-<p>service worker是实现PWA的核心，service worker是一个独立的浏览器线程，不会对当前程序的执行线程造成阻塞，通过service worker可以实现页面离线访问、用户消息推送等功能</p>
+<p>service worker是实现PWA的核心，service worker是一个独立的浏览器线程，不会对当前程序的执行线程造成阻塞，通过service worker可以实现页面离线访问、用户消息推送等功能。<br>使用 Service Worker的话，传输协议必须为 HTTPS。因为 Service Worker 中涉及到请求拦截，所以必须使用 HTTPS 协议来保障安全。</p>
+<p>Service Worker 实现缓存功能一般分为三个步骤：</p>
+<ul>
+<li>首先需要先注册 Service Worker</li>
+<li>然后监听到 install 事件以后就可以缓存需要的文件</li>
+<li>下次用户访问的时候就可以通过<strong>拦截请求的方式</strong>查询是否存在缓存，存在缓存的话就可以直接读取缓存文件，否则就去请求数据</li>
+</ul>
 <p>PWA确实是当下很热门的技术，因为它提升了web应用的体验，甚至达到可以和原生app体验相提并论，但是它的问题就是兼容性问题，相信如果兼容性问题得到解决，这种技术一定会被大面积推广到实际应用。iOS11.3之前都不支持，因此vue cli3脚手架在集成时默认在ios下是关闭的</p>
 <h1 id="移动端资源压缩"><a href="#移动端资源压缩" class="headerlink" title="移动端资源压缩"></a>移动端资源压缩</h1><p>我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。</p>
 <ol>
@@ -1666,7 +1672,7 @@
 <li>CSSOM：CSS Object Model，浏览器将CSS解析成树形的数据结构，简称CSSOM。</li>
 <li>Render Tree: DOM和CSSOM合并后生成Render Tree(但是如果遇到script标签的时候，会执行并阻塞渲染)</li>
 <li>Layout: 计算出Render Tree每个节点的具体位置。（布局）</li>
-<li>Painting：通过显卡，将Layout后的节点内容分别呈现到屏幕上。（渲染）</li>
+<li>Painting：通过显卡，开始调用 GPU 绘制，合成图层，将Layout后的节点内容分别呈现到屏幕上。（渲染）</li>
 </ol>
 <p>PS：</p>
 <ul>
@@ -1699,8 +1705,9 @@
 </ul>
 <h1 id="输入URL到浏览器显示页面发生了什么"><a href="#输入URL到浏览器显示页面发生了什么" class="headerlink" title="输入URL到浏览器显示页面发生了什么"></a>输入URL到浏览器显示页面发生了什么</h1><ol>
 <li>输入网址github.com</li>
-<li>浏览器查找域名的IP地址</li>
+<li>DNS查找域名的IP地址<br>DNS 的作用就是通过域名查询到具体的 IP。</li>
 </ol>
+<p>因为 IP 存在数字和英文的组合（IPv6），很不利于人类记忆，所以就出现了域名。你可以把域名看成是某个 IP 的别名，DNS 就是去查询这个别名的真正名称是什么。</p>
 <ul>
 <li>请求发起后，游览器首先会解析这个域名，首先它会查看本地硬盘的 hosts 文件，看看其中有没有和这个域名对应的规则，如果有的话就直接使用 hosts 文件里面的 ip 地址。</li>
 <li>如果在本地的 hosts 文件没有能够找到对应的 ip 地址，浏览器会发出一个 DNS请求到本地DNS(域名分布系统)服务器 。本地DNS服务器一般都是你的网络接入服务器商提供，比如中国电信，中国移动。</li>
