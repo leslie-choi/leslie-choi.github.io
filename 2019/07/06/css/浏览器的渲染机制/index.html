@@ -83,12 +83,12 @@
 <meta name="keywords" content="basic">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浏览器的渲染机制">
-<meta property="og:url" content="http://yoursite.com/2019/07/06/JavaScript/浏览器的渲染机制/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/07/06/css/浏览器的渲染机制/index.html">
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="DOCTYPE及其作用由于历史的原因，浏览器对页面的渲染方式是不一样的。在W3C标准出来之前，浏览器对页面的渲染没有同一的标准，产生了差异，quirks mod（混杂模式或者兼容模式），但在W3C标准出台之后，浏览器对页面的渲染有了同一的标准即（严格模式或标准模式）。但是为了保证以前就得页面仍然正常显示，有的浏览器就保存了这两种渲染模式（标准兼容模式）。那么究竟采用哪一种方式进行渲染，就要看DOC">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/tree.png">
-<meta property="og:updated_time" content="2019-09-11T00:13:00.967Z">
+<meta property="og:updated_time" content="2019-09-16T03:26:44.049Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器的渲染机制">
 <meta name="twitter:description" content="DOCTYPE及其作用由于历史的原因，浏览器对页面的渲染方式是不一样的。在W3C标准出来之前，浏览器对页面的渲染没有同一的标准，产生了差异，quirks mod（混杂模式或者兼容模式），但在W3C标准出台之后，浏览器对页面的渲染有了同一的标准即（严格模式或标准模式）。但是为了保证以前就得页面仍然正常显示，有的浏览器就保存了这两种渲染模式（标准兼容模式）。那么究竟采用哪一种方式进行渲染，就要看DOC">
@@ -122,7 +122,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/06/JavaScript/浏览器的渲染机制/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/06/css/浏览器的渲染机制/">
 
 
 
@@ -235,7 +235,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/06/JavaScript/浏览器的渲染机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/06/css/浏览器的渲染机制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
@@ -287,8 +287,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
                   </a>
                 </span>
 
@@ -400,6 +400,43 @@
 <li>requestAnimationFrame 是由浏览器专门为动画提供的 API，在运行时浏览器会自动优化方法的调用，并且如果页面不是激活状态下的话，动画会自动暂停，有效节省了 CPU 开销</li>
 </ol>
 <p>须注意的是，requestAnimationFrame也属于宏任务。使用方法和setTimeout一样。</p>
+<h1 id="浏览器的工作原理"><a href="#浏览器的工作原理" class="headerlink" title="浏览器的工作原理"></a>浏览器的工作原理</h1><h2 id="进程和线程的概念"><a href="#进程和线程的概念" class="headerlink" title="进程和线程的概念"></a>进程和线程的概念</h2><ul>
+<li><p>进程：是并发执行的程序在执行过程中分配和管理资源的基本单位，是一个动态概念，竞争计算机系统资源的基本单位（进程是一个工厂，工厂有它的独立资源，并且工厂之间相互独立）</p>
+</li>
+<li><p>线程：是进程中的一部分，一个没有线程的进程也可以被看作是单线程的，是CPU调度的一个基本单位（线程是工厂中的工人，多个工人协作完成任务，一个工厂可以有一个或者多个工人，工人之间共享空间）</p>
+</li>
+</ul>
+<p>进程之间的通信方式：</p>
+<ul>
+<li>无名管道：半双工通信方式，数据只能单向流动并且只能在具有亲缘关系的进程间使用</li>
+<li>有名管道：也是半双工通信方式，但是允许没有亲缘进程之间的通信</li>
+<li>高级管道：将另一个程序当作一个新的程序在当前程序进程中启动，则这个进程算是当前程序的子进程</li>
+<li>信号：用于通知接受进程某个事件已经发生</li>
+</ul>
+<h2 id="浏览器的进程"><a href="#浏览器的进程" class="headerlink" title="浏览器的进程"></a>浏览器的进程</h2><h3 id="浏览器的单进程时代"><a href="#浏览器的单进程时代" class="headerlink" title="浏览器的单进程时代"></a>浏览器的单进程时代</h3><p>在前端处于刀耕火种的年代，微软通过在它的电脑设备上绑定了ie浏览器，逐渐的打败了昔日强敌网景，独霸整个pc时代。以ie6为例，这款浏览器就是典型的单进程浏览器，而且还是单线程浏览器。所以你可以想象，这个浏览器是奇慢无比，一个网页挂了就会导致浏览器里所有的页面都挂了。于是乎在后面的ie浏览器，通过多线程技术来试图提升浏览器的速度，但其实单进程无论怎么魔改，都会涉及到这些问题：</p>
+<ol>
+<li>不稳定。毕竟只要一个线程挂了就整个浏览器挂了，所以整个浏览器很不稳定。</li>
+<li>不流畅。比如在通过网络获取资源，到渲染流程，如果浏览器上还有插件则还要考虑插件的运行，如果有一个脚本是死循环的，则导致所有页面都要等待这个脚本执行完毕，会导致整个页面十分的不流畅。并且单进程浏览器关闭一个页面也会存在内存泄漏的问题，毕竟不是多进程。多进程关掉一个页面相当于关掉一个进程，系统会自动回收资源。所以这样子会导致浏览器开的越久就越占用内存。</li>
+<li>不安全。上面说到线程是可以共享进程里的资源的，如果一个插件是恶意的，它可以影响到整个浏览器，甚至可以控制你的电脑，来盗取账号密码。除了插件外，还有一些脚本可以通过钻漏洞来获取权限，引发很多严重的后果。</li>
+</ol>
+<h3 id="浏览器的多进程时代"><a href="#浏览器的多进程时代" class="headerlink" title="浏览器的多进程时代"></a>浏览器的多进程时代</h3><p>现代浏览器以chrome浏览器为例，目前的浏览器的多进程架构大致上是这样的：</p>
+<ol>
+<li>浏览器进程。该进程主要是负责界面显示、用户交互、子进程管理，同时提供存储等功能。</li>
+<li>网络进程。该进程主要负责页面的网络资源加载，比如在地址栏输入一个网页地址，网络进程会将请求后得到的资源交给渲染进程处理。</li>
+<li>渲染进程。核心任务是将 HTML、CSS 和 JavaScript 转换为用户可以与之交互的网页，排版引擎 Blink 和 JavaScript 引擎 V8 都是运行在该进程中，默认情况下，Chrome 会为每个 Tab 标签创建一个渲染进程。出于安全考虑，渲染进程都是运行在沙箱模式下。（浏览器的渲染进程是多线程的）</li>
+<li>GPU进程。其实，Chrome 刚开始发布的时候是没有 GPU 进程的。而 GPU 的使用初衷是为了实现 3D CSS 的效果，只是随后网页、Chrome 的 UI 界面都选择采用 GPU 来绘制，这使得 GPU 成为浏览器普遍的需求。最后，Chrome 在其多进程架构上也引入了 GPU 进程。</li>
+<li>插件进程。主要是负责插件的运行，因插件易崩溃，所以需要通过插件进程来隔离，以保证插件进程崩溃不会对浏览器和页面造成影响。</li>
+</ol>
+<p>Chrome 把插件进程和渲染进程锁在沙箱里面，这样即使在渲染进程或者插件进程里面执行了恶意程序，恶意程序也无法突破沙箱去获取系统权限</p>
+<h1 id="webWorker实现多线程"><a href="#webWorker实现多线程" class="headerlink" title="webWorker实现多线程"></a>webWorker实现多线程</h1><p>Web Worker 是HTML5标准的一部分，这一规范定义了一套 API，它允许一段JavaScript程序运行在主线程之外的另外一个线程中。工作线程允许开发人员编写能够长时间运行而不被用户所中断的后台程序， 去执行事务或者逻辑，并同时保证页面对用户的及时响应，可以将一些大量计算的代码交给web worker运行而不冻结用户界面，web worker 就是为了解决这种花费大量时间的复杂运算而诞生的！</p>
+<ul>
+<li><p>创建Worker时，JS引擎向浏览器申请开一个子线程（子线程是浏览器开的，完全受主线程控制，而且不能操作DOM）</p>
+</li>
+<li><p>JS引擎线程与worker线程间通过特定的方式通信（postMessage API，需要通过序列化对象来与线程交互特定的数据）</p>
+</li>
+</ul>
+<p>所以，如果有非常耗时的工作，请单独开一个Worker线程，这样里面不管如何翻天覆地都不会影响JS引擎主线程，<br>只待计算出结果后，将结果通信给主线程即可。<br>而且注意下，JS引擎是单线程的，这一点的本质仍然未改变，Worker可以理解是浏览器给JS引擎开的外挂，专门用来解决那些大量计算问题。</p>
+<h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h1><p><a href="https://juejin.im/post/5d765572e51d45621320318e" target="_blank" rel="noopener">现代浏览器工作原理（一）——浏览器进程</a></p>
 
       
     </div>
@@ -574,7 +611,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DOCTYPE及其作用"><span class="nav-number">1.</span> <span class="nav-text">DOCTYPE及其作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浏览器的渲染机制"><span class="nav-number">2.</span> <span class="nav-text">浏览器的渲染机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重排（回流）Reflow-（引起DOM树重新计算的行为）"><span class="nav-number">3.</span> <span class="nav-text">重排（回流）Reflow （引起DOM树重新计算的行为）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重绘Repaint-（元素样式的改变触发浏览器的行为）"><span class="nav-number">4.</span> <span class="nav-text">重绘Repaint （元素样式的改变触发浏览器的行为）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#输入URL到浏览器显示页面发生了什么"><span class="nav-number">5.</span> <span class="nav-text">输入URL到浏览器显示页面发生了什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#requestAnimationFrame"><span class="nav-number">6.</span> <span class="nav-text">requestAnimationFrame</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DOCTYPE及其作用"><span class="nav-number">1.</span> <span class="nav-text">DOCTYPE及其作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浏览器的渲染机制"><span class="nav-number">2.</span> <span class="nav-text">浏览器的渲染机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重排（回流）Reflow-（引起DOM树重新计算的行为）"><span class="nav-number">3.</span> <span class="nav-text">重排（回流）Reflow （引起DOM树重新计算的行为）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重绘Repaint-（元素样式的改变触发浏览器的行为）"><span class="nav-number">4.</span> <span class="nav-text">重绘Repaint （元素样式的改变触发浏览器的行为）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#输入URL到浏览器显示页面发生了什么"><span class="nav-number">5.</span> <span class="nav-text">输入URL到浏览器显示页面发生了什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#requestAnimationFrame"><span class="nav-number">6.</span> <span class="nav-text">requestAnimationFrame</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浏览器的工作原理"><span class="nav-number">7.</span> <span class="nav-text">浏览器的工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程和线程的概念"><span class="nav-number">7.1.</span> <span class="nav-text">进程和线程的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器的进程"><span class="nav-number">7.2.</span> <span class="nav-text">浏览器的进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器的单进程时代"><span class="nav-number">7.2.1.</span> <span class="nav-text">浏览器的单进程时代</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器的多进程时代"><span class="nav-number">7.2.2.</span> <span class="nav-text">浏览器的多进程时代</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#webWorker实现多线程"><span class="nav-number">8.</span> <span class="nav-text">webWorker实现多线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文章："><span class="nav-number">9.</span> <span class="nav-text">参考文章：</span></a></li></ol></div>
             
 
           </div>

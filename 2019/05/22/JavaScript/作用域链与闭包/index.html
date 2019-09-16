@@ -89,7 +89,11 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE.PNG">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/foo.PNG">
-<meta property="og:updated_time" content="2019-09-02T12:03:50.174Z">
+<meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/swip.png">
+<meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/laji.png">
+<meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/old.png">
+<meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/duibi.png">
+<meta property="og:updated_time" content="2019-09-16T01:00:32.339Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javaScript中的作用域链与闭包">
 <meta name="twitter:description" content="作用域链JS中，只有全局作用域和局部作用域（eval开发中比较少使用不做讨论），并且作用域和执行上下文其实是完全不同的两个概念，在执行上下文这前两篇文章中也有谈到。作用域链，是由当前环境与上层环境的一系列变量对象组成，作用是保证了当前执行环境对符合访问权限的变量和函数的有序访问。还是老样子举个例子：123456789101112var a = 20;function test() &amp;#123;">
@@ -347,20 +351,53 @@
 <li><code>stopImmediatePropagation()</code> 会彻底的阻止事件， 在其之后的绑定在元素上的其他监听事件都不会触发</li>
 <li><code>preventDefault()</code> 阻止事件的默认动作</li>
 </ul>
-<h1 id="垃圾回收机制"><a href="#垃圾回收机制" class="headerlink" title="垃圾回收机制"></a>垃圾回收机制</h1><p>必要性：由于字符串、对象和数组没有固定大小，所有当他们的大小已知时，才能对他们进行动态的存储分配。JavaScript程序每次创建字符串、数组或对象时，解释器都必须分配内存来存储那个实体。只要像这样动态地分配了内存，最终都要释放这些内存以便他们能够被再用，否则，JavaScript的解释器将会消耗完系统中所有可用的内存，造成系统崩溃。</p>
+<h1 id="垃圾回收机制"><a href="#垃圾回收机制" class="headerlink" title="垃圾回收机制"></a>垃圾回收机制</h1><p>必要性：由于字符串、对象和数组没有固定大小，所以当他们的大小已知时，才能对他们进行动态的存储分配。JavaScript程序每次创建字符串、数组或对象时，解释器都必须分配内存来存储那个实体。只要像这样动态地分配了内存，最终都要释放这些内存以便他们能够被再用，否则，JavaScript的解释器将会消耗完系统中所有可用的内存，造成系统崩溃。</p>
 <p>现在各大浏览器通常用采用的垃圾回收有两种方法：标记清除、引用计数（已经淘汰）。</p>
-<ul>
-<li><strong>标记清除：</strong>这是javascript中最常用的垃圾回收方式。当变量进入执行环境时（例如在函数中声明一个变量），就标记这个变量为“进入环境”。从逻辑上讲，永远不能释放进入环境的变量所占用的内存，因为只要执行流进入相应的环境，就可能会用到他们。当变量离开环境时，则将其标记为“离开环境”。</li>
-</ul>
-<p>垃圾收集器在运行的时候会给存储在内存中的所有变量都加上标记。然后，它会去掉环境中的变量以及被环境中的变量引用的标记。而在此之后再被加上标记的变量将被视为准备删除的变量，原因是环境中的变量已经无法访问到这些变量了。最后。垃圾收集器完成内存清除工作，销毁那些带标记的值，并回收他们所占用的内存空间。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;<span class="comment">//被标记进入环境  </span></span><br><span class="line">&#125;</span><br><span class="line">test();<span class="comment">//执行结束后被标记离开环境 被回收</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>引用计数：</strong>另一种不太常见的垃圾回收策略是引用计数。引用计数的含义是跟踪记录每个值被引用的次数。当声明了一个变量并将一个<strong>引用类型</strong>赋值给该变量时，则这个值的引用次数就是1。相反，如果包含对这个值引用的变量又取得了另外一个值，则这个值的引用次数就减1。当这个引用次数变成0时，则说明没有办法再访问这个值了，因而就可以将其所占的内存空间给收回来。这样，垃圾收集器下次再运行时，它就会释放那些引用次数为0的值所占的内存。</li>
-</ul>
+<h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h2><p>另一种不太常见的垃圾回收策略是引用计数。引用计数的含义是跟踪记录每个值被引用的次数。当声明了一个变量并将一个<strong>引用类型</strong>赋值给该变量时，则这个值的引用次数就是1。相反，如果包含对这个值引用的变量又取得了另外一个值，则这个值的引用次数就减1。当这个引用次数变成0时，则说明没有办法再访问这个值了，因而就可以将其所占的内存空间给收回来。这样，垃圾收集器下次再运行时，它就会释放那些引用次数为0的值所占的内存。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;&#125;; <span class="comment">//a的引用次数为0，需要时一个引用类型的值</span></span><br><span class="line"><span class="keyword">var</span> b = a; <span class="comment">//a的引用次数为1</span></span><br><span class="line"><span class="keyword">var</span> c = a;<span class="comment">//a的引用次数为2</span></span><br><span class="line"><span class="keyword">var</span> b = &#123;&#125;;  <span class="comment">//a的引用次数减1 为 1</span></span><br></pre></td></tr></table></figure>
 <p>但是引用计数存在以下问题：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">problem</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> objA = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    <span class="keyword">var</span> objB = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"></span><br><span class="line">    objA.someOtherObject = objB;</span><br><span class="line">    objB.anotherObject = objA;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在这个例子中，<strong>objA和objB通过各自的属性相互引用；</strong>也就是说这两个对象的引用次数都是2。在采用引用计数的策略中，由于函数执行之后，这两个对象都离开了作用域，函数执行完成之后，objA和objB还将会继续存在，<strong>因为他们的引用次数永远不会是0。</strong>这样的相互引用如果说很大量的存在就会导致大量的内存泄露。</p>
-<p>参考文章：<br><a href="https://www.jianshu.com/p/21a16d44f150" target="_blank" rel="noopener">前端基础进阶（四）：详细图解作用域链与闭包</a></p>
+<p>在这个例子中，<strong>objA和objB通过各自的属性相互引用；</strong>也就是说这两个对象的引用次数都是2。在采用引用计数的策略中，由于函数执行之后，这两个对象都离开了作用域，函数执行完成之后，objA和objB还将会继续存在，<strong>因为他们的引用次数永远不会是0,陷入死循环。</strong>这样的相互引用如果说很大量的存在就会导致大量的内存泄露。</p>
+<h2 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h2><p>这是javascript中最常用的垃圾回收方式。当变量进入执行环境时（例如在函数中声明一个变量），就标记这个变量为“进入环境”。从逻辑上讲，永远不能释放进入环境的变量所占用的内存，因为只要执行流进入相应的环境，就可能会用到他们。当变量离开环境时，则将其标记为“离开环境”。</p>
+<p>垃圾收集器在运行的时候会给存储在内存中的所有变量都加上标记。然后，它会去掉环境中的变量以及被环境中的变量引用的标记。而在此之后再被加上标记的变量将被视为准备删除的变量，原因是环境中的变量已经无法访问到这些变量了。最后。垃圾收集器完成内存清除工作，销毁那些带标记的值，并回收他们所占用的内存空间。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;<span class="comment">//被标记进入环境  </span></span><br><span class="line">&#125;</span><br><span class="line">test();<span class="comment">//执行结束后被标记离开环境 被回收</span></span><br></pre></td></tr></table></figure>
+<p>该算法假定设置一个叫做根（root）的对象（在Javascript里，根是全局对象）。垃圾回收器将定期从根开始（在JS中就是全局对象）扫描内存中的对象。凡是能从根部到达的对象，都是还需要使用的。那些无法由根部出发触及到的对象被标记为不再使用，稍后进行回收。<br>此算法可以分为两个阶段，一个是标记阶段（mark），一个是清除阶段(sweep)。</p>
+<ol>
+<li>标记阶段，垃圾回收器会从根对象开始遍历。每一个可以从根对象访问到的对象都会被添加一个标识，于是这个对象就被标识为可到达对象。</li>
+<li>清除阶段，垃圾回收器会对堆内存从头到尾进行线性遍历，如果发现有对象没有被标识为可到达对象，那么就将此对象占用的内存回收，并且将原来标记为可到达对象的标识清除，以便进行下一次垃圾回收操作。</li>
+</ol>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/swip.png" alt="markdown"></p>
+<p>在标记阶段，从根对象1可以访问到B，从B又可以访问到E，那么B和E都是可到达对象，同样的道理，F、G、J和K都是可到达对象。</p>
+<p>在回收阶段，所有未标记为可到达的对象都会被垃圾回收器回收。</p>
+<p><strong>何时开始垃圾回收?</strong></p>
+<p>通常来说，在使用标记清除算法时，未引用对象并不会被立即回收。取而代之的做法是，垃圾对象将一直累计到内存耗尽为止。当内存耗尽时，程序将会被挂起，垃圾回收开始执行。</p>
+<p>补充: 从2012年起，所有现代浏览器都使用了标记-清除垃圾回收算法。所有对JavaScript垃圾回收算法的改进都是基于标记-清除算法的改进，并没有改进标记-清除算法本身和它对“对象是否不再需要”的简化定义。</p>
+<p><strong>标记清除算法缺陷</strong></p>
+<ul>
+<li><p>那些无法从根对象查询到的对象都将被清除</p>
+</li>
+<li><p>垃圾收集后有可能会造成大量的内存碎片，像上面的图片所示，垃圾收集后内存中存在三个内存碎片，假设一个方格代表1个单位的内存，如果有一个对象需要占用3个内存单位的话，那么就会导致Mutator一直处于暂停状态，而Collector一直在尝试进行垃圾收集，直到Out of Memory</p>
+</li>
+</ul>
+<h2 id="Chrome-V8-垃圾回收算法"><a href="#Chrome-V8-垃圾回收算法" class="headerlink" title="Chrome V8 垃圾回收算法"></a>Chrome V8 垃圾回收算法</h2><p>Chrome 浏览器所使用的 V8 引擎就是采用的分代回收策略。目的是通过区分「临时」与「持久」对象；多回收「临时对象区」（新生代younggeneration），少回收「持久对象区」（老生代 tenured generation），减少每次需遍历的对象，从而减少每次GC的耗时。</p>
+<p>V8的内存分代:</p>
+<p>在V8中，主要将内存分为新生代和老生代，新生代内存 存储的为存活时间较短的对象，老生代内存 存储的为存活时间较长或常驻内存的对象，如下图：</p>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/laji.png" alt="markdown"></p>
+<h3 id="V8新生代算法（Scavenge）"><a href="#V8新生代算法（Scavenge）" class="headerlink" title="V8新生代算法（Scavenge）"></a>V8新生代算法（Scavenge）</h3><p>在分代基础上，新生代中的对象主要通过Scavenge算法进行垃圾回收。在Scavenge的具体实现中，主要采用了Cheney算法<br>Cheney算法是一种采用复制的方式实现的垃圾回收算法。</p>
+<p>它将堆内存一分为二，每一部分空间称为semispace。在这两个semispace空间中，只有一个处于使用中，另一个处于闲置状态。处于使用状态的semispace空间称为From空间，处于闲置状态的空间称为To空间。</p>
+<p>当我们分配对象时，先是在From空间中进行分配。当开始进行垃圾回收时，会检查From空间中的存活对象，这些存活对象将被复制到To空间中，而(From空间内的)非存活对象占用的空间将会被释放。完成复制后，From空间和To空间的角色发生对换(即以前的From空间释放后变为To;To空间在复制存活的对象后,变为From空间)。简而言之，在垃圾回收过程中，就是通过将存活对象在两个semispace空间之间进行复制。</p>
+<p>Scavenge的缺点:<br>只能使用堆内存中的一半，这是由划分空间和复制机制所决定的。</p>
+<p>Scavenge的优点:<br>Scavenge由于只复制存活的对象，并且对于生命周期短的场景存活对象只占少部分，所以它在时间效率上有优异的表现。 </p>
+<p><strong>Scavenge是典型的牺牲空间换取时间的算法</strong>， 所以无法大规模地应用到所有的垃圾回收中。但可以发现，Scavenge非常适合应用在新生代中，因为新生代中对象的生命周期较短，恰恰适合这个算法。</p>
+<h3 id="V8老生代算法（Mark-Sweep-amp-amp-Mark-Compact）"><a href="#V8老生代算法（Mark-Sweep-amp-amp-Mark-Compact）" class="headerlink" title="V8老生代算法（Mark-Sweep &amp;&amp; Mark-Compact）"></a>V8老生代算法（Mark-Sweep &amp;&amp; Mark-Compact）</h3><p>对于老生代中的对象，由于存活对象占较大比重，再采用Scavenge的方式会有两个问题：一个是存活对象较多，复制存活对象的效率将会很低；另一个问题依然是浪费一半空间的问题。为此，V8在老生代中主要采用Mark-Sweep和Mark-Compact相结合的方式进行垃圾回收。</p>
+<h4 id="Mark-Sweep"><a href="#Mark-Sweep" class="headerlink" title="Mark-Sweep:"></a>Mark-Sweep:</h4><p>Mark-Sweep是标记清除的意思，它分为标记和清除两个阶段。与Scavenge相比，Mark-Sweep并不将内存空间划分为两半，所以不存在浪费一半空间的行为。与Scavenge复制活着的对象不同，Mark-Sweep在标记阶段遍历堆中所有对象，并标记活着的对象，在随后的清除阶段中，只清除没有被标记的对象。 可以看出，Scavenge中只复制活着的对象，而Mark-Sweep只清理死亡对象。 活对象在新生代中只占较小部分，死对象在老生代中只占较小部分，这是两种回收方式能高效处理的原因。</p>
+<p>下图为Mark-Sweep在老生代空间中标记的示意图，黑色部分标记为死亡对象</p>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/old.png" alt="markdown"></p>
+<p>Mark-Sweep最大的问题:</p>
+<p>在进行一次标记清除回收后，<strong>内存空间会出现不连续的状态。这种内存碎片会对后续的内存分配造成问题，因为很可能出现需要分配一个大对象的情况，这时所有的碎片空间都无法完成此次分配，就会提前触发垃圾回收，而这次回收是不必要的。</strong>(注意理解这句话,不要把内存想象成液体.而是固体,就像一个个散乱排列的麻将,需要进行排序处理–即后面要讲的 Mark-Compact)</p>
+<h4 id="Mark-Compact"><a href="#Mark-Compact" class="headerlink" title="Mark-Compact:"></a>Mark-Compact:</h4><p>为了解决Mark-Sweep的内存碎片问题，Mark-Compact被提出来。Mark-Compact是标记整理的意思，是在Mark-Sweep的基础上演变而来的。它们的差别在于对象在标记为死亡后，<strong>在整理的过程中，将活着的对象往一端移动，移动完成后，直接清理掉边界外的内存。</strong>下图为Mark-Compact完成标记并移动存活对象后的示意图，白色格子为存活对象，深色格子为死亡对象，浅色格子为存活对象移动后留下的空洞。</p>
+<h3 id="Mark-Sweep、Mark-Compact、Scavenge三种主要垃圾回收算法的简单对比"><a href="#Mark-Sweep、Mark-Compact、Scavenge三种主要垃圾回收算法的简单对比" class="headerlink" title="Mark-Sweep、Mark-Compact、Scavenge三种主要垃圾回收算法的简单对比"></a>Mark-Sweep、Mark-Compact、Scavenge三种主要垃圾回收算法的简单对比</h3><p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/duibi.png" alt="markdown"></p>
+<p>从表格上看，Mark-Sweep和Mark-Compact之间，由于Mark-Compact需要移动对象，所以它的执行速度不可能很快，所以在取舍上，V8主要使用Mark-Sweep，<strong>在空间不足以对从新生代中晋升过来的对象进行分配时才使用Mark-Compact。</strong></p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.jianshu.com/p/21a16d44f150" target="_blank" rel="noopener">前端基础进阶（四）：详细图解作用域链与闭包</a><br><a href="https://juejin.im/post/5c6bba32f265da2db07382cf" target="_blank" rel="noopener">前端面试查漏补缺–(二) 垃圾回收机制</a></p>
 
       
     </div>
@@ -535,7 +572,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#作用域链"><span class="nav-number">1.</span> <span class="nav-text">作用域链</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#闭包"><span class="nav-number">2.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#垃圾回收机制"><span class="nav-number">3.</span> <span class="nav-text">垃圾回收机制</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#作用域链"><span class="nav-number">1.</span> <span class="nav-text">作用域链</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#闭包"><span class="nav-number">2.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#垃圾回收机制"><span class="nav-number">3.</span> <span class="nav-text">垃圾回收机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引用计数"><span class="nav-number">3.1.</span> <span class="nav-text">引用计数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标记清除"><span class="nav-number">3.2.</span> <span class="nav-text">标记清除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chrome-V8-垃圾回收算法"><span class="nav-number">3.3.</span> <span class="nav-text">Chrome V8 垃圾回收算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#V8新生代算法（Scavenge）"><span class="nav-number">3.3.1.</span> <span class="nav-text">V8新生代算法（Scavenge）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#V8老生代算法（Mark-Sweep-amp-amp-Mark-Compact）"><span class="nav-number">3.3.2.</span> <span class="nav-text">V8老生代算法（Mark-Sweep &amp;&amp; Mark-Compact）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Mark-Sweep"><span class="nav-number">3.3.2.1.</span> <span class="nav-text">Mark-Sweep:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mark-Compact"><span class="nav-number">3.3.2.2.</span> <span class="nav-text">Mark-Compact:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mark-Sweep、Mark-Compact、Scavenge三种主要垃圾回收算法的简单对比"><span class="nav-number">3.3.3.</span> <span class="nav-text">Mark-Sweep、Mark-Compact、Scavenge三种主要垃圾回收算法的简单对比</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文章"><span class="nav-number">4.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
             
 
           </div>
