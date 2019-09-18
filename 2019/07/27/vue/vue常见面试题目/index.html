@@ -98,7 +98,6 @@
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/key3.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/key4.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff1.png">
-<meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff1.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff2.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff3.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff4.png">
@@ -106,7 +105,7 @@
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff6.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff7.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff8.png">
-<meta property="og:updated_time" content="2019-09-18T07:05:18.246Z">
+<meta property="og:updated_time" content="2019-09-18T07:10:01.915Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue常见面试题">
 <meta name="twitter:description" content="MVVM的理解MVVM 模式，顾名思义即 Model-View-ViewModel 模式,是一个软件架构设计模式。  Model 层: 对应数据层模型，它主要做域模型的同步。通过 Ajax/fetch 等 API 完成客户端和服务端业务 Model 的同步。  View 层：作为视图模板存在，在 MVVM 里，整个 View 是一个动态模板。除了定义结构、布局外，它展示的是 ViewModel 层">
@@ -651,7 +650,6 @@
 </ol>
 <p>基于以上这两点假设，使得虚拟DOM的Diff算法的复杂度从O(n^3)降到了O(n)</p>
 <p>Vue中的diff算法，就是用来比较虚拟DOM和需要渲染的真实DOM之间的差异。所以下面这张图可以很好的解释这个过程。<strong>比较只会在同个层级之间进行，不会跨层级比较</strong></p>
-<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff1.png" alt="markdown"></p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 之前 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>           <span class="comment">&lt;!-- 层级1 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>            <span class="comment">&lt;!-- 层级2 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">b</span>&gt;</span> aoy <span class="tag">&lt;/<span class="name">b</span>&gt;</span>   <span class="comment">&lt;!-- 层级3 --&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>diff<span class="tag">&lt;/<span class="name">Span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">P</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 之后 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>            <span class="comment">&lt;!-- 层级1 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>             <span class="comment">&lt;!-- 层级2 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">b</span>&gt;</span> aoy <span class="tag">&lt;/<span class="name">b</span>&gt;</span>        <span class="comment">&lt;!-- 层级3 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>&gt;</span>diff<span class="tag">&lt;/<span class="name">Span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>最理想的就是将<span>直接移动到<p>的后边，这是最优的操作。但是实际的diff操作是移除</p><p>里的<span>，然后再创建一个新的<span>插到<p>的后边。<br>因为新加的<span>在层级2，旧的在层级3，属于不同层级的比较。</span></p>
 <p>diff算法的过程其实就是调用patch函数，就像是打补丁一样修改真实DOM。<br>patch函数有两个参数，vnode和oldVnode，也就是新旧两个虚拟节点。</p>
@@ -678,7 +676,7 @@
 <li><p>当新老节点都无子节点的时候，只是文本的替换。</p>
 </li>
 </ol>
-<h2 id="updateChildren"><a href="#updateChildren" class="headerlink" title="updateChildren"></a><strong>updateChildren</strong></h2><p>首先代码很发杂，所以在这里直接上图。</p>
+<h2 id="updateChildren"><a href="#updateChildren" class="headerlink" title="updateChildren"></a><strong>updateChildren</strong></h2><p>首先代码很复杂，所以在这里直接上图。</p>
 <p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/diff1.png" alt="markdown"></p>
 <p>首先，在新老两个VNode节点的左右头尾两侧都有一个变量标记，在遍历过程中这几个变量都会向中间靠拢。当oldStartIdx &gt; oldEndIdx或者newStartIdx &gt; newEndIdx时结束循环。</p>
 <p>首先，在新老两个VNode节点的左右头尾两侧都有一个变量标记，在遍历过程中这几个变量都会向中间靠拢。当oldStartIdx &gt; oldEndIdx或者newStartIdx &gt; newEndIdx时结束循环。</p>
