@@ -88,7 +88,7 @@
 <meta property="og:description" content="数组Array的对象方法 JS中的类型转换显式类型的转换（强制类型转换） String   toString()方法(但是注意null和undefined两个值没有toString，调用该方法会报错)，当数字调用该方法的时候，可以在括号内传入转换的进制数。  1234567891011var a = 123a.toString()//&quot;123&quot;var b = null;b.toString()//">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/array.png?Expires=1563078432&OSSAccessKeyId=TMP.hUzM36nMKvB1zXcz26YFpTsu24yAPsxCEviigxyofZfAf7vpheogc79FXodgi9beanthKLNsYSGivUwr4yZ8JRSoiZkeRrzZfzNuQud3QTaMZM6fB7trfbW4Se4ko3.tmp&Signature=DMI2kn2EpQCfvRZuu651pb4Q2GE%3D">
-<meta property="og:updated_time" content="2019-09-04T05:22:24.386Z">
+<meta property="og:updated_time" content="2019-09-18T13:40:00.552Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="零碎知识点">
 <meta name="twitter:description" content="数组Array的对象方法 JS中的类型转换显式类型的转换（强制类型转换） String   toString()方法(但是注意null和undefined两个值没有toString，调用该方法会报错)，当数字调用该方法的时候，可以在括号内传入转换的进制数。  1234567891011var a = 123a.toString()//&quot;123&quot;var b = null;b.toString()//">
@@ -381,7 +381,9 @@
 <li>包含引用类型值的变量实际上包含的并不是对象本身，而是一个指向该对象的指针</li>
 <li>从一个变量向另一个变量复制引用类型的值的时候，复制是引用指针，因此两个变量最终都指向同一个对象</li>
 </ul>
-<h1 id="判断是否是数组的几种方法"><a href="#判断是否是数组的几种方法" class="headerlink" title="判断是否是数组的几种方法"></a>判断是否是数组的几种方法</h1><p>1。 使用instanceof方法</p>
+<h1 id="判断是否是数组的几种方法"><a href="#判断是否是数组的几种方法" class="headerlink" title="判断是否是数组的几种方法"></a>判断是否是数组的几种方法</h1><ol>
+<li>使用instanceof方法</li>
+</ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr=[]</span><br><span class="line"><span class="built_in">console</span>.log(arr <span class="keyword">instanceof</span> <span class="built_in">Array</span>)</span><br></pre></td></tr></table></figure>
 <ol start="2">
 <li>使用constructor方法</li>

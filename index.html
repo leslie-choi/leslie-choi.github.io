@@ -445,23 +445,6 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"initial-scale=0.3333333333333333, maximum-scale=0.3333333333333333, minimum-scale=0.3333333333333333, user-scalable=no"</span>&gt;</span><br></pre></td></tr></table></figure>
 <p>这种兼容方案相对比较完美，适合新的项目，老的项目修改成本过大</p>
 <p>使用rem布局时，个人习惯将字体设置为50px(浏览器默认是16px)，这样在换算成rem单位的时候，就可以直接乘以0.2就好了。（50px换算成10rem）</p>
-<h1 id="vh和vw"><a href="#vh和vw" class="headerlink" title="vh和vw"></a>vh和vw</h1><p>视口：在桌面端，视口指的是在桌面端，指的是浏览器的可视区域；而在移动端，它涉及3个视口：Layout Viewport（布局视口），Visual Viewport（视觉视口），Ideal Viewport（理想视口）。</p>
-<p>视口单位中的“视口”，桌面端指的是浏览器的可视区域；移动端指的就是Viewport中的Layout Viewport。</p>
-<p> 根据CSS3规范，视口单位主要包括以下4个：</p>
-<ol>
-<li><p>vw：1vw等于视口宽度的1%。</p>
-</li>
-<li><p>vh：1vh等于视口高度的1%。</p>
-</li>
-<li><p>vmin：选取vw和vh中最小的那个。</p>
-</li>
-<li><p>vmax：选取vw和vh中最大的那个。</p>
-<p>vh and vw：相对于视口的高度和宽度，而不是父元素的（CSS百分比是相对于包含它的最近的父元素的高度和宽度）。1vh 等于1/100的视口高度，1vw 等于1/100的视口宽度。</p>
-</li>
-</ol>
-<p>比如：浏览器高度950px，宽度为1920px, 1 vh = 950px/100 = 9.5 px，1vw = 1920px/100 =19.2 px。</p>
-<p>vmax相对于视口的宽度或高度中较大的那个。其中最大的那个被均分为100单位的vmax。</p>
-<p>vmin相对于视口的宽度或高度中较小的那个。其中最小的那个被均分为100单位的vmin。</p>
 <p><a href="https://juejin.im/post/5bcc169ae51d450e85308d86" target="_blank" rel="noopener">首页白屏的引发的思考(一)</a><br><a href="https://mp.weixin.qq.com/s?__biz=MzUxMzcxMzE5Ng==&amp;mid=2247489586&amp;idx=1&amp;sn=2168d42df837521da50b3ed7f8932698&amp;chksm=f951ad71ce262467728b7940de1a2311c523f264f4ca7e705712bf655a844fab93706cbe1ca3&amp;token=1792152421&amp;lang=zh_CN#rd" target="_blank" rel="noopener">首屏时间从12.67s到1.06s，我是如何做到的？</a></p>
 
           
@@ -2543,7 +2526,7 @@
 <p>Scavenge的缺点:<br>只能使用堆内存中的一半，这是由划分空间和复制机制所决定的。</p>
 <p>Scavenge的优点:<br>Scavenge由于只复制存活的对象，并且对于生命周期短的场景存活对象只占少部分，所以它在时间效率上有优异的表现。 </p>
 <p><strong>Scavenge是典型的牺牲空间换取时间的算法</strong>， 所以无法大规模地应用到所有的垃圾回收中。但可以发现，Scavenge非常适合应用在新生代中，因为新生代中对象的生命周期较短，恰恰适合这个算法。</p>
-<h3 id="V8老生代算法（Mark-Sweep-amp-amp-Mark-Compact）"><a href="#V8老生代算法（Mark-Sweep-amp-amp-Mark-Compact）" class="headerlink" title="V8老生代算法（Mark-Sweep &amp;&amp; Mark-Compact）"></a>V8老生代算法（Mark-Sweep &amp;&amp; Mark-Compact）</h3><p>对于老生代中的对象，由于存活对象占较大比重，再采用Scavenge的方式会有两个问题：一个是存活对象较多，复制存活对象的效率将会很低；另一个问题依然是浪费一半空间的问题。为此，V8在老生代中主要采用Mark-Sweep和Mark-Compact相结合的方式进行垃圾回收。</p>
+<h3 id="V8老生代算法（Mark-Sweep-标记清除-amp-amp-Mark-Compact-标记管理）"><a href="#V8老生代算法（Mark-Sweep-标记清除-amp-amp-Mark-Compact-标记管理）" class="headerlink" title="V8老生代算法（Mark-Sweep 标记清除 &amp;&amp; Mark-Compact 标记管理）"></a>V8老生代算法（Mark-Sweep 标记清除 &amp;&amp; Mark-Compact 标记管理）</h3><p>对于老生代中的对象，由于存活对象占较大比重，再采用Scavenge的方式会有两个问题：一个是存活对象较多，复制存活对象的效率将会很低；另一个问题依然是浪费一半空间的问题。为此，V8在老生代中主要采用Mark-Sweep和Mark-Compact相结合的方式进行垃圾回收。</p>
 <h4 id="Mark-Sweep"><a href="#Mark-Sweep" class="headerlink" title="Mark-Sweep:"></a>Mark-Sweep:</h4><p>Mark-Sweep是标记清除的意思，它分为标记和清除两个阶段。与Scavenge相比，Mark-Sweep并不将内存空间划分为两半，所以不存在浪费一半空间的行为。与Scavenge复制活着的对象不同，Mark-Sweep在标记阶段遍历堆中所有对象，并标记活着的对象，在随后的清除阶段中，只清除没有被标记的对象。 可以看出，Scavenge中只复制活着的对象，而Mark-Sweep只清理死亡对象。 活对象在新生代中只占较小部分，死对象在老生代中只占较小部分，这是两种回收方式能高效处理的原因。</p>
 <p>下图为Mark-Sweep在老生代空间中标记的示意图，黑色部分标记为死亡对象</p>
 <p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/old.png" alt="markdown"></p>

@@ -961,7 +961,9 @@
 <li>包含引用类型值的变量实际上包含的并不是对象本身，而是一个指向该对象的指针</li>
 <li>从一个变量向另一个变量复制引用类型的值的时候，复制是引用指针，因此两个变量最终都指向同一个对象</li>
 </ul>
-<h1 id="判断是否是数组的几种方法"><a href="#判断是否是数组的几种方法" class="headerlink" title="判断是否是数组的几种方法"></a>判断是否是数组的几种方法</h1><p>1。 使用instanceof方法</p>
+<h1 id="判断是否是数组的几种方法"><a href="#判断是否是数组的几种方法" class="headerlink" title="判断是否是数组的几种方法"></a>判断是否是数组的几种方法</h1><ol>
+<li>使用instanceof方法</li>
+</ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr=[]</span><br><span class="line"><span class="built_in">console</span>.log(arr <span class="keyword">instanceof</span> <span class="built_in">Array</span>)</span><br></pre></td></tr></table></figure>
 <ol start="2">
 <li>使用constructor方法</li>
@@ -1494,6 +1496,24 @@
 <li>客户端A发回ACK报文确认，并将确认序号设置为收到序号加1 (服务端closed，然后经过2MSL后服务端进入closed)</li>
 </ul>
 <p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/sihui.png" alt="markdown"></p>
+<h2 id="UDP和TCP（User-Datagram-Protocol，用户数据报协议）的区别"><a href="#UDP和TCP（User-Datagram-Protocol，用户数据报协议）的区别" class="headerlink" title="UDP和TCP（User Datagram Protocol，用户数据报协议）的区别"></a>UDP和TCP（User Datagram Protocol，用户数据报协议）的区别</h2><ol>
+<li>都是位于传输层，TCP是面向连接的，而<strong>udp是无连接的</strong>，即发送数据前不需要先建立连接</li>
+<li>TCP提供可靠的服务。也就是说，通过TCP连接传送的数据，无差错、不丢失、不重复，并且按序到达；UDP尽最大努力交付，即不保证可靠交付。并且TCP可靠，面向连接不会丢失数据适合大数据量的传输</li>
+<li>TCP面向字节流，UDP面向报文，并且网络阻塞不会使得发送的速率降低，所以会出现丢包（适合视频会议或者直播）　</li>
+<li>TCP只能是一对一的，而UDP可以一对多</li>
+<li>TCP首部较大为20字节，UDP只有8字节</li>
+</ol>
+<h2 id="如何实现UDP的可靠传输"><a href="#如何实现UDP的可靠传输" class="headerlink" title="如何实现UDP的可靠传输"></a>如何实现UDP的可靠传输</h2><p>TCP是通过确认机制和超时重传机制实现可靠传输</p>
+<p>UDP它不属于连接型协议，因而具有资源消耗小，处理速度快的优点，所以通常音频、视频和普通数据在传送时使用UDP较多，因为它们即使偶尔丢失一两个数据包，也不会对接收结果产生太大影响。传输层无法保证数据的可靠传输，只能通过应用层来实现了。实现的方式可以参照tcp可靠性传输的方式，只是实现不在传输层，实现转移到了应用层。</p>
+<p>关键在于两点，从应用层角度考虑：</p>
+<ol>
+<li><p>提供超时重传，能避免数据包丢失。</p>
+</li>
+<li><p>提供确认序列号，可以对数据报进行确认和排序。</p>
+</li>
+</ol>
+<p><strong>RUDP</strong></p>
+<p>RUDP 提供一组数据服务质量增强机制，如拥塞控制的改进、重发机制及淡化服务器算法等，从而在包丢失和网络拥塞的情况下， RTP 客户机（实时位置）面前呈现的就是一个高质量的 RTP 流。在不干扰协议的实时特性的同时，可靠 UDP 的拥塞控制机制允许 TCP 方式下的流控制行为。</p>
 <h1 id="http协议"><a href="#http协议" class="headerlink" title="http协议"></a>http协议</h1><p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/http.jpg" alt="markdown"></p>
 <p>HTTP协议是<strong>Hyper Text Transfer Protocol（超文本传输协议）</strong>的缩写,是用于从万维网（WWW:World Wide Web ）服务器传输超文本到本地浏览器的传送协议，也就是说所有的www服务器都必须要遵循这个标准。</p>
 <p>HTTP是一个基于TCP/IP通信协议来传递数据（HTML 文件, 图片文件, 查询结果等）。</p>
@@ -1985,7 +2005,7 @@
 <li>数据链路层（Data Link）：物理寻址</li>
 <li>物理层（Physical）机械、电子、定时接口通信信道上的原始比特流传输</li>
 </ul>
-<h1 id="5层模型"><a href="#5层模型" class="headerlink" title="5层模型"></a>5层模型</h1><p>5层只是OSI和TCP/IP的综合，是业界产生出来的非官方协议模型，但是很多具体的应用。实际应用还是TCP/IP的四层结构。</p>
+<h1 id="5层模型"><a href="#5层模型" class="headerlink" title="5层模型"></a>5层模型</h1><p>应用层 =&gt; 传输层 =&gt; 网络层 =&gt; 数据链路层 =&gt; 物理层<br>5层只是OSI和TCP/IP的综合，是业界产生出来的非官方协议模型，但是很多具体的应用，实际应用还是TCP/IP的四层结构。</p>
 <p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/5%E5%B1%82%E6%A8%A1%E5%9E%8B.png" alt="markdown"></p>
 <h1 id="4层模型-TCP-IP模型"><a href="#4层模型-TCP-IP模型" class="headerlink" title="4层模型 TCP/IP模型"></a>4层模型 TCP/IP模型</h1><p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/4and7.png" alt="markdown"></p>
 <p>Transmission Control Protocol/Internet Protocol，翻译成人话就是 <strong>传输控制协议/互联网协议</strong>，基于TCP/IP的参考模型协议分成了四个层次，它们分别是链路层、网络层、传输层和应用层。<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/tcpip%E5%8D%8F%E8%AE%AE.png" alt="markdown"></p>
