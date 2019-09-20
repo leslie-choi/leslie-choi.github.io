@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。 一、资源压缩合并，减少HTTP请求比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。 二、非核心代码异步加载通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。在页面渲染的这样一个过程中，有一个关键点是如果在解析内容的过程中遇到了脚本标签，如：，浏览器就会暂停内容">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-19T03:48:02.315Z">
+<meta property="og:updated_time" content="2019-09-19T21:06:05.681Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="提高页面性能">
 <meta name="twitter:description" content="我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。 一、资源压缩合并，减少HTTP请求比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。 二、非核心代码异步加载通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。在页面渲染的这样一个过程中，有一个关键点是如果在解析内容的过程中遇到了脚本标签，如：，浏览器就会暂停内容">
@@ -335,7 +335,7 @@
 <ol start="2">
 <li>异步加载的方式</li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">defer &lt;script src=<span class="string">"defer.js"</span> defer&gt; <span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="keyword">async</span> &lt;script src=<span class="string">"defer.js"</span> <span class="keyword">async</span>&gt; <span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">defer &lt;script src=<span class="string">"defer.js"</span> defer&gt; &lt;/script&gt;</span><br><span class="line"><span class="keyword">async</span> &lt;script src=<span class="string">"defer.js"</span> <span class="keyword">async</span>&gt; &lt;/script&gt;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>defer是在HTML渲染完之后（DOM结构完全生成，以及其他脚本执行完成之后）才会执行，如果是多个，则按照加载的顺序执行，优先级比async高</li>
 <li>async是在下载完脚本之后立即执行，渲染引擎会中断，执行完脚本之后才会继续渲染，如果是多个，执行顺序和加载顺序无关</li>
@@ -349,7 +349,7 @@
 <li>强缓存发现本地有请求文件的副本，直接使用，也就是说如果我们在服务端更新了文件，并不会被浏览器所得知，就无法替换失效的缓存</li>
 <li>协商缓存则需要和服务器进行交流，通过确认之后才可以使用</li>
 </ul>
-<p>a 强缓存：不会向服务器发送请求，直接从缓存中读取资源</p>
+<p>a 强缓存：不会向服务器发送请求，直接从缓存中读取资源，返回状态码200</p>
 <ul>
 <li><p>Expires Wed, 22 Oct 2018 08:41:00 GMT<br><strong>缓存过期时间，用来指定资源到期的时间，是服务器端的具体的时间点，如果过期则会再次请求</strong></p>
 </li>
@@ -357,7 +357,7 @@
 </li>
 </ul>
 <p>但是如果服务器同时下发了两个，则以相对时间为准。</p>
-<p>b 协商缓存<br>协商缓存就是强制缓存失效后，浏览器携带缓存标识向服务器发起请求，由服务器根据缓存标识决定是否使用缓存的过程，主要有以下两种情况：</p>
+<p>b 协商缓存：会去服务器比对，若没改变才直接读取本地缓存，返回的状态码是 304。<br>协商缓存就是强制缓存失效后，浏览器携带缓存标识向服务器发起请求，由服务器根据缓存标识决定是否使用缓存的过程，主要有以下两种情况：</p>
 <p><strong>Last-Modified 和 If-Modified-Since</strong></p>
 <p>浏览器在第一次访问资源时，服务器返回资源的同时，在response header中添加 Last-Modified的header，值是这个资源在服务器上的最后修改时间，浏览器接收后缓存文件和header；<br>浏览器下一次请求这个资源，浏览器检测到有 Last-Modified这个header，于是添加If-Modified-Since这个header，<strong>值就是Last-Modified中的值</strong> ；服务器再次收到这个资源请求，会根据 If-Modified-Since 中的值与服务器中这个资源的最后修改时间对比，如果没有变化，返回304和空的响应体，直接从缓存读取，如果If-Modified-Since的时间小于服务器中这个资源的最后修改时间，说明文件有更新，于是返回新的资源文件和200。 </p>
 <p>存在的弊端：</p>

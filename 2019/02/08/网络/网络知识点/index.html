@@ -93,7 +93,7 @@
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/tcpip%E5%8D%8F%E8%AE%AE.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/TCPIP%E5%8E%9F%E7%90%86%E5%9B%BE.jpg">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/URL.png">
-<meta property="og:updated_time" content="2019-09-19T05:35:56.178Z">
+<meta property="og:updated_time" content="2019-09-19T21:15:48.026Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见网络知识点">
 <meta name="twitter:description" content="OSI七层协议模型  应用层（Application）：各种应用程序协议，如http、ftp、SMTP等等 表示层（Presentation）：信息的语法语义以及它们的关联，如加密解密、压缩和解压缩等等 会话层（Session）：不同机器上的用户之间建立及管理会话 传输层（Transport）：接受上一层的数据，在必要的时候将数据进行分割，并将数据交给网络层（TCP/UDP） 网络层（Networ">
@@ -416,6 +416,56 @@
 <li>服务器可以推送消息给客户端，实现双向对话平等</li>
 <li>没有同源策略的限制，可以实现跨域通讯</li>
 </ul>
+<h1 id="浏览器缓存"><a href="#浏览器缓存" class="headerlink" title="浏览器缓存"></a>浏览器缓存</h1><ol>
+<li>缓存的分类</li>
+</ol>
+<ul>
+<li>强缓存发现本地有请求文件的副本，直接使用，也就是说如果我们在服务端更新了文件，并不会被浏览器所得知，就无法替换失效的缓存</li>
+<li>协商缓存则需要和服务器进行交流，通过确认之后才可以使用</li>
+</ul>
+<p>a 强缓存：不会向服务器发送请求，直接从缓存中读取资源，返回状态码200</p>
+<ul>
+<li><p>Expires Wed, 22 Oct 2018 08:41:00 GMT<br><strong>缓存过期时间，用来指定资源到期的时间，是服务器端的具体的时间点，如果过期则会再次请求</strong><br>缺点是，失效时间是一个绝对时间，如果服务器时间与客户端时间偏差较大时，就会导致缓存混乱。而服务器的时间跟用户的实际时间是不一样是很正常的，所以 Expires 在实际使用中会带来一些麻烦。</p>
+</li>
+<li><p>Cache—Control:max-age=300<br><strong>代表在这个请求正确返回时间（浏览器也会记录下来）的5分钟内再次加载资源，就会命中强缓存。</strong><br>在实际使用中常常遇到设置了 max-age 之后，在 max-age 时间内重新访问资源却会返回 304 not modified ，这是由于服务器的时间与本地的时间不同造成的。</p>
+</li>
+</ul>
+<p>但是如果服务器同时下发了两个，则以相对时间为准。</p>
+<p>b 协商缓存：会去服务器比对，若没改变才直接读取本地缓存，返回的状态码是 304。<br>协商缓存就是强制缓存失效后，浏览器携带缓存标识向服务器发起请求，由服务器根据缓存标识决定是否使用缓存的过程，主要有以下两种情况：</p>
+<p><strong>Last-Modified 和 If-Modified-Since</strong></p>
+<p>浏览器在第一次访问资源时，服务器返回资源的同时，在response header中添加 Last-Modified的header，值是这个资源在服务器上的最后修改时间，浏览器接收后缓存文件和header；<br>浏览器下一次请求这个资源，浏览器检测到有 Last-Modified这个header，于是添加If-Modified-Since这个header，<strong>值就是Last-Modified中的值</strong> ；服务器再次收到这个资源请求，会根据 If-Modified-Since 中的值与服务器中这个资源的最后修改时间对比，如果没有变化，返回304和空的响应体，直接从缓存读取，如果If-Modified-Since的时间小于服务器中这个资源的最后修改时间，说明文件有更新，于是返回新的资源文件和200。 </p>
+<p>存在的弊端：</p>
+<ul>
+<li><p>如果本地打开缓存文件，即使没有对文件进行修改，但还是会造成 Last-Modified 被修改，服务端不能命中缓存导致发送相同的资源</p>
+</li>
+<li><p>因为 Last-Modified 只能以秒计时，如果在不可感知的时间内修改完成文件，那么服务端会认为资源还是命中了，不会返回正确的资源</p>
+</li>
+<li><p>某些服务器不能精确的得到文件的最后修改时间。</p>
+</li>
+</ul>
+<p><strong>Etag 和 If-None-Match</strong><br>Etag是服务器响应请求时，返回当前资源文件的一个唯一标识(由服务器生成，类似一个哈希值)，只要资源有变化，Etag就会重新生成。浏览器在下一次加载资源向服务器发送请求时，会将上一次返回的Etag值放到request header里的If-None-Match里，服务器只需要比较客户端传来的If-None-Match跟自己服务器上该资源的ETag是否一致，就能很好地判断资源相对客户端而言是否被修改过了。<br>如果ETag是一致的，则直接返回304知会客户端直接使用本地缓存即可。</p>
+<p><strong>PS：强缓存的优先级会比协商缓存优先级高，cache-control优先级 &gt; expire，Etag优先级 &gt; Last-modified</strong></p>
+<p><strong>那有了Etag是不是可以放弃last-Modified了呢？</strong></p>
+<ul>
+<li><p>对那些一秒内修改特别频繁的文件，使用etag强验证的话，就需要占用服务器cpu资源频繁进行etag的计算，这样可能就不好用了。</p>
+</li>
+<li><p>只是给代码加上注释，但是服务器实质的内容并没有一点改变，如果使用Etag扫描全部文件可能会耗费大量性能，所以应该根据场景选择对应方案。</p>
+</li>
+</ul>
+<h1 id="PWA使用缓存"><a href="#PWA使用缓存" class="headerlink" title="PWA使用缓存"></a>PWA使用缓存</h1><p>PWA(Progressive web apps, 渐进式Web应用)</p>
+<ul>
+<li>可以生成桌面小图标，不需要打开浏览器，方便用户访问</li>
+<li>通过网络缓存提升页面访问速度，达到渐进式的页面甚至离线访问，提升用户体验</li>
+<li>实现类似app的推送功能，生成系统通知推送给用户</li>
+</ul>
+<p>service worker是实现PWA的核心，service worker是一个独立的浏览器线程，不会对当前程序的执行线程造成阻塞，通过service worker可以实现页面离线访问、用户消息推送等功能。<br>使用 Service Worker的话，传输协议必须为 HTTPS。因为 Service Worker 中涉及到请求拦截，所以必须使用 HTTPS 协议来保障安全。</p>
+<p>Service Worker 实现缓存功能一般分为三个步骤：</p>
+<ul>
+<li>首先需要先注册 Service Worker</li>
+<li>然后监听到 install 事件以后就可以缓存需要的文件</li>
+<li>下次用户访问的时候就可以通过<strong>拦截请求的方式</strong>查询是否存在缓存，存在缓存的话就可以直接读取缓存文件，否则就去请求数据</li>
+</ul>
+<p>PWA确实是当下很热门的技术，因为它提升了web应用的体验，甚至达到可以和原生app体验相提并论，但是它的问题就是兼容性问题，相信如果兼容性问题得到解决，这种技术一定会被大面积推广到实际应用。iOS11.3之前都不支持，因此vue cli3脚手架在集成时默认在ios下是关闭的</p>
 
       
     </div>
@@ -590,7 +640,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OSI七层协议模型"><span class="nav-number">1.</span> <span class="nav-text">OSI七层协议模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5层模型"><span class="nav-number">2.</span> <span class="nav-text">5层模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4层模型-TCP-IP模型"><span class="nav-number">3.</span> <span class="nav-text">4层模型 TCP/IP模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#应用层"><span class="nav-number">3.1.</span> <span class="nav-text">应用层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传输层"><span class="nav-number">3.2.</span> <span class="nav-text">传输层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络层"><span class="nav-number">3.3.</span> <span class="nav-text">网络层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#物理链路层"><span class="nav-number">3.4.</span> <span class="nav-text">物理链路层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">3.5.</span> <span class="nav-text">原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见的http状态码"><span class="nav-number">4.</span> <span class="nav-text">常见的http状态码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#URL和URI的区别"><span class="nav-number">5.</span> <span class="nav-text">URL和URI的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cookie、session和localStorage、以及sessionStorage之间的区别"><span class="nav-number">6.</span> <span class="nav-text">Cookie、session和localStorage、以及sessionStorage之间的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cookie"><span class="nav-number">6.1.</span> <span class="nav-text">cookie</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#session"><span class="nav-number">6.2.</span> <span class="nav-text">session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#localStorage"><span class="nav-number">6.3.</span> <span class="nav-text">localStorage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sessionStorage"><span class="nav-number">6.4.</span> <span class="nav-text">sessionStorage</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#session和cookie的主要区别"><span class="nav-number">7.</span> <span class="nav-text">session和cookie的主要区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sessionStorage、localStorage和cookie的区别"><span class="nav-number">8.</span> <span class="nav-text">sessionStorage、localStorage和cookie的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UDP和TCP（User-Datagram-Protocol，用户数据报协议）的区别"><span class="nav-number">9.</span> <span class="nav-text">UDP和TCP（User Datagram Protocol，用户数据报协议）的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何实现UDP的可靠传输"><span class="nav-number">10.</span> <span class="nav-text">如何实现UDP的可靠传输</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#websocket协议"><span class="nav-number">11.</span> <span class="nav-text">websocket协议</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OSI七层协议模型"><span class="nav-number">1.</span> <span class="nav-text">OSI七层协议模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5层模型"><span class="nav-number">2.</span> <span class="nav-text">5层模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4层模型-TCP-IP模型"><span class="nav-number">3.</span> <span class="nav-text">4层模型 TCP/IP模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#应用层"><span class="nav-number">3.1.</span> <span class="nav-text">应用层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传输层"><span class="nav-number">3.2.</span> <span class="nav-text">传输层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络层"><span class="nav-number">3.3.</span> <span class="nav-text">网络层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#物理链路层"><span class="nav-number">3.4.</span> <span class="nav-text">物理链路层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">3.5.</span> <span class="nav-text">原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见的http状态码"><span class="nav-number">4.</span> <span class="nav-text">常见的http状态码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#URL和URI的区别"><span class="nav-number">5.</span> <span class="nav-text">URL和URI的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cookie、session和localStorage、以及sessionStorage之间的区别"><span class="nav-number">6.</span> <span class="nav-text">Cookie、session和localStorage、以及sessionStorage之间的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cookie"><span class="nav-number">6.1.</span> <span class="nav-text">cookie</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#session"><span class="nav-number">6.2.</span> <span class="nav-text">session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#localStorage"><span class="nav-number">6.3.</span> <span class="nav-text">localStorage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sessionStorage"><span class="nav-number">6.4.</span> <span class="nav-text">sessionStorage</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#session和cookie的主要区别"><span class="nav-number">7.</span> <span class="nav-text">session和cookie的主要区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sessionStorage、localStorage和cookie的区别"><span class="nav-number">8.</span> <span class="nav-text">sessionStorage、localStorage和cookie的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UDP和TCP（User-Datagram-Protocol，用户数据报协议）的区别"><span class="nav-number">9.</span> <span class="nav-text">UDP和TCP（User Datagram Protocol，用户数据报协议）的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何实现UDP的可靠传输"><span class="nav-number">10.</span> <span class="nav-text">如何实现UDP的可靠传输</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#websocket协议"><span class="nav-number">11.</span> <span class="nav-text">websocket协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浏览器缓存"><span class="nav-number">12.</span> <span class="nav-text">浏览器缓存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PWA使用缓存"><span class="nav-number">13.</span> <span class="nav-text">PWA使用缓存</span></a></li></ol></div>
             
 
           </div>
