@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。 一、资源压缩合并，减少HTTP请求比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。 二、非核心代码异步加载通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。在页面渲染的这样一个过程中，有一个关键点是如果在解析内容的过程中遇到了脚本标签，如：，浏览器就会暂停内容">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-19T21:06:05.681Z">
+<meta property="og:updated_time" content="2019-09-23T08:23:47.350Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="提高页面性能">
 <meta name="twitter:description" content="我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。 一、资源压缩合并，减少HTTP请求比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。 二、非核心代码异步加载通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。在页面渲染的这样一个过程中，有一个关键点是如果在解析内容的过程中遇到了脚本标签，如：，浏览器就会暂停内容">
@@ -386,9 +386,9 @@
 <p>原理：不同地区的用户会访问到离自己最近的相同网络线路上的CDN节点，当请求达到CDN节点后，节点会判断自己的内容缓存是否有效，如果有效，则立即响应缓存内容给用户，从而加快响应速度。如果CDN节点的缓存失效，它会根据服务配置去我们的内容源服务器获取最新的资源响应给用户，并将内容缓存下来以便响应给后续访问的用户。因此，一个地区内只要有一个用户先加载资源，在CDN中建立了缓存，该地区的其他后续用户都能因此而受益。<br>不同地区的用户访问同一个域名却能得到不同CDN节点的IP地址，这要依赖于CDN服务商提供的智能域名解析服务，浏览器发起域名查询时，这种智能DNS服务会根据用户IP计算并返回离它最近的同网络CDN节点IP，引导浏览器与此节点建立连接以获取资源。</p>
 <p>优点：</p>
 <ul>
-<li>CDN 节点解决了跨运营商和跨地域访问的问题，访问延时大大降低；</li>
-<li>大部分请求在 CDN 边缘节点完成，CDN 起到了分流作用，减轻了源站的负载；</li>
-<li>提高网络访问的稳定性；</li>
+<li>CDN 节点解决了跨运营商和跨地域访问的问题，访问延时大大降低</li>
+<li>大部分请求在 CDN 边缘节点完成，CDN 起到了分流作用，减轻了源站的负载</li>
+<li>提高网络访问的稳定性</li>
 </ul>
 <h1 id="五、预解析DNS"><a href="#五、预解析DNS" class="headerlink" title="五、预解析DNS"></a>五、预解析DNS</h1><p>还有一个可以优化网页速度的方式是利用dns的预解析技术。同preload类似，DNS Prefetch在网络层面上优化了资源加载的速度。<br>我们知道，针对DNS的前端优化，主要分为减少DNS的请求次数，还有就是进行DNS预先获取。DNS prefetch就是为了实现这后者。其用法也很简单，只要在link标签上加上对应的属性就行了。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"x-dns-prefetch-control"</span> <span class="attr">content</span>=<span class="string">"on"</span> /&gt;</span> /* 这是用来告知浏览器当前页面要做DNS预解析，可以选择on或者off */</span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"dns-prefetch"</span> <span class="attr">href</span>=<span class="string">"//example.com"</span>&gt;</span></span><br></pre></td></tr></table></figure>

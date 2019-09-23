@@ -93,7 +93,7 @@
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/laji.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/old.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/duibi.png">
-<meta property="og:updated_time" content="2019-09-20T01:25:53.810Z">
+<meta property="og:updated_time" content="2019-09-22T00:45:12.359Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javaScript中的作用域链与闭包">
 <meta name="twitter:description" content="作用域链JS中，只有全局作用域和局部作用域（eval开发中比较少使用不做讨论），并且作用域和执行上下文其实是完全不同的两个概念，在执行上下文这前两篇文章中也有谈到。作用域链，是由当前环境与上层环境的一系列变量对象组成，作用是保证了当前执行环境对符合访问权限的变量和函数的有序访问。还是老样子举个例子：123456789101112var a = 20;function test() &amp;#123;">
@@ -338,7 +338,7 @@
 <li>什么是闭包</li>
 </ol>
 <p>在JS中，<strong>函数内部可以直接读取全局变量，但是函数外部无法读取函数内部的局部变量。所以闭包的存在，就是指有权访问另一个函数作用域中的变量的函数。</strong></p>
-<p>闭包就是函数的局部变量集合，只是这些局部变量在函数返回后会继续存在。闭包就是就是函数的“堆栈”在函数返回后并不释放，我们也可以理解为这些函数堆栽并不在上分配而是在堆上分配。当在一个函数内定义另外一个函数就会产生闭包。</p>
+<p>闭包就是函数的局部变量集合，只是这些局部变量在函数返回后会继续存在。闭包就是就是函数的“堆栈”在函数返回后并不释放，我们也可以理解为这些函数堆栈并不在栈上分配而是在堆上分配。当在一个函数内定义另外一个函数就会产生闭包。</p>
 <ol start="2">
 <li>闭包的应用</li>
 </ol>

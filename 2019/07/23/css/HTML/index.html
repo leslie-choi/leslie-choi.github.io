@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="HTML语义化在我的理解为：根据内容，使用最合适的HTML标签。场景：加入一个文章标题，要求这个标题的字体比正文的要大一些，还要加粗。能够实现这种效果的方法有很多，比如用CSS样式进行渲染。这样的效果看起来像是一个标题，但是他对浏览器来说，只是一个被渲染过的文本，无法知道他是一个标题。若要让浏览器知道他是一个标题，应该用hn标签来进行标记。从这个例子可以总结出： 语义化的HTML文档，不关心内容的">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-17T04:53:24.252Z">
+<meta property="og:updated_time" content="2019-09-23T04:17:52.214Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTML">
 <meta name="twitter:description" content="HTML语义化在我的理解为：根据内容，使用最合适的HTML标签。场景：加入一个文章标题，要求这个标题的字体比正文的要大一些，还要加粗。能够实现这种效果的方法有很多，比如用CSS样式进行渲染。这样的效果看起来像是一个标题，但是他对浏览器来说，只是一个被渲染过的文本，无法知道他是一个标题。若要让浏览器知道他是一个标题，应该用hn标签来进行标记。从这个例子可以总结出： 语义化的HTML文档，不关心内容的">
@@ -404,7 +404,43 @@
 </ul>
 <p>如果网页过期。那么这个网页存在本地的cookies也会被自动删除。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Set-Cookie"</span> <span class="attr">content</span>=<span class="string">"name, date"</span>&gt;</span> //格式</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Set-Cookie"</span> <span class="attr">content</span>=<span class="string">"User=Lxxyx; path=/; expires=Sunday, 10-Jan-16 10:00:00 GMT"</span>&gt;</span> //具体范例</span><br></pre></td></tr></table></figure>
-<p>参考文章：<br><a href="https://juejin.im/entry/588074c62f301e00696b481d" target="_blank" rel="noopener">关于 HTML 中 meta 标签的理解和总结</a></p>
+<h1 id="H5和CSS3的新特性"><a href="#H5和CSS3的新特性" class="headerlink" title="H5和CSS3的新特性"></a>H5和CSS3的新特性</h1><h2 id="html5有哪些新特性"><a href="#html5有哪些新特性" class="headerlink" title="html5有哪些新特性"></a>html5有哪些新特性</h2><ol>
+<li>拖拽释放(Drag and drop) API </li>
+<li>语义化更好的内容标签（header,nav,footer,aside,article,section）</li>
+<li>音频、视频API(audio,video)</li>
+<li>画布(Canvas) API</li>
+<li>地理(Geolocation) API</li>
+<li>本地离线存储 localStorage 长期存储数据，浏览器关闭后数据不丢失；sessionStorage 的数据在浏览器关闭后自动删除。</li>
+<li>sessionStorage 的数据在浏览器关闭后自动删除</li>
+<li>表单控件，calendar、date、time、email、url、search  </li>
+<li>新的技术webworker, websocket, Geolocation</li>
+</ol>
+<h2 id="CSS3-新增属性"><a href="#CSS3-新增属性" class="headerlink" title="CSS3 新增属性"></a>CSS3 新增属性</h2><ol>
+<li>颜色：新增RGBA，HSLA模式</li>
+<li>文字阴影（text-shadow、）</li>
+<li>边框： 圆角（border-radius）边框阴影： box-shadow</li>
+<li>盒子模型：box-sizing</li>
+<li>背景：background-size 设置背景图片的尺寸background-origin 设置背景图片的原点。background-clip 设置背景图片的裁切区域，以”，”分隔可以设置多背景，用于自适应布局</li>
+<li>渐变：linear-gradient、radial-gradient</li>
+<li>过渡：transition，可实现动画</li>
+<li>自定义动画</li>
+<li>在CSS3中唯一引入的伪元素是 ：：selection.</li>
+<li>媒体查询，多栏布局</li>
+<li>border-image</li>
+<li>2D转换：transform：translate(x，y) rotate(x，y) skew(x，y) scale(x，y)</li>
+</ol>
+<h2 id="H5中已经废弃的标签"><a href="#H5中已经废弃的标签" class="headerlink" title="H5中已经废弃的标签"></a>H5中已经废弃的标签</h2><ul>
+<li>br 换行，已经被 p 标签进行替换</li>
+<li>hr 画线</li>
+<li>font、big、center</li>
+<li>在企业开发中，不到万不得已 不要轻易使用被废弃的标签</li>
+<li>strong ：定义重要性强调的文字</li>
+<li>ins 定义插入的文字</li>
+<li>em 定义强调的文字</li>
+<li>del定义被删除的文字</li>
+<li>frame 等等</li>
+</ul>
+<h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h1><p><a href="https://juejin.im/entry/588074c62f301e00696b481d" target="_blank" rel="noopener">关于 HTML 中 meta 标签的理解和总结</a></p>
 
       
     </div>
@@ -579,7 +615,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML语义化"><span class="nav-number">1.</span> <span class="nav-text">HTML语义化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语义化标签的优势"><span class="nav-number">1.1.</span> <span class="nav-text">语义化标签的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5新增的语义化标签"><span class="nav-number">1.2.</span> <span class="nav-text">HTML5新增的语义化标签</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#meta标签的理解和总结"><span class="nav-number">2.</span> <span class="nav-text">meta标签的理解和总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#name属性"><span class="nav-number">2.1.</span> <span class="nav-text">name属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-equiv属性"><span class="nav-number">2.2.</span> <span class="nav-text">http-equiv属性</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML语义化"><span class="nav-number">1.</span> <span class="nav-text">HTML语义化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语义化标签的优势"><span class="nav-number">1.1.</span> <span class="nav-text">语义化标签的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5新增的语义化标签"><span class="nav-number">1.2.</span> <span class="nav-text">HTML5新增的语义化标签</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#meta标签的理解和总结"><span class="nav-number">2.</span> <span class="nav-text">meta标签的理解和总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#name属性"><span class="nav-number">2.1.</span> <span class="nav-text">name属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-equiv属性"><span class="nav-number">2.2.</span> <span class="nav-text">http-equiv属性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#H5和CSS3的新特性"><span class="nav-number">3.</span> <span class="nav-text">H5和CSS3的新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#html5有哪些新特性"><span class="nav-number">3.1.</span> <span class="nav-text">html5有哪些新特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS3-新增属性"><span class="nav-number">3.2.</span> <span class="nav-text">CSS3 新增属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#H5中已经废弃的标签"><span class="nav-number">3.3.</span> <span class="nav-text">H5中已经废弃的标签</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文章："><span class="nav-number">4.</span> <span class="nav-text">参考文章：</span></a></li></ol></div>
             
 
           </div>

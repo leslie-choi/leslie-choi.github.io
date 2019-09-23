@@ -1405,7 +1405,43 @@
 </ul>
 <p>如果网页过期。那么这个网页存在本地的cookies也会被自动删除。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Set-Cookie"</span> <span class="attr">content</span>=<span class="string">"name, date"</span>&gt;</span> //格式</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Set-Cookie"</span> <span class="attr">content</span>=<span class="string">"User=Lxxyx; path=/; expires=Sunday, 10-Jan-16 10:00:00 GMT"</span>&gt;</span> //具体范例</span><br></pre></td></tr></table></figure>
-<p>参考文章：<br><a href="https://juejin.im/entry/588074c62f301e00696b481d" target="_blank" rel="noopener">关于 HTML 中 meta 标签的理解和总结</a></p>
+<h1 id="H5和CSS3的新特性"><a href="#H5和CSS3的新特性" class="headerlink" title="H5和CSS3的新特性"></a>H5和CSS3的新特性</h1><h2 id="html5有哪些新特性"><a href="#html5有哪些新特性" class="headerlink" title="html5有哪些新特性"></a>html5有哪些新特性</h2><ol>
+<li>拖拽释放(Drag and drop) API </li>
+<li>语义化更好的内容标签（header,nav,footer,aside,article,section）</li>
+<li>音频、视频API(audio,video)</li>
+<li>画布(Canvas) API</li>
+<li>地理(Geolocation) API</li>
+<li>本地离线存储 localStorage 长期存储数据，浏览器关闭后数据不丢失；sessionStorage 的数据在浏览器关闭后自动删除。</li>
+<li>sessionStorage 的数据在浏览器关闭后自动删除</li>
+<li>表单控件，calendar、date、time、email、url、search  </li>
+<li>新的技术webworker, websocket, Geolocation</li>
+</ol>
+<h2 id="CSS3-新增属性"><a href="#CSS3-新增属性" class="headerlink" title="CSS3 新增属性"></a>CSS3 新增属性</h2><ol>
+<li>颜色：新增RGBA，HSLA模式</li>
+<li>文字阴影（text-shadow、）</li>
+<li>边框： 圆角（border-radius）边框阴影： box-shadow</li>
+<li>盒子模型：box-sizing</li>
+<li>背景：background-size 设置背景图片的尺寸background-origin 设置背景图片的原点。background-clip 设置背景图片的裁切区域，以”，”分隔可以设置多背景，用于自适应布局</li>
+<li>渐变：linear-gradient、radial-gradient</li>
+<li>过渡：transition，可实现动画</li>
+<li>自定义动画</li>
+<li>在CSS3中唯一引入的伪元素是 ：：selection.</li>
+<li>媒体查询，多栏布局</li>
+<li>border-image</li>
+<li>2D转换：transform：translate(x，y) rotate(x，y) skew(x，y) scale(x，y)</li>
+</ol>
+<h2 id="H5中已经废弃的标签"><a href="#H5中已经废弃的标签" class="headerlink" title="H5中已经废弃的标签"></a>H5中已经废弃的标签</h2><ul>
+<li>br 换行，已经被 p 标签进行替换</li>
+<li>hr 画线</li>
+<li>font、big、center</li>
+<li>在企业开发中，不到万不得已 不要轻易使用被废弃的标签</li>
+<li>strong ：定义重要性强调的文字</li>
+<li>ins 定义插入的文字</li>
+<li>em 定义强调的文字</li>
+<li>del定义被删除的文字</li>
+<li>frame 等等</li>
+</ul>
+<h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h1><p><a href="https://juejin.im/entry/588074c62f301e00696b481d" target="_blank" rel="noopener">关于 HTML 中 meta 标签的理解和总结</a></p>
 
           
         
@@ -1611,9 +1647,9 @@
 <p>原理：不同地区的用户会访问到离自己最近的相同网络线路上的CDN节点，当请求达到CDN节点后，节点会判断自己的内容缓存是否有效，如果有效，则立即响应缓存内容给用户，从而加快响应速度。如果CDN节点的缓存失效，它会根据服务配置去我们的内容源服务器获取最新的资源响应给用户，并将内容缓存下来以便响应给后续访问的用户。因此，一个地区内只要有一个用户先加载资源，在CDN中建立了缓存，该地区的其他后续用户都能因此而受益。<br>不同地区的用户访问同一个域名却能得到不同CDN节点的IP地址，这要依赖于CDN服务商提供的智能域名解析服务，浏览器发起域名查询时，这种智能DNS服务会根据用户IP计算并返回离它最近的同网络CDN节点IP，引导浏览器与此节点建立连接以获取资源。</p>
 <p>优点：</p>
 <ul>
-<li>CDN 节点解决了跨运营商和跨地域访问的问题，访问延时大大降低；</li>
-<li>大部分请求在 CDN 边缘节点完成，CDN 起到了分流作用，减轻了源站的负载；</li>
-<li>提高网络访问的稳定性；</li>
+<li>CDN 节点解决了跨运营商和跨地域访问的问题，访问延时大大降低</li>
+<li>大部分请求在 CDN 边缘节点完成，CDN 起到了分流作用，减轻了源站的负载</li>
+<li>提高网络访问的稳定性</li>
 </ul>
 <h1 id="五、预解析DNS"><a href="#五、预解析DNS" class="headerlink" title="五、预解析DNS"></a>五、预解析DNS</h1><p>还有一个可以优化网页速度的方式是利用dns的预解析技术。同preload类似，DNS Prefetch在网络层面上优化了资源加载的速度。<br>我们知道，针对DNS的前端优化，主要分为减少DNS的请求次数，还有就是进行DNS预先获取。DNS prefetch就是为了实现这后者。其用法也很简单，只要在link标签上加上对应的属性就行了。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"x-dns-prefetch-control"</span> <span class="attr">content</span>=<span class="string">"on"</span> /&gt;</span> /* 这是用来告知浏览器当前页面要做DNS预解析，可以选择on或者off */</span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"dns-prefetch"</span> <span class="attr">href</span>=<span class="string">"//example.com"</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -2482,7 +2518,7 @@
 <li>什么是闭包</li>
 </ol>
 <p>在JS中，<strong>函数内部可以直接读取全局变量，但是函数外部无法读取函数内部的局部变量。所以闭包的存在，就是指有权访问另一个函数作用域中的变量的函数。</strong></p>
-<p>闭包就是函数的局部变量集合，只是这些局部变量在函数返回后会继续存在。闭包就是就是函数的“堆栈”在函数返回后并不释放，我们也可以理解为这些函数堆栽并不在上分配而是在堆上分配。当在一个函数内定义另外一个函数就会产生闭包。</p>
+<p>闭包就是函数的局部变量集合，只是这些局部变量在函数返回后会继续存在。闭包就是就是函数的“堆栈”在函数返回后并不释放，我们也可以理解为这些函数堆栈并不在栈上分配而是在堆上分配。当在一个函数内定义另外一个函数就会产生闭包。</p>
 <ol start="2">
 <li>闭包的应用</li>
 </ol>
