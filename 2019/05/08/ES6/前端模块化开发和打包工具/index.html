@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/27/2395e1d01728fbb0d740d53c4530ed5b?imageView2/0/w/1280/h/960&ynotemdtimestamp=1558167915965">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/webpackJizhi.PNG">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/AST.png">
-<meta property="og:updated_time" content="2019-09-22T13:43:02.593Z">
+<meta property="og:updated_time" content="2019-09-23T17:02:20.358Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端模块化开发和打包工具">
 <meta name="twitter:description" content="前端模块化开发前言：历史上，JavaScript 一直没有模块（module）体系，无法将一个大程序拆分成互相依赖的小文件，再用简单的方法拼装起来。其他语言都有这项功能，比如 Ruby 的require、Python 的import，甚至就连 CSS 都有@import，但是 JavaScript 任何这方面的支持都没有，这对开发大型的、复杂的项目形成了巨大障碍。而现在的前端开发，不仅仅是完成浏览">
@@ -407,14 +407,13 @@
 <li><p>Loader：由于webpack只能处理javascript，所以我们需要对一些非js文件处理成webpack能够处理的模块，比如sass文件</p>
 </li>
 </ul>
-<p>loader的作用：<br>1、实现对不同格式的文件的处理，比如说将scss转换为css，或者typescript转化为js<br>2、转换这些文件，从而使其能够被添加到依赖图中 loader是webpack最重要的部分之一，通过使用不同的Loader，我们能够调用外部的脚本或者工具，实现对不同格式文件的处理，loader需要在webpack.config.js里边单独用module进行配置</p>
-<p>这里介绍几个常用的loader：</p>
-<p>babel-loader： 让下一代的js文件转换成现代浏览器能够支持的JS文件。</p>
-<p>babel有些复杂，所以大多数都会新建一个.babelrc进行配置</p>
-<p>css-loader,style-loader:两个建议配合使用，用来解析css文件，能够解释@import,url()如果需要解析less就在后面加一个less-loader</p>
-<p>file-loader: 生成的文件名就是文件内容的MD5哈希值并会保留所引用资源的原始扩展名</p>
-<p>url-loader: 功能类似</p>
-<p>file-loader,但是文件大小低于指定的限制时，可以返回一个DataURL事实上，在使用less,scss,stylus这些的时候，npm会提示你差什么插件，差什么，你就安上就行了</p>
+<p>loader的作用： </p>
+<ol>
+<li><p>实现对不同格式的文件的处理，比如说将scss转换为css，或者typescript转化为js</p>
+</li>
+<li><p>转换这些文件，从而使其能够被添加到依赖图中 loader是webpack最重要的部分之一，通过使用不同的Loader，我们能够调用外部的脚本或者工具，实现对不同格式文件的处理，loader需要在webpack.config.js里边单独用module进行配置</p>
+</li>
+</ol>
 <ul>
 <li>Plugins：Loaders将各类型的文件处理成webpack能够处理的模块，plugins有着很强的能力。插件的范围包括，从打包优化和压缩，一直到重新定义环境中的变量。但也是最复杂的一个。</li>
 </ul>
@@ -444,8 +443,11 @@
 <p>转换成AST的目的就是将我们书写的字符串文件转换成计算机更容易识别的数据结构，这样更容易提取其中的关键信息，而这棵树在计算机上的表现形式，其实就是一个单纯的Object。</p>
 <h2 id="介绍好用的loader和plugin"><a href="#介绍好用的loader和plugin" class="headerlink" title="介绍好用的loader和plugin"></a>介绍好用的loader和plugin</h2><ul>
 <li>postcss-loader：可以给一些样式（如css3中的transfrom）加前缀，提高兼容性</li>
-<li>file-loader：</li>
-<li><p>url-loader：可以将图片打包成为base64的形式放在JS文件中，但是不适合大图片的打包，会导致整个js文件很庞大，可以使用limit配置项来设置对应需要打包图片的大小</p>
+<li>file-loader: 生成的文件名就是文件内容的MD5哈希值并会保留所引用资源的原始扩展名</li>
+<li>url-loader：可以将图片打包成为base64的形式放在JS文件中，但是不适合大图片的打包，会导致整个js文件很庞大，可以使用limit配置项来设置对应需要打包图片的大小</li>
+<li>babel-loader： 让下一代的js文件转换成现代浏览器能够支持的JS文件。babel有些复杂，所以大多数都会新建一个.babelrc进行配置</li>
+<li>css-loader,style-loader:两个建议配合使用，用来解析css文件，能够解释@import,url()如果需要解析less就在后面加一个less-loader</li>
+<li><p>px2rem-loader：转换px和rem单位</p>
 </li>
 <li><p>htmlWebpackPlugin：会在打包结束后，自动生成一个html文件，并把打包生成的js自动引入到这个html文件中，可以配置html文件的模板</p>
 </li>

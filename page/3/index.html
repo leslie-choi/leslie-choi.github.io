@@ -1555,12 +1555,12 @@
 <p><strong>无状态：</strong> 指协议对于事务处理没有记忆能力，服务器不知道客户端是什么状态。即我们给服务器发送 HTTP 请求之后，服务器根据请求，会给我们发送数据过来，但是发送完，不会记录任何信息，于是，两种用于保持 HTTP 连接状态的技术就应运而生了，一个是 Cookie，而另一个则是 Session。（简单场景购物车）</p>
 <h2 id="http报文"><a href="#http报文" class="headerlink" title="http报文"></a>http报文</h2><p>用于HTTP协议交互的信息被称为http报文。HTTP报文大致可分为报文首部和报文主体两块。两者由最初出现的空行（CE+LF）来划分。通常，并不一定要有报文主体。在http1.1中，报文是通信的基本单位，由8位组字节流组成，用于HTTP通信。（http2.0采用二进制分帧）<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/%E6%8A%A5%E6%96%872.png" alt="markdown"></p>
 <p>请求行：包含用于请求的方法，请求uri和http版本   （GET/HTTP/1.1）<br>状态行：包含表明响应结果的状态码，原因短语和http版本    （HTTP/1.1 200 OK）<br>实体：<strong>作为请求或响应的有效载荷数据被传输</strong>，内容由实体首部和实体主体组成。</p>
-<p>请求方法（所有方法全为大写）有多种，各个方法的解释如下：<br>GET     请求获取Request-URI所标识的资源<br>POST    在Request-URI所标识的资源后附加新的数据<br>HEAD    请求获取由Request-URI所标识的资源的响应消息报头<br>PUT     请求服务器存储一个资源，并用Request-URI作为其标识<br>DELETE  请求服务器删除Request-URI所标识的资源<br>TRACE   请求服务器回送收到的请求信息，主要用于测试或诊断<br>CONNECT 保留将来使用<br>OPTIONS 请求查询服务器的性能，或者查询与资源相关的选项和需求</p>
 <h2 id="get和post的主要区别"><a href="#get和post的主要区别" class="headerlink" title="get和post的主要区别"></a>get和post的主要区别</h2><p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/get%26post.jpeg" alt="markdown"><br><strong>1、get在浏览器回退时是无害的，而post会再次请求</strong><br><strong>2、get产生的url地址可以被收藏（即书签），而post不会</strong><br>3、get请求会被浏览器主动缓存，而post不会，除非手动设置<br>4、get请求只能进行url编码，而post支持多种编码方式<br><strong>5、get请求参数会被完整保留在浏览历史记录里，而post中的参数不会被保留</strong><br><strong>6、get 请求在url中传送的参数有长度限制（一般限制在2kb~8kb之间，但是更加常见的是在1kb之内），而post没有（实际大小根据服务器情况而定）</strong><br>7、对参数的数据类型，get只接受ascll字符，而post没有限制<br>8、post比get更安全，因为参数直接暴露在url上，所以不能用来传递敏感信息<br><strong>9、get参数通过url传递，poet放在request body中</strong><br>10、GET产生一个TCP数据包;POST产生两个TCP数据包。<br>对于GET方式的请求，浏览器会把<strong>http header和data一并发送出去</strong>，服务器响应200(返回数据);<br>而对于POST，浏览器先发送<strong>header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok(返回数据)</strong></p>
 <p>HTTP缺点：<br>1、通信使用明文（ 不加密） ， 内容可能会被窃听<br>2、不验证通信方的身份， 因此有可能遭遇伪装<br>3、无法证明报文的完整性， 所以有可能已遭篡改</p>
 <h2 id="Http的版本"><a href="#Http的版本" class="headerlink" title="Http的版本"></a>Http的版本</h2><ol>
 <li>HTTP 0.9作为HTTP协议的第一个版本。是非常弱的。请求(Request)只有一行,比如: GET <a href="http://www.leautolink.com" target="_blank" rel="noopener">www.leautolink.com</a></li>
-<li>HTTP1.0最早在网页中使用是在1996年，那个时候只是使用一些较为简单的网页上和网络请求上。3. HTTP1.1则在1999年才开始广泛应用于现在的各大浏览器网络请求中，同时HTTP1.1也是当前使用最为广泛的HTTP协议。<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/httpVersion.png" alt="markdown"></li>
+<li>HTTP1.0最早在网页中使用是在1996年，那个时候只是使用一些较为简单的网页上和网络请求上</li>
+<li>HTTP1.1则在1999年才开始广泛应用于现在的各大浏览器网络请求中，同时HTTP1.1也是当前使用最为广泛的HTTP协议<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/httpVersion.png" alt="markdown"></li>
 </ol>
 <h2 id="http管线化"><a href="#http管线化" class="headerlink" title="http管线化"></a>http管线化</h2><p>在使用持久连接（因此低于HTTP1.1版本无法开启管线化）的情况下，某个连接消息的传递类似于</p>
 <p>请求1 -&gt; 响应1 -&gt; 请求2 -&gt; 响应2 -&gt; 请求3 - &gt; 响应3</p>
@@ -1598,6 +1598,33 @@
 </li>
 <li><p>CONNECT:<br>HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。通常用于SSL加密服务器的链接(经由非加密的HTTP代理服务器)。</p>
 </li>
+</ul>
+<h2 id="几个常见的Content-Type"><a href="#几个常见的Content-Type" class="headerlink" title="几个常见的Content-Type"></a>几个常见的Content-Type</h2><p><strong>第一类：raw 原始类型，可以上传任意格式的文本，比如 text、json、xml、html（中文不进行编码）</strong></p>
+<ul>
+<li>text/html  ：HTML格式</li>
+<li>text/plain ：纯文本格式      </li>
+<li><p>text/xml   ：XML格式</p>
+</li>
+<li><p>image/gif  ：gif图片格式    </p>
+</li>
+<li>image/jpeg ：jpg图片格式 </li>
+<li><p>image/png  ：png图片格式</p>
+</li>
+<li><p>application/xml     ： XML数据格式</p>
+</li>
+<li>application/json    ： JSON数据格式</li>
+<li>application/pdf     ： pdf格式  </li>
+<li>application/msword  ： Word文档格式</li>
+<li>application/octet-stream ： 二进制流数据（如文件下载）</li>
+</ul>
+<p><strong>第二类：application/x-www-form-urlencoded，会将表单内的数据转换拼接成 key-value 对</strong></p>
+<ul>
+<li>application/x-www-form-urlencoded ：</li>
+</ul>
+<p><form enctype="">中默认的encType，<br>form表单数据被编码为key/value格式发送到服务器（表单默认的提交数据的格式）。<br>服务器收到的raw body会是，name=aaa&amp;key=bbb。</form></p>
+<p><strong>第三类：multipart/form-data，将表单的数据处理为一条消息，以标签为单元，用分隔符分开。既可以上传键值对，也可以上传文件</strong></p>
+<ul>
+<li>multipart/form-data ： 表单上传文件</li>
 </ul>
 <h1 id="Https"><a href="#Https" class="headerlink" title="Https"></a>Https</h1><p>Https协议其实是基于Http的，多了个s其实就是Secure，所以也就是<strong>Hypertext Transfer Protocol Secure（超文本传输安全协议）</strong><br>相对于HTTP协议，具有以下优点：</p>
 <ol>
@@ -2123,7 +2150,7 @@
 </ul>
 <p>a 强缓存：不会向服务器发送请求，直接从缓存中读取资源，返回状态码200</p>
 <ul>
-<li><p>Expires Wed, 22 Oct 2018 08:41:00 GMT<br><strong>缓存过期时间，用来指定资源到期的时间，是服务器端的具体的时间点，如果过期则会再次请求</strong><br>缺点是，失效时间是一个绝对时间，如果服务器时间与客户端时间偏差较大时，就会导致缓存混乱。而服务器的时间跟用户的实际时间是不一样是很正常的，所以 Expires 在实际使用中会带来一些麻烦。</p>
+<li><p>Expires Wed, 22 Oct 2018 08:41:00 GMT<br><strong>缓存过期时间，用来指定资源到期的时间，是服务器端的具体的时间点，如果过期则会再次请求</strong><br>缺点是，失效时间是一个绝对时间，如果服务器时间与客户端时间偏差较大时，就会导致缓存混乱。<br>而服务器的时间跟用户的实际时间是不一样是很正常的，所以 Expires 在实际使用中会带来一些麻烦。（由于时差问题大多使用cache-control）</p>
 </li>
 <li><p>Cache—Control:max-age=300<br><strong>代表在这个请求正确返回时间（浏览器也会记录下来）的5分钟内再次加载资源，就会命中强缓存。</strong><br>在实际使用中常常遇到设置了 max-age 之后，在 max-age 时间内重新访问资源却会返回 304 not modified ，这是由于服务器的时间与本地的时间不同造成的。</p>
 </li>
@@ -2132,6 +2159,7 @@
 <p>b 协商缓存：会去服务器比对，若没改变才直接读取本地缓存，返回的状态码是 304。<br>协商缓存就是强制缓存失效后，浏览器携带缓存标识向服务器发起请求，由服务器根据缓存标识决定是否使用缓存的过程，主要有以下两种情况：</p>
 <p><strong>Last-Modified 和 If-Modified-Since</strong></p>
 <p>浏览器在第一次访问资源时，服务器返回资源的同时，在response header中添加 Last-Modified的header，值是这个资源在服务器上的最后修改时间，浏览器接收后缓存文件和header；<br>浏览器下一次请求这个资源，浏览器检测到有 Last-Modified这个header，于是添加If-Modified-Since这个header，<strong>值就是Last-Modified中的值</strong> ；服务器再次收到这个资源请求，会根据 If-Modified-Since 中的值与服务器中这个资源的最后修改时间对比，如果没有变化，返回304和空的响应体，直接从缓存读取，如果If-Modified-Since的时间小于服务器中这个资源的最后修改时间，说明文件有更新，于是返回新的资源文件和200。 </p>
+<p>格式类似：Last-Modified: Fri, 12 May 2006 18:53:33 GMT</p>
 <p>存在的弊端：</p>
 <ul>
 <li><p>如果本地打开缓存文件，即使没有对文件进行修改，但还是会造成 Last-Modified 被修改，服务端不能命中缓存导致发送相同的资源</p>
@@ -2141,13 +2169,16 @@
 <li><p>某些服务器不能精确的得到文件的最后修改时间。</p>
 </li>
 </ul>
-<p><strong>Etag 和 If-None-Match</strong><br>Etag是服务器响应请求时，返回当前资源文件的一个唯一标识(由服务器生成，类似一个哈希值)，只要资源有变化，Etag就会重新生成。浏览器在下一次加载资源向服务器发送请求时，会将上一次返回的Etag值放到request header里的If-None-Match里，服务器只需要比较客户端传来的If-None-Match跟自己服务器上该资源的ETag是否一致，就能很好地判断资源相对客户端而言是否被修改过了。<br>如果ETag是一致的，则直接返回304知会客户端直接使用本地缓存即可。</p>
+<p><strong>Etag 和 If-None-Match</strong></p>
+<p>Etag是服务器响应请求时，返回当前资源文件的一个唯一标识(由服务器生成，类似一个哈希值)，只要资源有变化，Etag就会重新生成。浏览器在下一次加载资源向服务器发送请求时，会将上一次返回的Etag值放到request header里的If-None-Match里，服务器只需要比较客户端传来的If-None-Match跟自己服务器上该资源的ETag是否一致，就能很好地判断资源相对客户端而言是否被修改过了。<br>如果ETag是一致的，则直接返回304知会客户端直接使用本地缓存即可。</p>
 <p><strong>PS：强缓存的优先级会比协商缓存优先级高，cache-control优先级 &gt; expire，Etag优先级 &gt; Last-modified</strong></p>
 <p><strong>那有了Etag是不是可以放弃last-Modified了呢？</strong></p>
 <ul>
-<li><p>对那些一秒内修改特别频繁的文件，使用etag强验证的话，就需要占用服务器cpu资源频繁进行etag的计算，这样可能就不好用了。</p>
+<li><p>对那些一秒内修改特别频繁的文件，使用etag强验证的话，Etag扫描全部文件可能会耗费大量性能,就需要占用服务器cpu资源频繁进行etag的计算，这样可能就不好用了。(该场景适合使用last-modified)</p>
 </li>
-<li><p>只是给代码加上注释，但是服务器实质的内容并没有一点改变，如果使用Etag扫描全部文件可能会耗费大量性能，所以应该根据场景选择对应方案。</p>
+<li><p>只是给代码加上注释，但是服务器实质的内容并没有一点改变，则会导致last-modified重新计算，但是实际并无必要（所以应该使用Etag。）</p>
+</li>
+<li><p>另外必须要考虑到服务器的时区问题。</p>
 </li>
 </ul>
 <h1 id="PWA使用缓存"><a href="#PWA使用缓存" class="headerlink" title="PWA使用缓存"></a>PWA使用缓存</h1><p>PWA(Progressive web apps, 渐进式Web应用)</p>

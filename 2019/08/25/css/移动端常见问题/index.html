@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="300毫秒延迟的由来和解决方法 300 毫秒延迟的主要原因是解决双击缩放。双击缩放，顾名思义，即用手指在屏幕上快速点击两次，iOS 自带的 Safari 浏览器会将网页缩放至原始比例。 那么这和 300 毫秒延迟有什么联系呢？ 假定这么一个场景。用户在 iOS Safari 里边点击了一个链接。由于用户可以进行双击缩放或者双击滚动的操作，当用户一次点击屏幕之后，浏览器并不能立刻判断用户是确实要打开">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-19T18:11:02.375Z">
+<meta property="og:updated_time" content="2019-09-23T16:52:11.976Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="移动端常见问题">
 <meta name="twitter:description" content="300毫秒延迟的由来和解决方法 300 毫秒延迟的主要原因是解决双击缩放。双击缩放，顾名思义，即用手指在屏幕上快速点击两次，iOS 自带的 Safari 浏览器会将网页缩放至原始比例。 那么这和 300 毫秒延迟有什么联系呢？ 假定这么一个场景。用户在 iOS Safari 里边点击了一个链接。由于用户可以进行双击缩放或者双击滚动的操作，当用户一次点击屏幕之后，浏览器并不能立刻判断用户是确实要打开">
@@ -329,7 +329,7 @@
 </li>
 </ol>
 <ul>
-<li>添加viewport meta标签</li>
+<li>粗暴型，禁用缩放，添加viewport meta标签</li>
 </ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 <ul>
@@ -426,7 +426,8 @@
 <li><p>dpr(devicePixelRatio)设备像素比</p>
 </li>
 </ol>
-<p>dpr = 物理像素/css像素<br>这就是为什么移动端css里面写了1px, 实际看起来比1px粗. 其实原因很好理解。因为css中的1px并不等于移动设备的1px，而是变成了2px。一般设计是根据iphone6的dpr = 2标准进行设计的。</p>
+<p>dpr = 物理像素/css像素</p>
+<p>这就是为什么移动端css里面写了1px, 实际看起来比1px粗. 其实原因很好理解。因为css中的1px并不等于移动设备的1px，而是变成了2px。一般设计是根据iphone6的dpr = 2标准进行设计的。</p>
 <p>解决方法：</p>
 <ul>
 <li><p>使用border-image</p>
