@@ -814,6 +814,147 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/12/前后端通信方式/JS实现异步4种方式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/12/前后端通信方式/JS实现异步4种方式/" itemprop="url">JavaScript异步的四种方式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-12T11:12:25+08:00">
+                2019-05-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="使用-callback-回调函数"><a href="#使用-callback-回调函数" class="headerlink" title="使用 callback 回调函数"></a>使用 callback 回调函数</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span> (<span class="params">callback</span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">　　　　 <span class="built_in">console</span>.log(<span class="string">"1"</span>)</span><br><span class="line">        callback()</span><br><span class="line">    &#125;,<span class="number">1000</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"2"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f1(f2)</span><br></pre></td></tr></table></figure>
+<p>缺点会出现回调地狱。</p>
+<h1 id="Promise-ES6"><a href="#Promise-ES6" class="headerlink" title="Promise(ES6)"></a>Promise(ES6)</h1><ul>
+<li><p>Promise对象代表一个异步操作，有三种状态：pending(进行中),resolved(已成功)和rejected(已失败)。</p>
+</li>
+<li><p>一旦状态改变，就不会再变，任何时候都可以得到这个结果。状态改变只有两种可能：pending=&gt;resolved,pending=&gt;rejected。</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ... some code</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="comment">/* 异步操作成功 */</span>)&#123;</span><br><span class="line">    resolve(value)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    reject(error)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>Promise实例生成以后，可以用then方法分别指定resolved状态和rejected状态的回调函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">promise.then(<span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line"><span class="comment">// success</span></span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line"><span class="comment">// failure</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>then方法接收两个回调函数，第一个回调函数是Promise对象的状态变为resolved时调用。第二个回调函数是Promise对象的状态变为rejected时调用。</p>
+<p>缺点是：</p>
+<ul>
+<li>无法取消Promise，一旦新建就立即执行，无法中途取消。</li>
+<li>不设置回调函数，Promise内部抛出的错误，不会反应到外部。</li>
+<li>当初与pending状态时，无法得知目前进展到哪一个阶段(刚刚开始还是即将完成)。</li>
+</ul>
+<h1 id="Generator-ES6"><a href="#Generator-ES6" class="headerlink" title="Generator(ES6)"></a>Generator(ES6)</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">G</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> a = <span class="keyword">yield</span> <span class="number">100</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'a'</span>, a)  <span class="comment">// a aaa</span></span><br><span class="line">    <span class="keyword">const</span> b = <span class="keyword">yield</span> <span class="number">200</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'b'</span>, b)  <span class="comment">// b bbb</span></span><br><span class="line">    <span class="keyword">const</span> c = <span class="keyword">yield</span> <span class="number">300</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'c'</span>, c)  <span class="comment">// c ccc</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> g = G()</span><br><span class="line">g.next()    <span class="comment">// value: 100, done: false</span></span><br><span class="line">g.next(<span class="string">'aaa'</span>) <span class="comment">// value: 200, done: false</span></span><br><span class="line">g.next(<span class="string">'bbb'</span>) <span class="comment">// value: 300, done: false</span></span><br><span class="line">g.next(<span class="string">'ccc'</span>) <span class="comment">// value: undefined, done: true</span></span><br></pre></td></tr></table></figure>
+<p>相比Promise，Generator流程更加直观、语义化。<br>Generator的问题在于，函数的执行需要执行器每次都需要通过g.next()方式执行。</p>
+<h1 id="async-await-ES2017"><a href="#async-await-ES2017" class="headerlink" title="async/await(ES2017)"></a>async/await(ES2017)</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">testResult</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> first = <span class="keyword">await</span> doubleAfter2seconds(<span class="number">30</span>);</span><br><span class="line">    <span class="keyword">let</span> second = <span class="keyword">await</span> doubleAfter2seconds(<span class="number">50</span>);</span><br><span class="line">    <span class="keyword">let</span> third = <span class="keyword">await</span> doubleAfter2seconds(<span class="number">30</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(first + second + third);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>asnyc函数解决了上述问题，流程清晰、直观、语义明显。<br>同时asnyc函数自带执行器，执行的时候无需手动加载。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/11/网络/前端安全/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1516,6 +1657,184 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/29/前后端通信方式/Promise/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/29/前后端通信方式/Promise/" itemprop="url">Promise</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-29T10:12:25+08:00">
+                2019-04-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="promise对象"><a href="#promise对象" class="headerlink" title="promise对象"></a>promise对象</h1><p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/promise.png" alt="markdown"></p>
+<p>概念：Promise是异步编程的一种解决方案，比传统的解决方案（回调函数和事件）更合合理、强大。所谓Promise，简单来说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说<strong>，Promise是一个对象，从它可以获取异步操作的消息</strong>。Promise提供统一的API，各种异步操作都可以用同样的方法进行处理。将异步操作以同步操作的流程表达出来，<strong>避免了层层嵌套的回调函数</strong>，解决了JQuery的回调地狱问题。</p>
+<p>它有三种状态，分别是<strong>pending-进行中、resolved-已完成、rejected-已失败。</strong></p>
+<p>可以把 Promise 看成一个状态机。初始是 pending 状态，可以通过函数 resolve 和reject，将状态转变为 resolved 或者 rejected 状态，状态一旦改变就不能再次变化<br>then 函数会返回一个 Promise 实例，并且该返回值是一个<strong>新的实例</strong>而不是之前的实例。因为Promise 规范规定除了 pending 状态，其他状态是不可以改变的，如果返回的是一个相同实例的话，多个 then调用就失去意义了</p>
+<p>但是Promise也存在以下缺点：</p>
+<ul>
+<li>Promise一旦创建就会立即执行，无法中途取消</li>
+<li>当处于Pending状态时，无法得知目前进展到哪一个阶段（刚刚开始还是即将完成）</li>
+<li>如果不设置回调函数，Promise内部抛出的错误不会反应到外部</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> success = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span> (success) &#123;</span><br><span class="line">        resolve(<span class="string">'成功'</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        reject(<span class="string">'失败'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).then(</span><br><span class="line">    (data) =&gt; &#123; <span class="built_in">console</span>.log(data)&#125;,</span><br><span class="line">    (data) =&gt; &#123; <span class="built_in">console</span>.log(data)&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>分析<strong>promise的执行过程</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">0</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">var</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> success = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (success) &#123;</span><br><span class="line">            resolve(<span class="string">'成功'</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            reject(<span class="string">'失败'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,<span class="number">2000</span>);</span><br><span class="line">&#125;).then(</span><br><span class="line">    (data) =&gt; &#123; <span class="built_in">console</span>.log(data)&#125;,</span><br><span class="line">    (data) =&gt; &#123; <span class="built_in">console</span>.log(data)&#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(promise);	<span class="comment">//&lt;pending&gt; 进行中</span></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(promise);	<span class="comment">//&lt;resolved&gt; 已完成</span></span><br><span class="line">&#125;,<span class="number">2500</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment">//1  </span></span><br><span class="line"><span class="comment">//Promise &#123;&lt;pending&gt;&#125;</span></span><br><span class="line"><span class="comment">//2</span></span><br><span class="line"><span class="comment">//0</span></span><br><span class="line"><span class="comment">//成功</span></span><br><span class="line"><span class="comment">//Promise &#123;&lt;resolved&gt;: undefined&#125;</span></span><br></pre></td></tr></table></figure>
+<h1 id="promise原理"><a href="#promise原理" class="headerlink" title="promise原理"></a>promise原理</h1><p>promise就是三个状态。利用观察者模式的编程思想,通过特定书写方式注册对应状态的事件处理函数，然后更新状态，调用注册过的处理函数即可。<br>这个特定方式就是then，done，fail，always…等方法，更新状态就是resolve、reject方法。</p>
+<p>Promise的实现过程，通过Promise.prototype.then和Promise.prototype.catch方法将观察者方法注册到被观察者Promise对象中，同时返回一个新的Promise对象，以便可以链式调用。</p>
+<p>被观察者管理内部pending、fulfilled和rejected的状态转变，同时通过构造函数中传递的resolve和reject方法以主动触发状态转变和通知观察者。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Promise类实现原理</span></span><br><span class="line"><span class="comment"> * 构造函数传入一个function，有两个参数，resolve：成功回调; reject：失败回调</span></span><br><span class="line"><span class="comment"> * state: 状态存储 [PENDING-进行中 RESOLVED-成功 REJECTED-失败]</span></span><br><span class="line"><span class="comment"> * doneList: 成功处理函数列表</span></span><br><span class="line"><span class="comment"> * failList: 失败处理函数列表</span></span><br><span class="line"><span class="comment"> * done: 注册成功处理函数</span></span><br><span class="line"><span class="comment"> * fail: 注册失败处理函数</span></span><br><span class="line"><span class="comment"> * then: 同时注册成功和失败处理函数</span></span><br><span class="line"><span class="comment"> * always: 一个处理函数注册到成功和失败</span></span><br><span class="line"><span class="comment"> * resolve: 更新state为：RESOLVED，并且执行成功处理队列</span></span><br><span class="line"><span class="comment"> * reject: 更新state为：REJECTED，并且执行失败处理队列</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"> </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">PromiseNew</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(fn) &#123;</span><br><span class="line">        <span class="keyword">this</span>.state = <span class="string">'PENDING'</span>;</span><br><span class="line">        <span class="keyword">this</span>.doneList = [];</span><br><span class="line">        <span class="keyword">this</span>.failList = [];</span><br><span class="line">        fn(<span class="keyword">this</span>.resolve.bind(<span class="keyword">this</span>), <span class="keyword">this</span>.reject.bind(<span class="keyword">this</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 注册成功处理函数</span></span><br><span class="line">    done(handle) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> handle === <span class="string">'function'</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.doneList.push(handle);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'缺少回调函数'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 注册失败处理函数</span></span><br><span class="line">    fail(handle) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> handle === <span class="string">'function'</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.failList.push(handle);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'缺少回调函数'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 同时注册成功和失败处理函数</span></span><br><span class="line">    then(success, fail) &#123;</span><br><span class="line">        <span class="keyword">this</span>.done(success || <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; &#125;).fail(fail || <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; &#125;);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 一个处理函数注册到成功和失败</span></span><br><span class="line">    always(handle) &#123;</span><br><span class="line">        <span class="keyword">this</span>.done(handle || <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; &#125;).fail(handle || <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; &#125;);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 更新state为：RESOLVED，并且执行成功处理队列</span></span><br><span class="line">    resolve() &#123;</span><br><span class="line">        <span class="keyword">this</span>.state = <span class="string">'RESOLVED'</span>;</span><br><span class="line">        <span class="keyword">let</span> args = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.doneList.forEach(<span class="function">(<span class="params">item, key, arr</span>) =&gt;</span> &#123;</span><br><span class="line">            item.apply(<span class="literal">null</span>, args);</span><br><span class="line">            arr.shift();</span><br><span class="line">        &#125;);</span><br><span class="line">        &#125;.bind(<span class="keyword">this</span>), <span class="number">200</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 更新state为：REJECTED，并且执行失败处理队列</span></span><br><span class="line">    reject() &#123;</span><br><span class="line">        <span class="keyword">this</span>.state = <span class="string">'REJECTED'</span>;</span><br><span class="line">        <span class="keyword">let</span> args = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>); <span class="comment">//arrayObject.slice(start,end)slice() 方法可从已有的数组中返回选定的元素。</span></span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.failList.forEach(<span class="function">(<span class="params">item, key, arr</span>) =&gt;</span> &#123;</span><br><span class="line">            item.apply(<span class="literal">null</span>, args);</span><br><span class="line">            arr.shift(); <span class="comment">// shift() 方法用于把数组的第一个元素从其中删除，并返回第一个元素的值。</span></span><br><span class="line">        &#125;);</span><br><span class="line">        &#125;.bind(<span class="keyword">this</span>), <span class="number">200</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 下面一波骚操作</span></span><br><span class="line">    <span class="keyword">new</span> PromiseNew(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    resolve(<span class="string">'hello world'</span>);</span><br><span class="line">    <span class="comment">// reject('you are err');</span></span><br><span class="line">    &#125;).done(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res);</span><br><span class="line">    &#125;).fail(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res);</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+<h1 id="async和await"><a href="#async和await" class="headerlink" title="async和await"></a>async和await</h1><p>谈及异步回调函数的嵌套，总会让人感到烦躁，特别是当业务逻辑复杂，往往需要调用几次 ajax 才能拿到所有需要的数据。</p>
+<p>从最早的回调函数，到 Promise 对象，再到 Generator 函数，每次都有所改进，但又让人觉得不彻底。它们都有额外的复杂性，都需要理解抽象的底层运行机制。所以，我们需要一种方法，更优雅地解决异步操作。于是，async函数出现了。</p>
+<p>一句话解释：async 函数，就是 Generator 函数的语法糖。</p>
+<p>async函数具有以下特点：</p>
+<ul>
+<li>建立在promise之上。所以，不能把它和回调函数搭配使用。但它会声明一个异步函数，并隐式地返回一个Promise。因此可以直接return变量，无需使用Promise.resolve进行转换。</li>
+<li>和promise一样，是非阻塞的。但不用写 then 及其回调函数，这减少代码行数，也避免了代码嵌套。而且，所有异步调用，可以写在同一个代码块中，无需定义多余的中间变量。</li>
+<li>它的最大价值在于，可以使异步代码，在形式上，更接近于同步代码。<br>它总是与await一起使用的。并且，await 只能在 async 函数体内。</li>
+<li>await 是个运算符，用于组成表达式，它会阻塞后面的代码。如果等到的是 Promise 对象，则得到其 resolve值。否则，会得到一个表达式的运算结果。</li>
+</ul>
+<h2 id="async函数的优点"><a href="#async函数的优点" class="headerlink" title="async函数的优点"></a>async函数的优点</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">takeLongTime</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> resolve(n + <span class="number">200</span>), n);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">step1</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`step1 with <span class="subst">$&#123;n&#125;</span>`</span>);</span><br><span class="line">    <span class="keyword">return</span> takeLongTime(n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">step2</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`step2 with <span class="subst">$&#123;n&#125;</span>`</span>);</span><br><span class="line">    <span class="keyword">return</span> takeLongTime(n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">step3</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`step3 with <span class="subst">$&#123;n&#125;</span>`</span>);</span><br><span class="line">    <span class="keyword">return</span> takeLongTime(n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用Promise方法实现三个步骤的处理：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doIt</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.time(<span class="string">"doIt"</span>);</span><br><span class="line">    <span class="keyword">const</span> time1 = <span class="number">300</span>;</span><br><span class="line">    step1(time1)</span><br><span class="line">        .then(<span class="function"><span class="params">time2</span> =&gt;</span> step2(time2))</span><br><span class="line">        .then(<span class="function"><span class="params">time3</span> =&gt;</span> step3(time3))</span><br><span class="line">        .then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">`result is <span class="subst">$&#123;result&#125;</span>`</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">&#125;</span><br><span class="line">doIt();</span><br><span class="line"><span class="comment">// step1 with 300</span></span><br><span class="line"><span class="comment">// step2 with 500</span></span><br><span class="line"><span class="comment">// step3 with 700</span></span><br><span class="line"><span class="comment">// result is 900</span></span><br></pre></td></tr></table></figure>
+<p>使用async处理：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">doIt</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.time(<span class="string">"doIt"</span>);</span><br><span class="line">    <span class="keyword">const</span> time1 = <span class="number">300</span>;</span><br><span class="line">    <span class="keyword">const</span> time2 = <span class="keyword">await</span> step1(time1);</span><br><span class="line">    <span class="keyword">const</span> time3 = <span class="keyword">await</span> step2(time2);</span><br><span class="line">    <span class="keyword">const</span> result = <span class="keyword">await</span> step3(time3);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`result is <span class="subst">$&#123;result&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line">doIt();</span><br></pre></td></tr></table></figure>
+<p>async相比promise优点：</p>
+<ol>
+<li>使用Async/Await明显节约了不少代码。</li>
+</ol>
+<p>我们不需要写.then，不需要写匿名函数处理Promise的resolve值，也不需要定义多余的data变量，还避免了嵌套代码。这些小的优点会迅速累计起来，这在之后的代码示例中会更加明显。</p>
+<ol start="2">
+<li>相比于 Promise 更易于调试。</li>
+</ol>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/async1.png" alt="markdown"><br>因为没有代码块，所以不能在一个返回的箭头函数中设置断点。如果你在一个 .then 代码块中使用调试器的步进(step-over)功能，调试器并不会进入后续的 .then 代码块，因为调试器只能跟踪同步代码的每一步。</p>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/async2.png" alt="markdown"><br>现在，如果使用 async/await，你就不必再使用箭头函数。你可以对 await 语句执行步进操作，就好像他们都是普通的同步语句一样。</p>
+<ol start="3">
+<li>更好的中间值处理</li>
+</ol>
+<p>你很可能遇到过这样的场景，调用promise1，使用promise1返回的结果去调用promise2，然后使用两者的结果去调用promise3。你的代码很可能是这样的:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> makeRequest = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> promise1().then(<span class="function"><span class="params">value1</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> promise2(value1).then(<span class="function"><span class="params">value2</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> promise3(value1, value2)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果promise3不需要value1，可以很简单地将promise嵌套铺平。如果你忍受不了嵌套，你可以将value 1 &amp; 2 放进Promise.all来避免深层嵌套：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> makeRequest = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> promise1().then(<span class="function"><span class="params">value1</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.all([value1, promise2(value1)])</span><br><span class="line">        &#125;).then(<span class="function">(<span class="params">[value1, value2]</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> promise3(value1, value2)</span><br><span class="line">        &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方法为了可读性牺牲了语义。除了避免嵌套，并没有其他理由将value1和value2放在一个数组中。</p>
+<p>使用async/await的话，代码会变得异常简单和直观。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> makeRequest = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> value1 = <span class="keyword">await</span> promise1()</span><br><span class="line">    <span class="keyword">const</span> value2 = <span class="keyword">await</span> promise2(value1)</span><br><span class="line">    <span class="keyword">return</span> promise3(value1, value2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="async的基本使用"><a href="#async的基本使用" class="headerlink" title="async的基本使用"></a>async的基本使用</h1><p>基本使用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">timeout</span>(<span class="params">ms</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span>&#123;</span><br><span class="line">		setTimeout(resolve,ms)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">print</span>(<span class="params">value,ms</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">await</span> timeout(ms)</span><br><span class="line">	<span class="built_in">console</span>.log(value)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">print(<span class="string">'hello'</span>,<span class="number">1000</span>)</span><br><span class="line">print(<span class="string">'world'</span>,<span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+<p>实现链式调用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">delay</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">		setTimeout(<span class="function"><span class="params">()</span>=&gt;</span> &#123;</span><br><span class="line">		resolve ()</span><br><span class="line">		&#125;,<span class="built_in">Math</span>.random()*<span class="number">3000</span>);</span><br><span class="line">		&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fg</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> delay().then(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(name)</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> f1 = fg(<span class="string">'f1'</span>)</span><br><span class="line"><span class="keyword">const</span> f2 = fg(<span class="string">'f2'</span>)</span><br><span class="line"><span class="keyword">const</span> f3 = fg(<span class="string">'f3'</span>)</span><br><span class="line"><span class="keyword">const</span> f4 = fg(<span class="string">'f4'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">print</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">await</span> f1()</span><br><span class="line">	<span class="keyword">await</span> f2()</span><br><span class="line">	<span class="keyword">await</span> f3()</span><br><span class="line">	<span class="keyword">await</span> f4()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="用Promise对象实现的-Ajax"><a href="#用Promise对象实现的-Ajax" class="headerlink" title="用Promise对象实现的 Ajax"></a>用Promise对象实现的 Ajax</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> getJSON = <span class="function"><span class="keyword">function</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> client = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">    client.open(<span class="string">"GET"</span>, url)</span><br><span class="line">    client.onreadystatechange = handler</span><br><span class="line">    client.responseType = <span class="string">"json"</span></span><br><span class="line">    client.setRequestHeader(<span class="string">"Accept"</span>, <span class="string">"application/json"</span>)</span><br><span class="line">    client.send()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> handler = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.readyState !== <span class="number">4</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.status === <span class="number">200</span>) &#123;</span><br><span class="line">        resolve(<span class="keyword">this</span>.response)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="keyword">this</span>.statusText));</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> promise;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">getJSON(<span class="string">"/posts.json"</span>).then(<span class="function"><span class="keyword">function</span>(<span class="params">json</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'Contents: '</span> + json);</span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(<span class="string">'出错了'</span>, error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h1 id="Promise结合定时器实现动画效果"><a href="#Promise结合定时器实现动画效果" class="headerlink" title="Promise结合定时器实现动画效果"></a>Promise结合定时器实现动画效果</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">   .aaa&#123;</span><br><span class="line">       background: red;</span><br><span class="line">       height: 100px;</span><br><span class="line">       width: 100px;</span><br><span class="line">   &#125;</span><br><span class="line">	</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"aaa"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">   <span class="comment">// 写法一：</span></span></span><br><span class="line"><span class="javascript">       <span class="keyword">var</span> changeColor = <span class="built_in">document</span>.getElementsByClassName(<span class="string">'aaa'</span>)</span></span><br><span class="line"><span class="javascript">	<span class="keyword">const</span> change = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve,reject</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">		resolve(<span class="string">"312312"</span>)</span></span><br><span class="line"><span class="undefined">	&#125;)</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">	change</span></span><br><span class="line"><span class="javascript">       .then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">		setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">			changeColor[<span class="number">0</span>].setAttribute(<span class="string">'style'</span>, <span class="string">'background: yellow !important;height:200px;'</span>);</span></span><br><span class="line"><span class="undefined">		&#125;,1000)</span></span><br><span class="line"><span class="undefined">	&#125;)</span></span><br><span class="line"><span class="javascript">	.then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">		setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">			changeColor[<span class="number">0</span>].setAttribute(<span class="string">'style'</span>, <span class="string">'background: black;height:200px;'</span>);</span></span><br><span class="line"><span class="undefined">		&#125;,1000)</span></span><br><span class="line"><span class="undefined">	&#125;)</span></span><br><span class="line"><span class="javascript">   <span class="comment">// 写法二：</span></span></span><br><span class="line"><span class="javascript">	<span class="function"><span class="keyword">function</span> <span class="title">change</span>(<span class="params">ms</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span></span><br><span class="line"><span class="javascript">			setTimeout(resolve,ms,<span class="string">'done'</span>)</span></span><br><span class="line"><span class="undefined">		&#125;)</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="javascript">	change(<span class="number">1000</span>).then(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span></span><br><span class="line"><span class="javascript">		changeColor[<span class="number">0</span>].setAttribute(<span class="string">'style'</span>, <span class="string">'background: yellow;height:200px;'</span>)</span></span><br><span class="line"><span class="undefined">	&#125;)</span></span><br><span class="line"><span class="javascript">	.then(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span></span><br><span class="line"><span class="javascript">		change(<span class="number">1000</span>).then(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span></span><br><span class="line"><span class="javascript">			changeColor[<span class="number">0</span>].setAttribute(<span class="string">'style'</span>, <span class="string">'background: green;height:100px;width:250px;'</span>)</span></span><br><span class="line"><span class="undefined">		&#125;)&#125;</span></span><br><span class="line"><span class="undefined">	)</span></span><br><span class="line"><span class="undefined">   </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h1><p><a href="https://blog.csdn.net/juse__we/article/details/88900685" target="_blank" rel="noopener">Promise原理和问题集锦</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/26/vue/Vuex的基本使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1816,554 +2135,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/22/css/CSS常见知识点/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/22/css/CSS常见知识点/" itemprop="url">CSS常见知识点</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-22T10:59:25+08:00">
-                2019-04-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="一、Flex布局常见属性"><a href="#一、Flex布局常见属性" class="headerlink" title="一、Flex布局常见属性"></a>一、Flex布局常见属性</h1><h2 id="1、flex-direction"><a href="#1、flex-direction" class="headerlink" title="1、flex-direction"></a>1、flex-direction</h2><p>flex-direction属性决定主轴的方向（即项目的排列方向）。 .box { display:flex; flex-direction: row | row-reverse | column | column-reverse; } row（默认值）：主轴为水平方向，起点在左端。 row-reverse：主轴为水平方向，起点在右端。 column：主轴为垂直方向，起点在上沿,自上而下。 column-reverse：主轴为垂直方向，起点在下沿,自下而上。</p>
-<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/flex1.PNG" alt="markdown"></p>
-<h2 id="2、flex-wrap"><a href="#2、flex-wrap" class="headerlink" title="2、flex-wrap"></a>2、flex-wrap</h2><p>//默认情况下，项目都排在一条线（又称”轴线”）上。flex-wrap属性定义 //如果一条轴线排不下，应该如何换行。 .box{ display:flex; flex-wrap: nowrap | wrap | wrap-reverse; } nowrap（默认）：不换行,宽度自动压缩。 wrap：换行，第一行在上方。 wrap-reverse：换行，第一行在下方。 <img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/flex2.PNG" alt="markdown"> <img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/flex3.PNG" alt="markdown"> <img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/flex4.PNG" alt="markdown"></p>
-<h2 id="3、flex-flow"><a href="#3、flex-flow" class="headerlink" title="3、flex-flow"></a>3、flex-flow</h2><p>flex-flow属性是flex-direction属性和flex-wrap属性的简写形式 ，默认值为row nowrap。 .box { flex-flow: <flex-direction> || <flex-wrap>; } .box{ flex-flow:row||nowrap; }</flex-wrap></flex-direction></p>
-<h2 id="4、justify-content"><a href="#4、justify-content" class="headerlink" title="4、justify-content"></a>4、justify-content</h2><p>justify-content属性定义了项目在主轴上(即横向)的对齐方式。</p>
-<p>flex-start（默认值）：左对齐 flex-end：右对齐 center： 居中 space-between：两端对齐，组件之间的间隔都相等。 space-around：距边界两侧的间隔相等，元素之间的间隔比项目与边框的间隔大一倍。</p>
-<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/flex5.PNG" alt="markdown"></p>
-<h2 id="5、align-items"><a href="#5、align-items" class="headerlink" title="5、align-items"></a>5、align-items</h2><p>align-items属性定义项目在交叉轴上(即纵向,垂直)如何对齐。 .box { align-items: flex-start | flex-end | center | baseline | stretch; } flex-start：交叉轴的起点(顶部)对齐。 flex-end：交叉轴的终点(底部)对齐。 center：交叉轴的中点(中间)对齐。 baseline: 项目的第一行文字的基线(即根据内容对齐,不再根据容器)对齐。 stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。 <img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/flex6.PNG" alt="markdown"></p>
-<h2 id="6、align-content"><a href="#6、align-content" class="headerlink" title="6、align-content"></a>6、align-content</h2><p>align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。 .box { align-content: flex-start | flex-end | center | space-between | space-around | stretch; } flex-start：与交叉轴的起点对齐。 flex-end：与交叉轴的终点对齐。 center：与交叉轴的中点对齐。</p>
-<p>space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。 space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。 stretch（默认值）：轴线占满整个交叉轴</p>
-<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/flex7.PNG" alt="markdown"></p>
-<h1 id="link与-import的区别"><a href="#link与-import的区别" class="headerlink" title="link与@import的区别"></a>link与@import的区别</h1><p>区别1：link是XHTML标签，除了加载CSS外，还可以定义RSS等其他事务；@import属于CSS范畴，只能加载CSS。</p>
-<p>区别2：link引用CSS时，在页面载入时同时加载；@import需要页面网页完全载入以后加载。</p>
-<p>区别3：link是XHTML标签，无兼容问题；@import是在CSS2.1提出的，低版本的浏览器不支持。</p>
-<p>区别4：link支持使用Javascript控制DOM去改变样式；而@import不支持。 　　import的写法比较多：推荐使用 @import url(index.css);</p>
-<h1 id="二、position属性"><a href="#二、position属性" class="headerlink" title="二、position属性"></a>二、position属性</h1><h2 id="1、position-absolute"><a href="#1、position-absolute" class="headerlink" title="1、position:absolute;"></a>1、position:absolute;</h2><p>绝对定位，<strong>脱离文档流</strong>的布局。相对于最近的已经定位的父元素，起始位置为最近的父元素(postion不为static)，否则为Body文档本身。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">`<span class="tag">&lt;<span class="name">!``DOCTYPE`</span> `<span class="attr">html</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;<span class="name">``html`</span> `<span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;<span class="name">``head``</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;<span class="name">``meta`</span> `<span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;<span class="name">``title``</span>&gt;</span>绝对定位<span class="tag">&lt;/<span class="name">``title``</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;<span class="name">``style``</span>&gt;</span>                </span><br><span class="line">  body&#123;background:green;&#125;`</span><br><span class="line">  `.parent&#123; width: 500px;height: 500px;background: #ccc;&#125;`</span><br><span class="line">  `.son&#123; width: 300px;height: 300px;background: #aaa;&#125;`</span><br><span class="line">  `span&#123;position: absolute; right: 30px; background: #888;&#125;`</span><br><span class="line">`<span class="tag">&lt;/<span class="name">``style``</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;/<span class="name">``head``</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;<span class="name">``body``</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;<span class="name">``div`</span> `<span class="attr">class</span>=<span class="string">"parent"</span>&gt;</span>`</span><br><span class="line">  `<span class="tag">&lt;<span class="name">``div`</span> `<span class="attr">class</span>=<span class="string">"son"</span>&gt;</span>`</span><br><span class="line">    `<span class="tag">&lt;<span class="name">``span``</span>&gt;</span>什么？<span class="tag">&lt;/<span class="name">``span``</span>&gt;</span>`</span><br><span class="line">  `<span class="tag">&lt;/<span class="name">``div``</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;/<span class="name">``div``</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;/<span class="name">``body``</span>&gt;</span>`</span><br><span class="line">`<span class="tag">&lt;/<span class="name">``html``</span>&gt;</span>`</span><br></pre></td></tr></table></figure>
-<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/absolute2.png" alt="markdown"></p>
-<h2 id="2、position-relative"><a href="#2、position-relative" class="headerlink" title="2、position:relative"></a>2、position:relative</h2><p><strong>相对定位元素的定位是相对它自己的正常位置的定位</strong><br>所以关键在于如何确定其正常的位置。不会脱离文档流</p>
-<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/relative.jpg" alt="markdown"></p>
-<p>在relative中，RLTB属性后的值如果是负数，则与其相同方向移动<br>如果值是正数，则与其反方向移动</p>
-<h2 id="3、position-fixed"><a href="#3、position-fixed" class="headerlink" title="3、position:fixed"></a>3、position:fixed</h2><p>fixed定位是指元素的位置相对于<strong>浏览器窗口是固定位置</strong>，即使窗口是滚动的它也不会滚动，且fixed定位使元素的位置与<strong>文档流无关</strong>，因此不占据空间，且它会和其他元素发生重叠。<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/fixed.png" alt="markdown"><br>所以这个属性的应用就类似于网站的小广告一样！！！<br>但是这个属性在IE7和IE8不支持，需要另外声明。</p>
-<h2 id="4、position：static"><a href="#4、position：static" class="headerlink" title="4、position：static"></a>4、position：static</h2><p>默认的属性，只要有了这个属性，元素就会出现在<strong>正常的文档流</strong>，不会收到top、bottom、left和right的影响。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrap"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--对应的css样式--&gt;</span></span><br><span class="line">.wrap&#123;width: 300px;height: 300px; background: red;&#125;</span><br><span class="line">.content&#123;position: static; top:100px; width: 100px;height: 100px; background: blue;&#125;</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/stack.png" alt="markdown"><br>从图片上可以看到，position设置了static属性，但是没有受到TBRL的影响</p>
-<h2 id="5、position：sticky"><a href="#5、position：sticky" class="headerlink" title="5、position：sticky"></a>5、position：sticky</h2><p>粘性定位。<br>基于用户的滚动位置来定位。<br>粘性定位的元素是依赖于用户的滚动，在 position:relative 与 position:fixed 定位之间切换。<br>它的行为就像 position:relative; 而当页面滚动超出目标区域时，它的表现就像 position:fixed;，它会固定在目标位置。<br>元素定位表现为在跨越特定阈值前为相对定位，之后为固定定位。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">div.sticky &#123;</span><br><span class="line">position: -webkit-sticky;</span><br><span class="line">position: sticky;</span><br><span class="line">top: <span class="number">0</span>;</span><br><span class="line">padding: <span class="number">5</span>px;</span><br><span class="line">background-color: #cae8ca;</span><br><span class="line">border: 2px solid #4CAF50;</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/style&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;div class="sticky"&gt;我是粘性定位!&lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line">&lt;div style=<span class="string">"padding-bottom:2000px"</span>&gt;</span><br><span class="line">&lt;p&gt;滚动我&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">&lt;p&gt;来回滚动我&lt;/</span>p&gt;</span><br><span class="line">&lt;p&gt;滚动我&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">&lt;p&gt;来回滚动我&lt;/</span>p&gt;</span><br><span class="line">&lt;p&gt;滚动我&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">&lt;p&gt;来回滚动我&lt;/</span>p&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="6、position：inherit"><a href="#6、position：inherit" class="headerlink" title="6、position：inherit"></a>6、position：inherit</h2><p>继承父类的position属性</p>
-<h2 id="7、position：initial"><a href="#7、position：initial" class="headerlink" title="7、position：initial"></a>7、position：initial</h2><p>将属性设置为初始值</p>
-<p><strong>脱离文档流只有浮动属性，绝对定位以及固定定位</strong></p>
-<h1 id="三、CSS清除浮动的几种方式"><a href="#三、CSS清除浮动的几种方式" class="headerlink" title="三、CSS清除浮动的几种方式"></a>三、CSS清除浮动的几种方式</h1><p>清除浮动的原因是由于高度的坍塌，本来父元素的高度是默认由子元素撑开的，但是由于子元素设置了浮动，则子元素完全脱离了文档流，导致子元素无法撑开父元素的高度，所以高度塌陷。</p>
-<h2 id="1、父级div定义伪元素：after和zoom"><a href="#1、父级div定义伪元素：after和zoom" class="headerlink" title="1、父级div定义伪元素：after和zoom"></a>1、父级div定义伪元素：after和zoom</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"> </span></span><br><span class="line"><span class="undefined">   .div1&#123;background:#000080;border:1px solid red;&#125;</span></span><br><span class="line"><span class="undefined">   .div2&#123;background:#800080;border:1px solid red;height:100px;margin-top:10px&#125;</span></span><br><span class="line"><span class="undefined">   </span></span><br><span class="line"><span class="undefined">   .left&#123;float:left;width:20%;height:200px;background:#DDD&#125;</span></span><br><span class="line"><span class="undefined">   .right&#123;float:right;width:30%;height:80px;background:#DDD&#125;</span></span><br><span class="line"><span class="undefined">   </span></span><br><span class="line"><span class="undefined">   /*清除浮动代码*/</span></span><br><span class="line"><span class="undefined">   .clearfloat:after&#123;</span></span><br><span class="line"><span class="undefined">		display:block;</span></span><br><span class="line"><span class="undefined">		clear:both;</span></span><br><span class="line"><span class="undefined">		content:"";</span></span><br><span class="line"><span class="undefined">		visibility:hidden;</span></span><br><span class="line"><span class="undefined">		height:0</span></span><br><span class="line"><span class="undefined">   &#125;</span></span><br><span class="line"><span class="undefined">   .clearfloat&#123;zoom:1&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"clearfloat"</span>&gt;</span> </span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span>Left<span class="tag">&lt;/<span class="name">div</span>&gt;</span> </span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span>Right<span class="tag">&lt;/<span class="name">div</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"div2"</span>&gt;</span></span><br><span class="line">   div2</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>IE8以上和非IE浏览器才支持:after，原理和方法2有点类似，==zoom(IE转有属性)==可解决ie6,ie7浮动问题。这个方法相对而言更加推荐使用。</p>
-<h2 id="2-在结尾处添加空div标签clear-both"><a href="#2-在结尾处添加空div标签clear-both" class="headerlink" title="2.在结尾处添加空div标签clear:both"></a>2.在结尾处添加空div标签clear:both</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"> </span></span><br><span class="line"><span class="undefined">   .div1&#123;background:#000080;border:1px solid red&#125;</span></span><br><span class="line"><span class="undefined">   .div2&#123;background:#800080;border:1px solid red;height:100px;margin-top:10px&#125;</span></span><br><span class="line"><span class="undefined">   .left&#123;float:left;width:20%;height:200px;background:#DDD&#125;</span></span><br><span class="line"><span class="undefined">   .right&#123;float:right;width:30%;height:80px;background:#DDD&#125;</span></span><br><span class="line"><span class="undefined">   </span></span><br><span class="line"><span class="undefined">   /*清除浮动代码*/</span></span><br><span class="line"><span class="undefined">   .clearfloat&#123;clear:both&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"div1"</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span>Left<span class="tag">&lt;/<span class="name">div</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span>Right<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"clearfloat"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"div2"</span>&gt;</span></span><br><span class="line">   div2</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>不推荐使用，如果页面的浮动布局多，会新增了空的div，但此方法是以前主要使用的一种清除浮动方法，不过代码量少，对浏览器的兼容性好。</p>
-<h2 id="3、为父级元素增加高度"><a href="#3、为父级元素增加高度" class="headerlink" title="3、为父级元素增加高度"></a>3、为父级元素增加高度</h2><p>简单容易理解，但是需要给出精确的父级高度，适用于高度固定的布局。</p>
-<h2 id="4-父级div定义overflow-hidden"><a href="#4-父级div定义overflow-hidden" class="headerlink" title="4.父级div定义overflow:hidden"></a>4.父级div定义overflow:hidden</h2><p>必须定义width或zoom:1，同时不能定义height，使用overflow:hidden时，浏览器会自动检查浮动区域的高度 简单，代码少，浏览器支持好，但是不能和position配合使用，因为超出的尺寸的会被隐藏。</p>
-<h1 id="四、em和rem和vw-vh单位"><a href="#四、em和rem和vw-vh单位" class="headerlink" title="四、em和rem和vw/vh单位"></a>四、em和rem和vw/vh单位</h1><p>这两个都是css单位，并且都是相对单位，先有的em，后有的rem。</p>
-<h2 id="em"><a href="#em" class="headerlink" title="em"></a>em</h2><p>em可以让我们的页面更灵活，更健壮，比起到处写死的px值，em似乎更有张力，<strong>改动父元素的字体大小，子元素会等比例变化</strong>。但是使用em进行弹性布局，会使得单位之间的转换变得复杂，缺点还在于牵一发而动全身，一旦某个节点的字体大小发生变化，那么其后代元素都得重新计算。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"p1"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"s1"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"s2"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"p2"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"s5"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"s6"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">.p1 &#123;font-size: 16px; line-height: 32px;&#125;</span><br><span class="line">.s1 &#123;font-size: 2em;&#125;</span><br><span class="line">.s2 &#123;font-size: 2em; line-height: 2em;&#125;</span><br><span class="line"></span><br><span class="line">.p2 &#123;font-size: 16px; line-height: 2;&#125;</span><br><span class="line">.s5 &#123;font-size: 2em;&#125;</span><br><span class="line">.s6 &#123;font-size: 2em; line-height: 2em;&#125;</span><br></pre></td></tr></table></figure>
-<p>line-height: 2自身字体大小的两倍</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p2：font-size: 16px; line-height: 32px</span><br><span class="line">s5：font-size: 32px; line-height: 64px</span><br><span class="line">s6：font-size: 32px; line-height: 64px</span><br></pre></td></tr></table></figure>
-<h2 id="rem"><a href="#rem" class="headerlink" title="rem"></a>rem</h2><p>rem作用于非根元素时，相对于根元素字体大小；rem作用于根元素字体大小时，相对于其出初始字体大小。<br>实际开发可以设置网页的默认字体为50px，这样在换算成rem的时候直接将px的数值乘以0.2就可以了。<br>为了简便也可以使用webpack的px2rem-loader插件</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 作用于根元素，相对于原始大小（16px），所以html的font-size为32px*/</span></span><br><span class="line"><span class="selector-tag">html</span>&#123;<span class="attribute">font-size</span>:<span class="number">2rem</span>&#125;</span><br><span class="line"><span class="comment">/* 作用于非根元素，相对于根元素字体大小，所以为64px */</span></span><br><span class="line"><span class="selector-tag">p</span>&#123;<span class="attribute">font-size</span>:<span class="number">2rem</span>&#125;</span><br></pre></td></tr></table></figure>
-<p>（PS：<strong>弹性布局可以算作响应式布局的一种，但响应式布局不是弹性布局</strong>，弹性布局强调等比缩放，100%还原；响应式布局强调不同屏幕要有不同的显示，比如媒体查询）</p>
-<p>缺点：如果要使用rem实现响应式的布局，则只要根据视图容器的大小，动态改变font-size就可以了，所以就必须通过js来动态控制根元素font-size的大小了，也就是说css样式和js有一定的耦合，而且必须把改变font-size的代码放在css样式之前，所以就有了另一种单位，vw和vh。</p>
-<h2 id="vh和vw"><a href="#vh和vw" class="headerlink" title="vh和vw"></a>vh和vw</h2><p>视口：在桌面端，视口指的是在桌面端，指的是浏览器的可视区域；而在移动端，它涉及3个视口：Layout Viewport（布局视口），Visual Viewport（视觉视口），Ideal Viewport（理想视口）。</p>
-<p>视口单位中的“视口”，桌面端指的是浏览器的可视区域；移动端指的就是Viewport中的Layout Viewport。</p>
-<p>根据CSS3规范，视口单位主要包括以下4个：</p>
-<ol>
-<li><p>vw：1vw等于视口宽度的1%。</p>
-</li>
-<li><p>vh：1vh等于视口高度的1%。</p>
-</li>
-<li><p>vmin：选取vw和vh中最小的那个。</p>
-</li>
-<li><p>vmax：选取vw和vh中最大的那个。</p>
-<p>vh and vw：相对于视口的高度和宽度，而不是父元素的（CSS百分比是相对于包含它的最近的父元素的高度和宽度）。1vh 等于1/100的视口高度，1vw 等于1/100的视口宽度。</p>
-</li>
-</ol>
-<p>比如：浏览器高度950px，宽度为1920px, 1 vh = 950px/100 = 9.5 px，1vw = 1920px/100 =19.2 px。</p>
-<p>vmax相对于视口的宽度或高度中较大的那个。其中最大的那个被均分为100单位的vmax。</p>
-<p>vmin相对于视口的宽度或高度中较小的那个。其中最小的那个被均分为100单位的vmin。</p>
-<p>如果要兼容opera浏览器的话，不建议使用。</p>
-<h1 id="五、flex实现圣杯布局和双飞翼布局"><a href="#五、flex实现圣杯布局和双飞翼布局" class="headerlink" title="五、flex实现圣杯布局和双飞翼布局"></a>五、flex实现圣杯布局和双飞翼布局</h1><p>为什么要使用flex布局呢。因为比起绝对定位然后再去设置边距什么的，flex绝对容易理解然后代码量还少，DOM渲染时间更快，所以只讲flex，绝对不是因为懒！<br>圣杯布局：中间的div需要加上flex: 1，才可以将中间div的宽度填满。实现自适应宽度。<br>双飞翼布局和圣杯布局几乎一样(其实就是一回事)，区别在于处理center中被遮挡的部分。双飞翼是在center中再放一个div用来显示内容，为其设置margin。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>圣杯布局<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  * &#123;</span></span><br><span class="line"><span class="undefined">      margin: 0;</span></span><br><span class="line"><span class="undefined">      padding: 0;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="css">	<span class="selector-class">.container</span>&#123;</span></span><br><span class="line"><span class="undefined">		display: flex;;</span></span><br><span class="line"><span class="undefined">		justify-content: space-between;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-class">.box</span>&#123;</span></span><br><span class="line"><span class="undefined">		float: left;</span></span><br><span class="line"><span class="undefined">		min-height: 200px;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-class">.left</span>&#123;</span></span><br><span class="line"><span class="undefined">		background: red;</span></span><br><span class="line"><span class="undefined">		width: 200px;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-class">.center</span>&#123;</span></span><br><span class="line"><span class="undefined">		background: yellow;</span></span><br><span class="line"><span class="undefined">		flex: 1;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-class">.right</span>&#123;</span></span><br><span class="line"><span class="undefined">		background: pink;</span></span><br><span class="line"><span class="undefined">		width: 200px;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="undefined">	</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box left"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box center"</span>&gt;</span>233<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box right"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h1 id="六、CSS盒子模型"><a href="#六、CSS盒子模型" class="headerlink" title="六、CSS盒子模型"></a>六、CSS盒子模型</h1><h2 id="1、基本概念"><a href="#1、基本概念" class="headerlink" title="1、基本概念"></a>1、基本概念</h2><p>CSS盒子模型主要有两种，一种是标准盒子模型，另外一种是IE盒子模型。接下来用图片来展示两种盒子模型。</p>
-<p>标准盒子模型：<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/standardModel.jpg" alt="markdown"></p>
-<p>IE盒子模型：<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/IEmodel.jpg" alt="markdown"></p>
-<p>标准盒子模型的 width = content + padding + border + margin,高度同理。<br>IE盒子模型的 width = content + margin。<br>所以两个模型的主要区别在于IE模型的content其实包含了content和padding及border。</p>
-<p>在现在的浏览器中，默认使用的是标准模型，二者的主要区别在于宽度和高度的计算方式不同。打开控制台就可以看到了。在这里，其实盒子模型的选取，看个人习惯吧，并没有绝对的好坏之分。<br><a href="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/consoleBox.png" target="_blank" rel="noopener">markdown</a></p>
-<h2 id="2、切换两种盒子模型"><a href="#2、切换两种盒子模型" class="headerlink" title="2、切换两种盒子模型"></a>2、切换两种盒子模型</h2><p>有人开发可能习惯标准模型，有人可能习惯IE模型。那我们要怎么来切换这两种盒子模型呢？其实也是很简单，通过CSS3的box-sizing来设置就可以了。<br>box-sizing: content-box 是W3C盒子模型<br>box-sizing: border-box 是IE盒子模型</p>
-<h2 id="3、获取盒子宽度和高度"><a href="#3、获取盒子宽度和高度" class="headerlink" title="3、获取盒子宽度和高度"></a>3、获取盒子宽度和高度</h2><p>那么问题来了，如何通过JS来获取盒子模型的宽高呢。<br>a、使用dom.style.width/height</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">		<span class="keyword">var</span> oBox=<span class="built_in">document</span>.getElementById(<span class="string">"box"</span>);</span><br><span class="line">		<span class="built_in">console</span>.log(oBox.style.height);</span><br><span class="line">		<span class="built_in">console</span>.log(oBox.style.background);</span><br><span class="line">		<span class="comment">// console.log(oBox.currentStyle.width)</span></span><br><span class="line">		<span class="comment">// 上面的方法只是适用于IE</span></span><br><span class="line">		<span class="built_in">console</span>.log(<span class="built_in">window</span>.getComputedStyle(oBox).width);</span><br><span class="line">		<span class="built_in">console</span>.log(oBox.getBoundingClientRect());</span><br><span class="line"><span class="comment">//dom这里就省略不写了。这个方法在这里只能获得内联样式，也就是如果你是外链的CSS样式文件，控制台是无法获得并打印出来的</span></span><br></pre></td></tr></table></figure>
-<p>b、dom.currentStyle.width/height<br>这个方法相比上一个方法的区别，就是获取的浏览器即时运行的结果，就是渲染以后的结果，相对准确，并且不局限于内联样式，但是这个方法只有IE能支持。</p>
-<p>c、window.getComputedStyle(dom).width<br>道理其实和第二个是一样的，但是相对第二个该方法兼容了谷歌浏览器和火狐浏览器，所以兼容性更好一点。</p>
-<p>d、dom.getBoundingClientRect().width/height<br>该方法通常用于计算一个元素的绝对位置，也就是根据视窗计算的。该方法会返回8个值上下左右宽高和xy</p>
-<h1 id="七、BFC"><a href="#七、BFC" class="headerlink" title="七、BFC"></a>七、BFC</h1><p>首先什么是BFC，说实话这个概念之前都没有怎么接触过，所以赶紧找时间恶补了一下。。BFC全称是Block Formatting Context，即块格式化上下文。它是CSS2.1规范定义的，关于CSS渲染定位的一个概念。要明白深入了解BFC的话，需要先了解视觉格式化模型(visual formatting model)和CSS的盒子（BOX）概念。</p>
-<h2 id="1、视觉格式化模型"><a href="#1、视觉格式化模型" class="headerlink" title="1、视觉格式化模型"></a>1、视觉格式化模型</h2><p>视觉格式化模型(visual formatting model)是用来处理文档并将它显示在视觉媒体上的机制，它也是CSS中的一个概念。<br>视觉格式化模型定义了盒（Box）的生成，盒主要包括了块盒、行内盒、匿名盒（没有名字不能被选择器选中的盒）以及一些实验性的盒（未来可能添加到规范中）。盒的类型由display属性决定。</p>
-<h3 id="a、BOX"><a href="#a、BOX" class="headerlink" title="a、BOX"></a>a、BOX</h3><p>a、块级盒：即display属性为block、list-item、table的元素，在视觉上呈现为块，竖直排列，独占一行。（支持宽高width、height）<br>b、行内盒：即display的计算值为inline，inline-block或inline-table。<br>c、匿名盒：匿名盒没有名字，不能利用选择器来选择它们，所以它们的所有属性都为inherit或初始默认值；</p>
-<h3 id="b、三个定位方案"><a href="#b、三个定位方案" class="headerlink" title="b、三个定位方案"></a>b、三个定位方案</h3><ul>
-<li>常规流</li>
-<li>浮动</li>
-<li>定位</li>
-</ul>
-<h2 id="2、BFC的形成条件"><a href="#2、BFC的形成条件" class="headerlink" title="2、BFC的形成条件"></a>2、BFC的形成条件</h2><ul>
-<li>float的值不能为none</li>
-<li>overflow的值不能为visible</li>
-<li>display的值为table-cell, table-caption, inline-block,flex,inline-flex中的任何一个</li>
-<li>position的值为absolute和fixed</li>
-</ul>
-<h2 id="3、BFC的约束规则"><a href="#3、BFC的约束规则" class="headerlink" title="3、BFC的约束规则"></a>3、BFC的约束规则</h2><p>a、内部的Box会在垂直方向上一个接一个的放置<br>b、垂直方向的距离有margin决定(属于同一个BFC的两个相邻Box的margin会发生重叠，与方向无关)<br>c、每个元素的margin box的左边， 与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此<br><strong>d、BFC的区域不会与float的元素区域重叠</strong><br><strong>e、计算BFC的高度时，浮动子元素也参与计算</strong><br><strong>f、BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面元素，反之亦然</strong></p>
-<h2 id="4、BFC的作用"><a href="#4、BFC的作用" class="headerlink" title="4、BFC的作用"></a>4、BFC的作用</h2><h3 id="1、不和浮动的元素相重叠"><a href="#1、不和浮动的元素相重叠" class="headerlink" title="1、不和浮动的元素相重叠"></a>1、不和浮动的元素相重叠</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">	    <span class="selector-class">.Box</span> &#123;</span></span><br><span class="line"><span class="undefined">	        width: 300px;</span></span><br><span class="line"><span class="undefined">	        position: relative;</span></span><br><span class="line"><span class="undefined">	    &#125;</span></span><br><span class="line"><span class="css">	    <span class="selector-class">.aside</span> &#123;</span></span><br><span class="line"><span class="undefined">	        width: 100px;</span></span><br><span class="line"><span class="undefined">	        height: 150px;</span></span><br><span class="line"><span class="undefined">	        float: left;</span></span><br><span class="line"><span class="css">	        <span class="selector-tag">background</span>: <span class="selector-id">#f66</span>;</span></span><br><span class="line"><span class="undefined">	    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">	    <span class="selector-class">.main</span> &#123;</span></span><br><span class="line"><span class="undefined">	        height: 200px;</span></span><br><span class="line"><span class="css">	        <span class="selector-tag">background</span>: <span class="selector-id">#fcc</span>;</span></span><br><span class="line"><span class="undefined">	    &#125;</span></span><br><span class="line"><span class="undefined">	</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"Box"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"aside"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"main"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>分析：<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/BFC1.png" alt="markdown"><br>由于aside向左浮动具有BFC，但是main并不具有BFC，所以发生了重叠。在这里，根据上面的第四条规则，可以使main具备BFC，便不会发生重叠。<br>给main元素的overflow属性加上heiiden值便可满足条件。<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/BFC2.png" alt="markdown"></p>
-<h3 id="2、-清除元素内部的浮动"><a href="#2、-清除元素内部的浮动" class="headerlink" title="2、 清除元素内部的浮动"></a>2、 清除元素内部的浮动</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">		    <span class="selector-class">.par</span> &#123;</span></span><br><span class="line"><span class="css">		        <span class="selector-tag">border</span>: 5<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#fcc</span>;</span></span><br><span class="line"><span class="undefined">		        width: 300px;</span></span><br><span class="line"><span class="undefined">		    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">		    <span class="selector-class">.child</span> &#123;</span></span><br><span class="line"><span class="css">		        <span class="selector-tag">border</span>: 5<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#f66</span>;</span></span><br><span class="line"><span class="css">		        <span class="selector-tag">width</span><span class="selector-pseudo">:100px</span>;</span></span><br><span class="line"><span class="undefined">		        height: 100px;</span></span><br><span class="line"><span class="undefined">		        float: left;</span></span><br><span class="line"><span class="undefined">		    &#125;</span></span><br><span class="line"><span class="undefined">		</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"par"</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>分析：<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/BFC3.png" alt="markdown"><br>根据BFC布局规则第六条：计算BFC的高度时，浮动元素也参与计算，为达到清除内部浮动，我们可以触发par生成BFC，那么par在计算高度时，par内部的浮动元素child也会参与计算。<br>所以在这里给par加上一个overflow的hidden属性值，触发par生成BFC就可以了。<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/BFC4.png" alt="markdown"></p>
-<h3 id="3-防止垂直-margin-重叠"><a href="#3-防止垂直-margin-重叠" class="headerlink" title="3. 防止垂直 margin 重叠"></a>3. 防止垂直 margin 重叠</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">	    p &#123;</span></span><br><span class="line"><span class="css">	        <span class="selector-tag">color</span>: <span class="selector-id">#f55</span>;</span></span><br><span class="line"><span class="css">	        <span class="selector-tag">background</span>: <span class="selector-id">#fcc</span>;</span></span><br><span class="line"><span class="undefined">	        width: 200px;</span></span><br><span class="line"><span class="undefined">	        line-height: 100px;</span></span><br><span class="line"><span class="css">	        <span class="selector-tag">text-align</span><span class="selector-pseudo">:center</span>;</span></span><br><span class="line"><span class="undefined">	        margin: 100px;</span></span><br><span class="line"><span class="undefined">	    &#125;</span></span><br><span class="line"><span class="undefined">	</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Haha<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Hehe<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>分析：<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/BFC5.png" alt="markdown"><br>很明显，在这里两个标签的margin发生了重叠，应该是200px。<br>根据BFC布局规则第二条：Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠，并且取值较大的那一个。<br>为了能够正常显示，那我们可以在p外面包裹一层容器，并触发该容器生成一个BFC。那么两个P便不属于同一个BFC，就不会发生margin重叠了。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.wrap</span> &#123;</span></span><br><span class="line"><span class="undefined">        overflow: hidden;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    p &#123;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">color</span>: <span class="selector-id">#f55</span>;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">background</span>: <span class="selector-id">#fcc</span>;</span></span><br><span class="line"><span class="undefined">        width: 200px;</span></span><br><span class="line"><span class="undefined">        line-height: 100px;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">text-align</span><span class="selector-pseudo">:center</span>;</span></span><br><span class="line"><span class="undefined">        margin: 100px;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Haha<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wrap"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>Hehe<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/BFC5.png" alt="markdown"><br>按照BFC的定义，只有同属于一个BFC时，两个元素才有可能发生垂直Margin的重叠，这个包括相邻元素，嵌套元素，只要他们之间没有阻挡(例如边框，非空内容，padding等)就会发生margin重叠。<br>因此要解决margin重叠问题，只要让它们不在同一个BFC就行了，但是对于两个相邻元素来说，意义不大，没有必要给它们加个外壳，但是对于嵌套元素来说就很有必要了，只要把父元素设为BFC就可以了。这样子元素的margin就不会和父元素的margin发生重叠了。</p>
-<h1 id="八、css选择器以及优先级"><a href="#八、css选择器以及优先级" class="headerlink" title="八、css选择器以及优先级"></a>八、css选择器以及优先级</h1><p>优先级从上往下递减。</p>
-<ol>
-<li><p>!important<br> 在属性后面写上这条样式，会覆盖掉页面上任何位置定义的元素的样式。</p>
-</li>
-<li><p>行内样式（1000），在style属性里面写的样式。</p>
-</li>
-<li><p>id选择器（100）    #box</p>
-</li>
-<li><p>class选择器和伪类选择器（10）.class{}</p>
-</li>
-<li><p>标签选择器（1）    p ul li</p>
-</li>
-<li><p>通配符选择器（0）*{}</p>
-</li>
-<li><p>浏览器的自定义属性和继承</p>
-</li>
-</ol>
-<h1 id="九、伪类和伪元素"><a href="#九、伪类和伪元素" class="headerlink" title="九、伪类和伪元素"></a>九、伪类和伪元素</h1><p><strong>伪类包含两种：状态伪类和结构性伪类。</strong> </p>
-<h2 id="状态伪类是基于元素当前状态进行选择的。在与用户的交互过程中元素的状态是动态变化的，因此该元素会根据其状态呈现不同的样式。当元素处于某状态时会呈现该样式，而进入另一状态后，该样式也会失去。常见的状态伪类主要包括："><a href="#状态伪类是基于元素当前状态进行选择的。在与用户的交互过程中元素的状态是动态变化的，因此该元素会根据其状态呈现不同的样式。当元素处于某状态时会呈现该样式，而进入另一状态后，该样式也会失去。常见的状态伪类主要包括：" class="headerlink" title="状态伪类是基于元素当前状态进行选择的。在与用户的交互过程中元素的状态是动态变化的，因此该元素会根据其状态呈现不同的样式。当元素处于某状态时会呈现该样式，而进入另一状态后，该样式也会失去。常见的状态伪类主要包括："></a>状态伪类是基于元素当前状态进行选择的。在与用户的交互过程中元素的状态是动态变化的，因此该元素会根据其状态呈现不同的样式。当元素处于某状态时会呈现该样式，而进入另一状态后，该样式也会失去。常见的状态伪类主要包括：</h2><p>:link 应用于未被访问过的链接；</p>
-<p>:hover 应用于鼠标悬停到的元素；</p>
-<p>:active 应用于被激活的元素；</p>
-<p>:visited 应用于被访问过的链接，与:link互斥。</p>
-<p>:focus 应用于拥有键盘输入焦点的元素。（比如输入框）</p>
-<p>p:nth-child(2){} 规定属于其父元素的第二个子元素的每个 p 的背景色<br>PS:odd 和 even 是可用于匹配下标是奇数或偶数的子元素的关键词（第一个子元素的下标是 1）。</p>
-<h2 id="结构性伪类是css3新增选择器，利用dom树进行元素过滤，通过文档结构的互相关系来匹配元素，能够减少class和id属性的定义，使文档结构更简洁。常见的包括："><a href="#结构性伪类是css3新增选择器，利用dom树进行元素过滤，通过文档结构的互相关系来匹配元素，能够减少class和id属性的定义，使文档结构更简洁。常见的包括：" class="headerlink" title="结构性伪类是css3新增选择器，利用dom树进行元素过滤，通过文档结构的互相关系来匹配元素，能够减少class和id属性的定义，使文档结构更简洁。常见的包括："></a>结构性伪类是css3新增选择器，利用dom树进行元素过滤，通过文档结构的互相关系来匹配元素，能够减少class和id属性的定义，使文档结构更简洁。常见的包括：</h2><p>:first-child 选择某个元素的第一个子元素；</p>
-<p>:last-child 选择某个元素的最后一个子元素；</p>
-<p>:first-of-type 选择一个上级元素下的第一个同类子元素；</p>
-<p>:last-of-type 选择一个上级元素的最后一个同类子元素；</p>
-<p>等等。。。</p>
-<p><strong>伪元素的本质是在不增加dom结构的基础上添加的一个元素，在用法上跟真正的dom无本质区别。普通元素能实现的效果，伪元素都可以。有些用伪元素效果更好，代码更精简。</strong> </p>
-<p>一般使用单冒号(:)用于 CSS3 伪类，双冒号(::)用于 CSS3 伪元素，</p>
-<p>最常见的应用场景就是清除浮动了：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.clear</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">clear</span>: both;</span><br><span class="line">	<span class="attribute">visibility</span>: hidden;</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="十、css有哪些属性是可以继承的？"><a href="#十、css有哪些属性是可以继承的？" class="headerlink" title="十、css有哪些属性是可以继承的？"></a>十、css有哪些属性是可以继承的？</h1><ol>
-<li>字体系列</li>
-</ol>
-<ul>
-<li>font-family：字体系列</li>
-<li>font-weight：字体的粗细</li>
-<li>font-size：字体的大小</li>
-<li>font-style：字体的风格</li>
-</ul>
-<ol start="2">
-<li>文本系列属性</li>
-</ol>
-<ul>
-<li>text-indent：文本缩进</li>
-<li>text-align：文本水平对齐</li>
-<li>line-height：行高</li>
-<li>word-spacing：单词之间的间距</li>
-<li>letter-spacing：中文或者字母之间的间距</li>
-<li>text-transform：控制文本大小写（就是uppercase、lowercase、capitalize这三个）</li>
-<li>color：文本颜色</li>
-</ul>
-<ol start="3">
-<li>元素可见性</li>
-</ol>
-<ul>
-<li>visibility：控制元素显示隐藏</li>
-</ul>
-<ol start="4">
-<li><p>list-style：列表风格，包括list-style-type、list-style-image等</p>
-</li>
-<li><p>光标属性：cursor：光标显示为何种形态</p>
-</li>
-</ol>
-<h1 id="十一、CSS中哪些是不可继承的？"><a href="#十一、CSS中哪些是不可继承的？" class="headerlink" title="十一、CSS中哪些是不可继承的？"></a>十一、CSS中哪些是不可继承的？</h1><ol>
-<li><p>display属性</p>
-</li>
-<li><p>文本属性</p>
-</li>
-</ol>
-<ul>
-<li>vertical-align：垂直文本对齐</li>
-<li>text-decoration：规定添加到文本的装饰</li>
-<li>text-shadow：文本阴影效果</li>
-<li>white-space：空白符的处理</li>
-<li>unicode-bidi：设置文本的方向</li>
-</ul>
-<ol start="3">
-<li>盒子模型属性</li>
-</ol>
-<p>width、height、margin 、margin-top、margin-right、margin-bottom、margin-left、border、border-style、border-top-style、border-right-style、border-bottom-style、border-left-style、border-width、border-top-width、border-right-right、border-bottom-width、border-left-width、border-color、border-top-color、border-right-color、border-bottom-color、border-left-color、border-top、border-right、border-bottom、border-left、padding、padding-top、padding-right、padding-bottom、padding-left</p>
-<ol start="4">
-<li>背景属性：</li>
-</ol>
-<p>background、background-color、background-image、background-repeat、background-position、background-attachment</p>
-<ol start="5">
-<li>定位属性：</li>
-</ol>
-<p>float、clear、position、top、right、bottom、left、min-width、min-height、max-width、max-height、overflow、clip、z-index<br>等等。。。。</p>
-<h1 id="十二、块级元素和行内元素"><a href="#十二、块级元素和行内元素" class="headerlink" title="十二、块级元素和行内元素"></a>十二、块级元素和行内元素</h1><ol>
-<li>块级元素，独占一行，会自动填满父元素，并且可以设置margin和padding以及宽度和高度(前后有换行符)</li>
-</ol>
-<p>p div hn form table ul li ol dl</p>
-<ol start="2">
-<li>行内元素，不会独占一行，并且宽度和高度会失效，垂直方向的padding和margin会失效(前后无换行符)</li>
-</ol>
-<p>span a b input img i textarea select </p>
-<ol start="3">
-<li>行内块级元素，能设置宽度和高度，padding和margin水平垂直方向都有效(前后没有换行符)</li>
-</ol>
-<h1 id="十三、居中为什么要使用transform（为什么不使用marginLeft-Top）"><a href="#十三、居中为什么要使用transform（为什么不使用marginLeft-Top）" class="headerlink" title="十三、居中为什么要使用transform（为什么不使用marginLeft/Top）"></a>十三、居中为什么要使用transform（为什么不使用marginLeft/Top）</h1><p>可以简单的这样理解，浏览器渲染的图层一般包含两大类：普通图层(默认复合图层)以及复合图层</p>
-<p>可以通过硬件加速的方式，声明一个新的复合图层，它会单独分配资源 （当然也会脱离普通文档流，这样一来，不管这个复合图层中怎么变化，也不会影响默认复合层里的回流重绘）</p>
-<p>transform是通过创建一个RenderLayers合成层，它所引起的paint也只是发生在单独的GraphicsLayer中，<strong>并不会引起整个页面的回流重绘。</strong></p>
-<p>层创立的条件如下：</p>
-<ul>
-<li>video元素的层</li>
-<li>canvas元素的层</li>
-<li>flash</li>
-<li>对opacity和transform应用了CSS动画的层</li>
-<li>有3D或者transform的CSS属性的层</li>
-</ul>
-<p>除此之外，在硬件加速体系结构，合成由GPU负责。在chrome浏览器多进程模型中，有一个专门的进程来负责传递Render进程的命令，即GPU进程。<br>Render进程和GPU进程是通过共享内存传递的。Render进程可以快速 的将命令发给命令缓冲区，并且返回到CPU密集的render活动中，留给GPU进程去处理这些命令。我们可以充分利用多内核机器上的GPU进程和CPU进程。这也是为什么GPU硬件加速会加速渲染，使transform渲染速度更快的又一原因。但是会占用一定的内存。</p>
-<p>对元素进行动画的一些要点:</p>
-<ul>
-<li>尽量使用keyframes和transform进行动画，这样浏览器会自身分配每帧的长度，并作出优化</li>
-<li>如果非要使用js来进行动画，使用requestAnimationFrame</li>
-<li>使用2d transform而不是改变top/left的值，这样会有更短的repaint时间和更圆滑的动画效果</li>
-<li>移动端的动画效果可能会比pc端的差，因此一定要注意性能优化，尽量减少动画元素的DOM复杂性，待动画结束后异步执行DOM操作</li>
-</ul>
-<h1 id="十四、层叠等级和层叠上下文"><a href="#十四、层叠等级和层叠上下文" class="headerlink" title="十四、层叠等级和层叠上下文"></a>十四、层叠等级和层叠上下文</h1><h2 id="层叠上下文-stacking-context"><a href="#层叠上下文-stacking-context" class="headerlink" title="层叠上下文(stacking context)"></a>层叠上下文(stacking context)</h2><p>HTML中一个三维的概念。在CSS2.1规范中，每个盒模型的位置是三维的，分别是平面画布上的X轴，Y轴以及表示层叠的Z轴。一般情况下，元素在<br>页面上沿X轴Y轴平铺，我们察觉不到它们在Z轴上的层叠关系。而一旦元素发生堆叠，这时就能发现某个元素可能覆盖了另一个元素或者被另一个元素覆盖。<br>如果一个元素含有层叠上下文，(也就是说它是层叠上下文元素)，我们可以理解为这个元素在Z轴上就“高人一等”，最终表现就是它离屏幕观察者更近。</p>
-<h2 id="层叠等级"><a href="#层叠等级" class="headerlink" title="层叠等级"></a>层叠等级</h2><p>层叠等级(stacking level，叫“层叠级别”/“层叠水平”也行)</p>
-<ul>
-<li><p>在同一个层叠上下文中，它描述定义的是该层叠上下文中的层叠上下文元素在Z轴上的上下顺序。</p>
-</li>
-<li><p>在其他普通元素中，它描述定义的是这些普通元素在Z轴上的上下顺序。</p>
-</li>
-</ul>
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><ol>
-<li><p>普通元素的层叠等级优先由其所在的层叠上下文决定。</p>
-</li>
-<li><p>层叠等级的比较只有在当前层叠上下文元素中才有意义。不同层叠上下文中比较层叠等级是没有意义的。</p>
-</li>
-</ol>
-<p>关键问题，如何产生层叠上下文？</p>
-<p>其实，层叠上下文也基本上是有一些特定的CSS属性创建的，一般有3种方法</p>
-<ul>
-<li>HTML中的根元素本身就具有层叠上下文，称为“根层叠上下文”。</li>
-<li>普通元素设置position属性为非static值并设置z-index属性为具体数值，产生层叠上下文。</li>
-<li>CSS3中的新属性也可以产生层叠上下文。(opacity属性值不是1;元素的transform属性值不是none)</li>
-</ul>
-<p>举个例子：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  div &#123;</span></span><br><span class="line"><span class="undefined">    width: 100px;</span></span><br><span class="line"><span class="undefined">    height: 100px;</span></span><br><span class="line"><span class="undefined">    position: relative;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="css">  <span class="selector-class">.box1</span> &#123;</span></span><br><span class="line"><span class="undefined">    z-index: 2;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="css">  <span class="selector-class">.box2</span> &#123;</span></span><br><span class="line"><span class="undefined">    z-index: 1;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined">  p &#123;</span></span><br><span class="line"><span class="undefined">    position: absolute;</span></span><br><span class="line"><span class="undefined">    font-size: 20px;</span></span><br><span class="line"><span class="undefined">    width: 100px;</span></span><br><span class="line"><span class="undefined">    height: 100px;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="css">  <span class="selector-class">.a</span> &#123;</span></span><br><span class="line"><span class="undefined">    background-color: blue;</span></span><br><span class="line"><span class="undefined">    z-index: 100;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="css">  <span class="selector-class">.b</span> &#123;</span></span><br><span class="line"><span class="undefined">    background-color: green;</span></span><br><span class="line"><span class="undefined">    top: 20px;</span></span><br><span class="line"><span class="undefined">    left: 20px;</span></span><br><span class="line"><span class="undefined">    z-index: 200;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="css">  <span class="selector-class">.c</span> &#123;</span></span><br><span class="line"><span class="undefined">    background-color: red;</span></span><br><span class="line"><span class="undefined">    top: -20px;</span></span><br><span class="line"><span class="undefined">    left: 40px;</span></span><br><span class="line"><span class="undefined">    z-index: 9999;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box1"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"a"</span>&gt;</span>a<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"b"</span>&gt;</span>b<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box2"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"c"</span>&gt;</span>c<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/z-index.png" alt="markdown"></p>
-<p>虽然p.c元素的z-index值为9999，远大于p.a和p.b的z-index值，但是由于p.a、p.b的父元素div.box1产生的层叠上下文的z-index的值为2，p.c的父元素div.box2所产生的层叠上下<br>文的z-index值为1，所以p.c永远在p.a和p.b下面。<br>同时，如果我们只更改p.a和p.b的z-index值，由于这两个元素都在父元素div.box1产生的层叠上下文中，所以，谁的z-index值大，谁在上面。</p>
-<h2 id="层叠顺序"><a href="#层叠顺序" class="headerlink" title="层叠顺序"></a>层叠顺序</h2><p>在不考虑CSS3的情况下，当元素发生层叠时，层叠顺讯遵循下面图·中的规则</p>
-<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/z-indexRules.png" alt="markdown"></p>
-<h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h1><p><a href="https://juejin.im/post/5a4dbe026fb9a0452207ebe6" target="_blank" rel="noopener">什么是BFC?</a><br><a href="https://juejin.im/post/59b73d5bf265da064618731d" target="_blank" rel="noopener">学习 BFC (Block Formatting Context)</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/20/前后端通信方式/手撕Ajax/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/20/前后端通信方式/手撕Ajax/" itemprop="url">手撕Ajax</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-20T20:52:25+08:00">
-                2019-04-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Ajax/" itemprop="url" rel="index">
-                    <span itemprop="name">Ajax</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="实现原生的AJAX通信"><a href="#实现原生的AJAX通信" class="headerlink" title="实现原生的AJAX通信"></a>实现原生的AJAX通信</h1><p>原生ajax请求</p>
-<p>XMLHttpRequest 对象<br>XMLHttpRequest对象是ajax的基础,XMLHttpRequest 用于在后台与服务器交换数据。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。目前所有浏览器都支持XMLHttpRequest。</p>
-<p>onreadystatechange  每次状态改变所触发事件的事件。<br>responseText  从服务器接收到的响应体（不包括头部），或者如果还没有接收到数据的话，就是空字符串。<br>responseXML  对请求的响应，解析为 XML 并作为 Document 对象返回。<br>status  从服务器返回的数字代码，比如常见的404（未找到）和200（已就绪）<br>status Text   请求的 HTTP 的状态代码</p>
-<p>readyState   HTTP 请求的状态.当一个 XMLHttpRequest 初次创建时，这个属性的值从 0 开始，直到接收到完整的 HTTP 响应，这个值增加到 4。</p>
-<ul>
-<li>0 (未初始化) 对象已建立，但是尚未初始化（尚未调用open方法）</li>
-<li>1 (初始化) 对象已建立，尚未调用send方法</li>
-<li>2 (发送数据) send方法已调用，但是当前的状态及http头未知</li>
-<li>3 (数据传送中) 已接收部分数据，因为响应及http头不全，这时通过responseBody和responseText获取部分数据会出现错误</li>
-<li>4 (完成) 数据接收完毕,此时可以通过responseXml和responseText获取完整的回应数据</li>
-</ul>
-<p>手撕原生Ajax完整版代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ajax = <span class="function"><span class="keyword">function</span>(<span class="params">param</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 创建Ajax的核心对象，并且兼容IE低版本浏览器</span></span><br><span class="line">   <span class="keyword">var</span> xhr = XMLHttpRequest ? <span class="keyword">new</span> XMLHttpRequest() : <span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHTTP"</span>);</span><br><span class="line">   <span class="comment">//对传入的值进行前期处理，包括type/url/data，将type值转换为大写</span></span><br><span class="line">   <span class="keyword">var</span> type = (param.type || <span class="string">'get'</span>).toUpperCase();</span><br><span class="line">   <span class="keyword">var</span> url = param.url;</span><br><span class="line">   <span class="keyword">if</span> (!url) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">var</span> data = param.data,</span><br><span class="line">       dataArr = [];</span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">var</span> k <span class="keyword">in</span> data) &#123;</span><br><span class="line">      dataArr.push(k + <span class="string">'='</span> + data[k]);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//为了避免取得的是缓存数据，为其添加一个唯一的id</span></span><br><span class="line">   dataArr.push(<span class="string">'_='</span> + <span class="built_in">Math</span>.random());</span><br><span class="line">   <span class="comment">//get还是post。url处理，open()。send()</span></span><br><span class="line">   <span class="keyword">if</span> (type == <span class="string">'GET'</span>) &#123;</span><br><span class="line">      url = url + <span class="string">'?'</span> + dataArr.join(<span class="string">'&amp;'</span>);</span><br><span class="line">      xhr.open(type, url);</span><br><span class="line">      xhr.send();</span><br><span class="line">   &#125; <span class="keyword">else</span> (type == <span class="string">'POST'</span>) &#123;</span><br><span class="line">     xhr.open(type, url);</span><br><span class="line">     <span class="comment">//像表单一样post数据，使用setRequestHeader来添加头部</span></span><br><span class="line">     xmlhttp.setRequestHeader(<span class="string">"Content-type"</span>, <span class="string">"application/x-www-form-urlencoded"</span>);</span><br><span class="line">     xhr.send(dataArr.join(<span class="string">'&amp;'</span>));</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//接收请求</span></span><br><span class="line">   xhr.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">       <span class="comment">//成功</span></span><br><span class="line">   <span class="keyword">if</span> (xhr.status == <span class="number">200</span> || xhr.status == <span class="number">304</span>) &#123;</span><br><span class="line">      <span class="keyword">var</span> res;</span><br><span class="line">      <span class="keyword">if</span> (param.success &amp;&amp; param.success <span class="keyword">instanceof</span> <span class="built_in">Function</span>) &#123;</span><br><span class="line">          <span class="comment">//获取字符串形式的响应数据</span></span><br><span class="line">         res = xhr.responseText;</span><br><span class="line">         <span class="keyword">if</span> (<span class="keyword">typeof</span> res === <span class="string">'string'</span>) &#123;</span><br><span class="line">             <span class="comment">//把字符串形式转换成JSON形式</span></span><br><span class="line">            res = <span class="built_in">JSON</span>.parse(res);</span><br><span class="line">            param.success.call(xhr, res);</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="comment">//失败</span></span><br><span class="line">			<span class="keyword">if</span>(param.error &amp;&amp; param.error instanceOf <span class="built_in">Function</span>)&#123;</span><br><span class="line">				param.error.call(xhr,res);</span><br><span class="line">			&#125;</span><br><span class="line">	    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>方法的使用：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="comment">//这个是ajax的get跟post请求demo</span></span><br><span class="line">    ajax(&#123;</span><br><span class="line">        type: <span class="string">'post'</span>,</span><br><span class="line">        url: <span class="string">'http://127.0.0.1:3000/ajax'</span>,</span><br><span class="line">        data: &#123;</span><br><span class="line">            name: <span class="string">'jgchen'</span>,</span><br><span class="line">            stuNo: <span class="number">2016130201</span>,</span><br><span class="line">            method: <span class="string">'post'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        success(res) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'POST success:'</span>,res);</span><br><span class="line">        &#125;,</span><br><span class="line">        error(err) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(err);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    ajax(&#123;</span><br><span class="line">        type: <span class="string">'GET'</span>,</span><br><span class="line">        url: <span class="string">'http://127.0.0.1:3000/ajax'</span>,</span><br><span class="line">        data: &#123;</span><br><span class="line">            name: <span class="string">'jgchen'</span>,</span><br><span class="line">            stuNo: <span class="number">2016130201</span>,</span><br><span class="line">            method: <span class="string">'get'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        success(res) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'GET success:'</span>,res);</span><br><span class="line">        &#125;,</span><br><span class="line">        error(err) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(err);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>get请求</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//步骤一:创建异步对象</span></span><br><span class="line">    <span class="keyword">var</span> ajax = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"><span class="comment">//步骤二:设置请求的url参数,参数一是请求的类型,参数二是请求的url,可以带参数,动态的传递参数starName到服务端</span></span><br><span class="line">    ajax.open(<span class="string">'get'</span>,<span class="string">'getStar.php?starName='</span>+name);</span><br><span class="line"><span class="comment">//步骤三:发送请求</span></span><br><span class="line">    ajax.send();</span><br><span class="line"><span class="comment">//步骤四:注册事件 onreadystatechange 状态改变就会调用</span></span><br><span class="line">    ajax.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (ajax.readyState==<span class="number">4</span> &amp;&amp;ajax.status==<span class="number">200</span>) &#123;</span><br><span class="line">    <span class="comment">//步骤五 如果能够进到这个判断 说明 数据 完美的回来了,并且请求的页面是存在的</span></span><br><span class="line">　　　　<span class="built_in">console</span>.log(ajax.responseText);<span class="comment">//输入相应的内容</span></span><br><span class="line">  　　    &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>post请求</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建异步对象  </span></span><br><span class="line">    <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"><span class="comment">//设置请求的类型及url，必须要先open才能继续下一步</span></span><br><span class="line">	xhr.open(<span class="string">'post'</span>, <span class="string">'02.post.php'</span> );</span><br><span class="line"><span class="comment">//post请求一定要添加请求头才行不然会报错</span></span><br><span class="line">	xhr.setRequestHeader(<span class="string">"Content-type"</span>,<span class="string">"application/x-www-form-urlencoded"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//发送请求</span></span><br><span class="line">	xhr.send(<span class="string">'name=fox&amp;age=18'</span>);</span><br><span class="line">	xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 这步为判断服务器是否正确响应</span></span><br><span class="line">    <span class="keyword">if</span> (xhr.readyState == <span class="number">4</span> &amp;&amp; xhr.status == <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(xhr.responseText);</span><br><span class="line">      &#125; </span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure>
-<p>参考文章：<br><a href="https://juejin.im/post/5d007134e51d45590a445b23" target="_blank" rel="noopener">终于明白如何去写原生AJAX</a><br><a href="https://segmentfault.com/a/1190000006669043" target="_blank" rel="noopener">聊聊Ajax那些事</a> </p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2414,7 +2185,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
