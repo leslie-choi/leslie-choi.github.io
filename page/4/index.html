@@ -675,7 +675,9 @@
 <li>通过网络缓存提升页面访问速度，达到渐进式的页面甚至离线访问，提升用户体验</li>
 <li>实现类似app的推送功能，生成系统通知推送给用户</li>
 </ul>
-<p>service worker是实现PWA的核心，service worker是一个独立的浏览器线程，不会对当前程序的执行线程造成阻塞，通过service worker可以实现页面离线访问、用户消息推送等功能。<br>使用 Service Worker的话，传输协议必须为 HTTPS。因为 Service Worker 中涉及到请求拦截，所以必须使用 HTTPS 协议来保障安全。</p>
+<p>service worker是实现PWA的核心，service worker是一个独立的浏览器线程，不会对当前程序的执行线程造成阻塞，通过service worker可以实现页面离线访问、用户消息推送等功能。</p>
+<p>Service Worker实际上是浏览器和服务器之间的代理服务器，它最大的特点是在页面中注册并安装成功后，运行于浏览器后台，不受页面刷新的影响，可以监听和截拦作用域范围内所有页面的 HTTP 请求。目的在于离线缓存，转发请求和网络代理。</p>
+<p>使用 Service Worker的话，传输协议必须为 HTTPS。因为 Service Worker 中涉及到请求拦截，所以必须使用 HTTPS 协议来保障安全。</p>
 <p>Service Worker 实现缓存功能一般分为三个步骤：</p>
 <ul>
 <li>首先需要先注册 Service Worker</li>

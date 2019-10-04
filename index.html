@@ -887,7 +887,7 @@
 </ol>
 <p>优点：</p>
 <ul>
-<li><p>保证性能下限: 虚拟DOM可以经过diff找出最小差异,然后批量进行patch,这种操作虽然比不上手动优化,但是比起粗暴的DOM操作性能要好很多,因此框架的虚拟 DOM至少可以保证在你不需要手动优化的情况下，依然可以提供还不错的性能，即保证性能的下限；</p>
+<li><p>保证性能下限: 虚拟DOM可以经过diff找出最小差异,然后批量进行patch,这种操作虽然比不上手动优化,但是比起粗暴的DOM操作性能要好很多,因此框架的虚拟 DOM至少可以保证在你不需要手动优化的情况下，依然可以提供还不错的性能，即保证性能的下限；真实DOM的操作，一般都会对某块元素的整体重新渲染,采用虚拟DOM的话，当数据变化的时候，只需要局部刷新变化的位置就好了。</p>
 </li>
 <li><p>无需手动操作DOM: 我们不再需要手动去操作 DOM，只需要写好 View-Model 的代码逻辑，框架会根据虚拟 DOM 和 数据双向绑定，极大提高开发效率</p>
 </li>
@@ -1041,7 +1041,7 @@
 <h1 id="Vue框架怎么实现对象和数组的监听（源码）"><a href="#Vue框架怎么实现对象和数组的监听（源码）" class="headerlink" title="Vue框架怎么实现对象和数组的监听（源码）"></a>Vue框架怎么实现对象和数组的监听（源码）</h1><p>如果被问到 Vue 怎么实现数据双向绑定，大家肯定都会回答 通过 Object.defineProperty() 对数据进行劫持，但是  Object.defineProperty() 只能对属性进行数据劫持，不能对整个对象进行劫持，同理无法对数组进行劫持，但是我们在使用 Vue 框架中都知道，Vue 能检测到对象和数组（部分方法的操作）的变化，那它是怎么实现的呢？我们查看相关代码如下：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Observe a list of Array items.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">observeArray (items: <span class="built_in">Array</span>&lt;any&gt;) &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, l = items.length; i &lt; l; i++) &#123;</span><br><span class="line">    observe(items[i])  <span class="comment">// observe 功能为监测数据的变化</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 对属性进行递归遍历</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">let</span> childOb = !shallow &amp;&amp; observe(val) <span class="comment">// observe 功能为监测数据的变化</span></span><br></pre></td></tr></table></figure>
 <p>通过以上 Vue 源码部分查看，我们就能知道 Vue 框架是<strong>通过遍历数组 和递归遍历对象</strong>，从而达到利用 Object.defineProperty() 也能对对象和数组（部分方法的操作）进行监听。</p>
-<h1 id="Vue-中的-key-有什么作用？"><a href="#Vue-中的-key-有什么作用？" class="headerlink" title="Vue 中的 key 有什么作用？"></a>Vue 中的 key 有什么作用？</h1><p><strong>key 是为 Vue 中 vnode 的唯一标记，通过这个 key，我们的 diff 操作可以更准确、更快速。没有设置key时，有些节点不会复用，而是直接创建新的，删除旧的。</strong></p>
+<h1 id="Vue-中的-key-有什么作用？"><a href="#Vue-中的-key-有什么作用？" class="headerlink" title="Vue 中的 key 有什么作用？"></a>Vue 中的 key 有什么作用？</h1><p><strong>key 是为 Vue 中 vnode 的唯一标记，通过这个 key，我们的 diff 操作可以更准确、更快速。没有设置key时，有些节点不会复用，而是直接创建新的，删除旧的。</strong>可以用于 diff 中 sameVnode 算法的判断。</p>
 <p>首先讲一下diff算法的处理方法，对操作前后的dom树同一层的节点进行对比，一层一层对比，如下图：</p>
 <p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/key1.png" alt="markdown"></p>
 <p>当某一层有很多相同的节点时，也就是列表节点时，Diff算法的更新过程默认情况下也是遵循以上原则。</p>
@@ -1052,17 +1052,27 @@
 <p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/key4.png" alt="markdown"></p>
 <p><strong>准确: 如果不加key,那么vue会选择复用节点(Vue的就地更新策略),导致之前节点的状态被保留下来,会产生一系列的bug</strong></p>
 <p><strong>快速: key的唯一性可以被Map数据结构充分利用,相比于遍历查找的时间复杂度O(n),Map的时间复杂度仅仅为O(1)</strong></p>
+<p>在以下例子中做动态改变的时候，尽量不要使用 index 作为循环的 key，如果你用 index 作为 key，比如在删除第二项的时候，index 就会从 0，1，2 变为 0，1（而不是 0，2），那么仍有可能引起更新错误<br>diff算法默认使用“就地复用”的策略，是一个首尾交叉对比的过程<br>用index作为key和不加key是一样的，都采用“就地复用”的策略，所以不推荐使用index作为key，因为增加删除某一个项可能会导致其他index动态变化，那么有可能引起更新错误,所以必须要用唯一的键值表示key</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span> key:0 ，id:201401,name:chen<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span> key:1 , id:201402,name:sun<span class="tag">&lt;/<span class="name">li</span>&gt;</span>    <span class="comment">&lt;!--如果我们要在中间插入一条数组&#123;id:201404,name:zhou&#125;--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span> key:2 , id:201403,name:wang<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>key:0 ，id:201401,name:  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>key:1 ，id:201404,name:wang  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>key:2 , id:201402,name:sun  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>key:3 , id:201403,name:wang  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>当我们在中间插入新元素的时候 新元素的key值理所应当变成了index=1，key值也就变成了1 而原本index==1的li元素的index就变成了2，原本index==2的元素key值就变成了3 。<br>这样就导致虚拟dom的diff算法在做比较的时候发现，key值为1，2，3的元素和原来的key值为1，2，3的元素对比的时候发现二者不一样，<strong>diff算法就会重新渲染这三个元素</strong>，原本key值为1，2的元素内容没有发生变化，但是因为key值使用的是index所以还需要重新渲染，这就失去了虚拟dom在性能上的优势</p>
 <h1 id="Vue中的diff算法"><a href="#Vue中的diff算法" class="headerlink" title="Vue中的diff算法"></a>Vue中的diff算法</h1><p>vue和react的虚拟DOM的Diff算法大致相同，其核心是基于两个简单的假设：</p>
 <ol>
 <li>两个相同的组件产生类似的DOM结构，不同的组件产生不同的DOM结构。</li>
 <li>同一层级的一组节点，他们可以通过唯一的id进行区分。</li>
 </ol>
-<p>基于以上这两点假设，使得虚拟DOM的Diff算法的复杂度从O(n^3)降到了O(n)</p>
+<p>基于以上这两点假设，使得虚拟DOM的Diff算法的复杂度从O(n^3)降到了O(n)<br>使用传统的 Diff 算法通过循环递归遍历节点进行对比，其复杂度要达到O(n^3)，其中 n 是节点总数，效率十分低下</p>
+<p>优化后的算法：</p>
+<ul>
+<li>Tree Diff（层级的比较）</li>
+<li>Component Diff（组件的比较）</li>
+<li>Element Diff（元素/节点的比较）</li>
+</ul>
 <p>Vue中的diff算法，就是用来比较虚拟DOM和需要渲染的真实DOM之间的差异。所以下面这张图可以很好的解释这个过程。<strong>比较只会在同个层级之间进行，不会跨层级比较</strong></p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 之前 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>           <span class="comment">&lt;!-- 层级1 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>            <span class="comment">&lt;!-- 层级2 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">b</span>&gt;</span> aoy <span class="tag">&lt;/<span class="name">b</span>&gt;</span>   <span class="comment">&lt;!-- 层级3 --&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>diff<span class="tag">&lt;/<span class="name">Span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">P</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 之后 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>            <span class="comment">&lt;!-- 层级1 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>             <span class="comment">&lt;!-- 层级2 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">b</span>&gt;</span> aoy <span class="tag">&lt;/<span class="name">b</span>&gt;</span>        <span class="comment">&lt;!-- 层级3 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>&gt;</span>diff<span class="tag">&lt;/<span class="name">Span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>最理想的就是将<span>直接移动到<p>的后边，这是最优的操作。但是实际的diff操作是移除</p><p>里的<span>，然后再创建一个新的<span>插到<p>的后边。<br>因为新加的<span>在层级2，旧的在层级3，属于不同层级的比较。</span></p>
 <p>diff算法的过程其实就是调用patch函数，就像是打补丁一样修改真实DOM。<br>patch函数有两个参数，vnode和oldVnode，也就是新旧两个虚拟节点。</p>
-<h2 id="sameVnode"><a href="#sameVnode" class="headerlink" title="sameVnode"></a><strong>sameVnode</strong></h2><p>在这之前，我们先了解完整的vnode都有什么属性，举个一个简单的例子:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// body下的 &lt;div id="v" class="classA"&gt;&lt;div&gt; 对应的 oldVnode 就是</span></span><br><span class="line">&#123;</span><br><span class="line">  el:  div  <span class="comment">//对真实的节点的引用，本例中就是document.querySelector('#id.classA')</span></span><br><span class="line">  tagName: <span class="string">'DIV'</span>,   <span class="comment">//节点的标签</span></span><br><span class="line">  sel: <span class="string">'div#v.classA'</span>  <span class="comment">//节点的选择器</span></span><br><span class="line">  data: <span class="literal">null</span>,       <span class="comment">// 一个存储节点属性的对象，对应节点的el[prop]属性，例如onclick , style</span></span><br><span class="line">  children: [], <span class="comment">//存储子节点的数组，每个子节点也是vnode结构</span></span><br><span class="line">  text: <span class="literal">null</span>,    <span class="comment">//如果是文本节点，对应文本节点的textContent，否则为null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="sameVnode"><a href="#sameVnode" class="headerlink" title="sameVnode"></a><strong>sameVnode</strong></h2><p>在这之前，我们先了解完整的vnode都有什么属性，举个一个简单的例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// body下的 &lt;div id="v" class="classA"&gt;&lt;div&gt; 对应的 oldVnode 就是</span></span><br><span class="line">&#123;</span><br><span class="line">  el:  div  <span class="comment">//对真实的节点的引用，本例中就是document.querySelector('#id.classA')</span></span><br><span class="line">  tagName: <span class="string">'DIV'</span>,   <span class="comment">//节点的标签</span></span><br><span class="line">  sel: <span class="string">'div#v.classA'</span>  <span class="comment">//节点的选择器</span></span><br><span class="line">  data: <span class="literal">null</span>,       <span class="comment">// 一个存储节点属性的对象，对应节点的el[prop]属性，例如onclick , style</span></span><br><span class="line">  children: [], <span class="comment">//存储子节点的数组，每个子节点也是vnode结构</span></span><br><span class="line">  text: <span class="literal">null</span>,    <span class="comment">//如果是文本节点，对应文本节点的textContent，否则为null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>来到patch的第一部分，sameVnode函数就是看这两个节点是否值得比较：<br>判断两个Vnode节点是否是同一个节点，需要满足下面的条件</p>
 <ul>
 <li>key相同</li>
@@ -1585,7 +1595,7 @@
         
           
             <p>我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。</p>
-<h1 id="一、资源压缩合并，减少HTTP请求"><a href="#一、资源压缩合并，减少HTTP请求" class="headerlink" title="一、资源压缩合并，减少HTTP请求"></a>一、资源压缩合并，减少HTTP请求</h1><p>比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。</p>
+<h1 id="一、资源压缩合并，减少HTTP请求"><a href="#一、资源压缩合并，减少HTTP请求" class="headerlink" title="一、资源压缩合并，减少HTTP请求"></a>一、资源压缩合并，减少HTTP请求</h1><p>比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。使用雪碧图、base64格式的图片等等。</p>
 <h1 id="二、非核心代码异步加载"><a href="#二、非核心代码异步加载" class="headerlink" title="二、非核心代码异步加载"></a>二、非核心代码异步加载</h1><p>通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。在页面渲染的这样一个过程中，有一个关键点是如果在解析内容的过程中遇到了脚本标签，如：<script src="example.js"></script>，浏览器就会暂停内容的解析，转而开始下载脚本。并且只有等脚本下载完并执行结束后，渲染引擎才会继续解析。那么这样一来，页面显示的时间必然会被延长。因此我们需要优化的点就是尽可能地让页面更早地被渲染出来。要解决上面说到的脚本加载问题，通常有三种解决方案：将脚本放在HTML末尾、动态加载脚本以及异步加载脚本。</p>
 <ol>
 <li>异步加载的方式：</li>
@@ -1674,7 +1684,7 @@
 <li>减少对DOM查询，对DOM查询做缓存</li>
 <li>减少DOM操作，多个操作尽量合并在一起执行</li>
 </ul>
-<h1 id="八、事件节流"><a href="#八、事件节流" class="headerlink" title="八、事件节流"></a>八、事件节流</h1><h1 id="九、使用DOMContentLoaded，尽早执行操作"><a href="#九、使用DOMContentLoaded，尽早执行操作" class="headerlink" title="九、使用DOMContentLoaded，尽早执行操作"></a>九、使用DOMContentLoaded，尽早执行操作</h1><p>相比window.oonload，需要页面的全部资源加载完成才会执行，包括了图片还有视频等等<br>而DOMContentLoaded，只要DOM渲染完成即可执行，此时的图片和视频可能还没有加载完</p>
+<h1 id="八、事件节流和防抖"><a href="#八、事件节流和防抖" class="headerlink" title="八、事件节流和防抖"></a>八、事件节流和防抖</h1><h1 id="九、使用DOMContentLoaded，尽早执行操作"><a href="#九、使用DOMContentLoaded，尽早执行操作" class="headerlink" title="九、使用DOMContentLoaded，尽早执行操作"></a>九、使用DOMContentLoaded，尽早执行操作</h1><p>相比window.oonload，需要页面的全部资源加载完成才会执行，包括了图片还有视频等等<br>而DOMContentLoaded，只要DOM渲染完成即可执行，此时的图片和视频可能还没有加载完</p>
 <h1 id="十、减少对DOM的操作"><a href="#十、减少对DOM的操作" class="headerlink" title="十、减少对DOM的操作"></a>十、减少对DOM的操作</h1><ul>
 <li><p>缓存DOM查询</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 未缓存 DOM 查询</span></span><br><span class="line">    <span class="keyword">var</span> i</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="built_in">document</span>.getElementsByTagName(<span class="string">'p'</span>).length;i++)&#123;</span><br><span class="line">        <span class="comment">//todo</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//缓存 DOM 查询   使用一个变量接收查询到的DOM</span></span><br><span class="line">    <span class="keyword">var</span> pList = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'p'</span>)</span><br><span class="line">    <span class="keyword">var</span> i</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; pList.length;i++)&#123;</span><br><span class="line">        <span class="comment">//todo</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
@@ -1683,6 +1693,16 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">element.style.borderColor = <span class="string">'#f00'</span>;</span><br><span class="line">element.style.borderStyle = <span class="string">'solid'</span>;</span><br><span class="line">element.style.borderWidth = <span class="string">'1px'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 优化</span></span><br><span class="line">element.style.cssText += <span class="string">'border: 1px solid #f00;'</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<p>减少对DOM的操作，是为了减少重排和重绘。</p>
+<p>重排会占用CPU，dom元素位置计算会消耗CPU的算力，所以应该尽量减少CPU的占用，使电脑不卡顿。<br>重绘会占用GPU，渲染页面时会消耗GPU的算力。</p>
+<p>GPU的分类：</p>
+<ul>
+<li><p>家用GPU<br>适合做贴图、特效、光影等效果。不适合画图形。</p>
+</li>
+<li><p>专业GPU<br>适合画图形。不适合做贴图、特效、光影等效果。</p>
+</li>
+</ul>
+<p>DOM操作基本就是画图形的，但浏览器中用的就是家用GPU，其画图形耗费的性能是专业GPU的几十倍。所以不提倡频繁用装有家用GPU的浏览器绘制页面。也就是不提倡频繁触发重绘。</p>
 <p>参考文章：</p>
 <p><a href="https://www.jianshu.com/p/54cc04190252" target="_blank" rel="noopener">深入理解浏览器的缓存机制</a><br><a href="https://juejin.im/post/59a50dc1f265da246e6e108f" target="_blank" rel="noopener">web前端资源文件的部署和优化</a><br><a href="https://juejin.im/post/59b73ef75188253db70acdb5" target="_blank" rel="noopener">前端性能优化之加载技术</a></p>
 
@@ -1872,6 +1892,8 @@
 <li>不要在布局信息改变的时候做DOM查询</li>
 <li>动画元素脱离文档流，减少回流的Render Tree的规模</li>
 </ul>
+<p>PS：为什么操作DOM非常昂贵？</p>
+<p><strong>操作DOM会导致重排和重绘，重排会占用、消耗CPU; 重绘会占用、消耗GPU。操作频繁会使得电脑卡顿</strong></p>
 <h1 id="输入URL到浏览器显示页面发生了什么"><a href="#输入URL到浏览器显示页面发生了什么" class="headerlink" title="输入URL到浏览器显示页面发生了什么"></a>输入URL到浏览器显示页面发生了什么</h1><ol>
 <li>输入网址github.com</li>
 <li>DNS查找域名的IP地址<br>DNS 的作用就是通过域名查询到具体的 IP。</li>
@@ -1932,12 +1954,13 @@
 <p>Chrome 把插件进程和渲染进程锁在沙箱里面，这样即使在渲染进程或者插件进程里面执行了恶意程序，恶意程序也无法突破沙箱去获取系统权限</p>
 <h1 id="webWorker实现多线程"><a href="#webWorker实现多线程" class="headerlink" title="webWorker实现多线程"></a>webWorker实现多线程</h1><p>Web Worker 是HTML5标准的一部分，这一规范定义了一套 API，它允许一段JavaScript程序运行在主线程之外的另外一个线程中。工作线程允许开发人员编写能够长时间运行而不被用户所中断的后台程序， 去执行事务或者逻辑，并同时保证页面对用户的及时响应，可以将一些大量计算的代码交给web worker运行而不冻结用户界面，web worker 就是为了解决这种花费大量时间的复杂运算而诞生的！</p>
 <ul>
-<li><p>创建Worker时，JS引擎向浏览器申请开一个子线程（子线程是浏览器开的，完全受主线程控制，而且不能操作DOM）</p>
+<li><p>允许主线程创建 Worker 线程，将一些任务分配给后者运行。在主线程运行的同时，Worker 线程在后台运行，两者互不干扰。等到 Worker 线程完成计算任务（子线程是浏览器开的，完全受主线程控制，而且不能操作DOM）</p>
 </li>
 <li><p>JS引擎线程与worker线程间通过特定的方式通信（postMessage API，需要通过序列化对象来与线程交互特定的数据）</p>
 </li>
 </ul>
-<p>所以，如果有非常耗时的工作，请单独开一个Worker线程，这样里面不管如何翻天覆地都不会影响JS引擎主线程，<br>只待计算出结果后，将结果通信给主线程即可。<br>而且注意下，JS引擎是单线程的，这一点的本质仍然未改变，Worker可以理解是浏览器给JS引擎开的外挂，专门用来解决那些大量计算问题。</p>
+<p>所以，如果有非常耗时的工作，请单独开一个Worker线程，这样里面不管如何翻天覆地都不会影响JS引擎主线程，<br>只待计算出结果后，将结果返回给主线程即可。<br>而且注意下，JS引擎是单线程的，这一点的本质仍然未改变，Worker可以理解是浏览器给JS引擎开的外挂，专门用来解决那些大量计算问题。</p>
+<p>Worker 线程一旦新建成功，就会始终运行，不会被主线程上的活动（比如用户点击按钮、提交表单）打断。这样有利于随时响应主线程的通信。但是，这也造成了 Worker 比较耗费资源，不应该过度使用，而且一旦使用完毕，就应该关闭。</p>
 <h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h1><p><a href="https://juejin.im/post/5d765572e51d45621320318e" target="_blank" rel="noopener">现代浏览器工作原理（一）——浏览器进程</a></p>
 
           
