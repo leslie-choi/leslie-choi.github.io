@@ -323,7 +323,7 @@
         
           
             <h1 id="跨域问题"><a href="#跨域问题" class="headerlink" title="跨域问题"></a>跨域问题</h1><p>跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。<br>同源策略限制了以下行为：</p>
-<p>Cookie、LocalStorage 和 IndexDB 无法读取<br>DOM 和 JS 对象无法获取<br>Ajax请求发送不出去。</p>
+<p>Cookie、LocalStorage 和 IndexDB 无法读取<br>DOM 和 JS 对象无法获取<br>Ajax请求发送后结果被浏览器拦截</p>
 <p><strong>所谓的同源是指，域名、协议、端口均为相同，主要对XHR的一个主要约束。其实主要是用来防止 CSRF 攻击的。</strong></p>
 <p><a href="http://www.nealyang.cn/index.html" target="_blank" rel="noopener">http://www.nealyang.cn/index.html</a> 调用   <a href="http://www.nealyang.cn/server.php" target="_blank" rel="noopener">http://www.nealyang.cn/server.php</a>  非跨域</p>
 <p><a href="http://www.nealyang.cn/index.html" target="_blank" rel="noopener">http://www.nealyang.cn/index.html</a> 调用   <a href="http://www.neal.cn/server.php" target="_blank" rel="noopener">http://www.neal.cn/server.php</a>  跨域,主域不同</p>
@@ -337,20 +337,29 @@
 </li>
 <li><p>无法用js获取非同源的DOM<br>如果没有这一条，恶意网站可以通过iframe打开银行页面，可以获取dom就相当于可以获取整个银行页面的信息。</p>
 </li>
-<li><p>无法用js发送非同源的AJAX请求 。</p>
+<li><p>无法用js发送非同源的AJAX请求</p>
 </li>
 </ul>
+<h2 id="为什么要有同源策略？"><a href="#为什么要有同源策略？" class="headerlink" title="为什么要有同源策略？"></a>为什么要有同源策略？</h2><ol>
+<li>为什么要限制不同源发请求？假设用户登陆了bank.com，同时打开了evil.com，如果没有任何限制，evil.com可以向bank.com请求到任何信息，进而就可以在evil.com向bank.com发转账请求等。</li>
+</ol>
+<p>如果这样，为什么不直接限制写，只限制读？因为如果连请求都发不出去了，那就不能做跨域资源共享了，无法读取返回结果，evil.com就无法继续下一步的操作，如获取转账请求的一些必要的验证信息。</p>
+<ol start="2">
+<li>为什么限制跨域的DOM读取？</li>
+</ol>
+<p>如果不限制的话，那么很容易就可以伪装其它的网站，如套一个iframe或者通过window.open的方法，从而得到用户的操作和输入，如账户、密码。</p>
 <p><strong>举两个例子。没有同源策略限制的两大危险场景（接口请求和DOM查询）</strong></p>
-<h2 id="a、没有同源策略限制的接口请求"><a href="#a、没有同源策略限制的接口请求" class="headerlink" title="a、没有同源策略限制的接口请求"></a>a、没有同源策略限制的接口请求</h2><ol>
-<li>你准备去清空你的购物车，于是打开了买买买网站<a href="http://www.maimaimai.com，然后登录成功，一看，购物车东西这么少，不行，还得买多点。" target="_blank" rel="noopener">www.maimaimai.com，然后登录成功，一看，购物车东西这么少，不行，还得买多点。</a></li>
-<li>你在看有什么东西买的过程中，你的好基友发给你一个链接<a href="http://www.nidongde.com，一脸yin笑地跟你说：“你懂的”，你毫不犹豫打开了。" target="_blank" rel="noopener">www.nidongde.com，一脸yin笑地跟你说：“你懂的”，你毫不犹豫打开了。</a></li>
-<li>你饶有兴致地浏览着<a href="http://www.nidongde.com，谁知这个网站暗地里做了些不可描述的事情！由于没有同源策略的限制，它向www.maimaimai.com发起了请求！聪明的你一定想到上面的话“服务端验证通过后会在响应头加入Set-Cookie字段，然后下次再发请求的时候，浏览器会自动将cookie附加在HTTP请求的头字段Cookie中”，这样一来，这个不法网站就相当于登录了你的账号，可以为所欲为了！如果这不是一个买买买账号，而是你的银行账号。。。这就造成了一个简单的CSRF攻击，CSRF" target="_blank" rel="noopener">www.nidongde.com，谁知这个网站暗地里做了些不可描述的事情！由于没有同源策略的限制，它向www.maimaimai.com发起了请求！聪明的你一定想到上面的话“服务端验证通过后会在响应头加入Set-Cookie字段，然后下次再发请求的时候，浏览器会自动将cookie附加在HTTP请求的头字段Cookie中”，这样一来，这个不法网站就相当于登录了你的账号，可以为所欲为了！如果这不是一个买买买账号，而是你的银行账号。。。这就造成了一个简单的CSRF攻击，CSRF</a> 攻击是利用用户的登录态发起恶意请求。</li>
+<h2 id="没有同源策略限制的接口请求"><a href="#没有同源策略限制的接口请求" class="headerlink" title="没有同源策略限制的接口请求"></a>没有同源策略限制的接口请求</h2><ol>
+<li>你准备去清空你的购物车，于是打开了买买买网站 <code>www.maimaimai.com</code>，然后登录成功，一看，购物车东西这么少，不行，还得买多点。</li>
+<li>你在看有什么东西买的过程中，你的好基友发给你一个链接 <code>www.nidongde.com</code>，一脸yin笑地跟你说：“你懂的”，你毫不犹豫打开了。</li>
+<li>你饶有兴致地浏览着 <code>www.nidongde.com</code>，谁知这个网站暗地里做了些不可描述的事情！由于没有同源策略的限制，它向 <code>www.maimaimai.com</code>发起了请求！聪明的你一定想到上面的话“服务端验证通过后会在响应头加入Set-Cookie字段，然后下次再发请求的时候，浏览器会自动将cookie附加在HTTP请求的头字段Cookie中”，这样一来，这个不法网站就相当于登录了你的账号，可以为所欲为了！如果这不是一个买买买账号，而是你的银行账号。。。这就造成了一个简单的CSRF攻击，CSRF 攻击是利用用户的登录态发起恶意请求。</li>
 </ol>
-<h2 id="b、没有同源策略的DOM查询"><a href="#b、没有同源策略的DOM查询" class="headerlink" title="b、没有同源策略的DOM查询"></a>b、没有同源策略的DOM查询</h2><ol>
-<li>有一天你刚睡醒，收到一封邮件，说是你的银行账号有风险，赶紧点进<a href="http://www.yinghang.com改密码。你吓尿了，赶紧点进去，还是熟悉的银行登录界面，你果断输入你的账号密码，登录进去看看钱有没有少了。" target="_blank" rel="noopener">www.yinghang.com改密码。你吓尿了，赶紧点进去，还是熟悉的银行登录界面，你果断输入你的账号密码，登录进去看看钱有没有少了。</a><br>​2. 睡眼朦胧的你没看清楚，平时访问的银行网站是<a href="http://www.yinhang.com，而现在访问的是www.yinghang.com，这个钓鱼网站做了什么呢？" target="_blank" rel="noopener">www.yinhang.com，而现在访问的是www.yinghang.com，这个钓鱼网站做了什么呢？</a></li>
+<h2 id="没有同源策略的DOM查询"><a href="#没有同源策略的DOM查询" class="headerlink" title="没有同源策略的DOM查询"></a>没有同源策略的DOM查询</h2><ol>
+<li>有一天你刚睡醒，收到一封邮件，说是你的银行账号有风险，赶紧点进 <code>www.yinghang.com</code>改密码。你吓尿了，赶紧点进去，还是熟悉的银行登录界面，你果断输入你的账号密码，登录进去看看钱有没有少了</li>
 </ol>
+<p>​2. 睡眼朦胧的你没看清楚，平时访问的银行网站是 <code>www.yinhang.com</code>，而现在访问的是 <code>www.yinghang.com</code>，这个钓鱼网站做了什么呢？</p>
 <p>其实就是把别人网站的DOM照搬过来进行伪造，获取用户的信息</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// HTML</span><br><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">name</span>=<span class="string">"yinhang"</span> <span class="attr">src</span>=<span class="string">"www.yinhang.com"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line">// JS</span><br><span class="line">// 由于没有同源策略的限制，钓鱼网站可以直接拿到别的网站的Dom</span><br><span class="line">const iframe = window.frames['yinhang']</span><br><span class="line">const node = iframe.document.getElementById('你输入账号密码的Input')</span><br><span class="line">console.log(`拿到了这个$&#123;node&#125;，我还拿不到你刚刚输入的账号密码吗`)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HTML</span></span><br><span class="line">&lt;iframe name=<span class="string">"yinhang"</span> src=<span class="string">"www.yinhang.com"</span>&gt;&lt;/iframe&gt;</span><br><span class="line"><span class="comment">// JS</span></span><br><span class="line"><span class="comment">// 由于没有同源策略的限制，钓鱼网站可以直接拿到别的网站的Dom</span></span><br><span class="line"><span class="keyword">const</span> iframe = <span class="built_in">window</span>.frames[<span class="string">'yinhang'</span>]</span><br><span class="line"><span class="keyword">const</span> node = iframe.document.getElementById(<span class="string">'你输入账号密码的Input'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`拿到了这个<span class="subst">$&#123;node&#125;</span>，我还拿不到你刚刚输入的账号密码吗`</span>)</span><br></pre></td></tr></table></figure>
 <h2 id="前后端通信的几种方式"><a href="#前后端通信的几种方式" class="headerlink" title="前后端通信的几种方式"></a>前后端通信的几种方式</h2><ol>
 <li>AJAX：同源下面的通信方式</li>
 <li>WebSocket：不受同源策略的限制</li>
@@ -362,13 +371,20 @@
 <li>发送请求</li>
 <li>接收响应数据</li>
 </ol>
-<h2 id="解决跨域问题"><a href="#解决跨域问题" class="headerlink" title="解决跨域问题"></a>解决跨域问题</h2><p>1、jsonp解决跨域</p>
+<h2 id="解决跨域问题"><a href="#解决跨域问题" class="headerlink" title="解决跨域问题"></a>解决跨域问题</h2><ol>
+<li>jsonp解决跨域</li>
+</ol>
 <p>jsonp跨域其实也是JavaScript设计模式中的一种代理模式。由两个部分组成，<strong>回调函数和数据</strong>（数据指的是下面传入回调函数的res）</p>
 <p>在html页面中通过相应的标签（img、script等）从不同域名下加载静态资源文件是被浏览器允许的，所以我们可以通过这个“犯罪漏洞”来进行跨域。一般，我们可以动态的创建script标签，再去请求一个带参网址来实现跨域通信</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原生的实现方式	</span></span><br><span class="line"><span class="keyword">let</span>  script  =  <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span><br><span class="line">script.src  =  <span class="string">'http://www.nealyang.cn/login?username=Nealyang&amp;callback=huidiao'</span>;</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(script);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>  <span class="title">huidiao</span>(<span class="params">res</span>)  </span>&#123;  </span><br><span class="line">    <span class="built_in">console</span>.log(res);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Jquery实现方式</span></span><br><span class="line">$.ajax(&#123;</span><br><span class="line">    url:<span class="string">'http://www.nealyang.cn/login'</span>,</span><br><span class="line">    type:<span class="string">'GET'</span>,</span><br><span class="line">    dataType:<span class="string">'jsonp'</span>,<span class="comment">//请求方式为jsonp</span></span><br><span class="line">    jsonpCallback:<span class="string">'callback'</span>,</span><br><span class="line">    data:&#123;</span><br><span class="line">        <span class="string">"username"</span>:<span class="string">"Nealyang"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>jsonp的最大缺点，就是只能实现get请求</p>
 <p>另外使用script标签元素进行Ajax请求，这意味着允许Web页面<strong>可以执行远程服务器发送过来的任何JavaScript代码，因此对于不信任的服务器，不应该采用该技术</strong>。</p>
-<p>2、<strong>跨域资源共享 CORS—–目前主流的跨域解决方案</strong><br>​    CORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing）。基本 的思想就是让HTTP头部让浏览器与服务器之间进行沟通，从而决定请求或者响应应该成功还是失败。</p>
+<ol start="2">
+<li><strong>跨域资源共享 CORS—–目前主流的跨域解决方案</strong></li>
+</ol>
+<p>CORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing）。<strong>基本 的思想就是让HTTP头部让浏览器与服务器之间进行沟通，从而决定请求或者响应应该成功还是失败。</strong></p>
+<p>只要浏览器检测到响应头带上了CORS，并且允许的源包括了本网站，那么就不会拦截请求响应。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Access-Control-Allow-Metods:GET,PUT,POST,OPTIONS,DELETE,PATCH</span><br><span class="line">Access-Control-Allow-Origin: *</span><br></pre></td></tr></table></figure>
 <p>栗子：浏览器发送一个简单请求的时候，在请求头加个额外的origin头部，其中包含源信息（协议端口和域名），服务器根据这个头部信息决定是否响应。如origin：<a href="http://www.nidongde.net，服务器认为请求可以接收的话，就在Access-Control-Allow-Origin挥发相同的源信息，如果是公共资源，则可以回发&quot;*&quot;。**（最好不要设置为*在移动端会出现" target="_blank" rel="noopener">http://www.nidongde.net，服务器认为请求可以接收的话，就在Access-Control-Allow-Origin挥发相同的源信息，如果是公共资源，则可以回发&quot;*&quot;。**（最好不要设置为*在移动端会出现</a> 预检请求不通过的状况，切记切记切记！）**</p>
 <p>它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。</p>
 <p>CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。IE8+：IE8/9需要使用XDomainRequest对象来支持CORS。整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。</p>
@@ -391,16 +407,25 @@
 <li>Content-Language</li>
 <li>Content-Type (需要注意额外的限制)<br>…<br>也就是说 当你自定义了请求头，浏览器就会先发送预检请求，期望得到想要的Access-Control-Allow-Headers返回头</li>
 </ul>
-<p>3、使用window.postMessage进行跨域</p>
+<ol start="3">
+<li>使用window.postMessage进行跨域</li>
+</ol>
 <p>这是由H5提出来的的API，IE8以上支持这个功能。window.postMessage() 方法可以安全地实现跨源通信。通常，对于两个不同页面的脚本，只有当执行它们的页面位于具有相同的协议（通常为https），端口号（443为https的默认值），以及主机  (两个页面的模数 Document.domain设置为相同的值) 时，这两个脚本才能相互通信。<strong>window.postMessage() 方法提供了一种受控机制来规避此限制，</strong>只要正确的使用，这种方法就很安全。</p>
-<p>4、nginx代理跨域</p>
+<ol start="4">
+<li>nginx代理跨域</li>
+</ol>
 <p>跨域原理： 同源策略是浏览器的安全策略，不是HTTP协议的一部分。服务器端调用HTTP接口只是使用HTTP协议，不会执行JS脚本，不需要同源策略，也就不存在跨越问题。</p>
 <p>实现思路： 通过nginx配置一个代理服务器（域名与domain1相同，端口不同）做跳板机，反向代理访问<br>domain2接口，并且可以顺便修改cookie中domain信息，方便当前域cookie写入，实现跨域登录。</p>
-<p>5、WebSocket</p>
+<ol start="5">
+<li>WebSocket</li>
+</ol>
 <p>WebSocket虽然不受同源策略的限制，但是WebSocket不会专门用来做跨域,而是作为消息推送或者聊天等</p>
-<p>6、document.domain</p>
+<ol start="6">
+<li>document.domain</li>
+</ol>
 <p><strong>该方式只能用于二级域名相同的情况下，比如 a.test.com 和 b.test.com 适用于该方式。</strong></p>
 <p>只需要给页面添加 document.domain = ‘test.com’ 表示二级域名都相同就可以实现跨域</p>
+<p>最后，跨域分为两种，一种是跨域请求，另一种访问跨域的页面，跨域请求可以通过CORS/JSONP等方法进行访问，跨域的页面主要通过postMesssage的方式。由于跨域请求不但能发出去还能带上cookie，所以要规避跨站请求伪造攻击的风险，特别是涉及到钱的那种请求。</p>
 
           
         

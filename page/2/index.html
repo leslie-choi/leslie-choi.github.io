@@ -1054,6 +1054,13 @@
           
             <h1 id="CSRF-跨站点请求伪造-Cross-Site-Request-Forgery"><a href="#CSRF-跨站点请求伪造-Cross-Site-Request-Forgery" class="headerlink" title="CSRF 跨站点请求伪造(Cross Site Request Forgery)"></a>CSRF 跨站点请求伪造(Cross Site Request Forgery)</h1><p>XSS利用站点内的信任用户，而CSRF则通过伪装来自受信任用户的请求来利用受信任的网站。与XSS攻击相比，CSRF攻击往往不大流行（因此对其进行防范的资源也相当稀少）和难以防范，所以被认为比XSS更具危险性。</p>
 <p>CSRF可以这样理解，攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的。比如以你的名义发送邮件、发消息，盗取你的账号，添加系统管理员，甚至于购买商品、虚拟货币转账等等。</p>
+<p>要完成一次CSRF攻击，受害者必须依次完成两个步骤：</p>
+<ul>
+<li><p>登录受信任网站A，并在本地生成Cookie。</p>
+</li>
+<li><p>在不登出A的情况下，访问危险网站B。</p>
+</li>
+</ul>
 <p>举一个简单的CSRF的栗子： </p>
 <ol>
 <li><p>合法用户舍友A成功登录了一个全球知名的公益网站<a href="http://www.po?nhub.com，并且产生cookie返回给浏览器" target="_blank" rel="noopener">www.po?nhub.com，并且产生cookie返回给浏览器</a></p>
@@ -1066,36 +1073,53 @@
 </li>
 </ol>
 <p>这就是一个简单的CSRF攻击，舍友A点开www.你懂的.com网站的时候，携带了公益网站的cookie，而在你懂的网站中，无法显示的图片标签中，执行了一个请求，将舍友A的收藏内容清空，而这个请求正是攻击者所伪造的。</p>
-<h2 id="CSRF防御：防御主要着手于服务端效果更好"><a href="#CSRF防御：防御主要着手于服务端效果更好" class="headerlink" title="CSRF防御：防御主要着手于服务端效果更好"></a>CSRF防御：防御主要着手于服务端效果更好</h2><h2 id="1、验证码"><a href="#1、验证码" class="headerlink" title="1、验证码"></a>1、验证码</h2><p>由于CSRF攻击通常是在用户不知情的情况下发送的请求，所以通过验证码功能，强制用户进行交互，这种方法可以完全杜绝CSRF攻击，但是对于用户的体验性大打折扣，所以只能作为一个辅助的手段。</p>
-<h2 id="2、验证-HTTP-Referer"><a href="#2、验证-HTTP-Referer" class="headerlink" title="2、验证 HTTP Referer"></a>2、验证 HTTP Referer</h2><p>字段根据 HTTP协议，在HTTP头中有一个字段叫 Referer，它记录了HTTP请求的来源地址。在通常情况下，访问一个安全受限页面的请求来自于同一个网站，比如需要访问 <a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory%EF%BC%8C" target="_blank" rel="noopener">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory，</a> 用户必须先登陆 bank.example，然后通过点击页面上的按钮来触发转账事件。这时，该转帐请求的 Referer 值就会是转账按钮所在的页面的 URL，通常是以 bank.example 域名开头的地址。而如果黑客要对银行网站实施 CSRF 攻击，他只能在他自己的网站构造请求，当用户通过黑客的网站发送请求到银行时，该请求的 Referer 是指向黑客自己的网站。因此，要防御 CSRF 攻击，银行网站只需要对于每一个转账请求验证其 Referer 值，如果是以 bank.example 开头的域名，则说明该请求是来自银行网站自己的请求，是合法的。如果 Referer 是其他网站的话，则有可能是黑客的 CSRF 攻击，拒绝该请求。 然而，这种方法并非万无一失。Referer 的值是由浏览器提供的，虽然 HTTP 协议上有明确的要求，但是每个浏览器对于 Referer 的具体实现可能有差别，并不能保证浏览器自身没有安全漏洞。使用验证 Referer 值的方法，就是把安全性都依赖于第三方（即浏览器）来保障，从理论上来讲，这样并不安全。</p>
-<h2 id="3、请求地址中添加-token-并验证"><a href="#3、请求地址中添加-token-并验证" class="headerlink" title="3、请求地址中添加 token 并验证"></a>3、请求地址中添加 token 并验证</h2><p>CSRF 攻击之所以能够成功，是因为黑客可以完全伪造用户的请求，该请求中所有的用户验证信息都是存在于 cookie 中，因此黑客可以在不知道这些验证信息的情况下直接利用用户自己的 cookie 来通过安全验证。要抵御 CSRF，关键在于在请求中放入黑客所不能伪造的信息，并且该信息不存在于 cookie 之中。可以在 HTTP 请求中以参数的形式加入一个随机产生的 token，并在<strong>服务器端建立一个拦截器</strong>来验证这个 token，如果请求中没有 token 或者 token 内容不正确，则认为可能是 CSRF 攻击而拒绝该请求。</p>
+<h2 id="CSRF防御：防御主要着手于服务端效果更好"><a href="#CSRF防御：防御主要着手于服务端效果更好" class="headerlink" title="CSRF防御：防御主要着手于服务端效果更好"></a>CSRF防御：防御主要着手于服务端效果更好</h2><h2 id="验证码"><a href="#验证码" class="headerlink" title="验证码"></a>验证码</h2><p>由于CSRF攻击通常是在用户不知情的情况下发送的请求，所以通过验证码功能，强制用户进行交互，这种方法可以完全杜绝CSRF攻击，但是对于用户的体验性大打折扣，所以只能作为一个辅助的手段。</p>
+<h2 id="验证-HTTP-Referer"><a href="#验证-HTTP-Referer" class="headerlink" title="验证 HTTP Referer"></a>验证 HTTP Referer</h2><p>字段根据 HTTP协议，在HTTP头中有一个字段叫 Referer，它记录了HTTP请求的来源地址。在通常情况下，访问一个安全受限页面的请求来自于同一个网站，比如需要访问 <a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory%EF%BC%8C" target="_blank" rel="noopener">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory，</a> 用户必须先登陆 bank.example，然后通过点击页面上的按钮来触发转账事件。这时，该转帐请求的 Referer 值就会是转账按钮所在的页面的 URL，通常是以 bank.example 域名开头的地址。而如果黑客要对银行网站实施 CSRF 攻击，他只能在他自己的网站构造请求，当用户通过黑客的网站发送请求到银行时，该请求的 Referer 是指向黑客自己的网站。因此，要防御 CSRF 攻击，银行网站只需要对于每一个转账请求验证其 Referer 值，如果是以 bank.example 开头的域名，则说明该请求是来自银行网站自己的请求，是合法的。如果 Referer 是其他网站的话，则有可能是黑客的 CSRF 攻击，拒绝该请求。 然而，这种方法并非万无一失。Referer 的值是由浏览器提供的，虽然 HTTP 协议上有明确的要求，但是每个浏览器对于 Referer 的具体实现可能有差别，并不能保证浏览器自身没有安全漏洞。使用验证 Referer 值的方法，就是把安全性都依赖于第三方（即浏览器）来保障，从理论上来讲，这样并不安全。</p>
+<h2 id="请求地址中添加-token-并验证"><a href="#请求地址中添加-token-并验证" class="headerlink" title="请求地址中添加 token 并验证"></a>请求地址中添加 token 并验证</h2><p>CSRF 攻击之所以能够成功，是因为黑客可以完全伪造用户的请求，该请求中所有的用户验证信息都是存在于 cookie 中，因此黑客可以在不知道这些验证信息的情况下直接利用用户自己的 cookie 来通过安全验证。要抵御 CSRF，关键在于在请求中放入黑客所不能伪造的信息，并且该信息不存在于 cookie 之中。可以在 HTTP 请求中以参数的形式加入一个随机产生的 token，并在<strong>服务器端建立一个拦截器</strong>来验证这个 token，如果请求中没有 token 或者 token 内容不正确，则认为可能是 CSRF 攻击而拒绝该请求。</p>
 <h1 id="XSS攻击"><a href="#XSS攻击" class="headerlink" title="XSS攻击"></a>XSS攻击</h1><p>Cross-Site Scripting（跨站脚本攻击）简称 XSS，是一种代码注入攻击。攻击者通过在目标网站上注入恶意脚本，使之在用户的浏览器上运行。利用这些恶意脚本，攻击者可获取用户的敏感信息如 Cookie、SessionID 等，进而危害数据安全。 为了和 CSS 区分，这里把攻击的第一个字母改成了 X，于是叫做 XSS。</p>
 <p>XSS 的本质是：恶意代码未经过滤，与网站正常的代码混在一起；浏览器无法分辨哪些脚本是可信的，导致恶意脚本被执行。 而由于直接在用户的终端执行，恶意代码能够直接获取用户的信息，或者利用这些信息冒充用户向网站发起攻击者定义的请求。</p>
 <p>根据攻击的来源，XSS 攻击可分为存储型、反射型和 DOM 型三种。</p>
-<h2 id="１、存储型-XSS-的攻击步骤："><a href="#１、存储型-XSS-的攻击步骤：" class="headerlink" title="１、存储型 XSS 的攻击步骤："></a>１、存储型 XSS 的攻击步骤：</h2><p>存储型XSS会把用户输入的数据“存储在服务器端”，这种具有很强的稳定性。 这种攻击常见于带有用户保存数据的网站功能，如论坛发帖、商品评论、用户私信等。 举个栗子：黑客A写下了一篇包含有恶意JavaScript代码的博客文章，文章发表之后，所有访问这篇文章的用户，都会在他们浏览器中执行这段恶意的JavaScript代码，黑客把恶意的脚本保存到服务器端，这种XSS攻击就叫做“存储型 XSS”，也叫作持久型XSS，存在的时间是比较长的。还有个论坛发帖的例子，用户在评论区回复中回复恶意的脚本</p>
+<h2 id="存储型-XSS-的攻击步骤："><a href="#存储型-XSS-的攻击步骤：" class="headerlink" title="存储型 XSS 的攻击步骤："></a>存储型 XSS 的攻击步骤：</h2><p>存储型XSS会把用户输入的数据“存储在服务器端”，这种具有很强的稳定性。 这种攻击常见于带有用户保存数据的网站功能，如论坛发帖、商品评论、用户私信等。 举个栗子：黑客A写下了一篇包含有恶意JavaScript代码的博客文章，文章发表之后，所有访问这篇文章的用户，都会在他们浏览器中执行这段恶意的JavaScript代码，黑客把恶意的脚本保存到服务器端，这种XSS攻击就叫做“存储型 XSS”，也叫作持久型XSS，存在的时间是比较长的。还有个论坛发帖的例子，用户在评论区回复中回复恶意的脚本</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(<span class="string">"papapa"</span>)&lt;<span class="regexp">/script&gt;&gt;</span></span><br></pre></td></tr></table></figure>
 <p>但是服务器没有进行过滤，所以导致了每一位用户加载到这个评论的时候，都会弹出个弹框。</p>
-<h2 id="2、反射型-XSS-的攻击步骤："><a href="#2、反射型-XSS-的攻击步骤：" class="headerlink" title="2、反射型 XSS 的攻击步骤："></a>2、反射型 XSS 的攻击步骤：</h2><p>反射型XSS只是简单地把用户输入的数据“反射”给浏览器。也就是说黑客往往需要诱使用户“点击”一个恶意链接才能攻击成功。所以反射型XSS也叫作“非持久型XSS”。 反射型 XSS 跟存储型 XSS 的区别是：存储型 XSS 的恶意代码存在数据库里，反射型 XSS 的恶意代码存在 URL 里。 由于需要用户主动打开恶意的 URL 才能生效，攻击者往往会结合多种手段诱导用户点击。</p>
+<h2 id="反射型-XSS-的攻击步骤："><a href="#反射型-XSS-的攻击步骤：" class="headerlink" title="反射型 XSS 的攻击步骤："></a>反射型 XSS 的攻击步骤：</h2><p>反射型XSS只是简单地把用户输入的数据“反射”给浏览器。也就是说黑客往往需要诱使用户“点击”一个恶意链接才能攻击成功。所以反射型XSS也叫作“非持久型XSS”。 反射型 XSS 跟存储型 XSS 的区别是：存储型 XSS 的恶意代码存在数据库里，反射型 XSS 的恶意代码存在 URL 里。 由于需要用户主动打开恶意的 URL 才能生效，攻击者往往会结合多种手段诱导用户点击。</p>
 <p>如：<code>www.abc.com/?params=&lt;script&gt;alert(/xss/)&lt;/script&gt;</code>。 </p>
-<h2 id="3、DOM-型-XSS-："><a href="#3、DOM-型-XSS-：" class="headerlink" title="3、DOM 型 XSS ："></a>3、DOM 型 XSS ：</h2><p>主要是通过修改页面中的DOM节点形成的XSS。</p>
+<h2 id="DOM-型-XSS-："><a href="#DOM-型-XSS-：" class="headerlink" title="DOM 型 XSS ："></a>DOM 型 XSS ：</h2><p>主要是通过修改页面中的DOM节点形成的XSS。</p>
 <p>例如页面存在一个input输入框，用户输入之后执行一个函数，函数中使用innerHTML的方法插入了一个a标签，修改了页面 的DOM元素，形成一次DOM型的XSS攻击。</p>
 <p>DOM 型 XSS 跟前两种 XSS 的区别：DOM 型 XSS 攻击中，取出和执行恶意代码由浏览器端完成，属于前端 JavaScript 自身的安全漏洞，而其他两种 XSS 都属于服务端的安全漏洞。dom型XSS也是一种特殊的反射型XSS</p>
 <h2 id="XSS攻击的预防"><a href="#XSS攻击的预防" class="headerlink" title="XSS攻击的预防"></a>XSS攻击的预防</h2><p>XSS的攻击主要有两大因素： 1、攻击者提交恶意代码 2、浏览器执行恶意代码</p>
-<h3 id="1、输入过滤"><a href="#1、输入过滤" class="headerlink" title="1、输入过滤"></a>1、输入过滤</h3><p>通过“防止浏览器执行恶意代码”来防范 XSS。这部分分为两类： a、防止HTML中出现注入 b、对HTML做充分转义。</p>
-<h3 id="2、预防存储型和反射型-XSS-攻击"><a href="#2、预防存储型和反射型-XSS-攻击" class="headerlink" title="2、预防存储型和反射型 XSS 攻击"></a>2、预防存储型和反射型 XSS 攻击</h3><p>存储型和反射型 XSS 都是在服务端取出恶意代码后，插入到响应 HTML 里的，攻击者刻意编写的“数据”被内嵌到“代码”中，被浏览器所执行。 预防这两种漏洞，有两种常见做法：</p>
-<p>a、改成纯前端渲染，把代码和数据分隔开。</p>
-<p>​    1、浏览器先加载一个静态 HTML，此 HTML 中不包含任何跟业务相关的数据。</p>
-<p>​    2、然后浏览器执行 HTML 中的 JavaScript。</p>
-<p>​    3、JavaScript 通过 Ajax 加载业务数据，调用 DOM API 更新到页面上 </p>
-<p>b、对 HTML 做充分转义。。</p>
-<h3 id="3、预防-DOM-型-XSS-攻击"><a href="#3、预防-DOM-型-XSS-攻击" class="headerlink" title="3、预防 DOM 型 XSS 攻击"></a>3、预防 DOM 型 XSS 攻击</h3><p>DOM 型 XSS 攻击，实际上就是网站前端 JavaScript 代码本身不够严谨，把不可信的数据当作代码执行了。</p>
+<h3 id="输入过滤"><a href="#输入过滤" class="headerlink" title="输入过滤"></a>输入过滤</h3><p>通过“防止浏览器执行恶意代码”来防范 XSS。这部分分为两类： a、防止HTML中出现注入 b、对HTML做充分转义。</p>
+<h3 id="预防存储型和反射型-XSS-攻击"><a href="#预防存储型和反射型-XSS-攻击" class="headerlink" title="预防存储型和反射型 XSS 攻击"></a>预防存储型和反射型 XSS 攻击</h3><p>存储型和反射型 XSS 都是在服务端取出恶意代码后，插入到响应 HTML 里的，攻击者刻意编写的“数据”被内嵌到“代码”中，被浏览器所执行。 预防这两种漏洞，有两种常见做法：</p>
+<p><strong>改成纯前端渲染，把代码和数据分隔开</strong></p>
+<ol>
+<li><p>浏览器先加载一个静态 HTML，此 HTML 中不包含任何跟业务相关的数据。</p>
+</li>
+<li><p>然后浏览器执行 HTML 中的 JavaScript。</p>
+</li>
+<li><p>JavaScript 通过 Ajax 加载业务数据，调用 DOM API 更新到页面上 </p>
+</li>
+</ol>
+<p><strong>对 HTML 做充分转义。。</strong></p>
+<h3 id="预防-DOM-型-XSS-攻击"><a href="#预防-DOM-型-XSS-攻击" class="headerlink" title="预防 DOM 型 XSS 攻击"></a>预防 DOM 型 XSS 攻击</h3><p>DOM 型 XSS 攻击，实际上就是网站前端 JavaScript 代码本身不够严谨，把不可信的数据当作代码执行了。</p>
 <p>所以在使用 <strong>.innerHTML、.outerHTML、document.write() </strong>时要特别小心，不要把不可信的数据作为 HTML 插到页面上，而应尽量使用 .textContent、.setAttribute() 等。</p>
-<h3 id="4、其他XSS防范措施"><a href="#4、其他XSS防范措施" class="headerlink" title="4、其他XSS防范措施"></a>4、其他XSS防范措施</h3><p>a、HTTP-only Cookie: 禁止 JavaScript 读取某些敏感 Cookie，攻击者完成 XSS 注入后也无法窃取此 Cookie。<br>b、验证码：防止脚本冒充用户提交危险操作。<br>c、对于不受信任的输入，都应该限定一个合理的长度。虽然无法完全防止 XSS 发生，但可以增加 XSS 攻击的难度。<br>d、Content Security Policy</p>
-<p>1)禁止加载外域代码，防止复杂的攻击逻辑。</p>
-<p>2)禁止外域提交，网站被攻击后，用户的数据不会泄露到外域。</p>
-<p>3)禁止内联脚本执行（规则较严格，目前发现 GitHub 使用）。</p>
-<p>4)禁止未授权的脚本执行（新特性，Google Map 移动版在使用）。</p>
-<p>5)合理使用上报可以及时发现 XSS，利于尽快修复问题。</p>
+<h3 id="其他XSS防范措施"><a href="#其他XSS防范措施" class="headerlink" title="其他XSS防范措施"></a>其他XSS防范措施</h3><ol>
+<li>HTTP-only Cookie: 禁止 JavaScript 读取某些敏感 Cookie，攻击者完成 XSS 注入后也无法窃取此 Cookie。</li>
+<li>验证码：防止脚本冒充用户提交危险操作。</li>
+<li>对于不受信任的输入，都应该限定一个合理的长度。虽然无法完全防止 XSS 发生，但可以增加 XSS 攻击的难度。</li>
+<li>Content Security Policy</li>
+</ol>
+<ul>
+<li><p>禁止加载外域代码，防止复杂的攻击逻辑。</p>
+</li>
+<li><p>禁止外域提交，网站被攻击后，用户的数据不会泄露到外域。</p>
+</li>
+<li><p>禁止内联脚本执行（规则较严格，目前发现 GitHub 使用）。</p>
+</li>
+<li><p>禁止未授权的脚本执行（新特性，Google Map 移动版在使用）。</p>
+</li>
+<li><p>合理使用上报可以及时发现 XSS，利于尽快修复问题。</p>
+</li>
+</ul>
 <h1 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h1><p>简而言之，是在输入的字符串之中注入SQL指令，在设计不良的程序当中忽略了检查，那么这些注入进去的指令就会被数据库服务器误认为是正常的SQL指令而运行，因此遭到破坏或是入侵。</p>
 <p><strong>举个栗子：下面这种情况：我在输入用户账号的时候，在后面加入了一个#号</strong></p>
 <p>这样如果后代的执行 的mysql语句就会是这样：</p>
