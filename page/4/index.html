@@ -349,12 +349,12 @@
 </ol>
 <p>如果不限制的话，那么很容易就可以伪装其它的网站，如套一个iframe或者通过window.open的方法，从而得到用户的操作和输入，如账户、密码。</p>
 <p><strong>举两个例子。没有同源策略限制的两大危险场景（接口请求和DOM查询）</strong></p>
-<h2 id="没有同源策略限制的接口请求"><a href="#没有同源策略限制的接口请求" class="headerlink" title="没有同源策略限制的接口请求"></a>没有同源策略限制的接口请求</h2><ol>
+<h3 id="没有同源策略限制的接口请求"><a href="#没有同源策略限制的接口请求" class="headerlink" title="没有同源策略限制的接口请求"></a>没有同源策略限制的接口请求</h3><ol>
 <li>你准备去清空你的购物车，于是打开了买买买网站 <code>www.maimaimai.com</code>，然后登录成功，一看，购物车东西这么少，不行，还得买多点。</li>
 <li>你在看有什么东西买的过程中，你的好基友发给你一个链接 <code>www.nidongde.com</code>，一脸yin笑地跟你说：“你懂的”，你毫不犹豫打开了。</li>
 <li>你饶有兴致地浏览着 <code>www.nidongde.com</code>，谁知这个网站暗地里做了些不可描述的事情！由于没有同源策略的限制，它向 <code>www.maimaimai.com</code>发起了请求！聪明的你一定想到上面的话“服务端验证通过后会在响应头加入Set-Cookie字段，然后下次再发请求的时候，浏览器会自动将cookie附加在HTTP请求的头字段Cookie中”，这样一来，这个不法网站就相当于登录了你的账号，可以为所欲为了！如果这不是一个买买买账号，而是你的银行账号。。。这就造成了一个简单的CSRF攻击，CSRF 攻击是利用用户的登录态发起恶意请求。</li>
 </ol>
-<h2 id="没有同源策略的DOM查询"><a href="#没有同源策略的DOM查询" class="headerlink" title="没有同源策略的DOM查询"></a>没有同源策略的DOM查询</h2><ol>
+<h3 id="没有同源策略的DOM查询"><a href="#没有同源策略的DOM查询" class="headerlink" title="没有同源策略的DOM查询"></a>没有同源策略的DOM查询</h3><ol>
 <li>有一天你刚睡醒，收到一封邮件，说是你的银行账号有风险，赶紧点进 <code>www.yinghang.com</code>改密码。你吓尿了，赶紧点进去，还是熟悉的银行登录界面，你果断输入你的账号密码，登录进去看看钱有没有少了</li>
 </ol>
 <p>​2. 睡眼朦胧的你没看清楚，平时访问的银行网站是 <code>www.yinhang.com</code>，而现在访问的是 <code>www.yinghang.com</code>，这个钓鱼网站做了什么呢？</p>
