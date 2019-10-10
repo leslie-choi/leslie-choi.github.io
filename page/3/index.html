@@ -568,6 +568,47 @@
 <p>虽然p.c元素的z-index值为9999，远大于p.a和p.b的z-index值，但是由于p.a、p.b的父元素div.box1产生的层叠上下文的z-index的值为2，p.c的父元素div.box2所产生的层叠上下<br>文的z-index值为1，所以p.c永远在p.a和p.b下面。<br>同时，如果我们只更改p.a和p.b的z-index值，由于这两个元素都在父元素div.box1产生的层叠上下文中，所以，谁的z-index值大，谁在上面。</p>
 <h2 id="层叠顺序"><a href="#层叠顺序" class="headerlink" title="层叠顺序"></a>层叠顺序</h2><p>在不考虑CSS3的情况下，当元素发生层叠时，层叠顺讯遵循下面图·中的规则</p>
 <p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/z-indexRules.png" alt="markdown"></p>
+<h1 id="十五、display-none和visibility-hidden以及opacity-0的区别"><a href="#十五、display-none和visibility-hidden以及opacity-0的区别" class="headerlink" title="十五、display:none和visibility:hidden以及opacity:0的区别"></a>十五、display:none和visibility:hidden以及opacity:0的区别</h1><ol>
+<li>空间占据</li>
+</ol>
+<p>display:none隐藏后不占据额外空间，它会产生回流和重绘，而visibility:hidden和opacity:0元素虽然隐藏了，但它们仍然占据着空间，它们俩只会引起页面重绘。</p>
+<ol start="2">
+<li>子元素继承</li>
+</ol>
+<ul>
+<li><p>display:none不会被子元素继承，但是父元素都不在了，子元素自然也就不会显示了</p>
+</li>
+<li><p>visibility:hidden 会被子元素继承，可以通过设置子元素visibility:visible 使子元素显示出来</p>
+</li>
+<li><p>opacity: 0 也会被子元素继承，但是不能通过设置子元素opacity: 0使其重新显示</p>
+</li>
+</ul>
+<ol start="3">
+<li>事件绑定</li>
+</ol>
+<ul>
+<li><p>display:none 的元素都已经不再页面存在了，因此肯定也无法触发它上面绑定的事件</p>
+</li>
+<li><p>visibility:hidden 元素上绑定的事件也无法触发</p>
+</li>
+<li><p>opacity: 0元素上面绑定的事件是可以触发的</p>
+</li>
+</ul>
+<ol start="4">
+<li>过渡动画</li>
+</ol>
+<ul>
+<li><p>transition对于display肯定是无效的</p>
+</li>
+<li><p>transition对于visibility也是无效的</p>
+</li>
+<li><p>transition对于opacity是有效</p>
+</li>
+</ul>
+<h1 id="十六、display的值"><a href="#十六、display的值" class="headerlink" title="十六、display的值"></a>十六、display的值</h1><p>inherit(继承父元素的display的值)        initial(初始值)</p>
+<p>block    inline    none    flex    inline-block    inline-flex        inline-grid        inlie-table</p>
+<p>grid    table    table-cell    table-caption    table-column    table-row    table-column-group    table-footer-group    table-header-group</p>
+<p>等等。。</p>
 <h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h1><p><a href="https://juejin.im/post/5a4dbe026fb9a0452207ebe6" target="_blank" rel="noopener">什么是BFC?</a><br><a href="https://juejin.im/post/59b73d5bf265da064618731d" target="_blank" rel="noopener">学习 BFC (Block Formatting Context)</a></p>
 
           
@@ -2304,7 +2345,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/12/网络/Http协议/" itemprop="url">HTTP</a></h1>
+                <a class="post-title-link" href="/2019/02/12/网络/Http协议/" itemprop="url">HTTP和TCP</a></h1>
         
 
         <div class="post-meta">

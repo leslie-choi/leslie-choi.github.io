@@ -93,7 +93,7 @@
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/tcpip%E5%8D%8F%E8%AE%AE.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/TCPIP%E5%8E%9F%E7%90%86%E5%9B%BE.jpg">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/URL.png">
-<meta property="og:updated_time" content="2019-09-28T17:34:57.536Z">
+<meta property="og:updated_time" content="2019-10-08T16:58:28.884Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见网络知识点">
 <meta name="twitter:description" content="OSI七层协议模型  应用层（Application）：各种应用程序协议，如http、ftp、SMTP等等 表示层（Presentation）：信息的语法语义以及它们的关联，如加密解密、压缩和解压缩等等 会话层（Session）：不同机器上的用户之间建立及管理会话 传输层（Transport）：接受上一层的数据，在必要的时候将数据进行分割，并将数据交给网络层（TCP/UDP） 网络层（Networ">
@@ -451,7 +451,7 @@
 <ul>
 <li><p>对那些一秒内修改特别频繁的文件，使用etag强验证的话，Etag扫描全部文件可能会耗费大量性能,就需要占用服务器cpu资源频繁进行etag的计算，这样可能就不好用了。(该场景适合使用last-modified)</p>
 </li>
-<li><p>只是给代码加上注释，但是服务器实质的内容并没有一点改变，则会导致last-modified重新计算，但是实际并无必要（所以应该使用Etag。）</p>
+<li><p>只是给代码加上注释，但是服务器实质的内容并没有一点改变，如果使用Etag扫描全部文件可能会耗费大量性能，而使用last-modified只要返回最后修改时间即可，所以要根据情况选择方案</p>
 </li>
 <li><p>另外必须要考虑到服务器的时区问题。</p>
 </li>
