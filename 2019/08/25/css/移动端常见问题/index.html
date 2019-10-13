@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="300毫秒延迟的由来和解决方法 300 毫秒延迟的主要原因是解决双击缩放。双击缩放，顾名思义，即用手指在屏幕上快速点击两次，iOS 自带的 Safari 浏览器会将网页缩放至原始比例。 那么这和 300 毫秒延迟有什么联系呢？ 假定这么一个场景。用户在 iOS Safari 里边点击了一个链接。由于用户可以进行双击缩放或者双击滚动的操作，当用户一次点击屏幕之后，浏览器并不能立刻判断用户是确实要打开">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-23T16:52:11.976Z">
+<meta property="og:updated_time" content="2019-10-11T06:53:33.888Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="移动端常见问题">
 <meta name="twitter:description" content="300毫秒延迟的由来和解决方法 300 毫秒延迟的主要原因是解决双击缩放。双击缩放，顾名思义，即用手指在屏幕上快速点击两次，iOS 自带的 Safari 浏览器会将网页缩放至原始比例。 那么这和 300 毫秒延迟有什么联系呢？ 假定这么一个场景。用户在 iOS Safari 里边点击了一个链接。由于用户可以进行双击缩放或者双击滚动的操作，当用户一次点击屏幕之后，浏览器并不能立刻判断用户是确实要打开">
@@ -418,34 +418,35 @@
 <p>无论是压缩后的图片，还是雪碧图，终归还是图片，只要是图片，就还是会占用大量网络传输资源。但是字体图标的出现，却让前端开发者看到了另外一个神奇的世界。</p>
 <p>我最喜欢用的是阿里矢量图标库（网址：<a href="http://www.iconfont.cn/），里面有大量的矢量图资源，而且你只需要像在淘宝采购一样把他们添加至购物车就能把它们带回家，整理完资源后还能自动生成CDN" target="_blank" rel="noopener">http://www.iconfont.cn/），里面有大量的矢量图资源，而且你只需要像在淘宝采购一样把他们添加至购物车就能把它们带回家，整理完资源后还能自动生成CDN</a> 链接，可以说是完美的一条龙服务了。（图片来自官网首页）</p>
 <p>图片能做的很多事情，矢量图都能作，<strong>而且它只是往 HTML 里插入字符和 CSS 样式而已，和图片请求比起来资源占用完全不在一个数量级，</strong>如果你的项目里有小图标，就是用矢量图吧。</p>
-<h1 id="1像素边框问题"><a href="#1像素边框问题" class="headerlink" title="1像素边框问题"></a>1像素边框问题</h1><ol>
-<li><p>物理像素<br>移动设备出厂时，不同设备自带的不同像素，也称硬件像素；</p>
-</li>
-<li><p>逻辑像素<br>即css中像素，和设备屏幕的像素没有必然的关系</p>
-</li>
-<li><p>dpr(devicePixelRatio)设备像素比</p>
-</li>
-</ol>
-<p>dpr = 物理像素/css像素</p>
-<p>这就是为什么移动端css里面写了1px, 实际看起来比1px粗. 其实原因很好理解。因为css中的1px并不等于移动设备的1px，而是变成了2px。一般设计是根据iphone6的dpr = 2标准进行设计的。</p>
+<h1 id="1像素边框问题"><a href="#1像素边框问题" class="headerlink" title="1像素边框问题"></a>1像素边框问题</h1><p><strong>物理像素</strong></p>
+<p>移动设备出厂时，不同设备自带的不同像素，也称硬件像素；</p>
+<p><strong>逻辑像素</strong></p>
+<p>即css中像素，和设备屏幕的像素没有必然的关系</p>
+<p><strong>dpr(devicePixelRatio)设备像素比</strong></p>
+<p>dpr = 物理像素/css像素<br>css像素 = 物理像素/dpr</p>
+<p>为什么移动端CSS里面写了1px，实际上看起来比1px粗；了解设备物理像素和逻辑像素的同学应该很容易理解，其实这两个px的含义其实是不一样的，UI设计师要求的1px是指设备的物理像素1px，而CSS里记录的像素是逻辑像素，它们之间存在一个比例关系，可以用javascript中的window.devicePixelRatio来获取，也可以用媒体查询的-webkit-min-device-pixel-ratio来获取。</p>
+<p>当然，比例多少与设备相关。</p>
+<p>在手机上border无法达到我们想要的效果。这是因为devicePixelRatio特性导致，iPhone的devicePixelRatio==2，而border-width: 1px描述的是设备独立像素，所以，border被放大到物理像素2px显示，在iPhone上就显得较粗。</p>
 <p>解决方法：</p>
-<ul>
-<li><p>使用border-image</p>
-</li>
-<li><p>伪类 + transform</p>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">li&#123;<span class="attr">position</span>: relative;&#125;</span><br><span class="line"></span><br><span class="line">li:after&#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    bottom:<span class="number">0</span>;</span><br><span class="line">    left:<span class="number">0</span>;</span><br><span class="line">    content: <span class="string">''</span>;</span><br><span class="line">    width:<span class="number">100</span>%;</span><br><span class="line">    height:<span class="number">1</span>px;</span><br><span class="line">    border-top:<span class="number">1</span>px solid black;</span><br><span class="line">    transform: scaleY(<span class="number">0.5</span>);<span class="comment">//注意兼容性</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>viewport + rem</li>
-</ul>
-<p>同时通过设置对应viewport的rem基准值，这种方式就可以像以前一样轻松愉快的写1px了。</p>
-<p>在devicePixelRatio = 2 时，输出viewport：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no"</span>&gt;</span><br></pre></td></tr></table></figure>
-<p>在devicePixelRatio = 3 时，输出viewport：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"initial-scale=0.3333333333333333, maximum-scale=0.3333333333333333, minimum-scale=0.3333333333333333, user-scalable=no"</span>&gt;</span><br></pre></td></tr></table></figure>
-<p>这种兼容方案相对比较完美，适合新的项目，老的项目修改成本过大</p>
-<p>使用rem布局时，个人习惯将字体设置为50px(浏览器默认是16px)，这样在换算成rem单位的时候，就可以直接乘以0.2就好了。（50px换算成10rem）</p>
+<ol>
+<li>使用border-image</li>
+</ol>
+<p>缺点：需要再单独制作图片，并且圆角可能出现模糊</p>
+<ol start="2">
+<li>viewport + rem + js方案</li>
+</ol>
+<p>整体思路就是利用viewport + rem + js 动态的修改页面的缩放比例，实现小于1像素的显示。在页面初始化时，在头部引入原始默认状态如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html;charset=UTF-8"</span>&gt;</span>  </span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">id</span>=<span class="string">"WebViewport"</span> <span class="attr">content</span>=<span class="string">"initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>接下来的任务就是js的动态修改缩放比 以及 实现rem根元素字体大小的设置:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> viewport = <span class="built_in">document</span>.querySelector(<span class="string">"meta[name=viewport]"</span>)</span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.devicePixelRatio == <span class="number">1</span>) &#123;</span><br><span class="line">    viewport.setAttribute(<span class="string">'content'</span>, <span class="string">'width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no'</span>)</span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.devicePixelRatio == <span class="number">2</span>) &#123;</span><br><span class="line">    viewport.setAttribute(<span class="string">'content'</span>, <span class="string">'width=device-width, initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no'</span>)</span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.devicePixelRatio == <span class="number">3</span>) &#123;</span><br><span class="line">    viewport.setAttribute(<span class="string">'content'</span>, <span class="string">'width=device-width, initial-scale=0.333333333, maximum-scale=0.333333333, minimum-scale=0.333333333, user-scalable=no'</span>)</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> docEl = <span class="built_in">document</span>.documentElement;</span><br><span class="line"><span class="keyword">var</span> fontsize = <span class="number">10</span> * (docEl.clientWidth / <span class="number">320</span>) + <span class="string">'px'</span>;</span><br><span class="line">docEl.style.fontSize = fontsize;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>媒体查询 + 伪类 + transform（推荐）</li>
+</ol>
+<p>在以上的用法中，无非逃不开一种思想，就是将1px缩小为0.5px来展示，</p>
+<p>然而,0.5px并不是所有的设备或浏览器都支持，就考虑用媒体查询或viewport将其缩放比例。其实1像素问题的产生基本发生在设置边框或分割线的时候，场景并不覆盖全局样式，因此，直接缩放需要设置的元素，才是我们真正需要的。</p>
+<p>tranform就能实现这个需求。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 2倍屏 */</span></span><br><span class="line">@media only screen and (-webkit-min-device-pixel-ratio: <span class="number">2.0</span>) &#123;</span><br><span class="line">    .border-bottom::after &#123;</span><br><span class="line">        -webkit-transform: scaleY(<span class="number">0.5</span>);</span><br><span class="line">        transform: scaleY(<span class="number">0.5</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 3倍屏 */</span></span><br><span class="line">@media only screen and (-webkit-min-device-pixel-ratio: <span class="number">3.0</span>) &#123;</span><br><span class="line">    .border-bottom::after &#123;</span><br><span class="line">        -webkit-transform: scaleY(<span class="number">0.33</span>);</span><br><span class="line">        transform: scaleY(<span class="number">0.33</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>PS：使用rem布局时，个人习惯将字体设置为50px(浏览器默认是16px)，这样在换算成rem单位的时候，就可以直接乘以0.2就好了。（50px换算成10rem）；另外也可以将默认字体设置为62.5%，这样在换算单位的时候，就可以将1rem换算为10px。</p>
 <p><a href="https://juejin.im/post/5bcc169ae51d450e85308d86" target="_blank" rel="noopener">首页白屏的引发的思考(一)</a><br><a href="https://mp.weixin.qq.com/s?__biz=MzUxMzcxMzE5Ng==&amp;mid=2247489586&amp;idx=1&amp;sn=2168d42df837521da50b3ed7f8932698&amp;chksm=f951ad71ce262467728b7940de1a2311c523f264f4ca7e705712bf655a844fab93706cbe1ca3&amp;token=1792152421&amp;lang=zh_CN#rd" target="_blank" rel="noopener">首屏时间从12.67s到1.06s，我是如何做到的？</a></p>
 
       

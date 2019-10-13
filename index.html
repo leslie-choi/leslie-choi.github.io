@@ -418,34 +418,35 @@
 <p>无论是压缩后的图片，还是雪碧图，终归还是图片，只要是图片，就还是会占用大量网络传输资源。但是字体图标的出现，却让前端开发者看到了另外一个神奇的世界。</p>
 <p>我最喜欢用的是阿里矢量图标库（网址：<a href="http://www.iconfont.cn/），里面有大量的矢量图资源，而且你只需要像在淘宝采购一样把他们添加至购物车就能把它们带回家，整理完资源后还能自动生成CDN" target="_blank" rel="noopener">http://www.iconfont.cn/），里面有大量的矢量图资源，而且你只需要像在淘宝采购一样把他们添加至购物车就能把它们带回家，整理完资源后还能自动生成CDN</a> 链接，可以说是完美的一条龙服务了。（图片来自官网首页）</p>
 <p>图片能做的很多事情，矢量图都能作，<strong>而且它只是往 HTML 里插入字符和 CSS 样式而已，和图片请求比起来资源占用完全不在一个数量级，</strong>如果你的项目里有小图标，就是用矢量图吧。</p>
-<h1 id="1像素边框问题"><a href="#1像素边框问题" class="headerlink" title="1像素边框问题"></a>1像素边框问题</h1><ol>
-<li><p>物理像素<br>移动设备出厂时，不同设备自带的不同像素，也称硬件像素；</p>
-</li>
-<li><p>逻辑像素<br>即css中像素，和设备屏幕的像素没有必然的关系</p>
-</li>
-<li><p>dpr(devicePixelRatio)设备像素比</p>
-</li>
-</ol>
-<p>dpr = 物理像素/css像素</p>
-<p>这就是为什么移动端css里面写了1px, 实际看起来比1px粗. 其实原因很好理解。因为css中的1px并不等于移动设备的1px，而是变成了2px。一般设计是根据iphone6的dpr = 2标准进行设计的。</p>
+<h1 id="1像素边框问题"><a href="#1像素边框问题" class="headerlink" title="1像素边框问题"></a>1像素边框问题</h1><p><strong>物理像素</strong></p>
+<p>移动设备出厂时，不同设备自带的不同像素，也称硬件像素；</p>
+<p><strong>逻辑像素</strong></p>
+<p>即css中像素，和设备屏幕的像素没有必然的关系</p>
+<p><strong>dpr(devicePixelRatio)设备像素比</strong></p>
+<p>dpr = 物理像素/css像素<br>css像素 = 物理像素/dpr</p>
+<p>为什么移动端CSS里面写了1px，实际上看起来比1px粗；了解设备物理像素和逻辑像素的同学应该很容易理解，其实这两个px的含义其实是不一样的，UI设计师要求的1px是指设备的物理像素1px，而CSS里记录的像素是逻辑像素，它们之间存在一个比例关系，可以用javascript中的window.devicePixelRatio来获取，也可以用媒体查询的-webkit-min-device-pixel-ratio来获取。</p>
+<p>当然，比例多少与设备相关。</p>
+<p>在手机上border无法达到我们想要的效果。这是因为devicePixelRatio特性导致，iPhone的devicePixelRatio==2，而border-width: 1px描述的是设备独立像素，所以，border被放大到物理像素2px显示，在iPhone上就显得较粗。</p>
 <p>解决方法：</p>
-<ul>
-<li><p>使用border-image</p>
-</li>
-<li><p>伪类 + transform</p>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">li&#123;<span class="attr">position</span>: relative;&#125;</span><br><span class="line"></span><br><span class="line">li:after&#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    bottom:<span class="number">0</span>;</span><br><span class="line">    left:<span class="number">0</span>;</span><br><span class="line">    content: <span class="string">''</span>;</span><br><span class="line">    width:<span class="number">100</span>%;</span><br><span class="line">    height:<span class="number">1</span>px;</span><br><span class="line">    border-top:<span class="number">1</span>px solid black;</span><br><span class="line">    transform: scaleY(<span class="number">0.5</span>);<span class="comment">//注意兼容性</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>viewport + rem</li>
-</ul>
-<p>同时通过设置对应viewport的rem基准值，这种方式就可以像以前一样轻松愉快的写1px了。</p>
-<p>在devicePixelRatio = 2 时，输出viewport：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no"</span>&gt;</span><br></pre></td></tr></table></figure>
-<p>在devicePixelRatio = 3 时，输出viewport：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"initial-scale=0.3333333333333333, maximum-scale=0.3333333333333333, minimum-scale=0.3333333333333333, user-scalable=no"</span>&gt;</span><br></pre></td></tr></table></figure>
-<p>这种兼容方案相对比较完美，适合新的项目，老的项目修改成本过大</p>
-<p>使用rem布局时，个人习惯将字体设置为50px(浏览器默认是16px)，这样在换算成rem单位的时候，就可以直接乘以0.2就好了。（50px换算成10rem）</p>
+<ol>
+<li>使用border-image</li>
+</ol>
+<p>缺点：需要再单独制作图片，并且圆角可能出现模糊</p>
+<ol start="2">
+<li>viewport + rem + js方案</li>
+</ol>
+<p>整体思路就是利用viewport + rem + js 动态的修改页面的缩放比例，实现小于1像素的显示。在页面初始化时，在头部引入原始默认状态如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html;charset=UTF-8"</span>&gt;</span>  </span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">id</span>=<span class="string">"WebViewport"</span> <span class="attr">content</span>=<span class="string">"initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>接下来的任务就是js的动态修改缩放比 以及 实现rem根元素字体大小的设置:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> viewport = <span class="built_in">document</span>.querySelector(<span class="string">"meta[name=viewport]"</span>)</span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.devicePixelRatio == <span class="number">1</span>) &#123;</span><br><span class="line">    viewport.setAttribute(<span class="string">'content'</span>, <span class="string">'width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no'</span>)</span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.devicePixelRatio == <span class="number">2</span>) &#123;</span><br><span class="line">    viewport.setAttribute(<span class="string">'content'</span>, <span class="string">'width=device-width, initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no'</span>)</span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">window</span>.devicePixelRatio == <span class="number">3</span>) &#123;</span><br><span class="line">    viewport.setAttribute(<span class="string">'content'</span>, <span class="string">'width=device-width, initial-scale=0.333333333, maximum-scale=0.333333333, minimum-scale=0.333333333, user-scalable=no'</span>)</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> docEl = <span class="built_in">document</span>.documentElement;</span><br><span class="line"><span class="keyword">var</span> fontsize = <span class="number">10</span> * (docEl.clientWidth / <span class="number">320</span>) + <span class="string">'px'</span>;</span><br><span class="line">docEl.style.fontSize = fontsize;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>媒体查询 + 伪类 + transform（推荐）</li>
+</ol>
+<p>在以上的用法中，无非逃不开一种思想，就是将1px缩小为0.5px来展示，</p>
+<p>然而,0.5px并不是所有的设备或浏览器都支持，就考虑用媒体查询或viewport将其缩放比例。其实1像素问题的产生基本发生在设置边框或分割线的时候，场景并不覆盖全局样式，因此，直接缩放需要设置的元素，才是我们真正需要的。</p>
+<p>tranform就能实现这个需求。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 2倍屏 */</span></span><br><span class="line">@media only screen and (-webkit-min-device-pixel-ratio: <span class="number">2.0</span>) &#123;</span><br><span class="line">    .border-bottom::after &#123;</span><br><span class="line">        -webkit-transform: scaleY(<span class="number">0.5</span>);</span><br><span class="line">        transform: scaleY(<span class="number">0.5</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 3倍屏 */</span></span><br><span class="line">@media only screen and (-webkit-min-device-pixel-ratio: <span class="number">3.0</span>) &#123;</span><br><span class="line">    .border-bottom::after &#123;</span><br><span class="line">        -webkit-transform: scaleY(<span class="number">0.33</span>);</span><br><span class="line">        transform: scaleY(<span class="number">0.33</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>PS：使用rem布局时，个人习惯将字体设置为50px(浏览器默认是16px)，这样在换算成rem单位的时候，就可以直接乘以0.2就好了。（50px换算成10rem）；另外也可以将默认字体设置为62.5%，这样在换算单位的时候，就可以将1rem换算为10px。</p>
 <p><a href="https://juejin.im/post/5bcc169ae51d450e85308d86" target="_blank" rel="noopener">首页白屏的引发的思考(一)</a><br><a href="https://mp.weixin.qq.com/s?__biz=MzUxMzcxMzE5Ng==&amp;mid=2247489586&amp;idx=1&amp;sn=2168d42df837521da50b3ed7f8932698&amp;chksm=f951ad71ce262467728b7940de1a2311c523f264f4ca7e705712bf655a844fab93706cbe1ca3&amp;token=1792152421&amp;lang=zh_CN#rd" target="_blank" rel="noopener">首屏时间从12.67s到1.06s，我是如何做到的？</a></p>
 
           
@@ -798,7 +799,7 @@
 </li>
 <li><p>beforeDestroy：执行该函数的时候，实例身上的所有data和所有的methods以及过滤器、指令等等都处于可用状态，还没有真正执行销毁的过程</p>
 </li>
-<li><p>Destroyed：执行到该函数的时候，组件中的而所有数据、方法、指令过滤器都不可用</p>
+<li><p>执行到该函数的时候，组件中的而所有数据、方法、指令过滤器都不可用</p>
 </li>
 </ol>
 <p>除了以上8个比较常见的生命周期之外，vue其实还有其他3个生命周期</p>
@@ -1069,7 +1070,7 @@
 </ul>
 <p>Vue中的diff算法，就是用来比较虚拟DOM和需要渲染的真实DOM之间的差异。所以下面这张图可以很好的解释这个过程。<strong>比较只会在同个层级之间进行，不会跨层级比较</strong></p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 之前 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>           <span class="comment">&lt;!-- 层级1 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>            <span class="comment">&lt;!-- 层级2 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">b</span>&gt;</span> aoy <span class="tag">&lt;/<span class="name">b</span>&gt;</span>   <span class="comment">&lt;!-- 层级3 --&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>diff<span class="tag">&lt;/<span class="name">Span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">P</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 之后 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>            <span class="comment">&lt;!-- 层级1 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>             <span class="comment">&lt;!-- 层级2 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">b</span>&gt;</span> aoy <span class="tag">&lt;/<span class="name">b</span>&gt;</span>        <span class="comment">&lt;!-- 层级3 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>&gt;</span>diff<span class="tag">&lt;/<span class="name">Span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>最理想的就是将<span>直接移动到<p>的后边，这是最优的操作。但是实际的diff操作是移除</p><p>里的<span>，然后再创建一个新的<span>插到<p>的后边。<br>因为新加的<span>在层级2，旧的在层级3，属于不同层级的比较。</span></p>
+<p>最理想的就是将<code>&lt;span&gt;</code>直接移动到<code>&lt;p&gt;</code>的后边，这是最优的操作。但是实际的diff操作是移除<code>&lt;p&gt;</code>里的<code>&lt;span&gt;</code>，然后再创建一个新的<code>&lt;span&gt;</code>插到<code>&lt;p&gt;</code>的后边。<br>因为新加的<code>&lt;span&gt;</code>在层级2，旧的在层级3，属于不同层级的比较。</p>
 <p>diff算法的过程其实就是调用patch函数，就像是打补丁一样修改真实DOM。<br>patch函数有两个参数，vnode和oldVnode，也就是新旧两个虚拟节点。</p>
 <h2 id="sameVnode"><a href="#sameVnode" class="headerlink" title="sameVnode"></a><strong>sameVnode</strong></h2><p>在这之前，我们先了解完整的vnode都有什么属性，举个一个简单的例子:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// body下的 &lt;div id="v" class="classA"&gt;&lt;div&gt; 对应的 oldVnode 就是</span></span><br><span class="line">&#123;</span><br><span class="line">  el:  div  <span class="comment">//对真实的节点的引用，本例中就是document.querySelector('#id.classA')</span></span><br><span class="line">  tagName: <span class="string">'DIV'</span>,   <span class="comment">//节点的标签</span></span><br><span class="line">  sel: <span class="string">'div#v.classA'</span>  <span class="comment">//节点的选择器</span></span><br><span class="line">  data: <span class="literal">null</span>,       <span class="comment">// 一个存储节点属性的对象，对应节点的el[prop]属性，例如onclick , style</span></span><br><span class="line">  children: [], <span class="comment">//存储子节点的数组，每个子节点也是vnode结构</span></span><br><span class="line">  text: <span class="literal">null</span>,    <span class="comment">//如果是文本节点，对应文本节点的textContent，否则为null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1132,6 +1133,21 @@
 <p>用于对模块源码的转换，loader描述了webpack如何处理非javascript模块，并且在buld中引入这些依赖。loader可以将文件从不同的语言（如TypeScript）转换为JavaScript，SCSS转换为CSS</p>
 <p><strong>plugin：</strong></p>
 <p>对于plugin，它就是一个扩展器，它丰富了wepack本身，针对是loader结束后，webpack打包的整个过程，它并不直接操作文件，<strong>而是直接对整个构建过程起作用。，</strong>不仅局限于资源的加载。</p>
+<h1 id="webpack-实现热更新的原理"><a href="#webpack-实现热更新的原理" class="headerlink" title="webpack 实现热更新的原理"></a>webpack 实现热更新的原理</h1><p>Webpack 热更新（ Hot Module Replacement，简称 HMR，后续均以 HMR 替代），无需完全刷新整个页面的同时，更新所有类型的模块。</p>
+<ol>
+<li><p>Webpack编译期，为需要热更新的 entry 注入热更新代码(EventSource通信，核心是Webpack-hot-middleware 插件的作用，就是提供浏览器和 Webpack 服务器之间的通信机制、且在浏览器端接收 Webpack 服务器端的更新变化。)</p>
+</li>
+<li><p>页面首次打开后，服务端与客户端通过 EventSource 建立通信渠道，把下一次的 hash 返回客户端</p>
+</li>
+<li><p>客户端获取到hash，这个hash将作为下一次请求服务端 hot-update.js 和 hot-update.json的hash</p>
+</li>
+<li><p>修改页面代码后，Webpack 的Complier 类会调用 Watch 方法监听文件变更，当监听到文件修改后，开始编译，编译完成后，发送 build 消息给客户端</p>
+</li>
+<li><p>客户端获取到hash，成功后客户端构造hot-update.js script链接，然后插入主文档</p>
+</li>
+<li><p>hot-update.js 插入成功后，执行hotAPI 的 createRecord 和 reload方法，获取到 Vue 组件的 render方法，重新 render 组件， 继而实现 UI 无刷新更新。</p>
+</li>
+</ol>
 <h1 id="内置的过渡动画"><a href="#内置的过渡动画" class="headerlink" title="内置的过渡动画"></a>内置的过渡动画</h1><ul>
 <li><p>v-enter：定义进入过渡的开始状态。在元素被插入之前生效，在元素被插入之后的下一帧移除。</p>
 </li>
@@ -1193,7 +1209,7 @@
 <p>调用：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 注意： Vue中所有的指令，在调用的时候，都以 v- 开头 --&gt;</span><br><span class="line">&lt;input type=<span class="string">"text"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"form-control"</span> v-model=<span class="string">"keywords"</span> v-focus&gt;</span><br></pre></td></tr></table></figure>
 <h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a><strong>参考文章：</strong></h1><p><a href="https://juejin.im/post/5d59f2a451882549be53b170" target="_blank" rel="noopener">30 道 Vue 面试题，内含详细讲解（涵盖入门到精通，自测 Vue 掌握程度）</a><br><a href="https://github.com/aooy/blog/issues/2" target="_blank" rel="noopener">解析vue2.0的diff算法</a><br><a href="https://github.com/answershuto/learnVue/blob/master/docs/VirtualDOM与diff(Vue实现" target="_blank" rel="noopener">VirtualDOM与diff(Vue实现)</a>)</p>
-</span></span></p></span></p>
+
           
         
       
@@ -1607,7 +1623,7 @@
 <ol start="2">
 <li>异步加载的方式</li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">defer &lt;script src=<span class="string">"defer.js"</span> defer&gt; <span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="keyword">async</span> &lt;script src=<span class="string">"defer.js"</span> <span class="keyword">async</span>&gt; <span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">defer &lt;script src=<span class="string">"defer.js"</span> defer&gt; &lt;/script&gt;</span><br><span class="line"><span class="keyword">async</span> &lt;script src=<span class="string">"defer.js"</span> <span class="keyword">async</span>&gt; &lt;/script&gt;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>defer是在HTML渲染完之后（DOM结构完全生成，以及其他脚本执行完成之后）才会执行，如果是多个，则按照加载的顺序执行，优先级比async高</li>
 <li>async是在下载完脚本之后立即执行，渲染引擎会中断，执行完脚本之后才会继续渲染，如果是多个，执行顺序和加载顺序无关</li>
@@ -1904,14 +1920,14 @@
 </ol>
 <p>因为 IP 存在数字和英文的组合（IPv6），很不利于人类记忆，所以就出现了域名。你可以把域名看成是某个 IP 的别名，DNS 就是去查询这个别名的真正名称是什么。</p>
 <ul>
-<li>请求发起后，游览器首先会解析这个域名，首先它会查看本地硬盘的 hosts 文件，看看其中有没有和这个域名对应的规则，如果有的话就直接使用 hosts 文件里面的 ip 地址。</li>
-<li>如果在本地的 hosts 文件没有能够找到对应的 ip 地址，浏览器会发出一个 DNS请求到本地DNS(域名分布系统)服务器 。本地DNS服务器一般都是你的网络接入服务器商提供，比如中国电信，中国移动。</li>
-<li>查询你输入的网址的DNS请求到达本地DNS服务器之后，本地DNS服务器会首先查询它的缓存记录，如果缓存中有此条记录，就可以直接返回结果，此过程是递归的方式进行查询。如果没有，本地DNS服务器还要向DNS根服务器进行查询</li>
-<li>根DNS服务器没有记录具体的域名和IP地址的对应关系，而是告诉本地DNS服务器，你可以到域服务器上去继续查询，并给出域服务器的地址。这种过程是迭代的过程</li>
-<li>本地DNS服务器继续向域服务器发出请求，在这个例子中，请求的对象是.com域服务器。.com域服务器收到请求之后，<strong>也不会直接返回域名和IP地址的对应关系</strong>，而是告诉本地DNS服务器，你的域名的解析服务器的地址</li>
+<li>请求发起后，游览器首先会解析这个域名，首先它会查看<strong>本地硬盘的 hosts 文件</strong>，看看其中有没有和这个域名对应的规则，如果有的话就直接使用 hosts 文件里面的 ip 地址。</li>
+<li>如果在本地的 hosts 文件没有能够找到对应的 ip 地址，浏览器会发出一个 DNS请求到<strong>本地DNS(域名分布系统)服务器</strong>。本地DNS服务器一般都是你的网络接入服务器商提供，比如中国电信，中国移动。</li>
+<li>查询你输入的网址的DNS请求到达本地DNS服务器之后，本地DNS服务器会首先查询它的缓存记录，如果缓存中有此条记录，就可以直接返回结果，此过程是递归的方式进行查询。如果没有，本地DNS服务器还要向<strong>DNS根服务器进行查询</strong></li>
+<li>根DNS服务器没有记录具体的域名和IP地址的对应关系，而是告诉本地DNS服务器，你可以到<strong>域服务器</strong>上去继续查询，并给出域服务器的地址。这种过程是迭代的过程</li>
+<li>本地DNS服务器继续向域服务器发出请求，在这个例子中，请求的对象是.com域服务器。.com域服务器收到请求之后，<strong>也不会直接返回域名和IP地址的对应关系</strong>，而是告诉本地DNS服务器，你的<strong>域名的解析服务器的地址</strong></li>
 <li>最后，本地DNS服务器向域名的解析服务器发出请求，这时就能收到一个域名和IP地址对应关系，本地DNS服务器不仅要把IP地址返回给用户电脑，还要把这个对应关系保存在缓存中，以备下次别的用户查询时，可以直接返回结果，加快网络访问。</li>
 </ul>
-<p>本地硬盘host文件=&gt;本地DNS服务器(中国移动，中国电信)=&gt;根DNS服务器=&gt;域服务器=&gt;返回给本地DNS服务器，并作缓存。</p>
+<p>本地硬盘host文件=&gt;本地DNS服务器(中国移动，中国电信)=&gt;根DNS服务器=&gt;域服务器=&gt;域名的解析服务器的地址=&gt;返回给本地DNS服务器，并作缓存。</p>
 <ol start="3">
 <li>建立TCP链接<br>TCP链接涉及到客户端和服务端之间的三次握手</li>
 <li>浏览器向web服务器发起Http请求</li>

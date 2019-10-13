@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。 一、资源压缩合并，减少HTTP请求比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。使用雪碧图、base64格式的图片等等。 二、非核心代码异步加载通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。在页面渲染的这样一个过程中，有一个关键点是如果在解析内容的过程中">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-10T09:13:02.210Z">
+<meta property="og:updated_time" content="2019-10-11T10:45:48.636Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="提高页面性能">
 <meta name="twitter:description" content="我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。 一、资源压缩合并，减少HTTP请求比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。使用雪碧图、base64格式的图片等等。 二、非核心代码异步加载通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。在页面渲染的这样一个过程中，有一个关键点是如果在解析内容的过程中">
@@ -335,7 +335,7 @@
 <ol start="2">
 <li>异步加载的方式</li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">defer &lt;script src=<span class="string">"defer.js"</span> defer&gt; <span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="keyword">async</span> &lt;script src=<span class="string">"defer.js"</span> <span class="keyword">async</span>&gt; <span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">defer &lt;script src=<span class="string">"defer.js"</span> defer&gt; &lt;/script&gt;</span><br><span class="line"><span class="keyword">async</span> &lt;script src=<span class="string">"defer.js"</span> <span class="keyword">async</span>&gt; &lt;/script&gt;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>defer是在HTML渲染完之后（DOM结构完全生成，以及其他脚本执行完成之后）才会执行，如果是多个，则按照加载的顺序执行，优先级比async高</li>
 <li>async是在下载完脚本之后立即执行，渲染引擎会中断，执行完脚本之后才会继续渲染，如果是多个，执行顺序和加载顺序无关</li>
