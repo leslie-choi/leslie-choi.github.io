@@ -333,7 +333,7 @@
 <p>localhost   调用 127.0.0.1 则造成跨域</p>
 <p><strong>同源策略对于js的限制有3点</strong></p>
 <ul>
-<li><p>无法用js读取非同源的Cookie、LocalStorage 和 IndexDB 无法读取。<br>为了防止恶意网站通过js获取用户其他网站的cookie。</p>
+<li><p>非同源的Cookie、LocalStorage 和 IndexDB 无法读取。<br>为了防止恶意网站通过js获取用户其他网站的cookie。</p>
 </li>
 <li><p>无法用js获取非同源的DOM<br>如果没有这一条，恶意网站可以通过iframe打开银行页面，可以获取dom就相当于可以获取整个银行页面的信息。</p>
 </li>
@@ -359,7 +359,7 @@
 </ol>
 <p>​2. 睡眼朦胧的你没看清楚，平时访问的银行网站是 <code>www.yinhang.com</code>，而现在访问的是 <code>www.yinghang.com</code>，这个钓鱼网站做了什么呢？</p>
 <p>其实就是把别人网站的DOM照搬过来进行伪造，获取用户的信息</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HTML</span></span><br><span class="line">&lt;iframe name=<span class="string">"yinhang"</span> src=<span class="string">"www.yinhang.com"</span>&gt;&lt;/iframe&gt;</span><br><span class="line"><span class="comment">// JS</span></span><br><span class="line"><span class="comment">// 由于没有同源策略的限制，钓鱼网站可以直接拿到别的网站的Dom</span></span><br><span class="line"><span class="keyword">const</span> iframe = <span class="built_in">window</span>.frames[<span class="string">'yinhang'</span>]</span><br><span class="line"><span class="keyword">const</span> node = iframe.document.getElementById(<span class="string">'你输入账号密码的Input'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`拿到了这个<span class="subst">$&#123;node&#125;</span>，我还拿不到你刚刚输入的账号密码吗`</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HTML</span></span><br><span class="line">&lt;iframe name=<span class="string">"yinhang"</span> src=<span class="string">"www.yinhang.com"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span></span><br><span class="line"><span class="comment">// JS</span></span><br><span class="line"><span class="comment">// 由于没有同源策略的限制，钓鱼网站可以直接拿到别的网站的Dom</span></span><br><span class="line"><span class="keyword">const</span> iframe = <span class="built_in">window</span>.frames[<span class="string">'yinhang'</span>]</span><br><span class="line"><span class="keyword">const</span> node = iframe.document.getElementById(<span class="string">'你输入账号密码的Input'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`拿到了这个<span class="subst">$&#123;node&#125;</span>，我还拿不到你刚刚输入的账号密码吗`</span>)</span><br></pre></td></tr></table></figure>
 <h2 id="前后端通信的几种方式"><a href="#前后端通信的几种方式" class="headerlink" title="前后端通信的几种方式"></a>前后端通信的几种方式</h2><ol>
 <li>AJAX：同源下面的通信方式</li>
 <li>WebSocket：不受同源策略的限制</li>

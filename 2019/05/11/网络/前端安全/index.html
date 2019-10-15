@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="CSRF 跨站点请求伪造(Cross Site Request Forgery)XSS利用站点内的信任用户，而CSRF则通过伪装来自受信任用户的请求来利用受信任的网站。与XSS攻击相比，CSRF攻击往往不大流行（因此对其进行防范的资源也相当稀少）和难以防范，所以被认为比XSS更具危险性。 CSRF可以这样理解，攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的。比如以你">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-07T17:11:24.513Z">
+<meta property="og:updated_time" content="2019-10-15T02:20:32.885Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端安全">
 <meta name="twitter:description" content="CSRF 跨站点请求伪造(Cross Site Request Forgery)XSS利用站点内的信任用户，而CSRF则通过伪装来自受信任用户的请求来利用受信任的网站。与XSS攻击相比，CSRF攻击往往不大流行（因此对其进行防范的资源也相当稀少）和难以防范，所以被认为比XSS更具危险性。 CSRF可以这样理解，攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的。比如以你">
@@ -333,7 +333,7 @@
 </ul>
 <p>举一个简单的CSRF的栗子： </p>
 <ol>
-<li><p>合法用户舍友A成功登录了一个全球知名的公益网站<a href="http://www.po?nhub.com，并且产生cookie返回给浏览器" target="_blank" rel="noopener">www.po?nhub.com，并且产生cookie返回给浏览器</a></p>
+<li><p>合法用户舍友A成功登录了一个全球知名的公益网站<code>www.po?nhub.com</code>，并且产生cookie返回给浏览器</p>
 </li>
 <li><p>然后在没有退出登录的情况下，舍友B和舍友A闹矛盾，于是给舍友A发送了另外一个www.你懂的.com的网站</p>
 </li>
