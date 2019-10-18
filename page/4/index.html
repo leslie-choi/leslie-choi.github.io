@@ -607,6 +607,22 @@
 <h2 id="session"><a href="#session" class="headerlink" title="session"></a>session</h2><p>在WEB开发中，服务器可以为每个用户浏览器创建一个会话对象（session对象），注意：一个浏览器独占一个session对象(默认情况下)。因此，在需要保存用户数据时，服务器程序可以把用户数据写到用户浏览器独占的session中，当用户使用浏览器访问其它程序时，其它程序可以从用户的session中取出该用户的数据，为用户服务。</p>
 <h2 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h2><p>在HTML5中，新加入了一个localStorage特性，这个特性主要是用来作为本地存储来使用的，解决了cookie存储空间不足的问题(cookie中每条cookie的存储空间为4k)，<strong>localStorage中一般浏览器支持的是5M大小</strong>，这个在不同的浏览器中localStorage会有所不同。</p>
 <h2 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h2><p>sessionStorage用于本地存储一个会话（session）中的数据，这些数据只有在同一个会话中的页面才能访问并且当会话结束后数据也随之销毁。因此sessionStorage不是一种持久化的本地存储，仅仅是会话级别的存储。</p>
+<h2 id="localforage实现-Web-离线存储"><a href="#localforage实现-Web-离线存储" class="headerlink" title="localforage实现 Web 离线存储"></a>localforage实现 Web 离线存储</h2><p>localStorage缺点：</p>
+<ol>
+<li>它是同步的，不管数据多大，我们需要等待数据从磁盘读取和解析，这会减慢我们的应用程序的响应速度，如果放到移动设备上，可想而之。</li>
+<li>仅支持字符串，如果是存对象还需要将对象JSON.stringify({name:”houyuewei”,age:20})下，用的时候再次转换，真是麻烦。</li>
+<li>不能加密存储到硬盘上，增加了很多危险性。</li>
+<li>永久存储，并且存储容量限制在10M</li>
+</ol>
+<p>LocalForage就解决了上面的问题，localForage 是一个使用非常简单的 JavaScript 库的，提供了 get，set，remove，clear 和 length 等等 API（跟 localStorage 一样），还具有以下特点：</p>
+<ul>
+<li>支持回调的异步 API</li>
+<li>支持 IndexedDB，WebSQL 和 localStorage 三种存储模式（自动为你加载最佳的驱动程序）</li>
+<li>支持 BLOB 和任意类型的数据，让您可以存储图片，文件等等</li>
+<li>支持 ES6 Promises</li>
+</ul>
+<p>对 IndexedDB 和 WebSQL 的支持使您可以为您的 Web 应用程序存储更多的数据，要比 localStorage 5M 存储的多很多。其 API 的无阻塞性质使得您的应用程序更快，不会因为 Get/Set 调用而挂起主线程。</p>
+<p>localforage的逻辑是这样的：优先使用IndexedDB存储数据，如果浏览器不支持，使用WebSQL，浏览器再不支持，使用localStorage</p>
 <h1 id="session和cookie的主要区别"><a href="#session和cookie的主要区别" class="headerlink" title="session和cookie的主要区别"></a>session和cookie的主要区别</h1><ul>
 <li>Cookie是把用户的数据写给用户的浏览器。</li>
 <li>Session技术把用户的数据写到用户独占的session中。</li>
