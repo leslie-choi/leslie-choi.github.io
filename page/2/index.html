@@ -1074,9 +1074,10 @@
 </li>
 </ol>
 <p>这就是一个简单的CSRF攻击，舍友A点开www.你懂的.com网站的时候，携带了公益网站的cookie，而在你懂的网站中，无法显示的图片标签中，执行了一个请求，将舍友A的收藏内容清空，而这个请求正是攻击者所伪造的。</p>
-<h2 id="CSRF防御：防御主要着手于服务端效果更好"><a href="#CSRF防御：防御主要着手于服务端效果更好" class="headerlink" title="CSRF防御：防御主要着手于服务端效果更好"></a>CSRF防御：防御主要着手于服务端效果更好</h2><h2 id="验证码"><a href="#验证码" class="headerlink" title="验证码"></a>验证码</h2><p>由于CSRF攻击通常是在用户不知情的情况下发送的请求，所以通过验证码功能，强制用户进行交互，这种方法可以完全杜绝CSRF攻击，但是对于用户的体验性大打折扣，所以只能作为一个辅助的手段。</p>
-<h2 id="验证-HTTP-Referer"><a href="#验证-HTTP-Referer" class="headerlink" title="验证 HTTP Referer"></a>验证 HTTP Referer</h2><p>字段根据 HTTP协议，在HTTP头中有一个字段叫 Referer，它记录了HTTP请求的来源地址。在通常情况下，访问一个安全受限页面的请求来自于同一个网站，比如需要访问 <a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory%EF%BC%8C" target="_blank" rel="noopener">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory，</a> 用户必须先登陆 bank.example，然后通过点击页面上的按钮来触发转账事件。这时，该转帐请求的 Referer 值就会是转账按钮所在的页面的 URL，通常是以 bank.example 域名开头的地址。而如果黑客要对银行网站实施 CSRF 攻击，他只能在他自己的网站构造请求，当用户通过黑客的网站发送请求到银行时，该请求的 Referer 是指向黑客自己的网站。因此，要防御 CSRF 攻击，银行网站只需要对于每一个转账请求验证其 Referer 值，如果是以 bank.example 开头的域名，则说明该请求是来自银行网站自己的请求，是合法的。如果 Referer 是其他网站的话，则有可能是黑客的 CSRF 攻击，拒绝该请求。 然而，这种方法并非万无一失。Referer 的值是由浏览器提供的，虽然 HTTP 协议上有明确的要求，但是每个浏览器对于 Referer 的具体实现可能有差别，并不能保证浏览器自身没有安全漏洞。使用验证 Referer 值的方法，就是把安全性都依赖于第三方（即浏览器）来保障，从理论上来讲，这样并不安全。</p>
-<h2 id="请求地址中添加-token-并验证"><a href="#请求地址中添加-token-并验证" class="headerlink" title="请求地址中添加 token 并验证"></a>请求地址中添加 token 并验证</h2><p>CSRF 攻击之所以能够成功，是因为黑客可以完全伪造用户的请求，该请求中所有的用户验证信息都是存在于 cookie 中，因此黑客可以在不知道这些验证信息的情况下直接利用用户自己的 cookie 来通过安全验证。要抵御 CSRF，关键在于在请求中放入黑客所不能伪造的信息，并且该信息不存在于 cookie 之中。可以在 HTTP 请求中以参数的形式加入一个随机产生的 token，并在<strong>服务器端建立一个拦截器</strong>来验证这个 token，如果请求中没有 token 或者 token 内容不正确，则认为可能是 CSRF 攻击而拒绝该请求。</p>
+<h2 id="CSRF防御：防御主要着手于服务端效果更好"><a href="#CSRF防御：防御主要着手于服务端效果更好" class="headerlink" title="CSRF防御：防御主要着手于服务端效果更好"></a>CSRF防御：防御主要着手于服务端效果更好</h2><h3 id="SameSite"><a href="#SameSite" class="headerlink" title="SameSite"></a>SameSite</h3><p>可以对 cookie 设置 SameSite 属性。该属性表示 Cookie 不随着跨域请求发送，可以很大程度减少 CSRF 的攻击，但是该属性目前并不是所有的浏览器都兼容。</p>
+<h3 id="验证码"><a href="#验证码" class="headerlink" title="验证码"></a>验证码</h3><p>由于CSRF攻击通常是在用户不知情的情况下发送的请求，所以通过验证码功能，强制用户进行交互，这种方法可以完全杜绝CSRF攻击，但是对于用户的体验性大打折扣，所以只能作为一个辅助的手段。</p>
+<h3 id="验证-HTTP-Referer"><a href="#验证-HTTP-Referer" class="headerlink" title="验证 HTTP Referer"></a>验证 HTTP Referer</h3><p>字段根据 HTTP协议，在HTTP头中有一个字段叫 Referer，它记录了HTTP请求的来源地址。在通常情况下，访问一个安全受限页面的请求来自于同一个网站，比如需要访问 <a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory%EF%BC%8C" target="_blank" rel="noopener">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory，</a> 用户必须先登陆 bank.example，然后通过点击页面上的按钮来触发转账事件。这时，该转帐请求的 Referer 值就会是转账按钮所在的页面的 URL，通常是以 bank.example 域名开头的地址。而如果黑客要对银行网站实施 CSRF 攻击，他只能在他自己的网站构造请求，当用户通过黑客的网站发送请求到银行时，该请求的 Referer 是指向黑客自己的网站。因此，要防御 CSRF 攻击，银行网站只需要对于每一个转账请求验证其 Referer 值，如果是以 bank.example 开头的域名，则说明该请求是来自银行网站自己的请求，是合法的。如果 Referer 是其他网站的话，则有可能是黑客的 CSRF 攻击，拒绝该请求。 然而，这种方法并非万无一失。Referer 的值是由浏览器提供的，虽然 HTTP 协议上有明确的要求，但是每个浏览器对于 Referer 的具体实现可能有差别，并不能保证浏览器自身没有安全漏洞。使用验证 Referer 值的方法，就是把安全性都依赖于第三方（即浏览器）来保障，从理论上来讲，这样并不安全。</p>
+<h3 id="请求地址中添加-token-并验证"><a href="#请求地址中添加-token-并验证" class="headerlink" title="请求地址中添加 token 并验证"></a>请求地址中添加 token 并验证</h3><p>CSRF 攻击之所以能够成功，是因为黑客可以完全伪造用户的请求，该请求中所有的用户验证信息都是存在于 cookie 中，因此黑客可以在不知道这些验证信息的情况下直接利用用户自己的 cookie 来通过安全验证。要抵御 CSRF，关键在于在请求中放入黑客所不能伪造的信息，并且该信息不存在于 cookie 之中。可以在 HTTP 请求中以参数的形式加入一个随机产生的 token，并在<strong>服务器端建立一个拦截器</strong>来验证这个 token，如果请求中没有 token 或者 token 内容不正确，则认为可能是 CSRF 攻击而拒绝该请求。</p>
 <h1 id="XSS攻击"><a href="#XSS攻击" class="headerlink" title="XSS攻击"></a>XSS攻击</h1><p>Cross-Site Scripting（跨站脚本攻击）简称 XSS，是一种代码注入攻击。攻击者通过在目标网站上注入恶意脚本，使之在用户的浏览器上运行。利用这些恶意脚本，攻击者可获取用户的敏感信息如 Cookie、SessionID 等，进而危害数据安全。 为了和 CSS 区分，这里把攻击的第一个字母改成了 X，于是叫做 XSS。</p>
 <p>XSS 的本质是：恶意代码未经过滤，与网站正常的代码混在一起；浏览器无法分辨哪些脚本是可信的，导致恶意脚本被执行。 而由于直接在用户的终端执行，恶意代码能够直接获取用户的信息，或者利用这些信息冒充用户向网站发起攻击者定义的请求。</p>
 <p>根据攻击的来源，XSS 攻击可分为存储型、反射型和 DOM 型三种。</p>
@@ -1088,8 +1089,16 @@
 <h2 id="DOM-型-XSS-："><a href="#DOM-型-XSS-：" class="headerlink" title="DOM 型 XSS ："></a>DOM 型 XSS ：</h2><p>主要是通过修改页面中的DOM节点形成的XSS。</p>
 <p>例如页面存在一个input输入框，用户输入之后执行一个函数，函数中使用innerHTML的方法插入了一个a标签，修改了页面 的DOM元素，形成一次DOM型的XSS攻击。</p>
 <p>DOM 型 XSS 跟前两种 XSS 的区别：DOM 型 XSS 攻击中，取出和执行恶意代码由浏览器端完成，属于前端 JavaScript 自身的安全漏洞，而其他两种 XSS 都属于服务端的安全漏洞。dom型XSS也是一种特殊的反射型XSS</p>
-<h2 id="XSS攻击的预防"><a href="#XSS攻击的预防" class="headerlink" title="XSS攻击的预防"></a>XSS攻击的预防</h2><p>XSS的攻击主要有两大因素： 1、攻击者提交恶意代码 2、浏览器执行恶意代码</p>
-<h3 id="输入过滤"><a href="#输入过滤" class="headerlink" title="输入过滤"></a>输入过滤</h3><p>通过“防止浏览器执行恶意代码”来防范 XSS。这部分分为两类： a、防止HTML中出现注入 b、对HTML做充分转义。</p>
+<h2 id="XSS攻击的预防"><a href="#XSS攻击的预防" class="headerlink" title="XSS攻击的预防"></a>XSS攻击的预防</h2><p>XSS的攻击主要有两大因素： </p>
+<ol>
+<li>攻击者提交恶意代码 </li>
+<li>浏览器执行恶意代码</li>
+</ol>
+<h3 id="输入过滤"><a href="#输入过滤" class="headerlink" title="输入过滤"></a>输入过滤</h3><p>通过“防止浏览器执行恶意代码”来防范 XSS。这部分分为两类： </p>
+<ol>
+<li>防止HTML中出现注入 </li>
+<li>对HTML做充分转义。</li>
+</ol>
 <h3 id="预防存储型和反射型-XSS-攻击"><a href="#预防存储型和反射型-XSS-攻击" class="headerlink" title="预防存储型和反射型 XSS 攻击"></a>预防存储型和反射型 XSS 攻击</h3><p>存储型和反射型 XSS 都是在服务端取出恶意代码后，插入到响应 HTML 里的，攻击者刻意编写的“数据”被内嵌到“代码”中，被浏览器所执行。 预防这两种漏洞，有两种常见做法：</p>
 <p><strong>改成纯前端渲染，把代码和数据分隔开</strong></p>
 <ol>
@@ -1107,7 +1116,7 @@
 <li>HTTP-only Cookie: 禁止 JavaScript 读取某些敏感 Cookie，攻击者完成 XSS 注入后也无法窃取此 Cookie。</li>
 <li>验证码：防止脚本冒充用户提交危险操作。</li>
 <li>对于不受信任的输入，都应该限定一个合理的长度。虽然无法完全防止 XSS 发生，但可以增加 XSS 攻击的难度。</li>
-<li>Content Security Policy</li>
+<li>Content Security Policy: csp的本质上就是建立一个白名单，开发者明确告诉浏览器哪些外部资源可以加载和执行。</li>
 </ol>
 <ul>
 <li><p>禁止加载外域代码，防止复杂的攻击逻辑。</p>
@@ -1591,7 +1600,7 @@
 <p>抽象语法树，简称语法树，是源代码语法结构的一种抽象表示。它以树状的形式表现编程语言的语法结构，树上的每个节点都表示源代码中的一种结构。</p>
 <p>转换成AST的目的就是将我们书写的字符串文件转换成计算机更容易识别的数据结构，这样更容易提取其中的关键信息，而这棵树在计算机上的表现形式，其实就是一个单纯的Object。</p>
 <h2 id="介绍好用的loader和plugin"><a href="#介绍好用的loader和plugin" class="headerlink" title="介绍好用的loader和plugin"></a>介绍好用的loader和plugin</h2><ul>
-<li>postcss-loader：可以给一些样式（如css3中的transfrom）加前缀，提高兼容性</li>
+<li>postcss-loader：可以给一些样式（如css3中的transform）加前缀，提高兼容性</li>
 <li>file-loader: 生成的文件名就是文件内容的MD5哈希值并会保留所引用资源的原始扩展名</li>
 <li>url-loader：可以将图片打包成为base64的形式放在JS文件中，但是不适合大图片的打包，会导致整个js文件很庞大，可以使用limit配置项来设置对应需要打包图片的大小</li>
 <li>babel-loader： 让下一代的js文件转换成现代浏览器能够支持的JS文件。babel有些复杂，所以大多数都会新建一个.babelrc进行配置</li>

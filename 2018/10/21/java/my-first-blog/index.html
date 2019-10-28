@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/10/21/java/my-first-blog/images/https.png">
 <meta property="og:image" content="http://yoursite.com/2018/10/21/java/my-first-blog/TCP.png">
 <meta property="og:image" content="http://yoursite.com/2018/10/21/java/my-first-blog/URL.png">
-<meta property="og:updated_time" content="2019-04-11T14:20:33.040Z">
+<meta property="og:updated_time" content="2019-10-28T01:25:31.410Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="my first blog">
 <meta name="twitter:description" content="nothing。。。 常见网络知识点1、常见的http状态码状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：1xx：指示信息–表示请求已接收，继续处理2xx：成功–表示请求已被成功接收、理解、接受3xx：重定向–要完成请求必须进行更进一步的操作4xx：客户端错误–请求有语法错误或请求无法实现5xx：服务器端错误–服务器未能实现合法的请求 200 OK 一切正常，对GET和">
@@ -375,7 +375,13 @@
 <li>单个cookie保存的数*据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。</li>
 <li>session中保存的是对象，cookie中保存的是字符串</li>
 </ul>
-<h2 id="sessionStorage、localStorage和cookie的区别"><a href="#sessionStorage、localStorage和cookie的区别" class="headerlink" title="sessionStorage、localStorage和cookie的区别"></a><strong>sessionStorage、localStorage和cookie的区别</strong></h2><p>共同点：都是保存在浏览器端、且同源的<br>区别：<br>1、cookie数据始终在同源的http请求中携带（即使不需要），即cookie在浏览器和服务器间来回传递，而sessionStorage和localStorage不会自动把数据发送给服务器，仅在本地保存。cookie数据还有路径（path）的概念，可以限制cookie只属于某个路径下<br>2、存储大小限制也不同，cookie数据不能超过4K，同时因为每次http请求都会携带cookie、所以cookie只适合保存很小的数据，如会话标识。sessionStorage和localStorage虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大<br>3、数据有效期不同，sessionStorage：仅在当前浏览器窗口关闭之前有效；localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据；cookie：只在设置的cookie过期时间之前有效，即使窗口关闭或浏览器关闭<br>4、作用域不同，<strong>sessionStorage不在不同的浏览器窗口中共享</strong>，即使是同一个页面；localstorage在所有同源窗口中都是共享的；cookie也是在所有同源窗口中都是共享的</p>
+<h2 id="sessionStorage、localStorage和cookie的区别"><a href="#sessionStorage、localStorage和cookie的区别" class="headerlink" title="sessionStorage、localStorage和cookie的区别"></a><strong>sessionStorage、localStorage和cookie的区别</strong></h2><p>共同点：都是保存在浏览器端、且同源的<br>区别： </p>
+<ol>
+<li>cookie数据始终在同源的http请求中携带（即使不需要），即cookie在浏览器和服务器间来回传递，而sessionStorage和localStorage不会自动把数据发送给服务器，仅在本地保存。cookie数据还有路径（path）的概念，可以限制cookie只属于某个路径下 </li>
+<li>存储大小限制也不同，cookie数据不能超过4K，同时因为每次http请求都会携带cookie、所以cookie只适合保存很小的数据，如会话标识。sessionStorage和localStorage虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大 </li>
+<li>数据有效期不同，sessionStorage：仅在当前浏览器窗口关闭之前有效；localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据；cookie：只在设置的cookie过期时间之前有效，即使窗口关闭或浏览器关闭 </li>
+<li>作用域不同，<strong>sessionStorage不在不同的浏览器窗口中共享</strong>，即使是同一个页面；localstorage在所有同源窗口中都是共享的；cookie也是在所有同源窗口中都是共享的</li>
+</ol>
 
       
     </div>

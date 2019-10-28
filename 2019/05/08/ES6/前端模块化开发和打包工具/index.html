@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/27/2395e1d01728fbb0d740d53c4530ed5b?imageView2/0/w/1280/h/960&ynotemdtimestamp=1558167915965">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/webpackJizhi.PNG">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/AST.png">
-<meta property="og:updated_time" content="2019-10-11T09:03:48.806Z">
+<meta property="og:updated_time" content="2019-10-28T03:29:01.414Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端模块化开发和打包工具">
 <meta name="twitter:description" content="前端模块化开发前言：历史上，JavaScript 一直没有模块（module）体系，无法将一个大程序拆分成互相依赖的小文件，再用简单的方法拼装起来。其他语言都有这项功能，比如 Ruby 的require、Python 的import，甚至就连 CSS 都有@import，但是 JavaScript 任何这方面的支持都没有，这对开发大型的、复杂的项目形成了巨大障碍。而现在的前端开发，不仅仅是完成浏览">
@@ -467,7 +467,7 @@
 <p>抽象语法树，简称语法树，是源代码语法结构的一种抽象表示。它以树状的形式表现编程语言的语法结构，树上的每个节点都表示源代码中的一种结构。</p>
 <p>转换成AST的目的就是将我们书写的字符串文件转换成计算机更容易识别的数据结构，这样更容易提取其中的关键信息，而这棵树在计算机上的表现形式，其实就是一个单纯的Object。</p>
 <h2 id="介绍好用的loader和plugin"><a href="#介绍好用的loader和plugin" class="headerlink" title="介绍好用的loader和plugin"></a>介绍好用的loader和plugin</h2><ul>
-<li>postcss-loader：可以给一些样式（如css3中的transfrom）加前缀，提高兼容性</li>
+<li>postcss-loader：可以给一些样式（如css3中的transform）加前缀，提高兼容性</li>
 <li>file-loader: 生成的文件名就是文件内容的MD5哈希值并会保留所引用资源的原始扩展名</li>
 <li>url-loader：可以将图片打包成为base64的形式放在JS文件中，但是不适合大图片的打包，会导致整个js文件很庞大，可以使用limit配置项来设置对应需要打包图片的大小</li>
 <li>babel-loader： 让下一代的js文件转换成现代浏览器能够支持的JS文件。babel有些复杂，所以大多数都会新建一个.babelrc进行配置</li>
