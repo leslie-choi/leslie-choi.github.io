@@ -1133,6 +1133,19 @@
 <p>如果有非字符串的键名，那么这个键名会被转成字符串，再作为对象的键名。</p>
 <p>对象转为 Map</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">objToStrMap</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> strMap = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> k <span class="keyword">of</span> <span class="built_in">Object</span>.keys(obj)) &#123;</span><br><span class="line">    strMap.set(k, obj[k]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> strMap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">objToStrMap(&#123;<span class="attr">yes</span>: <span class="literal">true</span>, <span class="attr">no</span>: <span class="literal">false</span>&#125;)</span><br><span class="line"><span class="comment">// Map &#123;"yes" =&gt; true, "no" =&gt; false&#125;</span></span><br></pre></td></tr></table></figure>
+<h1 id="babel-转码原理"><a href="#babel-转码原理" class="headerlink" title="babel 转码原理"></a>babel 转码原理</h1><p>babel的转译过程分为三个阶段：parsing(解析)、transforming(转换)、generating(产生)</p>
+<p>具体过程：</p>
+<ol>
+<li>编写ES6代码</li>
+<li>babylon进行解析</li>
+<li>解析得到AST</li>
+<li>plugin用babel-traverse对AST树进行遍历转译</li>
+<li>得到新的AST树</li>
+<li>用babel-generator通过AST树生成ES5代码</li>
+</ol>
+<p>需注意的一点就是，babel默认只是转译新标准引入的语法，比如ES6的箭头函数，不转换新的API，比如Iterator、Generator、Set、Maps、Proxy、Reflect、Symbol、Promise等全局对象，以及一些定义在全局对象上的方法（比如Object.assign）都不会转码。</p>
+<p>举例来说，ES6在Array对象上新增了Array.from方法。Babel就不会转码这个方法。如果想让这个方法运行，必须使用babel-polyfill，为当前环境提供一个垫片。</p>
+
           
         
       

@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/9/27/2395e1d01728fbb0d740d53c4530ed5b?imageView2/0/w/1280/h/960&ynotemdtimestamp=1558167915965">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/webpackJizhi.PNG">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/AST.png">
-<meta property="og:updated_time" content="2019-10-28T03:29:01.414Z">
+<meta property="og:updated_time" content="2019-10-30T13:06:10.352Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端模块化开发和打包工具">
 <meta name="twitter:description" content="前端模块化开发前言：历史上，JavaScript 一直没有模块（module）体系，无法将一个大程序拆分成互相依赖的小文件，再用简单的方法拼装起来。其他语言都有这项功能，比如 Ruby 的require、Python 的import，甚至就连 CSS 都有@import，但是 JavaScript 任何这方面的支持都没有，这对开发大型的、复杂的项目形成了巨大障碍。而现在的前端开发，不仅仅是完成浏览">
@@ -512,7 +512,7 @@
 <ol start="3">
 <li>配置loader时，通过test、exclude、include缩小搜索范围</li>
 </ol>
-<h3 id="使用DllPlugin减少基础模块编译次数"><a href="#使用DllPlugin减少基础模块编译次数" class="headerlink" title="使用DllPlugin减少基础模块编译次数"></a>使用DllPlugin减少基础模块编译次数</h3><p>DllPlugin动态链接库插件，其原理是把网页依赖的基础模块抽离出来打包到dll文件中，当需要导入的模块存在于某个dll中时，这个模块不再被打包，而是去dll中获取。<strong>为什么会提升构建速度呢？</strong>原因在于dll中大多包含的是常用的第三方模块，如react、react-dom，所以只要这些模块版本不升级，就只需被编译一次。我认为这样做和配置resolve.alias和module.noParse的效果有异曲同工的效果</p>
+<h3 id="使用DllPlugin减少基础模块编译次数"><a href="#使用DllPlugin减少基础模块编译次数" class="headerlink" title="使用DllPlugin减少基础模块编译次数"></a>使用DllPlugin减少基础模块编译次数</h3><p>DllPlugin动态链接库插件，其原理是把网页依赖的基础模块抽离出来打包到dll文件中，当需要导入的模块存在于某个dll中时，这个模块不再被打包，而是去dll中获取。<strong>为什么会提升构建速度呢？</strong>原因在于dll中大多包含的是常用的第三方模块，如react、react-dom，所以只要这些模块版本不升级，就只需被编译一次。这样做和配置resolve.alias和module.noParse的效果有异曲同工的效果</p>
 <h3 id="使用HappyPack开启多进程Loader转换"><a href="#使用HappyPack开启多进程Loader转换" class="headerlink" title="使用HappyPack开启多进程Loader转换"></a>使用HappyPack开启多进程Loader转换</h3><p>在整个构建流程中，最耗时的就是Loader对文件的转换操作了，而运行在Node.js之上的Webpack是单线程模型的，也就是只能一个一个文件进行处理，不能并行处理。HappyPack可以将任务分解给多个子进程，多个子进程去并发的执行，最后将结果发给主进程。JS是单线程模型，只能通过这种多进程的方式提高性能</p>
 <h3 id="使用ParallelUglifyPlugin开启多进程压缩JS文件"><a href="#使用ParallelUglifyPlugin开启多进程压缩JS文件" class="headerlink" title="使用ParallelUglifyPlugin开启多进程压缩JS文件"></a>使用ParallelUglifyPlugin开启多进程压缩JS文件</h3><p>使用UglifyJS插件压缩JS代码时，需要先将代码解析成Object表示的AST（抽象语法树），再去应用各种规则去分析和处理AST，所以这个过程计算量大耗时较多。ParallelUglifyPlugin可以开启多个子进程，每个子进程使用UglifyJS压缩代码，可以并行执行，能显著缩短压缩时间</p>
 <p>在 Webpack4 中，我们就不需要以上这些操作了，只需要将 mode 设置为 production 就可以默认开启以上功能。代码压缩也是我们必做的性能优化方案，当然我们不止可以压缩 JS 代码，还可以压缩 HTML、CSS 代码，并且在压缩 JS 代码的过程中，我们还可以通过配置实现比如删除 console.log 这类代码的功能</p>
