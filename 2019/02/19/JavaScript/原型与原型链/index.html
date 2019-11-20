@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/prototype2.PNG">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/prototype3.PNG">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/instanceof.png">
-<meta property="og:updated_time" content="2019-11-18T02:51:09.188Z">
+<meta property="og:updated_time" content="2019-11-20T09:16:10.161Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="原型与原型链">
 <meta name="twitter:description" content="原型和原型链想要了解原型和原型链，那我们首先来了解一下构造函数。JavaScript不像Java一样，可以定义一个class。那在JavaScript中，想要定义一个类，就只能通过构造函数的模式。构造函数咪视中拥有了类和实例的概念。构造函数其实就是一个普通的函数，创建的方式和普通的函数没有区别，但是 首字母需要大写 ，另外普通函数可以直接调用，但是构造函数需要通过 new关键字来调用。  1234">
@@ -371,13 +371,14 @@
 <p>所以instanceof的原理，可以理解为，实例对象的<strong>proto</strong>属性和构造函数的prototype属性指向的是不是同一个地址。</p>
 <p>下面通过一段代码来举个例子：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span> Person(<span class="string">'james'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(p1 <span class="keyword">instanceof</span> Person);    <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(p1 <span class="keyword">instanceof</span> <span class="built_in">Object</span>);    <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(p1.__proto__ === Person.prototype);     <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype.__proto__ === <span class="built_in">Object</span>.prototype);   <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-<p>因为结果都是返回true，那么我们要怎么判断p1是由Person创建的实例还是由Object创建的实例呢？所以在这里需要使用到constructor属性了。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(p1.__proto__.constructor === Person);   <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(p1.__proto__.constructor === <span class="built_in">Object</span>);   <span class="comment">//false</span></span><br></pre></td></tr></table></figure></p>
+<p>因为结果都是返回true，那么我们要怎么判断p1是由Person创建的实例还是由Object创建的实例呢？所以在这里需要使用到constructor属性了</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(p1.__proto__.constructor === Person);   <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(p1.__proto__.constructor === <span class="built_in">Object</span>);   <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
 <p>所以使用constructor相对严谨一点。</p>
 <h1 id="new运算符"><a href="#new运算符" class="headerlink" title="new运算符"></a>new运算符</h1><p>在代码中，</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span> Person(<span class="string">'james'</span>)</span><br></pre></td></tr></table></figure>
 <p>使用了new运算符，在这个过程中：</p>
 <ol>
-<li>实际上是先创建了一个空对象，然后这个空对象继承了构造函数Person的原型对象</li>
+<li>实际上是先创建了一个空对象</li>
 <li>设置新对象的<strong>proto</strong>属性指向构造函数的prototype对象</li>
 <li>绑定this，使用新对象调用函数，函数中的this被指向新实例对象</li>
 <li>如果构造函数返回了一个“对象”，那么这个对象就会取代刚才new出来的结果（说明刚才的操作都是无效的）。如果构造函数没有返回对象，那么new出来的结果为步骤1创建的对象。</li>
