@@ -88,7 +88,7 @@
 <meta property="og:description" content="DOCTYPE及其作用由于历史的原因，浏览器对页面的渲染方式是不一样的。在W3C标准出来之前，浏览器对页面的渲染没有同一的标准，产生了差异，quirks mod（混杂模式或者兼容模式），但在W3C标准出台之后，浏览器对页面的渲染有了同一的标准即（严格模式或标准模式）。但是为了保证以前旧的页面仍然正常显示，有的浏览器就保存了这两种渲染模式（标准兼容模式）。那么究竟采用哪一种方式进行渲染，就要看DOC">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/tree.png">
-<meta property="og:updated_time" content="2019-11-20T01:32:12.591Z">
+<meta property="og:updated_time" content="2019-11-25T08:38:46.901Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器的渲染机制">
 <meta name="twitter:description" content="DOCTYPE及其作用由于历史的原因，浏览器对页面的渲染方式是不一样的。在W3C标准出来之前，浏览器对页面的渲染没有同一的标准，产生了差异，quirks mod（混杂模式或者兼容模式），但在W3C标准出台之后，浏览器对页面的渲染有了同一的标准即（严格模式或标准模式）。但是为了保证以前旧的页面仍然正常显示，有的浏览器就保存了这两种渲染模式（标准兼容模式）。那么究竟采用哪一种方式进行渲染，就要看DOC">
@@ -368,7 +368,7 @@
 <li>对于多次重排的元素，使用absolute或者fixed脱离文档流</li>
 <li>尽量减少使用table布局，因为一个小的改动会导致整个table的重新布局，通常要浪费同等元素的时间的3倍</li>
 <li>不要在布局信息改变的时候做DOM查询</li>
-<li>动画元素脱离文档流，减少回流的Render Tree的规模</li>
+<li>动画元素脱离文档流（浮动、绝对定位和固定定位），减少回流的Render Tree的规模</li>
 <li>使用visibility替换display:none，因为前者只会引起重绘，后者会引起回流改变布局</li>
 </ul>
 <p>PS：为什么操作DOM非常昂贵？</p>
@@ -388,7 +388,7 @@
 </ul>
 <p>本地硬盘host文件=&gt;本地DNS服务器(中国移动，中国电信)=&gt;根DNS服务器=&gt;域服务器=&gt;域名的解析服务器的地址=&gt;返回给本地DNS服务器，并作缓存。</p>
 <ol start="3">
-<li>建立TCP链接<br>TCP链接涉及到客户端和服务端之间的三次握手</li>
+<li>建立TCP链接（如果是https协议则需要四次握手）<br>TCP链接涉及到客户端和服务端之间的三次握手</li>
 <li>浏览器向web服务器发起Http请求</li>
 <li>HTTP服务器处理</li>
 <li>关闭TCP链接<br>关闭TCP链接涉及客户端和服务端之间的四次挥手</li>

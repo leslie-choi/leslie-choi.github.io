@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="使用 callback 回调函数12345678910111213function f1 (callback) &amp;#123;    setTimeout(function () &amp;#123;　　　　 console.log(&quot;1&quot;)        callback()    &amp;#125;,1000)&amp;#125;function f2()&amp;#123;    console.log(&quot;2&quot;)&amp;#125">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-27T04:08:58.937Z">
+<meta property="og:updated_time" content="2019-11-24T16:19:11.454Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript异步的四种方式">
 <meta name="twitter:description" content="使用 callback 回调函数12345678910111213function f1 (callback) &amp;#123;    setTimeout(function () &amp;#123;　　　　 console.log(&quot;1&quot;)        callback()    &amp;#125;,1000)&amp;#125;function f2()&amp;#123;    console.log(&quot;2&quot;)&amp;#125">
@@ -273,6 +273,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ajax/" itemprop="url" rel="index">
+                    <span itemprop="name">Ajax</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -300,7 +322,7 @@
       
 
       
-        <h1 id="使用-callback-回调函数"><a href="#使用-callback-回调函数" class="headerlink" title="使用 callback 回调函数"></a>使用 callback 回调函数</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span> (<span class="params">callback</span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">　　　　 <span class="built_in">console</span>.log(<span class="string">"1"</span>)</span><br><span class="line">        callback()</span><br><span class="line">    &#125;,<span class="number">1000</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"2"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f1(f2)</span><br></pre></td></tr></table></figure>
+        <h1 id="使用-callback-回调函数"><a href="#使用-callback-回调函数" class="headerlink" title="使用 callback 回调函数"></a>使用 callback 回调函数</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span> (<span class="params">callback</span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">　　　　 <span class="built_in">console</span>.log(<span class="string">"1"</span>)</span><br><span class="line">        callback()</span><br><span class="line">    &#125;,<span class="number">1000</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"2"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f1(f2)    <span class="comment">//过了1秒之后再输出1，2</span></span><br></pre></td></tr></table></figure>
 <p>缺点会出现回调地狱。</p>
 <h1 id="Promise-ES6"><a href="#Promise-ES6" class="headerlink" title="Promise(ES6)"></a>Promise(ES6)</h1><ul>
 <li><p>Promise对象代表一个异步操作，有三种状态：pending(进行中),resolved(已成功)和rejected(已失败)。</p>
