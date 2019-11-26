@@ -95,7 +95,7 @@
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/get%26post.jpeg">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/httpVersion.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/https.png">
-<meta property="og:updated_time" content="2019-10-08T07:43:17.244Z">
+<meta property="og:updated_time" content="2019-11-26T02:15:15.339Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP和TCP">
 <meta name="twitter:description" content="TCP协议互联网由一整套协议构成图片说明：顶层协议是应用层协议 =&amp;gt; TCP协议 =&amp;gt; IP协议 =&amp;gt; 以太网协议（应用层=&amp;gt;传输层=&amp;gt;网络层=&amp;gt;链路层） 以太网协议：最底层的协议，可以解决子网内部的点对点通讯。 IP协议：IP协议，可以解决多个局域网之间互通，可以连接多个局域网，定义了一套自己的地址规则，实现了路由的功能，允许某个局域网的A主机，向另一个局域网">
@@ -338,9 +338,9 @@
 <p>TCP协议：IP协议只是一个地址协议，并不能保证数据的完整性。如果缓存满了，新进来的数据包就会丢失，所以这个时候需要发现丢了哪一个包，以及如何重新发送这个包，所以这个时候需要使用到TCP协议。以太网数据包的负载是1500字节，TCP数据包的负载在1400字节左右。</p>
 <h2 id="TCP建立连接（三次握手）"><a href="#TCP建立连接（三次握手）" class="headerlink" title="TCP建立连接（三次握手）"></a>TCP建立连接（三次握手）</h2><p>HTTP 是基于 TCP 协议的，浏览器最快也要在第三次握手时才能捎带 HTTP 请求报文，达到真正的建立连接，但是这些连接无法复用会导致每次请求都经历三次握手和慢启动。三次握手在高延迟的场景下影响较明显，慢启动则对文件类大请求影响较大。</p>
 <ul>
-<li>第一次握手：建立连接时，客户端发送syn包（syn=j）到服务器，并进入SYN_SENT状态，<strong>服务端得到结论：客户端的发送能力、服务端的接收能力正常。</strong></li>
-<li>第二次握手：服务器收到syn包，必须确认客户的SYN（ack=j+1），同时自己也发送一个SYN包（syn=k），即SYN+ACK包，此时服务器进入SYN_RECV状态，客户端接收到，<strong>于是客户端得到结论：服务端的接收和发送能力正常，客户端的接收发送能力正常，但是此时服务器并不能确认客户端的接收能力是否正常</strong></li>
-<li>第三次握手：客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=k+1），此包发送完毕，客户端和服务器进入ESTABLISHED（TCP连接成功）状态，<strong>服务端得到结论：客户端和服务端的接收发送能力都正常，完成三次握手。</strong></li>
+<li>第一次握手：建立连接时，客户端发送syn包（syn=1,seq=x）到服务器，并进入SYN_SENT状态，<strong>服务端得到结论：客户端的发送能力、服务端的接收能力正常。</strong></li>
+<li>第二次握手：服务器收到syn包，必须确认客户的SYN（ack=x+1,seq=y），同时自己也发送一个SYN包，即SYN+ACK包，此时服务器进入SYN_RECV状态，客户端接收到，<strong>于是客户端得到结论：服务端的接收和发送能力正常，客户端的接收发送能力正常，但是此时服务器并不能确认客户端的接收能力是否正常</strong></li>
+<li>第三次握手：客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=y+1,seq=z），此包发送完毕，客户端和服务器进入ESTABLISHED（TCP连接成功）状态，<strong>服务端得到结论：客户端和服务端的接收发送能力都正常，完成三次握手。</strong></li>
 </ul>
 <p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/sanwo.png" alt="markdown"></p>
 <h2 id="TCP关闭连接（四次挥手）"><a href="#TCP关闭连接（四次挥手）" class="headerlink" title="TCP关闭连接（四次挥手）"></a>TCP关闭连接（四次挥手）</h2><p>由于TCP连接是全双工的，因此每个方向都必须单独进行关闭。这个原则是当一方完成它的数据发送任务后就能发送一个FIN来终止这个方向的连接。收到一个 FIN只意味着这一方向上没有数据流动，一个TCP连接在收到一个FIN后仍能发送数据。首先进行关闭的一方将执行主动关闭，而另一方执行被动关闭。</p>
