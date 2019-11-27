@@ -424,6 +424,16 @@
 </ol>
 <p>雪碧图的概念大家一定在生活中经常听见，其实雪碧图是减小请求数的显著运用。而且很奇妙的是，多张图片拼在一块后，总体积会比之前所有图片的体积之和小（你可以亲自试试）。这里给大家推荐一个自动化生成雪碧图的工具：<a href="https://www.toptal.com/developers/css/sprite-generator" target="_blank" rel="noopener">https://www.toptal.com/developers/css/sprite-generator</a></p>
 <p>只要你添加相关资源文件，他就会自动帮你生成雪碧图以及对应的 CSS 样式。</p>
+<p>优点：</p>
+<ul>
+<li>减少HTTP 请求数，极大地提高页面加载速度</li>
+<li>增加图片信息的重复度，提高压缩比，减少图片大小</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>图片合并麻烦</li>
+<li>维护麻烦，修改一个图片可能需要重新布局整个图片、样式</li>
+</ul>
 <ol start="7">
 <li>使用字体图标（iconfont）</li>
 </ol>
@@ -1665,8 +1675,8 @@
         
           
             <p>我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。</p>
-<h1 id="一、资源压缩合并，减少HTTP请求"><a href="#一、资源压缩合并，减少HTTP请求" class="headerlink" title="一、资源压缩合并，减少HTTP请求"></a>一、资源压缩合并，减少HTTP请求</h1><p>比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。使用雪碧图、base64格式的图片等等。</p>
-<h1 id="二、非核心代码异步加载"><a href="#二、非核心代码异步加载" class="headerlink" title="二、非核心代码异步加载"></a>二、非核心代码异步加载</h1><p>通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。在页面渲染的这样一个过程中，有一个关键点是如果在解析内容的过程中遇到了脚本标签，如：<script src="example.js"></script>，浏览器就会暂停内容的解析，转而开始下载脚本。并且只有等脚本下载完并执行结束后，渲染引擎才会继续解析。那么这样一来，页面显示的时间必然会被延长。因此我们需要优化的点就是尽可能地让页面更早地被渲染出来。要解决上面说到的脚本加载问题，通常有三种解决方案：将脚本放在HTML末尾、动态加载脚本以及异步加载脚本。</p>
+<h1 id="资源压缩合并，减少HTTP请求"><a href="#资源压缩合并，减少HTTP请求" class="headerlink" title="资源压缩合并，减少HTTP请求"></a>资源压缩合并，减少HTTP请求</h1><p>比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。使用雪碧图、base64格式的图片等等。</p>
+<h1 id="非核心代码异步加载"><a href="#非核心代码异步加载" class="headerlink" title="非核心代码异步加载"></a>非核心代码异步加载</h1><p>通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。在页面渲染的这样一个过程中，有一个关键点是如果在解析内容的过程中遇到了脚本标签，如：<script src="example.js"></script>，浏览器就会暂停内容的解析，转而开始下载脚本。并且只有等脚本下载完并执行结束后，渲染引擎才会继续解析。那么这样一来，页面显示的时间必然会被延长。因此我们需要优化的点就是尽可能地让页面更早地被渲染出来。要解决上面说到的脚本加载问题，通常有三种解决方案：将脚本放在HTML末尾、动态加载脚本以及异步加载脚本。</p>
 <ol>
 <li>异步加载的方式</li>
 </ol>
@@ -1684,7 +1694,7 @@
 </ul>
 <h2 id="解决异步加载脚本的问题"><a href="#解决异步加载脚本的问题" class="headerlink" title="解决异步加载脚本的问题"></a>解决异步加载脚本的问题</h2><p>如何处理加载过程中这些脚本的互相依赖关系，就成了实现异步加载过程中所需要考虑的问题。一方面，对于页面中那些独立的脚本，如用户统计等插件就可以放心大胆地使用异步加载。而另一方面，对于那些确实需要处理依赖关系的脚本，业界已经有很成熟的解决方案了。如采用AMD规范的RequireJS,CMD规范的seaJS，或者使用ES6中的模块化开发。另一方面，也可以使用promise技术来实现处理异步脚本加载过程中de的依赖问题：</p>
 <p>针对每个脚本依赖都会创建一个promise对象来管理其状态。采用动态插入脚本的方式来管理脚本，然后利用脚本onload和onreadystatechange(兼容性处理)事件来监听脚本是否加载完成。一旦加载完毕，就会触发promise的resovle方法。最后，针对依赖的处理，是promise的all方法，这个方法只有在所有promise对象都resolved的时候才会触发resolve方法，这样一来，我们就可以确保在执行回调之前，所有依赖的脚本都已经加载并执行完毕。</p>
-<h1 id="三、利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理"><a href="#三、利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理" class="headerlink" title="三、利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理"></a>三、利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理</h1><ol>
+<h1 id="利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理"><a href="#利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理" class="headerlink" title="利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理"></a>利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理</h1><ol>
 <li>缓存的分类</li>
 </ol>
 <ul>
@@ -1720,22 +1730,23 @@
 <li><p>只是给代码加上注释，但是服务器实质的内容并没有一点改变，如果使用Etag扫描全部文件可能会耗费大量性能，而使用last-modified只要返回最后修改时间即可，所以应该根据场景选择对应方案。</p>
 </li>
 </ul>
-<h1 id="四、利用cdn"><a href="#四、利用cdn" class="headerlink" title="四、利用cdn"></a>四、利用cdn</h1><p>CDN(Content Delivery Network)又称为内容分发网络，使内容传输的更快，更稳定。<br>也就是说，<strong>把静态资源文件和动态网页分集群部署</strong>，静态资源会被部署到CDN节点上，网页中引用的资源也会变成对应的部署路径。<br>CDN 的核心点有两个: 一个是缓存，一个是回源。</p>
+<h1 id="利用cdn"><a href="#利用cdn" class="headerlink" title="利用cdn"></a>利用cdn</h1><p>CDN(Content Delivery Network)又称为内容分发网络，使内容传输的更快，更稳定。<br>也就是说，<strong>把静态资源文件和动态网页分集群部署</strong>，静态资源会被部署到CDN节点上，网页中引用的资源也会变成对应的部署路径。<br>CDN 的核心点有两个: 一个是缓存，一个是回源。</p>
 <ul>
 <li>缓存<br>将从根服务器请求来的资源按要求缓存。</li>
 <li>回源<br>当有用户访问某个资源的时候，如果被解析到的那个 CDN 节点没有缓存响应的内容，或者是缓存已经到期，就会回源站去获取。没有人访问，CDN 节点不会主动去源站请求资源。</li>
 </ul>
-<p>原理：不同地区的用户会访问到离自己最近的相同网络线路上的CDN节点，当请求达到CDN节点后，节点会判断自己的内容缓存是否有效，如果有效，则立即响应缓存内容给用户，从而加快响应速度。如果CDN节点的缓存失效，它会根据服务配置去我们的内容源服务器获取最新的资源响应给用户，并将内容缓存下来以便响应给后续访问的用户。因此，一个地区内只要有一个用户先加载资源，在CDN中建立了缓存，该地区的其他后续用户都能因此而受益。<br>不同地区的用户访问同一个域名却能得到不同CDN节点的IP地址，这要依赖于CDN服务商提供的智能域名解析服务，浏览器发起域名查询时，这种智能DNS服务会根据用户IP计算并返回离它最近的同网络CDN节点IP，引导浏览器与此节点建立连接以获取资源。</p>
+<p>原理：不同地区的用户会访问到离自己最近的相同网络线路上的CDN节点，当请求达到CDN节点后，节点会判断自己的内容缓存是否有效，如果有效，则立即响应缓存内容给用户，从而加快响应速度。如果CDN节点的缓存失效，它会根据服务配置去我们的内容源服务器获取最新的资源响应给用户，并将内容缓存下来以便响应给后续访问的用户。因此，一个地区内只要有一个用户先加载资源，在CDN中建立了缓存，该地区的其他后续用户都能因此而受益。</p>
+<p>不同地区的用户访问同一个域名却能得到不同CDN节点的IP地址，这要依赖于<strong>CDN服务商提供的智能域名解析服务</strong>，浏览器发起域名查询时，这种智能DNS服务会根据用户IP计算并返回离它最近的同网络CDN节点IP，引导浏览器与此节点建立连接以获取资源。</p>
 <p>优点：</p>
 <ul>
 <li>CDN 节点解决了跨运营商和跨地域访问的问题，访问延时大大降低</li>
 <li>大部分请求在 CDN 边缘节点完成，CDN 起到了分流作用，减轻了源站的负载</li>
 <li>提高网络访问的稳定性</li>
 </ul>
-<h1 id="五、预解析DNS"><a href="#五、预解析DNS" class="headerlink" title="五、预解析DNS"></a>五、预解析DNS</h1><p>还有一个可以优化网页速度的方式是利用dns的预解析技术。同preload类似，DNS Prefetch在网络层面上优化了资源加载的速度。<br>我们知道，针对DNS的前端优化，主要分为减少DNS的请求次数，还有就是进行DNS预先获取。DNS prefetch就是为了实现这后者。其用法也很简单，只要在link标签上加上对应的属性就行了。</p>
+<h1 id="预解析DNS"><a href="#预解析DNS" class="headerlink" title="预解析DNS"></a>预解析DNS</h1><p>还有一个可以优化网页速度的方式是利用dns的预解析技术。同preload类似，DNS Prefetch在网络层面上优化了资源加载的速度。<br>我们知道，针对DNS的前端优化，主要分为减少DNS的请求次数，还有就是进行DNS预先获取。DNS prefetch就是为了实现这后者。其用法也很简单，只要在link标签上加上对应的属性就行了。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"x-dns-prefetch-control"</span> <span class="attr">content</span>=<span class="string">"on"</span> /&gt;</span> /* 这是用来告知浏览器当前页面要做DNS预解析，可以选择on或者off */</span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"dns-prefetch"</span> <span class="attr">href</span>=<span class="string">"//example.com"</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>复制代码在支持该标准的浏览器上，会自动对链接中的地址域名做DNS解析缓存。不过，像Goolge、火狐这样的现代浏览器即使不设置这个属性，也能在后台做自动预解析。如果你的页面中需要大量访问不同域名的资源，可以利用这项技术加快资源的获取，从而获得更好的用户体验。需要注意的是，DNS预解析虽好，但是也不能滥用。如果对多页面重复DNS预解析，会增加DNS的查询次数。</p>
-<h1 id="六、使用SSR（server-side-render）服务端渲染，数据直接输出到HTML中"><a href="#六、使用SSR（server-side-render）服务端渲染，数据直接输出到HTML中" class="headerlink" title="六、使用SSR（server side render）服务端渲染，数据直接输出到HTML中"></a>六、使用SSR（server side render）服务端渲染，数据直接输出到HTML中</h1><p>ssr是Server-Side Rendering的简写，即由服务端负责渲染页面直出，亦即同构应用。程序的大部分代码都可以在服务端和客户端运行。在服务端vue组件渲染为html字符串，然后直接返回给客户端，在客户端生成dom和操作dom。</p>
+<h1 id="使用SSR（server-side-render）服务端渲染，数据直接输出到HTML中"><a href="#使用SSR（server-side-render）服务端渲染，数据直接输出到HTML中" class="headerlink" title="使用SSR（server side render）服务端渲染，数据直接输出到HTML中"></a>使用SSR（server side render）服务端渲染，数据直接输出到HTML中</h1><p>ssr是Server-Side Rendering的简写，即由服务端负责渲染页面直出，亦即同构应用。程序的大部分代码都可以在服务端和客户端运行。在服务端vue组件渲染为html字符串，然后直接返回给客户端，在客户端生成dom和操作dom。</p>
 <p>能在服务端渲染为html字符串得益于vue组件结构是基于vnode的。vnode是dom的抽象表达，它不是真实的dom，它是由js对象组成的树，每个节点代表了一个dom。因为vnode，所以在服务端vue可以把js对象解析为html字符串。同样在客户端vnode因为是存在内存之中的，操作内存总比操作dom快的多，每次数据变化需要更新dom时，新旧vnode树经过diff算法，计算出最小变化集，大大提高了性能。</p>
 <p><strong>服务端渲染 SSR 的优缺点如下：</strong></p>
 <p>(1) 服务端渲染的优点：</p>
@@ -1748,18 +1759,18 @@
 <li>更多的开发条件限制： <strong>例如服务端渲染只支持 beforCreate 和 created 两个钩子函数</strong>，这会导致一些外部扩展库需要特殊处理，才能在服务端渲染应用程序中运行；并且与可以部署在任何静态文件服务器上的完全静态单页面应用程序 SPA 不同，服务端渲染应用程序，需要处于 Node.js server 运行环境；</li>
 <li>更多的服务器负载：在 Node.js  中渲染完整的应用程序，显然会比仅仅提供静态文件的  server 更加大量占用CPU 资源 (CPU-intensive - CPU 密集)，因此如果你预料在高流量环境 ( high traffic ) 下使用，请准备相应的服务器负载，并明智地采用缓存策略。</li>
 </ul>
-<h1 id="七、渲染优化"><a href="#七、渲染优化" class="headerlink" title="七、渲染优化"></a>七、渲染优化</h1><ul>
+<h1 id="渲染优化"><a href="#渲染优化" class="headerlink" title="渲染优化"></a>渲染优化</h1><ul>
 <li>css放在head里面，JS放在body的底部</li>
 <li>懒加载（图片懒加载、下拉加载更多）</li>
 <li>减少对DOM查询，对DOM查询做缓存</li>
 <li>减少DOM操作，多个操作尽量合并在一起执行</li>
 </ul>
-<h1 id="八、事件节流和防抖"><a href="#八、事件节流和防抖" class="headerlink" title="八、事件节流和防抖"></a>八、事件节流和防抖</h1><p>防抖:</p>
+<h1 id="事件节流和防抖"><a href="#事件节流和防抖" class="headerlink" title="事件节流和防抖"></a>事件节流和防抖</h1><p>防抖:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 按钮提交场景：防止多次提交按钮，只执行最后提交的一次</span></span><br><span class="line"><span class="comment">// 服务端验证场景：表单验证需要服务端配合，只执行一段连续的输入事件的最后一次，还有搜索联想词功能类似</span></span><br><span class="line">    <span class="keyword">const</span> debounce = <span class="function">(<span class="params">fn,delay</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> timer = <span class="literal">null</span></span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            clearTimeout(timer)</span><br><span class="line">            timer = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                fn.call(<span class="keyword">this</span>.arguments)</span><br><span class="line">            &#125;,delay)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p>节流：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 拖拽场景：固定时间内只执行一次，防止超高频次触发位置变动</span></span><br><span class="line"><span class="comment">// 缩放场景：监控浏览器resize</span></span><br><span class="line"><span class="comment">// 动画场景：避免短时间内多次触发动画引起性能问题</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> throttle = <span class="function">(<span class="params">fn,delay</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> tag = <span class="literal">true</span></span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(!tag)&#123;</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">            tag = <span class="literal">false</span></span><br><span class="line">            setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">                fn.call(<span class="keyword">this</span>.arguments)</span><br><span class="line">                tag = <span class="literal">true</span></span><br><span class="line">            &#125;,delay)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 时间戳实现节流函数</span></span><br><span class="line">    <span class="keyword">const</span> throttle = <span class="function">(<span class="params">fn,delay</span>) =&gt;</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> timer = <span class="literal">null</span></span><br><span class="line">        <span class="keyword">let</span> startTime = <span class="built_in">Date</span>.now()</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">let</span> currentTime = <span class="built_in">Date</span>.now</span><br><span class="line">            <span class="keyword">let</span> remaining = delay - (currentTime -startTime)</span><br><span class="line">            clearTimeout(timer)&#123;</span><br><span class="line">                <span class="keyword">if</span>(renmaining &lt;= <span class="number">0</span>)&#123;</span><br><span class="line">                    fn.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>)</span><br><span class="line">                    startTime = <span class="built_in">Date</span>.now()</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    timer = setTimeout(fn,remaining)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h1 id="九、使用DOMContentLoaded，尽早执行操作"><a href="#九、使用DOMContentLoaded，尽早执行操作" class="headerlink" title="九、使用DOMContentLoaded，尽早执行操作"></a>九、使用DOMContentLoaded，尽早执行操作</h1><p>相比window.oonload，需要页面的全部资源加载完成才会执行，包括了图片还有视频等等<br>而DOMContentLoaded，只要DOM渲染完成即可执行，此时的图片和视频可能还没有加载完</p>
-<h1 id="十、减少对DOM的操作"><a href="#十、减少对DOM的操作" class="headerlink" title="十、减少对DOM的操作"></a>十、减少对DOM的操作</h1><ul>
+<h1 id="使用DOMContentLoaded，尽早执行操作"><a href="#使用DOMContentLoaded，尽早执行操作" class="headerlink" title="使用DOMContentLoaded，尽早执行操作"></a>使用DOMContentLoaded，尽早执行操作</h1><p>相比window.oonload，需要页面的全部资源加载完成才会执行，包括了图片还有视频等等<br>而DOMContentLoaded，只要DOM渲染完成即可执行，此时的图片和视频可能还没有加载完</p>
+<h1 id="减少对DOM的操作"><a href="#减少对DOM的操作" class="headerlink" title="减少对DOM的操作"></a>减少对DOM的操作</h1><ul>
 <li>缓存DOM查询</li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 未缓存 DOM 查询</span></span><br><span class="line">    <span class="keyword">var</span> i</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="built_in">document</span>.getElementsByTagName(<span class="string">'p'</span>).length;i++)&#123;</span><br><span class="line">        <span class="comment">//todo</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//缓存 DOM 查询   使用一个变量接收查询到的DOM</span></span><br><span class="line">    <span class="keyword">var</span> pList = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'p'</span>)</span><br><span class="line">    <span class="keyword">var</span> i</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; pList.length;i++)&#123;</span><br><span class="line">        <span class="comment">//todo</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
@@ -1798,6 +1809,18 @@
 <p>vue中使用：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//没有指定webpackChunkName,每个组件打包成一个js文件</span></span><br><span class="line"><span class="keyword">const</span> test1 = <span class="function"><span class="params">()</span>=&gt;</span><span class="keyword">import</span>(<span class="string">'@/components/test1.vue'</span>) </span><br><span class="line"><span class="keyword">const</span> test2 = <span class="function"><span class="params">()</span>=&gt;</span><span class="keyword">import</span>(<span class="string">'@/components/test2.vue'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//指定了相同的webpackChunkName，会合并打包成y一个js文件</span></span><br><span class="line"><span class="keyword">const</span> test3 = <span class="function"><span class="params">()</span>=&gt;</span><span class="keyword">import</span>(<span class="comment">/* webpackChunkName:'grounpTest' */</span> <span class="string">'@/components/test3.vue'</span>) </span><br><span class="line"><span class="keyword">const</span> test4 = <span class="function"><span class="params">()</span>=&gt;</span><span class="keyword">import</span>(<span class="comment">/* webpackChunkName:'grounpTest' */</span> <span class="string">'@/components/test4.vue'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">    routes: [</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">'/test1'</span>, <span class="attr">component</span>: test1 &#125;,</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">'/test2'</span>, <span class="attr">component</span>: test2 &#125;,</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">'/test3'</span>, <span class="attr">component</span>: test3 &#125;,</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">'/test4'</span>, <span class="attr">component</span>: test4 &#125;</span><br><span class="line">    ]</span><br><span class="line"> &#125;)</span><br></pre></td></tr></table></figure>
 <p>注：/<em> webpackChunkName: ‘grounpTest’ </em>/使用命名chunk，一个特殊的注释语法来提供 chunk name (需要 Webpack &gt; 2.4)</p>
+<h1 id="其他优化手段"><a href="#其他优化手段" class="headerlink" title="其他优化手段"></a>其他优化手段</h1><h2 id="利用多个域名存储网站资源"><a href="#利用多个域名存储网站资源" class="headerlink" title="利用多个域名存储网站资源"></a>利用多个域名存储网站资源</h2><ol>
+<li><p>CDN缓存更方便（可以根据不同的资源类型（图片、音频、视频等）分别存储在cdn节点上）</p>
+</li>
+<li><p>突破浏览器并发限制（一般每个域名建立的链接不超过6个）</p>
+</li>
+<li><p>Cookieless，节省带宽，尤其是上行带宽一般比下行要慢（如果图片放在主站，那么每次请求图片的话都会携带cookie但是没必要，浪费了带宽）</p>
+</li>
+<li><p>对于UGC（用户生成内容，即用户原创内容）和主站隔离，防止不必要的安全问题(上传js窃取主站cookie之类的)。正是这个原因要求用户内容的域名必须不是自己主站的子域名，而是一个完全独立的第三方域名</p>
+</li>
+<li><p>节约主域名的连接数，优化页面的响应速度</p>
+</li>
+</ol>
 <h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h1><p><a href="https://www.jianshu.com/p/54cc04190252" target="_blank" rel="noopener">深入理解浏览器的缓存机制</a><br><a href="https://juejin.im/post/59a50dc1f265da246e6e108f" target="_blank" rel="noopener">web前端资源文件的部署和优化</a><br><a href="https://juejin.im/post/59b73ef75188253db70acdb5" target="_blank" rel="noopener">前端性能优化之加载技术</a></p>
 
           

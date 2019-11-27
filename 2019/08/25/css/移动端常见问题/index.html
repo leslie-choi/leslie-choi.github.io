@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="300毫秒延迟的由来和解决方法 300 毫秒延迟的主要原因是解决双击缩放。双击缩放，顾名思义，即用手指在屏幕上快速点击两次，iOS 自带的 Safari 浏览器会将网页缩放至原始比例。 那么这和 300 毫秒延迟有什么联系呢？ 假定这么一个场景。用户在 iOS Safari 里边点击了一个链接。由于用户可以进行双击缩放或者双击滚动的操作，当用户一次点击屏幕之后，浏览器并不能立刻判断用户是确实要打开">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-25T02:08:21.226Z">
+<meta property="og:updated_time" content="2019-11-27T08:20:19.758Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="移动端常见问题">
 <meta name="twitter:description" content="300毫秒延迟的由来和解决方法 300 毫秒延迟的主要原因是解决双击缩放。双击缩放，顾名思义，即用手指在屏幕上快速点击两次，iOS 自带的 Safari 浏览器会将网页缩放至原始比例。 那么这和 300 毫秒延迟有什么联系呢？ 假定这么一个场景。用户在 iOS Safari 里边点击了一个链接。由于用户可以进行双击缩放或者双击滚动的操作，当用户一次点击屏幕之后，浏览器并不能立刻判断用户是确实要打开">
@@ -424,6 +424,16 @@
 </ol>
 <p>雪碧图的概念大家一定在生活中经常听见，其实雪碧图是减小请求数的显著运用。而且很奇妙的是，多张图片拼在一块后，总体积会比之前所有图片的体积之和小（你可以亲自试试）。这里给大家推荐一个自动化生成雪碧图的工具：<a href="https://www.toptal.com/developers/css/sprite-generator" target="_blank" rel="noopener">https://www.toptal.com/developers/css/sprite-generator</a></p>
 <p>只要你添加相关资源文件，他就会自动帮你生成雪碧图以及对应的 CSS 样式。</p>
+<p>优点：</p>
+<ul>
+<li>减少HTTP 请求数，极大地提高页面加载速度</li>
+<li>增加图片信息的重复度，提高压缩比，减少图片大小</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>图片合并麻烦</li>
+<li>维护麻烦，修改一个图片可能需要重新布局整个图片、样式</li>
+</ul>
 <ol start="7">
 <li>使用字体图标（iconfont）</li>
 </ol>
