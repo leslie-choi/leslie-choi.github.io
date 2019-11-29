@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/prototype2.PNG">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/prototype3.PNG">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/instanceof.png">
-<meta property="og:updated_time" content="2019-11-20T09:16:10.161Z">
+<meta property="og:updated_time" content="2019-11-28T07:13:01.642Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="原型与原型链">
 <meta name="twitter:description" content="原型和原型链想要了解原型和原型链，那我们首先来了解一下构造函数。JavaScript不像Java一样，可以定义一个class。那在JavaScript中，想要定义一个类，就只能通过构造函数的模式。构造函数咪视中拥有了类和实例的概念。构造函数其实就是一个普通的函数，创建的方式和普通的函数没有区别，但是 首字母需要大写 ，另外普通函数可以直接调用，但是构造函数需要通过 new关键字来调用。  1234">
@@ -381,7 +381,7 @@
 <li>实际上是先创建了一个空对象</li>
 <li>设置新对象的<strong>proto</strong>属性指向构造函数的prototype对象</li>
 <li>绑定this，使用新对象调用函数，函数中的this被指向新实例对象</li>
-<li>如果构造函数返回了一个“对象”，那么这个对象就会取代刚才new出来的结果（说明刚才的操作都是无效的）。如果构造函数没有返回对象，那么new出来的结果为步骤1创建的对象。</li>
+<li>如果构造函数返回了一个“对象”，那么这个对象就会取代刚才new出来的结果（说明刚才的操作都是无效的）。如果构造函数没有返回对象，那么new出来的结果为步骤1创建的对象</li>
 </ol>
 
       

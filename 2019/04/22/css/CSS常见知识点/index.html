@@ -107,7 +107,7 @@
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/BFC5.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/z-index.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/z-indexRules.png">
-<meta property="og:updated_time" content="2019-11-27T08:15:31.650Z">
+<meta property="og:updated_time" content="2019-11-28T04:19:30.570Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS常见知识点">
 <meta name="twitter:description" content="Flex布局常见属性1、flex-directionflex-direction属性决定主轴的方向（即项目的排列方向）。 .box { display:flex; flex-direction: row | row-reverse | column | column-reverse; } row（默认值）：主轴为水平方向，起点在左端。 row-reverse：主轴为水平方向，起点在右端。 colu">
@@ -673,12 +673,23 @@
 <li>向下兼容 PNG</li>
 </ul>
 <h2 id="其他图片知识"><a href="#其他图片知识" class="headerlink" title="其他图片知识"></a>其他图片知识</h2><ol>
-<li><p>雪碧图</p>
-</li>
-<li><p>base64 格式图片（在webpack 中可以使用url-loader进行图片打包）</p>
-</li>
+<li>雪碧图</li>
 </ol>
-<p>优点：可以加密，减少http 请求，适用于小图片（20kb左右），体积约为原图的3/4<br>缺点：需要消耗cpu 进行编解码</p>
+<p>优点：</p>
+<ul>
+<li>减少HTTP 请求数，极大地提高页面加载速度</li>
+<li>增加图片信息的重复度，提高压缩比，减少图片大小</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>图片合并麻烦</li>
+<li>维护麻烦，修改一个图片可能需要重新布局整个图片、样式</li>
+</ul>
+<ol start="2">
+<li>base64 格式图片（在webpack 中可以使用url-loader进行图片打包）</li>
+</ol>
+<p>优点：可以加密，减少http 请求，适用于小图片（20kb左右），体积约为原图的3/4</p>
+<p>缺点：需要消耗cpu 进行编解码</p>
 <h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h1><p><a href="https://juejin.im/post/5a4dbe026fb9a0452207ebe6" target="_blank" rel="noopener">什么是BFC?</a><br><a href="https://juejin.im/post/59b73d5bf265da064618731d" target="_blank" rel="noopener">学习 BFC (Block Formatting Context)</a></p>
 
       

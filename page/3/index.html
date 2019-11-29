@@ -652,12 +652,23 @@
 <li>向下兼容 PNG</li>
 </ul>
 <h2 id="其他图片知识"><a href="#其他图片知识" class="headerlink" title="其他图片知识"></a>其他图片知识</h2><ol>
-<li><p>雪碧图</p>
-</li>
-<li><p>base64 格式图片（在webpack 中可以使用url-loader进行图片打包）</p>
-</li>
+<li>雪碧图</li>
 </ol>
-<p>优点：可以加密，减少http 请求，适用于小图片（20kb左右），体积约为原图的3/4<br>缺点：需要消耗cpu 进行编解码</p>
+<p>优点：</p>
+<ul>
+<li>减少HTTP 请求数，极大地提高页面加载速度</li>
+<li>增加图片信息的重复度，提高压缩比，减少图片大小</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>图片合并麻烦</li>
+<li>维护麻烦，修改一个图片可能需要重新布局整个图片、样式</li>
+</ul>
+<ol start="2">
+<li>base64 格式图片（在webpack 中可以使用url-loader进行图片打包）</li>
+</ol>
+<p>优点：可以加密，减少http 请求，适用于小图片（20kb左右），体积约为原图的3/4</p>
+<p>缺点：需要消耗cpu 进行编解码</p>
 <h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h1><p><a href="https://juejin.im/post/5a4dbe026fb9a0452207ebe6" target="_blank" rel="noopener">什么是BFC?</a><br><a href="https://juejin.im/post/59b73d5bf265da064618731d" target="_blank" rel="noopener">学习 BFC (Block Formatting Context)</a></p>
 
           
@@ -1059,7 +1070,8 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;  <span class="comment">// 构造函数</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">  get prop() &#123;  <span class="comment">// 取值</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'getter'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  set prop(value) &#123; <span class="comment">// 存值</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'setter: '</span>+value);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> inst = <span class="keyword">new</span> MyClass();</span><br><span class="line">inst.prop = <span class="number">123</span>;</span><br><span class="line"><span class="comment">// setter: 123</span></span><br><span class="line"><span class="built_in">console</span>.log(inst.prop);</span><br><span class="line"><span class="comment">// 'getter'</span></span><br></pre></td></tr></table></figure>
 <p>extends用法</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(x, y) &#123;</span><br><span class="line">    <span class="keyword">this</span>.x = x;</span><br><span class="line">    <span class="keyword">this</span>.y = y;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ColorPoint</span> <span class="keyword">extends</span> <span class="title">Point</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(x, y, color) &#123;</span><br><span class="line">    <span class="keyword">this</span>.color = color; <span class="comment">// ReferenceError</span></span><br><span class="line">    <span class="keyword">super</span>(x, y);</span><br><span class="line">    <span class="keyword">this</span>.color = color; <span class="comment">// 正确</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在子类的构造函数中，<strong>只有调用super之后</strong>，才可以使用this关键字，否则会报错。<br>其实 super(…) 做的事情就是绑定 this。因为在原型继承中，如果一个类要继承自另一个类，那就得先实例化一次它的父类作为作为子类的原型。如果不做这件事，子类的原型就不能确定，当然也就无法创建 this。所以如果在 constructor 中没有 super(…) 就企图获取 this 就会报错。</p>
+<p>在子类的构造函数中，<strong>只有调用super之后</strong>，才可以使用this关键字，否则会报错。</p>
+<p>其实 super(…) 做的事情就是绑定 this。因为在原型继承中，如果一个类要继承自另一个类，那就得先实例化一次它的父类作为作为子类的原型。如果不做这件事，子类的原型就不能确定，当然也就无法创建 this。所以如果在 constructor 中没有 super(…) 就企图获取 this 就会报错。</p>
 <p>这是因为子类实例的构建，是基于对父类实例加工，只有super方法才能返回父类实例。父类的静态方法，也会被子类继承。</p>
 <p>注意，super虽然代表了父类Point的构造函数，但是返回的是子类ColorPoint的实例，即super内部的this指的是ColorPoint，因此super()在这里相当于<strong>Point.prototype.constructor.call(this)。</strong></p>
 <p>作为函数时，super()只能用在子类的构造函数之中，用在其他地方就会报错。</p>
@@ -1195,15 +1207,13 @@
 <p>具体过程：</p>
 <ol>
 <li>编写ES6代码</li>
-<li>babylon进行解析</li>
-<li>解析得到AST</li>
-<li>plugin用babel-traverse对AST树进行遍历转译</li>
-<li>得到新的AST树</li>
+<li>babylon进行解析，解析得到AST</li>
+<li>plugin用babel-traverse对AST树进行遍历转译，得到新的AST树</li>
 <li>用babel-generator通过AST树生成ES5代码</li>
 </ol>
 <p>需注意的一点就是，babel默认只是转译新标准引入的语法，比如ES6的箭头函数，不转换新的API，比如Iterator、Generator、Set、Maps、Proxy、Reflect、Symbol、Promise等全局对象，以及一些定义在全局对象上的方法（比如Object.assign）都不会转码。</p>
 <p>举例来说，ES6在Array对象上新增了Array.from方法。Babel就不会转码这个方法。如果想让这个方法运行，必须使用babel-polyfill，为当前环境提供一个垫片。</p>
-
+<h1 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h1>
           
         
       
@@ -2395,7 +2405,7 @@
 <li>实际上是先创建了一个空对象</li>
 <li>设置新对象的<strong>proto</strong>属性指向构造函数的prototype对象</li>
 <li>绑定this，使用新对象调用函数，函数中的this被指向新实例对象</li>
-<li>如果构造函数返回了一个“对象”，那么这个对象就会取代刚才new出来的结果（说明刚才的操作都是无效的）。如果构造函数没有返回对象，那么new出来的结果为步骤1创建的对象。</li>
+<li>如果构造函数返回了一个“对象”，那么这个对象就会取代刚才new出来的结果（说明刚才的操作都是无效的）。如果构造函数没有返回对象，那么new出来的结果为步骤1创建的对象</li>
 </ol>
 
           
