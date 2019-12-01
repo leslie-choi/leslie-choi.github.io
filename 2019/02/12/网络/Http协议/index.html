@@ -6,7 +6,7 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -95,7 +95,7 @@
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/get%26post.jpeg">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/httpVersion.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/https.png">
-<meta property="og:updated_time" content="2019-11-27T01:59:01.961Z">
+<meta property="og:updated_time" content="2019-12-01T09:59:40.759Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP和TCP">
 <meta name="twitter:description" content="TCP协议互联网由一整套协议构成图片说明：顶层协议是应用层协议 =&amp;gt; TCP协议 =&amp;gt; IP协议 =&amp;gt; 以太网协议（应用层=&amp;gt;传输层=&amp;gt;网络层=&amp;gt;链路层） 以太网协议：最底层的协议，可以解决子网内部的点对点通讯。 IP协议：IP协议，可以解决多个局域网之间互通，可以连接多个局域网，定义了一套自己的地址规则，实现了路由的功能，允许某个局域网的A主机，向另一个局域网">
@@ -147,7 +147,7 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -157,7 +157,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -237,20 +237,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/12/网络/Http协议/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -293,7 +293,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/network/" itemprop="url" rel="index">
                     <span itemprop="name">network</span>
                   </a>
@@ -391,7 +391,7 @@
 <li>空行</li>
 <li>响应体</li>
 </ul>
-<h2 id="get和post的主要区别"><a href="#get和post的主要区别" class="headerlink" title="get和post的主要区别"></a>get和post的主要区别</h2><p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/get%26post.jpeg" alt="markdown"><br><strong>1、get在浏览器回退时是无害的，而post会再次请求</strong><br><strong>2、get产生的url地址可以被收藏（即书签），而post不会</strong><br>3、get请求会被浏览器主动缓存，而post不会，除非手动设置<br>4、get请求只能进行url编码，而post支持多种编码方式<br><strong>5、get请求参数会被完整保留在浏览历史记录里，而post中的参数不会被保留</strong><br><strong>6、get 请求在url中传送的参数有长度限制（一般限制在2kb~8kb之间，但是更加常见的是在1kb之内），而post没有（实际大小根据服务器情况而定）</strong><br>7、对参数的数据类型，get只接受ascll字符，而post没有限制<br>8、post比get更安全，因为参数直接暴露在url上，所以不能用来传递敏感信息<br><strong>9、get参数通过url传递，poet放在request body中</strong><br>10、GET产生一个TCP数据包;POST产生两个TCP数据包。<br>对于GET方式的请求，浏览器会把<strong>http header和data一并发送出去</strong>，服务器响应200(返回数据);<br>而对于POST，浏览器先发送<strong>header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok(返回数据)</strong></p>
+<h2 id="get和post的主要区别"><a href="#get和post的主要区别" class="headerlink" title="get和post的主要区别"></a>get和post的主要区别</h2><p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/get%26post.jpeg" alt="markdown"><br><strong>1、get在浏览器回退时是无害的，而post会再次请求</strong><br><strong>2、get产生的url地址可以被收藏（即书签），而post不会</strong><br>3、get请求会被浏览器主动缓存，而post不会，除非手动设置<br>4、get请求只能进行url编码，而post支持多种编码方式<br><strong>5、get请求参数会被完整保留在浏览历史记录里，而post中的参数不会被保留</strong><br><strong>6、get 请求在url中传送的参数有长度限制（一般限制在2kb~8kb之间，但是更加常见的是在1kb之内，这个⻓度限制是浏览器规定的），而post没有（实际大小根据服务器情况而定）</strong><br>7、对参数的数据类型，get只接受ascll字符，而post没有限制<br>8、post比get更安全，因为参数直接暴露在url上，所以不能用来传递敏感信息<br><strong>9、get参数通过url传递，poet放在request body中</strong><br>10、GET产生一个TCP数据包;POST产生两个TCP数据包。<br>对于GET方式的请求，浏览器会把<strong>http header和data一并发送出去</strong>，服务器响应200(返回数据);<br>而对于POST，浏览器先发送<strong>header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok(返回数据)</strong></p>
 <p>HTTP缺点：<br>1、通信使用明文（ 不加密） ， 内容可能会被窃听<br>2、不验证通信方的身份， 因此有可能遭遇伪装<br>3、无法证明报文的完整性， 所以有可能已遭篡改</p>
 <h2 id="Http的版本"><a href="#Http的版本" class="headerlink" title="Http的版本"></a>Http的版本</h2><ol>
 <li>HTTP 0.9作为HTTP协议的第一个版本。是非常弱的。请求(Request)只有一行,比如: GET <a href="http://www.leautolink.com" target="_blank" rel="noopener">www.leautolink.com</a></li>
@@ -432,7 +432,7 @@
 </li>
 <li><p>TRACE:<br>回显服务器收到的请求,主要用于测试或诊断。</p>
 </li>
-<li><p>CONNECT:<br>HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。通常用于SSL加密服务器的链接(经由非加密的HTTP代理服务器)。</p>
+<li><p>CONNECT:<br>把请求连接转换到透明的 TCP/IP 通道。通常用于SSL加密服务器的链接(经由非加密的HTTP代理服务器)。</p>
 </li>
 </ul>
 <h2 id="几个常见的Content-Type"><a href="#几个常见的Content-Type" class="headerlink" title="几个常见的Content-Type"></a>几个常见的Content-Type</h2><p><strong>第一类：raw 原始类型，可以上传任意格式的文本，比如 text、json、xml、html（中文不进行编码）</strong></p>
@@ -457,7 +457,7 @@
 <ul>
 <li>application/x-www-form-urlencoded ：</li>
 </ul>
-<p><form enctype="">中默认的encType，<br>form表单数据被编码为key/value格式发送到服务器（表单默认的提交数据的格式）。<br>服务器收到的raw body会是，name=aaa&amp;key=bbb。</form></p>
+<p><form enctype>中默认的encType，<br>form表单数据被编码为key/value格式发送到服务器（表单默认的提交数据的格式）。<br>服务器收到的raw body会是，name=aaa&amp;key=bbb。</form></p>
 <p><strong>第三类：multipart/form-data，将表单的数据处理为一条消息，以标签为单元，用分隔符分开。既可以上传键值对，也可以上传文件</strong></p>
 <ul>
 <li>multipart/form-data ： 表单上传文件</li>
@@ -635,7 +635,7 @@
 
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">leslie choi</p>
               <p class="site-description motion-element" itemprop="description"></p>

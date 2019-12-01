@@ -6,7 +6,7 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="JavaScript入门（一）js中的数据类型js中的原始数据类型:number , string , boolean , null , undefined , object number:数字类型(整数和小数) string:字符串类型(的值一般都是用单引号或者是双引号括起来)  “34” boolean:布尔类型(值只有两个,true(真1),false(假0))null:空类型,值只有一个:">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-20T09:16:10.046Z">
+<meta property="og:updated_time" content="2019-12-01T15:25:50.688Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript入门">
 <meta name="twitter:description" content="JavaScript入门（一）js中的数据类型js中的原始数据类型:number , string , boolean , null , undefined , object number:数字类型(整数和小数) string:字符串类型(的值一般都是用单引号或者是双引号括起来)  “34” boolean:布尔类型(值只有两个,true(真1),false(假0))null:空类型,值只有一个:">
@@ -138,7 +138,7 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -148,7 +148,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -228,20 +228,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/JavaScript/JavaScript入门/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -284,7 +284,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/JavaScript/" itemprop="url" rel="index">
                     <span itemprop="name">JavaScript</span>
                   </a>
@@ -459,11 +459,11 @@
 <h2 id="二、json数据格式"><a href="#二、json数据格式" class="headerlink" title="二、json数据格式"></a>二、json数据格式</h2><p>JSON格式的数据:一般都是成对的,是键值对,</p>
 <p>json也是一个对象,数据都是成对的,一般json格式的数据无论是键还是值都是用双引号括起来的</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> json = &#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"小明"</span>,</span><br><span class="line">  <span class="string">"age"</span>: <span class="string">"10"</span>,</span><br><span class="line">  <span class="string">"sex"</span>: <span class="string">"男"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//遍历对象,是不能通过for循环遍历,无序</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//key是一个变量,这个变量中存储的是该对象的所有的属性的名字</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> json) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(key + <span class="string">"==========="</span> + json[key]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="三、简单数据类型和复杂数据类型"><a href="#三、简单数据类型和复杂数据类型" class="headerlink" title="三、简单数据类型和复杂数据类型"></a>三、简单数据类型和复杂数据类型</h2><p>原始数据类型: number,string,boolean,undefined, null,object<br>​    基本类型(简单类型),值类型: number,string,boolean<br>​    复杂类型(引用类型):object<br>​    空类型:undefined,null</p>
-<p>值类型的值在哪一块空间中存储? 栈中存储<br>​    引用类型的值在哪一块空间中存储?对象在堆上存储,地址在栈上存储</p>
-<p>var num=10;//值类型,值在栈上<br>​    var obj={};//复杂类型,对象在堆,地址(引用)在栈</p>
-<p>值类型之间传递,传递的是值<br>​    引用类型之间传递,传递的是地址(引用)</p>
-<p>值类型作为函数的参数,传递的是值<br>​    引用类型作为函数的参数,传递的是</p>
+<h2 id="三、简单数据类型和复杂数据类型"><a href="#三、简单数据类型和复杂数据类型" class="headerlink" title="三、简单数据类型和复杂数据类型"></a>三、简单数据类型和复杂数据类型</h2><p>原始数据类型: number,string,boolean,undefined, null,object<br>基本类型(简单类型),值类型: number,string,boolean<br>复杂类型(引用类型):object<br>空类型:undefined,null</p>
+<p>值类型的值在哪一块空间中存储? 栈中存储<br>引用类型的值在哪一块空间中存储?对象在堆上存储,地址在栈上存储</p>
+<p>var num=10;//值类型,值在栈上<br>var obj={};//复杂类型,对象在堆,地址(引用)在栈</p>
+<p>值类型之间传递,传递的是值<br>引用类型之间传递,传递的是地址(引用)</p>
+<p>值类型作为函数的参数,传递的是值<br>引用类型作为函数的参数,传递的是</p>
 <h2 id="四、内置对象"><a href="#四、内置对象" class="headerlink" title="四、内置对象"></a>四、内置对象</h2><h1 id="JavaScript入门（四）"><a href="#JavaScript入门（四）" class="headerlink" title="JavaScript入门（四）"></a>JavaScript入门（四）</h1><h2 id="BOM内容"><a href="#BOM内容" class="headerlink" title="BOM内容"></a>BOM内容</h2><p>BOM:Browser Object Model:浏览器对象模型</p>
 <p>BOM中的顶级对象就是window</p>
 <p>DOM中页面中有一个顶级对象:Document</p>
@@ -515,6 +515,50 @@
 <li>for-of 并不适用于处理原有的原生对象</li>
 </ul>
 <p>能够被for…of正常遍历的，都需要实现一个遍历器Iterator。<br>而数组、字符串、Set、Map结构，早就内置好了Iterator（迭代器），它们的原型中都有一个Symbol.iterator方法，而Object对象并没有实现这个接口，使得它无法被for…of遍历。</p>
+<h2 id="四则运算"><a href="#四则运算" class="headerlink" title="四则运算"></a>四则运算</h2><ul>
+<li>运算中其中⼀⽅为字符串，那么就会把另⼀⽅也转换为字符串 </li>
+<li>如果⼀⽅不是字符串或者数字，那么会将它转换为数字或者字符串</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="number">1</span> + <span class="string">'1'</span> <span class="comment">// '11' </span></span><br><span class="line"><span class="literal">true</span> + <span class="literal">true</span> <span class="comment">// 2 </span></span><br><span class="line"><span class="number">4</span> + [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>] <span class="comment">// "41,2,3"</span></span><br><span class="line"><span class="string">'a'</span> + + <span class="string">'b'</span> <span class="comment">// -&gt; "aNaN"</span></span><br></pre></td></tr></table></figure>
+<p>对于第⼀⾏代码来说，触发特点⼀，所以将数字 1 转换为字符串，得到结果 ‘11’<br>对于第⼆⾏代码来说，触发特点⼆，所以将 true 转为数字 1<br>对于第三⾏代码来说，触发特点⼆，所以将数组通过 toString 转为字符串 1,2,3 ，得 到结果 41,2,3<br>对于第四行代码来说，因为 + ‘b’ 等于 NaN ，所以结果为 “aNaN” ，你可能也会在⼀些代码中看到过 + ‘1’ 的形式来快速获取 number 类型。 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="number">4</span> * <span class="string">'3'</span> <span class="comment">// 12 </span></span><br><span class="line"><span class="number">4</span> * [] <span class="comment">// 0 </span></span><br><span class="line"><span class="number">4</span> * [<span class="number">1</span>, <span class="number">2</span>] <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+<p><strong>那么对于除了加法的运算符来说，只要其中⼀⽅是数字，那么另⼀⽅就会被转为数字</strong></p>
+<h2 id="和-有什么区别"><a href="#和-有什么区别" class="headerlink" title="== 和 === 有什么区别"></a>== 和 === 有什么区别</h2><p><strong>对于 == 来说，如果对⽐双⽅的类型不⼀样的话，就会进⾏类型转换</strong></p>
+<p>假如我们需要对⽐ x 和 y 是否相同，就会进⾏如下判断流程</p>
+<ol>
+<li>⾸先会判断两者类型是否相同。相同的话就是⽐⼤⼩了 </li>
+<li>类型不相同的话，那么就会进⾏类型转换 </li>
+<li>会先判断是否在对⽐ null 和 undefined ，是的话就会返回 true </li>
+<li>判断两者类型是否为 string 和 number ，是的话就会将字符串转换为 number</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="number">1</span> == <span class="string">'1'</span>      <span class="comment">//转换为</span></span><br><span class="line"><span class="number">1</span> ==  <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>判断其中⼀⽅是否为 boolean ，是的话就会把 boolean 转为 number 再进⾏判断</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="string">'1'</span> == <span class="literal">true</span> </span><br><span class="line"><span class="string">'1'</span> ==  <span class="number">1</span> </span><br><span class="line"> <span class="number">1</span>  ==  <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p><strong>对于 === 来说就简单多了，就是判断两者类型和值是否相同</strong></p>
+<p>Object.is相对于 === 的改进，就是</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.is(<span class="number">-0</span>,+<span class="number">0</span>)  <span class="comment">//  false</span></span><br><span class="line"><span class="built_in">Object</span>.is(<span class="literal">NaN</span>,<span class="literal">NaN</span>)  <span class="comment">//  true</span></span><br></pre></td></tr></table></figure>
+<h2 id="深浅拷⻉"><a href="#深浅拷⻉" class="headerlink" title="深浅拷⻉"></a>深浅拷⻉</h2><p><strong>浅拷⻉</strong></p>
+<ol>
+<li>⾸先可以通过 Object.assign 来解决这个问题，很多⼈认为这个函数是⽤来 深拷⻉的。其实并不是， Object.assign 只会拷⻉所有的属性值到新的对象 中，如果属性值是对象的话，拷⻉的是地址，所以并不是深拷⻉</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> a = &#123;   </span><br><span class="line">  age: <span class="number">1</span> </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">let</span> b = <span class="built_in">Object</span>.assign(&#123;&#125;, a) </span><br><span class="line">a.age = <span class="number">2</span> </span><br><span class="line"><span class="built_in">console</span>.log(b.age) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>另外我们还可以通过展开运算符 … 来实现浅拷⻉</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> a = &#123;   </span><br><span class="line">  age: <span class="number">1</span>,   </span><br><span class="line">  jobs: &#123;     </span><br><span class="line">    first: <span class="string">'FE'</span>   </span><br><span class="line">  &#125; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">let</span> b = &#123; ...a &#125; </span><br><span class="line">a.jobs.first = <span class="string">'native'</span> </span><br><span class="line"><span class="built_in">console</span>.log(b.jobs.first) <span class="comment">// native</span></span><br></pre></td></tr></table></figure>
+<p>浅拷⻉只解决了第⼀层的问题，如果接下去的值中还有对象的话，那么就⼜回 到Y开始的话题了，两者享有相同的地址。要解决这个问题，我们就得使⽤深拷⻉了。</p>
+<p>深拷⻉</p>
+<p>这个问题通常可以通过 JSON.parse(JSON.stringify(object)) 来解决。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> a = &#123;   </span><br><span class="line">  age: <span class="number">1</span>,   </span><br><span class="line">  jobs: &#123;     </span><br><span class="line">    first: <span class="string">'FE'</span>   </span><br><span class="line">  &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> b = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(a)) </span><br><span class="line">a.jobs.first = <span class="string">'native'</span> </span><br><span class="line"><span class="built_in">console</span>.log(b.jobs.first) <span class="comment">// FE</span></span><br></pre></td></tr></table></figure>
+<p>但是该⽅法也是有局限性的：</p>
+<ul>
+<li>会忽略 undefined </li>
+<li>会忽略 symbol </li>
+<li>不能序列化函数 </li>
+<li>不能解决循环引⽤的对</li>
+</ul>
 
       
     </div>
@@ -621,7 +665,7 @@
 
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">leslie choi</p>
               <p class="site-description motion-element" itemprop="description"></p>
@@ -689,7 +733,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript入门（一）"><span class="nav-number">1.</span> <span class="nav-text">JavaScript入门（一）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#js中的数据类型"><span class="nav-number">1.1.</span> <span class="nav-text">js中的数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型转换"><span class="nav-number">1.2.</span> <span class="nav-text">类型转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他类型转字符串类型"><span class="nav-number">1.3.</span> <span class="nav-text">其他类型转字符串类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他类型转Boolean"><span class="nav-number">1.4.</span> <span class="nav-text">其他类型转Boolean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作符"><span class="nav-number">1.5.</span> <span class="nav-text">操作符</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript入门（二）"><span class="nav-number">2.</span> <span class="nav-text">JavaScript入门（二）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#流程控制的三种方式"><span class="nav-number">2.1.</span> <span class="nav-text">流程控制的三种方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#break关键字"><span class="nav-number">2.2.</span> <span class="nav-text">break关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#continue关键字"><span class="nav-number">2.3.</span> <span class="nav-text">continue关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">2.4.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-number">2.5.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#arguments伪数组"><span class="nav-number">2.6.</span> <span class="nav-text">arguments伪数组</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript入门（三）"><span class="nav-number">3.</span> <span class="nav-text">JavaScript入门（三）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、创建对象的三种方式"><span class="nav-number">3.1.</span> <span class="nav-text">一、创建对象的三种方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、json数据格式"><span class="nav-number">3.2.</span> <span class="nav-text">二、json数据格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、简单数据类型和复杂数据类型"><span class="nav-number">3.3.</span> <span class="nav-text">三、简单数据类型和复杂数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、内置对象"><span class="nav-number">3.4.</span> <span class="nav-text">四、内置对象</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript入门（四）"><span class="nav-number">4.</span> <span class="nav-text">JavaScript入门（四）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BOM内容"><span class="nav-number">4.1.</span> <span class="nav-text">BOM内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BOM中的三个对话框"><span class="nav-number">4.2.</span> <span class="nav-text">BOM中的三个对话框</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页面的加载事件"><span class="nav-number">4.3.</span> <span class="nav-text">页面的加载事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定时器"><span class="nav-number">4.4.</span> <span class="nav-text">定时器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript的location对象"><span class="nav-number">4.5.</span> <span class="nav-text">JavaScript的location对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#javaScript的history对象"><span class="nav-number">4.6.</span> <span class="nav-text">javaScript的history对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DOM内容"><span class="nav-number">4.7.</span> <span class="nav-text">DOM内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量提升和函数提升"><span class="nav-number">4.8.</span> <span class="nav-text">变量提升和函数提升</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for-in-循环、-for-of-循环和foreach"><span class="nav-number">4.9.</span> <span class="nav-text">for-in 循环、 for-of 循环和foreach</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历数组"><span class="nav-number">4.9.1.</span> <span class="nav-text">遍历数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历字符串"><span class="nav-number">4.9.2.</span> <span class="nav-text">遍历字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历对象"><span class="nav-number">4.9.3.</span> <span class="nav-text">遍历对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历Map-和Set"><span class="nav-number">4.9.4.</span> <span class="nav-text">遍历Map 和Set</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript入门（一）"><span class="nav-number">1.</span> <span class="nav-text">JavaScript入门（一）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#js中的数据类型"><span class="nav-number">1.1.</span> <span class="nav-text">js中的数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型转换"><span class="nav-number">1.2.</span> <span class="nav-text">类型转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他类型转字符串类型"><span class="nav-number">1.3.</span> <span class="nav-text">其他类型转字符串类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他类型转Boolean"><span class="nav-number">1.4.</span> <span class="nav-text">其他类型转Boolean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作符"><span class="nav-number">1.5.</span> <span class="nav-text">操作符</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript入门（二）"><span class="nav-number">2.</span> <span class="nav-text">JavaScript入门（二）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#流程控制的三种方式"><span class="nav-number">2.1.</span> <span class="nav-text">流程控制的三种方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#break关键字"><span class="nav-number">2.2.</span> <span class="nav-text">break关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#continue关键字"><span class="nav-number">2.3.</span> <span class="nav-text">continue关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">2.4.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-number">2.5.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#arguments伪数组"><span class="nav-number">2.6.</span> <span class="nav-text">arguments伪数组</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript入门（三）"><span class="nav-number">3.</span> <span class="nav-text">JavaScript入门（三）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、创建对象的三种方式"><span class="nav-number">3.1.</span> <span class="nav-text">一、创建对象的三种方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、json数据格式"><span class="nav-number">3.2.</span> <span class="nav-text">二、json数据格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、简单数据类型和复杂数据类型"><span class="nav-number">3.3.</span> <span class="nav-text">三、简单数据类型和复杂数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、内置对象"><span class="nav-number">3.4.</span> <span class="nav-text">四、内置对象</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript入门（四）"><span class="nav-number">4.</span> <span class="nav-text">JavaScript入门（四）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BOM内容"><span class="nav-number">4.1.</span> <span class="nav-text">BOM内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BOM中的三个对话框"><span class="nav-number">4.2.</span> <span class="nav-text">BOM中的三个对话框</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页面的加载事件"><span class="nav-number">4.3.</span> <span class="nav-text">页面的加载事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定时器"><span class="nav-number">4.4.</span> <span class="nav-text">定时器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript的location对象"><span class="nav-number">4.5.</span> <span class="nav-text">JavaScript的location对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#javaScript的history对象"><span class="nav-number">4.6.</span> <span class="nav-text">javaScript的history对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DOM内容"><span class="nav-number">4.7.</span> <span class="nav-text">DOM内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量提升和函数提升"><span class="nav-number">4.8.</span> <span class="nav-text">变量提升和函数提升</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for-in-循环、-for-of-循环和foreach"><span class="nav-number">4.9.</span> <span class="nav-text">for-in 循环、 for-of 循环和foreach</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历数组"><span class="nav-number">4.9.1.</span> <span class="nav-text">遍历数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历字符串"><span class="nav-number">4.9.2.</span> <span class="nav-text">遍历字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历对象"><span class="nav-number">4.9.3.</span> <span class="nav-text">遍历对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历Map-和Set"><span class="nav-number">4.9.4.</span> <span class="nav-text">遍历Map 和Set</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四则运算"><span class="nav-number">4.10.</span> <span class="nav-text">四则运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#和-有什么区别"><span class="nav-number">4.11.</span> <span class="nav-text">== 和 === 有什么区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深浅拷⻉"><span class="nav-number">4.12.</span> <span class="nav-text">深浅拷⻉</span></a></li></ol></li></ol></div>
             
 
           </div>

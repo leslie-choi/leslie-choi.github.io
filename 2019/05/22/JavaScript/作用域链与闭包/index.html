@@ -6,7 +6,7 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -79,23 +79,23 @@
 
 
 
-<meta name="description" content="作用域链JS中，只有全局作用域和局部作用域（eval开发中比较少使用不做讨论），并且作用域和执行上下文其实是完全不同的两个概念，在执行上下文这前两篇文章中也有谈到。 作用域链，是由当前环境与上层环境的一系列变量对象组成，作用是保证了当前执行环境对符合访问权限的变量和函数的有序访问。 123456789101112var a = 20;function test() &amp;#123;    var b">
+<meta name="description" content="作用域链JS中，只有全局作用域和局部作用域（eval开发中比较少使用不做讨论），并且作用域和执行上下文其实是完全不同的两个概念，在执行上下文这前两篇文章中也有谈到。 作用域链，是由当前环境与上层环境的一系列变量对象组成，作用是保证了当前执行环境对符合访问权限的变量和函数的有序访问。作⽤域链的变量只能 向上访问，变量访问到 window 对象即被终⽌，作⽤域链向下访问变量是不被允许的。 123456">
 <meta name="keywords" content="Interview">
 <meta property="og:type" content="article">
 <meta property="og:title" content="javaScript中的作用域链与闭包">
 <meta property="og:url" content="http://yoursite.com/2019/05/22/JavaScript/作用域链与闭包/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="作用域链JS中，只有全局作用域和局部作用域（eval开发中比较少使用不做讨论），并且作用域和执行上下文其实是完全不同的两个概念，在执行上下文这前两篇文章中也有谈到。 作用域链，是由当前环境与上层环境的一系列变量对象组成，作用是保证了当前执行环境对符合访问权限的变量和函数的有序访问。 123456789101112var a = 20;function test() &amp;#123;    var b">
+<meta property="og:description" content="作用域链JS中，只有全局作用域和局部作用域（eval开发中比较少使用不做讨论），并且作用域和执行上下文其实是完全不同的两个概念，在执行上下文这前两篇文章中也有谈到。 作用域链，是由当前环境与上层环境的一系列变量对象组成，作用是保证了当前执行环境对符合访问权限的变量和函数的有序访问。作⽤域链的变量只能 向上访问，变量访问到 window 对象即被终⽌，作⽤域链向下访问变量是不被允许的。 123456">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/foo.PNG">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/swip.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/laji.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/old.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/duibi.png">
-<meta property="og:updated_time" content="2019-11-18T07:40:50.408Z">
+<meta property="og:updated_time" content="2019-11-30T07:14:14.860Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javaScript中的作用域链与闭包">
-<meta name="twitter:description" content="作用域链JS中，只有全局作用域和局部作用域（eval开发中比较少使用不做讨论），并且作用域和执行上下文其实是完全不同的两个概念，在执行上下文这前两篇文章中也有谈到。 作用域链，是由当前环境与上层环境的一系列变量对象组成，作用是保证了当前执行环境对符合访问权限的变量和函数的有序访问。 123456789101112var a = 20;function test() &amp;#123;    var b">
+<meta name="twitter:description" content="作用域链JS中，只有全局作用域和局部作用域（eval开发中比较少使用不做讨论），并且作用域和执行上下文其实是完全不同的两个概念，在执行上下文这前两篇文章中也有谈到。 作用域链，是由当前环境与上层环境的一系列变量对象组成，作用是保证了当前执行环境对符合访问权限的变量和函数的有序访问。作⽤域链的变量只能 向上访问，变量访问到 window 对象即被终⽌，作⽤域链向下访问变量是不被允许的。 123456">
 <meta name="twitter:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/foo.PNG">
 
 
@@ -144,7 +144,7 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -154,7 +154,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -234,20 +234,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/JavaScript/作用域链与闭包/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -290,7 +290,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/JavaScript/" itemprop="url" rel="index">
                     <span itemprop="name">JavaScript</span>
                   </a>
@@ -329,7 +329,7 @@
 
       
         <h1 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h1><p>JS中，只有全局作用域和局部作用域（eval开发中比较少使用不做讨论），并且作用域和执行上下文其实是完全不同的两个概念，在执行上下文这前两篇文章中也有谈到。</p>
-<p><strong>作用域链，是由当前环境与上层环境的一系列变量对象组成，作用是保证了当前执行环境对符合访问权限的变量和函数的有序访问。</strong></p>
+<p><strong>作用域链，是由当前环境与上层环境的一系列变量对象组成，作用是保证了当前执行环境对符合访问权限的变量和函数的有序访问。</strong>作⽤域链的变量只能 向上访问，变量访问到 window 对象即被终⽌，作⽤域链向下访问变量是不被允许的。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> b = a + <span class="number">10</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">innerTest</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> c = <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">return</span> b + c;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> innerTest();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test();</span><br></pre></td></tr></table></figure>
 <p>当代码在一个环境中执行时，会创建变量对象的一个作用域链（作用域形成的链条）</p>
 <ul>
@@ -538,7 +538,7 @@
 
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">leslie choi</p>
               <p class="site-description motion-element" itemprop="description"></p>

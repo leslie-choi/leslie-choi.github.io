@@ -6,7 +6,7 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="JSON数据格式emmmm。虽然很基础，但是作为js的一个子集（度娘也有文章说不是js的子集，但是这并不是重点），也是有必要将其单独提出来讲一下8。JSON相比起XML格式的文档，优点就多了太多了。格式轻便，能够进行AJAX传输，可读性更高。。。 语法JSON 数据的书写格式是：名称/值对。名称/值对包括字段名称（在双引号中），后面写一个冒号，然后是值： “name” : “吴彦祖” JSON的取">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-18T15:39:33.187Z">
+<meta property="og:updated_time" content="2019-11-30T07:54:22.814Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JSON数据格式">
 <meta name="twitter:description" content="JSON数据格式emmmm。虽然很基础，但是作为js的一个子集（度娘也有文章说不是js的子集，但是这并不是重点），也是有必要将其单独提出来讲一下8。JSON相比起XML格式的文档，优点就多了太多了。格式轻便，能够进行AJAX传输，可读性更高。。。 语法JSON 数据的书写格式是：名称/值对。名称/值对包括字段名称（在双引号中），后面写一个冒号，然后是值： “name” : “吴彦祖” JSON的取">
@@ -137,7 +137,7 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -147,7 +147,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -227,20 +227,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/20/JavaScript/json/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -283,7 +283,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/JavaScript/" itemprop="url" rel="index">
                     <span itemprop="name">JavaScript</span>
                   </a>
@@ -330,6 +330,16 @@
 <h3 id="使用-JSON-parse-方法将数据转换为-JavaScript-对象。"><a href="#使用-JSON-parse-方法将数据转换为-JavaScript-对象。" class="headerlink" title="使用 JSON.parse() 方法将数据转换为 JavaScript 对象。"></a>使用 JSON.parse() 方法将数据转换为 JavaScript 对象。</h3><p>续上。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cxk = <span class="built_in">JSON</span>.stringify(stu);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.parse(cxk));</span><br></pre></td></tr></table></figure>
 <p>PS:分别取出对象中的键和值<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> stu = &#123;</span><br><span class="line">		    <span class="string">"name"</span> : <span class="string">"蔡徐坤"</span>,</span><br><span class="line">		    <span class="string">"age"</span> : <span class="number">18</span>,</span><br><span class="line">		    <span class="string">"size"</span> : <span class="string">"5cm"</span>,</span><br><span class="line">		    <span class="string">"height"</span> : <span class="string">"160cm"</span>,</span><br><span class="line">		    <span class="string">"favorite"</span> : [</span><br><span class="line">		        &#123;<span class="string">"sport"</span>: <span class="string">"篮球"</span>,<span class="string">"skills"</span>: <span class="string">"唱  跳 rap"</span>&#125;</span><br><span class="line">		    ]</span><br><span class="line">		&#125;</span><br><span class="line">              </span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">in</span> stu)&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(key);</span><br><span class="line">	<span class="built_in">console</span>.log(stu[key]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="XML和JSON的区别"><a href="#XML和JSON的区别" class="headerlink" title="XML和JSON的区别"></a>XML和JSON的区别</h1><ol>
+<li><p>数据体积⽅⾯<br>JSON 相对 于XML 来讲，数据的体积⼩，传递的速度更快些。</p>
+</li>
+<li><p>数据交互⽅⾯<br>JSON 与 JavaScript 的交互更加⽅便，更容易解析处理，更好的数据交互</p>
+</li>
+<li><p>数据描述⽅⾯<br>JSON 对数据的描述性⽐ XML 较差</p>
+</li>
+<li><p>传输速度⽅⾯<br>JSON 的速度要远远快于 XML</p>
+</li>
+</ol>
 
       
     </div>
@@ -430,7 +440,7 @@
 
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">leslie choi</p>
               <p class="site-description motion-element" itemprop="description"></p>
@@ -498,7 +508,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JSON数据格式"><span class="nav-number">1.</span> <span class="nav-text">JSON数据格式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语法"><span class="nav-number">1.1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSON处理数据的主要方法"><span class="nav-number">1.2.</span> <span class="nav-text">JSON处理数据的主要方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用JSON-stringify转换成字符串。"><span class="nav-number">1.2.1.</span> <span class="nav-text">使用JSON.stringify转换成字符串。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-JSON-parse-方法将数据转换为-JavaScript-对象。"><span class="nav-number">1.2.2.</span> <span class="nav-text">使用 JSON.parse() 方法将数据转换为 JavaScript 对象。</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JSON数据格式"><span class="nav-number">1.</span> <span class="nav-text">JSON数据格式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语法"><span class="nav-number">1.1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSON处理数据的主要方法"><span class="nav-number">1.2.</span> <span class="nav-text">JSON处理数据的主要方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用JSON-stringify转换成字符串。"><span class="nav-number">1.2.1.</span> <span class="nav-text">使用JSON.stringify转换成字符串。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-JSON-parse-方法将数据转换为-JavaScript-对象。"><span class="nav-number">1.2.2.</span> <span class="nav-text">使用 JSON.parse() 方法将数据转换为 JavaScript 对象。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XML和JSON的区别"><span class="nav-number">2.</span> <span class="nav-text">XML和JSON的区别</span></a></li></ol></div>
             
 
           </div>

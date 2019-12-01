@@ -6,7 +6,7 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -93,7 +93,7 @@
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/tcpip%E5%8D%8F%E8%AE%AE.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/TCPIP%E5%8E%9F%E7%90%86%E5%9B%BE.jpg">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/URL.png">
-<meta property="og:updated_time" content="2019-11-28T02:41:46.777Z">
+<meta property="og:updated_time" content="2019-12-01T14:19:20.071Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见网络知识点">
 <meta name="twitter:description" content="OSI七层协议模型  应用层（Application）：各种应用程序协议，如http、ftp、SMTP等等 表示层（Presentation）：信息的语法语义以及它们的关联，如加密解密、压缩和解压缩等等 会话层（Session）：不同机器上的用户之间建立及管理会话 传输层（Transport）：接受上一层的数据，在必要的时候将数据进行分割，并将数据交给网络层（TCP/UDP） 网络层（Networ">
@@ -145,7 +145,7 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -155,7 +155,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -235,20 +235,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/08/网络/网络知识点/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -291,7 +291,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/network/" itemprop="url" rel="index">
                     <span itemprop="name">network</span>
                   </a>
@@ -382,7 +382,7 @@
 </ol>
 <p>LocalForage就解决了上面的问题，localForage 是一个使用非常简单的 JavaScript 库的，提供了 get，set，remove，clear 和 length 等等 API（跟 localStorage 一样），还具有以下特点：</p>
 <ul>
-<li>支持回调的异步 API</li>
+<li>支持回调的异步 API（localStorage是同步的）</li>
 <li>支持 IndexedDB，WebSQL 和 localStorage 三种存储模式（自动为你加载最佳的驱动程序）</li>
 <li>支持 BLOB 和任意类型的数据，让您可以存储图片，文件等等</li>
 <li>支持 ES6 Promises</li>
@@ -436,7 +436,65 @@
 <li>服务器可以推送消息给客户端，实现双向对话平等</li>
 <li>没有同源策略的限制，可以实现跨域通讯</li>
 </ul>
-<h1 id="浏览器缓存"><a href="#浏览器缓存" class="headerlink" title="浏览器缓存"></a>浏览器缓存</h1><ol>
+<h1 id="cdn"><a href="#cdn" class="headerlink" title="cdn"></a>cdn</h1><p>CDN(Content Delivery Network)又称为内容分发网络，使内容传输的更快，更稳定。<br>也就是说，<strong>把静态资源文件和动态网页分集群部署</strong>，静态资源会被部署到CDN节点上，网页中引用的资源也会变成对应的部署路径。静态资源尽量使⽤ CDN 加载，由于浏览器对于单个域名有并发请求上限，可以考虑使⽤多个 CDN 域名。对于 CDN 加载静态资源需要注意 CDN 域名要 与主站不同，否则每次请求都会带上主站的 Cookie</p>
+<p>CDN 的核心点有两个: 一个是缓存，一个是回源。</p>
+<ul>
+<li>缓存<br>将从根服务器请求来的资源按要求缓存。</li>
+<li>回源<br>当有用户访问某个资源的时候，如果被解析到的那个 CDN 节点没有缓存响应的内容，或者是缓存已经到期，就会回源站去获取。没有人访问，CDN 节点不会主动去源站请求资源。</li>
+</ul>
+<p>原理：不同地区的用户会访问到离自己最近的相同网络线路上的CDN节点，当请求达到CDN节点后，节点会判断自己的内容缓存是否有效，如果有效，则立即响应缓存内容给用户，从而加快响应速度。如果CDN节点的缓存失效，它会根据服务配置去我们的内容源服务器获取最新的资源响应给用户，并将内容缓存下来以便响应给后续访问的用户。因此，一个地区内只要有一个用户先加载资源，在CDN中建立了缓存，该地区的其他后续用户都能因此而受益。</p>
+<p>不同地区的用户访问同一个域名却能得到不同CDN节点的IP地址，这要依赖于<strong>CDN服务商提供的智能域名解析服务</strong>，浏览器发起域名查询时，这种智能DNS服务会根据用户IP计算并返回离它最近的同网络CDN节点IP，引导浏览器与此节点建立连接以获取资源。</p>
+<p>优点：</p>
+<ul>
+<li>CDN 节点解决了跨运营商和跨地域访问的问题，访问延时大大降低</li>
+<li>大部分请求在 CDN 边缘节点完成，CDN 起到了分流作用，减轻了源站的负载</li>
+<li>提高网络访问的稳定性</li>
+</ul>
+<h1 id="缓存位置"><a href="#缓存位置" class="headerlink" title="缓存位置"></a>缓存位置</h1><p>从缓存位置上来说分为四种，并且各⾃有优先级，当依次查找缓存且都没有命 中的时候，才会去请求⽹络</p>
+<ol>
+<li>Service Worker </li>
+<li>Memory Cache </li>
+<li>Disk Cache </li>
+<li>Push Cache</li>
+<li><p>如果都没有缓存只能发起网络请求</p>
+</li>
+<li><p>Service Worker</p>
+</li>
+</ol>
+<ul>
+<li>service Worker 的缓存与浏览器其他内建的缓存机制不同，它可以让我们⾃由控制缓存 哪些⽂件、如何匹配缓存、如何读取缓存，并且缓存是持续性的。 </li>
+<li>当 Service Worker 没有命中缓存的时候，我们需要去调⽤ fetch 函数获取数据。也 就是说，如果我们没有在 Service Worker 命中缓存的话，会根据缓存查找优先级去查 找数据。但是不管我们是从 Memory Cache 中还是从⽹络请求中获取的数据，浏览器都会显示我们是从 Service Worker 中获取的内容。</li>
+</ul>
+<ol start="2">
+<li>Memory Cache</li>
+</ol>
+<ul>
+<li><p>Memory Cache 也就是内存中的缓存，读取内存中的数据肯定⽐磁盘快。但是内存缓存虽 然读取⾼效，可是缓存持续性很短，会随着进程的释放⽽释放。 ⼀旦我们关闭 Tab ⻚⾯，内存中的缓存也就被释放了。</p>
+</li>
+<li><p>当我们访问过⻚⾯以后，再次刷新⻚⾯，可以发现很多数据都来⾃于内存缓存</p>
+</li>
+</ul>
+<p>PS:那么既然内存缓存这么⾼效，我们是不是能让数据都存放在内存中呢？</p>
+<p>先说结论，这是不可能的。</p>
+<ul>
+<li>⾸先计算机中的内存⼀定⽐硬盘容量⼩得多，操作系统需要精 打细算内存的使⽤，所以能让我们使⽤的内存必然不多。</li>
+<li>内存中其实可以存储⼤部分的⽂件，⽐如说 JS 、 HTML 、 CSS 、图⽚等等 当然，我通过⼀些实践和猜测也得出了⼀些结论</li>
+<li>对于⼤⽂件来说，⼤概率是不存储在内存中的，反之优先当前系统内存使⽤率⾼的话，⽂件优先存储进硬盘</li>
+</ul>
+<ol start="3">
+<li>Disk Cache</li>
+</ol>
+<p>Disk Cache 也就是存储在硬盘中的缓存，读取速度慢点，但是什么都能存储到磁盘中， ⽐之 Memory Cache 胜在容量和存储时效性上。</p>
+<p>在所有浏览器缓存中，Disk Cache 覆盖⾯基本是Y⼤的。它会根据 ·HTTP Herder· 中的 字段判断哪些资源需要缓存，哪些资源可以不请求直接使⽤，哪些资源已经过期需要重新 请求。并且即使在跨站点的情况下，相同地址的资源⼀旦被硬盘缓存下来，就不会再次去请求数据。</p>
+<ol start="4">
+<li>push Cache</li>
+</ol>
+<p>Push Cache 是 HTTP/2 中的内容，当以上三种缓存都没有命中时，它才会被使⽤。并且缓存时间也很短暂，只在会话（ Session ）中存在，⼀旦会话结束就被释放。 Push Cache 在国内能够查到的资料很少，也是因为 HTTP/2 在国内不够普及，但是 HTTP/2 将会是⽇后的⼀个趋势</p>
+<ol start="5">
+<li>⽹络请求</li>
+</ol>
+<p>如果所有缓存都没有命中的话，那么只能发起请求来获取资源了。 那么为了性能上的考虑，⼤部分的接⼝都应该选择好缓存策略，接下来我们就来学习缓存策略这部分的内容</p>
+<h1 id="缓存策略"><a href="#缓存策略" class="headerlink" title="缓存策略"></a>缓存策略</h1><ol>
 <li>缓存的分类</li>
 </ol>
 <ul>
@@ -476,7 +534,13 @@
 <li><p>另外必须要考虑到服务器的时区问题。</p>
 </li>
 </ul>
-<h2 id="设置页面不使用缓存的几种方法"><a href="#设置页面不使用缓存的几种方法" class="headerlink" title="设置页面不使用缓存的几种方法"></a>设置页面不使用缓存的几种方法</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"pragma"</span> <span class="attr">content</span>=<span class="string">"no-cache"</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Cache-Control"</span> <span class="attr">content</span>=<span class="string">"no-cache, must-revalidate"</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"expires"</span> <span class="attr">content</span>=<span class="string">"Wed, 26 Feb 1997 08:21:57 GMT"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="设置页面不使用缓存的几种方法"><a href="#设置页面不使用缓存的几种方法" class="headerlink" title="设置页面不使用缓存的几种方法"></a>设置页面不使用缓存的几种方法</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"pragma"</span> <span class="attr">content</span>=<span class="string">"no-cache"</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Cache-Control"</span> <span class="attr">content</span>=<span class="string">"no-cache, must-revalidate"</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"expires"</span> <span class="attr">content</span>=<span class="string">"0"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="选择合适的缓存策略"><a href="#选择合适的缓存策略" class="headerlink" title="选择合适的缓存策略"></a>选择合适的缓存策略</h2><p>对于⼤部分的场景都可以使⽤强缓存配合协商缓存解决，但是在⼀些特殊的地⽅可能需要选择特殊的缓存策略</p>
+<ul>
+<li>对于某些不需要缓存的资源，可以使⽤ Cache-control: no-store ，表示该资源不需要 缓存 </li>
+<li>对于频繁变动的资源，可以使⽤ Cache-Control: no-cache 并配合 ETag 使⽤，表示 该资源已被缓存，但是每次都会发送请求询问资源是否更新。 </li>
+<li>对于代码⽂件来说，通常使⽤ Cache-Control: max-age=31536000 并配合策略缓存使 ⽤，然后对⽂件进⾏etag指纹处理，⼀旦⽂件名变动就会⽴刻下载新的⽂件</li>
+</ul>
 <h1 id="PWA使用缓存"><a href="#PWA使用缓存" class="headerlink" title="PWA使用缓存"></a>PWA使用缓存</h1><p>PWA(Progressive web apps, 渐进式Web应用)</p>
 <ul>
 <li>可以生成桌面小图标，不需要打开浏览器，方便用户访问</li>
@@ -599,7 +663,7 @@
 
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">leslie choi</p>
               <p class="site-description motion-element" itemprop="description"></p>
@@ -667,7 +731,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OSI七层协议模型"><span class="nav-number">1.</span> <span class="nav-text">OSI七层协议模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5层模型"><span class="nav-number">2.</span> <span class="nav-text">5层模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4层模型-TCP-IP模型"><span class="nav-number">3.</span> <span class="nav-text">4层模型 TCP/IP模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#应用层"><span class="nav-number">3.1.</span> <span class="nav-text">应用层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传输层"><span class="nav-number">3.2.</span> <span class="nav-text">传输层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络层"><span class="nav-number">3.3.</span> <span class="nav-text">网络层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#物理链路层"><span class="nav-number">3.4.</span> <span class="nav-text">物理链路层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">3.5.</span> <span class="nav-text">原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见的http状态码"><span class="nav-number">4.</span> <span class="nav-text">常见的http状态码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#URL和URI的区别"><span class="nav-number">5.</span> <span class="nav-text">URL和URI的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cookie、session和localStorage、以及sessionStorage之间的区别"><span class="nav-number">6.</span> <span class="nav-text">Cookie、session和localStorage、以及sessionStorage之间的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cookie"><span class="nav-number">6.1.</span> <span class="nav-text">cookie</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#session"><span class="nav-number">6.2.</span> <span class="nav-text">session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#localStorage"><span class="nav-number">6.3.</span> <span class="nav-text">localStorage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sessionStorage"><span class="nav-number">6.4.</span> <span class="nav-text">sessionStorage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#localforage实现-Web-离线存储"><span class="nav-number">6.5.</span> <span class="nav-text">localforage实现 Web 离线存储</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#session和cookie的主要区别"><span class="nav-number">7.</span> <span class="nav-text">session和cookie的主要区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sessionStorage、localStorage和cookie的区别"><span class="nav-number">8.</span> <span class="nav-text">sessionStorage、localStorage和cookie的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UDP和TCP（User-Datagram-Protocol，用户数据报协议）的区别"><span class="nav-number">9.</span> <span class="nav-text">UDP和TCP（User Datagram Protocol，用户数据报协议）的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何实现UDP的可靠传输"><span class="nav-number">10.</span> <span class="nav-text">如何实现UDP的可靠传输</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#websocket协议"><span class="nav-number">11.</span> <span class="nav-text">websocket协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浏览器缓存"><span class="nav-number">12.</span> <span class="nav-text">浏览器缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置页面不使用缓存的几种方法"><span class="nav-number">12.1.</span> <span class="nav-text">设置页面不使用缓存的几种方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PWA使用缓存"><span class="nav-number">13.</span> <span class="nav-text">PWA使用缓存</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OSI七层协议模型"><span class="nav-number">1.</span> <span class="nav-text">OSI七层协议模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5层模型"><span class="nav-number">2.</span> <span class="nav-text">5层模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4层模型-TCP-IP模型"><span class="nav-number">3.</span> <span class="nav-text">4层模型 TCP/IP模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#应用层"><span class="nav-number">3.1.</span> <span class="nav-text">应用层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传输层"><span class="nav-number">3.2.</span> <span class="nav-text">传输层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络层"><span class="nav-number">3.3.</span> <span class="nav-text">网络层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#物理链路层"><span class="nav-number">3.4.</span> <span class="nav-text">物理链路层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">3.5.</span> <span class="nav-text">原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见的http状态码"><span class="nav-number">4.</span> <span class="nav-text">常见的http状态码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#URL和URI的区别"><span class="nav-number">5.</span> <span class="nav-text">URL和URI的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cookie、session和localStorage、以及sessionStorage之间的区别"><span class="nav-number">6.</span> <span class="nav-text">Cookie、session和localStorage、以及sessionStorage之间的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cookie"><span class="nav-number">6.1.</span> <span class="nav-text">cookie</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#session"><span class="nav-number">6.2.</span> <span class="nav-text">session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#localStorage"><span class="nav-number">6.3.</span> <span class="nav-text">localStorage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sessionStorage"><span class="nav-number">6.4.</span> <span class="nav-text">sessionStorage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#localforage实现-Web-离线存储"><span class="nav-number">6.5.</span> <span class="nav-text">localforage实现 Web 离线存储</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#session和cookie的主要区别"><span class="nav-number">7.</span> <span class="nav-text">session和cookie的主要区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sessionStorage、localStorage和cookie的区别"><span class="nav-number">8.</span> <span class="nav-text">sessionStorage、localStorage和cookie的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UDP和TCP（User-Datagram-Protocol，用户数据报协议）的区别"><span class="nav-number">9.</span> <span class="nav-text">UDP和TCP（User Datagram Protocol，用户数据报协议）的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何实现UDP的可靠传输"><span class="nav-number">10.</span> <span class="nav-text">如何实现UDP的可靠传输</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#websocket协议"><span class="nav-number">11.</span> <span class="nav-text">websocket协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cdn"><span class="nav-number">12.</span> <span class="nav-text">cdn</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#缓存位置"><span class="nav-number">13.</span> <span class="nav-text">缓存位置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#缓存策略"><span class="nav-number">14.</span> <span class="nav-text">缓存策略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置页面不使用缓存的几种方法"><span class="nav-number">14.1.</span> <span class="nav-text">设置页面不使用缓存的几种方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择合适的缓存策略"><span class="nav-number">14.2.</span> <span class="nav-text">选择合适的缓存策略</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PWA使用缓存"><span class="nav-number">15.</span> <span class="nav-text">PWA使用缓存</span></a></li></ol></div>
             
 
           </div>

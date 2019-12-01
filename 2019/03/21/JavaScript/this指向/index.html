@@ -6,7 +6,7 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="this指向this的指向有4种类型 形式”test()”123456var a = 1function test () &amp;#123;    console.log(this.a)&amp;#125;test() 直接不带任何引用形式去调用函数，则this会指向全局对象，因为没有其他影响去改变this，this默认就是指向全局对象（浏览器是window，Node中是global）的。这个结论是在非严格模式">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-20T09:16:10.046Z">
+<meta property="og:updated_time" content="2019-12-01T15:25:54.123Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javaScript中的this指向">
 <meta name="twitter:description" content="this指向this的指向有4种类型 形式”test()”123456var a = 1function test () &amp;#123;    console.log(this.a)&amp;#125;test() 直接不带任何引用形式去调用函数，则this会指向全局对象，因为没有其他影响去改变this，this默认就是指向全局对象（浏览器是window，Node中是global）的。这个结论是在非严格模式">
@@ -138,7 +138,7 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -148,7 +148,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -228,20 +228,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/21/JavaScript/this指向/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -284,7 +284,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/JavaScript/" itemprop="url" rel="index">
                     <span itemprop="name">JavaScript</span>
                   </a>
@@ -352,9 +352,9 @@
 <p>箭头函数可以让setTimeout里面的this绑定定义时所在的作用域，而不是指向运行时所在的作用域</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">Timer</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.s1 = <span class="number">0</span></span><br><span class="line">		<span class="keyword">this</span>.s2 = <span class="number">0</span></span><br><span class="line">		setInterval(<span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">this</span>.s1 ++ ,<span class="number">1000</span>)</span><br><span class="line">		setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			<span class="keyword">this</span>.s2++</span><br><span class="line">		&#125;,<span class="number">1000</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> timer = <span class="keyword">new</span> Timer()</span><br><span class="line">	setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(timer.s1),<span class="number">3100</span>)		<span class="comment">//s1: 3</span></span><br><span class="line">	setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(timer.s2),<span class="number">3100</span>)		<span class="comment">//s2: 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 前者的this绑定定义时所在的作用域，即Timer函数，tihs.s1更新了3次</span></span><br><span class="line"><span class="comment">// 后者运行时的this指向全局对象，this.s2更新0次</span></span><br></pre></td></tr></table></figure>
 <h2 id="apply、call-和-bind-的作用。"><a href="#apply、call-和-bind-的作用。" class="headerlink" title="apply、call 和 bind 的作用。"></a>apply、call 和 bind 的作用。</h2><p>apply和call、bind的目的就是为了改变函数内部this的指向。</p>
-<p>如果使用apply或者call方法，那么this指向他们的第一个参数，apply的第二个参数是一个参数数组，call的第二个及其以后的参数都是数组里面的元素。bind是es5的语法。</p>
+<p>除了第⼀个参数外， call 可以接收⼀个参数列表， apply 只接受⼀个参数数组。bind是es5的语法。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">var</span> name = <span class="string">'global'</span>;</span><br><span class="line">    <span class="keyword">var</span> person = &#123;</span><br><span class="line">      name: <span class="string">'zero'</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">printInfo</span>(<span class="params">age, job</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.name, age, job);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">    printInfo(<span class="number">20</span>, <span class="string">'前端工程师'</span>);        <span class="comment">// 打印：global 20 前端工程师,因为默认的上下文是window，所以this.name是全局定义的global，如果我们想打印出来zero的话，就需要改变函数执行的上下文</span></span><br><span class="line"></span><br><span class="line">    printInfo.call(person, <span class="number">20</span>, <span class="string">'前端工程师'</span>);<span class="comment">// zero 20 前端工程师</span></span><br><span class="line">    printInfo.apply(person, [<span class="number">20</span>, <span class="string">'前端工程师'</span>]);<span class="comment">// zero 20 前端工程师</span></span><br><span class="line"><span class="comment">// 这两种方式是一样的，第一个参数都是传进去的上下文，this.name取的是person.name，所以打印出来的名字就是zero了，后面的为age和job，只是参数传递的方式不一样，apply比较特殊，把要传的参数放在数组里面</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 而bind和以上两种有区别，bind是es5定义的新方法，用来返回一个有自己上下文的函数，用法也比较类似：</span></span><br><span class="line">    printInfo.bind(person)(<span class="number">20</span>, <span class="string">'前端工程师'</span>);<span class="comment">// zero 20 前端工程师</span></span><br><span class="line"><span class="comment">// printInfo.bind(person)这一块是返回的以peron为上下文的函数，后面的(20, '前端工程师')是函数调用</span></span><br></pre></td></tr></table></figure>
-<p>bind后函数不会立即执行，而只是返回一个改变了上下文的函数副本，而call和apply是直接执行函数</p>
+<p>bind后函数不会立即执行，而只是返回一个改变了上下文的函数副本，而call和apply是直接执行函数，所以我们可以通过 bind 实现柯⾥化</p>
 <h2 id="apply、call-和-bind-的应用"><a href="#apply、call-和-bind-的应用" class="headerlink" title="apply、call 和 bind 的应用"></a>apply、call 和 bind 的应用</h2><ol>
 <li>数组之间的追加(使用a.concat(b) 会返回一个新的数组，不会影响原来的数组)</li>
 </ol>
@@ -483,7 +483,7 @@
 
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">leslie choi</p>
               <p class="site-description motion-element" itemprop="description"></p>

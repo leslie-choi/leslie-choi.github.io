@@ -6,7 +6,7 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="背景 前端的技术发展速度非常的快，异步请求也是其重要的体现之一，从最早的原生XHR，再到JqueryAjax的统治时代，再到近来，fetch、axios等技术也开始出现并大量投入使用。 原生AjaxAjax是指一种创建交互式网页应用的网页开发技术，并且可以做到无需重新加载整个网页的情况下，能够更新部分网页，也叫作局部更新。是最早出现的发送后端请求技术，隶属于原始js中，核心是使用XMLHttpRe">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-28T07:13:01.641Z">
+<meta property="og:updated_time" content="2019-11-30T16:33:55.224Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ajax、axios、fetch的区别">
 <meta name="twitter:description" content="背景 前端的技术发展速度非常的快，异步请求也是其重要的体现之一，从最早的原生XHR，再到JqueryAjax的统治时代，再到近来，fetch、axios等技术也开始出现并大量投入使用。 原生AjaxAjax是指一种创建交互式网页应用的网页开发技术，并且可以做到无需重新加载整个网页的情况下，能够更新部分网页，也叫作局部更新。是最早出现的发送后端请求技术，隶属于原始js中，核心是使用XMLHttpRe">
@@ -138,7 +138,7 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -148,7 +148,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -228,20 +228,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/前后端通信方式/ajax、axios、fetch的区别/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -284,7 +284,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Ajax/" itemprop="url" rel="index">
                     <span itemprop="name">Ajax</span>
                   </a>
@@ -325,7 +325,14 @@
         <p><strong>背景</strong></p>
 <p>前端的技术发展速度非常的快，异步请求也是其重要的体现之一，从最早的原生XHR，再到JqueryAjax的统治时代，再到近来，fetch、axios等技术也开始出现并大量投入使用。</p>
 <h1 id="原生Ajax"><a href="#原生Ajax" class="headerlink" title="原生Ajax"></a>原生Ajax</h1><p>Ajax是指一种<strong>创建交互式网页应用</strong>的网页开发技术，并且可以做到无需重新加载整个网页的情况下，能够更新部分网页，也叫作局部更新。是最早出现的发送后端请求技术，隶属于原始js中，核心是使用XMLHttpRequest对象，多个请求之间如果有先后关系的话，就会出现回调地狱。</p>
-<p><strong>使用步骤：</strong><br>1.创建XmlHttpRequest对象<br>2.调用open方法设置基本请求信息<br>3.设置发送的数据，发送请求（send）<br>4.注册监听的回调函数（onreadystatechange）<br>5.拿到返回值，对页面进行更新</p>
+<p><strong>使用步骤：</strong></p>
+<ol>
+<li>创建XmlHttpRequest对象</li>
+<li>调用open方法设置基本请求信息</li>
+<li>设置发送的数据，发送请求（send）</li>
+<li>注册监听的回调函数（onreadystatechange）</li>
+<li>拿到返回值，对页面进行更新</li>
+</ol>
 <p><strong>状态值：</strong></p>
 <p>0    请求还未初始化，还未调用open()          —-未初始化<br>1    请求已建立但未发送，还未调用send()       —-载入<br>2    接受原始响应数据，为解析做准备            —-载入完成<br>3    正在解析数据                             —-解析<br>4    响应完成，数据解析完成                     —-解析完成</p>
 <p><strong>优点：可以实现局部刷新，并且原生支持不需要使用任何插件</strong></p>
@@ -338,6 +345,7 @@
 <p>缺点：</p>
 <ul>
 <li>本身是针对mvc的编程模式，不太适合目前mvvm的编程模式</li>
+<li>基于原⽣的 XHR 开发， XHR 本身的架构不清晰，已经有了 fetch 的替代⽅案 </li>
 <li>jQuery本身比较大，如果单纯的使用ajax可以自己封装一个，不然会影响性能体验</li>
 <li>回调地狱</li>
 </ul>
@@ -356,10 +364,14 @@
 <p>优点：</p>
 <ul>
 <li>解决回调地狱</li>
-<li>使用起来更加简洁<br>缺点：</li>
+<li>使用起来更加简洁</li>
+</ul>
+<p>缺点：</p>
+<ul>
 <li>API 偏底层，需要封装</li>
 <li>默认不带Cookie，需要手动添加</li>
 <li>浏览器支持情况不是很友好，需要第三方的ployfill</li>
+<li>fetch 没有办法原⽣监测请求的进度，⽽XHR可以</li>
 </ul>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>ajax是最早出现发送后端请求的技术，属于原生js范畴,核心是使用XMLHttpRequest对象,使用较多并有先后顺序的话，容易产生回调地狱。</p>
 <p>fetch号称可以代替ajax的技术，是基于es6中的Promise对象设计的，参数和jQuery中的ajax类似，它并不是对ajax进一步封装，它属于原生js范畴。没有使用XMLHttpRequest对象。</p>
@@ -471,7 +483,7 @@
 
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">leslie choi</p>
               <p class="site-description motion-element" itemprop="description"></p>

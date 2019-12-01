@@ -6,7 +6,7 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -133,7 +133,7 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -144,7 +144,7 @@
   page-home">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -224,20 +224,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/25/css/移动端常见问题/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -282,7 +282,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/CSS/" itemprop="url" rel="index">
                     <span itemprop="name">CSS</span>
                   </a>
@@ -363,6 +363,7 @@
 </ol>
 <p>所谓预渲染，就是在项目的构建过程中，通过一些渲染机制，比如 puppeteer或者 jsdom 将页面在构建的过程中就渲染好，然后插入到 html 中，这样在页面启动之前首先看到的就是预渲染的页面了</p>
 <p>预渲染渲染的页面数据是在构建过程中就已经打包到了 html 中， 当真实访问页面的时候，真实数据可能已经和预渲染的数据有了很大的出入，而且预渲染的页面也是一个不可交互的页面，在页面没有启动之前，用户无法和预渲染的页面进行任何交互，预渲染页面中的数据反而会影响到用户获取真实的信息，当涉及到一些价格、金额、地理位置的地方甚至会导致用户做出一些错误的决定。</p>
+<p>预渲染虽然可以提⾼⻚⾯的加载速度，但是要确保该⻚⾯百分百会被⽤户在之后打开，否则就⽩⽩浪费资源去渲染</p>
 <ol start="3">
 <li>使用骨架图</li>
 </ol>
@@ -513,20 +514,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/21/前后端通信方式/ajax、axios、fetch的区别/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -571,7 +572,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Ajax/" itemprop="url" rel="index">
                     <span itemprop="name">Ajax</span>
                   </a>
@@ -614,7 +615,14 @@
             <p><strong>背景</strong></p>
 <p>前端的技术发展速度非常的快，异步请求也是其重要的体现之一，从最早的原生XHR，再到JqueryAjax的统治时代，再到近来，fetch、axios等技术也开始出现并大量投入使用。</p>
 <h1 id="原生Ajax"><a href="#原生Ajax" class="headerlink" title="原生Ajax"></a>原生Ajax</h1><p>Ajax是指一种<strong>创建交互式网页应用</strong>的网页开发技术，并且可以做到无需重新加载整个网页的情况下，能够更新部分网页，也叫作局部更新。是最早出现的发送后端请求技术，隶属于原始js中，核心是使用XMLHttpRequest对象，多个请求之间如果有先后关系的话，就会出现回调地狱。</p>
-<p><strong>使用步骤：</strong><br>1.创建XmlHttpRequest对象<br>2.调用open方法设置基本请求信息<br>3.设置发送的数据，发送请求（send）<br>4.注册监听的回调函数（onreadystatechange）<br>5.拿到返回值，对页面进行更新</p>
+<p><strong>使用步骤：</strong></p>
+<ol>
+<li>创建XmlHttpRequest对象</li>
+<li>调用open方法设置基本请求信息</li>
+<li>设置发送的数据，发送请求（send）</li>
+<li>注册监听的回调函数（onreadystatechange）</li>
+<li>拿到返回值，对页面进行更新</li>
+</ol>
 <p><strong>状态值：</strong></p>
 <p>0    请求还未初始化，还未调用open()          —-未初始化<br>1    请求已建立但未发送，还未调用send()       —-载入<br>2    接受原始响应数据，为解析做准备            —-载入完成<br>3    正在解析数据                             —-解析<br>4    响应完成，数据解析完成                     —-解析完成</p>
 <p><strong>优点：可以实现局部刷新，并且原生支持不需要使用任何插件</strong></p>
@@ -627,6 +635,7 @@
 <p>缺点：</p>
 <ul>
 <li>本身是针对mvc的编程模式，不太适合目前mvvm的编程模式</li>
+<li>基于原⽣的 XHR 开发， XHR 本身的架构不清晰，已经有了 fetch 的替代⽅案 </li>
 <li>jQuery本身比较大，如果单纯的使用ajax可以自己封装一个，不然会影响性能体验</li>
 <li>回调地狱</li>
 </ul>
@@ -645,10 +654,14 @@
 <p>优点：</p>
 <ul>
 <li>解决回调地狱</li>
-<li>使用起来更加简洁<br>缺点：</li>
+<li>使用起来更加简洁</li>
+</ul>
+<p>缺点：</p>
+<ul>
 <li>API 偏底层，需要封装</li>
 <li>默认不带Cookie，需要手动添加</li>
 <li>浏览器支持情况不是很友好，需要第三方的ployfill</li>
+<li>fetch 没有办法原⽣监测请求的进度，⽽XHR可以</li>
 </ul>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>ajax是最早出现发送后端请求的技术，属于原生js范畴,核心是使用XMLHttpRequest对象,使用较多并有先后顺序的话，容易产生回调地狱。</p>
 <p>fetch号称可以代替ajax的技术，是基于es6中的Promise对象设计的，参数和jQuery中的ajax类似，它并不是对ajax进一步封装，它属于原生js范畴。没有使用XMLHttpRequest对象。</p>
@@ -697,20 +710,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/27/vue/vue常见面试题目/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -755,7 +768,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Vue/" itemprop="url" rel="index">
                     <span itemprop="name">Vue</span>
                   </a>
@@ -912,7 +925,7 @@
 <li>实现一个订阅者 Watcher：Watcher 订阅者是 Observer 和 Compile 之间通信的桥梁 ，主要的任务是订阅 Observer 中的属性值变化的消息，当收到属性值变化的消息时，触发解析器 Compile 中对应的更新函数。</li>
 <li>实现一个订阅器 Dep：订阅器采用 发布-订阅 设计模式，用来收集订阅者 Watcher，对监听器 Observer 和 订阅者 Watcher 进行统一管理。</li>
 </ul>
-<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/observer.png" alt="markdown"><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=<span class="string">"text"</span> name=<span class="string">"数据绑定"</span> id=<span class="string">"dataBinding"</span>&gt;</span><br><span class="line">&lt;span id=<span class="string">"data"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><span class="xml"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">mounted() &#123;</span></span><br><span class="line"><span class="xml">    this.showData()</span></span><br><span class="line"><span class="xml">&#125;,</span></span><br><span class="line"><span class="xml">methods:&#123;</span></span><br><span class="line"><span class="xml">      showData()&#123;</span></span><br><span class="line"><span class="xml">          var obj1 = &#123;&#125;;                        //新建一个对象obj1</span></span><br><span class="line"><span class="xml">          Object.defineProperty(obj1,'hello',&#123;  //为obj定义一个名为 hello 的访问器属性 </span></span><br><span class="line"><span class="xml">              set: function(newVal)&#123;</span></span><br><span class="line"><span class="xml">                  document.getElementById('dataBinding').value = newVal;</span></span><br><span class="line"><span class="xml">                  document.getElementById('data').innerHTML = newVal;</span></span><br><span class="line"><span class="xml">              &#125;,</span></span><br><span class="line"><span class="xml">              get: function()&#123;</span></span><br><span class="line"><span class="xml">                  return</span></span><br><span class="line"><span class="xml">              &#125;</span></span><br><span class="line"><span class="xml">          &#125;);</span></span><br><span class="line"><span class="xml">          document.addEventListener('keyup',function(e)&#123;</span></span><br><span class="line"><span class="xml">              obj1.hello = e.target.value;</span></span><br><span class="line"><span class="xml">          &#125;);</span></span><br><span class="line"><span class="xml">          console.log(obj1);</span></span><br><span class="line"><span class="xml">      &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/observer.png" alt="markdown"><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=<span class="string">"text"</span> name=<span class="string">"数据绑定"</span> id=<span class="string">"dataBinding"</span>&gt;</span><br><span class="line">&lt;span id=<span class="string">"data"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><span class="xml"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml">mounted() &#123;</span></span><br><span class="line"><span class="xml">    this.showData()</span></span><br><span class="line"><span class="xml">&#125;,</span></span><br><span class="line"><span class="xml">methods:&#123;</span></span><br><span class="line"><span class="xml">      showData()&#123;</span></span><br><span class="line"><span class="xml">          var obj1 = &#123;&#125;;                        //新建一个对象obj1</span></span><br><span class="line"><span class="xml">          Object.defineProperty(obj1,'hello',&#123;  //为obj定义一个名为 hello 的访问器属性 </span></span><br><span class="line"><span class="xml">              set: function(newVal)&#123;</span></span><br><span class="line"><span class="xml">                  document.getElementById('dataBinding').value = newVal;</span></span><br><span class="line"><span class="xml">                  document.getElementById('data').innerHTML = newVal;</span></span><br><span class="line"><span class="xml">              &#125;,</span></span><br><span class="line"><span class="xml">              get: function()&#123;</span></span><br><span class="line"><span class="xml">                  return</span></span><br><span class="line"><span class="xml">              &#125;</span></span><br><span class="line"><span class="xml">          &#125;);</span></span><br><span class="line"><span class="xml">          document.addEventListener('keyup',function(e)&#123;</span></span><br><span class="line"><span class="xml">              obj1.hello = e.target.value;</span></span><br><span class="line"><span class="xml">          &#125;);</span></span><br><span class="line"><span class="xml">          console.log(obj1);</span></span><br><span class="line"><span class="xml">      &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure></p>
 <h1 id="computed和watch有什么区别"><a href="#computed和watch有什么区别" class="headerlink" title="computed和watch有什么区别?"></a>computed和watch有什么区别?</h1><ul>
 <li><strong>computed:</strong></li>
 </ul>
@@ -1125,9 +1138,6 @@
 <p>2.初次加载耗时相对增多</p>
 <p>3.导航不可用,如果一定要导航需要自行实现前进,后退</p>
 <p>而前端路由router就是管理SPA单页面应用的路径管理器。vue的单页面应用是基于路由和组件的，路由用于设定访问路径，并将路径和组件映射起来。传统的页面应用，是用一些超链接来实现页面切换和跳转的。在vue-router单页面应用中，则是路径之间的切换，也就是组件的切换。路由模块的本质 就是建立起url和页面之间的映射关系。</p>
-<h1 id="Vue框架怎么实现对象和数组的监听（源码）"><a href="#Vue框架怎么实现对象和数组的监听（源码）" class="headerlink" title="Vue框架怎么实现对象和数组的监听（源码）"></a>Vue框架怎么实现对象和数组的监听（源码）</h1><p>如果被问到 Vue 怎么实现数据双向绑定，大家肯定都会回答 通过 Object.defineProperty() 对数据进行劫持，但是  Object.defineProperty() 只能对属性进行数据劫持，不能对整个对象进行劫持，同理无法对数组进行劫持，但是我们在使用 Vue 框架中都知道，Vue 能检测到对象和数组（部分方法的操作）的变化，那它是怎么实现的呢？我们查看相关代码如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Observe a list of Array items.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">observeArray (items: <span class="built_in">Array</span>&lt;any&gt;) &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, l = items.length; i &lt; l; i++) &#123;</span><br><span class="line">    observe(items[i])  <span class="comment">// observe 功能为监测数据的变化</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 对属性进行递归遍历</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">let</span> childOb = !shallow &amp;&amp; observe(val) <span class="comment">// observe 功能为监测数据的变化</span></span><br></pre></td></tr></table></figure>
-<p>通过以上 Vue 源码部分查看，我们就能知道 Vue 框架是<strong>通过遍历数组 和递归遍历对象</strong>，从而达到利用 Object.defineProperty() 也能对对象和数组（部分方法的操作）进行监听。</p>
 <h1 id="Vue-中的-key-有什么作用？"><a href="#Vue-中的-key-有什么作用？" class="headerlink" title="Vue 中的 key 有什么作用？"></a>Vue 中的 key 有什么作用？</h1><p><strong>key 是为 Vue 中 vnode 的唯一标记，通过这个 key，我们的 diff 操作可以更准确、更快速。没有设置key时，有些节点不会复用，而是直接创建新的，删除旧的。</strong>可以用于 diff 中 sameVnode 算法的判断。</p>
 <p>首先讲一下diff算法的处理方法，对操作前后的dom树同一层的节点进行对比，一层一层对比，如下图：</p>
 <p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/key1.png" alt="markdown"></p>
@@ -1302,6 +1312,9 @@
 <li>静态树提升(Static Tree Hoisting)</li>
 <li>静态属性提升</li>
 </ul>
+<h1 id="Vue框架怎么实现对象和数组的监听（源码）"><a href="#Vue框架怎么实现对象和数组的监听（源码）" class="headerlink" title="Vue框架怎么实现对象和数组的监听（源码）"></a>Vue框架怎么实现对象和数组的监听（源码）</h1><p>如果被问到 Vue 怎么实现数据双向绑定，大家肯定都会回答 通过 Object.defineProperty() 对数据进行劫持，但是  Object.defineProperty() 只能对属性进行数据劫持，不能对整个对象进行劫持，同理无法对数组进行劫持，但是我们在使用 Vue 框架中都知道，Vue 能检测到对象和数组（部分方法的操作）的变化，那它是怎么实现的呢？我们查看相关代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Observe a list of Array items.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">observeArray (items: <span class="built_in">Array</span>&lt;any&gt;) &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, l = items.length; i &lt; l; i++) &#123;</span><br><span class="line">    observe(items[i])  <span class="comment">// observe 功能为监测数据的变化</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 对属性进行递归遍历</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">let</span> childOb = !shallow &amp;&amp; observe(val) <span class="comment">// observe 功能为监测数据的变化</span></span><br></pre></td></tr></table></figure>
+<p>通过以上 Vue 源码部分查看，我们就能知道 Vue 框架是<strong>通过遍历数组 和递归遍历对象</strong>，从而达到利用 Object.defineProperty() 也能对对象和数组（部分方法的操作）进行监听。</p>
 <h1 id="vue自定义指令"><a href="#vue自定义指令" class="headerlink" title="vue自定义指令"></a>vue自定义指令</h1><p>使用 Vue.directive(id, [definition]) 定义全局的指令来进行自定义指令</p>
 <p>参数1 ：指令的名称，注意，在定义的时候，指令的名称前面，不需要加 v-前缀，但是： 在调用的时候，必须在置顶的名称前加上 v-前缀来进行调用</p>
 <p>参数2：是一个对象， 这个对象身上，有一些指令相关的函数，这些函数可以在特定的阶段，执行相关的操作。</p>
@@ -1352,20 +1365,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/23/css/HTML/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -1410,7 +1423,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/CSS/" itemprop="url" rel="index">
                     <span itemprop="name">CSS</span>
                   </a>
@@ -1476,6 +1489,7 @@
 <li><strong>B. description(网站内容的描述)</strong><br>说明：用于告诉搜索引擎，你网站的主要内容。</li>
 </ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"description"</span> <span class="attr">content</span>=<span class="string">"文科生，热爱前端与编程。目前大二，这是我的前端博客"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>（SEO优先级按照title、description、keywords的顺序递减）</p>
 <ul>
 <li><strong>C. viewport(移动端的窗口)</strong><br>说明：这个概念较为复杂，具体的会在下篇博文中讲述。<br>这个属性常用于设计移动端网页。在用bootstrap,AmazeUI等框架时候都有用过viewport。</li>
 </ul>
@@ -1532,6 +1546,7 @@
 </ul>
 <p>如果网页过期。那么这个网页存在本地的cookies也会被自动删除。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Set-Cookie"</span> <span class="attr">content</span>=<span class="string">"name, date"</span>&gt;</span> //格式</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Set-Cookie"</span> <span class="attr">content</span>=<span class="string">"User=Lxxyx; path=/; expires=Sunday, 10-Jan-16 10:00:00 GMT"</span>&gt;</span> //具体范例</span><br></pre></td></tr></table></figure>
+<h2 id="设置页面不缓存的方法"><a href="#设置页面不缓存的方法" class="headerlink" title="设置页面不缓存的方法"></a>设置页面不缓存的方法</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"pragma"</span> <span class="attr">content</span>=<span class="string">"no-cache"</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Cache-Control"</span> <span class="attr">content</span>=<span class="string">"no-cache, must-revalidate"</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"expires"</span> <span class="attr">content</span>=<span class="string">"0"</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h1 id="H5和CSS3的新特性"><a href="#H5和CSS3的新特性" class="headerlink" title="H5和CSS3的新特性"></a>H5和CSS3的新特性</h1><h2 id="html5有哪些新特性"><a href="#html5有哪些新特性" class="headerlink" title="html5有哪些新特性"></a>html5有哪些新特性</h2><ol>
 <li>拖拽释放(Drag and drop) API </li>
 <li>语义化更好的内容标签（header,nav,footer,aside,article,section）</li>
@@ -1543,6 +1558,21 @@
 <li>表单控件，calendar、date、time、email、url、search  </li>
 <li>新的技术webworker, websocket, Geolocation</li>
 </ol>
+<h3 id="html5-的离线存储以及工作原理"><a href="#html5-的离线存储以及工作原理" class="headerlink" title="html5 的离线存储以及工作原理"></a>html5 的离线存储以及工作原理</h3><p>在⽤户没有与因特⽹连接时，可以正常访问站点或应⽤，在⽤户与因特⽹连接时，更新⽤ 户机器上的缓存⽂件</p>
+<p>原理：HTML5 的离线存储是基于⼀个新建的 .appcache ⽂件的缓存机制(不是存储技 术)，通过这个⽂件上的解析清单离线存储资源，这些资源就会像 cookie ⼀样被存储了下 来。之后当⽹络在处于离线状态下时，浏览器会通过被离线存储的数据进⾏⻚⾯展示</p>
+<p>使用方法：</p>
+<ol>
+<li>⻚⾯头部像下⾯⼀样加⼊⼀个 manifest 的属性</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE HTML&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">manifest</span>=<span class="string">"demo.appcache"</span>&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><p>在 cache.manifest ⽂件的编写离线存储的资源 </p>
+</li>
+<li><p>在离线状态时，操作 window.applicationCache 进⾏需求实现</p>
+</li>
+</ol>
+<p>在线的情况下，浏览器发现 html 头部有 manifest 属性，它会请求 manifest ⽂件，如 果是第⼀次访问 app ，那么浏览器就会根据manifest⽂件的内容下载相应的资源并且进⾏ 离线存储。如果已经访问过 app 并且资源已经离线存储了，那么浏览器就会使⽤离线的资 源加载⻚⾯，然后浏览器会对⽐新的 manifest ⽂件与旧的 manifest ⽂件，如果⽂件没有发⽣改变，就不做任何操作，如果⽂件改变了，那么就会重新下载⽂件中的资源并进⾏离线存储。</p>
+<p>离线的情况下，浏览器就直接使⽤离线存储的资源。</p>
 <h2 id="CSS3-新增属性"><a href="#CSS3-新增属性" class="headerlink" title="CSS3 新增属性"></a>CSS3 新增属性</h2><ol>
 <li>颜色：新增RGBA，HSLA模式</li>
 <li>文字阴影（text-shadow、）</li>
@@ -1612,20 +1642,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/13/JavaScript/提高页面性能/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -1670,7 +1700,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/JavaScript/" itemprop="url" rel="index">
                     <span itemprop="name">JavaScript</span>
                   </a>
@@ -1711,6 +1741,44 @@
         
           
             <p>我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。</p>
+<ul>
+<li><p>content ⽅⾯   </p>
+<ul>
+<li>减少 HTTP 请求：合并⽂件、 CSS 精灵、 inline Image </li>
+<li>减少 DNS 查询： DNS 缓存、将资源分布到恰当数量的主机名 </li>
+<li>减少 DOM 元素数量</li>
+</ul>
+</li>
+<li><p>Server ⽅⾯</p>
+<ul>
+<li>使⽤ CDN 配置 ETag 对组件使⽤ Gzip 压缩</li>
+</ul>
+</li>
+<li><p>Cookie ⽅⾯</p>
+<ul>
+<li>减⼩ cookie ⼤⼩</li>
+</ul>
+</li>
+<li><p>css ⽅⾯</p>
+<ul>
+<li>将样式表放到⻚⾯顶部 不使⽤ CSS 表达式 使⽤ <code>&lt;link&gt;</code> 不使⽤ @import</li>
+</ul>
+</li>
+<li><p>Javascript ⽅⾯</p>
+<ul>
+<li>将脚本放到⻚⾯底部 </li>
+<li>将 javascript 和 css 从外部引⼊ 压缩 javascript 和 css </li>
+<li>删除不需要的脚本</li>
+<li>减少 DOM 访问</li>
+</ul>
+</li>
+<li>图⽚⽅⾯<ul>
+<li>优化图⽚：根据实际颜⾊需要选择⾊深、压缩 </li>
+<li>优化 css 精灵 </li>
+<li>不要在 HTML 中拉伸图⽚</li>
+</ul>
+</li>
+</ul>
 <h1 id="资源压缩合并，减少HTTP请求"><a href="#资源压缩合并，减少HTTP请求" class="headerlink" title="资源压缩合并，减少HTTP请求"></a>资源压缩合并，减少HTTP请求</h1><p>比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。使用雪碧图、base64格式的图片等等。</p>
 <h1 id="非核心代码异步加载"><a href="#非核心代码异步加载" class="headerlink" title="非核心代码异步加载"></a>非核心代码异步加载</h1><p>通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。在页面渲染的这样一个过程中，有一个关键点是如果在解析内容的过程中遇到了脚本标签，如：<script src="example.js"></script>，浏览器就会暂停内容的解析，转而开始下载脚本。并且只有等脚本下载完并执行结束后，渲染引擎才会继续解析。那么这样一来，页面显示的时间必然会被延长。因此我们需要优化的点就是尽可能地让页面更早地被渲染出来。要解决上面说到的脚本加载问题，通常有三种解决方案：将脚本放在HTML末尾、动态加载脚本以及异步加载脚本。</p>
 <ol>
@@ -1723,7 +1791,7 @@
 <ol start="2">
 <li>异步加载的方式</li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">defer &lt;script src=<span class="string">"defer.js"</span> defer&gt; <span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="keyword">async</span> &lt;script src=<span class="string">"defer.js"</span> <span class="keyword">async</span>&gt; <span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">defer &lt;script src=<span class="string">"defer.js"</span> defer&gt; <span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span>   </span><br><span class="line"><span class="keyword">async</span> &lt;script src=<span class="string">"defer.js"</span> <span class="keyword">async</span>&gt; <span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="comment">//第三种方法，动态创建 script ，插⼊到 DOM 中，加载完毕后 callBack</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>defer是在HTML渲染完之后（DOM结构完全生成，以及其他脚本执行完成之后）才会执行，如果是多个，则按照加载的顺序执行，优先级比async高</li>
 <li>async是在下载完脚本之后立即执行，渲染引擎会中断，执行完脚本之后才会继续渲染，如果是多个，执行顺序和加载顺序无关</li>
@@ -1782,6 +1850,25 @@
 <h1 id="预解析DNS"><a href="#预解析DNS" class="headerlink" title="预解析DNS"></a>预解析DNS</h1><p>还有一个可以优化网页速度的方式是利用dns的预解析技术。同preload类似，DNS Prefetch在网络层面上优化了资源加载的速度。<br>我们知道，针对DNS的前端优化，主要分为减少DNS的请求次数，还有就是进行DNS预先获取。DNS prefetch就是为了实现这后者。其用法也很简单，只要在link标签上加上对应的属性就行了。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"x-dns-prefetch-control"</span> <span class="attr">content</span>=<span class="string">"on"</span> /&gt;</span> /* 这是用来告知浏览器当前页面要做DNS预解析，可以选择on或者off */</span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"dns-prefetch"</span> <span class="attr">href</span>=<span class="string">"//example.com"</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>复制代码在支持该标准的浏览器上，会自动对链接中的地址域名做DNS解析缓存。不过，像Goolge、火狐这样的现代浏览器即使不设置这个属性，也能在后台做自动预解析。如果你的页面中需要大量访问不同域名的资源，可以利用这项技术加快资源的获取，从而获得更好的用户体验。需要注意的是，DNS预解析虽好，但是也不能滥用。如果对多页面重复DNS预解析，会增加DNS的查询次数。</p>
+<h1 id="预加载"><a href="#预加载" class="headerlink" title="预加载"></a>预加载</h1><ul>
+<li><p>在开发中，可能会遇到这样的情况。有些资源不需要⻢上⽤到，但是希望尽早获取，这时候就可以使⽤预加载 </p>
+</li>
+<li><p>预加载其实是声明式的 fetch ，强制浏览器请求资源，并且不会阻塞 onload 事件， 可以使⽤以下代码开启预加载</p>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"preload"</span> <span class="attr">href</span>=<span class="string">"http://example.com"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>预加载可以⼀定程度上降低⾸屏的加载时间，因为可以将⼀些不影响⾸屏但重 要的⽂件延后加载，唯⼀缺点就是兼容性不好</p>
+<h1 id="预渲染"><a href="#预渲染" class="headerlink" title="预渲染"></a>预渲染</h1><p>可以通过预渲染将下载的⽂件预先在后台渲染，可以使⽤以下代码开启预渲染</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"prerender"</span> <span class="attr">href</span>=<span class="string">"http://poetries.com"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>预渲染虽然可以提⾼⻚⾯的加载速度，但是要确保该⻚⾯百分百会被⽤户在之后打开，否则就⽩⽩浪费资源去渲染</p>
+<h1 id="懒执⾏与懒加载"><a href="#懒执⾏与懒加载" class="headerlink" title="懒执⾏与懒加载"></a>懒执⾏与懒加载</h1><h2 id="懒执⾏"><a href="#懒执⾏" class="headerlink" title="懒执⾏"></a>懒执⾏</h2><p>懒执⾏就是将某些逻辑延迟到使⽤时再计算。该技术可以⽤于⾸屏优化，对于某些耗时逻辑并不需要在⾸屏就使⽤的，就可以使⽤懒执⾏。懒执⾏需要唤醒，⼀般可以通过定时器或者事件的调⽤来唤醒</p>
+<h2 id="懒加载"><a href="#懒加载" class="headerlink" title="懒加载"></a>懒加载</h2><ul>
+<li>懒加载就是将不关键的资源延后加载</li>
+</ul>
+<p>懒加载的原理就是只加载⾃定义区域（通常是可视区域，但也可以是即将进⼊ 可视区域）内需要加载的东⻄。对于图⽚来说，先设置图⽚标签的 src 属性 为⼀张占位图，将真实的图⽚资源放⼊⼀个⾃定义属性中，当进⼊⾃定义区域 时，就将⾃定义属性替换为 src 属性，这样图⽚就会去下载资源，实现了图⽚懒加载</p>
+<ul>
+<li>懒加载不仅可以⽤于图⽚，也可以使⽤在别的资源上。⽐如进⼊可视区域才开始播放视频等</li>
+</ul>
 <h1 id="使用SSR（server-side-render）服务端渲染，数据直接输出到HTML中"><a href="#使用SSR（server-side-render）服务端渲染，数据直接输出到HTML中" class="headerlink" title="使用SSR（server side render）服务端渲染，数据直接输出到HTML中"></a>使用SSR（server side render）服务端渲染，数据直接输出到HTML中</h1><p>ssr是Server-Side Rendering的简写，即由服务端负责渲染页面直出，亦即同构应用。程序的大部分代码都可以在服务端和客户端运行。在服务端vue组件渲染为html字符串，然后直接返回给客户端，在客户端生成dom和操作dom。</p>
 <p>能在服务端渲染为html字符串得益于vue组件结构是基于vnode的。vnode是dom的抽象表达，它不是真实的dom，它是由js对象组成的树，每个节点代表了一个dom。因为vnode，所以在服务端vue可以把js对象解析为html字符串。同样在客户端vnode因为是存在内存之中的，操作内存总比操作dom快的多，每次数据变化需要更新dom时，新旧vnode树经过diff算法，计算出最小变化集，大大提高了性能。</p>
 <p><strong>服务端渲染 SSR 的优缺点如下：</strong></p>
@@ -1845,6 +1932,26 @@
 <p>vue中使用：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//没有指定webpackChunkName,每个组件打包成一个js文件</span></span><br><span class="line"><span class="keyword">const</span> test1 = <span class="function"><span class="params">()</span>=&gt;</span><span class="keyword">import</span>(<span class="string">'@/components/test1.vue'</span>) </span><br><span class="line"><span class="keyword">const</span> test2 = <span class="function"><span class="params">()</span>=&gt;</span><span class="keyword">import</span>(<span class="string">'@/components/test2.vue'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//指定了相同的webpackChunkName，会合并打包成y一个js文件</span></span><br><span class="line"><span class="keyword">const</span> test3 = <span class="function"><span class="params">()</span>=&gt;</span><span class="keyword">import</span>(<span class="comment">/* webpackChunkName:'grounpTest' */</span> <span class="string">'@/components/test3.vue'</span>) </span><br><span class="line"><span class="keyword">const</span> test4 = <span class="function"><span class="params">()</span>=&gt;</span><span class="keyword">import</span>(<span class="comment">/* webpackChunkName:'grounpTest' */</span> <span class="string">'@/components/test4.vue'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">    routes: [</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">'/test1'</span>, <span class="attr">component</span>: test1 &#125;,</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">'/test2'</span>, <span class="attr">component</span>: test2 &#125;,</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">'/test3'</span>, <span class="attr">component</span>: test3 &#125;,</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">'/test4'</span>, <span class="attr">component</span>: test4 &#125;</span><br><span class="line">    ]</span><br><span class="line"> &#125;)</span><br></pre></td></tr></table></figure>
 <p>注：/<em> webpackChunkName: ‘grounpTest’ </em>/使用命名chunk，一个特殊的注释语法来提供 chunk name (需要 Webpack &gt; 2.4)</p>
+<h1 id="前端SEO优化"><a href="#前端SEO优化" class="headerlink" title="前端SEO优化"></a>前端SEO优化</h1><ul>
+<li>合理的 title 、 description 、 keywords ：搜索对着三项的权重逐个减⼩， title 值强调重点即可，重要关键词出现不要超过2次，⽽且要靠前，不同⻚⾯ title 要有所不 同； description 把⻚⾯内容⾼度概括，⻓度合适，不可过分堆砌关键词，不同⻚⾯ description 有所不同； keywords 列举出重要关键词即可 </li>
+<li>语义化的 HTML 代码，符合W3C规范：语义化代码让搜索引擎容易理解⽹⻚<br>重要内容 HTML 代码放在Y前：搜索引擎抓取 HTML 顺序是从上到下，有的搜索引擎对抓 取⻓度有限制，保证重要内容⼀定会被抓取 </li>
+<li>重要内容不要⽤ js 输出：爬⾍不会执⾏js获取内容 </li>
+<li>少⽤ iframe ：搜索引擎不会抓取 iframe 中的内容 </li>
+<li>⾮装饰性图⽚必须加 alt 提⾼⽹站速度</li>
+<li>⽹站速度是搜索引擎排序的⼀个重要指标</li>
+</ul>
+<h1 id="图片加载优化"><a href="#图片加载优化" class="headerlink" title="图片加载优化"></a>图片加载优化</h1><ol>
+<li>不⽤图⽚。很多时候会使⽤到很多修饰类图⽚，其实这类修饰图⽚完全可以⽤ CSS 去代替（或者使用阿里的iconfont）</li>
+<li>对于移动端来说，屏幕宽度就那么点，完全没有必要去加载原图浪费带宽。⼀般图⽚都⽤ CDN 加载，可以计算出适配屏幕的宽度，然后去请求相应裁剪好的图⽚ </li>
+<li>⼩图使⽤ base64 格式 </li>
+<li>将多个图标⽂件整合到⼀张图⽚中（雪碧图）</li>
+<li>选择正确的图⽚格式： </li>
+</ol>
+<ul>
+<li>对于能够显示 WebP 格式的浏览器尽量使⽤ WebP 格式。因为 WebP 格式具有更好 的图像数据压缩算法，能带来更⼩的图⽚体积，⽽且拥有⾁眼识别⽆差异的图像质量， 缺点就是兼容性并不好 </li>
+<li>⼩图使⽤ PNG ，其实对于⼤部分图标这类图⽚，完全可以使⽤ SVG 代替</li>
+<li>照⽚使⽤ JPEG</li>
+</ul>
 <h1 id="其他优化手段"><a href="#其他优化手段" class="headerlink" title="其他优化手段"></a>其他优化手段</h1><h2 id="利用多个域名存储网站资源"><a href="#利用多个域名存储网站资源" class="headerlink" title="利用多个域名存储网站资源"></a>利用多个域名存储网站资源</h2><ol>
 <li><p>CDN缓存更方便（可以根据不同的资源类型（图片、音频、视频等）分别存储在cdn节点上）</p>
 </li>
@@ -1856,6 +1963,15 @@
 </li>
 <li><p>节约主域名的连接数，优化页面的响应速度</p>
 </li>
+</ol>
+<h2 id="尽量少使用iframe"><a href="#尽量少使用iframe" class="headerlink" title="尽量少使用iframe"></a>尽量少使用iframe</h2><ul>
+<li>iframe 会阻塞主⻚⾯的 Onload 事件 </li>
+<li>搜索引擎的检索程序⽆法解读这种⻚⾯，不利于 SEO </li>
+<li>iframe 和主⻚⾯共享连接池，⽽浏览器对相同域的连接有限制，所以会影响⻚⾯的并⾏ 加载 使⽤ iframe 之前需要考虑这两个缺点。</li>
+<li>如果需要使⽤ iframe ，最好是通过 javascript 动态给 iframe 添加 src 属性值，这样可以绕开以上两个问题</li>
+</ul>
+<h2 id="编程风格优化"><a href="#编程风格优化" class="headerlink" title="编程风格优化"></a>编程风格优化</h2><ol>
+<li>少声明全局变量（占内存），缓存DOM节点查找的结果（消耗cpu），减少磁盘的I/O读取操作</li>
 </ol>
 <h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h1><p><a href="https://www.jianshu.com/p/54cc04190252" target="_blank" rel="noopener">深入理解浏览器的缓存机制</a><br><a href="https://juejin.im/post/59a50dc1f265da246e6e108f" target="_blank" rel="noopener">web前端资源文件的部署和优化</a><br><a href="https://juejin.im/post/59b73ef75188253db70acdb5" target="_blank" rel="noopener">前端性能优化之加载技术</a></p>
 
@@ -1901,20 +2017,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/06/css/浏览器的渲染机制/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -1959,7 +2075,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/CSS/" itemprop="url" rel="index">
                     <span itemprop="name">CSS</span>
                   </a>
@@ -2010,17 +2126,29 @@
 <h1 id="浏览器的渲染机制"><a href="#浏览器的渲染机制" class="headerlink" title="浏览器的渲染机制"></a>浏览器的渲染机制</h1><p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/tree.png" alt="markdown"></p>
 <p>要了解浏览器的渲染机制，需要先明白以下的概念：</p>
 <ol>
-<li>DOM：Document Object Model，浏览器将HTML解析成树形的数据结构，简称DOM。</li>
-<li>CSSOM：CSS Object Model，浏览器将CSS解析成树形的数据结构，简称CSSOM。</li>
-<li>Render Tree: DOM和CSSOM合并后生成Render Tree(但是如果遇到script标签的时候，会执行并阻塞渲染)</li>
-<li>Layout: 计算出Render Tree每个节点的具体位置。（布局）</li>
-<li>Painting：通过显卡，开始调用 GPU 绘制，合成图层，将Layout后的节点内容分别呈现到屏幕上。（渲染）</li>
+<li>DOM：Document Object Model（文档对象模型），当我们打开⼀个⽹⻚时，浏览器都会去请求对应的 HTML ⽂件。虽然平时我 们写代码时都会分为 JS 、 CSS 、 HTML ⽂件，也就是字符串，但是计算机 硬件是不理解这些字符串的，所以在⽹络中传输的内容其实都是 0 和 1 这些字节数据。当浏览器接收到这些字节数据以后，它会将这些字节数据转换为 字符串，也就是我们写的代码。</li>
+</ol>
+<p>当数据转换为字符串以后，浏览器会先将这些字符串通过词法分析转换为标记 （ token ），这⼀过程在词法分析中叫做标记化（ tokenization ）</p>
+<p>那么什么是标记呢？这其实属于编译原理这⼀块的内容了。简单来说，标记还 是字符串，是构成代码的Y⼩单位。这⼀过程会将代码分拆成⼀块块，并给这 些内容打上标记，便于理解这些Y⼩单位的代码是什么意思</p>
+<p>当结束标记化后，这些标记会紧接着转换为 Node ，Y后这些 Node 会根据 不同 Node 之前的联系构建为树形的数据结构，称为 DOM 树</p>
+<ol start="2">
+<li><p>CSSOM：CSS Object Model，浏览器将CSS解析成树形的数据结构，简称CSSOM（步骤类似上一步）</p>
+</li>
+<li><p>Render Tree: DOM和CSSOM合并后生成Render Tree(但是如果遇到script标签的时候，会执行并阻塞渲染)</p>
+</li>
+</ol>
+<p>在这⼀过程中，不是简单的将两者合并就⾏了。渲染树只会包括需要显示的节点和这些节 点的样式信息，如果某个节点是 display: none 的，那么就不会在渲染树中显示。</p>
+<ol start="4">
+<li><p>Layout: 计算出Render Tree每个节点的具体位置。（布局）</p>
+</li>
+<li><p>Painting：通过显卡，开始调用 GPU 绘制，合成图层，将Layout后的节点内容分别呈现到屏幕上。（渲染）</p>
+</li>
 </ol>
 <p>PS：</p>
 <ul>
 <li>css加载不会阻塞DOM树的解析</li>
 <li>css和script的加载会阻塞DOM树的渲染（白屏）</li>
-<li>css加载会阻塞后面js语句的执行</li>
+<li>css加载会阻塞后面js语句的执行（因为 Renderer 进程中 JS 线程和渲染线程是互斥的）</li>
 </ul>
 <h1 id="重排（回流）Reflow-（引起DOM树重新计算的行为）"><a href="#重排（回流）Reflow-（引起DOM树重新计算的行为）" class="headerlink" title="重排（回流）Reflow （引起DOM树重新计算的行为）"></a>重排（回流）Reflow <strong>（引起DOM树重新计算的行为）</strong></h1><p>DOM结构中的各个元素都有自己的盒子，这些都需要浏览器根据各种样式来计算，并根据计算结果将元素放到它该出现的位置，这个过程称为reflow。<br>以下是触发reflow的几种方法：</p>
 <ol>
@@ -2045,30 +2173,101 @@
 <li>不要在布局信息改变的时候做DOM查询</li>
 <li>动画元素脱离文档流（浮动、绝对定位和固定定位），减少回流的Render Tree的规模</li>
 <li>使用visibility替换display:none，因为前者只会引起重绘，后者会引起回流改变布局</li>
+<li>通过硬件加速的方式，声明一个新的复合图层，它会单独分配资源 （当然也会脱离普通文档流，这样一来，不管这个复合图层中怎么变化，也不会影响默认复合层里的回流重绘）</li>
 </ul>
 <p>PS：为什么操作DOM非常昂贵？</p>
 <p><strong>操作DOM会导致重排和重绘，重排会占用、消耗CPU; 重绘会占用、消耗GPU。操作频繁会使得电脑卡顿</strong></p>
+<h1 id="回流与重绘相关的eventLoop"><a href="#回流与重绘相关的eventLoop" class="headerlink" title="回流与重绘相关的eventLoop"></a>回流与重绘相关的eventLoop</h1><ul>
+<li>当 Event loop 执⾏完 Microtasks 后，会判断 document 是否需要更新。- 因为浏览 器是 60Hz 的刷新率，每 16ms 才会更新⼀次。 </li>
+<li>然后判断是否有 resize 或者 scroll ，有的话会去触发事件，所以 resize 和 scroll 事件也是⾄少 16ms 才会触发⼀次，并且⾃带节流功能。 </li>
+<li>判断是否触发了 media query </li>
+<li>更新动画并且发送事件</li>
+<li>判断是否有全屏操作事件 执⾏ requestAnimationFrame 回调 执⾏ IntersectionObserver 回调，该⽅法⽤于判断元素是否可⻅，可以⽤于懒加载上，但是兼容性不好</li>
+<li>更新界⾯<br>以上就是⼀帧中可能会做的事情。如果在⼀帧中有空闲时间，就会去执⾏ requestIdleCallback 回调。</li>
+</ul>
 <h1 id="输入URL到浏览器显示页面发生了什么"><a href="#输入URL到浏览器显示页面发生了什么" class="headerlink" title="输入URL到浏览器显示页面发生了什么"></a>输入URL到浏览器显示页面发生了什么</h1><ol>
-<li>输入网址github.com</li>
-<li>DNS查找域名的IP地址<br>DNS 的作用就是通过域名查询到具体的 IP。</li>
+<li>在浏览器地址栏输⼊URL</li>
+<li>浏览器查看缓存，如果请求资源在缓存中并且新鲜，跳转到转码步骤 <ol>
+<li>如果资源未缓存，发起新请求 </li>
+<li>如果已缓存，检验是否⾜够新鲜，⾜够新鲜直接提供给客户端，否则与服务器进⾏验 证。 </li>
+<li>检验新鲜通常有两个HTTP头进⾏控制 Expires 和 Cache-Control ： HTTP1.0提供Expires，值为⼀个绝对时间表示缓存新鲜⽇期 HTTP1.1增加了Cache-Control: max-age=,值为以秒为单位的Y⼤新鲜时间</li>
 </ol>
+</li>
+<li>浏览器解析URL获取协议，主机，端⼝，path </li>
+<li>浏览器组装⼀个HTTP（GET）请求报⽂ </li>
+<li>浏览器获取主机ip地址，过程如下： <ol>
+<li>浏览器缓存 </li>
+<li>本机缓存 </li>
+<li>hosts⽂件 </li>
+<li>路由器缓存 </li>
+<li>ISP DNS缓存 </li>
+<li>DNS递归查询（可能存在负载均衡导致每次IP不⼀样） </li>
+</ol>
+</li>
+</ol>
+<p>DNS 的作用就是通过域名查询到具体的 IP。</p>
 <p>因为 IP 存在数字和英文的组合（IPv6），很不利于人类记忆，所以就出现了域名。你可以把域名看成是某个 IP 的别名，DNS 就是去查询这个别名的真正名称是什么。</p>
 <ul>
-<li>请求发起后，游览器首先会解析这个域名，首先它会查看<strong>本地硬盘的 hosts 文件</strong>，看看其中有没有和这个域名对应的规则，如果有的话就直接使用 hosts 文件里面的 ip 地址。</li>
+<li>浏览器输入<a href="http://www.google.com时，请求发起后，游览器首先会解析这个域名，首先它会查看**本地硬盘的" target="_blank" rel="noopener">www.google.com时，请求发起后，游览器首先会解析这个域名，首先它会查看**本地硬盘的</a> hosts 文件**，看看其中有没有和这个域名对应的规则，如果有的话就直接使用 hosts 文件里面的 ip 地址。</li>
 <li>如果在本地的 hosts 文件没有能够找到对应的 ip 地址，浏览器会发出一个 DNS请求到<strong>本地DNS(域名分布系统)服务器</strong>。本地DNS服务器一般都是你的网络接入服务器商提供，比如中国电信，中国移动。</li>
-<li>查询你输入的网址的DNS请求到达本地DNS服务器之后，本地DNS服务器会首先查询它的缓存记录，如果缓存中有此条记录，就可以直接返回结果，此过程是递归的方式进行查询。如果没有，本地DNS服务器还要向<strong>DNS根服务器进行查询</strong></li>
+<li>查询你输入的网址的DNS请求到达本地DNS服务器之后，本地DNS服务器会首先查询它的缓存记录，如果缓存中有此条记录，就可以直接返回结果，此过程是递归的方式进行查询。如果没有，本地DNS服务器还要向<strong>DNS根服务器进行查询</strong>，DNS根服务器找出负责 com 这个⼀级域名的服务器 </li>
 <li>根DNS服务器没有记录具体的域名和IP地址的对应关系，而是告诉本地DNS服务器，你可以到<strong>域服务器</strong>上去继续查询，并给出域服务器的地址。这种过程是迭代的过程</li>
 <li>本地DNS服务器继续向域服务器发出请求，在这个例子中，请求的对象是.com域服务器。.com域服务器收到请求之后，<strong>也不会直接返回域名和IP地址的对应关系</strong>，而是告诉本地DNS服务器，你的<strong>域名的解析服务器的地址</strong></li>
 <li>最后，本地DNS服务器向域名的解析服务器发出请求，这时就能收到一个域名和IP地址对应关系，本地DNS服务器不仅要把IP地址返回给用户电脑，还要把这个对应关系保存在缓存中，以备下次别的用户查询时，可以直接返回结果，加快网络访问。</li>
 </ul>
 <p>本地硬盘host文件=&gt;本地DNS服务器(中国移动，中国电信)=&gt;根DNS服务器=&gt;域服务器=&gt;域名的解析服务器的地址=&gt;返回给本地DNS服务器，并作缓存。</p>
-<ol start="3">
-<li>建立TCP链接（如果是https协议则需要四次握手）<br>TCP链接涉及到客户端和服务端之间的三次握手</li>
-<li>浏览器向web服务器发起Http请求</li>
-<li>HTTP服务器处理</li>
-<li>关闭TCP链接<br>关闭TCP链接涉及客户端和服务端之间的四次挥手</li>
-<li>浏览器解析资源</li>
-<li>浏览器布局渲染</li>
+<ol start="6">
+<li>打开⼀个socket与⽬标IP地址，端⼝建⽴TCP链接，三次握⼿如下： <ol>
+<li>客户端发送⼀个TCP的SYN=1，Seq=X的包到服务器端⼝ </li>
+<li>服务器发回SYN=1， ACK=X+1， Seq=Y的响应包 </li>
+<li>客户端发送ACK=Y+1， Seq=Z </li>
+</ol>
+</li>
+<li>服务器检查HTTP请求头是否包含缓存验证信息如果验证缓存新鲜，返回304等对应状态码 </li>
+<li>处理程序读取完整请求并准备HTTP响应，可能需要查询数据库等操作 </li>
+<li>服务器将响应报⽂通过TCP连接发送回浏览器，关闭TCP连接四次挥手</li>
+<li>浏览器接收HTTP响应，然后根据情况选择关闭TCP连接或者保留重⽤，关闭TCP连接的四 次握⼿如下： <ol>
+<li>主动⽅发送Fin=1， Ack=Z， Seq= X报⽂ </li>
+<li>被动⽅发送ACK=X+1， Seq=Z报⽂ </li>
+<li>被动⽅发送Fin=1， ACK=X， Seq=Y报⽂ </li>
+<li>主动⽅发送ACK=Y， Seq=X报⽂ </li>
+</ol>
+</li>
+<li>浏览器检查响应状态吗：是否为1XX，3XX， 4XX， 5XX，这些情况处理与2XX不同</li>
+<li>如果资源可缓存，进⾏缓存 </li>
+<li>对响应进⾏解码（例如gzip压缩） </li>
+<li>根据资源类型决定如何处理（假设资源为HTML⽂档）</li>
+<li>解析HTML⽂档，构件DOM树，下载资源，构造CSSOM树，执⾏js脚本，这些操作没有严 格的先后顺序，以下分别解释 </li>
+<li>构建DOM树： <ol>
+<li>Tokenizing：根据HTML规范将字符流解析为标记 </li>
+<li>Lexing：词法分析将标记转换为对象并定义属性和规则 </li>
+<li>DOM construction：根据HTML标记关系将对象组成DOM树 </li>
+</ol>
+</li>
+<li>解析过程中遇到图⽚、样式表、js⽂件，启动下载 </li>
+<li>构建CSSOM树： <ol>
+<li>Tokenizing：字符流转换为标记流</li>
+<li>Node：根据标记创建节点 </li>
+<li>CSSOM：节点创建CSSOM树 </li>
+</ol>
+</li>
+<li>根据DOM树和CSSOM树构建渲染树: <ol>
+<li>从DOM树的根节点遍历所有可⻅节点，不可⻅节点包括：<br>1) script , meta 这样本身 不可⻅的标签。<br>2)被css隐藏的节点，如 display: none </li>
+<li>对每⼀个可⻅节点，找到恰当的CSSOM规则并应⽤ </li>
+<li>发布可视节点的内容和计算样式 </li>
+</ol>
+</li>
+<li>js解析如下： <ol>
+<li>浏览器创建Document对象并解析HTML，将解析到的元素和⽂本节点添加到⽂档中，此 时document.readystate为loading </li>
+<li>HTML解析器遇到没有async和defer的script时，将他们添加到⽂档中，然后执⾏⾏内 或外部脚本。这些脚本会同步执⾏，并且在脚本下载和执⾏时解析器会暂停。这样就可 以⽤document.write()把⽂本插⼊到输⼊流中。同步脚本经常简单定义函数和注册事件 处理程序，他们可以遍历和操作script和他们之前的⽂档内容 </li>
+<li>当解析器遇到设置了async属性的script时，开始下载脚本并继续解析⽂档。脚本会在它 下载完成后尽快执⾏，但是解析器不会停下来等它下载。异步脚本禁⽌使⽤ document.write()，它们可以访问⾃⼰script和之前的⽂档元素 </li>
+<li>当⽂档完成解析，document.readState变成interactive </li>
+<li>所有defer脚本会按照在⽂档出现的顺序执⾏，延迟脚本能访问完整⽂档树，禁⽌使⽤ document.write() </li>
+<li>浏览器在Document对象上触发DOMContentLoaded事件 </li>
+<li>此时⽂档完全解析完成，浏览器可能还在等待如图⽚等内容加载，等这些内容完成载⼊ 并且所有异步脚本完成载⼊和执⾏，document.readState变为complete，window触发 load事件</li>
+</ol>
+</li>
+<li>显示⻚⾯（HTML解析过程中会逐步显示⻚⾯）</li>
 </ol>
 <h1 id="requestAnimationFrame"><a href="#requestAnimationFrame" class="headerlink" title="requestAnimationFrame"></a>requestAnimationFrame</h1><p>传统的 javascript 动画是通过定时器 setTimeout 或者 setInterval 实现的。但是定时器动画一直存在两个问题，第一个就是动画的循时间环间隔不好确定，设置长了动画显得不够平滑流畅，设置短了浏览器的重绘频率会达到瓶颈，推荐的最佳循环间隔是17ms（大多数电脑的显示器刷新频率是60Hz，1000ms/60）；第二个问题是定时器第二个时间参数只是指定了多久后将动画任务添加到浏览器的UI线程队列中，如果<strong>UI线程处于忙碌状态，那么动画不会立刻执行。</strong>为了解决这些问题，H5 中加入了 requestAnimationFrame</p>
 <p><strong>优点：</strong></p>
@@ -2161,20 +2360,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/03/前后端通信方式/手撕webSocket/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -2219,7 +2418,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Ajax/" itemprop="url" rel="index">
                     <span itemprop="name">Ajax</span>
                   </a>
@@ -2315,20 +2514,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/前后端通信方式/手撕Jsonp/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -2373,7 +2572,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Ajax/" itemprop="url" rel="index">
                     <span itemprop="name">Ajax</span>
                   </a>
@@ -2462,20 +2661,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/14/JavaScript/DOM事件类/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -2520,7 +2719,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/JavaScript/" itemprop="url" rel="index">
                     <span itemprop="name">JavaScript</span>
                   </a>
@@ -2635,20 +2834,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/JavaScript/作用域链与闭包/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -2693,7 +2892,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/JavaScript/" itemprop="url" rel="index">
                     <span itemprop="name">JavaScript</span>
                   </a>
@@ -2734,7 +2933,7 @@
         
           
             <h1 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h1><p>JS中，只有全局作用域和局部作用域（eval开发中比较少使用不做讨论），并且作用域和执行上下文其实是完全不同的两个概念，在执行上下文这前两篇文章中也有谈到。</p>
-<p><strong>作用域链，是由当前环境与上层环境的一系列变量对象组成，作用是保证了当前执行环境对符合访问权限的变量和函数的有序访问。</strong></p>
+<p><strong>作用域链，是由当前环境与上层环境的一系列变量对象组成，作用是保证了当前执行环境对符合访问权限的变量和函数的有序访问。</strong>作⽤域链的变量只能 向上访问，变量访问到 window 对象即被终⽌，作⽤域链向下访问变量是不被允许的。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> b = a + <span class="number">10</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">innerTest</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> c = <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">return</span> b + c;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> innerTest();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test();</span><br></pre></td></tr></table></figure>
 <p>当代码在一个环境中执行时，会创建变量对象的一个作用域链（作用域形成的链条）</p>
 <ul>
@@ -2909,7 +3108,7 @@
 
       <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">leslie choi</p>
               <p class="site-description motion-element" itemprop="description"></p>

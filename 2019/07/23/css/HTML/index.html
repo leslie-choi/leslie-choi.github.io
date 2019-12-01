@@ -6,7 +6,7 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="HTML语义化在我的理解为：根据内容，使用最合适的HTML标签。场景：加入一个文章标题，要求这个标题的字体比正文的要大一些，还要加粗。能够实现这种效果的方法有很多，比如用CSS样式进行渲染。这样的效果看起来像是一个标题，但是他对浏览器来说，只是一个被渲染过的文本，无法知道他是一个标题。若要让浏览器知道他是一个标题，应该用hn标签来进行标记。从这个例子可以总结出： 语义化的HTML文档，不关心内容的">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-23T04:17:52.214Z">
+<meta property="og:updated_time" content="2019-12-01T02:59:30.104Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTML">
 <meta name="twitter:description" content="HTML语义化在我的理解为：根据内容，使用最合适的HTML标签。场景：加入一个文章标题，要求这个标题的字体比正文的要大一些，还要加粗。能够实现这种效果的方法有很多，比如用CSS样式进行渲染。这样的效果看起来像是一个标题，但是他对浏览器来说，只是一个被渲染过的文本，无法知道他是一个标题。若要让浏览器知道他是一个标题，应该用hn标签来进行标记。从这个例子可以总结出： 语义化的HTML文档，不关心内容的">
@@ -138,7 +138,7 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -148,7 +148,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -228,20 +228,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/23/css/HTML/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -284,7 +284,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/CSS/" itemprop="url" rel="index">
                     <span itemprop="name">CSS</span>
                   </a>
@@ -348,6 +348,7 @@
 <li><strong>B. description(网站内容的描述)</strong><br>说明：用于告诉搜索引擎，你网站的主要内容。</li>
 </ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"description"</span> <span class="attr">content</span>=<span class="string">"文科生，热爱前端与编程。目前大二，这是我的前端博客"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>（SEO优先级按照title、description、keywords的顺序递减）</p>
 <ul>
 <li><strong>C. viewport(移动端的窗口)</strong><br>说明：这个概念较为复杂，具体的会在下篇博文中讲述。<br>这个属性常用于设计移动端网页。在用bootstrap,AmazeUI等框架时候都有用过viewport。</li>
 </ul>
@@ -404,6 +405,7 @@
 </ul>
 <p>如果网页过期。那么这个网页存在本地的cookies也会被自动删除。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Set-Cookie"</span> <span class="attr">content</span>=<span class="string">"name, date"</span>&gt;</span> //格式</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Set-Cookie"</span> <span class="attr">content</span>=<span class="string">"User=Lxxyx; path=/; expires=Sunday, 10-Jan-16 10:00:00 GMT"</span>&gt;</span> //具体范例</span><br></pre></td></tr></table></figure>
+<h2 id="设置页面不缓存的方法"><a href="#设置页面不缓存的方法" class="headerlink" title="设置页面不缓存的方法"></a>设置页面不缓存的方法</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"pragma"</span> <span class="attr">content</span>=<span class="string">"no-cache"</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Cache-Control"</span> <span class="attr">content</span>=<span class="string">"no-cache, must-revalidate"</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"expires"</span> <span class="attr">content</span>=<span class="string">"0"</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h1 id="H5和CSS3的新特性"><a href="#H5和CSS3的新特性" class="headerlink" title="H5和CSS3的新特性"></a>H5和CSS3的新特性</h1><h2 id="html5有哪些新特性"><a href="#html5有哪些新特性" class="headerlink" title="html5有哪些新特性"></a>html5有哪些新特性</h2><ol>
 <li>拖拽释放(Drag and drop) API </li>
 <li>语义化更好的内容标签（header,nav,footer,aside,article,section）</li>
@@ -415,6 +417,21 @@
 <li>表单控件，calendar、date、time、email、url、search  </li>
 <li>新的技术webworker, websocket, Geolocation</li>
 </ol>
+<h3 id="html5-的离线存储以及工作原理"><a href="#html5-的离线存储以及工作原理" class="headerlink" title="html5 的离线存储以及工作原理"></a>html5 的离线存储以及工作原理</h3><p>在⽤户没有与因特⽹连接时，可以正常访问站点或应⽤，在⽤户与因特⽹连接时，更新⽤ 户机器上的缓存⽂件</p>
+<p>原理：HTML5 的离线存储是基于⼀个新建的 .appcache ⽂件的缓存机制(不是存储技 术)，通过这个⽂件上的解析清单离线存储资源，这些资源就会像 cookie ⼀样被存储了下 来。之后当⽹络在处于离线状态下时，浏览器会通过被离线存储的数据进⾏⻚⾯展示</p>
+<p>使用方法：</p>
+<ol>
+<li>⻚⾯头部像下⾯⼀样加⼊⼀个 manifest 的属性</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE HTML&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">manifest</span>=<span class="string">"demo.appcache"</span>&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><p>在 cache.manifest ⽂件的编写离线存储的资源 </p>
+</li>
+<li><p>在离线状态时，操作 window.applicationCache 进⾏需求实现</p>
+</li>
+</ol>
+<p>在线的情况下，浏览器发现 html 头部有 manifest 属性，它会请求 manifest ⽂件，如 果是第⼀次访问 app ，那么浏览器就会根据manifest⽂件的内容下载相应的资源并且进⾏ 离线存储。如果已经访问过 app 并且资源已经离线存储了，那么浏览器就会使⽤离线的资 源加载⻚⾯，然后浏览器会对⽐新的 manifest ⽂件与旧的 manifest ⽂件，如果⽂件没有发⽣改变，就不做任何操作，如果⽂件改变了，那么就会重新下载⽂件中的资源并进⾏离线存储。</p>
+<p>离线的情况下，浏览器就直接使⽤离线存储的资源。</p>
 <h2 id="CSS3-新增属性"><a href="#CSS3-新增属性" class="headerlink" title="CSS3 新增属性"></a>CSS3 新增属性</h2><ol>
 <li>颜色：新增RGBA，HSLA模式</li>
 <li>文字阴影（text-shadow、）</li>
@@ -547,7 +564,7 @@
 
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">leslie choi</p>
               <p class="site-description motion-element" itemprop="description"></p>
@@ -615,7 +632,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML语义化"><span class="nav-number">1.</span> <span class="nav-text">HTML语义化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语义化标签的优势"><span class="nav-number">1.1.</span> <span class="nav-text">语义化标签的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5新增的语义化标签"><span class="nav-number">1.2.</span> <span class="nav-text">HTML5新增的语义化标签</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#meta标签的理解和总结"><span class="nav-number">2.</span> <span class="nav-text">meta标签的理解和总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#name属性"><span class="nav-number">2.1.</span> <span class="nav-text">name属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-equiv属性"><span class="nav-number">2.2.</span> <span class="nav-text">http-equiv属性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#H5和CSS3的新特性"><span class="nav-number">3.</span> <span class="nav-text">H5和CSS3的新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#html5有哪些新特性"><span class="nav-number">3.1.</span> <span class="nav-text">html5有哪些新特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS3-新增属性"><span class="nav-number">3.2.</span> <span class="nav-text">CSS3 新增属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#H5中已经废弃的标签"><span class="nav-number">3.3.</span> <span class="nav-text">H5中已经废弃的标签</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文章："><span class="nav-number">4.</span> <span class="nav-text">参考文章：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML语义化"><span class="nav-number">1.</span> <span class="nav-text">HTML语义化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语义化标签的优势"><span class="nav-number">1.1.</span> <span class="nav-text">语义化标签的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5新增的语义化标签"><span class="nav-number">1.2.</span> <span class="nav-text">HTML5新增的语义化标签</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#meta标签的理解和总结"><span class="nav-number">2.</span> <span class="nav-text">meta标签的理解和总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#name属性"><span class="nav-number">2.1.</span> <span class="nav-text">name属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-equiv属性"><span class="nav-number">2.2.</span> <span class="nav-text">http-equiv属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置页面不缓存的方法"><span class="nav-number">2.3.</span> <span class="nav-text">设置页面不缓存的方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#H5和CSS3的新特性"><span class="nav-number">3.</span> <span class="nav-text">H5和CSS3的新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#html5有哪些新特性"><span class="nav-number">3.1.</span> <span class="nav-text">html5有哪些新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#html5-的离线存储以及工作原理"><span class="nav-number">3.1.1.</span> <span class="nav-text">html5 的离线存储以及工作原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS3-新增属性"><span class="nav-number">3.2.</span> <span class="nav-text">CSS3 新增属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#H5中已经废弃的标签"><span class="nav-number">3.3.</span> <span class="nav-text">H5中已经废弃的标签</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文章："><span class="nav-number">4.</span> <span class="nav-text">参考文章：</span></a></li></ol></div>
             
 
           </div>

@@ -6,7 +6,7 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -133,7 +133,7 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -144,7 +144,7 @@
   page-home">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -224,20 +224,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/12/网络/跨域问题/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -282,7 +282,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/network/" itemprop="url" rel="index">
                     <span itemprop="name">network</span>
                   </a>
@@ -340,7 +340,7 @@
 <li><p>无法用js发送非同源的AJAX请求</p>
 </li>
 </ul>
-<h2 id="为什么要有同源策略？"><a href="#为什么要有同源策略？" class="headerlink" title="为什么要有同源策略？"></a>为什么要有同源策略？</h2><ol>
+<h1 id="为什么要有同源策略？"><a href="#为什么要有同源策略？" class="headerlink" title="为什么要有同源策略？"></a>为什么要有同源策略？</h1><ol>
 <li>为什么要限制不同源发请求？假设用户登陆了bank.com，同时打开了evil.com，如果没有任何限制，evil.com可以向bank.com请求到任何信息，进而就可以在evil.com向bank.com发转账请求等。</li>
 </ol>
 <p>如果这样，为什么不直接限制写，只限制读？因为如果连请求都发不出去了，那就不能做跨域资源共享了，无法读取返回结果，evil.com就无法继续下一步的操作，如获取转账请求的一些必要的验证信息。</p>
@@ -349,29 +349,29 @@
 </ol>
 <p>如果不限制的话，那么很容易就可以伪装其它的网站，如套一个iframe或者通过window.open的方法，从而得到用户的操作和输入，如账户、密码。</p>
 <p><strong>举两个例子。没有同源策略限制的两大危险场景（接口请求和DOM查询）</strong></p>
-<h3 id="没有同源策略限制的接口请求"><a href="#没有同源策略限制的接口请求" class="headerlink" title="没有同源策略限制的接口请求"></a>没有同源策略限制的接口请求</h3><ol>
+<h2 id="没有同源策略限制的接口请求"><a href="#没有同源策略限制的接口请求" class="headerlink" title="没有同源策略限制的接口请求"></a>没有同源策略限制的接口请求</h2><ol>
 <li>你准备去清空你的购物车，于是打开了买买买网站 <code>www.maimaimai.com</code>，然后登录成功，一看，购物车东西这么少，不行，还得买多点。</li>
 <li>你在看有什么东西买的过程中，你的好基友发给你一个链接 <code>www.nidongde.com</code>，一脸yin笑地跟你说：“你懂的”，你毫不犹豫打开了。</li>
 <li>你饶有兴致地浏览着 <code>www.nidongde.com</code>，谁知这个网站暗地里做了些不可描述的事情！由于没有同源策略的限制，它向 <code>www.maimaimai.com</code>发起了请求！聪明的你一定想到上面的话“服务端验证通过后会在响应头加入Set-Cookie字段，然后下次再发请求的时候，浏览器会自动将cookie附加在HTTP请求的头字段Cookie中”，这样一来，这个不法网站就相当于登录了你的账号，可以为所欲为了！如果这不是一个买买买账号，而是你的银行账号。。。这就造成了一个简单的CSRF攻击，CSRF 攻击是利用用户的登录态发起恶意请求。</li>
 </ol>
-<h3 id="没有同源策略的DOM查询"><a href="#没有同源策略的DOM查询" class="headerlink" title="没有同源策略的DOM查询"></a>没有同源策略的DOM查询</h3><ol>
+<h2 id="没有同源策略的DOM查询"><a href="#没有同源策略的DOM查询" class="headerlink" title="没有同源策略的DOM查询"></a>没有同源策略的DOM查询</h2><ol>
 <li>有一天你刚睡醒，收到一封邮件，说是你的银行账号有风险，赶紧点进 <code>www.yinghang.com</code>改密码。你吓尿了，赶紧点进去，还是熟悉的银行登录界面，你果断输入你的账号密码，登录进去看看钱有没有少了</li>
 </ol>
 <p>​2. 睡眼朦胧的你没看清楚，平时访问的银行网站是 <code>www.yinhang.com</code>，而现在访问的是 <code>www.yinghang.com</code>，这个钓鱼网站做了什么呢？</p>
 <p>其实就是把别人网站的DOM照搬过来进行伪造，获取用户的信息</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HTML</span></span><br><span class="line">&lt;iframe name=<span class="string">"yinhang"</span> src=<span class="string">"www.yinhang.com"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span></span><br><span class="line"><span class="comment">// JS</span></span><br><span class="line"><span class="comment">// 由于没有同源策略的限制，钓鱼网站可以直接拿到别的网站的Dom</span></span><br><span class="line"><span class="keyword">const</span> iframe = <span class="built_in">window</span>.frames[<span class="string">'yinhang'</span>]</span><br><span class="line"><span class="keyword">const</span> node = iframe.document.getElementById(<span class="string">'你输入账号密码的Input'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`拿到了这个<span class="subst">$&#123;node&#125;</span>，我还拿不到你刚刚输入的账号密码吗`</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="前后端通信的几种方式"><a href="#前后端通信的几种方式" class="headerlink" title="前后端通信的几种方式"></a>前后端通信的几种方式</h2><ol>
+<h1 id="前后端通信的几种方式"><a href="#前后端通信的几种方式" class="headerlink" title="前后端通信的几种方式"></a>前后端通信的几种方式</h1><ol>
 <li>AJAX：同源下面的通信方式</li>
 <li>WebSocket：不受同源策略的限制</li>
 <li>CORS：支持跨域也支持同源策略（支持跨域的AJAX）</li>
 </ol>
-<h3 id="如何创建Ajax"><a href="#如何创建Ajax" class="headerlink" title="如何创建Ajax"></a>如何创建Ajax</h3><ol>
+<h2 id="如何创建Ajax"><a href="#如何创建Ajax" class="headerlink" title="如何创建Ajax"></a>如何创建Ajax</h2><ol>
 <li>实例化XMLHttpRequest对象</li>
 <li>连接服务器</li>
 <li>发送请求</li>
 <li>接收响应数据</li>
 </ol>
-<h2 id="解决跨域问题"><a href="#解决跨域问题" class="headerlink" title="解决跨域问题"></a>解决跨域问题</h2><ol>
+<h1 id="解决跨域问题"><a href="#解决跨域问题" class="headerlink" title="解决跨域问题"></a>解决跨域问题</h1><ol>
 <li>jsonp解决跨域</li>
 </ol>
 <p>jsonp跨域其实也是JavaScript设计模式中的一种代理模式。由两个部分组成，<strong>回调函数和数据</strong>（数据指的是下面传入回调函数的res）</p>
@@ -385,7 +385,7 @@
 <p>CORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing）。<strong>基本 的思想就是让HTTP头部让浏览器与服务器之间进行沟通，从而决定请求或者响应应该成功还是失败。</strong></p>
 <p>只要浏览器检测到响应头带上了CORS，并且允许的源包括了本网站，那么就不会拦截请求响应。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Access-Control-Allow-Metods:GET,PUT,POST,OPTIONS,DELETE,PATCH</span><br><span class="line">Access-Control-Allow-Origin: *</span><br></pre></td></tr></table></figure>
-<p>栗子：浏览器发送一个简单请求的时候，在请求头加个额外的origin头部，其中包含源信息（协议端口和域名），服务器根据这个头部信息决定是否响应。如origin：<code>http://www.nidongde.net</code>，服务器认为请求可以接收的话，就在Access-Control-Allow-Origin挥发相同的源信息，如果是公共资源，则可以回发”<em>“。**（最好不要设置为</em>在移动端会出现 预检请求不通过的状况，切记切记切记！）**</p>
+<p>栗子：浏览器发送一个简单请求的时候，在请求头加个额外的origin头部，其中包含源信息（协议端口和域名），服务器根据这个头部信息决定是否响应。如origin：<code>http://www.nidongde.net</code>，服务器认为请求可以接收的话，就在Access-Control-Allow-Origin回发相同的源信息，如果是公共资源，则可以回发”<em>“。**（最好不要设置为</em>在移动端会出现 预检请求不通过的状况，切记切记切记！）**</p>
 <p>它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。</p>
 <p>CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。IE8+：IE8/9需要使用XDomainRequest对象来支持CORS。整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。</p>
 <p>使用方法很简单，在服务端设置：</p>
@@ -393,7 +393,7 @@
 <p>然而，这种方式的局限性在于要求客户端支持，并且服务端进行相关设置。</p>
 <p>在这两者满足的情况下，通过CORS进行跨域不仅支持所有类型的HTTP请求，而且开发者可以使用<br>普通的XMLHttpRequest发起请求和获得数据，比起JSONP有更好的错误处理。</p>
 <p>PS:Access-Control-Allow-Origin只能设置一个值，所以如果有多个域需要跨域访问的话，可以通过设置一个白名单，然后判断当前域的 Origin 值是否存在其中，存在的话则设置成当前的Origin值</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 判断origin是否在域名白名单列表中</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isOriginAllowed</span>(<span class="params">origin, allowedOrigin</span>) </span>&#123;</span><br><span class="line"><span class="keyword">if</span> (_.isArray(allowedOrigin)) &#123;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; allowedOrigin.length; i++) &#123;</span><br><span class="line">  <span class="keyword">if</span>(isOriginAllowed(origin, allowedOrigin[i])) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (_.isString(allowedOrigin)) &#123;</span><br><span class="line"><span class="keyword">return</span> origin === allowedOrigin;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (allowedOrigin <span class="keyword">instanceof</span> <span class="built_in">RegExp</span>) &#123;</span><br><span class="line"><span class="keyword">return</span> allowedOrigin.test(origin);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"><span class="keyword">return</span> !!allowedOrigin;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ALLOW_ORIGIN = [ <span class="comment">// 域名白名单</span></span><br><span class="line"><span class="string">'*.233.666.com'</span>,</span><br><span class="line"><span class="string">'hello.world.com'</span>,</span><br><span class="line"><span class="string">'hello..*.com'</span></span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">app.post(<span class="string">'a/b'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line"><span class="keyword">let</span> reqOrigin = req.headers.origin; <span class="comment">// request响应头的origin属性</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断请求是否在域名白名单内</span></span><br><span class="line"><span class="keyword">if</span>(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) &#123;</span><br><span class="line"><span class="comment">// 设置CORS为请求的Origin值</span></span><br><span class="line">res.header(<span class="string">"Access-Control-Allow-Origin"</span>, reqOrigin);</span><br><span class="line">res.header(<span class="string">'Access-Control-Allow-Credentials'</span>, <span class="string">'true'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 你的业务代码逻辑代码 ...</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">res.send(&#123; <span class="attr">code</span>: <span class="number">-2</span>, <span class="attr">msg</span>: <span class="string">'非法请求'</span> &#125;);</span><br><span class="line">&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 判断origin是否在域名白名单列表中</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isOriginAllowed</span>(<span class="params">origin, allowedOrigin</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (_.isArray(allowedOrigin)) &#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; allowedOrigin.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span>(isOriginAllowed(origin, allowedOrigin[i])) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (_.isString(allowedOrigin)) &#123;</span><br><span class="line">    <span class="keyword">return</span> origin === allowedOrigin;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (allowedOrigin <span class="keyword">instanceof</span> <span class="built_in">RegExp</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> allowedOrigin.test(origin);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> !!allowedOrigin;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ALLOW_ORIGIN = [ <span class="comment">// 域名白名单</span></span><br><span class="line"><span class="string">'*.233.666.com'</span>,</span><br><span class="line"><span class="string">'hello.world.com'</span>,</span><br><span class="line"><span class="string">'hello..*.com'</span></span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">app.post(<span class="string">'a/b'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line"><span class="keyword">let</span> reqOrigin = req.headers.origin; <span class="comment">// request响应头的origin属性</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断请求是否在域名白名单内</span></span><br><span class="line"><span class="keyword">if</span>(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) &#123;</span><br><span class="line"><span class="comment">// 设置CORS为请求的Origin值</span></span><br><span class="line">res.header(<span class="string">"Access-Control-Allow-Origin"</span>, reqOrigin);</span><br><span class="line">res.header(<span class="string">'Access-Control-Allow-Credentials'</span>, <span class="string">'true'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 你的业务代码逻辑代码 ...</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">res.send(&#123; <span class="attr">code</span>: <span class="number">-2</span>, <span class="attr">msg</span>: <span class="string">'非法请求'</span> &#125;);</span><br><span class="line">&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p><strong>预检请求</strong></p>
 <p>就是在发生cors请求时，浏览器检测到跨域请求，会自动发出一个OPTIONS请求来检测本次请求是否被服务器接受。一个OPTIONS请求一般会携带下面两个与CORS相关</p>
 <ul>
@@ -439,9 +439,10 @@
 </ol>
 <p>WebSocket虽然不受同源策略的限制，但是WebSocket不会专门用来做跨域,而是作为消息推送或者聊天等</p>
 <ol start="6">
-<li>document.domain</li>
+<li>document.domain + iframe跨域</li>
 </ol>
 <p><strong>该方式只能用于二级域名相同的情况下，比如 a.test.com 和 b.test.com 适用于该方式。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//⽗窗⼝：(http://www.domain.com/a.html)</span></span><br><span class="line"></span><br><span class="line">&lt;iframe id=<span class="string">"iframe"</span> src=<span class="string">"http://child.domain.com/b.html"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="built_in">document</span>.domain = <span class="string">'domain.com'</span>;     <span class="keyword">var</span> user = <span class="string">'admin'</span>; </span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/⼦窗⼝：(http:/</span><span class="regexp">/child.domain.com/</span>b.html)</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.domain = <span class="string">'domain.com'</span>; <span class="comment">// 获取⽗窗⼝中变量 alert('get js data from parent ---&gt; ' + window.parent.user);</span></span><br></pre></td></tr></table></figure>
 <p>只需要给页面添加 document.domain = ‘test.com’ 表示二级域名都相同就可以实现跨域</p>
 <p>最后，跨域分为两种，一种是跨域请求，另一种访问跨域的页面，跨域请求可以通过CORS/JSONP等方法进行访问，跨域的页面主要通过postMesssage的方式。由于跨域请求不但能发出去还能带上cookie，所以要规避跨站请求伪造攻击的风险，特别是涉及到钱的那种请求。</p>
 
@@ -487,20 +488,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/08/网络/网络知识点/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -545,7 +546,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/network/" itemprop="url" rel="index">
                     <span itemprop="name">network</span>
                   </a>
@@ -638,7 +639,7 @@
 </ol>
 <p>LocalForage就解决了上面的问题，localForage 是一个使用非常简单的 JavaScript 库的，提供了 get，set，remove，clear 和 length 等等 API（跟 localStorage 一样），还具有以下特点：</p>
 <ul>
-<li>支持回调的异步 API</li>
+<li>支持回调的异步 API（localStorage是同步的）</li>
 <li>支持 IndexedDB，WebSQL 和 localStorage 三种存储模式（自动为你加载最佳的驱动程序）</li>
 <li>支持 BLOB 和任意类型的数据，让您可以存储图片，文件等等</li>
 <li>支持 ES6 Promises</li>
@@ -692,7 +693,65 @@
 <li>服务器可以推送消息给客户端，实现双向对话平等</li>
 <li>没有同源策略的限制，可以实现跨域通讯</li>
 </ul>
-<h1 id="浏览器缓存"><a href="#浏览器缓存" class="headerlink" title="浏览器缓存"></a>浏览器缓存</h1><ol>
+<h1 id="cdn"><a href="#cdn" class="headerlink" title="cdn"></a>cdn</h1><p>CDN(Content Delivery Network)又称为内容分发网络，使内容传输的更快，更稳定。<br>也就是说，<strong>把静态资源文件和动态网页分集群部署</strong>，静态资源会被部署到CDN节点上，网页中引用的资源也会变成对应的部署路径。静态资源尽量使⽤ CDN 加载，由于浏览器对于单个域名有并发请求上限，可以考虑使⽤多个 CDN 域名。对于 CDN 加载静态资源需要注意 CDN 域名要 与主站不同，否则每次请求都会带上主站的 Cookie</p>
+<p>CDN 的核心点有两个: 一个是缓存，一个是回源。</p>
+<ul>
+<li>缓存<br>将从根服务器请求来的资源按要求缓存。</li>
+<li>回源<br>当有用户访问某个资源的时候，如果被解析到的那个 CDN 节点没有缓存响应的内容，或者是缓存已经到期，就会回源站去获取。没有人访问，CDN 节点不会主动去源站请求资源。</li>
+</ul>
+<p>原理：不同地区的用户会访问到离自己最近的相同网络线路上的CDN节点，当请求达到CDN节点后，节点会判断自己的内容缓存是否有效，如果有效，则立即响应缓存内容给用户，从而加快响应速度。如果CDN节点的缓存失效，它会根据服务配置去我们的内容源服务器获取最新的资源响应给用户，并将内容缓存下来以便响应给后续访问的用户。因此，一个地区内只要有一个用户先加载资源，在CDN中建立了缓存，该地区的其他后续用户都能因此而受益。</p>
+<p>不同地区的用户访问同一个域名却能得到不同CDN节点的IP地址，这要依赖于<strong>CDN服务商提供的智能域名解析服务</strong>，浏览器发起域名查询时，这种智能DNS服务会根据用户IP计算并返回离它最近的同网络CDN节点IP，引导浏览器与此节点建立连接以获取资源。</p>
+<p>优点：</p>
+<ul>
+<li>CDN 节点解决了跨运营商和跨地域访问的问题，访问延时大大降低</li>
+<li>大部分请求在 CDN 边缘节点完成，CDN 起到了分流作用，减轻了源站的负载</li>
+<li>提高网络访问的稳定性</li>
+</ul>
+<h1 id="缓存位置"><a href="#缓存位置" class="headerlink" title="缓存位置"></a>缓存位置</h1><p>从缓存位置上来说分为四种，并且各⾃有优先级，当依次查找缓存且都没有命 中的时候，才会去请求⽹络</p>
+<ol>
+<li>Service Worker </li>
+<li>Memory Cache </li>
+<li>Disk Cache </li>
+<li>Push Cache</li>
+<li><p>如果都没有缓存只能发起网络请求</p>
+</li>
+<li><p>Service Worker</p>
+</li>
+</ol>
+<ul>
+<li>service Worker 的缓存与浏览器其他内建的缓存机制不同，它可以让我们⾃由控制缓存 哪些⽂件、如何匹配缓存、如何读取缓存，并且缓存是持续性的。 </li>
+<li>当 Service Worker 没有命中缓存的时候，我们需要去调⽤ fetch 函数获取数据。也 就是说，如果我们没有在 Service Worker 命中缓存的话，会根据缓存查找优先级去查 找数据。但是不管我们是从 Memory Cache 中还是从⽹络请求中获取的数据，浏览器都会显示我们是从 Service Worker 中获取的内容。</li>
+</ul>
+<ol start="2">
+<li>Memory Cache</li>
+</ol>
+<ul>
+<li><p>Memory Cache 也就是内存中的缓存，读取内存中的数据肯定⽐磁盘快。但是内存缓存虽 然读取⾼效，可是缓存持续性很短，会随着进程的释放⽽释放。 ⼀旦我们关闭 Tab ⻚⾯，内存中的缓存也就被释放了。</p>
+</li>
+<li><p>当我们访问过⻚⾯以后，再次刷新⻚⾯，可以发现很多数据都来⾃于内存缓存</p>
+</li>
+</ul>
+<p>PS:那么既然内存缓存这么⾼效，我们是不是能让数据都存放在内存中呢？</p>
+<p>先说结论，这是不可能的。</p>
+<ul>
+<li>⾸先计算机中的内存⼀定⽐硬盘容量⼩得多，操作系统需要精 打细算内存的使⽤，所以能让我们使⽤的内存必然不多。</li>
+<li>内存中其实可以存储⼤部分的⽂件，⽐如说 JS 、 HTML 、 CSS 、图⽚等等 当然，我通过⼀些实践和猜测也得出了⼀些结论</li>
+<li>对于⼤⽂件来说，⼤概率是不存储在内存中的，反之优先当前系统内存使⽤率⾼的话，⽂件优先存储进硬盘</li>
+</ul>
+<ol start="3">
+<li>Disk Cache</li>
+</ol>
+<p>Disk Cache 也就是存储在硬盘中的缓存，读取速度慢点，但是什么都能存储到磁盘中， ⽐之 Memory Cache 胜在容量和存储时效性上。</p>
+<p>在所有浏览器缓存中，Disk Cache 覆盖⾯基本是Y⼤的。它会根据 ·HTTP Herder· 中的 字段判断哪些资源需要缓存，哪些资源可以不请求直接使⽤，哪些资源已经过期需要重新 请求。并且即使在跨站点的情况下，相同地址的资源⼀旦被硬盘缓存下来，就不会再次去请求数据。</p>
+<ol start="4">
+<li>push Cache</li>
+</ol>
+<p>Push Cache 是 HTTP/2 中的内容，当以上三种缓存都没有命中时，它才会被使⽤。并且缓存时间也很短暂，只在会话（ Session ）中存在，⼀旦会话结束就被释放。 Push Cache 在国内能够查到的资料很少，也是因为 HTTP/2 在国内不够普及，但是 HTTP/2 将会是⽇后的⼀个趋势</p>
+<ol start="5">
+<li>⽹络请求</li>
+</ol>
+<p>如果所有缓存都没有命中的话，那么只能发起请求来获取资源了。 那么为了性能上的考虑，⼤部分的接⼝都应该选择好缓存策略，接下来我们就来学习缓存策略这部分的内容</p>
+<h1 id="缓存策略"><a href="#缓存策略" class="headerlink" title="缓存策略"></a>缓存策略</h1><ol>
 <li>缓存的分类</li>
 </ol>
 <ul>
@@ -732,7 +791,13 @@
 <li><p>另外必须要考虑到服务器的时区问题。</p>
 </li>
 </ul>
-<h2 id="设置页面不使用缓存的几种方法"><a href="#设置页面不使用缓存的几种方法" class="headerlink" title="设置页面不使用缓存的几种方法"></a>设置页面不使用缓存的几种方法</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"pragma"</span> <span class="attr">content</span>=<span class="string">"no-cache"</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Cache-Control"</span> <span class="attr">content</span>=<span class="string">"no-cache, must-revalidate"</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"expires"</span> <span class="attr">content</span>=<span class="string">"Wed, 26 Feb 1997 08:21:57 GMT"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="设置页面不使用缓存的几种方法"><a href="#设置页面不使用缓存的几种方法" class="headerlink" title="设置页面不使用缓存的几种方法"></a>设置页面不使用缓存的几种方法</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"pragma"</span> <span class="attr">content</span>=<span class="string">"no-cache"</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Cache-Control"</span> <span class="attr">content</span>=<span class="string">"no-cache, must-revalidate"</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"expires"</span> <span class="attr">content</span>=<span class="string">"0"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="选择合适的缓存策略"><a href="#选择合适的缓存策略" class="headerlink" title="选择合适的缓存策略"></a>选择合适的缓存策略</h2><p>对于⼤部分的场景都可以使⽤强缓存配合协商缓存解决，但是在⼀些特殊的地⽅可能需要选择特殊的缓存策略</p>
+<ul>
+<li>对于某些不需要缓存的资源，可以使⽤ Cache-control: no-store ，表示该资源不需要 缓存 </li>
+<li>对于频繁变动的资源，可以使⽤ Cache-Control: no-cache 并配合 ETag 使⽤，表示 该资源已被缓存，但是每次都会发送请求询问资源是否更新。 </li>
+<li>对于代码⽂件来说，通常使⽤ Cache-Control: max-age=31536000 并配合策略缓存使 ⽤，然后对⽂件进⾏etag指纹处理，⼀旦⽂件名变动就会⽴刻下载新的⽂件</li>
+</ul>
 <h1 id="PWA使用缓存"><a href="#PWA使用缓存" class="headerlink" title="PWA使用缓存"></a>PWA使用缓存</h1><p>PWA(Progressive web apps, 渐进式Web应用)</p>
 <ul>
 <li>可以生成桌面小图标，不需要打开浏览器，方便用户访问</li>
@@ -792,20 +857,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/JavaScript/javaScript随手记/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -850,7 +915,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/JavaScript/" itemprop="url" rel="index">
                     <span itemprop="name">JavaScript</span>
                   </a>
@@ -983,20 +1048,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/JavaScript/JavaScript入门/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -1041,7 +1106,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/JavaScript/" itemprop="url" rel="index">
                     <span itemprop="name">JavaScript</span>
                   </a>
@@ -1218,11 +1283,11 @@
 <h2 id="二、json数据格式"><a href="#二、json数据格式" class="headerlink" title="二、json数据格式"></a>二、json数据格式</h2><p>JSON格式的数据:一般都是成对的,是键值对,</p>
 <p>json也是一个对象,数据都是成对的,一般json格式的数据无论是键还是值都是用双引号括起来的</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> json = &#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"小明"</span>,</span><br><span class="line">  <span class="string">"age"</span>: <span class="string">"10"</span>,</span><br><span class="line">  <span class="string">"sex"</span>: <span class="string">"男"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//遍历对象,是不能通过for循环遍历,无序</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//key是一个变量,这个变量中存储的是该对象的所有的属性的名字</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> json) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(key + <span class="string">"==========="</span> + json[key]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="三、简单数据类型和复杂数据类型"><a href="#三、简单数据类型和复杂数据类型" class="headerlink" title="三、简单数据类型和复杂数据类型"></a>三、简单数据类型和复杂数据类型</h2><p>原始数据类型: number,string,boolean,undefined, null,object<br>​    基本类型(简单类型),值类型: number,string,boolean<br>​    复杂类型(引用类型):object<br>​    空类型:undefined,null</p>
-<p>值类型的值在哪一块空间中存储? 栈中存储<br>​    引用类型的值在哪一块空间中存储?对象在堆上存储,地址在栈上存储</p>
-<p>var num=10;//值类型,值在栈上<br>​    var obj={};//复杂类型,对象在堆,地址(引用)在栈</p>
-<p>值类型之间传递,传递的是值<br>​    引用类型之间传递,传递的是地址(引用)</p>
-<p>值类型作为函数的参数,传递的是值<br>​    引用类型作为函数的参数,传递的是</p>
+<h2 id="三、简单数据类型和复杂数据类型"><a href="#三、简单数据类型和复杂数据类型" class="headerlink" title="三、简单数据类型和复杂数据类型"></a>三、简单数据类型和复杂数据类型</h2><p>原始数据类型: number,string,boolean,undefined, null,object<br>基本类型(简单类型),值类型: number,string,boolean<br>复杂类型(引用类型):object<br>空类型:undefined,null</p>
+<p>值类型的值在哪一块空间中存储? 栈中存储<br>引用类型的值在哪一块空间中存储?对象在堆上存储,地址在栈上存储</p>
+<p>var num=10;//值类型,值在栈上<br>var obj={};//复杂类型,对象在堆,地址(引用)在栈</p>
+<p>值类型之间传递,传递的是值<br>引用类型之间传递,传递的是地址(引用)</p>
+<p>值类型作为函数的参数,传递的是值<br>引用类型作为函数的参数,传递的是</p>
 <h2 id="四、内置对象"><a href="#四、内置对象" class="headerlink" title="四、内置对象"></a>四、内置对象</h2><h1 id="JavaScript入门（四）"><a href="#JavaScript入门（四）" class="headerlink" title="JavaScript入门（四）"></a>JavaScript入门（四）</h1><h2 id="BOM内容"><a href="#BOM内容" class="headerlink" title="BOM内容"></a>BOM内容</h2><p>BOM:Browser Object Model:浏览器对象模型</p>
 <p>BOM中的顶级对象就是window</p>
 <p>DOM中页面中有一个顶级对象:Document</p>
@@ -1274,6 +1339,50 @@
 <li>for-of 并不适用于处理原有的原生对象</li>
 </ul>
 <p>能够被for…of正常遍历的，都需要实现一个遍历器Iterator。<br>而数组、字符串、Set、Map结构，早就内置好了Iterator（迭代器），它们的原型中都有一个Symbol.iterator方法，而Object对象并没有实现这个接口，使得它无法被for…of遍历。</p>
+<h2 id="四则运算"><a href="#四则运算" class="headerlink" title="四则运算"></a>四则运算</h2><ul>
+<li>运算中其中⼀⽅为字符串，那么就会把另⼀⽅也转换为字符串 </li>
+<li>如果⼀⽅不是字符串或者数字，那么会将它转换为数字或者字符串</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="number">1</span> + <span class="string">'1'</span> <span class="comment">// '11' </span></span><br><span class="line"><span class="literal">true</span> + <span class="literal">true</span> <span class="comment">// 2 </span></span><br><span class="line"><span class="number">4</span> + [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>] <span class="comment">// "41,2,3"</span></span><br><span class="line"><span class="string">'a'</span> + + <span class="string">'b'</span> <span class="comment">// -&gt; "aNaN"</span></span><br></pre></td></tr></table></figure>
+<p>对于第⼀⾏代码来说，触发特点⼀，所以将数字 1 转换为字符串，得到结果 ‘11’<br>对于第⼆⾏代码来说，触发特点⼆，所以将 true 转为数字 1<br>对于第三⾏代码来说，触发特点⼆，所以将数组通过 toString 转为字符串 1,2,3 ，得 到结果 41,2,3<br>对于第四行代码来说，因为 + ‘b’ 等于 NaN ，所以结果为 “aNaN” ，你可能也会在⼀些代码中看到过 + ‘1’ 的形式来快速获取 number 类型。 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="number">4</span> * <span class="string">'3'</span> <span class="comment">// 12 </span></span><br><span class="line"><span class="number">4</span> * [] <span class="comment">// 0 </span></span><br><span class="line"><span class="number">4</span> * [<span class="number">1</span>, <span class="number">2</span>] <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+<p><strong>那么对于除了加法的运算符来说，只要其中⼀⽅是数字，那么另⼀⽅就会被转为数字</strong></p>
+<h2 id="和-有什么区别"><a href="#和-有什么区别" class="headerlink" title="== 和 === 有什么区别"></a>== 和 === 有什么区别</h2><p><strong>对于 == 来说，如果对⽐双⽅的类型不⼀样的话，就会进⾏类型转换</strong></p>
+<p>假如我们需要对⽐ x 和 y 是否相同，就会进⾏如下判断流程</p>
+<ol>
+<li>⾸先会判断两者类型是否相同。相同的话就是⽐⼤⼩了 </li>
+<li>类型不相同的话，那么就会进⾏类型转换 </li>
+<li>会先判断是否在对⽐ null 和 undefined ，是的话就会返回 true </li>
+<li>判断两者类型是否为 string 和 number ，是的话就会将字符串转换为 number</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="number">1</span> == <span class="string">'1'</span>      <span class="comment">//转换为</span></span><br><span class="line"><span class="number">1</span> ==  <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>判断其中⼀⽅是否为 boolean ，是的话就会把 boolean 转为 number 再进⾏判断</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="string">'1'</span> == <span class="literal">true</span> </span><br><span class="line"><span class="string">'1'</span> ==  <span class="number">1</span> </span><br><span class="line"> <span class="number">1</span>  ==  <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p><strong>对于 === 来说就简单多了，就是判断两者类型和值是否相同</strong></p>
+<p>Object.is相对于 === 的改进，就是</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.is(<span class="number">-0</span>,+<span class="number">0</span>)  <span class="comment">//  false</span></span><br><span class="line"><span class="built_in">Object</span>.is(<span class="literal">NaN</span>,<span class="literal">NaN</span>)  <span class="comment">//  true</span></span><br></pre></td></tr></table></figure>
+<h2 id="深浅拷⻉"><a href="#深浅拷⻉" class="headerlink" title="深浅拷⻉"></a>深浅拷⻉</h2><p><strong>浅拷⻉</strong></p>
+<ol>
+<li>⾸先可以通过 Object.assign 来解决这个问题，很多⼈认为这个函数是⽤来 深拷⻉的。其实并不是， Object.assign 只会拷⻉所有的属性值到新的对象 中，如果属性值是对象的话，拷⻉的是地址，所以并不是深拷⻉</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> a = &#123;   </span><br><span class="line">  age: <span class="number">1</span> </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">let</span> b = <span class="built_in">Object</span>.assign(&#123;&#125;, a) </span><br><span class="line">a.age = <span class="number">2</span> </span><br><span class="line"><span class="built_in">console</span>.log(b.age) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>另外我们还可以通过展开运算符 … 来实现浅拷⻉</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> a = &#123;   </span><br><span class="line">  age: <span class="number">1</span>,   </span><br><span class="line">  jobs: &#123;     </span><br><span class="line">    first: <span class="string">'FE'</span>   </span><br><span class="line">  &#125; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">let</span> b = &#123; ...a &#125; </span><br><span class="line">a.jobs.first = <span class="string">'native'</span> </span><br><span class="line"><span class="built_in">console</span>.log(b.jobs.first) <span class="comment">// native</span></span><br></pre></td></tr></table></figure>
+<p>浅拷⻉只解决了第⼀层的问题，如果接下去的值中还有对象的话，那么就⼜回 到Y开始的话题了，两者享有相同的地址。要解决这个问题，我们就得使⽤深拷⻉了。</p>
+<p>深拷⻉</p>
+<p>这个问题通常可以通过 JSON.parse(JSON.stringify(object)) 来解决。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> a = &#123;   </span><br><span class="line">  age: <span class="number">1</span>,   </span><br><span class="line">  jobs: &#123;     </span><br><span class="line">    first: <span class="string">'FE'</span>   </span><br><span class="line">  &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> b = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(a)) </span><br><span class="line">a.jobs.first = <span class="string">'native'</span> </span><br><span class="line"><span class="built_in">console</span>.log(b.jobs.first) <span class="comment">// FE</span></span><br></pre></td></tr></table></figure>
+<p>但是该⽅法也是有局限性的：</p>
+<ul>
+<li>会忽略 undefined </li>
+<li>会忽略 symbol </li>
+<li>不能序列化函数 </li>
+<li>不能解决循环引⽤的对</li>
+</ul>
 
           
         
@@ -1317,20 +1426,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/JavaScript/JavaScript/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -1375,7 +1484,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/JavaScript/" itemprop="url" rel="index">
                     <span itemprop="name">JavaScript</span>
                   </a>
@@ -1459,20 +1568,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/25/vue/13、组件中css的作用域、抽离路由模块/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -1517,7 +1626,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Vue/" itemprop="url" rel="index">
                     <span itemprop="name">Vue</span>
                   </a>
@@ -1609,20 +1718,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/25/vue/12、webpack结合路由的使用/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -1667,7 +1776,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Vue/" itemprop="url" rel="index">
                     <span itemprop="name">Vue</span>
                   </a>
@@ -1755,20 +1864,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/24/vue/11、使用render函数渲染组件/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -1813,7 +1922,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Vue/" itemprop="url" rel="index">
                     <span itemprop="name">Vue</span>
                   </a>
@@ -1901,20 +2010,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/24/vue/10、watch、computed和methods属性的区别/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -1959,7 +2068,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Vue/" itemprop="url" rel="index">
                     <span itemprop="name">Vue</span>
                   </a>
@@ -2063,20 +2172,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/24/vue/9、路由/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -2121,7 +2230,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Vue/" itemprop="url" rel="index">
                     <span itemprop="name">Vue</span>
                   </a>
@@ -2271,7 +2380,7 @@
 
       <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">leslie choi</p>
               <p class="site-description motion-element" itemprop="description"></p>

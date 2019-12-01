@@ -6,7 +6,7 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="使用 callback 回调函数12345678910111213function f1 (callback) &amp;#123;    setTimeout(function () &amp;#123;　　　　 console.log(&quot;1&quot;)        callback()    &amp;#125;,1000)&amp;#125;function f2()&amp;#123;    console.log(&quot;2&quot;)&amp;#125">
+<meta name="description" content="使用 callback 回调函数优点：简单、容易理解缺点：不利于维护，代码耦合⾼ 12345678910111213function f1 (callback) &amp;#123;    setTimeout(function () &amp;#123;　　　　 console.log(&quot;1&quot;)        callback()    &amp;#125;,1000)&amp;#125;function f2()&amp;#123;">
 <meta name="keywords" content="basic">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript异步的四种方式">
 <meta property="og:url" content="http://yoursite.com/2019/05/12/前后端通信方式/JS实现异步4种方式/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="使用 callback 回调函数12345678910111213function f1 (callback) &amp;#123;    setTimeout(function () &amp;#123;　　　　 console.log(&quot;1&quot;)        callback()    &amp;#125;,1000)&amp;#125;function f2()&amp;#123;    console.log(&quot;2&quot;)&amp;#125">
+<meta property="og:description" content="使用 callback 回调函数优点：简单、容易理解缺点：不利于维护，代码耦合⾼ 12345678910111213function f1 (callback) &amp;#123;    setTimeout(function () &amp;#123;　　　　 console.log(&quot;1&quot;)        callback()    &amp;#125;,1000)&amp;#125;function f2()&amp;#123;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-24T16:19:11.454Z">
+<meta property="og:updated_time" content="2019-11-30T13:43:10.508Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript异步的四种方式">
-<meta name="twitter:description" content="使用 callback 回调函数12345678910111213function f1 (callback) &amp;#123;    setTimeout(function () &amp;#123;　　　　 console.log(&quot;1&quot;)        callback()    &amp;#125;,1000)&amp;#125;function f2()&amp;#123;    console.log(&quot;2&quot;)&amp;#125">
+<meta name="twitter:description" content="使用 callback 回调函数优点：简单、容易理解缺点：不利于维护，代码耦合⾼ 12345678910111213function f1 (callback) &amp;#123;    setTimeout(function () &amp;#123;　　　　 console.log(&quot;1&quot;)        callback()    &amp;#125;,1000)&amp;#125;function f2()&amp;#123;">
 
 
 
@@ -138,7 +138,7 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -148,7 +148,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -228,20 +228,20 @@
   
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/12/前后端通信方式/JS实现异步4种方式/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="404 not found">
     </span>
 
@@ -284,7 +284,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Ajax/" itemprop="url" rel="index">
                     <span itemprop="name">Ajax</span>
                   </a>
@@ -322,9 +322,11 @@
       
 
       
-        <h1 id="使用-callback-回调函数"><a href="#使用-callback-回调函数" class="headerlink" title="使用 callback 回调函数"></a>使用 callback 回调函数</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span> (<span class="params">callback</span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">　　　　 <span class="built_in">console</span>.log(<span class="string">"1"</span>)</span><br><span class="line">        callback()</span><br><span class="line">    &#125;,<span class="number">1000</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"2"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f1(f2)    <span class="comment">//过了1秒之后再输出1，2</span></span><br></pre></td></tr></table></figure>
+        <h1 id="使用-callback-回调函数"><a href="#使用-callback-回调函数" class="headerlink" title="使用 callback 回调函数"></a>使用 callback 回调函数</h1><p>优点：简单、容易理解<br>缺点：不利于维护，代码耦合⾼</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span> (<span class="params">callback</span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">　　　　 <span class="built_in">console</span>.log(<span class="string">"1"</span>)</span><br><span class="line">        callback()</span><br><span class="line">    &#125;,<span class="number">1000</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"2"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f1(f2)    <span class="comment">//过了1秒之后再输出1，2</span></span><br></pre></td></tr></table></figure>
 <p>缺点会出现回调地狱。</p>
-<h1 id="Promise-ES6"><a href="#Promise-ES6" class="headerlink" title="Promise(ES6)"></a>Promise(ES6)</h1><ul>
+<h1 id="Promise-ES6"><a href="#Promise-ES6" class="headerlink" title="Promise(ES6)"></a>Promise(ES6)</h1><p>优点：可以利⽤then⽅法，进⾏链式写法；可以书写错误时的回调函数<br>缺点：编写和理解，相对⽐较难</p>
+<ul>
 <li><p>Promise对象代表一个异步操作，有三种状态：pending(进行中),resolved(已成功)和rejected(已失败)。</p>
 </li>
 <li><p>一旦状态改变，就不会再变，任何时候都可以得到这个结果。状态改变只有两种可能：pending=&gt;resolved,pending=&gt;rejected。</p>
@@ -340,10 +342,14 @@
 <li>不设置回调函数，Promise内部抛出的错误，不会反应到外部。</li>
 <li>当初与pending状态时，无法得知目前进展到哪一个阶段(刚刚开始还是即将完成)。</li>
 </ul>
-<h1 id="Generator-ES6"><a href="#Generator-ES6" class="headerlink" title="Generator(ES6)"></a>Generator(ES6)</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">G</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> a = <span class="keyword">yield</span> <span class="number">100</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'a'</span>, a)  <span class="comment">// a aaa</span></span><br><span class="line">    <span class="keyword">const</span> b = <span class="keyword">yield</span> <span class="number">200</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'b'</span>, b)  <span class="comment">// b bbb</span></span><br><span class="line">    <span class="keyword">const</span> c = <span class="keyword">yield</span> <span class="number">300</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'c'</span>, c)  <span class="comment">// c ccc</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> g = G()</span><br><span class="line">g.next()    <span class="comment">// value: 100, done: false</span></span><br><span class="line">g.next(<span class="string">'aaa'</span>) <span class="comment">// value: 200, done: false</span></span><br><span class="line">g.next(<span class="string">'bbb'</span>) <span class="comment">// value: 300, done: false</span></span><br><span class="line">g.next(<span class="string">'ccc'</span>) <span class="comment">// value: undefined, done: true</span></span><br></pre></td></tr></table></figure>
+<h1 id="Generator-ES6"><a href="#Generator-ES6" class="headerlink" title="Generator(ES6)"></a>Generator(ES6)</h1><p>优点：函数体内外的数据交换、错误处理机制<br>缺点：流程管理不⽅便</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">G</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> a = <span class="keyword">yield</span> <span class="number">100</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'a'</span>, a)  <span class="comment">// a aaa</span></span><br><span class="line">    <span class="keyword">const</span> b = <span class="keyword">yield</span> <span class="number">200</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'b'</span>, b)  <span class="comment">// b bbb</span></span><br><span class="line">    <span class="keyword">const</span> c = <span class="keyword">yield</span> <span class="number">300</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'c'</span>, c)  <span class="comment">// c ccc</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> g = G()</span><br><span class="line">g.next()    <span class="comment">// value: 100, done: false</span></span><br><span class="line">g.next(<span class="string">'aaa'</span>) <span class="comment">// value: 200, done: false</span></span><br><span class="line">g.next(<span class="string">'bbb'</span>) <span class="comment">// value: 300, done: false</span></span><br><span class="line">g.next(<span class="string">'ccc'</span>) <span class="comment">// value: undefined, done: true</span></span><br></pre></td></tr></table></figure>
 <p>相比Promise，Generator流程更加直观、语义化。<br>Generator的问题在于，函数的执行需要执行器每次都需要通过g.next()方式执行。</p>
-<h1 id="async-await-ES2017"><a href="#async-await-ES2017" class="headerlink" title="async/await(ES2017)"></a>async/await(ES2017)</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">testResult</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> first = <span class="keyword">await</span> doubleAfter2seconds(<span class="number">30</span>);</span><br><span class="line">    <span class="keyword">let</span> second = <span class="keyword">await</span> doubleAfter2seconds(<span class="number">50</span>);</span><br><span class="line">    <span class="keyword">let</span> third = <span class="keyword">await</span> doubleAfter2seconds(<span class="number">30</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(first + second + third);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="async-await-ES2017"><a href="#async-await-ES2017" class="headerlink" title="async/await(ES2017)"></a>async/await(ES2017)</h1><p>优点：内置执⾏器、更好的语义、更⼴的适⽤性、返回的是Promise、结构清晰。<br>缺点：错误处理机制</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">testResult</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> first = <span class="keyword">await</span> doubleAfter2seconds(<span class="number">30</span>);</span><br><span class="line">    <span class="keyword">let</span> second = <span class="keyword">await</span> doubleAfter2seconds(<span class="number">50</span>);</span><br><span class="line">    <span class="keyword">let</span> third = <span class="keyword">await</span> doubleAfter2seconds(<span class="number">30</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(first + second + third);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>asnyc函数解决了上述问题，流程清晰、直观、语义明显。<br>同时asnyc函数自带执行器，执行的时候无需手动加载。</p>
+<h1 id="事件监听-采⽤时间驱动模式，取决于某个事件是否发⽣"><a href="#事件监听-采⽤时间驱动模式，取决于某个事件是否发⽣" class="headerlink" title="事件监听(采⽤时间驱动模式，取决于某个事件是否发⽣)"></a>事件监听(采⽤时间驱动模式，取决于某个事件是否发⽣)</h1><p>优点：容易理解，可以绑定多个事件，每个事件可以指定多个回调函数<br>缺点：事件驱动型，流程不够清晰</p>
+<h1 id="发布-订阅-观察者模式"><a href="#发布-订阅-观察者模式" class="headerlink" title="发布/订阅(观察者模式)"></a>发布/订阅(观察者模式)</h1><p>类似于事件监听，但是可以通过‘消息中⼼ʼ，了解现在有多少发布者，多少订阅者</p>
 
       
     </div>
@@ -450,7 +456,7 @@
 
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">leslie choi</p>
               <p class="site-description motion-element" itemprop="description"></p>
@@ -518,7 +524,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用-callback-回调函数"><span class="nav-number">1.</span> <span class="nav-text">使用 callback 回调函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise-ES6"><span class="nav-number">2.</span> <span class="nav-text">Promise(ES6)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Generator-ES6"><span class="nav-number">3.</span> <span class="nav-text">Generator(ES6)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#async-await-ES2017"><span class="nav-number">4.</span> <span class="nav-text">async/await(ES2017)</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用-callback-回调函数"><span class="nav-number">1.</span> <span class="nav-text">使用 callback 回调函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise-ES6"><span class="nav-number">2.</span> <span class="nav-text">Promise(ES6)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Generator-ES6"><span class="nav-number">3.</span> <span class="nav-text">Generator(ES6)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#async-await-ES2017"><span class="nav-number">4.</span> <span class="nav-text">async/await(ES2017)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事件监听-采⽤时间驱动模式，取决于某个事件是否发⽣"><span class="nav-number">5.</span> <span class="nav-text">事件监听(采⽤时间驱动模式，取决于某个事件是否发⽣)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#发布-订阅-观察者模式"><span class="nav-number">6.</span> <span class="nav-text">发布/订阅(观察者模式)</span></a></li></ol></div>
             
 
           </div>
