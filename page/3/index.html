@@ -2695,10 +2695,26 @@
 <ul>
 <li>application/x-www-form-urlencoded ：</li>
 </ul>
-<p><form enctype>中默认的encType，<br>form表单数据被编码为key/value格式发送到服务器（表单默认的提交数据的格式）。<br>服务器收到的raw body会是，name=aaa&amp;key=bbb。</form></p>
+<p><code>&lt;form encType=&quot;&quot;&gt;</code>中默认的encType，<br>form表单数据被编码为key/value格式发送到服务器（表单默认的提交数据的格式）。<br>服务器收到的raw body会是，name=aaa&amp;key=bbb。</p>
 <p><strong>第三类：multipart/form-data，将表单的数据处理为一条消息，以标签为单元，用分隔符分开。既可以上传键值对，也可以上传文件</strong></p>
 <ul>
 <li>multipart/form-data ： 表单上传文件</li>
+</ul>
+<h2 id="常用的-HTTP-请求头与响应头"><a href="#常用的-HTTP-请求头与响应头" class="headerlink" title="常用的 HTTP 请求头与响应头"></a>常用的 HTTP 请求头与响应头</h2><p>请求头：</p>
+<ul>
+<li>Accept            可接受的响应内容类型（Content-Types）           Accept: text/plain</li>
+<li>Accept-Language   可接受的响应内容语言列表                        Accept-Language: en-US</li>
+<li>Cache-Control     用来指定当前的请求/回复中的，是否使用缓存机制     Cache-Control: no-cache</li>
+<li>Host              表示服务器的域名以及服务器所监听的端口号          Host: <a href="http://www.itbilu.com:80" target="_blank" rel="noopener">www.itbilu.com:80</a></li>
+<li>Origin            发起一个针对跨域资源共享的请求                   Origin: <a href="http://www.itbilu.com" target="_blank" rel="noopener">http://www.itbilu.com</a></li>
+<li>If-Modified-Since 允许在对应的资源未被修改的情况下返回304未修改     If-Modified-Since: Dec, 26 Dec 2015 17:30:00 GMT    </li>
+</ul>
+<p>响应头：</p>
+<ul>
+<li>Access-Control-Allow-Origin     指定哪些网站可以跨域源资源共享      Access-Control-Allow-Origin: *</li>
+<li>ETag     对于某个资源的某个特定版本的一个标识符，通常是一个 消息散列  ETag: “737060cd8c284d8af7ad3082f209582d”    </li>
+<li>Last-Modified        所请求的对象的最后修改日期          Last-Modified: Dec, 26 Dec 2015 17:30:00 GMT</li>
+<li>Expires              指定一个日期/时间，超过该时间则认为此回应已经过期  Expires: Thu, 01 Dec 1994 16:00:00 GMT</li>
 </ul>
 <h1 id="Https"><a href="#Https" class="headerlink" title="Https"></a>Https</h1><p>Https协议其实是基于Http的，多了个s其实就是Secure，所以也就是<strong>Hypertext Transfer Protocol Secure（超文本传输安全协议）</strong><br>相对于HTTP协议，具有以下优点：</p>
 <ol>
