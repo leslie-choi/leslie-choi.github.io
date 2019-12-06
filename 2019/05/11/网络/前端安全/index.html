@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/iframe1.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/iframe2.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/iframe3.png">
-<meta property="og:updated_time" content="2019-12-01T15:25:59.746Z">
+<meta property="og:updated_time" content="2019-12-02T01:55:12.162Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端安全">
 <meta name="twitter:description" content="CSRF 跨站点请求伪造(Cross Site Request Forgery)XSS利用站点内的信任用户，而CSRF则通过伪装来自受信任用户的请求来利用受信任的网站。与XSS攻击相比，CSRF攻击往往不大流行（因此对其进行防范的资源也相当稀少）和难以防范，所以被认为比XSS更具危险性。 XSS 是获取信息，不需要提前知道其他⽤户⻚⾯的代码和数据包。 CSRF 是代替⽤户完成 指定的动作，需要知道">
@@ -495,13 +495,13 @@
 <ol>
 <li><code>&lt;video&gt;</code></li>
 </ol>
-<p>比如HTML5中新增的<video>标签，这个标签可以在网页中远程加载一段视频。与之类似的还有<code>&lt;audio&gt;</code>标签。</video></p>
+<p>比如HTML5中新增的<code>&lt;video&gt;</code>标签，这个标签可以在网页中远程加载一段视频。与之类似的还有<code>&lt;audio&gt;</code>标签。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">　　<span class="tag">&lt;<span class="name">video</span> <span class="attr">src</span>=<span class="string">"http://tinyvid.tv/file/232332.ogg"</span> <span class="attr">onloadedtadata</span>=<span class="string">"alert(document.cookie);"</span> <span class="attr">ondurationchanged</span>=<span class="string">"alert("</span>/<span class="attr">xss2</span>/");" <span class="attr">ontimedate</span>=<span class="string">"alert(/xss1/);"</span> <span class="attr">tabindex</span>=<span class="string">"0"</span>&gt;</span></span><br><span class="line">　　<span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <ol start="2">
 <li>iframe的sandbox</li>
 </ol>
 <p>在HTML5中，专门为iframe定义了一个新的属性，叫做sandbox。</p>
-<p>使用sandbox这个属性后，<iframe>标签加载后的内容将被视为一个独立的“源”，<strong>其中的脚本将被禁止执行，表单将被禁止提交，插件被禁止加载，指向其他浏览器对象的连接也会被禁止</strong></iframe></p>
+<p>使用sandbox这个属性后，<code>&lt;iframe&gt;</code>标签加载后的内容将被视为一个独立的“源”，<strong>其中的脚本将被禁止执行，表单将被禁止提交，插件被禁止加载，指向其他浏览器对象的连接也会被禁止</strong></p>
 <p>sandbox属性可以通过参数来支持更精确的控制。有以下几个值可以选择：</p>
 <ul>
 <li><p>allow-same-origin:允许同源访问</p>

@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="跨域问题跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。同源策略限制了以下行为： Cookie、LocalStorage 和 IndexDB 无法读取DOM 和 JS 对象无法获取Ajax请求发送后结果被浏览器拦截 所谓的同源是指，域名、协议、端口均为相同，主要对XHR的一个主要约束。其实主要是用来防止 CSRF 攻击的。 htt">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-02T01:18:57.353Z">
+<meta property="og:updated_time" content="2019-12-02T02:40:03.366Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="跨域问题">
 <meta name="twitter:description" content="跨域问题跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。同源策略限制了以下行为： Cookie、LocalStorage 和 IndexDB 无法读取DOM 和 JS 对象无法获取Ajax请求发送后结果被浏览器拦截 所谓的同源是指，域名、协议、端口均为相同，主要对XHR的一个主要约束。其实主要是用来防止 CSRF 攻击的。 htt">
@@ -385,7 +385,7 @@
 <p>CORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing）。<strong>基本 的思想就是让HTTP头部让浏览器与服务器之间进行沟通，从而决定请求或者响应应该成功还是失败。</strong></p>
 <p>只要浏览器检测到响应头带上了CORS，并且允许的源包括了本网站，那么就不会拦截请求响应。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Access-Control-Allow-Metods:GET,PUT,POST,OPTIONS,DELETE,PATCH</span><br><span class="line">Access-Control-Allow-Origin: *</span><br></pre></td></tr></table></figure>
-<p>栗子：浏览器发送一个简单请求的时候，在http请求头加个额外的origin头部，其中包含源信息（协议端口和域名），服务器根据这个头部信息决定是否响应。如origin：<code>http://www.nidongde.net</code>，服务器认为请求可以接收的话，就在Access-Control-Allow-Origin回发相同的源信息，如果是公共资源，则可以回发”<em>“。**（最好不要设置为</em>在移动端会出现 预检请求不通过的状况，切记切记切记！）**</p>
+<p>栗子：浏览器发送一个简单请求的时候，在http请求头加个额外的origin头部，其中包含源信息（协议端口和域名），服务器根据这个头部信息决定是否响应。如origin：<code>http://www.nidongde.net</code>，服务器认为请求可以接收的话，就在Access-Control-Allow-Origin回发相同的源信息，如果是公共资源，则可以回发”<em>“。 **（最好不要设置为</em>在移动端会出现 预检请求不通过的状况，切记切记切记！）**</p>
 <p>它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。</p>
 <p>CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。IE8+：IE8/9需要使用XDomainRequest对象来支持CORS。整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。</p>
 <p>使用方法很简单，在服务端设置：</p>
