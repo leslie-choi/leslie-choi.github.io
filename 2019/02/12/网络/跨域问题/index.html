@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="跨域问题跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。同源策略限制了以下行为： Cookie、LocalStorage 和 IndexDB 无法读取DOM 和 JS 对象无法获取Ajax请求发送后结果被浏览器拦截 所谓的同源是指，域名、协议、端口均为相同，主要对XHR的一个主要约束。其实主要是用来防止 CSRF 攻击的。 htt">
+<meta name="description" content="跨域问题跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。 客户端请求的时候，请求的服务器，不是同一个IP、端口、域名、主机名的时候，都称为跨域。 同源策略限制了以下行为： Cookie、LocalStorage 和 IndexDB 无法读取DOM 和 JS 对象无法获取Ajax请求发送后结果被浏览器拦截 所谓的同源是指，域名、协议">
 <meta name="keywords" content="Interview">
 <meta property="og:type" content="article">
 <meta property="og:title" content="跨域问题">
 <meta property="og:url" content="http://yoursite.com/2019/02/12/网络/跨域问题/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="跨域问题跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。同源策略限制了以下行为： Cookie、LocalStorage 和 IndexDB 无法读取DOM 和 JS 对象无法获取Ajax请求发送后结果被浏览器拦截 所谓的同源是指，域名、协议、端口均为相同，主要对XHR的一个主要约束。其实主要是用来防止 CSRF 攻击的。 htt">
+<meta property="og:description" content="跨域问题跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。 客户端请求的时候，请求的服务器，不是同一个IP、端口、域名、主机名的时候，都称为跨域。 同源策略限制了以下行为： Cookie、LocalStorage 和 IndexDB 无法读取DOM 和 JS 对象无法获取Ajax请求发送后结果被浏览器拦截 所谓的同源是指，域名、协议">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-02T02:40:03.366Z">
+<meta property="og:updated_time" content="2020-02-22T17:04:35.523Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="跨域问题">
-<meta name="twitter:description" content="跨域问题跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。同源策略限制了以下行为： Cookie、LocalStorage 和 IndexDB 无法读取DOM 和 JS 对象无法获取Ajax请求发送后结果被浏览器拦截 所谓的同源是指，域名、协议、端口均为相同，主要对XHR的一个主要约束。其实主要是用来防止 CSRF 攻击的。 htt">
+<meta name="twitter:description" content="跨域问题跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。 客户端请求的时候，请求的服务器，不是同一个IP、端口、域名、主机名的时候，都称为跨域。 同源策略限制了以下行为： Cookie、LocalStorage 和 IndexDB 无法读取DOM 和 JS 对象无法获取Ajax请求发送后结果被浏览器拦截 所谓的同源是指，域名、协议">
 
 
 
@@ -322,7 +322,9 @@
       
 
       
-        <h1 id="跨域问题"><a href="#跨域问题" class="headerlink" title="跨域问题"></a>跨域问题</h1><p>跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。<br>同源策略限制了以下行为：</p>
+        <h1 id="跨域问题"><a href="#跨域问题" class="headerlink" title="跨域问题"></a>跨域问题</h1><p>跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。</p>
+<p>客户端请求的时候，请求的服务器，不是同一个IP、端口、域名、主机名的时候，都称为跨域。</p>
+<p>同源策略限制了以下行为：</p>
 <p>Cookie、LocalStorage 和 IndexDB 无法读取<br>DOM 和 JS 对象无法获取<br>Ajax请求发送后结果被浏览器拦截</p>
 <p><strong>所谓的同源是指，域名、协议、端口均为相同，主要对XHR的一个主要约束。其实主要是用来防止 CSRF 攻击的。</strong></p>
 <p><a href="http://www.nealyang.cn/index.html" target="_blank" rel="noopener">http://www.nealyang.cn/index.html</a> 调用   <a href="http://www.nealyang.cn/server.php" target="_blank" rel="noopener">http://www.nealyang.cn/server.php</a>  非跨域</p>
@@ -639,7 +641,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

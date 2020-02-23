@@ -446,7 +446,9 @@
 <p><strong>逻辑像素</strong></p>
 <p>即css中像素，和设备屏幕的像素没有必然的关系</p>
 <p><strong>dpr(devicePixelRatio)设备像素比</strong></p>
-<p>dpr = 物理像素/css像素<br>css像素 = 物理像素/dpr</p>
+<p>dpr = 物理像素 / 分辨率</p>
+<p><strong>在不缩放的情况下，一个css像素就对应一个dpr</strong></p>
+<p>css像素 = 物理像素 / dpr</p>
 <p>为什么移动端CSS里面写了1px，实际上看起来比1px粗；了解设备物理像素和逻辑像素的同学应该很容易理解，其实这两个px的含义其实是不一样的，UI设计师要求的1px是指设备的物理像素1px，而CSS里记录的像素是逻辑像素，它们之间存在一个比例关系，可以用javascript中的window.devicePixelRatio来获取，也可以用媒体查询的-webkit-min-device-pixel-ratio来获取。</p>
 <p>当然，比例多少与设备相关。</p>
 <p>在手机上border无法达到我们想要的效果。这是因为devicePixelRatio特性导致，iPhone的devicePixelRatio==2，而border-width: 1px描述的是设备独立像素，所以，border被放大到物理像素2px显示，在iPhone上就显得较粗。</p>
@@ -1807,7 +1809,7 @@
 <ol start="2">
 <li>异步加载的方式</li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">defer &lt;script src=<span class="string">"defer.js"</span> defer&gt; <span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span>   </span><br><span class="line"><span class="keyword">async</span> &lt;script src=<span class="string">"defer.js"</span> <span class="keyword">async</span>&gt; <span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="comment">//第三种方法，动态创建 script ，插⼊到 DOM 中，加载完毕后 callBack</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">defer &lt;script src=<span class="string">"defer.js"</span> defer&gt; &lt;/script&gt;   </span><br><span class="line"><span class="keyword">async</span> &lt;script src=<span class="string">"defer.js"</span> <span class="keyword">async</span>&gt; &lt;/script&gt;</span><br><span class="line"><span class="comment">//第三种方法，动态创建 script ，插⼊到 DOM 中，加载完毕后 callBack</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>defer是在HTML渲染完之后（DOM结构完全生成，以及其他脚本执行完成之后）才会执行，如果是多个，则按照加载的顺序执行，优先级比async高</li>
 <li>async是在下载完脚本之后立即执行，渲染引擎会中断，执行完脚本之后才会继续渲染，如果是多个，执行顺序和加载顺序无关</li>
@@ -1895,8 +1897,10 @@
 </ul>
 <p>(2) 服务端渲染的缺点：</p>
 <ul>
-<li>更多的开发条件限制： <strong>例如服务端渲染只支持 beforCreate 和 created 两个钩子函数</strong>，这会导致一些外部扩展库需要特殊处理，才能在服务端渲染应用程序中运行；并且与可以部署在任何静态文件服务器上的完全静态单页面应用程序 SPA 不同，服务端渲染应用程序，需要处于 Node.js server 运行环境；</li>
-<li>更多的服务器负载：在 Node.js  中渲染完整的应用程序，显然会比仅仅提供静态文件的  server 更加大量占用CPU 资源 (CPU-intensive - CPU 密集)，因此如果你预料在高流量环境 ( high traffic ) 下使用，请准备相应的服务器负载，并明智地采用缓存策略。</li>
+<li><p>更多的开发条件限制： <strong>例如服务端渲染只支持 beforCreate 和 created 两个钩子函数</strong>（因为服务端不是浏览器环境，window、document等都是浏览器才有的对象，或者使用JS-dom的报，可以模拟浏览器环境），这会导致一些外部扩展库需要特殊处理，才能在服务端渲染应用程序中运行；并且与可以部署在任何静态文件服务器上的完全静态单页面应用程序 SPA 不同，服务端渲染应用程序，需要处于 Node.js server 运行环境。</p>
+</li>
+<li><p>更多的服务器负载：在 Node.js  中渲染完整的应用程序，显然会比仅仅提供静态文件的  server 更加大量占用CPU 资源 (CPU-intensive - CPU 密集)，因此如果你预料在高流量环境 ( high traffic ) 下使用，请准备相应的服务器负载，并明智地采用缓存策略。</p>
+</li>
 </ul>
 <h1 id="渲染优化"><a href="#渲染优化" class="headerlink" title="渲染优化"></a>渲染优化</h1><ul>
 <li>css放在head里面，JS放在body的底部</li>
@@ -3196,7 +3200,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

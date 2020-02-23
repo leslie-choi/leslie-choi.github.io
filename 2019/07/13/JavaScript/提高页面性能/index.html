@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。  content ⽅⾯     减少 HTTP 请求：合并⽂件、 CSS 精灵、 inline Image  减少 DNS 查询： DNS 缓存、将资源分布到恰当数量的主机名  减少 DOM 元素数量   Server ⽅⾯  使⽤ CDN 配置 ETag 对组件使⽤ Gzip 压缩   Cookie ⽅⾯">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-01T08:34:41.951Z">
+<meta property="og:updated_time" content="2020-02-23T08:50:43.369Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="提高页面性能">
 <meta name="twitter:description" content="我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。  content ⽅⾯     减少 HTTP 请求：合并⽂件、 CSS 精灵、 inline Image  减少 DNS 查询： DNS 缓存、将资源分布到恰当数量的主机名  减少 DOM 元素数量   Server ⽅⾯  使⽤ CDN 配置 ETag 对组件使⽤ Gzip 压缩   Cookie ⽅⾯">
@@ -373,7 +373,7 @@
 <ol start="2">
 <li>异步加载的方式</li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">defer &lt;script src=<span class="string">"defer.js"</span> defer&gt; <span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span>   </span><br><span class="line"><span class="keyword">async</span> &lt;script src=<span class="string">"defer.js"</span> <span class="keyword">async</span>&gt; <span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="comment">//第三种方法，动态创建 script ，插⼊到 DOM 中，加载完毕后 callBack</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">defer &lt;script src=<span class="string">"defer.js"</span> defer&gt; &lt;/script&gt;   </span><br><span class="line"><span class="keyword">async</span> &lt;script src=<span class="string">"defer.js"</span> <span class="keyword">async</span>&gt; &lt;/script&gt;</span><br><span class="line"><span class="comment">//第三种方法，动态创建 script ，插⼊到 DOM 中，加载完毕后 callBack</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>defer是在HTML渲染完之后（DOM结构完全生成，以及其他脚本执行完成之后）才会执行，如果是多个，则按照加载的顺序执行，优先级比async高</li>
 <li>async是在下载完脚本之后立即执行，渲染引擎会中断，执行完脚本之后才会继续渲染，如果是多个，执行顺序和加载顺序无关</li>
@@ -461,8 +461,10 @@
 </ul>
 <p>(2) 服务端渲染的缺点：</p>
 <ul>
-<li>更多的开发条件限制： <strong>例如服务端渲染只支持 beforCreate 和 created 两个钩子函数</strong>，这会导致一些外部扩展库需要特殊处理，才能在服务端渲染应用程序中运行；并且与可以部署在任何静态文件服务器上的完全静态单页面应用程序 SPA 不同，服务端渲染应用程序，需要处于 Node.js server 运行环境；</li>
-<li>更多的服务器负载：在 Node.js  中渲染完整的应用程序，显然会比仅仅提供静态文件的  server 更加大量占用CPU 资源 (CPU-intensive - CPU 密集)，因此如果你预料在高流量环境 ( high traffic ) 下使用，请准备相应的服务器负载，并明智地采用缓存策略。</li>
+<li><p>更多的开发条件限制： <strong>例如服务端渲染只支持 beforCreate 和 created 两个钩子函数</strong>（因为服务端不是浏览器环境，window、document等都是浏览器才有的对象，或者使用JS-dom的报，可以模拟浏览器环境），这会导致一些外部扩展库需要特殊处理，才能在服务端渲染应用程序中运行；并且与可以部署在任何静态文件服务器上的完全静态单页面应用程序 SPA 不同，服务端渲染应用程序，需要处于 Node.js server 运行环境。</p>
+</li>
+<li><p>更多的服务器负载：在 Node.js  中渲染完整的应用程序，显然会比仅仅提供静态文件的  server 更加大量占用CPU 资源 (CPU-intensive - CPU 密集)，因此如果你预料在高流量环境 ( high traffic ) 下使用，请准备相应的服务器负载，并明智地采用缓存策略。</p>
+</li>
 </ul>
 <h1 id="渲染优化"><a href="#渲染优化" class="headerlink" title="渲染优化"></a>渲染优化</h1><ul>
 <li>css放在head里面，JS放在body的底部</li>
@@ -750,7 +752,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

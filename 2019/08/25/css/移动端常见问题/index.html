@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="300毫秒延迟的由来和解决方法 300 毫秒延迟的主要原因是解决双击缩放。双击缩放，顾名思义，即用手指在屏幕上快速点击两次，iOS 自带的 Safari 浏览器会将网页缩放至原始比例。 那么这和 300 毫秒延迟有什么联系呢？ 假定这么一个场景。用户在 iOS Safari 里边点击了一个链接。由于用户可以进行双击缩放或者双击滚动的操作，当用户一次点击屏幕之后，浏览器并不能立刻判断用户是确实要打开">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-01T08:15:01.020Z">
+<meta property="og:updated_time" content="2020-02-19T03:36:02.614Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="移动端常见问题">
 <meta name="twitter:description" content="300毫秒延迟的由来和解决方法 300 毫秒延迟的主要原因是解决双击缩放。双击缩放，顾名思义，即用手指在屏幕上快速点击两次，iOS 自带的 Safari 浏览器会将网页缩放至原始比例。 那么这和 300 毫秒延迟有什么联系呢？ 假定这么一个场景。用户在 iOS Safari 里边点击了一个链接。由于用户可以进行双击缩放或者双击滚动的操作，当用户一次点击屏幕之后，浏览器并不能立刻判断用户是确实要打开">
@@ -446,7 +446,9 @@
 <p><strong>逻辑像素</strong></p>
 <p>即css中像素，和设备屏幕的像素没有必然的关系</p>
 <p><strong>dpr(devicePixelRatio)设备像素比</strong></p>
-<p>dpr = 物理像素/css像素<br>css像素 = 物理像素/dpr</p>
+<p>dpr = 物理像素 / 分辨率</p>
+<p><strong>在不缩放的情况下，一个css像素就对应一个dpr</strong></p>
+<p>css像素 = 物理像素 / dpr</p>
 <p>为什么移动端CSS里面写了1px，实际上看起来比1px粗；了解设备物理像素和逻辑像素的同学应该很容易理解，其实这两个px的含义其实是不一样的，UI设计师要求的1px是指设备的物理像素1px，而CSS里记录的像素是逻辑像素，它们之间存在一个比例关系，可以用javascript中的window.devicePixelRatio来获取，也可以用媒体查询的-webkit-min-device-pixel-ratio来获取。</p>
 <p>当然，比例多少与设备相关。</p>
 <p>在手机上border无法达到我们想要的效果。这是因为devicePixelRatio特性导致，iPhone的devicePixelRatio==2，而border-width: 1px描述的是设备独立像素，所以，border被放大到物理像素2px显示，在iPhone上就显得较粗。</p>
@@ -661,7 +663,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

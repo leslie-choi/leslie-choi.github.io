@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="JavaScript入门（一）js中的数据类型js中的原始数据类型:number , string , boolean , null , undefined , object number:数字类型(整数和小数) string:字符串类型(的值一般都是用单引号或者是双引号括起来)  “34” boolean:布尔类型(值只有两个,true(真1),false(假0))null:空类型,值只有一个:">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-01T15:25:50.688Z">
+<meta property="og:updated_time" content="2020-02-21T13:06:45.866Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript入门">
 <meta name="twitter:description" content="JavaScript入门（一）js中的数据类型js中的原始数据类型:number , string , boolean , null , undefined , object number:数字类型(整数和小数) string:字符串类型(的值一般都是用单引号或者是双引号括起来)  “34” boolean:布尔类型(值只有两个,true(真1),false(假0))null:空类型,值只有一个:">
@@ -541,9 +541,9 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.is(<span class="number">-0</span>,+<span class="number">0</span>)  <span class="comment">//  false</span></span><br><span class="line"><span class="built_in">Object</span>.is(<span class="literal">NaN</span>,<span class="literal">NaN</span>)  <span class="comment">//  true</span></span><br></pre></td></tr></table></figure>
 <h2 id="深浅拷⻉"><a href="#深浅拷⻉" class="headerlink" title="深浅拷⻉"></a>深浅拷⻉</h2><p><strong>浅拷⻉</strong></p>
 <ol>
-<li>⾸先可以通过 Object.assign 来解决这个问题，很多⼈认为这个函数是⽤来 深拷⻉的。其实并不是， Object.assign 只会拷⻉所有的属性值到新的对象 中，如果属性值是对象的话，拷⻉的是地址，所以并不是深拷⻉</li>
+<li>⾸先可以通过 Object.assign 来解决这个问题，很多⼈认为这个函数是⽤来 深拷⻉的。其实并不是， Object.assign 只会拷⻉所有的属性值到新的对象 中，如果属性值是对象的话，拷⻉的是地址，所以并不是深拷⻉。但是要注意的是：<strong>当object只有一层的时候，是深拷贝。</strong></li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> a = &#123;   </span><br><span class="line">  age: <span class="number">1</span> </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">let</span> b = <span class="built_in">Object</span>.assign(&#123;&#125;, a) </span><br><span class="line">a.age = <span class="number">2</span> </span><br><span class="line"><span class="built_in">console</span>.log(b.age) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> a = &#123;   </span><br><span class="line">  age: <span class="number">1</span> </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">let</span> b = <span class="built_in">Object</span>.assign(&#123;&#125;, a) </span><br><span class="line">a.age = <span class="number">2</span> </span><br><span class="line"><span class="built_in">console</span>.log(b) <span class="comment">// age: 1</span></span><br><span class="line"><span class="built_in">console</span>.log(a)  <span class="comment">// age: 2</span></span><br></pre></td></tr></table></figure>
 <ol start="2">
 <li>另外我们还可以通过展开运算符 … 来实现浅拷⻉</li>
 </ol>
@@ -557,7 +557,7 @@
 <li>会忽略 undefined </li>
 <li>会忽略 symbol </li>
 <li>不能序列化函数 </li>
-<li>不能解决循环引⽤的对</li>
+<li>不能解决循环引⽤</li>
 </ul>
 
       
@@ -753,7 +753,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
