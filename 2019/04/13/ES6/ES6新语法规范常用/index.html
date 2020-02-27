@@ -88,7 +88,7 @@
 <meta property="og:description" content="关键字let和constlet关键字的使用let声明的变量只在let命令所在的代码块内有效，是块级作用域的前提，不允许重复声明，不存在变量提升，存在暂时性死区（加粗的是let和const的相同点）。PS：暂时性死区的本质是，只要进入当前作用域，所要使用的变量就已经存在但是不可获取，只有等到变量声明的那一行代码出现，才可以获取和操作该变量。 const声明一个只读的常量，一旦声明，常量的值就不能改变">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/dizhi.png">
-<meta property="og:updated_time" content="2020-02-23T16:32:06.477Z">
+<meta property="og:updated_time" content="2020-02-27T13:29:57.240Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6新特性">
 <meta name="twitter:description" content="关键字let和constlet关键字的使用let声明的变量只在let命令所在的代码块内有效，是块级作用域的前提，不允许重复声明，不存在变量提升，存在暂时性死区（加粗的是let和const的相同点）。PS：暂时性死区的本质是，只要进入当前作用域，所要使用的变量就已经存在但是不可获取，只有等到变量声明的那一行代码出现，才可以获取和操作该变量。 const声明一个只读的常量，一旦声明，常量的值就不能改变">
@@ -445,6 +445,7 @@
 <p>注意，super虽然代表了父类Point的构造函数，但是返回的是子类ColorPoint的实例，即super内部的this指的是ColorPoint，因此super()在这里相当于<strong>Point.prototype.constructor.call(this)。</strong></p>
 <p>作为函数时，super()只能用在子类的构造函数之中，用在其他地方就会报错。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">  m() &#123;</span><br><span class="line">     <span class="keyword">super</span>(); <span class="comment">// 报错</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>PS：static 关键字解释：类相当于实例的原型， 所有在类中定义的方法， 都会被实例继承。 如果在一个方法前， 加上static关键字， 就表示该方法不会被实例继承， 而是直接通过类来调用， 这就称为“ 静态方法”。</p>
 <h1 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h1><h2 id="数组的解构赋值"><a href="#数组的解构赋值" class="headerlink" title="数组的解构赋值"></a>数组的解构赋值</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">122</span>,<span class="number">321</span>,<span class="number">344</span>]</span><br><span class="line"><span class="keyword">const</span> [a,b,c] = arr</span><br><span class="line"><span class="built_in">console</span>.log(a,b,c)    <span class="comment">//122,321,344</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">let</span> [head,...tail] = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line"> head  <span class="comment">//1</span></span><br><span class="line"> tail  <span class="comment">//2,3,4</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">let</span> [x,y] = [<span class="string">"a"</span>]</span><br><span class="line"> y   <span class="comment">// undefined，如果结构不成功，那么变量的值就是undefined</span></span><br></pre></td></tr></table></figure>
 <p>如果右边不是可以遍历的结构，那么将会报错。事实上只要某种数据结构具有 iterator 接口，都可以使用数组形式的解构赋值</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//报错</span></span><br><span class="line"><span class="keyword">let</span> [foo] = <span class="number">1</span></span><br><span class="line"><span class="keyword">let</span> [foo] = <span class="literal">false</span></span><br><span class="line"><span class="keyword">let</span> [foo] = <span class="literal">NaN</span></span><br><span class="line"><span class="keyword">let</span> [foo] = <span class="literal">undefined</span></span><br><span class="line"><span class="keyword">let</span> [foo] = <span class="literal">null</span></span><br><span class="line"><span class="keyword">let</span> [foo] = &#123;&#125;</span><br></pre></td></tr></table></figure>
@@ -725,7 +726,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

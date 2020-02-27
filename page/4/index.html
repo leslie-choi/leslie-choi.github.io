@@ -229,6 +229,361 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/12/网络/Http协议/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/12/网络/Http协议/" itemprop="url">HTTP和TCP</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T22:06:14+08:00">
+                2019-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/network/" itemprop="url" rel="index">
+                    <span itemprop="name">network</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h1><p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/TCP.png" alt="markdown"><br>互联网由一整套协议构成<br>图片说明：顶层协议是应用层协议 =&gt; TCP协议 =&gt; IP协议 =&gt; 以太网协议（应用层=&gt;传输层=&gt;网络层=&gt;链路层）</p>
+<p>以太网协议：最底层的协议，可以解决子网内部的点对点通讯。</p>
+<p>IP协议：IP协议，可以解决多个局域网之间互通，可以连接多个局域网，定义了一套自己的地址规则，实现了路由的功能，允许某个局域网的A主机，向另一个局域网的B主机发送消息。（PS：路由器就是基于IP协议。所以局域网之间要靠路由器连接）</p>
+<p>题外话：路由原理就是路由器内部有一张路由表，规定A段IP地址走出口一，B段IP地址走出口二。。。根据这样实现了数据包的转发。</p>
+<p>TCP协议：IP协议只是一个地址协议，并不能保证数据的完整性。如果缓存满了，新进来的数据包就会丢失，所以这个时候需要发现丢了哪一个包，以及如何重新发送这个包，所以这个时候需要使用到TCP协议。以太网数据包的负载是1500字节，TCP数据包的负载在1400字节左右。</p>
+<h2 id="TCP建立连接（三次握手）"><a href="#TCP建立连接（三次握手）" class="headerlink" title="TCP建立连接（三次握手）"></a>TCP建立连接（三次握手）</h2><p>HTTP 是基于 TCP 协议的，浏览器最快也要在第三次握手时才能捎带 HTTP 请求报文，达到真正的建立连接，但是这些连接无法复用会导致每次请求都经历三次握手和慢启动。三次握手在高延迟的场景下影响较明显，慢启动则对文件类大请求影响较大。</p>
+<ul>
+<li>第一次握手：建立连接时，客户端发送syn包（syn=1,seq=x）到服务器，并进入SYN_SENT状态，<strong>服务端得到结论：客户端的发送能力、服务端的接收能力正常。</strong></li>
+<li>第二次握手：服务器收到syn包，必须确认客户的SYN（ack=x+1,seq=y），同时自己也发送一个SYN包，即SYN+ACK包，此时服务器进入SYN_RECV状态，客户端接收到，<strong>于是客户端得到结论：服务端的接收和发送能力正常，客户端的接收发送能力正常，但是此时服务器并不能确认客户端的接收能力是否正常</strong></li>
+<li>第三次握手：客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=y+1,seq=z），此包发送完毕，客户端和服务器进入ESTABLISHED（TCP连接成功）状态，<strong>服务端得到结论：客户端和服务端的接收发送能力都正常，完成三次握手。</strong></li>
+</ul>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/sanwo.png" alt="markdown"></p>
+<h2 id="TCP关闭连接（四次挥手）"><a href="#TCP关闭连接（四次挥手）" class="headerlink" title="TCP关闭连接（四次挥手）"></a>TCP关闭连接（四次挥手）</h2><p>由于TCP连接是全双工的，因此每个方向都必须单独进行关闭。这个原则是当一方完成它的数据发送任务后就能发送一个FIN来终止这个方向的连接。收到一个 FIN只意味着这一方向上没有数据流动，一个TCP连接在收到一个FIN后仍能发送数据。首先进行关闭的一方将执行主动关闭，而另一方执行被动关闭。</p>
+<p>TCP的连接的拆除需要发送四个包，因此称为四次挥手(four-way handshake)。客户端或服务器均可主动发起挥手动作，在socket编程中，任何一方执行close()操作即可产生挥手操作。</p>
+<ul>
+<li>客户端A发送一个FIN，用来关闭客户A到服务器B的数据传送，但是仍然可以接收数据(Fin_wait_1)</li>
+<li>服务器B收到这个FIN，它发回一个ACK应答，表明接收到请求但是还未准备关闭连接，然后确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号(服务端closed_wait，客户端Fin_wait_2)</li>
+<li>服务器B关闭与客户端A的连接，发送一个FIN给客户端A(服务端Last_ack,客户端time_wait)</li>
+<li>客户端A发回ACK报文确认，并将确认序号设置为收到序号加1 (服务端closed，然后经过2MSL后服务端进入closed)</li>
+</ul>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/sihui.png" alt="markdown"></p>
+<h2 id="UDP和TCP（User-Datagram-Protocol，用户数据报协议）的区别"><a href="#UDP和TCP（User-Datagram-Protocol，用户数据报协议）的区别" class="headerlink" title="UDP和TCP（User Datagram Protocol，用户数据报协议）的区别"></a>UDP和TCP（User Datagram Protocol，用户数据报协议）的区别</h2><ol>
+<li>都是位于传输层，TCP是面向连接的，而<strong>udp是无连接的</strong>，即发送数据前不需要先建立连接</li>
+<li>TCP提供可靠的服务。也就是说，通过TCP连接传送的数据，无差错、不丢失、不重复，并且按序到达；UDP尽最大努力交付，即不保证可靠交付。并且TCP可靠，面向连接不会丢失数据适合大数据量的传输</li>
+<li>TCP面向字节流，UDP面向报文，并且网络阻塞不会使得发送的速率降低，所以会出现丢包（适合视频会议或者直播）　</li>
+<li>TCP只能是一对一的，而UDP可以一对多</li>
+<li>TCP首部较大为20字节，UDP只有8字节</li>
+</ol>
+<h2 id="如何实现UDP的可靠传输"><a href="#如何实现UDP的可靠传输" class="headerlink" title="如何实现UDP的可靠传输"></a>如何实现UDP的可靠传输</h2><p>TCP是通过确认机制和超时重传机制实现可靠传输</p>
+<p>UDP它不属于连接型协议，因而具有资源消耗小，处理速度快的优点，所以通常音频、视频和普通数据在传送时使用UDP较多，因为它们即使偶尔丢失一两个数据包，也不会对接收结果产生太大影响。传输层无法保证数据的可靠传输，只能通过应用层来实现了。实现的方式可以参照tcp可靠性传输的方式，只是实现不在传输层，实现转移到了应用层。</p>
+<p>关键在于两点，从应用层角度考虑：</p>
+<ol>
+<li><p>提供超时重传，能避免数据包丢失。</p>
+</li>
+<li><p>提供确认序列号，可以对数据报进行确认和排序。</p>
+</li>
+</ol>
+<p><strong>RUDP</strong></p>
+<p>RUDP 提供一组数据服务质量增强机制，如拥塞控制的改进、重发机制及淡化服务器算法等，从而在包丢失和网络拥塞的情况下， RTP 客户机（实时位置）面前呈现的就是一个高质量的 RTP 流。在不干扰协议的实时特性的同时，可靠 UDP 的拥塞控制机制允许 TCP 方式下的流控制行为。</p>
+<h1 id="http协议"><a href="#http协议" class="headerlink" title="http协议"></a>http协议</h1><p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/http.jpg" alt="markdown"></p>
+<p>HTTP协议是<strong>Hyper Text Transfer Protocol（超文本传输协议）</strong>的缩写,是用于从万维网（WWW:World Wide Web ）服务器传输超文本到本地浏览器的传送协议，也就是说所有的www服务器都必须要遵循这个标准。</p>
+<p>HTTP是一个基于TCP/IP通信协议来传递数据（HTML 文件, 图片文件, 查询结果等）。</p>
+<p>HTTP协议工作于客户端-服务端架构为上。浏览器作为HTTP客户端通过URL向HTTP服务端即WEB服务器发送所有请求。Web服务器根据接收到的请求后，向客户端发送响应信息。</p>
+<p>HTTP请求由三部分组成，分别是：<strong>请求行、请求头、请求正文</strong></p>
+<h2 id="http的两个重要特点"><a href="#http的两个重要特点" class="headerlink" title="http的两个重要特点"></a>http的两个重要特点</h2><p><strong>无连接：</strong> 限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。（但是随着网络的发展，每次都要建立一次 TCP 连接就显得很低效，后来，Keep-Alive 被提出用来解决这效率低的问题。）</p>
+<p><strong>无状态：</strong> 指协议对于事务处理没有记忆能力，服务器不知道客户端是什么状态。即我们给服务器发送 HTTP 请求之后，服务器根据请求，会给我们发送数据过来，但是发送完，不会记录任何信息，于是，两种用于保持 HTTP 连接状态的技术就应运而生了，一个是 Cookie，而另一个则是 Session。（简单场景购物车）</p>
+<h2 id="http报文"><a href="#http报文" class="headerlink" title="http报文"></a>http报文</h2><p>用于HTTP协议交互的信息被称为http报文。HTTP报文大致可分为报文首部和报文主体两块。两者由最初出现的空行（CE+LF）来划分。通常，并不一定要有报文主体。在http1.1中，报文是通信的基本单位，由8位组字节流组成，用于HTTP通信。（http2.0采用二进制分帧）</p>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/%E6%8A%A5%E6%96%872.png" alt="markdown"></p>
+<h3 id="http请求报文"><a href="#http请求报文" class="headerlink" title="http请求报文"></a>http请求报文</h3><ul>
+<li>请求行：包含用于请求的方法，请求uri和http版本   （GET/HTTP/1.1）</li>
+<li>请求头</li>
+<li>空行</li>
+<li>请求体：根据实际请求需要可能包含一个消息实体</li>
+</ul>
+<h3 id="http响应报文"><a href="#http响应报文" class="headerlink" title="http响应报文"></a>http响应报文</h3><ul>
+<li>状态行：包含表明响应结果的http版本和状态码，状态描述 （HTTP/1.1 200 OK）</li>
+<li>响应头：包括通用头部、响应头部和实体头部</li>
+<li>空行</li>
+<li>响应体</li>
+</ul>
+<h2 id="get和post的主要区别"><a href="#get和post的主要区别" class="headerlink" title="get和post的主要区别"></a>get和post的主要区别</h2><p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/get%26post.jpeg" alt="markdown"><br><strong>1、get在浏览器回退时是无害的，而post会再次请求</strong><br><strong>2、get产生的url地址可以被收藏（即书签），而post不会</strong><br>3、get请求会被浏览器主动缓存，而post不会，除非手动设置<br>4、get请求只能进行url编码，而post支持多种编码方式<br><strong>5、get请求参数会被完整保留在浏览历史记录里，而post中的参数不会被保留</strong><br><strong>6、get 请求在url中传送的参数有长度限制（一般限制在2kb~8kb之间，但是更加常见的是在1kb之内，这个⻓度限制是浏览器规定的），而post没有（实际大小根据服务器情况而定）</strong><br>7、对参数的数据类型，get只接受ascll字符，而post没有限制<br>8、post比get更安全，因为参数直接暴露在url上，所以不能用来传递敏感信息<br><strong>9、get参数通过url传递，poet放在request body中</strong><br>10、GET产生一个TCP数据包;POST产生两个TCP数据包。<br>对于GET方式的请求，浏览器会把<strong>http header和data一并发送出去</strong>，服务器响应200(返回数据);<br>而对于POST，浏览器先发送<strong>header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok(返回数据)</strong></p>
+<p>HTTP缺点：<br>1、通信使用明文（ 不加密） ， 内容可能会被窃听<br>2、不验证通信方的身份， 因此有可能遭遇伪装<br>3、无法证明报文的完整性， 所以有可能已遭篡改</p>
+<h2 id="Http的版本"><a href="#Http的版本" class="headerlink" title="Http的版本"></a>Http的版本</h2><ol>
+<li>HTTP 0.9作为HTTP协议的第一个版本。是非常弱的。请求(Request)只有一行,比如: GET <a href="http://www.leautolink.com" target="_blank" rel="noopener">www.leautolink.com</a></li>
+<li>HTTP1.0最早在网页中使用是在1996年，那个时候只是使用一些较为简单的网页上和网络请求上</li>
+<li>HTTP1.1则在1999年才开始广泛应用于现在的各大浏览器网络请求中，同时HTTP1.1也是当前使用最为广泛的HTTP协议<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/httpVersion.png" alt="markdown"></li>
+</ol>
+<h2 id="http管线化"><a href="#http管线化" class="headerlink" title="http管线化"></a>http管线化</h2><p>在使用持久连接（因此低于HTTP1.1版本无法开启管线化）的情况下，某个连接消息的传递类似于</p>
+<p>请求1 -&gt; 响应1 -&gt; 请求2 -&gt; 响应2 -&gt; 请求3 - &gt; 响应3</p>
+<p>管线化：某个连接上的消息变成了类似这样 </p>
+<p>请求1 -&gt; 请求2 -&gt; 请求3 -&gt; 响应1 -&gt; 响应2 -&gt; 响应3</p>
+<ol>
+<li><p>那么持久连接和管线化的区别在于：<br>持久连接的一个缺点是请求和响应式是顺序执行的，只有在请求1的响应收到之后，才会发送请求2，而管线化不需要等待上一次请求得到响应就可以进行下一次请求。<strong>实现并行发送请求。</strong> </p>
+</li>
+<li><p>只有GET和HEAD要求可以进行管线化，而POST则有所限制</p>
+</li>
+<li><p>初次创建连接时也不应启动管线机制，因为对方（服务器）不一定支持HTTP/1.1版本的协议。</p>
+</li>
+<li><p>HTTP1.1要求服务器端支持管线化，但并不要求服务器端也对响应进行管线化处理，只是要求对于管线化的请求不失败，并且开启管线化很可能不会带来大幅度的性能提升，而且现在很多服务器端和代理程序对管线化的支持并不好，现代浏览器Chrome和Firefox默认并未开启管线化支持。</p>
+</li>
+</ol>
+<h2 id="http-1-1-做了哪些升级"><a href="#http-1-1-做了哪些升级" class="headerlink" title="http 1.1 做了哪些升级"></a>http 1.1 做了哪些升级</h2><p><strong>缓存处理：</strong> 在HTTP1.0中主要使用header里的If-Modified-Since,Expires来做为缓存判断的标准，HTTP1.1则引入了更多的缓存控制策略例如Entity tag，If-Unmodified-Since, If-Match, If-None-Match等更多可供选择的缓存头来控制缓存策略。</p>
+<p><strong>带宽优化及网络连接的使用：</strong> HTTP1.0中，存在一些浪费带宽的现象，例如客户端只是需要某个对象的一部分，而服务器却将整个对象送过来了，并且不支持断点续传功能，HTTP1.1则在请求头引入了range头域，它允许只请求资源的某个部分，即返回码是206（Partial Content），这样就方便了开发者自由的选择以便于充分利用带宽和连接。</p>
+<p><strong>错误通知的管理：</strong> 在HTTP1.1中新增了24个错误状态响应码，如409（Conflict）表示请求的资源与资源的当前状态发生冲突；410（Gone）表示服务器上的某个资源被永久性的删除。</p>
+<p><strong>Host头处理：</strong> 在HTTP1.0中认为每台服务器都绑定一个唯一的IP地址，因此，请求消息中的URL并没有传递主机名（hostname）。但随着虚拟主机技术的发展，在一台物理服务器上可以存在多个虚拟主机（Multi-homed Web Servers），并且它们共享一个IP地址。HTTP1.1的请求消息和响应消息都应支持Host头域，且请求消息中如果没有Host头域会报告一个错误（400 Bad Request）。</p>
+<p><strong>长连接（持久连接）：</strong> HTTP 1.1支持长连接（PersistentConnection）和请求的流水线（Pipelining）处理，在一个TCP连接上可以传送多个HTTP请求和响应，减少了建立和关闭连接的消耗和延迟，在HTTP1.1中默认开启Connection： keep-alive，一定程度上弥补了HTTP1.0每次请求都要创建连接的缺点。</p>
+<h2 id="Http-1-1-中的八种方法"><a href="#Http-1-1-中的八种方法" class="headerlink" title="Http 1.1 中的八种方法"></a>Http 1.1 中的八种方法</h2><ul>
+<li><p>OPTIONS:<br>这个方法可使服务器传回该资源所支持的所有HTTP请求方法。用’*’来代替资源名称,向Web服务器发送OPTIONS请求,可以测试服务器功能是否正常运作。</p>
+</li>
+<li><p>HEAD:<br>与GET方法一样,都是向服务器发出指定资源的请求。只不过服务器将不传回资源的本文部分。它的好处在于,使用这个方法可以在不必传输全部内容的情况下,就可以获取其中“关于该资源的信息”(元信息或称元数据)。</p>
+</li>
+<li><p>GET:<br>向指定的资源发出“显示”请求。使用GET方法应该只用在读取数据,而不应当被用于产生“副作用”的操作中,例如在Web Application中。其中一个原因是GET可能会被网络蜘蛛等随意访问。参见安全方法</p>
+</li>
+<li><p>POST:<br>向指定资源提交数据,请求服务器进行处理(例如提交表单或者上传文件)。数据被包含在请求本文中。这个请求可能会创建新的资源或修改现有资源,或二者皆有。</p>
+</li>
+<li><p>PUT:<br>向指定资源位置上传其最新内容。</p>
+</li>
+<li><p>DELETE:<br>请求服务器删除Request-URI所标识的资源。</p>
+</li>
+<li><p>TRACE:<br>回显服务器收到的请求,主要用于测试或诊断。</p>
+</li>
+<li><p>CONNECT:<br>把请求连接转换到透明的 TCP/IP 通道。通常用于SSL加密服务器的链接(经由非加密的HTTP代理服务器)。</p>
+</li>
+</ul>
+<h2 id="几个常见的Content-Type"><a href="#几个常见的Content-Type" class="headerlink" title="几个常见的Content-Type"></a>几个常见的Content-Type</h2><p><strong>第一类：raw 原始类型，可以上传任意格式的文本，比如 text、json、xml、html（中文不进行编码）</strong></p>
+<ul>
+<li>text/html  ：HTML格式</li>
+<li>text/plain ：纯文本格式      </li>
+<li><p>text/xml   ：XML格式</p>
+</li>
+<li><p>image/gif  ：gif图片格式    </p>
+</li>
+<li>image/jpeg ：jpg图片格式 </li>
+<li><p>image/png  ：png图片格式</p>
+</li>
+<li><p>application/xml     ： XML数据格式</p>
+</li>
+<li>application/json    ： JSON数据格式</li>
+<li>application/pdf     ： pdf格式  </li>
+<li>application/msword  ： Word文档格式</li>
+<li>application/octet-stream ： 二进制流数据（如文件下载）</li>
+</ul>
+<p><strong>第二类：application/x-www-form-urlencoded，会将表单内的数据转换拼接成 key-value 对</strong></p>
+<ul>
+<li>application/x-www-form-urlencoded ：</li>
+</ul>
+<p><code>&lt;form encType=&quot;&quot;&gt;</code>中默认的encType，<br>form表单数据被编码为key/value格式发送到服务器（表单默认的提交数据的格式）。<br>服务器收到的raw body会是，name=aaa&amp;key=bbb。</p>
+<p><strong>第三类：multipart/form-data，将表单的数据处理为一条消息，以标签为单元，用分隔符分开。既可以上传键值对，也可以上传文件</strong></p>
+<ul>
+<li>multipart/form-data ： 表单上传文件</li>
+</ul>
+<h2 id="常用的-HTTP-请求头与响应头"><a href="#常用的-HTTP-请求头与响应头" class="headerlink" title="常用的 HTTP 请求头与响应头"></a>常用的 HTTP 请求头与响应头</h2><p>请求头：</p>
+<ul>
+<li>Accept            可接受的响应内容类型（Content-Types）           Accept: text/plain</li>
+<li>Accept-Language   可接受的响应内容语言列表                        Accept-Language: en-US</li>
+<li>Cache-Control     用来指定当前的请求/回复中的，是否使用缓存机制     Cache-Control: no-cache</li>
+<li>Host              表示服务器的域名以及服务器所监听的端口号          Host: <a href="http://www.itbilu.com:80" target="_blank" rel="noopener">www.itbilu.com:80</a></li>
+<li>Origin            发起一个针对跨域资源共享的请求                   Origin: <a href="http://www.itbilu.com" target="_blank" rel="noopener">http://www.itbilu.com</a></li>
+<li>If-Modified-Since 允许在对应的资源未被修改的情况下返回304未修改     If-Modified-Since: Dec, 26 Dec 2015 17:30:00 GMT    </li>
+</ul>
+<p>响应头：</p>
+<ul>
+<li>Access-Control-Allow-Origin     指定哪些网站可以跨域源资源共享      Access-Control-Allow-Origin: *</li>
+<li>ETag     对于某个资源的某个特定版本的一个标识符，通常是一个 消息散列  ETag: “737060cd8c284d8af7ad3082f209582d”    </li>
+<li>Last-Modified        所请求的对象的最后修改日期          Last-Modified: Dec, 26 Dec 2015 17:30:00 GMT</li>
+<li>Expires              指定一个日期/时间，超过该时间则认为此回应已经过期  Expires: Thu, 01 Dec 1994 16:00:00 GMT</li>
+</ul>
+<h1 id="Https"><a href="#Https" class="headerlink" title="Https"></a>Https</h1><p>Https协议其实是基于Http的，多了个s其实就是Secure，所以也就是<strong>Hypertext Transfer Protocol Secure（超文本传输安全协议）</strong><br>相对于HTTP协议，具有以下优点：</p>
+<ol>
+<li>内容加密：采用混合加密技术，中间者无法直接查看明文内容</li>
+<li>验证身份：通过证书认证客户端访问的是自己的服务器</li>
+<li>保护数据完整性：防止传输的内容被中间人冒充或者篡改<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/https.png" alt="markdown"></li>
+</ol>
+<h2 id="SSL和TLS"><a href="#SSL和TLS" class="headerlink" title="SSL和TLS"></a>SSL和TLS</h2><p>HTTPS 还是通过了 HTTP 来传输信息，但是信息通过 TLS 协议进行了加密。TLS与SSL在传输层对网络连接进行加密，在 TLS 中使用了两种加密技术，分别为：对称加密和非对称加密。</p>
+<p><strong>对称加密（通信过程）：</strong></p>
+<p>对称加密就是两边拥有相同的秘钥，两边都知道如何将密文加密解密。<br>这种加密方式固然很好，但是问题就在于如何让双方知道秘钥。因为传输数据都是走的网络，如果将秘钥通过网络的方式传递的话，一旦秘钥被截获就没有加密的意义的。</p>
+<p><strong>非对称加密（认证过程）：</strong></p>
+<p>有公钥私钥之分，公钥所有人都可以知道，可以将数据用公钥加密，但是将数据解密必须使用私钥解密，私钥只有分发公钥的一方才知道（服务端）。<br>这种加密方式就可以完美解决对称加密存在的问题。假设现在两端需要使用对称加密，那么在这之前，可以先使用非对称加密交换秘钥。</p>
+<p>简单流程如下：首先服务端将公钥公布出去，那么客户端也就知道公钥了。接下来客户端创建一个秘钥，然后通过公钥加密并发送给服务端，服务端接收到密文以后通过私钥解密出正确的秘钥，这时候两端就都知道秘钥是什么了。</p>
+<h2 id="SSL-TLS-四次握手"><a href="#SSL-TLS-四次握手" class="headerlink" title="SSL/TLS 四次握手"></a>SSL/TLS 四次握手</h2><p>四次握手主要交换了3个信息：</p>
+<ol>
+<li>数字证书：该证书包含了公钥等信息，一般是由服务器发给客户端，接收方通过验证这个证书是不是信赖的CA签发的，或者与本地的证书相比，来判断证书是否可信，防止身份被冒充</li>
+<li>三个随机数</li>
+<li>加密通信协议</li>
+</ol>
+<p><strong>四次握手过程</strong></p>
+<ul>
+<li>客户端发送通信请求，和第一个随机数N1</li>
+<li>服务器确定加密通信协议的版本，然后返回CA机构签发的数字证书和公钥以及第二个随机数N2，确认加密方法</li>
+<li>客户端验证证书的合法性，使用证书中的公钥和HASH算法对消息进行加密，返回服务端第三个随机数N3</li>
+<li>服务端使用私密对消息进行解密，验证HASH，N1+N2+N3生成对话密钥，进行对称通信。</li>
+</ul>
+<p>理论上只要服务端私钥不泄露就无法被破解。</p>
+<p><strong>HTTPS优缺点:</strong></p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>内容加密：无法直接查看明文内容</li>
+<li>验证身份：CA签发证书判断是否访问自己的服务器</li>
+<li>保证数据完整性：防止传输内容被窜改</li>
+<li>在谷歌 搜索引擎中排名更高</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>成本高，证书费用大</li>
+<li>握手耗时延长50%，耗电增加10%到20%</li>
+<li>连接缓存不如http高效，会增加性能功耗</li>
+<li>SSL证书需要绑定IP，不能在同一个IP上绑定多个域名</li>
+</ul>
+<h1 id="http2-0"><a href="#http2-0" class="headerlink" title="http2.0"></a>http2.0</h1><p>HTTP/2 相比于 HTTP/1，可以说是大幅度提高了网页的性能。</p>
+<h2 id="二进制分帧"><a href="#二进制分帧" class="headerlink" title="二进制分帧"></a>二进制分帧</h2><p>HTTP/2 中所有加强性能的核心点在于此。在之前的 HTTP 版本中，我们是通过文本的方式传输数据。在 HTTP/2 中引入了新的编码机制，所有传输的数据都会被分割，并采用二进制格式编码。</p>
+<p>帧代表着最小的数据单位，每个帧会标识出该帧属于哪个流，流也就是多个帧组成的数据流。</p>
+<h2 id="多路复用"><a href="#多路复用" class="headerlink" title="多路复用"></a>多路复用</h2><p>在 HTTP/1 中，为了性能考虑，我们会引入雪碧图、将小图内联、使用多个域名等等的方式。这一切都是因为浏览器限制了同一个域名下的请求数量（Chrome 下一般是限制六个连接），当页面中需要请求很多资源的时候，队头阻塞（Head of line blocking）会导致在达到最大请求数量时，剩余的资源需要等待其他资源请求完成后才能发起请求。</p>
+<p>多路复用允许同时通过单一的HTTP/2 连接发起多重的请求响应消息。有了新的分帧后。HTTP/2 不再依赖多个TCP连接去实现多流并行了，每个数据流拆分成很多互不依赖的帧，还可以分优先级。不必通过多个TCP 连接去实现并行执行，避免 HTTP 旧版本中的队头阻塞问题，极大的提高传输性能。</p>
+<h2 id="header压缩"><a href="#header压缩" class="headerlink" title="header压缩"></a>header压缩</h2><p>HTTP1.x的header带有大量信息，而且每次都要重复发送，HTTP/2使用encoder来减少需要传输的header大小，通讯双方各自cache一份header fields表，既避免了重复header的传输，又减小了需要传输的大小。</p>
+<h2 id="服务端推送"><a href="#服务端推送" class="headerlink" title="服务端推送"></a>服务端推送</h2><p>服务器可以对一个客户端请求发送多个响应。服务器向客户端推送资源无需客户端明确地请求。</p>
+<p>可以想象以下情况，某些资源客户端是一定会请求的，这时就可以采取服务端 push 的技术，提前给客户端推送必要的资源，这样就可以相对减少一点延迟时间。</p>
+<h1 id="http3-0"><a href="#http3-0" class="headerlink" title="http3.0"></a>http3.0</h1><p>虽然 HTTP/2 解决了很多之前旧版本的问题，但是它还是存在一个巨大的问题，虽然这个问题并不是它本身造成的，而是底层支撑的 TCP 协议的问题。</p>
+<p>因为 HTTP/2 使用了多路复用，一般来说同一域名下只需要使用一个 TCP 连接。当这个连接中出现了丢包的情况，那就会导致 HTTP/2 的表现情况反倒不如 HTTP/1 了。</p>
+<p>因为在出现丢包的情况下，整个 TCP 都要开始等待重传，也就导致了后面的所有数据都被阻塞了。但是对于 HTTP/1 来说，可以开启多个 TCP 连接，出现这种情况反到只会影响其中一个连接，剩余的 TCP 连接还可以正常传输数据。</p>
+<p>那么可能就会有人考虑到去修改 TCP 协议，其实这已经是一件不可能完成的任务了。因为 TCP 存在的时间实在太长，已经充斥在各种设备中，并且这个协议是由操作系统实现的，更新起来不大现实。</p>
+<p><strong>基于这个原因，Google 就更起炉灶搞了一个基于 UDP 协议的 QUIC 协议，并且使用在了 HTTP/3 上。</strong></p>
+<h2 id="QUIC"><a href="#QUIC" class="headerlink" title="QUIC"></a>QUIC</h2><p>UDP 这个协议虽然效率很高，但是并不是那么的可靠。QUIC 虽然基于 UDP，但是在原本的基础上新增了很多功能，比如多路复用、0-RTT、使用 TLS1.3 加密、流量控制、有序交付、重传等等功能。</p>
+<h3 id="多路复用-1"><a href="#多路复用-1" class="headerlink" title="多路复用"></a>多路复用</h3><p>虽然 HTTP/2 支持了多路复用，但是 TCP 协议终究是没有这个功能的。QUIC 原生就实现了这个功能，并且传输的单个数据流可以保证有序交付且不会影响其他的数据流，这样的技术就解决了之前 TCP 存在的问题。</p>
+<p>并且 QUIC 在移动端的表现也会比 TCP 好。因为 TCP 是<strong>基于 IP 和端口</strong>去识别连接的，这种方式在多变的移动端网络环境下是很脆弱的。但是 QUIC 是通过 ID 的方式去识别一个连接，不管你网络环境如何变化，只要 ID 不变，就能迅速重连上。</p>
+<h3 id="0-RTT"><a href="#0-RTT" class="headerlink" title="0-RTT"></a>0-RTT</h3><p>通过使用类似 TCP 快速打开的技术，缓存当前会话的上下文，在下次恢复会话的时候，只需要将之前的缓存传递给服务端验证通过就可以进行传输了。</p>
+<h3 id="纠错机制"><a href="#纠错机制" class="headerlink" title="纠错机制"></a>纠错机制</h3><p>假如说这次我要发送三个包，那么协议会算出这三个包的异或值并单独发出一个校验包，也就是总共发出了四个包。</p>
+<p><strong>当出现其中的非校验包丢包的情况时，可以通过另外三个包计算出丢失的数据包的内容。</strong></p>
+<p>当然这种技术只能使用在丢失一个包的情况下，如果出现丢失多个包就不能使用纠错机制了，只能使用重传的方式了。</p>
+<h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><h2 id="为什么连接的时候是三次握手，关闭的时候却是四次挥手？"><a href="#为什么连接的时候是三次握手，关闭的时候却是四次挥手？" class="headerlink" title="为什么连接的时候是三次握手，关闭的时候却是四次挥手？"></a>为什么连接的时候是三次握手，关闭的时候却是四次挥手？</h2><p>ACK报文是用来应答的，SYN报文是用来同步的。但是关闭连接时，当Server端收到FIN报文时，很可能并不会立即关闭SOCKET，所以只能先回复一个ACK报文，告诉Client端，”你发的FIN报文我收到了”。只有等到我Server端所有的报文都发送完了，我才能发送FIN报文，因此不能一起发送。故需要四次挥手。</p>
+<h2 id="为什么TIME-WAIT状态需要经过2MSL-最大报文段生存时间-才能返回到CLOSE状态？"><a href="#为什么TIME-WAIT状态需要经过2MSL-最大报文段生存时间-才能返回到CLOSE状态？" class="headerlink" title="为什么TIME_WAIT状态需要经过2MSL(最大报文段生存时间)才能返回到CLOSE状态？"></a>为什么TIME_WAIT状态需要经过2MSL(最大报文段生存时间)才能返回到CLOSE状态？</h2><p>虽然按道理，四个报文都发送完毕，我们可以直接进入CLOSE状态了，但是我们必须假象网络是不可靠的，有可以最后一个ACK丢失。所以TIME_WAIT状态就是用来重发可能丢失的ACK报文。在Client发送出最后的ACK回复，但该ACK可能丢失。Server如果没有收到ACK，将不断重复发送FIN片段。所以Client不能立即关闭，它必须确认Server接收到了该ACK。Client会在发送出ACK之后进入到TIME_WAIT状态。Client会设置一个计时器，等待2MSL的时间。如果在该时间内再次收到FIN，那么Client会重发ACK并再次等待2MSL。所谓的2MSL是两倍的MSL(Maximum Segment Lifetime)。MSL指一个片段在网络中最大的存活时间，2MSL就是一个发送和一个回复所需的最大时间。如果直到2MSL，Client都没有再次收到FIN，那么Client推断ACK已经被成功接收，则结束TCP连接。</p>
+<h2 id="为什么不能用两次握手进行连接？"><a href="#为什么不能用两次握手进行连接？" class="headerlink" title="为什么不能用两次握手进行连接？"></a>为什么不能用两次握手进行连接？</h2><p>3次握手完成两个重要的功能，既要双方做好发送数据的准备工作(双方都知道彼此已准备好)，也要允许双方就初始序列号进行协商，这个序列号在握手过程中被发送和确认。</p>
+<p><strong>现在把三次握手改成仅需要两次握手，死锁是可能发生的。</strong>作为例子，考虑计算机S和C之间的通信，假定C给S发送一个连接请求分组，S收到了这个分组，并发 送了确认应答分组。按照两次握手的协定，S认为连接已经成功地建立了，可以开始发送数据分组。可是，C在S的应答分组在传输中被丢失的情况下，将不知道S 是否已准备好，不知道S建立什么样的序列号，C甚至怀疑S是否收到自己的连接请求分组。在这种情况下，C认为连接还未建立成功，将忽略S发来的任何数据分 组，只等待连接确认应答分组。而S在发出的分组超时后，重复发送同样的分组。这样就形成了死锁。</p>
+<h2 id="如果已经建立了连接，但是客户端突然出现故障了怎么办？"><a href="#如果已经建立了连接，但是客户端突然出现故障了怎么办？" class="headerlink" title="如果已经建立了连接，但是客户端突然出现故障了怎么办？"></a>如果已经建立了连接，但是客户端突然出现故障了怎么办？</h2><p>TCP还设有一个保活计时器，显然，客户端如果出现故障，服务器不能一直等下去，白白浪费资源。服务器每收到一次客户端的请求后都会重新复位这个计时器，时间通常是设置为2小时，若两小时还没有收到客户端的任何数据，服务器就会发送一个探测报文段，以后每隔75S发送一次。若一连发送10个探测报文仍然没反应，服务器就认为客户端出了故障，接着就关闭连接。</p>
+<h2 id="HTTP-2的多路复用和HTTP1-1中的长连接复用有什么区别？"><a href="#HTTP-2的多路复用和HTTP1-1中的长连接复用有什么区别？" class="headerlink" title="HTTP/2的多路复用和HTTP1.1中的长连接复用有什么区别？"></a>HTTP/2的多路复用和HTTP1.1中的长连接复用有什么区别？</h2><p>HTTP/1.0 一次请求-响应，建立一个连接，用完关闭；每一个请求都要建立一个连接；<br>HTTP/1.1 Pipeling解决方式为，若干个请求排队串行化单线程处理，后面的请求等待前面请求的返回才能获得执行机会，一旦有某请求超时等，后续请求只能被阻塞，毫无办法，也就是人们常说的线头阻塞；<br>HTTP/2多个请求可同时在一个连接上并行执行。某个请求任务耗时严重，不会影响到其它连接的正常执行； </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/12/网络/跨域问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2166,185 +2521,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/24/vue/9、路由/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/24/vue/9、路由/" itemprop="url">九、路由</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-24T15:12:20+08:00">
-                2019-01-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue/" itemprop="url" rel="index">
-                    <span itemprop="name">Vue</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="路由的基本使用"><a href="#路由的基本使用" class="headerlink" title="路由的基本使用"></a>路由的基本使用</h1><p>前端路由和后端路由的区别： </p>
-<p>后端路由：所有的超链接都是url地址，都对应服务器上对应的资源</p>
-<p>前端路由：对于单页面应用程序来说，主要通过url中的hash（#号）来实现不同页面之间的切换，这种通过hash改变页面的切换页面的方法是称为前端路由</p>
-<p>1、需要先安装vue-router模块，且顺序必须放在vue.js后面</p>
-<p>2、使用router-link组件来导航</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-link to=<span class="string">"/login"</span>&gt;登录&lt;<span class="regexp">/router-link&gt;</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/可以使用tag属性指定router-link渲染标签的类型</span></span><br></pre></td></tr></table></figure>
-<p>3、使用 router-view 组件来显示匹配到的组件</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-view&gt;&lt;/router-view&gt;</span><br></pre></td></tr></table></figure>
-<p>4、使用vue-entend 创建登录组件</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> login = Vue.extend(&#123;</span><br><span class="line">  template: <span class="string">'&lt;h1&gt;登录组件&lt;/h1&gt;'</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">var</span> register = Vue.extend(&#123;</span><br><span class="line">  template: <span class="string">'&lt;h1&gt;注册组件&lt;/h1&gt;'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>5、创建一个router实例，通过router属性来定义路由匹配规则</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> router111 = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">'/login'</span>, <span class="attr">component</span>: login &#125;,</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">'/register'</span>, <span class="attr">component</span>: register &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>6、使用router属性来使用路由规则</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  router: router111 <span class="comment">// 使用 上面创建的router111 属性来使用路由规则</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>思路：</p>
-<p>1、设置两个login和register子组件</p>
-<p>2、创建一个路由对象，设置路由规则数组，即设置这两个子组件的对应路径</p>
-<p>3、将路由对象与Vue实例关联起来</p>
-<p>4、根据实际需要设置重定向  </p>
-<h1 id="使用children属性实现路由嵌套"><a href="#使用children属性实现路由嵌套" class="headerlink" title="使用children属性实现路由嵌套"></a>使用children属性实现路由嵌套</h1><p>account组件下面有两个子组件，login和register，在创建路由实例的时候，将account传入，然后在childrens[]数组内再定义两个子组件，login和register</p>
-<p>这里为了使地址栏能达到效果需要使用redirect进行重定向，如果路径是根路径的话，则设置重定向到login下—-path: ‘/‘, redirect: ‘/account/login’</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">  &lt;router-link to=<span class="string">"/account"</span>&gt;Account&lt;<span class="regexp">/router-link&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  &lt;router-view&gt;&lt;/</span>router-view&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">  /</span><span class="regexp">/ 父路由中的组件</span></span><br><span class="line"><span class="regexp">  const account = Vue.extend(&#123;</span></span><br><span class="line"><span class="regexp">    template: `&lt;div&gt;</span></span><br><span class="line"><span class="regexp">      这是account组件</span></span><br><span class="line"><span class="regexp">      &lt;router-link to="/</span>account/login<span class="string">"&gt;login&lt;/router-link&gt; | </span></span><br><span class="line"><span class="string">      &lt;router-link to="</span>/account/register<span class="string">"&gt;register&lt;/router-link&gt;</span></span><br><span class="line"><span class="string">      &lt;router-view&gt;&lt;/router-view&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;`</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  // 子路由中的 login 组件</span></span><br><span class="line"><span class="string">  const login = Vue.extend(&#123;</span></span><br><span class="line"><span class="string">    template: '&lt;div&gt;登录组件&lt;/div&gt;'</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  // 子路由中的 register 组件</span></span><br><span class="line"><span class="string">  const register = Vue.extend(&#123;</span></span><br><span class="line"><span class="string">    template: '&lt;div&gt;注册组件&lt;/div&gt;'</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  // 路由实例</span></span><br><span class="line"><span class="string">  var router = new VueRouter(&#123;</span></span><br><span class="line"><span class="string">    routes: [</span></span><br><span class="line"><span class="string">      &#123; path: '/', redirect: '/account/login' &#125;, // 使用 redirect 实现路由重定向</span></span><br><span class="line"><span class="string">      &#123;</span></span><br><span class="line"><span class="string">        path: '/account',</span></span><br><span class="line"><span class="string">        component: account,</span></span><br><span class="line"><span class="string">        children: [ // 通过 children 数组属性，来实现路由的嵌套</span></span><br><span class="line"><span class="string">          &#123; path: 'login', component: login &#125;, // 注意，子路由的开头位置，不要加 / 路径符</span></span><br><span class="line"><span class="string">          &#123; path: 'register', component: register &#125;</span></span><br><span class="line"><span class="string">        ]</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">    ]</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  // 创建 Vue 实例，得到 ViewModel</span></span><br><span class="line"><span class="string">  var vm = new Vue(&#123;</span></span><br><span class="line"><span class="string">    el: '#app',</span></span><br><span class="line"><span class="string">    data: &#123;&#125;,</span></span><br><span class="line"><span class="string">    methods: &#123;&#125;,</span></span><br><span class="line"><span class="string">    components: &#123;</span></span><br><span class="line"><span class="string">      account</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">    router: router</span></span><br><span class="line"><span class="string">  &#125;);</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
-<h1 id="在路由中实现参数的传递"><a href="#在路由中实现参数的传递" class="headerlink" title="在路由中实现参数的传递"></a>在路由中实现参数的传递</h1><ol>
-<li>在规则中定义参数</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> router111 = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">'/register/:id'</span>, <span class="attr">component</span>: register &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>通过this.$route.params获取路由中的参数</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> register = Vue.extend(&#123;</span><br><span class="line">      template: <span class="string">'&lt;h1&gt;注册组件 --- &#123;&#123;this.$route.params.id&#125;&#125;&lt;/h1&gt;'</span></span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
-<p>思路：分别创建account组件作为父组件，login和register作为子组件。</p>
-<p>在#app中使用router-viewi标签显示在页面中显示所有的组件。</p>
-<p>然后使用v-extend创建三个组件，父组件中使用router-link to分别指向两个子组件</p>
-<p>然后创建一个router实例，分别设置父组件和在childrens[]数组中设置子组件，分别设置组件的映射路径</p>
-<p>最后在Vue实例里面的component中注册父组件和router中注册上面新建的router实例</p>
-<h1 id="模块化路由"><a href="#模块化路由" class="headerlink" title="模块化路由"></a>模块化路由</h1><p><strong>index.js</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> Router <span class="keyword">from</span> <span class="string">'vue-router'</span></span><br><span class="line"><span class="keyword">import</span> HelloWorld <span class="keyword">from</span> <span class="string">'@/components/HelloWorld'</span></span><br><span class="line"><span class="keyword">import</span> <span class="built_in">module</span> <span class="keyword">from</span> <span class="string">'./module'</span></span><br><span class="line"></span><br><span class="line">Vue.use(Router)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Router(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123;</span><br><span class="line">      path: <span class="string">'/'</span>,</span><br><span class="line">      name: <span class="string">'HelloWorld'</span>,</span><br><span class="line">      component: HelloWorld</span><br><span class="line">    &#125;,</span><br><span class="line">    ...module</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>module.js</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> pageA <span class="keyword">from</span> <span class="string">'../components/pageA'</span></span><br><span class="line"><span class="keyword">import</span> pageB <span class="keyword">from</span> <span class="string">'../components/pageB'</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> [&#123;</span><br><span class="line">  path: <span class="string">'/pageA'</span>,</span><br><span class="line">  name: <span class="string">'pageA'</span>,</span><br><span class="line">  component: pageA</span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">  path: <span class="string">'/pageB'</span>,</span><br><span class="line">  name: <span class="string">'pageB'</span>,</span><br><span class="line">  component: pageB</span><br><span class="line">&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2395,7 +2571,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

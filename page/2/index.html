@@ -229,6 +229,251 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/JavaScript/作用域链与闭包/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/22/JavaScript/作用域链与闭包/" itemprop="url">javaScript中的作用域链与闭包</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-22T19:21:12+08:00">
+                2019-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h1><p>JS中，只有全局作用域和局部作用域（eval开发中比较少使用不做讨论），并且作用域和执行上下文其实是完全不同的两个概念，在执行上下文这前两篇文章中也有谈到。</p>
+<p><strong>作用域链，是由当前环境与上层环境的一系列变量对象组成，作用是保证了当前执行环境对符合访问权限的变量和函数的有序访问。</strong>作⽤域链的变量只能 向上访问，变量访问到 window 对象即被终⽌，作⽤域链向下访问变量是不被允许的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> b = a + <span class="number">10</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">innerTest</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> c = <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">return</span> b + c;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> innerTest();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test();</span><br></pre></td></tr></table></figure>
+<p>当代码在一个环境中执行时，会创建变量对象的一个作用域链（作用域形成的链条）</p>
+<ul>
+<li>作用域链的前端，始终都是当前执行的代码所在环境的变量对象</li>
+<li>作用域链中的下一个对象来自于外部环境，而在下一个变量对象则来自下一个外部环境，一直到全局执行环境</li>
+<li>全局执行环境的变量对象始终都是作用域链上的最后一个对象</li>
+</ul>
+<p>内部环境可以通过作用域链访问所有外部环境，但外部环境不能访问内部环境的任何变量和函数</p>
+<p>如函数的执行，形成一个私有作用域，形参和当前私有作用域中声明的变量都是私有变量，保存在内部的一个变量对象中，其下一个外部环境可能是函数，也就包含了函数的内部变量对象，直到全局作用域。</p>
+<p>当在内部函数中，需要访问一个变量的时候，首先会访问函数本身的变量对象，是否有这个变量，如果没有，那么会继续沿作用域链往上查找，直到全局作用域。如果在某个变量对象中找到则使用该变量对象中的变量值。</p>
+<p>由于变量的查找是沿着作用域链来实现的，<strong>所以也称作用域链为变量查找的机制。</strong></p>
+<p>这个机制也说明了访问局部变量要比访问全局变量更快，因为中间的查找过程更短。但是 JavaScript 引擎在优化标识符查询方面做得很好，因此这个差别可以忽略不计</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> n = <span class="number">10</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">outer</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">inner</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">center</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(n);</span><br><span class="line">    &#125;</span><br><span class="line">    center();</span><br><span class="line">  &#125;</span><br><span class="line">  inner();</span><br><span class="line">  <span class="keyword">var</span> n = <span class="number">15</span>;</span><br><span class="line">&#125;</span><br><span class="line">outer(); <span class="comment">// 在内层作用域中变量提升，所以输出 undefined</span></span><br></pre></td></tr></table></figure>
+<h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><ol>
+<li>什么是闭包</li>
+</ol>
+<p>闭包按照mdn的定义是可以访问自由变量的函数。自由变量指的是不在该函数内部声明的变量。</p>
+<p>闭包的形式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> num = <span class="number">1</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(num++)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> b</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> c1 = a()</span><br><span class="line">c1() <span class="comment">// '1'</span></span><br><span class="line">c1() <span class="comment">// '2'</span></span><br><span class="line"><span class="keyword">var</span> c2 = a()</span><br><span class="line">c2() <span class="comment">// '1'</span></span><br><span class="line">c2() <span class="comment">// '2'</span></span><br></pre></td></tr></table></figure>
+<p><strong>a、运行函数a</strong></p>
+<ul>
+<li>创建函数a的全局变量对象VO(Varibale Object)，包括变量num和函数b</li>
+<li>定义函数b的时候，会保存a的变量对象VO和全局变量对象到[[scope]]中</li>
+<li>返回函数b，保存到c1</li>
+</ul>
+<p><strong>b、运行c1</strong></p>
+<ul>
+<li>创建c1的作用域链，该作用域链保存了a的变量对象VO</li>
+<li>创建c1的VO</li>
+<li>运行c1，这是发现需要访问变量num，在当前VO中不存在，于是通过作用域链进行访问，找到了保存在a的VO中的num，对它进行操作，num的值被设置成2</li>
+</ul>
+<p><strong>c 再次运行c1，重复第二步的操作，num的值设置成3</strong></p>
+<ol start="2">
+<li>闭包的应用</li>
+</ol>
+<p>匿名自执行函数：我们知道所有的变量，如果不加上var关键字，则默认的会添加到全局对象的属性上去，这样的临时变量加入全局对象有很多坏处，比如：别的函数可能误用这些变量：造成全局对象过于庞大，影响访问速度（因为变量的取值是需要从原型链上遍历的）。除了每次使用变量都是用var关键字外，我们在实际情况下经常遇到这样一种情况，即有的函数只需要执行1次，其内部变量无需维护，可以用闭包。</p>
+<p>结果缓存：我们开发中会碰到很多情况，设想我们有一个处理过程很耗时的函数对象，每次调用都会花费很长时间，那么我们就需要将计算出来的值存储起来，当调用这个函数的时候，首先在缓存中查找，如果找不到，则进行计算，然后更新缓存并返回值，如果找到了，直接返回查找到的值即可。闭包正是可以做到这一点，因为它不会释放外部的引用，从而函数内部的值可以得以保留。</p>
+<p>但是，有时候需要得到函数内部的局部变量，就可以通过闭包的方法，利用js变量作用域的特点,如在函数内部定义子函数，对于子函数来说，父函数就是它的全局，子函数可以访问父函数里的变量(对于整个js代码来说又是局部变量)。</p>
+<p>闭包由两个部分组成，最典型的就是函数模式的闭包了。<br>它由两部分组成。执行上下文(代号parent)，以及在该执行上下文中创建的函数（代号child）。<br>当child执行时，如果访问了parent中变量对象中的值，那么闭包就会产生。在这里可以把child函数当作一个闭包，这个函数是连接函数内部和外部的桥梁，所以在这里函数外部可以访问到函数内的num。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parent</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> num = <span class="number">50</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">child</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(num);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> child;</span><br><span class="line">&#125;</span><br><span class="line">    <span class="keyword">var</span> f1 = parent();  <span class="comment">//将结果保存在全局里</span></span><br><span class="line">    </span><br><span class="line">    f1();       <span class="comment">//50</span></span><br></pre></td></tr></table></figure>
+<p>函数child代指这里生成的闭包。</p>
+<p>闭包有个优点，就是可以缓存数据，延长作用域链（不会被垃圾回收机制回收）。由于闭包的内存不会被垃圾回收机制回收，所以在使用闭包的时候要谨慎。那又是为什么不会垃圾回收机制回收呢？</p>
+<p>举个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">innnerFoo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(a);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> innnerFoo; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fn = foo();</span><br><span class="line">fn();</span><br></pre></td></tr></table></figure>
+<p>在正常情况下，函数的执行上下文，在执行完毕之后，生命周期结束，那么该函数的执行上下文就会失去引用。其占用的内存空间很快就会被垃圾回收器释放。可是闭包的存在，会阻止这一过程。<br>上面的例子中。foo()执行完毕之后，按照常理，其执行环境生命周期会结束，所占内存被垃圾收集器释放。但是通过返回innerFoo，函数innerFoo的引用被保留了下来，将foo复制给了全局变量fn。全局变量（无法被回收机制清除，不知道以后会不会还会用）<br>这个行为，导致了foo中的变量对象a，也被保留了下来。于是，函数fn执行时，依然可以访问这个被保留下来的变量对象。所以此刻仍然能够访问到变量a的值。<br>所以可以把innerFoo当成一个闭包，下图是foo的作用域链：<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/foo.PNG" alt="markdown"></p>
+<p>经典例子<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> tmp = <span class="number">3</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">y</span>)</span>&#123;</span><br><span class="line">        alert(x+y+(++tmp));</span><br><span class="line">    &#125;</span><br><span class="line">    bar(<span class="number">10</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(<span class="number">2</span>);            <span class="comment">//永远是16</span></span><br><span class="line">foo(<span class="number">2</span>);            <span class="comment">//永远是16</span></span><br><span class="line">foo(<span class="number">2</span>);            <span class="comment">//永远是16</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> tmp = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">y</span>)</span>&#123;</span><br><span class="line">        alert(x+y+(++tmp));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> bar = foo(<span class="number">2</span>);</span><br><span class="line">bar(<span class="number">10</span>);        <span class="comment">//16</span></span><br><span class="line">bar(<span class="number">10</span>);        <span class="comment">//17</span></span><br><span class="line">bar(<span class="number">10</span>);        <span class="comment">//18</span></span><br></pre></td></tr></table></figure>
+<p>由于闭包的使用内存不会被回收，所以滥用闭包在低版本IE浏览器中可能会导致内存泄漏<br>导致内存泄漏的几种情况：</p>
+<ul>
+<li>意外的全局变量（没有通过var声明，导致被挂在window上）：使用严格模式避免。</li>
+<li>未销毁的定时器或者回调函数：手动删除定时器</li>
+<li>不规范使用闭包(循环引用)：注意程序逻辑，避免“死循环”之类</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bindEvent</span>(<span class="params"></span>) </span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line">    <span class="keyword">var</span> obj=<span class="built_in">document</span>.createElement(<span class="string">"XXX"</span>); </span><br><span class="line">    obj.οnclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span><br><span class="line">        <span class="comment">//Even if it's a empty function </span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//转化为以下函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bindEvent</span>(<span class="params"></span>) </span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line">    <span class="keyword">var</span> obj=<span class="built_in">document</span>.createElement(<span class="string">"XXX"</span>); </span><br><span class="line">    obj.οnclick=onclickHandler; </span><br><span class="line">&#125; </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onclickHandler</span>(<span class="params"></span>)</span>&#123; </span><br><span class="line">    <span class="comment">//do something </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="垃圾回收机制"><a href="#垃圾回收机制" class="headerlink" title="垃圾回收机制"></a>垃圾回收机制</h1><p>必要性：由于字符串、对象和数组没有固定大小，所以当他们的大小已知时，才能对他们进行动态的存储分配。JavaScript程序每次创建字符串、数组或对象时，解释器都必须分配内存来存储那个实体。只要像这样动态地分配了内存，最终都要释放这些内存以便他们能够被再用，否则，JavaScript的解释器将会消耗完系统中所有可用的内存，造成系统崩溃。</p>
+<p>现在各大浏览器通常用采用的垃圾回收有两种方法：标记清除、引用计数（已经淘汰）。</p>
+<h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h2><p>不太常见的垃圾回收策略是引用计数。引用计数的含义是跟踪记录每个值被引用的次数。当声明了一个变量并将一个<strong>引用类型</strong>赋值给该变量时，则这个值的引用次数就是1。相反，如果包含对这个值引用的变量又取得了另外一个值，则这个值的引用次数就减1。当这个引用次数变成0时，则说明没有办法再访问这个值了，因而就可以将其所占的内存空间给收回来。这样，垃圾收集器下次再运行时，它就会释放那些引用次数为0的值所占的内存。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = &#123;&#125;; <span class="comment">//a的引用次数为0，需要时一个引用类型的值</span></span><br><span class="line"><span class="keyword">var</span> b = a; <span class="comment">//a的引用次数为1</span></span><br><span class="line"><span class="keyword">var</span> c = a;<span class="comment">//a的引用次数为2</span></span><br><span class="line"><span class="keyword">var</span> b = &#123;&#125;;  <span class="comment">//a的引用次数减1 为 1</span></span><br></pre></td></tr></table></figure>
+<p>但是引用计数存在以下问题：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">problem</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> objA = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    <span class="keyword">var</span> objB = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"></span><br><span class="line">    objA.someOtherObject = objB;</span><br><span class="line">    objB.anotherObject = objA;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<strong>objA和objB通过各自的属性相互引用；</strong>也就是说这两个对象的引用次数都是2。在采用引用计数的策略中，由于函数执行之后，这两个对象都离开了作用域，函数执行完成之后，objA和objB还将会继续存在，<strong>因为他们的引用次数永远不会是0,陷入死循环。</strong>这样的相互引用如果说很大量的存在就会导致大量的内存泄露。</p>
+<h2 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h2><p>这是javascript中最常用的垃圾回收方式。当变量进入执行环境时（例如在函数中声明一个变量），就标记这个变量为“进入环境”。从逻辑上讲，永远不能释放进入环境的变量所占用的内存，因为只要执行流进入相应的环境，就可能会用到他们。当变量离开环境时，则将其标记为“离开环境”。</p>
+<p>垃圾收集器在运行的时候会给存储在内存中的所有变量都加上标记。然后，它会去掉环境中的变量以及被环境中的变量引用的标记。而在此之后再被加上标记的变量将被视为准备删除的变量，原因是环境中的变量已经无法访问到这些变量了。最后。垃圾收集器完成内存清除工作，销毁那些带标记的值，并回收他们所占用的内存空间。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">10</span>;<span class="comment">//被标记进入环境  </span></span><br><span class="line">&#125;</span><br><span class="line">test();<span class="comment">//执行结束后被标记离开环境 被回收</span></span><br></pre></td></tr></table></figure>
+<p>该算法假定设置一个叫做根（root）的对象（在Javascript里，根是全局对象）。垃圾回收器将定期从根开始（在JS中就是全局对象）扫描内存中的对象。凡是能从根部到达的对象，都是还需要使用的。那些无法由根部出发触及到的对象被标记为不再使用，稍后进行回收。<br>此算法可以分为两个阶段，一个是标记阶段（mark），一个是清除阶段(sweep)。</p>
+<ol>
+<li>标记阶段，垃圾回收器会从根对象开始遍历。每一个可以从根对象访问到的对象都会被添加一个标识，于是这个对象就被标识为可到达对象。</li>
+<li>清除阶段，垃圾回收器会对堆内存从头到尾进行线性遍历，如果发现有对象没有被标识为可到达对象，那么就将此对象占用的内存回收，并且将原来标记为可到达对象的标识清除，以便进行下一次垃圾回收操作。</li>
+</ol>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/swip.png" alt="markdown"></p>
+<p>在标记阶段，从根对象1可以访问到B，从B又可以访问到E，那么B和E都是可到达对象，同样的道理，F、G、J和K都是可到达对象。</p>
+<p>在回收阶段，所有未标记为可到达的对象都会被垃圾回收器回收。</p>
+<p><strong>何时开始垃圾回收?</strong></p>
+<p>通常来说，在使用标记清除算法时，未引用对象并不会被立即回收。取而代之的做法是，垃圾对象将一直累计到内存耗尽为止。当内存耗尽时，程序将会被挂起，垃圾回收开始执行。</p>
+<p>补充: 从2012年起，所有现代浏览器都使用了标记-清除垃圾回收算法。所有对JavaScript垃圾回收算法的改进都是基于标记-清除算法的改进，并没有改进标记-清除算法本身和它对“对象是否不再需要”的简化定义。</p>
+<p><strong>标记清除算法缺陷</strong></p>
+<ul>
+<li><p>那些无法从根对象查询到的对象都将被清除</p>
+</li>
+<li><p>垃圾收集后有可能会造成大量的内存碎片，像上面的图片所示，垃圾收集后内存中存在三个内存碎片，假设一个方格代表1个单位的内存，如果有一个对象需要占用3个内存单位的话，那么就会导致Mutator一直处于暂停状态，而Collector一直在尝试进行垃圾收集，直到Out of Memory</p>
+</li>
+</ul>
+<h2 id="Chrome-V8-垃圾回收算法"><a href="#Chrome-V8-垃圾回收算法" class="headerlink" title="Chrome V8 垃圾回收算法"></a>Chrome V8 垃圾回收算法</h2><p>Chrome 浏览器所使用的 V8 引擎就是采用的分代回收策略。目的是通过区分「临时」与「持久」对象；多回收「临时对象区」（新生代younggeneration），少回收「持久对象区」（老生代 tenured generation），减少每次需遍历的对象，从而减少每次GC的耗时。</p>
+<p>V8的内存分代:</p>
+<p>在V8中，主要将内存分为新生代和老生代，新生代内存 存储的为存活时间较短的对象，老生代内存 存储的为存活时间较长或常驻内存的对象，如下图：</p>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/laji.png" alt="markdown"></p>
+<h3 id="V8新生代算法（Scavenge）"><a href="#V8新生代算法（Scavenge）" class="headerlink" title="V8新生代算法（Scavenge）"></a>V8新生代算法（Scavenge）</h3><p>在分代基础上，新生代中的对象主要通过Scavenge算法进行垃圾回收。在Scavenge的具体实现中，主要采用了Cheney算法<br>Cheney算法是一种采用复制的方式实现的垃圾回收算法。</p>
+<p>它将堆内存一分为二，每一部分空间称为semispace。在这两个semispace空间中，只有一个处于使用中，另一个处于闲置状态。处于使用状态的semispace空间称为From空间，处于闲置状态的空间称为To空间。</p>
+<p>当我们分配对象时，先是在From空间中进行分配。当开始进行垃圾回收时，会检查From空间中的存活对象，这些存活对象将被复制到To空间中，而(From空间内的)非存活对象占用的空间将会被释放。完成复制后，From空间和To空间的角色发生对换(即以前的From空间释放后变为To;To空间在复制存活的对象后,变为From空间)。简而言之，在垃圾回收过程中，就是通过将存活对象在两个semispace空间之间进行复制。</p>
+<p>Scavenge的缺点:<br>只能使用堆内存中的一半，这是由划分空间和复制机制所决定的。</p>
+<p>Scavenge的优点:<br>Scavenge由于只复制存活的对象，并且对于生命周期短的场景存活对象只占少部分，所以它在时间效率上有优异的表现。 </p>
+<p><strong>Scavenge是典型的牺牲空间换取时间的算法</strong>， 所以无法大规模地应用到所有的垃圾回收中。但可以发现，Scavenge非常适合应用在新生代中，因为新生代中对象的生命周期较短，恰恰适合这个算法。</p>
+<h3 id="V8老生代算法（Mark-Sweep-标记清除-amp-amp-Mark-Compact-标记管理）"><a href="#V8老生代算法（Mark-Sweep-标记清除-amp-amp-Mark-Compact-标记管理）" class="headerlink" title="V8老生代算法（Mark-Sweep 标记清除 &amp;&amp; Mark-Compact 标记管理）"></a>V8老生代算法（Mark-Sweep 标记清除 &amp;&amp; Mark-Compact 标记管理）</h3><p>对于老生代中的对象，由于存活对象占较大比重，再采用Scavenge的方式会有两个问题：一个是存活对象较多，复制存活对象的效率将会很低；另一个问题依然是浪费一半空间的问题。为此，V8在老生代中主要采用Mark-Sweep和Mark-Compact相结合的方式进行垃圾回收。</p>
+<h4 id="Mark-Sweep"><a href="#Mark-Sweep" class="headerlink" title="Mark-Sweep:"></a>Mark-Sweep:</h4><p>Mark-Sweep是标记清除的意思，它分为标记和清除两个阶段。与Scavenge相比，Mark-Sweep并不将内存空间划分为两半，所以不存在浪费一半空间的行为。与Scavenge复制活着的对象不同，Mark-Sweep在标记阶段遍历堆中所有对象，并标记活着的对象，在随后的清除阶段中，只清除没有被标记的对象。 可以看出，Scavenge中只复制活着的对象，而Mark-Sweep只清理死亡对象。 活对象在新生代中只占较小部分，死对象在老生代中只占较小部分，这是两种回收方式能高效处理的原因。</p>
+<p>下图为Mark-Sweep在老生代空间中标记的示意图，黑色部分标记为死亡对象</p>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/old.png" alt="markdown"></p>
+<p>Mark-Sweep最大的问题:</p>
+<p>在进行一次标记清除回收后，<strong>内存空间会出现不连续的状态。这种内存碎片会对后续的内存分配造成问题，因为很可能出现需要分配一个大对象的情况，这时所有的碎片空间都无法完成此次分配，就会提前触发垃圾回收，而这次回收是不必要的。</strong>(注意理解这句话,不要把内存想象成液体.而是固体,就像一个个散乱排列的麻将,需要进行排序处理–即后面要讲的 Mark-Compact)</p>
+<h4 id="Mark-Compact"><a href="#Mark-Compact" class="headerlink" title="Mark-Compact:"></a>Mark-Compact:</h4><p>为了解决Mark-Sweep的内存碎片问题，Mark-Compact被提出来。Mark-Compact是标记整理的意思，是在Mark-Sweep的基础上演变而来的。它们的差别在于对象在标记为死亡后，<strong>在整理的过程中，将活着的对象往一端移动，移动完成后，直接清理掉边界外的内存。</strong>下图为Mark-Compact完成标记并移动存活对象后的示意图，白色格子为存活对象，深色格子为死亡对象，浅色格子为存活对象移动后留下的空洞。</p>
+<h3 id="Mark-Sweep、Mark-Compact、Scavenge三种主要垃圾回收算法的简单对比"><a href="#Mark-Sweep、Mark-Compact、Scavenge三种主要垃圾回收算法的简单对比" class="headerlink" title="Mark-Sweep、Mark-Compact、Scavenge三种主要垃圾回收算法的简单对比"></a>Mark-Sweep、Mark-Compact、Scavenge三种主要垃圾回收算法的简单对比</h3><p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/duibi.png" alt="markdown"></p>
+<p>从表格上看，Mark-Sweep和Mark-Compact之间，由于Mark-Compact需要移动对象，所以它的执行速度不可能很快，所以在取舍上，V8主要使用Mark-Sweep，<strong>在空间不足以对从新生代中晋升过来的对象进行分配时才使用Mark-Compact。</strong></p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.jianshu.com/p/21a16d44f150" target="_blank" rel="noopener">前端基础进阶（四）：详细图解作用域链与闭包</a><br><a href="https://juejin.im/post/5c6bba32f265da2db07382cf" target="_blank" rel="noopener">前端面试查漏补缺–(二) 垃圾回收机制</a><br><a href="https://www.jianshu.com/p/cc79f22b99fe" target="_blank" rel="noopener">JS 作用域与作用域链</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/vue/v-model的简单实现原理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2338,157 +2583,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/24/css/CSS预处理器/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/24/css/CSS预处理器/" itemprop="url">CSS预处理器</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-24T14:19:35+08:00">
-                2019-04-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="CSS预处理器"><a href="#CSS预处理器" class="headerlink" title="CSS预处理器"></a>CSS预处理器</h1><p>CSS预处理器主要有以下三个比较流行。sass、less和stylus。在vue项目中的使用方法，就是安装对应处理器的对应loader就可以了。<br>接下来讲一讲预处理器的几大特性。由于本人习惯于sass,至于less的语法其实和sass差不多，stylus那个复杂的写法第一次看到后直接劝退，所以下文主要是针对sass而言的。</p>
-<h2 id="1、节点可以嵌套，对父子级元素一目了然"><a href="#1、节点可以嵌套，对父子级元素一目了然" class="headerlink" title="1、节点可以嵌套，对父子级元素一目了然"></a>1、节点可以嵌套，对父子级元素一目了然</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">//传统写法</span><br><span class="line"><span class="selector-class">.parent</span> &#123;</span><br><span class="line">    <span class="attribute">margin</span>:<span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">    <span class="attribute">padding</span>:<span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">a</span>&#123;</span><br><span class="line">    <span class="attribute">font-size</span>:<span class="number">16px</span>;</span><br><span class="line">&#125;</span><br><span class="line">//sass</span><br><span class="line"><span class="selector-class">.parent</span>&#123;</span><br><span class="line">    margin-10px;</span><br><span class="line">        <span class="selector-class">.child</span>&#123;</span><br><span class="line">            <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">            a&#123;</span><br><span class="line">                <span class="selector-tag">font-size</span>: 16<span class="selector-tag">px</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="2、可以声明变量"><a href="#2、可以声明变量" class="headerlink" title="2、可以声明变量"></a>2、可以声明变量</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">//通常可以给网站的基础变量（基础字体、主题色调等）赋值一个变量，然后样式中调用这个变量就可以了。</span><br><span class="line">//sass中变量的声明必须是一$号开头的</span><br><span class="line">    $mainColor: #233233;</span><br><span class="line">    $mainFont: 12px red;</span><br><span class="line"></span><br><span class="line">    <span class="selector-class">.header</span>&#123;</span><br><span class="line">        <span class="attribute">background</span>: $mainColor;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="3、使用Mixin，提高可重用性"><a href="#3、使用Mixin，提高可重用性" class="headerlink" title="3、使用Mixin，提高可重用性"></a>3、使用Mixin，提高可重用性</h2><p>通过@mixin加名称的方式就可以定义一个Mixins模块，在模块内你可以添加任何你想重复使用的样式。(比如清除浮动)</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">mixin</span> button &#123;  </span><br><span class="line">    <span class="selector-tag">font-size</span>: 1<span class="selector-tag">em</span>;  </span><br><span class="line">    <span class="selector-tag">padding</span>: 0<span class="selector-class">.5em</span> 1<span class="selector-class">.0em</span>;  </span><br><span class="line">    <span class="selector-tag">text-decoration</span>: <span class="selector-tag">none</span>;  </span><br><span class="line">    <span class="selector-tag">color</span>: <span class="selector-id">#fff</span>;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//使用@include引入</span><br><span class="line"><span class="selector-class">.button-green</span> &#123;  </span><br><span class="line">    @include button;  </span><br><span class="line">    <span class="selector-tag">background-color</span>: <span class="selector-tag">green</span>;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//解析之后的样式</span><br><span class="line"><span class="selector-class">.button-green</span> &#123;  </span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">1em</span>;  </span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0.5em</span> <span class="number">1.0em</span>;  </span><br><span class="line">    <span class="attribute">text-decoration</span>: none;  </span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#fff</span>;  </span><br><span class="line">    <span class="attribute">background-color</span>: green;  </span><br><span class="line">&#125;</span><br><span class="line">//mixin另一个强大的地方是还可以接收参数！！无敌，定义一个全局的变量之后，就不必每次都去赋值了~~~</span><br><span class="line"></span><br><span class="line">$background: red;</span><br><span class="line">@<span class="keyword">mixin</span> button($background) &#123;  </span><br><span class="line">    <span class="selector-tag">font-size</span>: 1<span class="selector-tag">em</span>;  </span><br><span class="line">    <span class="selector-tag">padding</span>: 0<span class="selector-class">.5em</span> 1<span class="selector-class">.0em</span>;  </span><br><span class="line">    <span class="selector-tag">text-decoration</span>: <span class="selector-tag">none</span>;  </span><br><span class="line">    <span class="selector-tag">color</span>: <span class="selector-id">#fff</span>;  </span><br><span class="line">    background: $background;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="4、-extend继承选择器"><a href="#4、-extend继承选择器" class="headerlink" title="4、 @extend继承选择器"></a>4、 @extend继承选择器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">　　.a1 &#123;</span><br><span class="line">　　　　color: blue;</span><br><span class="line">　　&#125;</span><br><span class="line">　　.a2 &#123;</span><br><span class="line">　　　　@extend .a1;</span><br><span class="line">　　　　font-size: 12px;</span><br><span class="line">　　&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="5、-function函数的功能"><a href="#5、-function函数的功能" class="headerlink" title="5、@function函数的功能"></a>5、@function函数的功能</h2><p>使用 @function+函数名称，每个函数都需要有返回值的内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">　　@function du($r) &#123;</span><br><span class="line">　　　　@return $r*2</span><br><span class="line">　　&#125;</span><br><span class="line"></span><br><span class="line">　　.a8 &#123;</span><br><span class="line">　　　　border: solid #&#123;du(2)&#125;px red;</span><br><span class="line">　　&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="6、引用父元素-amp-：在编译时，-amp-将被替换成父选择符"><a href="#6、引用父元素-amp-：在编译时，-amp-将被替换成父选择符" class="headerlink" title="6、引用父元素&amp;：在编译时，&amp;将被替换成父选择符"></a>6、引用父元素&amp;：在编译时，&amp;将被替换成父选择符</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">　a &#123;</span><br><span class="line">　　　font-size: 20px;</span><br><span class="line">　　　text-decoration: none;</span><br><span class="line">　　　&amp;:hover &#123;</span><br><span class="line">　　　　　text-decoration: underline;</span><br><span class="line">　　　&#125;</span><br><span class="line">　&#125;</span><br><span class="line">//编译之后</span><br><span class="line">　a &#123;</span><br><span class="line">　　　font-size: 20px;</span><br><span class="line">　　　text-decoration: none;</span><br><span class="line">　　&#125;</span><br><span class="line">　a:hover &#123;</span><br><span class="line">　　　text-decoration: underline;</span><br><span class="line">　　&#125;</span><br></pre></td></tr></table></figure>
-<p>以上算是sass中比较常见的用法吧。得益于sass，css的编写不再那样千篇一律。而scss则是sass的最新语法，完全兼容css，如果写习惯了css，可能不太习惯于那种严格的缩进式语法，相比其他几种，scss更适合我。。。。。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2539,7 +2633,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
