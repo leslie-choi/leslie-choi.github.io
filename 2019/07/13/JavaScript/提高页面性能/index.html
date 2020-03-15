@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。  content ⽅⾯     减少 HTTP 请求：合并⽂件、 CSS 精灵、 inline Image  减少 DNS 查询： DNS 缓存、将资源分布到恰当数量的主机名  减少 DOM 元素数量   Server ⽅⾯  使⽤ CDN 配置 ETag 对组件使⽤ Gzip 压缩   Cookie ⽅⾯">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-23T08:50:43.369Z">
+<meta property="og:updated_time" content="2020-03-08T16:06:40.714Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="提高页面性能">
 <meta name="twitter:description" content="我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。  content ⽅⾯     减少 HTTP 请求：合并⽂件、 CSS 精灵、 inline Image  减少 DNS 查询： DNS 缓存、将资源分布到恰当数量的主机名  减少 DOM 元素数量   Server ⽅⾯  使⽤ CDN 配置 ETag 对组件使⽤ Gzip 压缩   Cookie ⽅⾯">
@@ -373,10 +373,11 @@
 <ol start="2">
 <li>异步加载的方式</li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">defer &lt;script src=<span class="string">"defer.js"</span> defer&gt; &lt;/script&gt;   </span><br><span class="line"><span class="keyword">async</span> &lt;script src=<span class="string">"defer.js"</span> <span class="keyword">async</span>&gt; &lt;/script&gt;</span><br><span class="line"><span class="comment">//第三种方法，动态创建 script ，插⼊到 DOM 中，加载完毕后 callBack</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">defer &lt;script src=<span class="string">"defer.js"</span> defer&gt; <span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span>   </span><br><span class="line"><span class="keyword">async</span> &lt;script src=<span class="string">"defer.js"</span> <span class="keyword">async</span>&gt; <span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="comment">//第三种方法，动态创建 script ，插⼊到 DOM 中，加载完毕后 callBack</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>defer是在HTML渲染完之后（DOM结构完全生成，以及其他脚本执行完成之后）才会执行，如果是多个，则按照加载的顺序执行，优先级比async高</li>
 <li>async是在下载完脚本之后立即执行，渲染引擎会中断，执行完脚本之后才会继续渲染，如果是多个，执行顺序和加载顺序无关</li>
+<li>直接使用src方式引入JS会阻塞页面的渲染</li>
 </ul>
 <h2 id="解决异步加载脚本的问题"><a href="#解决异步加载脚本的问题" class="headerlink" title="解决异步加载脚本的问题"></a>解决异步加载脚本的问题</h2><p>如何处理加载过程中这些脚本的互相依赖关系，就成了实现异步加载过程中所需要考虑的问题。一方面，对于页面中那些独立的脚本，如用户统计等插件就可以放心大胆地使用异步加载。而另一方面，对于那些确实需要处理依赖关系的脚本，业界已经有很成熟的解决方案了。如采用AMD规范的RequireJS,CMD规范的seaJS，或者使用ES6中的模块化开发。另一方面，也可以使用promise技术来实现处理异步脚本加载过程中de的依赖问题：</p>
 <p>针对每个脚本依赖都会创建一个promise对象来管理其状态。采用动态插入脚本的方式来管理脚本，然后利用脚本onload和onreadystatechange(兼容性处理)事件来监听脚本是否加载完成。一旦加载完毕，就会触发promise的resovle方法。最后，针对依赖的处理，是promise的all方法，这个方法只有在所有promise对象都resolved的时候才会触发resolve方法，这样一来，我们就可以确保在执行回调之前，所有依赖的脚本都已经加载并执行完毕。</p>
@@ -439,7 +440,23 @@
 </li>
 </ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"preload"</span> <span class="attr">href</span>=<span class="string">"http://example.com"</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>预加载可以⼀定程度上降低⾸屏的加载时间，因为可以将⼀些不影响⾸屏但重 要的⽂件延后加载，唯⼀缺点就是兼容性不好</p>
+<p>预加载可以⼀定程度上降低⾸屏的加载时间，因为可以将⼀些不影响⾸屏但重要的⽂件延后加载，唯⼀缺点就是兼容性不好</p>
+<h2 id="图片预加载"><a href="#图片预加载" class="headerlink" title="图片预加载"></a>图片预加载</h2><ol>
+<li>使用 display:none</li>
+</ol>
+<p>给图片加上这个属性之后，图片不会再页面中显示，但是网络请求已经将图片加载到缓存里面了，等到需要使用的时候，再使用回调函数从缓存里面获取。</p>
+<ol start="2">
+<li>new Image</li>
+</ol>
+<p>使用new Image的方式新建一个image 对象，然后再为这个对象绑定一个src，当对应的js代码被执行之后，图片也会被下载下来，等到需要使用的时候，再使用回调函数从缓存里面获取。</p>
+<ol start="3">
+<li>使用XMLRequest 对象进行图片的预加载</li>
+</ol>
+<p>优点：能够更好地对预加载过程进行控制</p>
+<p>缺点：存在跨域问题</p>
+<ol start="4">
+<li>使用preloader 库</li>
+</ol>
 <h1 id="预渲染"><a href="#预渲染" class="headerlink" title="预渲染"></a>预渲染</h1><p>可以通过预渲染将下载的⽂件预先在后台渲染，可以使⽤以下代码开启预渲染</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"prerender"</span> <span class="attr">href</span>=<span class="string">"http://poetries.com"</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>预渲染虽然可以提⾼⻚⾯的加载速度，但是要确保该⻚⾯百分百会被⽤户在之后打开，否则就⽩⽩浪费资源去渲染</p>
@@ -447,7 +464,9 @@
 <h2 id="懒加载"><a href="#懒加载" class="headerlink" title="懒加载"></a>懒加载</h2><ul>
 <li>懒加载就是将不关键的资源延后加载</li>
 </ul>
-<p>懒加载的原理就是只加载⾃定义区域（通常是可视区域，但也可以是即将进⼊ 可视区域）内需要加载的东⻄。对于图⽚来说，先设置图⽚标签的 src 属性 为⼀张占位图，将真实的图⽚资源放⼊⼀个⾃定义属性中，当进⼊⾃定义区域 时，就将⾃定义属性替换为 src 属性，这样图⽚就会去下载资源，实现了图⽚懒加载</p>
+<p>如果img资源和相关的静态资源放在同一个cdn节点，但是img标签一般都是在script 之上的，而浏览器对同一个地址会有并发的限制，这样会导致js文件执行延迟。</p>
+<p>懒加载的原理就是只加载⾃定义区域（通常监听scroll事件，判断当前是否是可视区域，但也可以是即将进⼊ 可视区域）内需要加载的东⻄。对于图⽚来说，先设置图⽚标签的 src 属性 为⼀张占位图，将真实的图⽚资源放⼊⼀个⾃定义属性中，当进⼊⾃定义区域 时，就将⾃定义属性替换为 src 属性，这样图⽚就会去下载资源，实现了图⽚懒加载。</p>
+<p>PS：实现原理，主要通过判断图片顶部距离屏幕顶部的距离（offsetTop）是否小于屏幕的高度（document.documentElement.clientHeight），如果是的话，则说明已经进入了可视区域。</p>
 <ul>
 <li>懒加载不仅可以⽤于图⽚，也可以使⽤在别的资源上。⽐如进⼊可视区域才开始播放视频等</li>
 </ul>
@@ -527,7 +546,7 @@
 <h1 id="图片加载优化"><a href="#图片加载优化" class="headerlink" title="图片加载优化"></a>图片加载优化</h1><ol>
 <li>不⽤图⽚。很多时候会使⽤到很多修饰类图⽚，其实这类修饰图⽚完全可以⽤ CSS 去代替（或者使用阿里的iconfont）</li>
 <li>对于移动端来说，屏幕宽度就那么点，完全没有必要去加载原图浪费带宽。⼀般图⽚都⽤ CDN 加载，可以计算出适配屏幕的宽度，然后去请求相应裁剪好的图⽚ </li>
-<li>⼩图使⽤ base64 格式 </li>
+<li>⼩图使⽤ base64 格式将图片内嵌到html 中，减少网站HTTP 的请求数量</li>
 <li>将多个图标⽂件整合到⼀张图⽚中（雪碧图）</li>
 <li>选择正确的图⽚格式： </li>
 </ol>
@@ -677,7 +696,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -732,7 +751,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#资源压缩合并，减少HTTP请求"><span class="nav-number">1.</span> <span class="nav-text">资源压缩合并，减少HTTP请求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#非核心代码异步加载"><span class="nav-number">2.</span> <span class="nav-text">非核心代码异步加载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决异步加载脚本的问题"><span class="nav-number">2.1.</span> <span class="nav-text">解决异步加载脚本的问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理"><span class="nav-number">3.</span> <span class="nav-text">利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#利用cdn"><span class="nav-number">4.</span> <span class="nav-text">利用cdn</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#预解析DNS"><span class="nav-number">5.</span> <span class="nav-text">预解析DNS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#预加载"><span class="nav-number">6.</span> <span class="nav-text">预加载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#预渲染"><span class="nav-number">7.</span> <span class="nav-text">预渲染</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#懒执⾏与懒加载"><span class="nav-number">8.</span> <span class="nav-text">懒执⾏与懒加载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#懒执⾏"><span class="nav-number">8.1.</span> <span class="nav-text">懒执⾏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#懒加载"><span class="nav-number">8.2.</span> <span class="nav-text">懒加载</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用SSR（server-side-render）服务端渲染，数据直接输出到HTML中"><span class="nav-number">9.</span> <span class="nav-text">使用SSR（server side render）服务端渲染，数据直接输出到HTML中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#渲染优化"><span class="nav-number">10.</span> <span class="nav-text">渲染优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事件节流和防抖"><span class="nav-number">11.</span> <span class="nav-text">事件节流和防抖</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用DOMContentLoaded，尽早执行操作"><span class="nav-number">12.</span> <span class="nav-text">使用DOMContentLoaded，尽早执行操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#减少对DOM的操作"><span class="nav-number">13.</span> <span class="nav-text">减少对DOM的操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#按需加载"><span class="nav-number">14.</span> <span class="nav-text">按需加载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#按需加载组件"><span class="nav-number">14.1.</span> <span class="nav-text">按需加载组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按需加载路由"><span class="nav-number">14.2.</span> <span class="nav-text">按需加载路由</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#前端SEO优化"><span class="nav-number">15.</span> <span class="nav-text">前端SEO优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图片加载优化"><span class="nav-number">16.</span> <span class="nav-text">图片加载优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他优化手段"><span class="nav-number">17.</span> <span class="nav-text">其他优化手段</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#利用多个域名存储网站资源"><span class="nav-number">17.1.</span> <span class="nav-text">利用多个域名存储网站资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#尽量少使用iframe"><span class="nav-number">17.2.</span> <span class="nav-text">尽量少使用iframe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编程风格优化"><span class="nav-number">17.3.</span> <span class="nav-text">编程风格优化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文章："><span class="nav-number">18.</span> <span class="nav-text">参考文章：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#资源压缩合并，减少HTTP请求"><span class="nav-number">1.</span> <span class="nav-text">资源压缩合并，减少HTTP请求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#非核心代码异步加载"><span class="nav-number">2.</span> <span class="nav-text">非核心代码异步加载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决异步加载脚本的问题"><span class="nav-number">2.1.</span> <span class="nav-text">解决异步加载脚本的问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理"><span class="nav-number">3.</span> <span class="nav-text">利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#利用cdn"><span class="nav-number">4.</span> <span class="nav-text">利用cdn</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#预解析DNS"><span class="nav-number">5.</span> <span class="nav-text">预解析DNS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#预加载"><span class="nav-number">6.</span> <span class="nav-text">预加载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#图片预加载"><span class="nav-number">6.1.</span> <span class="nav-text">图片预加载</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#预渲染"><span class="nav-number">7.</span> <span class="nav-text">预渲染</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#懒执⾏与懒加载"><span class="nav-number">8.</span> <span class="nav-text">懒执⾏与懒加载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#懒执⾏"><span class="nav-number">8.1.</span> <span class="nav-text">懒执⾏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#懒加载"><span class="nav-number">8.2.</span> <span class="nav-text">懒加载</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用SSR（server-side-render）服务端渲染，数据直接输出到HTML中"><span class="nav-number">9.</span> <span class="nav-text">使用SSR（server side render）服务端渲染，数据直接输出到HTML中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#渲染优化"><span class="nav-number">10.</span> <span class="nav-text">渲染优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事件节流和防抖"><span class="nav-number">11.</span> <span class="nav-text">事件节流和防抖</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用DOMContentLoaded，尽早执行操作"><span class="nav-number">12.</span> <span class="nav-text">使用DOMContentLoaded，尽早执行操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#减少对DOM的操作"><span class="nav-number">13.</span> <span class="nav-text">减少对DOM的操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#按需加载"><span class="nav-number">14.</span> <span class="nav-text">按需加载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#按需加载组件"><span class="nav-number">14.1.</span> <span class="nav-text">按需加载组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按需加载路由"><span class="nav-number">14.2.</span> <span class="nav-text">按需加载路由</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#前端SEO优化"><span class="nav-number">15.</span> <span class="nav-text">前端SEO优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图片加载优化"><span class="nav-number">16.</span> <span class="nav-text">图片加载优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他优化手段"><span class="nav-number">17.</span> <span class="nav-text">其他优化手段</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#利用多个域名存储网站资源"><span class="nav-number">17.1.</span> <span class="nav-text">利用多个域名存储网站资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#尽量少使用iframe"><span class="nav-number">17.2.</span> <span class="nav-text">尽量少使用iframe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编程风格优化"><span class="nav-number">17.3.</span> <span class="nav-text">编程风格优化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文章："><span class="nav-number">18.</span> <span class="nav-text">参考文章：</span></a></li></ol></div>
             
 
           </div>

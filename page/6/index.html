@@ -229,6 +229,166 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/20/JavaScript/json/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/20/JavaScript/json/" itemprop="url">JSON数据格式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-20T13:22:43+08:00">
+                2019-01-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="JSON数据格式"><a href="#JSON数据格式" class="headerlink" title="JSON数据格式"></a>JSON数据格式</h1><p>emmmm。虽然很基础，但是作为js的一个子集（度娘也有文章说不是js的子集，但是这并不是重点），也是有必要将其单独提出来讲一下8。<br>JSON相比起XML格式的文档，优点就多了太多了。格式轻便，能够进行AJAX传输，可读性更高。。。</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>JSON 数据的书写格式是：名称/值对。<br>名称/值对包括字段名称（在双引号中），后面写一个冒号，然后是值：</p>
+<p>“name” : “吴彦祖”</p>
+<p>JSON的取值可以是<br>1、数字（整数或浮点数）<br>2、字符串（在双引号中）<br>3、逻辑值（true 或 false）<br>4、数组（在中括号中）<br>5、对象（在大括号中）<br>6、null</p>
+<p>一个简单的JSON对象：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"name"</span> : <span class="string">"蔡徐坤"</span>,</span><br><span class="line">    <span class="attr">"age"</span> : <span class="number">18</span>,</span><br><span class="line">    <span class="attr">"size"</span> : <span class="string">"5cm"</span>,</span><br><span class="line">    <span class="attr">"height"</span> : <span class="string">"160cm"</span>,</span><br><span class="line">    <span class="attr">"favorite"</span> : [</span><br><span class="line">        &#123;<span class="attr">"sport"</span>: <span class="string">"篮球"</span>,<span class="attr">"skills"</span>: <span class="string">"唱  跳 rap"</span>&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="JSON处理数据的主要方法"><a href="#JSON处理数据的主要方法" class="headerlink" title="JSON处理数据的主要方法"></a>JSON处理数据的主要方法</h2><h3 id="使用JSON-stringify转换成字符串。"><a href="#使用JSON-stringify转换成字符串。" class="headerlink" title="使用JSON.stringify转换成字符串。"></a>使用JSON.stringify转换成字符串。</h3><p>在向服务器发送数据时一般是字符串。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> stu = &#123;</span><br><span class="line">            <span class="string">"name"</span> : <span class="string">"蔡徐坤"</span>,</span><br><span class="line">            <span class="string">"age"</span> : <span class="number">18</span>,</span><br><span class="line">            <span class="string">"size"</span> : <span class="string">"5cm"</span>,</span><br><span class="line">            <span class="string">"height"</span> : <span class="string">"160cm"</span>,</span><br><span class="line">            <span class="string">"favorite"</span> : [</span><br><span class="line">                &#123;<span class="string">"sport"</span>: <span class="string">"篮球"</span>,<span class="string">"skills"</span>: <span class="string">"唱  跳 rap"</span>&#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line"><span class="keyword">var</span> cxk = <span class="built_in">JSON</span>.stringify(stu);</span><br><span class="line"><span class="built_in">console</span>.log(cxk);</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用-JSON-parse-方法将数据转换为-JavaScript-对象。"><a href="#使用-JSON-parse-方法将数据转换为-JavaScript-对象。" class="headerlink" title="使用 JSON.parse() 方法将数据转换为 JavaScript 对象。"></a>使用 JSON.parse() 方法将数据转换为 JavaScript 对象。</h3><p>续上。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cxk = <span class="built_in">JSON</span>.stringify(stu);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.parse(cxk));</span><br></pre></td></tr></table></figure>
+<p>PS:分别取出对象中的键和值<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> stu = &#123;</span><br><span class="line">		    <span class="string">"name"</span> : <span class="string">"蔡徐坤"</span>,</span><br><span class="line">		    <span class="string">"age"</span> : <span class="number">18</span>,</span><br><span class="line">		    <span class="string">"size"</span> : <span class="string">"5cm"</span>,</span><br><span class="line">		    <span class="string">"height"</span> : <span class="string">"160cm"</span>,</span><br><span class="line">		    <span class="string">"favorite"</span> : [</span><br><span class="line">		        &#123;<span class="string">"sport"</span>: <span class="string">"篮球"</span>,<span class="string">"skills"</span>: <span class="string">"唱  跳 rap"</span>&#125;</span><br><span class="line">		    ]</span><br><span class="line">		&#125;</span><br><span class="line">              </span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">in</span> stu)&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(key);</span><br><span class="line">	<span class="built_in">console</span>.log(stu[key]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="XML和JSON的区别"><a href="#XML和JSON的区别" class="headerlink" title="XML和JSON的区别"></a>XML和JSON的区别</h1><ol>
+<li><p>数据体积⽅⾯<br>JSON 相对 于XML 来讲，数据的体积⼩，传递的速度更快些。</p>
+</li>
+<li><p>数据交互⽅⾯<br>JSON 与 JavaScript 的交互更加⽅便，更容易解析处理，更好的数据交互</p>
+</li>
+<li><p>数据描述⽅⾯<br>JSON 对数据的描述性⽐ XML 较差</p>
+</li>
+<li><p>传输速度⽅⾯<br>JSON 的速度要远远快于 XML</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/01/java/Struts2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1317,7 +1477,7 @@
 <li>保护数据完整性：防止传输的内容被中间人冒充或者篡改<br><img src="images/https.png" alt="https"><h3 id="1）、SSL和TLS"><a href="#1）、SSL和TLS" class="headerlink" title="1）、SSL和TLS"></a>1）、SSL和TLS</h3></li>
 </ol>
 <p>SSL(Secure Sockets Layer 安全套接层),及其继任者传输层安全（Transport Layer Security，TLS）是为网络通信提供安全及数据完整性的一种安全协议。TLS与SSL在传输层对网络连接进行加密</p>
-<h2 id="4、TCP协议"><a href="#4、TCP协议" class="headerlink" title="4、TCP协议"></a>4、TCP协议</h2><p><img src="/2018/10/21/java/my-first-blog/TCP.png" alt="TCP"><br>互联网由一整套协议构成<br>图片说明：顶层协议是应用层协议 =&gt; TCP协议 =&gt; IP协议 =&gt; 以太网协议</p>
+<h2 id="4、TCP协议"><a href="#4、TCP协议" class="headerlink" title="4、TCP协议"></a>4、TCP协议</h2><p><img src="images/TCP.png" alt="TCP"><br>互联网由一整套协议构成<br>图片说明：顶层协议是应用层协议 =&gt; TCP协议 =&gt; IP协议 =&gt; 以太网协议</p>
 <p>以太网协议：最底层的协议，可以解决子网内部的点对点通讯。</p>
 <p>IP协议：IP协议，可以解决多个局域网之间互通，可以连接多个局域网，定义了一套自己的地址规则，实现了路由的功能，允许某个局域网的A主机，向另一个局域网的B主机发送消息。（PS：路由器就是基于IP协议。所以局域网之间要靠路由器连接）</p>
 <p>题外话：路由原理就是路由器内部有一张路由表，规定A段IP地址走出口一，B段IP地址走出口二。。。根据这样实现了数据包的转发。</p>
@@ -1354,7 +1514,7 @@
 <h3 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h3><p>内容主要包括<strong>名字、值、过期时间、路径和域</strong>。路径与域一起构成cookie的作用范围。若不设置时间，则表示这个cookie的生命期为浏览器会话期间，关闭浏览器窗口，cookie就会消失。这种生命期为浏览器会话期的cookie被称为会话cookie。所以会话cookie是保存在内存中，如果设置了过期时间，那么cookie就会保存在磁盘里。</p>
 <h3 id="session"><a href="#session" class="headerlink" title="session"></a>session</h3><p>在WEB开发中，服务器可以为每个用户浏览器创建一个会话对象（session对象），注意：一个浏览器独占一个session对象(默认情况下)。因此，在需要保存用户数据时，服务器程序可以把用户数据写到用户浏览器独占的session中，当用户使用浏览器访问其它程序时，其它程序可以从用户的session中取出该用户的数据，为用户服务。</p>
 <h3 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h3><p>在HTML5中，新加入了一个localStorage特性，这个特性主要是用来作为本地存储来使用的，解决了cookie存储空间不足的问题(cookie中每条cookie的存储空间为4k)，<strong>localStorage中一般浏览器支持的是5M大小</strong>，这个在不同的浏览器中localStorage会有所不同。</p>
-<h3 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h3><p>sessionStorage用于本地存储一个会话（session）中的数据，这些数据只有在同一个会话中的页面才能访问并且当会话结束后数据也随之销毁。因此sessionStorage不是一种持久化的本地存储，仅仅是会话级别的存储。</p>
+<h3 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h3><p>sessionStorage用于本地存储一个会话（session）中的数据，这些数据只有在同一个会话中的页面才能访问并且当会话结束后数据也随之销毁。因此sessionStorage不是一种持久化的本地存储，仅仅是会话级别的存储。（能够保证当前会话或者表单信息不丢失，比如刷新页面不丢失表单数据，填写多个表单可以返回上一步查看数据等）</p>
 <h2 id="session和cookie的主要区别"><a href="#session和cookie的主要区别" class="headerlink" title="session和cookie的主要区别"></a>session和cookie的主要区别</h2><ul>
 <li>Cookie是把用户的数据写给用户的浏览器。</li>
 <li>Session技术把用户的数据写到用户独占的session中。</li>
@@ -1366,10 +1526,14 @@
 </ul>
 <h2 id="sessionStorage、localStorage和cookie的区别"><a href="#sessionStorage、localStorage和cookie的区别" class="headerlink" title="sessionStorage、localStorage和cookie的区别"></a><strong>sessionStorage、localStorage和cookie的区别</strong></h2><p>共同点：都是保存在浏览器端、且同源的<br>区别： </p>
 <ol>
-<li>cookie数据始终在同源的http请求中携带（即使不需要），即cookie在浏览器和服务器间来回传递，而sessionStorage和localStorage不会自动把数据发送给服务器，仅在本地保存。cookie数据还有路径（path）的概念，可以限制cookie只属于某个路径下 </li>
-<li>存储大小限制也不同，cookie数据不能超过4K，同时因为每次http请求都会携带cookie、所以cookie只适合保存很小的数据，如会话标识。sessionStorage和localStorage虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大 </li>
-<li>数据有效期不同，sessionStorage：仅在当前浏览器窗口关闭之前有效；localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据；cookie：只在设置的cookie过期时间之前有效，即使窗口关闭或浏览器关闭 </li>
-<li>作用域不同，<strong>sessionStorage不在不同的浏览器窗口中共享</strong>，即使是同一个页面；localstorage在所有同源窗口中都是共享的；cookie也是在所有同源窗口中都是共享的</li>
+<li><p>cookie数据始终在同源的http请求中携带（即使不需要），即cookie在浏览器和服务器间来回传递，而sessionStorage和localStorage不会自动把数据发送给服务器，仅在本地保存。cookie数据还有路径（path）的概念，可以限制cookie只属于某个路径下 </p>
+</li>
+<li><p>存储大小限制也不同，cookie数据不能超过4K，同时因为每次http请求都会携带cookie、所以cookie只适合保存很小的数据，如会话标识。sessionStorage和localStorage虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大 </p>
+</li>
+<li><p>数据有效期不同，sessionStorage：仅在当前浏览器窗口关闭之前有效；localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据；cookie：只在设置的cookie过期时间之前有效，即使窗口关闭或浏览器关闭 </p>
+</li>
+<li><p>作用域不同，<strong>sessionStorage不在不同的浏览器窗口中共享</strong>，即使是同一个页面；localstorage在所有同源窗口中都是共享的；cookie也是在所有同源窗口中都是共享的</p>
+</li>
 </ol>
 
           
@@ -1456,7 +1620,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
