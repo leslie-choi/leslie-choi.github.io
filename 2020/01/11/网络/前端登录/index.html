@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="传统的登录方案http 是一种无状态的协议，也就是说它并不知道哪一个用户访问量了应用。针对 http 无状态的这样一个特点，解决的方法就是使用 cookie 记录用户的登录状态。   每当用户登录之后，如果登录成功，服务端就会生成一条记录，这个记录保存了一个 sessionId，可以用来判断当前的用户是哪一个，然后再将这个 sessionId 发送到客户端，客户端可以将这个 session ID">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-15T17:13:56.675Z">
+<meta property="og:updated_time" content="2020-03-15T17:35:22.873Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端登录">
 <meta name="twitter:description" content="传统的登录方案http 是一种无状态的协议，也就是说它并不知道哪一个用户访问量了应用。针对 http 无状态的这样一个特点，解决的方法就是使用 cookie 记录用户的登录状态。   每当用户登录之后，如果登录成功，服务端就会生成一条记录，这个记录保存了一个 sessionId，可以用来判断当前的用户是哪一个，然后再将这个 sessionId 发送到客户端，客户端可以将这个 session ID">
@@ -402,6 +402,79 @@
 <li>绝不要以明文形式显示或发送密码，即使是对密码的所有者也应该这样。如果你需要 “忘记密码” 的功能，可以随机生成一个新的 一次性的（这点很重要）密码，然后把这个密码发送给用户。</li>
 </ul>
 <h2 id="只要关闭浏览器-，session-真的就消失了？、"><a href="#只要关闭浏览器-，session-真的就消失了？、" class="headerlink" title="只要关闭浏览器 ，session 真的就消失了？、"></a>只要关闭浏览器 ，session 真的就消失了？、</h2><p>不对。对 session 来说，除非程序通知服务器删除一个 session，否则服务器会一直保留，程序一般都是在用户做 log off 的时候发个指令去删除 session。然而浏览器从来不会主动在关闭之前通知服务器它将要关闭，因此服务器根本不会有机会知道浏览器已经关闭，之所以会有这种错觉，是大部分 session 机制都使用会话 cookie 来保存 session id，而关闭浏览器后这个 session id 就消失了，再次连接服务器时也就无法找到原来的 session。如果服务器设置的 cookie 被保存在硬盘上，或者使用某种手段改写浏览器发出的 HTTP 请求头，把原来的 session id 发送给服务器，则再次打开浏览器仍然能够打开原来的 session。<strong>恰恰是由于关闭浏览器不会导致 session 被删除，迫使服务器为 session 设置了一个失效时间，当距离客户端上一次使用 session 的时间超过这个失效时间时，服务器就认为客户端已经停止了活动，才会把 session 删除以节省存储空间。</strong></p>
+<h1 id="单点登录"><a href="#单点登录" class="headerlink" title="单点登录"></a>单点登录</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>单点登录（Single Sign On），简称为 SSO，是目前比较流行的企业业务整合的解决方案之一。SSO的定义是在多个应用系统中，用户只需要登录一次就可以访问所有相互信任的应用系统。</p>
+<p>SSO一般都需要一个独立的认证中心（passport），子系统的登录均得通过passport，子系统本身将不参与登录操作，当一个系统成功登录以后，passport将会颁发一个令牌给各个子系统，子系统可以拿着令牌会获取各自的受保护资源，为了减少频繁认证，各个子系统在被passport授权以后，会建立一个局部会话，在一定时间内可以无需再次向passport发起认证。</p>
+<p>大概流程就是这样</p>
+<ul>
+<li><p>用户访问系统1的受保护资源，系统1发现用户未登录，跳转至sso认证中心，并将<strong>自己的地址</strong>作为参数</p>
+</li>
+<li><p>sso认证中心发现用户未登录，将用户引导至登录页面</p>
+</li>
+<li><p>用户输入用户名密码提交登录申请</p>
+</li>
+<li><p>sso认证中心校验用户信息，创建用户与sso认证中心之间的会话，称为全局会话，同时创建授权令牌</p>
+</li>
+<li><p>sso认证中心带着令牌跳转会最初的请求地址（系统1）</p>
+</li>
+<li><p>系统1拿到令牌，去sso认证中心校验令牌是否有效</p>
+</li>
+<li><p>sso认证中心校验令牌，返回有效，注册系统1</p>
+</li>
+<li><p>系统1使用该令牌创建与用户的会话，称为局部会话，返回受保护资源</p>
+</li>
+<li><p>用户访问系统2的受保护资源</p>
+</li>
+<li><p>系统2发现用户未登录，跳转至sso认证中心，并将自己的地址作为参数</p>
+</li>
+<li><p>sso认证中心发现用户已登录，跳转回系统2的地址，并附上令牌</p>
+</li>
+<li><p>系统2拿到令牌，去sso认证中心校验令牌是否有效</p>
+</li>
+<li><p>sso认证中心校验令牌，返回有效，注册系统2</p>
+</li>
+<li><p>系统2使用该令牌创建与用户的局部会话，返回受保护资源</p>
+</li>
+</ul>
+<p>用户登录成功之后，会与sso认证中心及各个子系统建立会话，用户与sso认证中心建立的会话称为全局会话，用户与各个子系统建立的会话称为局部会话，局部会话建立之后，用户访问子系统受保护资源将不再通过sso认证中心，全局会话与局部会话有如下约束关系</p>
+<ul>
+<li><p>局部会话存在，全局会话一定存在</p>
+</li>
+<li><p>全局会话存在，局部会话不一定存在</p>
+</li>
+<li><p>全局会话销毁，局部会话必须销毁</p>
+</li>
+</ul>
+<p>总结：</p>
+<ul>
+<li>SSO系统生成一个token，并将用户信息存到Redis中，并设置过期时间</li>
+<li>其他系统请求SSO系统进行登录，得到SSO返回的token，写到Cookie中</li>
+<li>每次请求时，Cookie都会带上，拦截器得到token，判断是否已经登录<br>（关于cookie跨域的问题，多个域名共享Cookie，在写到客户端的时候设置Cookie的domain。）</li>
+</ul>
+<h2 id="CAS原理"><a href="#CAS原理" class="headerlink" title="CAS原理"></a>CAS原理</h2><p>现在我们有两个系统，分别是 <code>www.java3y.com</code> 和 <code>www.java4y.com</code> ，一个SSO<code>www.sso.com</code></p>
+<p>首先，用户想要访问系统A <code>www.java3y.com</code>受限的资源(比如说购物车功能，购物车功能需要登录后才能访问)，系统A <code>www.java3y.com</code> 发现用户并没有登录，于是重定向到sso认证中心，并将自己的地址作为参数。请求的地址如下：</p>
+<p><code>www.sso.com?service=www.java3y.com</code></p>
+<p>sso认证中心发现用户未登录，将用户引导至登录页面，用户进行输入用户名和密码进行登录，用户与认证中心建立全局会话（生成一份Token，写到Cookie中，保存在浏览器上）</p>
+<p>随后，认证中心重定向回系统A，并把Token携带过去给系统A，重定向的地址如下：</p>
+<p><code>www.java3y.com?token=xxxxxxx</code></p>
+<p>接着，系统A去sso认证中心验证这个Token是否正确，如果正确，则系统A和用户建立局部会话（创建Session）。到此，系统A和用户已经是登录状态了。</p>
+<p>此时，用户想要访问系统B <code>www.java4y.com</code> 受限的资源(比如说订单功能，订单功能需要登录后才能访问)，系统B <code>www.java4y.com</code> 发现用户并没有登录，于是重定向到sso认证中心，并将自己的地址作为参数。请求的地址如下：</p>
+<p><code>www.sso.com?service=www.java4y.com</code></p>
+<p>注意，因为之前用户与认证中心<a href="http://www.sso.com已经建立了全局会话（当时已经把Cookie保存到浏览器上了），所以这次系统B重定向到认证中心" target="_blank" rel="noopener">www.sso.com已经建立了全局会话（当时已经把Cookie保存到浏览器上了），所以这次系统B重定向到认证中心</a> <code>www.sso.com</code> 是可以带上Cookie的。<br>认证中心根据带过来的Cookie发现已经与用户建立了全局会话了，认证中心重定向回系统B，并把Token携带过去给系统B，重定向的地址如下：</p>
+<p><code>www.java4y.com?token=xxxxxxx</code></p>
+<p>接着，系统B去sso认证中心验证这个Token是否正确，如果正确，则系统B和用户建立局部会话（创建Session）。到此，系统B和用户已经是登录状态了</p>
+<p>看到这里，其实SSO认证中心就类似一个中转站。</p>
+<h2 id="代码实现思路"><a href="#代码实现思路" class="headerlink" title="代码实现思路"></a>代码实现思路</h2><ol>
+<li><p>新建一个SSO的类,这个类有baseUrL的属性,因为每次验证都需要传过来一个地址</p>
+</li>
+<li><p>然后SSO类主要存在以下两个个方法</p>
+</li>
+</ol>
+<ul>
+<li><p>验证TGT(Ticket Grangting Ticket)是否有效,如果有效,则可以证明用户在CAS成功登录过(用来判断是否登陆过)</p>
+</li>
+<li><p>验证Service ticket(ST),务票据，服务的惟一标识码 , 由 CASServer 发出（ Http 传送），用户访问Service时，service发现用户没有ST，则要求用户去CAS获取ST.用户向CAS发出获取ST的请求，CAS发现用户有TGT，则签发一个ST，返回给用户。用户拿着ST去访问service，service拿ST去CAS验证，验证通过后，允许用户访问资源</p>
+</li>
+</ul>
 <h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://juejin.im/post/5e055d9ef265da33997a42cc" target="_blank" rel="noopener">傻傻分不清之 Cookie、Session、Token、JWT</a></p>
 
       
@@ -442,10 +515,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/03/02/前后端通信方式/backup/" rel="prev" title>
-                 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -522,7 +591,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -577,7 +646,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#传统的登录方案"><span class="nav-number">1.</span> <span class="nav-text">传统的登录方案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#token-登录验证"><span class="nav-number">2.</span> <span class="nav-text">token 登录验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jwt-登录验证"><span class="nav-number">3.</span> <span class="nav-text">jwt 登录验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见问题"><span class="nav-number">4.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-cookie-时需要考虑的问题"><span class="nav-number">4.1.</span> <span class="nav-text">使用 cookie 时需要考虑的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-session-时需要考虑的问题"><span class="nav-number">4.2.</span> <span class="nav-text">使用 session 时需要考虑的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-token-时需要考虑的问题"><span class="nav-number">4.3.</span> <span class="nav-text">使用 token 时需要考虑的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-JWT-时需要考虑的问题"><span class="nav-number">4.4.</span> <span class="nav-text">使用 JWT 时需要考虑的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用加密算法时需要考虑的问题"><span class="nav-number">4.5.</span> <span class="nav-text">使用加密算法时需要考虑的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#只要关闭浏览器-，session-真的就消失了？、"><span class="nav-number">4.6.</span> <span class="nav-text">只要关闭浏览器 ，session 真的就消失了？、</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文章"><span class="nav-number">5.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#传统的登录方案"><span class="nav-number">1.</span> <span class="nav-text">传统的登录方案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#token-登录验证"><span class="nav-number">2.</span> <span class="nav-text">token 登录验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jwt-登录验证"><span class="nav-number">3.</span> <span class="nav-text">jwt 登录验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见问题"><span class="nav-number">4.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-cookie-时需要考虑的问题"><span class="nav-number">4.1.</span> <span class="nav-text">使用 cookie 时需要考虑的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-session-时需要考虑的问题"><span class="nav-number">4.2.</span> <span class="nav-text">使用 session 时需要考虑的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-token-时需要考虑的问题"><span class="nav-number">4.3.</span> <span class="nav-text">使用 token 时需要考虑的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-JWT-时需要考虑的问题"><span class="nav-number">4.4.</span> <span class="nav-text">使用 JWT 时需要考虑的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用加密算法时需要考虑的问题"><span class="nav-number">4.5.</span> <span class="nav-text">使用加密算法时需要考虑的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#只要关闭浏览器-，session-真的就消失了？、"><span class="nav-number">4.6.</span> <span class="nav-text">只要关闭浏览器 ，session 真的就消失了？、</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单点登录"><span class="nav-number">5.</span> <span class="nav-text">单点登录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">5.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CAS原理"><span class="nav-number">5.2.</span> <span class="nav-text">CAS原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现思路"><span class="nav-number">5.3.</span> <span class="nav-text">代码实现思路</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文章"><span class="nav-number">6.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
             
 
           </div>
