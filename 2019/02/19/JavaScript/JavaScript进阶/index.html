@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="JavaScript高级写在前面：JavaScript高级，比入门的感觉会抽象很多。所以要结合实际案例还有画图来理解，才能够更加深刻。特别是原型和原型链，需要下点功夫，才能理解个35成，蛤蛤蛤。。。ok不膜了进入正题。 先来重新再认识一下JavaScript吧。JavaScript，其实是一门脚本、弱类型、轻量级的解释性语言。针对解释性语言，不同于编译性语言。编译性语言编写的程序，在执行之前需要有">
+<meta name="description" content="JavaScript高级先来重新再认识一下JavaScript吧。JavaScript，其实是一门脚本、弱类型、轻量级的解释性语言。针对解释性语言，不同于编译性语言。编译性语言编写的程序，在执行之前需要有一个专门的编译过程，把程序编译成机器语言的文件，比如exe。然后exe文件运行的时候，直接使用编译的结果就可以了，运行的时候不用再继续编译，所以执行效率高。具有独立性。而对于解释性语言，比如Jav">
 <meta name="keywords" content="Interview">
 <meta property="og:type" content="article">
 <meta property="og:title" content="javaScript高级（一）">
 <meta property="og:url" content="http://yoursite.com/2019/02/19/JavaScript/JavaScript进阶/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="JavaScript高级写在前面：JavaScript高级，比入门的感觉会抽象很多。所以要结合实际案例还有画图来理解，才能够更加深刻。特别是原型和原型链，需要下点功夫，才能理解个35成，蛤蛤蛤。。。ok不膜了进入正题。 先来重新再认识一下JavaScript吧。JavaScript，其实是一门脚本、弱类型、轻量级的解释性语言。针对解释性语言，不同于编译性语言。编译性语言编写的程序，在执行之前需要有">
+<meta property="og:description" content="JavaScript高级先来重新再认识一下JavaScript吧。JavaScript，其实是一门脚本、弱类型、轻量级的解释性语言。针对解释性语言，不同于编译性语言。编译性语言编写的程序，在执行之前需要有一个专门的编译过程，把程序编译成机器语言的文件，比如exe。然后exe文件运行的时候，直接使用编译的结果就可以了，运行的时候不用再继续编译，所以执行效率高。具有独立性。而对于解释性语言，比如Jav">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-17T14:52:46.022Z">
+<meta property="og:updated_time" content="2020-03-22T02:33:38.466Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javaScript高级（一）">
-<meta name="twitter:description" content="JavaScript高级写在前面：JavaScript高级，比入门的感觉会抽象很多。所以要结合实际案例还有画图来理解，才能够更加深刻。特别是原型和原型链，需要下点功夫，才能理解个35成，蛤蛤蛤。。。ok不膜了进入正题。 先来重新再认识一下JavaScript吧。JavaScript，其实是一门脚本、弱类型、轻量级的解释性语言。针对解释性语言，不同于编译性语言。编译性语言编写的程序，在执行之前需要有">
+<meta name="twitter:description" content="JavaScript高级先来重新再认识一下JavaScript吧。JavaScript，其实是一门脚本、弱类型、轻量级的解释性语言。针对解释性语言，不同于编译性语言。编译性语言编写的程序，在执行之前需要有一个专门的编译过程，把程序编译成机器语言的文件，比如exe。然后exe文件运行的时候，直接使用编译的结果就可以了，运行的时候不用再继续编译，所以执行效率高。具有独立性。而对于解释性语言，比如Jav">
 
 
 
@@ -322,8 +322,7 @@
       
 
       
-        <h1 id="JavaScript高级"><a href="#JavaScript高级" class="headerlink" title="JavaScript高级"></a>JavaScript高级</h1><p>写在前面：JavaScript高级，比入门的感觉会抽象很多。所以要结合实际案例还有画图来理解，才能够更加深刻。特别是原型和原型链，需要下点功夫，才能理解个35成，蛤蛤蛤。。。ok不膜了进入正题。</p>
-<p>先来重新再认识一下JavaScript吧。JavaScript，其实是一门脚本、弱类型、轻量级的解释性语言。<br>针对解释性语言，不同于编译性语言。编译性语言编写的程序，在执行之前需要有一个专门的编译过程，把程序编译成机器语言的文件，比如exe。然后exe文件运行的时候，直接使用编译的结果就可以了，运行的时候不用再继续编译，所以<strong>执行效率高。具有独立性。</strong><br>而对于解释性语言，比如JavaScript，是<strong>非独立的</strong>，运行需要依赖环境，对于客户端是浏览器，对于服务端是node。<br><strong>效率低</strong>，执行前不需要编译，执行的时候才编译，因此效率也低。</p>
+        <h1 id="JavaScript高级"><a href="#JavaScript高级" class="headerlink" title="JavaScript高级"></a>JavaScript高级</h1><p>先来重新再认识一下JavaScript吧。JavaScript，其实是一门脚本、弱类型、轻量级的解释性语言。<br>针对解释性语言，不同于编译性语言。编译性语言编写的程序，在执行之前需要有一个专门的编译过程，把程序编译成机器语言的文件，比如exe。然后exe文件运行的时候，直接使用编译的结果就可以了，运行的时候不用再继续编译，所以<strong>执行效率高。具有独立性。</strong><br>而对于解释性语言，比如JavaScript，是<strong>非独立的</strong>，运行需要依赖环境，对于客户端是浏览器，对于服务端是node。<br><strong>效率低</strong>，执行前不需要编译，执行的时候才编译，因此效率也低。</p>
 <h2 id="JavaScript的执行过程"><a href="#JavaScript的执行过程" class="headerlink" title="JavaScript的执行过程"></a>JavaScript的执行过程</h2><p>JavaScript 运行分为两个阶段：</p>
 <ul>
 <li>预解析<ul>
@@ -345,7 +344,11 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"这个函数是window对象的一个方法:"</span> + (x + y) + <span class="keyword">this</span>.sex);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.f1(<span class="number">10</span>, <span class="number">20</span>);    <span class="comment">// 30 undefined</span></span><br><span class="line"><span class="comment">//obj是一个对象</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    age: <span class="number">10</span>,</span><br><span class="line">    sex: <span class="string">"男"</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.f1.apply(obj, [<span class="number">10</span>, <span class="number">20</span>]);  <span class="comment">//  30 男</span></span><br><span class="line"><span class="built_in">window</span>.f1.call(obj, <span class="number">10</span>, <span class="number">20</span>);    <span class="comment">//同上</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">age, sex</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">    <span class="keyword">this</span>.sex = sex;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//通过原型添加方法</span></span><br><span class="line">Person.prototype.sayHi = <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"您好啊:"</span> + <span class="keyword">this</span>.sex);</span><br><span class="line">    <span class="keyword">return</span> x+y;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> per = <span class="keyword">new</span> Person(<span class="number">10</span>, <span class="string">"男"</span>);</span><br><span class="line">per.sayHi();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"=============="</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">name, sex</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.sex = sex;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> stu = <span class="keyword">new</span> Student(<span class="string">"小明"</span>, <span class="string">"男"</span>);</span><br><span class="line"><span class="keyword">var</span> r1 = per.sayHi.apply(stu, [<span class="number">10</span>, <span class="number">20</span>]);</span><br><span class="line"><span class="keyword">var</span> r2 = per.sayHi.call(stu, <span class="number">40</span>, <span class="number">20</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(r1);  <span class="comment">//男  30</span></span><br><span class="line"><span class="built_in">console</span>.log(r2);  <span class="comment">//男   60</span></span><br></pre></td></tr></table></figure>
 <p>这两个方法的作用是：改变了this 的指向，并且第一个参数为你要传入的对象，传入后函数的this就指向了这个对象,后面的参数为你为函数传递的参数值。上面的两个数字就是sayHi方法中的两个参数。</p>
-<h2 id="bind方法"><a href="#bind方法" class="headerlink" title="bind方法"></a>bind方法</h2><p>bind，就是复制一份的意思。<br>使用的语法是：<br>​    <em> 函数名字.bind(对象,参数1,参数2,…);—-&gt;返回值是复制之后的这个函数<br>​    </em> 方法名字.bind(对象,参数1,参数2,…);—-&gt;返回值是复制之后的这个方法</p>
+<h2 id="bind方法"><a href="#bind方法" class="headerlink" title="bind方法"></a>bind方法</h2><p>bind，就是复制一份的意思。<br>使用的语法是：</p>
+<ul>
+<li>函数名字.bind(对象,参数1,参数2,…);—-&gt;返回值是复制之后的这个函数</li>
+<li>方法名字.bind(对象,参数1,参数2,…);—-&gt;返回值是复制之后的这个方法</li>
+</ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">age</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.play = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span> + <span class="string">"====&gt;"</span> + <span class="keyword">this</span>.age);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">age</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> per = <span class="keyword">new</span> Person(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">var</span> stu = <span class="keyword">new</span> Student(<span class="number">20</span>);</span><br><span class="line"><span class="comment">//将play方法复制了一份，然后传给stu，但是里面传进的参数还是使用的是stu的</span></span><br><span class="line"><span class="keyword">var</span> ff = per.play.bind(stu);</span><br><span class="line">ff();    <span class="comment">//输出object 20</span></span><br></pre></td></tr></table></figure>
 
       
@@ -466,7 +469,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -477,7 +480,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>

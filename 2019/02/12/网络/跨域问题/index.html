@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="跨域问题跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。 客户端请求的时候，请求的服务器，不是同一个IP、端口、域名、主机名的时候，都称为跨域。 同源策略限制了以下行为： Cookie、LocalStorage 和 IndexDB 无法读取DOM 和 JS 对象无法获取Ajax请求发送后结果被浏览器拦截 所谓的同源是指，域名、协议">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-22T17:04:35.523Z">
+<meta property="og:updated_time" content="2020-03-22T16:06:33.101Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="跨域问题">
 <meta name="twitter:description" content="跨域问题跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。 客户端请求的时候，请求的服务器，不是同一个IP、端口、域名、主机名的时候，都称为跨域。 同源策略限制了以下行为： Cookie、LocalStorage 和 IndexDB 无法读取DOM 和 JS 对象无法获取Ajax请求发送后结果被浏览器拦截 所谓的同源是指，域名、协议">
@@ -361,7 +361,7 @@
 </ol>
 <p>​2. 睡眼朦胧的你没看清楚，平时访问的银行网站是 <code>www.yinhang.com</code>，而现在访问的是 <code>www.yinghang.com</code>，这个钓鱼网站做了什么呢？</p>
 <p>其实就是把别人网站的DOM照搬过来进行伪造，获取用户的信息</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HTML</span></span><br><span class="line">&lt;iframe name=<span class="string">"yinhang"</span> src=<span class="string">"www.yinhang.com"</span>&gt;&lt;/iframe&gt;</span><br><span class="line"><span class="comment">// JS</span></span><br><span class="line"><span class="comment">// 由于没有同源策略的限制，钓鱼网站可以直接拿到别的网站的Dom</span></span><br><span class="line"><span class="keyword">const</span> iframe = <span class="built_in">window</span>.frames[<span class="string">'yinhang'</span>]</span><br><span class="line"><span class="keyword">const</span> node = iframe.document.getElementById(<span class="string">'你输入账号密码的Input'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`拿到了这个<span class="subst">$&#123;node&#125;</span>，我还拿不到你刚刚输入的账号密码吗`</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HTML</span></span><br><span class="line">&lt;iframe name=<span class="string">"yinhang"</span> src=<span class="string">"www.yinhang.com"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span></span><br><span class="line"><span class="comment">// JS</span></span><br><span class="line"><span class="comment">// 由于没有同源策略的限制，钓鱼网站可以直接拿到别的网站的Dom</span></span><br><span class="line"><span class="keyword">const</span> iframe = <span class="built_in">window</span>.frames[<span class="string">'yinhang'</span>]</span><br><span class="line"><span class="keyword">const</span> node = iframe.document.getElementById(<span class="string">'你输入账号密码的Input'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`拿到了这个<span class="subst">$&#123;node&#125;</span>，我还拿不到你刚刚输入的账号密码吗`</span>)</span><br></pre></td></tr></table></figure>
 <h1 id="前后端通信的几种方式"><a href="#前后端通信的几种方式" class="headerlink" title="前后端通信的几种方式"></a>前后端通信的几种方式</h1><ol>
 <li>AJAX：同源下面的通信方式</li>
 <li>WebSocket：不受同源策略的限制</li>
@@ -426,7 +426,9 @@
 <li>Content-Type (需要注意额外的限制)<br>…</li>
 </ul>
 <p>服务器通过CORS跨域请求后，下面浏览器就会发出正式的数据请求。整个请求过程其实是发生了两次请求：一个预检请求，通过后的实际数据请求</p>
-<p>也就是说 当你自定义了请求头，浏览器就会先发送预检请求，期望得到想要的Access-Control-Allow-Headers返回头</p>
+<p>也就是说 当你自定义了请求头，浏览器就会先发送预检请求，期望得到想要的 Access-Control-Allow-Headers 返回头</p>
+<p>以下是一个带有自定义头部 NCZ 的使用 POST 方法发送的请求</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Origin: http:<span class="comment">//www.nczonline.com</span></span><br><span class="line">Access-Control-Request-Method: POST</span><br><span class="line">ACcess_Control-Request-Headers: NCZ</span><br></pre></td></tr></table></figure>
 <ol start="3">
 <li>使用window.postMessage进行跨域</li>
 </ol>
@@ -444,9 +446,13 @@
 <li>document.domain + iframe跨域</li>
 </ol>
 <p><strong>该方式只能用于二级域名相同的情况下，比如 a.test.com 和 b.test.com 适用于该方式。</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//⽗窗⼝：(http://www.domain.com/a.html)</span></span><br><span class="line"></span><br><span class="line">&lt;iframe id=<span class="string">"iframe"</span> src=<span class="string">"http://child.domain.com/b.html"</span>&gt;&lt;/iframe&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="built_in">document</span>.domain = <span class="string">'domain.com'</span>;     <span class="keyword">var</span> user = <span class="string">'admin'</span>; </span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/⼦窗⼝：(http:/</span><span class="regexp">/child.domain.com/</span>b.html)</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.domain = <span class="string">'domain.com'</span>; <span class="comment">// 获取⽗窗⼝中变量 alert('get js data from parent ---&gt; ' + window.parent.user);</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//⽗窗⼝：(http://www.domain.com/a.html)</span></span><br><span class="line"></span><br><span class="line">&lt;iframe id=<span class="string">"iframe"</span> src=<span class="string">"http://child.domain.com/b.html"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="built_in">document</span>.domain = <span class="string">'domain.com'</span>;     <span class="keyword">var</span> user = <span class="string">'admin'</span>; </span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/⼦窗⼝：(http:/</span><span class="regexp">/child.domain.com/</span>b.html)</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.domain = <span class="string">'domain.com'</span>; <span class="comment">// 获取⽗窗⼝中变量 alert('get js data from parent ---&gt; ' + window.parent.user);</span></span><br></pre></td></tr></table></figure>
 <p>只需要给页面添加 document.domain = ‘test.com’ 表示二级域名都相同就可以实现跨域</p>
 <p>最后，跨域分为两种，一种是跨域请求，另一种访问跨域的页面，跨域请求可以通过CORS/JSONP等方法进行访问，跨域的页面主要通过postMesssage的方式。由于跨域请求不但能发出去还能带上cookie，所以要规避跨站请求伪造攻击的风险，特别是涉及到钱的那种请求。</p>
+<ol start="7">
+<li>Vue项目开发过程中对跨域的处理</li>
+</ol>
+<p>在根目录的 vue.config.js 中配置 proxy 代理</p>
 
       
     </div>
@@ -566,7 +572,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -577,7 +583,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>

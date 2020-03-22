@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。  content ⽅⾯     减少 HTTP 请求：合并⽂件、 CSS 精灵、 inline Image  减少 DNS 查询： DNS 缓存、将资源分布到恰当数量的主机名  减少 DOM 元素数量   Server ⽅⾯  使⽤ CDN 配置 ETag 对组件使⽤ Gzip 压缩   Cookie ⽅⾯">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-08T16:06:40.714Z">
+<meta property="og:updated_time" content="2020-03-20T04:10:30.205Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="提高页面性能">
 <meta name="twitter:description" content="我们常将网络性能优化措施归结为三大方面：减少请求数、减小请求资源体积、提升网络传输速率。  content ⽅⾯     减少 HTTP 请求：合并⽂件、 CSS 精灵、 inline Image  减少 DNS 查询： DNS 缓存、将资源分布到恰当数量的主机名  减少 DOM 元素数量   Server ⽅⾯  使⽤ CDN 配置 ETag 对组件使⽤ Gzip 压缩   Cookie ⽅⾯">
@@ -361,7 +361,11 @@
 </ul>
 </li>
 </ul>
-<h1 id="资源压缩合并，减少HTTP请求"><a href="#资源压缩合并，减少HTTP请求" class="headerlink" title="资源压缩合并，减少HTTP请求"></a>资源压缩合并，减少HTTP请求</h1><p>比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。使用雪碧图、base64格式的图片等等。</p>
+<h1 id="资源压缩合并，减少HTTP请求"><a href="#资源压缩合并，减少HTTP请求" class="headerlink" title="资源压缩合并，减少HTTP请求"></a>资源压缩合并，减少HTTP请求</h1><p>比如可以使用webpack将多个文件压缩成一个文件，并且对代码进行压缩。使用雪碧图、base64格式的图片等等。而在vue cli3中可以开启gzip压缩，gizp压缩是一种http请求优化方式，通过减少文件体积来提高加载速度。html、js、css文件甚至json数据都可以用它压缩，可以减小60%以上的体积。</p>
+<p>使用步骤：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//先安装插件</span></span><br><span class="line">npm i -D compression-webpack-plugin</span><br><span class="line"></span><br><span class="line"><span class="comment">//然后再在vue.config.js中进行配置</span></span><br><span class="line"><span class="keyword">const</span> CompressionPlugin = <span class="built_in">require</span>(<span class="string">"compression-webpack-plugin"</span>)</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  configureWebpack: <span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(process.env.NODE_ENV === <span class="string">'production'</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        plugins: [<span class="keyword">new</span> CompressionPlugin(&#123;</span><br><span class="line">          test: <span class="regexp">/\.js$|\.html$|\.css/</span>,  <span class="comment">//匹配文件名</span></span><br><span class="line">          threshold: <span class="number">10240</span>,             <span class="comment">//对10k以上文件进行压缩</span></span><br><span class="line">          deleteOriginalAssets: <span class="literal">false</span>   <span class="comment">//是否删除源文件</span></span><br><span class="line">        &#125;)]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一般浏览器都已支持.gz的资源文件，在http请求的Request Headers 中能看到 Accept-Encoding:gzip。</p>
+<p>要使服务器返回.gz文件，还需要对服务器进行配置，根据Request Headers的Accept-Encoding标签进行鉴别，如果支持gzip就返回.gz文件。</p>
 <h1 id="非核心代码异步加载"><a href="#非核心代码异步加载" class="headerlink" title="非核心代码异步加载"></a>非核心代码异步加载</h1><p>通常对于大型应用来说，完整加载所有javascript代码是十分耗时的工作。在页面渲染的这样一个过程中，有一个关键点是如果在解析内容的过程中遇到了脚本标签，如：<script src="example.js"></script>，浏览器就会暂停内容的解析，转而开始下载脚本。并且只有等脚本下载完并执行结束后，渲染引擎才会继续解析。那么这样一来，页面显示的时间必然会被延长。因此我们需要优化的点就是尽可能地让页面更早地被渲染出来。要解决上面说到的脚本加载问题，通常有三种解决方案：将脚本放在HTML末尾、动态加载脚本以及异步加载脚本。</p>
 <ol>
 <li>异步加载的方式</li>
@@ -379,7 +383,7 @@
 <li>async是在下载完脚本之后立即执行，渲染引擎会中断，执行完脚本之后才会继续渲染，如果是多个，执行顺序和加载顺序无关</li>
 <li>直接使用src方式引入JS会阻塞页面的渲染</li>
 </ul>
-<h2 id="解决异步加载脚本的问题"><a href="#解决异步加载脚本的问题" class="headerlink" title="解决异步加载脚本的问题"></a>解决异步加载脚本的问题</h2><p>如何处理加载过程中这些脚本的互相依赖关系，就成了实现异步加载过程中所需要考虑的问题。一方面，对于页面中那些独立的脚本，如用户统计等插件就可以放心大胆地使用异步加载。而另一方面，对于那些确实需要处理依赖关系的脚本，业界已经有很成熟的解决方案了。如采用AMD规范的RequireJS,CMD规范的seaJS，或者使用ES6中的模块化开发。另一方面，也可以使用promise技术来实现处理异步脚本加载过程中de的依赖问题：</p>
+<h2 id="解决异步加载脚本的问题"><a href="#解决异步加载脚本的问题" class="headerlink" title="解决异步加载脚本的问题"></a>解决异步加载脚本的问题</h2><p>如何处理加载过程中这些脚本的互相依赖关系，就成了实现异步加载过程中所需要考虑的问题。一方面，对于页面中那些独立的脚本，如用户统计等插件就可以放心大胆地使用异步加载。而另一方面，对于那些确实需要处理依赖关系的脚本，业界已经有很成熟的解决方案了。如采用AMD规范的RequireJS,CMD规范的seaJS，或者使用ES6中的模块化开发。另一方面，也可以使用promise技术来实现处理异步脚本加载过程中的依赖问题：</p>
 <p>针对每个脚本依赖都会创建一个promise对象来管理其状态。采用动态插入脚本的方式来管理脚本，然后利用脚本onload和onreadystatechange(兼容性处理)事件来监听脚本是否加载完成。一旦加载完毕，就会触发promise的resovle方法。最后，针对依赖的处理，是promise的all方法，这个方法只有在所有promise对象都resolved的时候才会触发resolve方法，这样一来，我们就可以确保在执行回调之前，所有依赖的脚本都已经加载并执行完毕。</p>
 <h1 id="利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理"><a href="#利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理" class="headerlink" title="利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理"></a>利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理</h1><ol>
 <li>缓存的分类</li>
@@ -480,7 +484,7 @@
 </ul>
 <p>(2) 服务端渲染的缺点：</p>
 <ul>
-<li><p>更多的开发条件限制： <strong>例如服务端渲染只支持 beforCreate 和 created 两个钩子函数</strong>（因为服务端不是浏览器环境，window、document等都是浏览器才有的对象，或者使用JS-dom的报，可以模拟浏览器环境），这会导致一些外部扩展库需要特殊处理，才能在服务端渲染应用程序中运行；并且与可以部署在任何静态文件服务器上的完全静态单页面应用程序 SPA 不同，服务端渲染应用程序，需要处于 Node.js server 运行环境。</p>
+<li><p>更多的开发条件限制： <strong>例如服务端渲染只支持 beforCreate 和 created 两个钩子函数</strong>（因为服务端不是浏览器环境，window、document等都是浏览器才有的对象，或者使用JS-dom的包，可以模拟浏览器环境），这会导致一些外部扩展库需要特殊处理，才能在服务端渲染应用程序中运行；并且与可以部署在任何静态文件服务器上的完全静态单页面应用程序 SPA 不同，服务端渲染应用程序，需要处于 Node.js server 运行环境。</p>
 </li>
 <li><p>更多的服务器负载：在 Node.js  中渲染完整的应用程序，显然会比仅仅提供静态文件的  server 更加大量占用CPU 资源 (CPU-intensive - CPU 密集)，因此如果你预料在高流量环境 ( high traffic ) 下使用，请准备相应的服务器负载，并明智地采用缓存策略。</p>
 </li>
@@ -696,7 +700,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -707,7 +711,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>

@@ -95,7 +95,7 @@
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/get%26post.jpeg">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/httpVersion.png">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/https.png">
-<meta property="og:updated_time" content="2019-12-02T01:30:48.417Z">
+<meta property="og:updated_time" content="2020-03-18T03:44:01.229Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP和TCP">
 <meta name="twitter:description" content="TCP协议互联网由一整套协议构成图片说明：顶层协议是应用层协议 =&amp;gt; TCP协议 =&amp;gt; IP协议 =&amp;gt; 以太网协议（应用层=&amp;gt;传输层=&amp;gt;网络层=&amp;gt;链路层） 以太网协议：最底层的协议，可以解决子网内部的点对点通讯。 IP协议：IP协议，可以解决多个局域网之间互通，可以连接多个局域网，定义了一套自己的地址规则，实现了路由的功能，允许某个局域网的A主机，向另一个局域网">
@@ -391,7 +391,7 @@
 <li>空行</li>
 <li>响应体</li>
 </ul>
-<h2 id="get和post的主要区别"><a href="#get和post的主要区别" class="headerlink" title="get和post的主要区别"></a>get和post的主要区别</h2><p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/get%26post.jpeg" alt="markdown"><br><strong>1、get在浏览器回退时是无害的，而post会再次请求</strong><br><strong>2、get产生的url地址可以被收藏（即书签），而post不会</strong><br>3、get请求会被浏览器主动缓存，而post不会，除非手动设置<br>4、get请求只能进行url编码，而post支持多种编码方式<br><strong>5、get请求参数会被完整保留在浏览历史记录里，而post中的参数不会被保留</strong><br><strong>6、get 请求在url中传送的参数有长度限制（一般限制在2kb~8kb之间，但是更加常见的是在1kb之内，这个⻓度限制是浏览器规定的），而post没有（实际大小根据服务器情况而定）</strong><br>7、对参数的数据类型，get只接受ascll字符，而post没有限制<br>8、post比get更安全，因为参数直接暴露在url上，所以不能用来传递敏感信息<br><strong>9、get参数通过url传递，poet放在request body中</strong><br>10、GET产生一个TCP数据包;POST产生两个TCP数据包。<br>对于GET方式的请求，浏览器会把<strong>http header和data一并发送出去</strong>，服务器响应200(返回数据);<br>而对于POST，浏览器先发送<strong>header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok(返回数据)</strong></p>
+<h2 id="get和post的主要区别"><a href="#get和post的主要区别" class="headerlink" title="get和post的主要区别"></a>get和post的主要区别</h2><p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/get%26post.jpeg" alt="markdown"><br><strong>1、get在浏览器回退时是无害的，而post会再次请求</strong><br><strong>2、get产生的url地址可以被收藏（即书签），而post不会</strong><br>3、get请求会被浏览器主动缓存，而post不会，除非手动设置<br>4、get请求只能进行url编码，而post支持多种编码方式<br><strong>5、get请求参数会被完整保留在浏览历史记录里，而post中的参数不会被保留</strong><br><strong>6、get 请求在url中传送的参数有长度限制（一般限制在2kb~8kb之间，但是更加常见的是在1kb之内，这个⻓度限制是浏览器规定的），而post没有（实际大小根据服务器情况而定）</strong><br>7、对参数的数据类型，get只接受ascll字符，而post没有限制<br>8、post比get更安全，因为参数直接暴露在url上，所以不能用来传递敏感信息<br><strong>9、get参数通过url传递，poet放在request body中</strong><br>10、GET产生一个TCP数据包;POST产生两个TCP数据包。<br>对于GET方式的请求，浏览器会把<strong>http header和data一并发送出去</strong>，服务器响应200(返回数据);<br>而对于POST，浏览器先发送<strong>header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok(返回数据)</strong>，这也就是为什么GET请求产生一个TCP数据包，而POST请求产生两个数据包。但是在网络环境较好的情况下，发送一次包的时间和发送两次包的时间差别几乎是可以无视的。而在网络环境较差的情况下，发送两次包的TCP在验证数据包的完整性上，有非常大的优点。（但是并不是所有的浏览器都会在POST请求中发送两次包，Firefox就只发送一次。）</p>
 <p>HTTP缺点：<br>1、通信使用明文（ 不加密） ， 内容可能会被窃听<br>2、不验证通信方的身份， 因此有可能遭遇伪装<br>3、无法证明报文的完整性， 所以有可能已遭篡改</p>
 <h2 id="Http的版本"><a href="#Http的版本" class="headerlink" title="Http的版本"></a>Http的版本</h2><ol>
 <li>HTTP 0.9作为HTTP协议的第一个版本。是非常弱的。请求(Request)只有一行,比如: GET <a href="http://www.leautolink.com" target="_blank" rel="noopener">www.leautolink.com</a></li>
@@ -664,7 +664,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -675,7 +675,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>

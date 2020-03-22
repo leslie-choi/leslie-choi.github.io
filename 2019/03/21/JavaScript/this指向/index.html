@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="404 not found">
 <meta property="og:description" content="this指向this的指向有4种类型 形式”test()”123456var a = 1function test () &amp;#123;    console.log(this.a)&amp;#125;test() 直接不带任何引用形式去调用函数，则this会指向全局对象，因为没有其他影响去改变this，this默认就是指向全局对象（浏览器是window，Node中是global）的。这个结论是在非严格模式">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-09T04:20:58.113Z">
+<meta property="og:updated_time" content="2020-03-22T16:00:41.739Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javaScript中的this指向">
 <meta name="twitter:description" content="this指向this的指向有4种类型 形式”test()”123456var a = 1function test () &amp;#123;    console.log(this.a)&amp;#125;test() 直接不带任何引用形式去调用函数，则this会指向全局对象，因为没有其他影响去改变this，this默认就是指向全局对象（浏览器是window，Node中是global）的。这个结论是在非严格模式">
@@ -358,7 +358,7 @@
 <h2 id="apply、call-和-bind-的应用"><a href="#apply、call-和-bind-的应用" class="headerlink" title="apply、call 和 bind 的应用"></a>apply、call 和 bind 的应用</h2><ol>
 <li>数组之间的追加(使用a.concat(b) 会返回一个新的数组，不会影响原来的数组)</li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> a = [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line"><span class="keyword">let</span> b = [<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.prototype.push.apply(a, b)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a)    <span class="comment">//[4, 5, 6, 7, 8, 9]</span></span><br><span class="line"><span class="built_in">console</span>.log(b)    <span class="comment">// [7, 8, 9]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line"><span class="keyword">let</span> b = [<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.prototype.push.apply(a, b)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a)    <span class="comment">//[4, 5, 6, 7, 8, 9]</span></span><br><span class="line"><span class="built_in">console</span>.log(b)    <span class="comment">// [7, 8, 9]</span></span><br></pre></td></tr></table></figure>
 <ol start="2">
 <li>获取数组中的最大值和最小值，利用他们扩充作用域拥有Math的min和max方法</li>
 </ol>
@@ -496,7 +496,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -507,7 +507,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>

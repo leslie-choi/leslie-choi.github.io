@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="原型和原型链想要了解原型和原型链，那我们首先来了解一下构造函数。JavaScript不像Java一样，可以定义一个class。那在JavaScript中，想要定义一个类，就只能通过构造函数的模式。构造函数咪视中拥有了类和实例的概念。构造函数其实就是一个普通的函数，创建的方式和普通的函数没有区别，但是 首字母需要大写 ，另外普通函数可以直接调用，但是构造函数需要通过 new关键字来调用。  1234">
+<meta name="description" content="原型和原型链想要了解原型和原型链，那我们首先来了解一下构造函数。JavaScript不像Java一样，可以定义一个class。那在JavaScript中，想要定义一个类，就只能通过构造函数的模式。构造函数中拥有了类和实例的概念。构造函数其实就是一个普通的函数，创建的方式和普通的函数没有区别，但是 首字母需要大写 ，另外普通函数可以直接调用，但是构造函数需要通过 new关键字来调用。  123456">
 <meta name="keywords" content="Interview">
 <meta property="og:type" content="article">
 <meta property="og:title" content="原型与原型链">
 <meta property="og:url" content="http://yoursite.com/2019/02/19/JavaScript/原型与原型链/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="原型和原型链想要了解原型和原型链，那我们首先来了解一下构造函数。JavaScript不像Java一样，可以定义一个class。那在JavaScript中，想要定义一个类，就只能通过构造函数的模式。构造函数咪视中拥有了类和实例的概念。构造函数其实就是一个普通的函数，创建的方式和普通的函数没有区别，但是 首字母需要大写 ，另外普通函数可以直接调用，但是构造函数需要通过 new关键字来调用。  1234">
+<meta property="og:description" content="原型和原型链想要了解原型和原型链，那我们首先来了解一下构造函数。JavaScript不像Java一样，可以定义一个class。那在JavaScript中，想要定义一个类，就只能通过构造函数的模式。构造函数中拥有了类和实例的概念。构造函数其实就是一个普通的函数，创建的方式和普通的函数没有区别，但是 首字母需要大写 ，另外普通函数可以直接调用，但是构造函数需要通过 new关键字来调用。  123456">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/prototype1.PNG">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/prototype2.PNG">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/prototype3.PNG">
 <meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/instanceof.png">
-<meta property="og:updated_time" content="2020-03-05T09:12:04.640Z">
+<meta property="og:updated_time" content="2020-03-20T07:18:16.883Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="原型与原型链">
-<meta name="twitter:description" content="原型和原型链想要了解原型和原型链，那我们首先来了解一下构造函数。JavaScript不像Java一样，可以定义一个class。那在JavaScript中，想要定义一个类，就只能通过构造函数的模式。构造函数咪视中拥有了类和实例的概念。构造函数其实就是一个普通的函数，创建的方式和普通的函数没有区别，但是 首字母需要大写 ，另外普通函数可以直接调用，但是构造函数需要通过 new关键字来调用。  1234">
+<meta name="twitter:description" content="原型和原型链想要了解原型和原型链，那我们首先来了解一下构造函数。JavaScript不像Java一样，可以定义一个class。那在JavaScript中，想要定义一个类，就只能通过构造函数的模式。构造函数中拥有了类和实例的概念。构造函数其实就是一个普通的函数，创建的方式和普通的函数没有区别，但是 首字母需要大写 ，另外普通函数可以直接调用，但是构造函数需要通过 new关键字来调用。  123456">
 <meta name="twitter:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/prototype1.PNG">
 
 
@@ -327,7 +327,7 @@
       
 
       
-        <h1 id="原型和原型链"><a href="#原型和原型链" class="headerlink" title="原型和原型链"></a>原型和原型链</h1><p>想要了解原型和原型链，那我们首先来了解一下构造函数。<br>JavaScript不像Java一样，可以定义一个class。那在JavaScript中，想要定义一个类，就只能通过构造函数的模式。构造函数咪视中拥有了类和实例的概念。构造函数其实就是一个普通的函数，创建的方式和普通的函数没有区别，但是 <strong>首字母需要大写</strong> ，另外普通函数可以直接调用，但是构造函数需要通过 <strong>new关键字来调用。</strong> </p>
+        <h1 id="原型和原型链"><a href="#原型和原型链" class="headerlink" title="原型和原型链"></a>原型和原型链</h1><p>想要了解原型和原型链，那我们首先来了解一下构造函数。<br>JavaScript不像Java一样，可以定义一个class。那在JavaScript中，想要定义一个类，就只能通过构造函数的模式。构造函数中拥有了类和实例的概念。构造函数其实就是一个普通的函数，创建的方式和普通的函数没有区别，但是 <strong>首字母需要大写</strong> ，另外普通函数可以直接调用，但是构造函数需要通过 <strong>new关键字来调用。</strong> </p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age, gender</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name</span><br><span class="line">        <span class="keyword">this</span>.age = age</span><br><span class="line">        <span class="keyword">this</span>.gender = gender</span><br><span class="line">        <span class="keyword">this</span>.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            alert(<span class="keyword">this</span>.name);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(per); <span class="comment">//当我们直接在页面中打印一个对象时，事件上是输出的对象的toString()方法的返回值</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//使用prototype实现数据共享,利用原型添加方法</span></span><br><span class="line">  Person.ptototype.eat = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"我喜欢吃榴莲粥加辣椒"</span>)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 <p>这个时候，每创建一个Person构造函数，在Person构造函数中，为每一个对象添加了一个sayName的方法，所以就是说构造函数每调用一次就会创建一个新的方法，如果调用了1000次就会创建1000个新的方法，而着1000个方法却都是一样的。所以为了节省空间和性能，<strong>需要把这些方法单独放到一个地方，并且可以让每一个实例都可以访问到，目的就是为了共享数据</strong> 所以这个时候就需要 <strong>原型prototype</strong> </p>
 <h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><p>在javaScript中，每当定义一个<strong>函数数据类型</strong>（普通函数、类）的时候，都会天生自带一个prototype属性，这个属性指向函数的原型对象，并且这个属性是一个 <strong>对象数据类型值</strong> </p>
@@ -390,7 +390,7 @@
 <ul>
 <li>不可扩展</li>
 <li>密封的对象</li>
-<li>冻结的对象</li>
+<li>冻结的对象 </li>
 </ul>
 <h2 id="不可拓展对象-不可添加、可以删除、可以修改、可以查"><a href="#不可拓展对象-不可添加、可以删除、可以修改、可以查" class="headerlink" title="不可拓展对象(不可添加、可以删除、可以修改、可以查)"></a>不可拓展对象(不可添加、可以删除、可以修改、可以查)</h2><p>对应有两个方法</p>
 <ol>
@@ -449,8 +449,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/23/JavaScript/常见操作DOM节点Api/" rel="prev" title="JS常见API">
-                JS常见API <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/23/JavaScript/基础零碎点/" rel="prev" title="零碎知识点">
+                零碎知识点 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -528,7 +528,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -539,7 +539,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
