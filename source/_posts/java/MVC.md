@@ -1,7 +1,7 @@
 ---
 title: java EE三层架构开发模式
 date: 2018-10-26 20:12:32
-tags:
+tags: basic
 categories: java
 typora-copy-images-to: vue\images
 ---
@@ -15,7 +15,5 @@ typora-copy-images-to: vue\images
 至于说到MVC模式和三层架构之间的关系，可以说Mvc是web开发的一种开发模式，而三层架构是针对Java语言的。本身是没有联系，但是三层架构中，分别是web层，service层还有dao层，servlet+JavaBean+jsp刚刚好构成了web层，所以web层是一种mvc的模式。（wen层中，JavaBean是M层，jsp是V层，Servlet是C层）
 
 这个也有可能是面试题目哦，所以最好记住也不要混淆，嘿嘿嘿嘿~  
-
-
 
 ![vue增删改](D:\leslie-choi.github.io\source\_posts\vue\images\vue增删改.png)

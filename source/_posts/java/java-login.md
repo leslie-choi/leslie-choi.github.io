@@ -1,13 +1,11 @@
 ---
-title: java-login
+title: java-web基础功能（一）
 date: 2018-10-22 16:59:35
 tags: basic
 categories: java
 ---
 
-
-
-# java-web基础功能（一）----实现用户登录
+# 实现用户登录
 
 思路：实现用户登录方法的实质，就是从表单传递两个参数，username还有password，然后通过get或者post方式提交到LoginServlet,对传进来的两个参数进行具体的判断，判断之后调用一个自己定义的User Login的方法，从数据库中查找对应的参数是否和数据库里面的数据一致，然后返回结果。  
 
