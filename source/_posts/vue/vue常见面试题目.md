@@ -482,7 +482,6 @@ beforeEnter
 * 触发DOM更新(mounted)。
 * 执行beforeRouteEnter 守卫中传给 next 的回调函数
 
-
 # 触发钩子的完整顺序
 
 将路由导航、keep-alive、和组件生命周期钩子结合起来的，触发顺序，假设是从a组件离开，第一次进入b组件：
@@ -523,8 +522,6 @@ SPA分为2种。 第一种，SPA即指水疗、芳香按摩、沐浴、去死角
 3.导航不可用,如果一定要导航需要自行实现前进,后退
 
 而前端路由router就是管理SPA单页面应用的路径管理器。vue的单页面应用是基于路由和组件的，路由用于设定访问路径，并将路径和组件映射起来。传统的页面应用，是用一些超链接来实现页面切换和跳转的。在vue-router单页面应用中，则是路径之间的切换，也就是组件的切换。路由模块的本质 就是建立起url和页面之间的映射关系。
-
-
 
 # Vue 中的 key 有什么作用？
 
@@ -892,6 +889,7 @@ Vue.directive("focus", {
 <!-- 注意： Vue中所有的指令，在调用的时候，都以 v- 开头 -->
 <input type="text" class="form-control" v-model="keywords" v-focus>
 ```
+
 # mixin 和 mixins 的区别
 
 1. Vue.mixin
@@ -924,8 +922,49 @@ var vm = new Vue({
 
 2. 通过用户的滚动行为来进行渲染
 
+# 为什么 v-if 和 v-for 不能混用？
+
+```javascript
+
+// 假设有如下的列表数据
+list: [
+  {
+    name: 'jack',
+    age: 23
+  },
+  {
+    name: 'john',
+    age: 33
+  },
+  {
+    name: 'petty',
+    age: 20
+  }
+]
+
+// 如果需求是只需要渲染出 30 岁以下的数据，那么有可能得到以下的代码
+
+<!-- html模版 -->
+<div id="app">
+  <ul>
+    <li v-for="item in list" v-if="item.age<30">
+      <span>{{item.name}}</span>
+      <span>{{item.age}}</span>
+    </li>
+  </ul>
+</div>
+
+```
+
+**但是官方不推荐这种写法，原因如下：**
+
+1. 当 Vue 处理指令时，v-for 比 v-if 具有更高的优先级。
+
+2. 哪怕我们只渲染出一小部分用户的元素，也得在每次重渲染的时候遍历整个列表，不论活跃用户是否发生了变化。
+
 # **参考文章：**
 
 [30 道 Vue 面试题，内含详细讲解（涵盖入门到精通，自测 Vue 掌握程度）](https://juejin.im/post/5d59f2a451882549be53b170)
 [解析vue2.0的diff算法](https://github.com/aooy/blog/issues/2)
 [VirtualDOM与diff(Vue实现)](https://github.com/answershuto/learnVue/blob/master/docs/VirtualDOM与diff(Vue实现))
+[从源码解惑，为什么v-if和v-for不应该一起用？](https://juejin.im/post/6844904183619944462)

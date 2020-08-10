@@ -3,8 +3,100 @@ title: CSS常见知识点
 date: 2019-4-22 10:59:25
 tags: basic
 categories: CSS
-
 ---
+
+# css 命名规范（BEM）和优化
+
+BlockElementModifier 其实是块（block）、元素（element）、修饰符（modifier）。
+
+这三个部分使用 __ 与 -- 连接。
+
+.块 __ 元素 -- 修饰符 {}
+
+* block 代表了更高级别的抽象或组件。
+* block__element 代表 block 的后代，用于形成一个完整的 block 的整体。
+* block--modifier 代表 block 的不同状态或不同版本。
+
+使用 BEM 命名规范的优点
+
+1. CSS引擎查找样式表，对每条规则都按从右到左的顺序去匹配
+
+```css
+#ul-id li {}
+```
+
+这段代码看起来很快，实际上很慢。
+
+通常我们会认为浏览器是这样工作的：找到唯一 ID 元素 ul-id —> 把样式应用到 li 元素上。
+
+事实上: 从右到左进行匹配，遍历页面上每个 li 元素并确定其父元素。**所以尽量不要使 css 超过三层。**
+
+eg： 相比于 #markdown-content-h3，显然使用 #markdown .content h3 时，浏览器生成渲染树（render-tree）所要花费的时间更多。后者需要先找到 DOM 中所有 h3 的元素，再过滤掉祖先元素不是 .content 的，最后再过滤祖先元素不是 #markdown 的元素。
+
+
+2. 语义化
+
+```css
+
+/* .块 __ 元素 -- 修饰符 {} */
+.person{ } /*人*/
+.person__hand{ } /*人的手*/
+.person--female{ } /*女人*/
+.person--female__hand{ } /*女人的手*/
+.person__hand--left{ } /*人的左手*/
+
+```
+
+3. 在 scss 中使用
+
+**使用 @at-root 内联选择器模式，编译出来的 CSS 无任何嵌套（这是关键）**
+
+```javascript
+
+.person {
+  @at-root #{&}__hand {
+    color: red;
+    @at-root #{&}--left {
+     color: yellow;
+    }
+  }
+  @at-root #{&}--female {
+    color: blue;
+    @at-root #{&}__hand {
+      color: green;
+    }
+  }
+}
+
+/*生成的css*/
+
+.person__hand {
+   color: red;
+}
+.person__hand--left {
+   color: yellow; 
+}
+.person--female{
+  color: blue;
+}
+.person--female__hand {
+  color: green;
+}
+
+```
+
+4. 减少使用昂贵的属性
+
+在浏览器绘制屏幕时，所有需要浏览器进行操作或计算的属性相对而言都需要花费更大的代价。
+
+当页面发生重绘时，它们会降低浏览器的渲染性能。所以在编写CSS时，我们应该尽量减少使用昂贵属性，如box-shadow/border-radius/filter/透明度/:nth-child等。
+
+当然，并不是让大家不要使用这些属性，因为这些应该都是我们经常使用的属性。之所以提这一点，是让大家对此有一个了解。
+
+当有两种方案可以选择的时候，可以优先选择没有昂贵属性或昂贵属性更少的方案，如果每次都这样的选择，网站的性能会在不知不觉中得到一定的提升。
+
+5. 减少回流和重绘
+
 
 # Flex布局常见属性
 
@@ -839,7 +931,7 @@ HTML中一个三维的概念。在CSS2.1规范中，每个盒模型的位置是�
 ![markdown](https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/z-indexRules.png)
 
 
-# display:none和visibility:hidden以及opacity:0的区别
+# display:none 和 visibility:hidden 以及 opacity:0 的区别
 
 1. 空间占据
 
@@ -879,19 +971,17 @@ grid	table	table-cell	table-caption	table-column	table-row	table-column-group	ta
 
 等等。。
 
-
-
 # 网页制作用到的图片格式
 
 ## 位图
 
-1. 位图又叫做点阵图，是一个个很小的颜色小方块组合在一起的图片。一个小方块代表1px（像素）。我们的手机屏幕和电脑屏幕也都是由很多个像素方块组成的
+1. 位图又叫做点阵图，是一个个很小的颜色小方块组合在一起的图片。一个小方块代表 1px（像素）。我们的手机屏幕和电脑屏幕也都是由很多个像素方块组成的
 
-2. 常见的位图设计软件有Photoshop(PS)\LR等；常见的位图图片格式有JPG、PNG、Bmp等。所有位图图片都可以使用PS进行修改设计。在PS中把图片放大1600倍后，就可以看到一个个的像素点。类似马赛克的效果
+2. 常见的位图设计软件有 Photoshop(PS)\LR 等；常见的位图图片格式有 JPG、PNG、Bmp 等。所有位图图片都可以使用 PS 进行修改设计。在 PS 中把图片放大1600倍后，就可以看到一个个的像素点。类似马赛克的效果
 
 ## 矢量图
 
-矢量图是由**一个个点链接在一起组成的，是根据几何特性来绘制的图像，和位图的分辨率是没有关系的**。因此图片放大后也不会失真，不会出现位图的马赛克的样子，也就是说可以无限放大图片。下图是用AI软件中放大6400倍的矢量图，依然很清晰
+矢量图是由**一个个点链接在一起组成的，是根据几何特性来绘制的图像，和位图的分辨率是没有关系的**。因此图片放大后也不会失真，不会出现位图的马赛克的样子，也就是说可以无限放大图片。下图是用 AI 软件中放大6400倍的矢量图，依然很清晰
 
 ## 图片格式
 
@@ -901,9 +991,9 @@ grid	table	table-cell	table-caption	table-column	table-row	table-column-group	ta
 
 3. jpg：静态图片
 
-4. WebP格式，谷歌（google）新推出的影像技术，它可让网页图档有效进行压缩，同时又不影响图片格式兼容与实际清晰度，进而让整体网页下载速度加快 。图片压缩体积大约只有JPEG的2/3，并能节省大量的服务器带宽资源和数据空间。Facebook Ebay等知名网站已经开始测试并使用WebP格式。在质量相同的情况下，WebP格式图像的体积要比JPEG格式图像小40%，但是缺点是兼容性较差
+4. WebP 格式，谷歌（google）新推出的影像技术，它可让网页图档有效进行压缩，同时又不影响图片格式兼容与实际清晰度，进而让整体网页下载速度加快 。图片压缩体积大约只有JPEG的2/3，并能节省大量的服务器带宽资源和数据空间。Facebook Ebay等知名网站已经开始测试并使用WebP格式。在质量相同的情况下，WebP格式图像的体积要比JPEG格式图像小40%，但是缺点是兼容性较差
 
-5. apng格式，说到动图，大家首先想到的肯定是 GIF。但 GIF 最大的缺点是，图像是基于颜色列表的（存储的数据是该点的颜色对应于颜色列表的索引值），最多只支持 8 位（256 色）。这使得使用 GIF 格式不可能得到高清的动画图片。**而apng是位图动画的拓展，可以实现png格式的动态图片效果**，有望代替gif成为下一代动态图的标准
+5. apng 格式，说到动图，大家首先想到的肯定是 GIF。但 GIF 最大的缺点是，图像是基于颜色列表的（存储的数据是该点的颜色对应于颜色列表的索引值），最多只支持 8 位（256 色）。这使得使用 GIF 格式不可能得到高清的动画图片。**而 apng 是位图动画的拓展，可以实现 png 格式的动态图片效果**，有望代替 gif 成为下一代动态图的标准
 
 * 支持 24 位真彩色图片
 * 支持 8 位 Alpha 透明通道
@@ -915,7 +1005,7 @@ grid	table	table-cell	table-caption	table-column	table-row	table-column-group	ta
 
 优点：
 
-* 减少HTTP 请求数，极大地提高页面加载速度
+* 减少 HTTP 请求数，极大地提高页面加载速度
 * 增加图片信息的重复度，提高压缩比，减少图片大小
 
 缺点：
@@ -923,9 +1013,9 @@ grid	table	table-cell	table-caption	table-column	table-row	table-column-group	ta
 * 图片合并麻烦
 * 维护麻烦，修改一个图片可能需要重新布局整个图片、样式
 
-2. base64 格式图片（在webpack 中可以使用url-loader进行图片打包）
+2. base64 格式图片（在webpack 中可以使用 url-loader 进行图片打包）
 
-优点：可以加密，减少http 请求，适用于小图片（20kb左右），体积约为原图的4/3，一般比源文件大 30% 左右。
+优点：可以加密，减少 http 请求，适用于小图片（20kb左右），体积约为原图的4/3，一般比源文件大 30% 左右。
 
 缺点：需要消耗cpu 进行编解码
 
@@ -933,3 +1023,5 @@ grid	table	table-cell	table-caption	table-column	table-row	table-column-group	ta
 # 参考文章：
 [什么是BFC?](https://juejin.im/post/5a4dbe026fb9a0452207ebe6)
 [学习 BFC (Block Formatting Context)](https://juejin.im/post/59b73d5bf265da064618731d)
+[css BEM](https://www.jianshu.com/p/54b000099217)
+[CSS性能优化的8个技巧](https://juejin.im/post/6844903649605320711)

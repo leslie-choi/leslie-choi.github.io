@@ -48,7 +48,7 @@ jquery的ajax就是在原生的ajax的基础上进行了封装，并且添加上
 
 # axios
 
-axios是vue官方推荐使用的一个库，**axios 一个基于Promise 用于浏览器和 nodejs 的 HTTP 客户端，本质上也是对原生XHR的封装，只不过它是Promise的实现版本，**不是原生js,使用时需要对其进行安装，符合最新的ES规范，它本身具有以下优点：
+axios 是 vue 官方推荐使用的一个库，**axios 一个基于 Promise 用于浏览器和 nodejs 的 HTTP 客户端，本质上也是对原生 XHR 的封装，只不过它是 Promise 的实现版本，**不是原生js,使用时需要对其进行安装，符合最新的ES规范，它本身具有以下优点：
 
 * 支持 Promise API
 * 客户端支持防止CSRF
@@ -57,17 +57,19 @@ axios是vue官方推荐使用的一个库，**axios 一个基于Promise 用于�
 * 拦截请求和响应
 * 从浏览器中创建 XMLHttpReques
 
-PS:防止CSRF:就是让你的每个请求都带一个从cookie中拿到的key, 根据浏览器同源策略，假冒的网站是拿不到你cookie中得key的，这样，后台就可以轻松辨别出这个请求是否是用户在假冒网站上的误导输入，从而采取正确的策略。
+PS:防止 CSRF :就是让你的每个请求都带一个从 cookie 中拿到的 key, 根据浏览器同源策略，假冒的网站是拿不到你 cookie 中得 key 的，这样，后台就可以轻松辨别出这个请求是否是用户在假冒网站上的误导输入，从而采取正确的策略。
 
 # fetch
 
-fetch号称是AJAX的替代品，是在ES6出现的，使用了ES6中的promise对象。Fetch是基于promise设计的。fetch不是ajax的进一步封装，而是原生js，没有使用XMLHttpRequest对象。
+fetch 号称是 AJAX 的替代品，是在 ES6 出现的，使用了 ES6 中的 promise 对象。Fetch 是基于 promise 设计的。fetch 不是 ajax 的进一步封装，而是原生 js，没有使用 XMLHttpRequest 对象。
 
 ```javascript
-    fetch(url).then(fun2)
-            .then(fun3)
-            .....
-            .catch(fun)
+
+fetch(url).then(fun2)
+        .then(fun3)
+        .....
+        .catch(fun)
+        
 ```
 
 优点：
@@ -76,18 +78,18 @@ fetch号称是AJAX的替代品，是在ES6出现的，使用了ES6中的promise�
 
 缺点：
 * API 偏底层，需要封装
-* 默认不带Cookie，需要手动添加
+* 默认不带 Cookie，需要手动添加
 * 浏览器支持情况不是很友好，需要第三方的ployfill
 * fetch 没有办法原⽣监测请求的进度，⽽XHR可以
 
 # 总结
 
-ajax是最早出现发送后端请求的技术，属于原生js范畴,核心是使用XMLHttpRequest对象,使用较多并有先后顺序的话，容易产生回调地狱。
+ajax 是最早出现发送后端请求的技术，属于原生 js 范畴,核心是使用 XMLHttpRequest 对象,使用较多并有先后顺序的话，容易产生回调地狱。
 
-fetch号称可以代替ajax的技术，是基于es6中的Promise对象设计的，参数和jQuery中的ajax类似，它并不是对ajax进一步封装，它属于原生js范畴。没有使用XMLHttpRequest对象。
+fetch 号称可以代替 ajax 的技术，是基于 es6 中的 Promise 对象设计的，参数和 jQuery 中的 ajax 类似，它并不是对 ajax 进一步封装，它属于原生 js 范畴。没有使用 XMLHttpRequest 对象。
 
-axios不是原生js,使用时需要对其进行安装，客户端和服务器端都可以使用，可以在请求和响应阶段进行拦截，基于promise对象。
-axios既提供了并发的封装，也没有fetch的各种问题，而且体积也较小，当之无愧现在最应该选用的请求的方式。这大概就是目前官方推荐使用axios的原因了吧。
+axios 不是原生 js,使用时需要对其进行安装，客户端和服务器端都可以使用，可以在请求和响应阶段进行拦截，基于 promise 对象。
+axios 既提供了并发的封装，也没有 fetch 的各种问题，而且体积也较小，当之无愧现在最应该选用的请求的方式。这大概就是目前官方推荐使用 axios 的原因了吧。
 
 # 参考文章
 [ajax、fetch、axios区别](https://blog.csdn.net/jennyya/article/details/83687622)
