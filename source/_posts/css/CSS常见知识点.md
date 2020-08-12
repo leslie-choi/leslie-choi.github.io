@@ -31,7 +31,7 @@ BlockElementModifier 其实是块（block）、元素（element）、修饰符�
 
 事实上: 从右到左进行匹配，遍历页面上每个 li 元素并确定其父元素。**所以尽量不要使 css 超过三层。**
 
-eg： 相比于 #markdown-content-h3，显然使用 #markdown .content h3 时，浏览器生成渲染树（render-tree）所要花费的时间更多。后者需要先找到 DOM 中所有 h3 的元素，再过滤掉祖先元素不是 .content 的，最后再过滤祖先元素不是 #markdown 的元素。
+eg： 相比于 # markdown-content-h3，显然使用 #markdown .content h3 时，浏览器生成渲染树（render-tree）所要花费的时间更多。后者需要先找到 DOM 中所有 h3 的元素，再过滤掉祖先元素不是 .content 的，最后再过滤祖先元素不是 #markdown 的元素。
 
 
 2. 语义化
