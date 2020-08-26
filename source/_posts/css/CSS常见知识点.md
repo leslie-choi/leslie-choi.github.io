@@ -37,14 +37,12 @@ eg： 相比于 # markdown-content-h3，显然使用 #markdown .content h3 时�
 2. 语义化
 
 ```css
-
 /* .块 __ 元素 -- 修饰符 {} */
 .person{ } /*人*/
 .person__hand{ } /*人的手*/
 .person--female{ } /*女人*/
 .person--female__hand{ } /*女人的手*/
 .person__hand--left{ } /*人的左手*/
-
 ```
 
 3. 在 scss 中使用
@@ -52,7 +50,6 @@ eg： 相比于 # markdown-content-h3，显然使用 #markdown .content h3 时�
 **使用 @at-root 内联选择器模式，编译出来的 CSS 无任何嵌套（这是关键）**
 
 ```javascript
-
 .person {
   @at-root #{&}__hand {
     color: red;
@@ -82,7 +79,6 @@ eg： 相比于 # markdown-content-h3，显然使用 #markdown .content h3 时�
 .person--female__hand {
   color: green;
 }
-
 ```
 
 4. 减少使用昂贵的属性
@@ -226,27 +222,27 @@ fixed定位是指元素的位置相对于**浏览器窗口是固定位置**，�
 元素定位表现为在跨越特定阈值前为相对定位，之后为固定定位。
 
 ```javascript
-	<style>
-	div.sticky {
-	position: -webkit-sticky;
-	position: sticky;
-	top: 0;
-	padding: 5px;
-	background-color: #cae8ca;
-	border: 2px solid #4CAF50;
-	}
-	</style>
+<style>
+  div.sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    padding: 5px;
+    background-color: #cae8ca;
+    border: 2px solid #4CAF50;
+  }
+</style>
 
-	<div class="sticky">我是粘性定位!</div>
+<div class="sticky">我是粘性定位!</div>
 
-	<div style="padding-bottom:2000px">
-	<p>滚动我</p>
-	<p>来回滚动我</p>
-	<p>滚动我</p>
-	<p>来回滚动我</p>
-	<p>滚动我</p>
-	<p>来回滚动我</p>
-	</div>
+<div style="padding-bottom:2000px">
+  <p>滚动我</p>
+  <p>来回滚动我</p>
+  <p>滚动我</p>
+  <p>来回滚动我</p>
+  <p>滚动我</p>
+  <p>来回滚动我</p>
+</div>
 ```
 
 ## 6、position：inherit
@@ -411,6 +407,7 @@ vmin相对于视口的宽度或高度中较小的那个。其中最小的那个�
 为什么要使用flex布局呢。因为比起绝对定位然后再去设置边距什么的，flex绝对容易理解然后代码量还少，DOM渲染时间更快，所以只讲flex，绝对不是因为懒！
 圣杯布局：中间的div需要加上flex: 1，才可以将中间div的宽度填满。实现自适应宽度。
 双飞翼布局和圣杯布局几乎一样(其实就是一回事)，区别在于处理center中被遮挡的部分。双飞翼是在center中再放一个div用来显示内容，为其设置margin。
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -456,7 +453,6 @@ vmin相对于视口的宽度或高度中较小的那个。其中最小的那个�
 </body>
 </html>
 ```
-
 
 # CSS盒子模型
 
@@ -524,6 +520,7 @@ d、dom.getBoundingClientRect().width/height
 3. 匿名盒：匿名盒没有名字，不能利用选择器来选择它们，所以它们的所有属性都为inherit或初始默认值；
 
 ### 三个定位方案
+
 * 常规流
 * 浮动
 * 定位
@@ -573,7 +570,6 @@ d、dom.getBoundingClientRect().width/height
 			<div class="main"></div>
 		</div>
 	</section>
-
 ```
 分析：
 ![markdown](https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/BFC1.png)
@@ -661,10 +657,10 @@ d、dom.getBoundingClientRect().width/height
 按照BFC的定义，只有同属于一个BFC时，两个元素才有可能发生垂直Margin的重叠，这个包括相邻元素，嵌套元素，只要他们之间没有阻挡(例如边框，非空内容，padding等)就会发生margin重叠。
 因此要解决margin重叠问题，只要让它们不在同一个BFC就行了，但是对于两个相邻元素来说，意义不大，没有必要给它们加个外壳，但是对于嵌套元素来说就很有必要了，只要把父元素设为BFC就可以了。这样子元素的margin就不会和父元素的margin发生重叠了。
 
-
 # css选择器以及优先级
 
 优先级从上往下递减。
+
 1. !important
 	在属性后面写上这条样式，会覆盖掉页面上任何位置定义的元素的样式。
 
@@ -718,7 +714,6 @@ PS:odd 和 even 是可用于匹配下标是奇数或偶数的子元素的关键�
 最常见的应用场景就是清除浮动了
 
 ```css
-
 .clear:after {
     content: '';
     display: block;
@@ -726,7 +721,6 @@ PS:odd 和 even 是可用于匹配下标是奇数或偶数的子元素的关键�
 	  visibility: hidden;
 	  height: 0;
 }
-
 ```
 
 ## css3新增的其他伪类
@@ -740,7 +734,6 @@ PS:odd 和 even 是可用于匹配下标是奇数或偶数的子元素的关键�
 :disabled 已经禁用的表单元素
 
 :checked 单选框或复选框被选中
-
 
 # css有哪些属性是可以继承的？
 
@@ -840,8 +833,10 @@ Render进程和GPU进程是通过共享内存传递的。Render进程可以快�
 
 ## 层叠上下文(stacking context)
 
-HTML中一个三维的概念。在CSS2.1规范中，每个盒模型的位置是三维的，分别是平面画布上的X轴，Y轴以及表示层叠的Z轴。一般情况下，元素在
-页面上沿X轴Y轴平铺，我们察觉不到它们在Z轴上的层叠关系。而一旦元素发生堆叠，这时就能发现某个元素可能覆盖了另一个元素或者被另一个元素覆盖。
+HTML中一个三维的概念。在CSS2.1规范中，每个盒模型的位置是三维的，分别是平面画布上的X轴，Y轴以及表示层叠的Z轴。
+
+一般情况下，元素在页面上沿X轴Y轴平铺，我们察觉不到它们在Z轴上的层叠关系。而一旦元素发生堆叠，这时就能发现某个元素可能覆盖了另一个元素或者被另一个元素覆盖。
+
 如果一个元素含有层叠上下文，(也就是说它是层叠上下文元素)，我们可以理解为这个元素在Z轴上就“高人一等”，最终表现就是它离屏幕观察者更近。
 
 ## 层叠等级
@@ -1021,6 +1016,7 @@ grid	table	table-cell	table-caption	table-column	table-row	table-column-group	ta
 
 
 # 参考文章：
+
 [什么是BFC?](https://juejin.im/post/5a4dbe026fb9a0452207ebe6)
 [学习 BFC (Block Formatting Context)](https://juejin.im/post/59b73d5bf265da064618731d)
 [css BEM](https://www.jianshu.com/p/54b000099217)

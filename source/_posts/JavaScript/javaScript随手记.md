@@ -80,7 +80,7 @@ var num = 5; //  所以上面在控制台中调用不会报错，只是显示 un
 
 ## 1、形式"test()""
 
-```
+```JavaScript
 var a = 1
 function test () {
     console.log(this.a)
@@ -91,7 +91,7 @@ test()  //1
 
 ## 2、形式"xxx.text()"
 
-```
+```JavaScript
 var a = 1
 function test () {
     console.log(this.a)
@@ -105,7 +105,7 @@ obj.test()      //2
 这种形式相对于第一中，this指向已经很明显，谁去调用这个函数的，这个函数中的this就绑定到谁身上。
 
 
-```
+```JavaScript
 var a = 1
 function test () {
     console.log(this.a)
@@ -122,7 +122,7 @@ obj0.obj.test()     //2
 ```
 虽然比上面复杂了一点，但是结果依然和上面的一样，this指向obj，指向直接调用的对象。
 
-```
+```JavaScript
 var a = 1
 function test () {
     console.log(this.a)
@@ -137,7 +137,7 @@ testCopy()      //testCopy()是由window调用的，所以this指向window
 道理同上，虽然说换了一个名字，但是只认定函数调用的时候，是由哪个对象进行调用的。
 
 
-```
+```Javascript
 var a = 1
 function test () {
     console.log(this.a)
@@ -150,7 +150,7 @@ setTimeout(obj.test)  //输出1
 ```
 ## 3、形式“test.call(xxx) / test.apply(xxx) / test.bind()”
 
-```
+```JavaScript
 var a = 1
 function test () {
     console.log(this.a)
@@ -166,7 +166,8 @@ var obj3 = {
 var testCopy = obj.test
 testCopy.call(obj)//2
 ```
-可以看到，我们通过call（apply跟call的区别只是传参，作用是一样的，bind有点区别，bind能让我们的函数延迟执行，apply与call调用就执行，所以bind这样的形式我们也称为函数柯里化，这些就不是我们这里要说的啦）来调用testCopy，并且传入了你想要this指向的上下文，那么this指向你要的对象。看到这里，我们也可以想象第一、二种形式其实可以转化成call/apply的形式
+可以看到，我们通过 call（apply 跟 call 的区别只是传参，作用是一样的，bind 有点区别，bind 能让我们的函数延迟执行，apply 与 call 调用就执行，所以 bind 这样的形式我们也称为函数柯里化，这些就不是我们这里要说的啦）来调用 testCopy，并且传入了你想要 this 指向的上下文，那么 this 指向你要的对象。看到这里，我们也可以想象第一、二种形式其实可以转化成 call/apply 的形式。
+
 ## 4、“new test()”形式
 
 ```

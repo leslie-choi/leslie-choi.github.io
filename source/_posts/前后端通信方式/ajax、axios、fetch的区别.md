@@ -38,9 +38,11 @@ Ajax是指一种**创建交互式网页应用**的网页开发技术，并且可
 jquery的ajax就是在原生的ajax的基础上进行了封装，并且添加上了对JSONP的支持。
 
 优点：
+
 * 使用方便
 
 缺点：
+
 * 本身是针对mvc的编程模式，不太适合目前mvvm的编程模式
 * 基于原⽣的 XHR 开发， XHR 本身的架构不清晰，已经有了 fetch 的替代⽅案 
 * jQuery本身比较大，如果单纯的使用ajax可以自己封装一个，不然会影响性能体验
@@ -64,12 +66,10 @@ PS:防止 CSRF :就是让你的每个请求都带一个从 cookie 中拿到的 k
 fetch 号称是 AJAX 的替代品，是在 ES6 出现的，使用了 ES6 中的 promise 对象。Fetch 是基于 promise 设计的。fetch 不是 ajax 的进一步封装，而是原生 js，没有使用 XMLHttpRequest 对象。
 
 ```javascript
-
 fetch(url).then(fun2)
         .then(fun3)
         .....
         .catch(fun)
-        
 ```
 
 优点：
@@ -91,6 +91,7 @@ fetch 号称可以代替 ajax 的技术，是基于 es6 中的 Promise 对象设
 axios 不是原生 js,使用时需要对其进行安装，客户端和服务器端都可以使用，可以在请求和响应阶段进行拦截，基于 promise 对象。
 axios 既提供了并发的封装，也没有 fetch 的各种问题，而且体积也较小，当之无愧现在最应该选用的请求的方式。这大概就是目前官方推荐使用 axios 的原因了吧。
 
-# 参考文章
+# 参考文章：
+
 [ajax、fetch、axios区别](https://blog.csdn.net/jennyya/article/details/83687622)
 [ajax和axios、fetch的区别](https://www.jianshu.com/p/8bc48f8fde75)

@@ -16,10 +16,8 @@ axios 相比于 vue-resource，具有很多新特性，例如拦截请求和响�
 2. 在 http.js 中引入 axios
 
 ```javascript
-
 import axios from 'axios'
 import QS from 'qs' // qs模块用来序列化 post 类型的数据
-
 ```
 
 3. 环境的切换
@@ -27,7 +25,6 @@ import QS from 'qs' // qs模块用来序列化 post 类型的数据
 由于项目的环境可能有开发环境、测试环境和生产环境，通过 node 的环境变量来匹配默认的接口 url 的前缀，使用 axios.default.baseURL 设置默认的请求地址。
 
 ```javascript
-
 // 环境的切换
 if (process.env.NODE_ENV == 'development') {    
     axios.defaults.baseURL = 'https://www.baidu.com'
@@ -38,7 +35,6 @@ else if (process.env.NODE_ENV == 'debug') {
 else if (process.env.NODE_ENV == 'production') {    
     axios.defaults.baseURL = 'https://www.production.com'
 }
-
 ```
 
 4. 设置接口请求超时
@@ -46,9 +42,7 @@ else if (process.env.NODE_ENV == 'production') {
 使用 axios.default.timeout 设置默认的请求超时时间。
 
 ```javascript
-
 axios.defaults.timeout = 10000  // 10s
-
 ```
 
 5. post 请求头的设置
@@ -56,9 +50,7 @@ axios.defaults.timeout = 10000  // 10s
 post 请求的时候，我们需要加上请求头，所以可以对其进行一个默认设置将其请求头设为 application/x-www-form-urlencoded;charset=UTF-8。
 
 ```javasript
-
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
-
 ```
 
 6. 请求拦截
@@ -66,7 +58,6 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 对请求进行拦截的原因是，有的数据接口，是需要用户有相关的权限才可以进行访问（比如登录之后才可以查看个人信息）。又或者在发送 post 请求的时候，需要序列化我们提交的数据，这时候需要在发送请求之前进行一个拦截，进行相关的其他操作。
 
 ```javascript
-
 // 请求拦截器
 
 axios.interceptors.request.use(
@@ -78,7 +69,6 @@ axios.interceptors.request.use(
     return Promise.error(error)
   }
 )
-
 ```
 
 7. 响应拦截
@@ -86,9 +76,7 @@ axios.interceptors.request.use(
 响应拦截，就是针对服务器返回的数据，我们在拿到之前对数据进行相应的处理。例如后台返回的状态码是正常，则正常返回数据，否则，需要根据错误的状态码类型，进行统一的错误处理。
 
 ```javascript
-
 // 响应拦截器
-
 axios.interceptors.response.use(
   response => {
     // 如果返回的状态码是 200，则说明接口请求成功，返回正常数据
@@ -125,7 +113,6 @@ axios.interceptors.response.use(
     }
   }
 )
-
 ```
 
 # 在 http.js 中使用 axios 封装 get 和 post 方法
@@ -133,13 +120,11 @@ axios.interceptors.response.use(
 1. 封装 get 方法
 
 ```javascript
-
 /**
  * @desc 封装 get 方法，对应 get 请求，接收两个参数
  * @param {String} url [请求的 url 地址]
  * @param {Object} params [请求时携带的参数]
  */
-
 export function get (url,params) {
   return new Promise((resolve,reject) => {
     axios.get(url, {
@@ -151,7 +136,6 @@ export function get (url,params) {
     })
   })
 }
-
 ```
 
 2. 封装 POST 方法
@@ -159,15 +143,12 @@ export function get (url,params) {
 原理同 get，但是需要注意 post 方法需要对提交过来的参数进行序列化操作。所以这里需要使用到 node 的 qs 模块，否则后台无法拿到前端提交的数据。
 
 ```javascript
-
 import QS from 'qs'
-
 /**
  * @desc 封装 post 方法，对应 post 请求，接收两个参数
  * @param {String} url { 请求的url地址 }
  * @param {Object} params [ 请求时携带的参数 ]
  */
-
 export function post(url,params) {
   return new Promise((resolve,reject) => {
     axios.post(url,QS.stringify(params))
@@ -179,21 +160,18 @@ export function post(url,params) {
     })
   })
 }
-
 ```
 
 # 封装 api.js 类
 
 ```javascript
-
 import querystring from 'querystring'
 import request from '@/utils/request'   // axios 封装的实例
-
 class Api {
   constructor(resource) {
     this.resource = resource
   }
-
+  
   async list(payload) {
     const resp = await request.get(`/${this.resource}?${querystring.stringify(payload)}`)
     return resp
@@ -226,15 +204,12 @@ class Api {
 }
 
 export default Api
-
 ```
 
 1. api 文件夹中 user.js： 
 
 ```javascript
-
 import Api from './api'
-
 // 传入参数中的 api 是在 vue.config.js 中使用代理配置的 target 前缀
 const wechatApi = new Api('api/notice/wechat')
 
@@ -242,13 +217,11 @@ export async function sendByWechat (payload) {
   const res = wechatApi.post(payload)
   return res
 }
-
 ```
 
 2. 使用 Vuex 时在 store/modules 文件夹：
 
 ```javascript
-
 import { sendByWechat } from '@/api/user'
 
 const state = {}
@@ -271,18 +244,15 @@ export default {
   actions,
   mutations
 }
-
 ```
 
 3. 在页面中调用方法
 
 ```javascript
-
     const { data: res } = await this.$store.dispatch(
       "user/sendByWechat",
       row.uuid.toString()
     )
-
 ```
 
 # 完整的 axios 配置
@@ -404,7 +374,6 @@ instance.interceptors.response.use(
     });
 
 export default instance
-
 ```
 
 # 参考文章
