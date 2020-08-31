@@ -5,7 +5,7 @@ tags: Interview
 categories: JavaScript
 ---
 
-# this指向
+# this 指向
 
 this的指向有4种类型
 
@@ -279,3 +279,122 @@ Object.prototype.toString.call(reg) // "[object RegExp]"   正则
 * [].prototype.slice.call()
 * Array.from()
 * 扩展运算符[...()]
+
+# bind / apply / call 的区别
+
+```javascript
+  function a(a,b,c) {
+      console.log(this.name)
+      console.log(a,b,c)
+  }
+  const b = {
+      name: "segmentFault"
+  }
+  a.call(b,1,2,3)
+  
+  //输出 segmentFault和 1,2,3
+
+  function a(a,b,c) {
+      console.log(this.name);
+      console.log(a,b,c)
+  }
+
+  a.apply(b,[1,2,3])
+  //输出segmentFault和1,2,3
+```
+
+使用 bind 之后：
+
+```javascript
+  function a() {
+      console.log(this.name)
+  }
+  const b = {
+      name: "segmentFault"
+  }
+  a.bind(b, 1, 2, 3)
+```
+
+**此时控制台并没有代码输出，因为bind会重新生成并且返回一个函数，这个函数的this指向第一个参数**
+
+```javascript
+  function a() {
+      console.log(this.name)
+  }
+  const b = {
+      name: "segmentFault"
+  }
+  const c = a.bind(b, 1, 2, 3)
+  c() //此时输出segmentFault
+```
+
+# 手写 apply/call/bind
+
+1. 手写 apply
+
+```javascript
+Function.prototype.myApply = function (context, args) {
+    // context 是上下文，args 是携带的参数
+    // 这里默认不传就是给window,也可以用es6给参数设置默认参数
+    context = context || window
+    args = args ? args : []
+    // 给context新增一个独一无二的属性以免覆盖原有属性
+    const key = Symbol()
+    context[key] = this
+    // 通过隐式绑定的方式调用函数
+    const result = context[key](...args)
+    // 删除添加的属性
+    delete context[key]
+    // 返回函数调用的返回值
+    return result
+}
+```
+
+2. 手写 call
+
+```javascript
+//传递参数从一个数组变成逐个传参了,不用...扩展运算符的也可以用arguments代替
+Function.prototype.myCall = function (context, ...args) {
+    // 这里默认不传就是给 window,也可以用 es6 给参数设置默认参数
+    context = context || window
+    args = args ? args : []
+    //给context 对象新增一个独一无二的属性以免覆盖原有属性
+    const key = Symbol()
+    context[key] = this
+    //通过隐式绑定的方式调用函数
+    const result = context[key](...args)
+    //删除添加的属性
+    delete context[key]
+    //返回函数调用的返回值
+    return result
+}
+```
+
+**如果要改变一个函数的 this 指向，则需要把那个函数变成一个对象上的属性**，也就是在这里的 `context[key] = this`。
+
+3. 手写 bind
+
+bind 和 apply 的区别在于，bind 是返回一个绑定好的函数，apply 是直接调用。
+
+其实就是返回一个函数，里面执行了 apply 上述的操作而已。不过有一个需要判断的点，因为返回新的函数，要考虑到使用 new 去调用，并且 new 的优先级比较高，所以需要判断 new 的调用。
+
+还有一个特点就是 bind 调用的时候可以传参，调用之后生成的新的函数也可以传参，效果是一样的，所以这一块也要做处理。
+因为上面已经实现了 apply，这里就借用一下，实际上不借用就是把代码 copy 过来。
+
+```javascript
+Function.prototype.myBind = function (context, ...args) {
+  const fn = this
+  args = args ? args : []
+  return function newFn(...newFnArgs) {
+    if (this instanceof newFn) {
+      return new fn(...args, ...newFnArgs)
+    }
+    return fn.apply(context, [...args,...newFnArgs])
+  }
+}
+```
+
+# 参考文章
+
+(50行javaScript代码实现简单版的 call , apply ,bind 【中级前端面试基础必备】)[https://segmentfault.com/a/1190000020044435]
+(https://juejin.im/post/6844903891092389901#heading-7)[面试感悟,手写bind,apply,call]

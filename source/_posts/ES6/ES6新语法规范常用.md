@@ -61,7 +61,6 @@ let a = "apple";
  
 console.log(b);  //undefined
 var b = "banana";
-
 ```
 
 ## const关键字的使用
@@ -83,7 +82,7 @@ const 声明一个只读变量，声明之后不允许改变。意味着，一�
 
 ES5 只有两种声明变量的方法：var命令和function命令。ES6 除了添加let和const命令，另外两种声明变量的方法：import命令和class命令。所以，ES6 一共有 6 种声明变量的方法。
 
-# ES6提供了对函数的扩展
+# ES6 提供了对函数的扩展
 
 ## ES6为参数**提供了默认值**
 在定义函数时便初始化了这个参数，以便在参数没有被传递进去时使用。
@@ -170,8 +169,22 @@ console.log(Object.keys("abcdef"));    //["0", "1", "2", "3", "4", "5"]
 
 ```JavaScript
 var obj={name: "john", age: "21", getName: function () { alert(this.name)}};
-console.log(Object.values(obj))    //   ["john", "21", ƒ]
-console.log(Object.keys(obj).length)    //3
+console.log(Object.values(obj))    // ["john", "21", ƒ]
+console.log(Object.keys(obj).length)    //  3
+```
+
+## Object.entries()
+
+将对象的属性名和属性值作为一个数组的两个元素，插入到另一个空数组中。
+
+```javascript
+const person = {
+  name: 'james',
+  age: 18,
+  sex: 'man'
+}
+const man = Object.entries(person)
+console.log(man)  // [['name','james'],['age',18],['sex','man']]
 ```
 
 ## for...of  循环
@@ -290,7 +303,7 @@ $('#list').html(`
 `.trim())
 ```
 
-# 新增symbol基础数据类型
+# 新增 symbol 基础数据类型
 
 JS中的数据类型分为基本数据类型还有复杂数据类型(引用数据类型)
 
@@ -421,7 +434,7 @@ console.log(object[symbols[0]]) // "12345"
 
 ```
 
-# 新增set数据类型
+# 新增 set 数据类型
 
 ES6中新增了Set数据结构，类似于数组，但是 它的成员都是唯一的 ，其构造函数可以接受一个数组作为参数。
 
@@ -432,7 +445,7 @@ console.log(set); // 此时打印的是set 结构 Set(5) {1, 2, 3, 4, 5}
 console.log(Array.from(set)); //将Set结构强制转换为数组
 ```
 
-# 新增Map数据
+# 新增 Map 数据
 
 其实数组也是集合, 只不过数组的索引是数值类型.当想用非数值类型作为索引时, 数组就无法满足需要了.
 
@@ -453,7 +466,7 @@ Set和Map是es6新增的两个数据集合。
 
 map() 方法创建一个新数组，其结果是该数组中的每个元素都调用一个提供的函数后返回的结果。
 
-# class、 extends、 super
+# class、extends、super
 
 这三个特性设计到ES5几个点，就是原型，继承还有多态，确实是令人挺烦的。。但那是ES6之前的事了蛤蛤。
 
@@ -518,7 +531,6 @@ class ColorPoint extends Point {
 
 PS：static 关键字解释：类相当于实例的原型，所有在类中定义的方法，都会被实例继承。如果在一个方法前，加上static关键字，就表示该方法不会被实例继承，而是直接通过类来调用， 这就称为“ 静态方法”。
 
-
 # 解构赋值
 
 ## 数组的解构赋值
@@ -545,13 +557,11 @@ let [foo] = NaN
 let [foo] = undefined
 let [foo] = null
 let [foo] = {}
-
 ```
 
 并且允许指定默认值:
 
 ```javascript
-
 let [foo = true] = []
 foo //true
 
@@ -574,14 +584,12 @@ x //null，如果一个数组成员是null，那么默认值就不会生效
 对象的解构与数组有一个重要的不同。数组的元素是按次序排列的，变量的取值由它的位置决定；而对象的属性没有次序，变量必须与属性同名，才能取到正确的值。如果解构失败，变量的值等于undefined。
 
 ```javascript
-
 let { bar, foo } = { foo: 'aaa', bar: 'bbb' };
 foo // "aaa"
 bar // "bbb"
 
 let { baz } = { foo: 'aaa', bar: 'bbb' };
 baz // undefined
-
 ```
 
 ## 字符串的解构赋值
@@ -614,9 +622,7 @@ e //  "o"
 函数只能返回一个值，如果要返回多个值，只能将它们放在数组或对象里返回。有了解构赋值，取出这些值就非常方便。
 
 ```javascript
-
 // 返回一个数组
-
 function example() {
   return [1, 2, 3];
 }
@@ -672,7 +678,6 @@ for (let [key, value] of map) {
 如果只想获取键名，或者只想获取键值，可以写成下面这样。
 
 ```javascript
-
 // 获取键名
 for (let [key] of map) {
   // ...
@@ -871,7 +876,6 @@ factorial(5) // 120
 # 新增 Map 和 Set 数据结构
 
 ```javascript
-
  var map = new Map()
  var set = new Set()
  console.log(typeof(map))   //object
@@ -1339,15 +1343,15 @@ let onWatch = (obj, setBind, getLogger) => {
   let handler = {     
     get(target, property, receiver) {       
       getLogger(target, property)       
-      return Reflect.get(target, property, receiver);     
+      return Reflect.get(target, property, receiver)  
       },     
     set(target, property, value, receiver) {       
       setBind(value);       
-      return Reflect.set(target, property, value);     
+      return Reflect.set(target, property, value)
       }   
-    };   
-  return new Proxy(obj, handler); 
-};
+    }
+  return new Proxy(obj, handler);
+}
 
 let obj = { a: 1 } 
 let value 
@@ -1358,4 +1362,147 @@ let p = onWatch(obj, (v) => {
 }) 
 
 p.a = 2 // bind `value` to `2` p.a // -> Get 'a' = 2
+```
+
+# 其他
+
+## Array.find 简写
+
+```javascript
+const pets = [{
+    type: 'Dog',
+    name: 'wangcai'
+  },
+  {
+    type: 'Cat',
+    name: 'tom'
+  },
+  {
+    type: 'Dog',
+    name: 'Tommy'
+  }
+]
+pet = pets.find(item => item.type === 'Dog' && item.name === 'Tommy')
+
+console.log(pet) // { type: 'Dog', name: 'Tommy' }
+```
+
+## 隐式返回
+
+```javascript
+const implicitReturn = (value) => (value + value) // 注意这里是圆括号 不是花括号
+console.log(implicitReturn('giao'))
+```
+
+## charAt() 简写
+
+```javascript
+'SampleString'.charAt(0) // S
+// 简写
+'SampleString'[0]
+```
+
+## 有条件的函数的调用
+
+```javascript
+function fn1() {
+  console.log('I am Function 1')
+}
+
+function fn2() {
+  console.log('I am Function 2')
+}
+// 复杂写法
+let checkValue = 3
+if (checkValue === 3) {
+  fn1()
+} else {
+  fn2()
+}
+// 简短写法
+(checkValue === 3 ? fn1 : fn2)()
+```
+
+## Math.Floor 简写
+
+```javascript
+let val = '123.95'
+
+console.log(Math.floor(val)) // 常规写法
+console.log(~~val) // 简写
+```
+
+## Math.pow 简写
+
+```javascript
+Math.pow(2,3) // 8
+2 ** 3 // 简写 8  
+```
+
+## 字符串转换为数字
+
+```javascript
+const num1 = parseInt('100')
+// 简写
+console.log(+"100")
+console.log(+"100.2")
+```
+
+## && 运算
+
+```javascript
+let value = 1
+if (value === 1)  console.log('Value is one')
+// && 运算
+value && console.log('Value is one')
+
+//  只要“&&”前面是false，无论“&&”后面是true还是false，结果都将返“&&”前面的值
+
+//  只要“&&”前面是true，无论“&&”后面是true还是false，结果都将返“&&”后面的值
+```
+
+## toString 简写
+
+```javascript
+let someNumber = 123
+console.log(someNumber.toString()) // "123"
+
+// 简写
+console.log(`${someNumber}`) // "123"
+```
+
+## 使用对象的形式代替 switch 语法
+
+```javascript
+// switch 写法
+let animal = 'dog'
+let name
+switch(animal) {
+  case 'dog':
+    name = 'wangcai'
+    break
+  case 'cat':
+    name = 'tom'
+    break
+  case 'pig':
+    name = 'paige'
+    break
+  default:
+    name = 'jerry'
+}
+
+//  对象的形式
+const fn = (name) => {
+  const animalsList = {
+    'dog': () => { return 'wangcai' },
+    'cat': () => { return 'cat' },
+    'pig': () => { return 'pig' },
+    'default': () => { return 'jerry' }
+  }
+  if (typeof animalsList[name] !== 'function') {
+      return false
+  }
+  return animalsList[name]()
+}
+fn('dog')
 ```
