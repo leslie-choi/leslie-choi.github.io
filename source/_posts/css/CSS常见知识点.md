@@ -458,7 +458,7 @@ vmin相对于视口的宽度或高度中较小的那个。其中最小的那个�
 
 ## 1、基本概念
 
-CSS盒子模型主要有两种，一种是标准盒子模型，另外一种是IE盒子模型。接下来用图片来展示两种盒子模型。
+CSS 盒子模型主要有两种，一种是标准盒子模型，另外一种是IE盒子模型。接下来用图片来展示两种盒子模型。
 
 标准盒子模型：
 ![markdown](https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/standardModel.jpg)
@@ -469,20 +469,20 @@ IE盒子模型：
 
 标准盒子模型的 width = content + padding + border + margin,高度同理。
 IE盒子模型的 width = content + margin。
-所以两个模型的主要区别在于IE模型的content其实包含了content和padding及border。
+所以两个模型的主要区别在于 IE 模型的 content 其实包含了 content 和 padding 及 border。
 
 在现在的浏览器中，默认使用的是标准模型，二者的主要区别在于宽度和高度的计算方式不同。打开控制台就可以看到了。在这里，其实盒子模型的选取，看个人习惯吧，并没有绝对的好坏之分。
 [markdown](https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/consoleBox.png)
 
 ## 2、切换两种盒子模型
 
-有人开发可能习惯标准模型，有人可能习惯IE模型。那我们要怎么来切换这两种盒子模型呢？其实也是很简单，通过CSS3的box-sizing来设置就可以了。
-box-sizing: content-box 是W3C盒子模型
-box-sizing: border-box 是IE盒子模型
+有人开发可能习惯标准模型，有人可能习惯 IE 模型。那我们要怎么来切换这两种盒子模型呢？其实也是很简单，通过 CSS3 的 box-sizing 来设置就可以了。
+box-sizing: content-box 是 W3C 盒子模型
+box-sizing: border-box 是 IE 盒子模型
 
 ## 3、获取盒子宽度和高度
 
-那么问题来了，如何通过JS来获取盒子模型的宽高呢。
+那么问题来了，如何通过 JS 来获取盒子模型的宽高呢。
 a、使用dom.style.width/height
 
 ```javascript
@@ -502,22 +502,22 @@ c、window.getComputedStyle(dom).width
 道理其实和第二个是一样的，但是相对第二个该方法兼容了谷歌浏览器和火狐浏览器，所以兼容性更好一点。
 
 d、dom.getBoundingClientRect().width/height
-该方法通常用于计算一个元素的绝对位置，也就是根据视窗计算的。该方法会返回8个值上下左右宽高和xy
+该方法通常用于计算一个元素的绝对位置，也就是根据视窗计算的。该方法会返回8个值上下左右宽高和 xy
 
 # BFC
 
-首先什么是BFC，说实话这个概念之前都没有怎么接触过，所以赶紧找时间恶补了一下。。BFC全称是Block Formatting Context，即块格式化上下文。它是CSS2.1规范定义的，关于CSS渲染定位的一个概念。要明白深入了解BFC的话，需要先了解视觉格式化模型(visual formatting model)和CSS的盒子（BOX）概念。
+首先什么是 BFC，说实话这个概念之前都没有怎么接触过，所以赶紧找时间恶补了一下。。BFC 全称是Block Formatting Context，即块格式化上下文。它是 CSS2.1 规范定义的，关于 CSS 渲染定位的一个概念。要明白深入了解 BFC 的话，需要先了解视觉格式化模型(visual formatting model)和 CSS 的盒子（BOX）概念。
 
 ## 视觉格式化模型
 
-视觉格式化模型(visual formatting model)是用来处理文档并将它显示在视觉媒体上的机制，它也是CSS中的一个概念。
-视觉格式化模型定义了盒（Box）的生成，盒主要包括了块盒、行内盒、匿名盒（没有名字不能被选择器选中的盒）以及一些实验性的盒（未来可能添加到规范中）。盒的类型由display属性决定。
+视觉格式化模型(visual formatting model)是用来处理文档并将它显示在视觉媒体上的机制，它也是 CSS中的一个概念。
+视觉格式化模型定义了盒（Box）的生成，盒主要包括了块盒、行内盒、匿名盒（没有名字不能被选择器选中的盒）以及一些实验性的盒（未来可能添加到规范中）。盒的类型由 display 属性决定。
 
 ### BOX
 
-1. 块级盒：即display属性为block、list-item、table的元素，在视觉上呈现为块，竖直排列，独占一行。（支持宽高width、height）
-2. 行内盒：即display的计算值为inline，inline-block或inline-table。
-3. 匿名盒：匿名盒没有名字，不能利用选择器来选择它们，所以它们的所有属性都为inherit或初始默认值；
+1. 块级盒：即 display 属性为 block、list-item、table 的元素，在视觉上呈现为块，竖直排列，独占一行。（支持宽高 width、height）
+2. 行内盒：即 display 的计算值为 inline，inline-block 或 inline-table。
+3. 匿名盒：匿名盒没有名字，不能利用选择器来选择它们，所以它们的所有属性都为 inherit 或初始默认值。
 
 ### 三个定位方案
 
@@ -525,24 +525,24 @@ d、dom.getBoundingClientRect().width/height
 * 浮动
 * 定位
 
-## BFC的形成条件
+## BFC 的形成条件
 
-* 根元素
-* float的值不能为none
-* overflow的值不能为visible
-* display的值为table-cell, table-caption, inline-block,flex,inline-flex中的任何一个
-* position的值为absolute和fixed
+* 根元素。
+* float 的值不能为 none。
+* overflow 的值不能为 visible。
+* display 的值为 table-cell, table-caption, inline-block, flex, inline-flex 中的任何一个。
+* position 的值为 absolute 和 fixed。
 
-## BFC的约束规则
+## BFC 的约束规则
 
-1. 内部的Box会在垂直方向上一个接一个的放置
-2. 垂直方向的距离有margin决定(属于同一个BFC的两个相邻Box的margin会发生重叠，与方向无关)
-3. 每个元素的margin box的左边， 与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此
-**4. BFC的区域不会与float的元素区域重叠**
-**5. 计算BFC的高度时，浮动子元素也参与计算**
-**6. BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面元素，反之亦然**
+1. 内部的 Box 会在垂直方向上一个接一个的放置。
+2. 垂直方向的距离有 margin 决定(属于同一个 BFC 的两个相邻 Box 的 margin 会发生重叠，与方向无关)。
+3. 每个元素的 margin box 的左边， 与包含块 border box 的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此。
+**4. BFC 的区域不会与 float 的元素区域重叠。**
+**5. 计算 BFC 的高度时，浮动子元素也参与计算。**
+**6. BFC 就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面元素，反之亦然。**
 
-## BFC的作用
+## BFC 的作用
 
 ### 不和浮动的元素相重叠
 ```html
@@ -573,8 +573,8 @@ d、dom.getBoundingClientRect().width/height
 ```
 分析：
 ![markdown](https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/BFC1.png)
-由于aside向左浮动具有BFC，但是main并不具有BFC，所以发生了重叠。在这里，根据上面的第四条规则，可以使main具备BFC，便不会发生重叠。
-给main元素的overflow属性加上heiiden值便可满足条件。
+由于 aside 向左浮动具有 BFC，但是 main 并不具有 BFC，所以发生了重叠。在这里，根据上面的第四条规则，可以使 main 具备 BFC，便不会发生重叠。
+给 main 元素的 overflow 属性加上 heiiden值便可满足条件。
 ![markdown](https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/BFC2.png)
 
 ### 清除元素内部的浮动
@@ -603,8 +603,8 @@ d、dom.getBoundingClientRect().width/height
 
 分析：
 ![markdown](https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/BFC3.png)
-根据BFC布局规则第六条：计算BFC的高度时，浮动元素也参与计算，为达到清除内部浮动，我们可以触发par生成BFC，那么par在计算高度时，par内部的浮动元素child也会参与计算。
-所以在这里给par加上一个overflow的hidden属性值，触发par生成BFC就可以了。
+根据 BFC 布局规则第六条：计算 BFC 的高度时，浮动元素也参与计算，为达到清除内部浮动，我们可以触发 par 生成 BFC，那么 par 在计算高度时，par 内部的浮动元素 child 也会参与计算。
+所以在这里给 par 加上一个 overflow 的 hidden 属性值，触发 par 生成 BFC 就可以了。
 ![markdown](https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/BFC4.png)
 
 ### 防止垂直 margin 重叠
@@ -628,14 +628,14 @@ d、dom.getBoundingClientRect().width/height
 
 分析：
 ![markdown](https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/BFC5.png)
-很明显，在这里两个标签的margin发生了重叠，应该是200px。
-根据BFC布局规则第二条：Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠，并且取值较大的那一个。
-为了能够正常显示，那我们可以在p外面包裹一层容器，并触发该容器生成一个BFC。那么两个P便不属于同一个BFC，就不会发生margin重叠了。
+很明显，在这里两个标签的 margin 发生了重叠，应该是 200px。
+根据 BFC 布局规则第二条：Box 垂直方向的距离由margin决定。属于同一个 BFC 的两个相邻 Box 的 margin 会发生重叠，并且取值较大的那一个。
+为了能够正常显示，那我们可以在p外面包裹一层容器，并触发该容器生成一个 BFC。那么两个 P 便不属于同一个 BFC，就不会发生 margin 重叠了。
 
 ```html
 <style>
     .wrap {
-        overflow: hidden;
+      overflow: hidden;
     }
     p {
         color: #f55;
@@ -654,8 +654,65 @@ d、dom.getBoundingClientRect().width/height
 </body>
 ```
 ![markdown](https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/BFC5.png)
-按照BFC的定义，只有同属于一个BFC时，两个元素才有可能发生垂直Margin的重叠，这个包括相邻元素，嵌套元素，只要他们之间没有阻挡(例如边框，非空内容，padding等)就会发生margin重叠。
-因此要解决margin重叠问题，只要让它们不在同一个BFC就行了，但是对于两个相邻元素来说，意义不大，没有必要给它们加个外壳，但是对于嵌套元素来说就很有必要了，只要把父元素设为BFC就可以了。这样子元素的margin就不会和父元素的margin发生重叠了。
+按照 BFC 的定义，只有同属于一个 BFC 时，两个元素才有可能发生垂直 Margin 的重叠，这个包括相邻元素，嵌套元素，只要他们之间没有阻挡(例如边框，非空内容，padding 等)就会发生 margin 重叠。
+因此要解决 margin 重叠问题，只要让它们不在同一个 BFC 就行了，但是对于两个相邻元素来说，意义不大，没有必要给它们加个外壳，但是对于嵌套元素来说就很有必要了，只要把父元素设为 BFC 就可以了。这样子元素的 margin 就不会和父元素的 margin 发生重叠了。
+
+# IFC（Inline Formatting Contexts）行内级格式化上下文
+
+行内级格式化上下文用来规定行内级盒子的格式化规则。
+
+先来看看如何生成一个 IFC ：
+
+IFC 只有在一个块级元素中仅包含内联级别元素时才会生成。
+
+**布局规则**
+
+1. 内部的盒子会在水平方向，一个接一个地放置。
+
+2. 这些盒子垂直方向的起点从包含块盒子的顶部开始。
+
+3. 摆放这些盒子的时候，它们在水平方向上的 padding、border、margin 所占用的空间都会被考虑在内。
+
+4. 在垂直方向上，这些框可能会以不同形式来对齐（vertical-align）：它们可能会使用底部或顶部对齐，也可能通过其内部的文本基线（baseline）对齐。
+
+5. 能把在一行上的框都完全包含进去的一个矩形区域，被称为该行的行框（line box）。行框的宽度是由包含块（containing box）和存在的浮动来决定。
+
+6. IFC中的 line box 一般左右边都贴紧其包含块，但是会因为float元素的存在发生变化。float 元素会位于IFC与与 line box 之间，使得 line box 宽度缩短。
+
+7. IFC 中的 line box 高度由 CSS 行高计算规则来确定，同个 IFC 下的多个 line box 高度可能会不同（比如一行包含了较高的图片，而另一行只有文本）
+
+8. 当 inline-level boxes 的总宽度少于包含它们的 line box 时，其水平渲染规则由 text-align 属性来确定，如果取值为 justify，那么浏览器会对 inline-boxes（注意不是inline-table 和 inline-block boxes）中的文字和空格做出拉伸。
+
+9. 当一个 inline box 超过 line box 的宽度时，它会被分割成多个boxes，这些 boxes 被分布在多个 line box 里。如果一个 inline box 不能被分割（比如只包含单个字符，或 word-breaking 机制被禁用，或该行内框受 white-space 属性值为 nowrap 或 pre 的影响），那么这个 inline box 将溢出这个 line box。
+
+**具体用处：**
+
+水平居中：当一个块要在环境中水平居中时，设置其为 inline-block 则会在外层产生 IFC，通过设置父容器 text-align:center 则可以使其水平居中。**inline-block 的宽度默认由内容撑开**。
+
+值得注意的是，设置一个块为 inline-block ，以单个封闭块来参与外部的 IFC，而内部则生成了一个 BFC。
+
+垂直居中：创建一个IFC，用其中一个元素撑开父元素的高度，然后设置其 vertical-align:middle，其他行内元素则可以在此父元素下垂直居中。
+
+# FFC（Flex Formatting Contexts）Flex格式化上下文
+
+当 display 的值为 flex 或 inline-flex 时，将生成弹性容器（Flex Containers）。
+
+一个弹性容器为其内容建立了一个新的弹性格式化上下文环境（FFC）。
+
+值得注意的是，弹性容器不是块容器，下列适用于块布局的属性不适用于弹性布局：
+
+1. 在 CSS3 多列布局模块中定义的 column-* 属性不适用于弹性容器。
+
+2. float 和 clear 属性对于弹性项没有作用，并不会把它带离文档流（或相反）。然而，浮动属性仍然会通过影响 display 属性的计算值而影响 box 的生成。
+
+3. vertical-align 属性对于弹性项没有作用。
+4. ::first-line 和 ::first-letter 伪元素不适用于弹性容器，而且弹性容器不为他们的祖先提供第一个格式化的行或第一个字母。
+
+# GFC（Grid Formatting Contexts）栅格格式化上下文
+
+display: grid。
+
+大漠老师教程马克：`https://www.w3cplus.com/blog/tags/355.html`。
 
 # css选择器以及优先级
 
@@ -764,15 +821,15 @@ PS:odd 和 even 是可用于匹配下标是奇数或偶数的子元素的关键�
 
 # CSS中哪些是不可继承的？
 
-1. display属性
+1. display属性。
 
-2. 文本属性
+2. 文本属性。
 
-* vertical-align：垂直文本对齐
-* text-decoration：规定添加到文本的装饰
-* text-shadow：文本阴影效果
-* white-space：空白符的处理
-* unicode-bidi：设置文本的方向
+* vertical-align：垂直文本对齐。
+* text-decoration：规定添加到文本的装饰。
+* text-shadow：文本阴影效果。
+* white-space：空白符的处理。
+* unicode-bidi：设置文本的方向。
 
 3. 盒子模型属性
 
@@ -1021,3 +1078,4 @@ grid	table	table-cell	table-caption	table-column	table-row	table-column-group	ta
 [学习 BFC (Block Formatting Context)](https://juejin.im/post/59b73d5bf265da064618731d)
 [css BEM](https://www.jianshu.com/p/54b000099217)
 [CSS性能优化的8个技巧](https://juejin.im/post/6844903649605320711)
+[谈谈一些有趣的CSS题目（11）-- IFC、BFC、GFC 与 FFC 知多少](https://github.com/chokcoco/iCSS/issues/56)

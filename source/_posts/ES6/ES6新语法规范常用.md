@@ -1491,12 +1491,13 @@ switch(animal) {
     name = 'jerry'
 }
 
-//  对象的形式
-const fn = (name) => {
+//  对象的形式，实际上是使用策略模式重构代码
+// case1
+const fn1 = (name) => {
   const animalsList = {
     'dog': () => { return 'wangcai' },
-    'cat': () => { return 'cat' },
-    'pig': () => { return 'pig' },
+    'cat': () => { return 'tom' },
+    'pig': () => { return 'peppa pig' },
     'default': () => { return 'jerry' }
   }
   if (typeof animalsList[name] !== 'function') {
@@ -1504,5 +1505,22 @@ const fn = (name) => {
   }
   return animalsList[name]()
 }
-fn('dog')
+fn1('dog')
+
+// case2
+const animalsList2 = {
+  'dog': () => { return 'wangcai' },
+  'cat': () => { return 'tom' },
+  'pig': () => { return 'peppa' },
+  'default': () => { return 'jerry' }
+}
+
+const fn2 = (name) => {
+  return animalsList2[name]
+}
+fn2('cat')()
 ```
+
+# 参考文章
+
+(22+ 高频实用的 JavaScript 片段 （2020年）)[https://mp.weixin.qq.com/s/kmelc879Eadfr9YFntkAUg]
