@@ -1,10 +1,3 @@
-<!--
- * @Description: 
- * @Author: 小鬼
- * @Date: 2020-08-07 18:08:08
- * @LastEditTime: 2020-08-10 15:02:30
- * @LastEditors: 小鬼
--->
 ---
 title: vue 编码规范
 date: 2020-08-05 20:43:20
@@ -54,11 +47,11 @@ categories: Vue
 
 **static 目录和 assets 目录的区别**
 
-1. assets 中资源会 webpack 构建压缩到你代码中，而 static 文件直接引用。
+1. assets 中资源会被 webpack 构建压缩到你代码中，而 static 文件直接引用。
 
 2. static 中长存放类包、插件等第三方的文件，assets 里放属资源文件比如自己资源图片、css 文件、js 文件。
 
-3. 引入资源的方式static文件夹可以使用~/static/方式引入, assets文件夹可以使用 ~@/assets 方式引入。
+3. 引入资源的方式 static 文件夹可以使用 ~/static/ 方式引入, assets 文件夹可以使用 ~@/assets 方式引入。
 
 **static 必须使用绝对路径引用这些文件；assets目录中的文件会被webpack处理解析为模块依赖，只支持相对路径形式。**
 
