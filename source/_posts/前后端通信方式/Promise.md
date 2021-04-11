@@ -5,7 +5,7 @@ tags: basic
 categories: Ajax
 ---
 
-# promise对象
+# promise 对象
  
 ![markdown](https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/promise.png)
 
@@ -74,7 +74,7 @@ console.log(2);
 //Promise {<resolved>: undefined}
 ```
 
-# promise原理
+# promise 原理
 
 promise就是三个状态。利用观察者模式的编程思想,通过特定书写方式注册对应状态的事件处理函数，然后更新状态，调用注册过的处理函数即可。 
 这个特定方式就是then，done，fail，always…等方法，更新状态就是resolve、reject方法。 
@@ -97,7 +97,6 @@ Promise的实现过程，通过Promise.prototype.then和Promise.prototype.catch�
  * resolve: 更新state为：RESOLVED，并且执行成功处理队列
  * reject: 更新state为：REJECTED，并且执行失败处理队列
 **/
- 
     class PromiseNew {
     constructor(fn) {
         this.state = 'PENDING';
@@ -105,7 +104,6 @@ Promise的实现过程，通过Promise.prototype.then和Promise.prototype.catch�
         this.failList = [];
         fn(this.resolve.bind(this), this.reject.bind(this));
     }
-    
     // 注册成功处理函数
     done(handle) {
         if (typeof handle === 'function') {
@@ -115,7 +113,6 @@ Promise的实现过程，通过Promise.prototype.then和Promise.prototype.catch�
         }
         return this;
     }
-    
     // 注册失败处理函数
     fail(handle) {
         if (typeof handle === 'function') {
@@ -125,19 +122,16 @@ Promise的实现过程，通过Promise.prototype.then和Promise.prototype.catch�
         }
         return this;
     }
-    
     // 同时注册成功和失败处理函数
     then(success, fail) {
         this.done(success || function () { }).fail(fail || function () { });
         return this;
     }
-    
     // 一个处理函数注册到成功和失败
     always(handle) {
         this.done(handle || function () { }).fail(handle || function () { });
         return this;
     }
-    
     // 更新state为：RESOLVED，并且执行成功处理队列
     resolve() {
         this.state = 'RESOLVED';
@@ -149,7 +143,6 @@ Promise的实现过程，通过Promise.prototype.then和Promise.prototype.catch�
         });
         }.bind(this), 200);
     }
-    
     // 更新state为：REJECTED，并且执行失败处理队列
     reject() {
         this.state = 'REJECTED';
@@ -160,21 +153,21 @@ Promise的实现过程，通过Promise.prototype.then和Promise.prototype.catch�
             arr.shift(); // shift() 方法用于把数组的第一个元素从其中删除，并返回第一个元素的值。
         });
         }.bind(this), 200);
-    }
+      }
     }
     
     // 下面一波骚操作
     new Promise((resolve, reject) => {
-    resolve('hello world');
-    // reject('you are err');
-    }).done((res) => {
-    console.log(res);
-    }).fail((res) => {
-    console.log(res);
+      resolve('hello world');
+      // reject('you are err');
+      }).done((res) => {
+        console.log(res);
+      }).fail((res) => {
+        console.log(res);
     })
 ```
 
-# promise常用API
+# promise 常用API
 
 1. Promise.resolve(value)
 
@@ -262,7 +255,6 @@ Promise的实现过程，通过Promise.prototype.then和Promise.prototype.catch�
 
 ```javascript
 //上面例子改写为
-
   let promise = new Promise((resolve,reject) =>{
     var success = true
     if(success){
@@ -282,10 +274,9 @@ Promise的实现过程，通过Promise.prototype.then和Promise.prototype.catch�
   .then(() =>{
     console.log("完成")
   })
-
 ```
 
-# async和await
+# async 和 await
 
 谈及异步回调函数的嵌套，总会让人感到烦躁，特别是当业务逻辑复杂，往往需要调用几次 ajax 才能拿到所有需要的数据。
 
@@ -293,44 +284,39 @@ Promise的实现过程，通过Promise.prototype.then和Promise.prototype.catch�
 
 一句话解释：async 函数，就是 Generator 函数的语法糖。
 
-async函数具有以下特点：
+async 函数具有以下特点：
 
-* 建立在promise之上。所以，不能把它和回调函数搭配使用。但它会声明一个异步函数，并隐式地返回一个Promise。因此可以直接return变量，无需使用Promise.resolve进行转换。
-* 和promise一样，是非阻塞的。但不用写 then 及其回调函数，这减少代码行数，也避免了代码嵌套。而且，所有异步调用，可以写在同一个代码块中，无需定义多余的中间变量。
+* 建立在 promise 之上。所以，不能把它和回调函数搭配使用。但它会声明一个异步函数，并隐式地返回一个 Promise。因此可以直接 return 变量，无需使用 Promise.resolve 进行转换。
+* 和 promise 一样，是非阻塞的。但不用写 then 及其回调函数，这减少代码行数，也避免了代码嵌套。而且，所有异步调用，可以写在同一个代码块中，无需定义多余的中间变量。
 * 它的最大价值在于，可以使异步代码，在形式上，更接近于同步代码。
-它总是与await一起使用的。并且，await 只能在 async 函数体内。
+它总是与 await 一起使用的。并且，await 只能在 async 函数体内。
 * await 是个运算符，用于组成表达式，它会阻塞后面的代码。如果等到的是 Promise 对象，则得到其 resolve值。否则，会得到一个表达式的运算结果。
 
 ## async函数的优点
 
 ```javascript
-
     function takeLongTime(n) {
         return new Promise(resolve => {
             setTimeout(() => resolve(n + 200), n);
         });
     }
-
     function step1(n) {
         console.log(`step1 with ${n}`);
         return takeLongTime(n);
     }
-
     function step2(n) {
         console.log(`step2 with ${n}`);
         return takeLongTime(n);
     }
-
     function step3(n) {
         console.log(`step3 with ${n}`);
         return takeLongTime(n);
     }
 ```
 
-使用Promise方法实现三个步骤的处理：
+使用 Promise 方法实现三个步骤的处理：
 
 ```javascript
-
     function doIt() {
         console.time("doIt");
         const time1 = 300;
@@ -346,7 +332,6 @@ async函数具有以下特点：
     // step2 with 500
     // step3 with 700
     // result is 900
-
 ```
 
 使用async处理：
@@ -382,7 +367,6 @@ async相比promise优点：
 你很可能遇到过这样的场景，调用promise1，使用promise1返回的结果去调用promise2，然后使用两者的结果去调用promise3。你的代码很可能是这样的:
 
 ```javascript
-
 const makeRequest = () => {
     return promise1().then(value1 => {
         return promise2(value1).then(value2 => {
@@ -396,7 +380,6 @@ const makeRequest = () => {
 如果promise3不需要value1，可以很简单地将promise嵌套铺平。如果你忍受不了嵌套，你可以将value 1 & 2 放进Promise.all来避免深层嵌套：
 
 ```javascript
-
 const makeRequest = () => {
     return promise1().then(value1 => {
         return Promise.all([value1, promise2(value1)])
@@ -404,7 +387,6 @@ const makeRequest = () => {
             return promise3(value1, value2)
         })
 }
-
 ```
 
 这种方法为了可读性牺牲了语义。除了避免嵌套，并没有其他理由将value1和value2放在一个数组中。

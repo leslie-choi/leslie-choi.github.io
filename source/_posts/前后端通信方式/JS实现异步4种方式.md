@@ -40,7 +40,6 @@ categories: Ajax
 
 const promise = new Promise(function(resolve, reject) {
   // ... some code
-
   if (/* 异步操作成功 */){
     resolve(value)
   } else {
@@ -75,7 +74,6 @@ then方法接收两个回调函数，第一个回调函数是Promise对象的状
 缺点：流程管理不⽅便
 
 ```javascript
-
     function* G() {
         const a = yield 100
         console.log('a', a)  // a aaa
@@ -89,7 +87,6 @@ then方法接收两个回调函数，第一个回调函数是Promise对象的状
     g.next('aaa') // value: 200, done: false
     g.next('bbb') // value: 300, done: false
     g.next('ccc') // value: undefined, done: true
-
 ```
 
 相比Promise，Generator流程更加直观、语义化。
@@ -101,20 +98,18 @@ Generator的问题在于，函数的执行需要执行器每次都需要通过g.
 缺点：错误处理机制
 
 ```javascript
-
     async function testResult() {
-        let first = await doubleAfter2seconds(30);
-        let second = await doubleAfter2seconds(50);
-        let third = await doubleAfter2seconds(30);
-        console.log(first + second + third);
+      let first = await doubleAfter2seconds(30);
+      let second = await doubleAfter2seconds(50);
+      let third = await doubleAfter2seconds(30);
+      console.log(first + second + third);
     }
-
 ```
 
 asnyc函数解决了上述问题，流程清晰、直观、语义明显。
 同时asnyc函数自带执行器，执行的时候无需手动加载。
 
-## 如何处理async和await的错误
+# 如何处理 async 和 await 的错误
 
 1. 使用try...catch捕获
 
@@ -124,20 +119,18 @@ function fetchA(){
     ...
   }
 }
-
 function fetchB(){
   return new Promise(resolve,reject){
     ...
   }
 }
-
 async function fn() {
   // 每个异步都需要处理
   try {
     let res = await fetchA()
     console.log(res)
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
   try {
     let res = await fetchB()
@@ -160,10 +153,10 @@ async function fn() {
     console.log(resA,resB)
   } catch (error) {
    if (error.type === 'resA') {
-   console.log('resA err is', err)
+    console.log('resA err is', err)
    }
    if (error.type === 'resB') {
-   console.log('resB err is', err)
+    console.log('resB err is', err)
    }
   }
 }
@@ -177,7 +170,9 @@ fn()
 
 /* 方法抽取 */
 const to = promise => {
-  return promise.then(res => [null, res]).catch(error => [error])
+  return promise
+          .then(res => [null, res])
+          .catch(error => [error])
 }
 
 let flag = true
@@ -197,6 +192,7 @@ function fetchVehicle() {
 async function fn() {
   // 每个异步都需要处理
   let [error, res] = await to(fetchVehicle())
+  // 但是还是需要 if...else 判断
   console.log("error", error)
   console.log("res", res)
 }
@@ -204,7 +200,7 @@ async function fn() {
 fn()
 ```
 
-# 事件监听(采⽤时间驱动模式，取决于某个事件是否发⽣)
+# 事件监听(采⽤事件驱动模式，取决于某个事件是否发⽣)
 
 优点：容易理解，可以绑定多个事件，每个事件可以指定多个回调函数。
 缺点：事件驱动型，流程不够清晰。

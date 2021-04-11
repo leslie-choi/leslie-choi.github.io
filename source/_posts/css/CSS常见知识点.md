@@ -130,6 +130,22 @@ space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。 
 
 ![markdown](https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/flex7.PNG)
 
+
+
+## flex 属性值
+
+flex: flex-grow flex-shrink flex-basis;
+
+* flex-grow：一个数字，规定项目将相对于其他灵活的项目进行扩展的量。
+
+* flex-shrink：一个数字，规定项目将相对于其他灵活的项目进行收缩的量。
+
+* flex-basis：项目的长度。合法值："auto"、"inherit" 或一个后跟 "%"、"px"、"em" 或任何其他长度单位的数字。
+
+flex: 1 等价 flex: 1 1 0%。让所有弹性盒模型对象的子元素都有相同的长度，且忽略它们内部的内容。
+
+flex: auto 等价 flex: 1 1 auto;
+
 # link与@import的区别
 
 区别1：link是XHTML标签，除了加载CSS外，还可以定义RSS等其他事务；@import属于CSS范畴，只能加载CSS。

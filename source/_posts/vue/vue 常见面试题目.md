@@ -249,21 +249,58 @@ var vm = new Vue({
 
 1. 什么是虚拟DOM
 
-虚拟DOM其实就是一个JavaScript对象。通过这个JavaScript对象来描述真实DOM。
+虚拟 DOM 其实就是一个 JavaScript 对象。通过这个 JavaScript 对象来描述真实 DOM。虚拟 DOM 并没有一个统一的标准，各个框架都有不同的实现，大致实现如下：
+
+```html
+<div id="box" class="container">
+  <span>vdom</span>
+  <ul style="background:red;">
+    <li>item</li>
+  </ul>
+</div>
+```
+
+转化为虚拟 DOM：
+
+```javascript
+{
+  tag: 'div',
+  props: {
+    id: 'box',
+    className: 'container'
+  },
+  children: [
+    {
+      tag: 'span',
+      children: 'vdom'
+    },
+    {
+      tag: 'ul',
+      props: { style:"background: red" }
+      children: [
+        {
+          tag: 'li',
+          children: 'item'
+        }
+      ]
+    }
+  ]
+}
+```
 
 2. 为什么要使用虚拟DOM
 
 优点：
 
-* 保证性能下限: 虚拟DOM可以经过diff找出最小差异,然后批量进行patch,这种操作虽然比不上手动优化,但是比起粗暴的DOM操作性能要好很多,因此框架的虚拟 DOM至少可以保证在你不需要手动优化的情况下，依然可以提供还不错的性能，即保证性能的下限；真实DOM的操作，一般都会对某块元素的整体重新渲染,采用虚拟DOM的话，当数据变化的时候，只需要局部刷新变化的位置就好了。
+* 保证性能下限: 虚拟 DOM 可以经过 diff 找出最小差异,然后批量进行更新 patch，这种操作虽然比不上手动优化,但是比起粗暴的 DOM 操作性能要好很多,因此框架的虚拟 DOM 至少可以保证在你不需要手动优化的情况下，依然可以提供还不错的性能，即保证性能的下限；真实 DOM 的操作，一般都会对某块元素的整体重新渲染,采用虚拟 DOM 的话，当数据变化的时候，只需要局部刷新变化的位置就好了。
 
-* 无需手动操作DOM: 我们不再需要手动去操作 DOM，只需要写好 View-Model 的代码逻辑，框架会根据虚拟 DOM 和 数据双向绑定，极大提高开发效率
+* 无需手动操作DOM: 我们不再需要手动去操作 DOM，只需要写好 View-Model 的代码逻辑，框架会根据虚拟 DOM 和数据双向绑定，极大提高开发效率。
 
-* 跨平台: 虚拟DOM本质上是JavaScript对象,而DOM与平台强相关,相比之下虚拟DOM可以进行更方便地跨平台操作,例如服务器渲染、移动端开发等等
+* 跨平台: 虚拟 DOM 本质上是 JavaScript 对象，而 DOM 与平台强相关，相比之下虚拟 DOM 可以进行更方便地跨平台操作,例如服务器渲染、移动端开发等等。
 
 缺点:
 
-* 无法进行极致优化: 在一些性能要求极高的应用中虚拟DOM无法进行针对性的极致优化,比如VScode采用直接手动操作DOM的方式进行极端的性能优化
+* 无法进行极致优化: 在一些性能要求极高的应用中虚拟DOM无法进行针对性的极致优化，比如VScode采用直接手动操作DOM的方式进行极端的性能优化
 
 # 虚拟DOM的实现原理
 
