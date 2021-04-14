@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yoursite.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="React 父子组件之间传值eg： TodoList  父组件 TODOList.js  123456789101112131415161718192021222324252627282930313233343536373839404142434445464748import React , &amp;#123; Fragment &amp;#125; from &amp;#x27;react&amp;#x27;import T">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React 父子组件传值和 ref 的使用">
+<meta property="og:url" content="http://yoursite.com/2020/09/08/React/%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BC%A0%E5%80%BC%E5%92%8Cref%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="404 not found">
+<meta property="og:description" content="React 父子组件之间传值eg： TodoList  父组件 TODOList.js  123456789101112131415161718192021222324252627282930313233343536373839404142434445464748import React , &amp;#123; Fragment &amp;#125; from &amp;#x27;react&amp;#x27;import T">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-08T03:52:23.000Z">
+<meta property="article:modified_time" content="2021-04-11T14:17:47.580Z">
+<meta property="article:author" content="leslie choi">
+<meta property="article:tag" content="basic">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2020/09/08/React/%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BC%A0%E5%80%BC%E5%92%8Cref%E7%9A%84%E4%BD%BF%E7%94%A8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;09&#x2F;08&#x2F;React&#x2F;%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BC%A0%E5%80%BC%E5%92%8Cref%E7%9A%84%E4%BD%BF%E7%94%A8&#x2F;&quot;,&quot;path&quot;:&quot;2020&#x2F;09&#x2F;08&#x2F;React&#x2F;父子组件传值和ref的使用&#x2F;&quot;,&quot;title&quot;:&quot;React 父子组件传值和 ref 的使用&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>React 父子组件传值和 ref 的使用 | 404 not found</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">404 not found</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#React-%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E4%B9%8B%E9%97%B4%E4%BC%A0%E5%80%BC"><span class="nav-number">1.</span> <span class="nav-text">React 父子组件之间传值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">Ref 的使用</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">leslie choi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/08/React/%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BC%A0%E5%80%BC%E5%92%8Cref%E7%9A%84%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          React 父子组件传值和 ref 的使用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-09-08 11:52:23" itemprop="dateCreated datePublished" datetime="2020-09-08T11:52:23+08:00">2020-09-08</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/react/" itemprop="url" rel="index"><span itemprop="name">react</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="React-父子组件之间传值"><a href="#React-父子组件之间传值" class="headerlink" title="React 父子组件之间传值"></a>React 父子组件之间传值</h1><p>eg： TodoList</p>
+<ol>
+<li>父组件 TODOList.js</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React , &#123; Fragment &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> TodoItem <span class="keyword">from</span> <span class="string">&#x27;./TodoItem.js&#x27;</span></span><br><span class="line"></span><br><span class="line">Class TodoList <span class="keyword">extends</span> React.component &#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>()</span><br><span class="line">    <span class="built_in">this</span>.state = &#123;</span><br><span class="line">      list: [<span class="string">&#x27;Vue&#x27;</span>, <span class="string">&#x27;React&#x27;</span>, <span class="string">&#x27;Angular&#x27;</span>]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 一般绑定 this 的操作放在 constructor 中，可以节省性能</span></span><br><span class="line">    <span class="built_in">this</span>.handleDel = <span class="built_in">this</span>.handleDel.bind(<span class="built_in">this</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;Fragment&gt;</span><br><span class="line">        &lt;h1&gt;TodoList&lt;/h1&gt;</span><br><span class="line">        &lt;ul&gt;</span><br><span class="line">          &#123; <span class="built_in">this</span>.getTodoItem() &#125;</span><br><span class="line">        &lt;/ul&gt;</span><br><span class="line">      &lt;/Fragment&gt;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">  getTodoItem = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.state.list.map(<span class="function">(<span class="params">item,index</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> (</span><br><span class="line">        &lt;div key = &#123; index &#125;&gt;</span><br><span class="line">          &lt;TodoItem</span><br><span class="line">            content = &#123; item &#125;</span><br><span class="line">            index = &#123; index &#125;</span><br><span class="line">            deleteItem = &#123; <span class="built_in">this</span>.handleDel &#125;</span><br><span class="line">          /&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">      )</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  handleDel = <span class="function">(<span class="params">index</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 旧用法： this.setState(&#123;&#125;)</span></span><br><span class="line">    <span class="comment">// prevState 相当于 this.state</span></span><br><span class="line">    <span class="built_in">this</span>.setState(<span class="function">(<span class="params">prevState</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> list = [...prevState.list]</span><br><span class="line">      list.splice(index, <span class="number">1</span>)</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        list</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>子组件</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TodoItem</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>()</span><br><span class="line">    <span class="built_in">this</span>.state = &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div onClick = &#123; <span class="built_in">this</span>.handleDelItem &#125;&gt;</span><br><span class="line">        &#123; <span class="built_in">this</span>.props.content &#125;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">  handleDelItem = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 解构赋值提取</span></span><br><span class="line">    <span class="keyword">const</span> &#123; deleteItem, index &#125; = <span class="built_in">this</span>.props</span><br><span class="line">    deleteItem( index )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>父组件向子组件传值</strong></p>
+<ul>
+<li>引用子组件的时候，添加一个自定义属性 <code>content</code>，后面跟上需要传递的值。</li>
+<li>子组件中，使用 <code>this.props.content</code> 就可以取到父组件传递过来的值。</li>
+</ul>
+<p><strong>子组件向父组件传值</strong></p>
+<p>PS：必须符合单向数据流的原则。</p>
+<ul>
+<li>引用子组件的时候，使用自定义属性并绑定父组件的一个方法，父组件中的方法操作相关的数据。</li>
+<li>注意在父组件中执行相关的数据操作的方法时，需要给该方法绑定 this。</li>
+</ul>
+<ol start="3">
+<li>限制父组件传递数据类型。</li>
+</ol>
+<p>在 TodoItem 组件中，使用 propTypes。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> PropTypes <span class="keyword">from</span> <span class="string">&#x27;prop-types&#x27;</span></span><br><span class="line"></span><br><span class="line">TodoItem.prototypes = &#123;</span><br><span class="line">  test: PropTypes.string.isRequired,  <span class="comment">// isRequired 说明该参数是必须的</span></span><br><span class="line">  content: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),     <span class="comment">// arrayOf 可以传入不同的类型</span></span><br><span class="line">  deleteItem: PropTypes.func,</span><br><span class="line">  index: PropTypes.number</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">TodoItem.defaultProps = &#123;</span><br><span class="line">  test: <span class="string">&#x27;hello world&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当 props 或者 state 发生改变的时候，render 函数就会被重新执行。<br>当父组件的 render 函数被运行的时候，它的子组件的 render 函数都将被重新运行。</p>
+<p>传统方案的页面渲染:</p>
+<ol>
+<li>state 数据</li>
+<li>JSX 模板</li>
+<li>数据 + 模板 结合，生成真实 DOM 来显示</li>
+<li>state 发生改变</li>
+<li>数据 + 模板 结合，生成真实 DOM，直接替换原始的 DOM</li>
+</ol>
+<p>缺陷：</p>
+<ul>
+<li>第一次生成可一个完整 DOM 片段</li>
+<li>第二次生成了一个完整 DOM 片段</li>
+<li>第二次的 DOM 替换第一的 DOM，非常耗性能</li>
+</ul>
+<p>改进方案：</p>
+<ol>
+<li>state 数据</li>
+<li>JSX 模板</li>
+<li>数据 + 模板结合，生成真实的 DOM，并不直接替代原始的 DOM</li>
+<li>state 发生改变</li>
+<li>数据 + 模板结合，生成真实 DOM，并不直接替换原始的 DOM</li>
+<li>新的 DOM（DocumnentFragment） 和真实的 DOM 做对比，找出差异</li>
+<li>上例中找出 input 框发生的变化</li>
+<li>只用新的 DOM 中的 input 元素，替换掉老的 DOM 中的 input 元素</li>
+</ol>
+<p>缺陷：</p>
+<ul>
+<li>对比真实 DOM 时也会消耗性能，对于性能的提升并不明显。</li>
+</ul>
+<p>现行方案：</p>
+<ol>
+<li>state 数据</li>
+<li>JSX 模板</li>
+<li>数据 + 模板 生成虚拟 DOM(虚拟 DOM 就是一个 JS 对象，用来描述真实 DOM)(损耗性能较小)<br><code>[&#39;div&#39;, &#123;id: &#39;abc&#39;&#125;,[&#39;span&#39;, &#123;&#125;, &#39;hello world&#39;]]</code></li>
+<li> 用虚拟 DOM 的结构生成真实 DOM 来显示<br><code>&lt;div id=&#39;abc&#39;&gt;&lt;span&gt;hello world&lt;/span&gt;&lt;/div&gt;</code></li>
+<li>state 发生变化</li>
+<li>数据 + 模板生成新的虚拟 DOM<br><code>[&#39;div&#39;, &#123;id: &#39;abc&#39;&#125;,[&#39;span&#39;, &#123;&#125;, &#39;bye bye&#39;]]</code></li>
+<li>比较原始虚拟 DOM 和新的虚拟 DOM 的区别，找出区别(极大提升性能)</li>
+<li>直接操作　DOM，修改 span 标签的内容</li>
+</ol>
+<p>减少了真实 DOM 的创建和真实 DOM 的对比，提高性能。</p>
+<p>优点:</p>
+<ol>
+<li>提高性能</li>
+<li>使得跨端应用得以实现 react native</li>
+</ol>
+<p><strong>虚拟 DOM 的存在,可以在浏览器端被渲染成真实 DOM 节点,也可以在原生应用中被渲染成真实组件</strong></p>
+<p>调用 setState 方法的时候，数据才会发生变化，然后虚拟 dom 才会重新比对。<br>setState 实际上是一个异步的方法，为了提升 react 底层的性能。(如果调用 3 次 setState 方法，变更三组数据，react 并不会做 3 次虚拟 DOM 的比对，而是整合到一起)</p>
+<p>diff 算法主要是同级比对，如果第一级不同但是二三级节点相同，dom 节点并不会被复用。虽然不会复用造成浪费，但是算法简单效率更高。</p>
+<h1 id="Ref-的使用"><a href="#Ref-的使用" class="headerlink" title="Ref 的使用"></a>Ref 的使用</h1><p>用来获取 DOM 节点。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Fragment&gt;</span><br><span class="line">      &lt;input</span><br><span class="line">        ref = &#123;<span class="function">(<span class="params">input</span>) =&gt;</span> <span class="built_in">this</span>.myInput = input &#125;</span><br><span class="line">      &gt;</span><br><span class="line">      &lt;/input&gt;</span><br><span class="line">    &lt;/Fragment&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>this.myInput.value</code> 等同于 <code>e.target.value</code></p>
+<p>在 React 中不建议过度使用 Ref。在搭配 Ref 和 setState 的过程中，存在问题即：<strong>setState 是异步操作的，所以 ref 获取到 dom 节点有可能不是最新的。如果想要在异步操作之后再执行其他动作，需要在 setState 的第二个参数中传入回调函数。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">handleBtnClick</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.myInput)</span><br><span class="line">  <span class="built_in">this</span>.setState(<span class="function">(<span class="params">prevStatte</span>) =&gt;</span> &#123;</span><br><span class="line">    list: [],</span><br><span class="line">    inputValue: <span class="string">&#x27;&#x27;</span></span><br><span class="line">  &#125;,<span class="function">() =&gt;</span> &#123;  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/basic/" rel="tag"># basic</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/09/01/JavaScript/%E5%89%8D%E7%AB%AF%E5%B8%B8%E7%94%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="prev" title="前端常用设计模式">
+                  <i class="fa fa-chevron-left"></i> 前端常用设计模式
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/09/15/React/Redux%20%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" rel="next" title="Redux 的基本使用">
+                  Redux 的基本使用 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leslie choi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

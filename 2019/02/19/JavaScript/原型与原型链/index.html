@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yoursite.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="原型和原型链想要了解原型和原型链，那我们首先来了解一下构造函数。JavaScript不像Java一样，可以定义一个class。那在JavaScript中，想要定义一个类，就只能通过构造函数的模式。构造函数中拥有了类和实例的概念。构造函数其实就是一个普通的函数，创建的方式和普通的函数没有区别，但是 首字母需要大写 ，另外普通函数可以直接调用，但是构造函数需要通过 new关键字来调用。  123456">
+<meta property="og:type" content="article">
+<meta property="og:title" content="原型与原型链">
+<meta property="og:url" content="http://yoursite.com/2019/02/19/JavaScript/%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/index.html">
+<meta property="og:site_name" content="404 not found">
+<meta property="og:description" content="原型和原型链想要了解原型和原型链，那我们首先来了解一下构造函数。JavaScript不像Java一样，可以定义一个class。那在JavaScript中，想要定义一个类，就只能通过构造函数的模式。构造函数中拥有了类和实例的概念。构造函数其实就是一个普通的函数，创建的方式和普通的函数没有区别，但是 首字母需要大写 ，另外普通函数可以直接调用，但是构造函数需要通过 new关键字来调用。  123456">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/prototype1.PNG">
+<meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/prototype2.PNG">
+<meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/prototype3.PNG">
+<meta property="og:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/instanceof.png">
+<meta property="article:published_time" content="2019-02-19T06:16:24.000Z">
+<meta property="article:modified_time" content="2021-04-11T14:17:47.575Z">
+<meta property="article:author" content="leslie choi">
+<meta property="article:tag" content="Interview">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/prototype1.PNG">
+
+
+<link rel="canonical" href="http://yoursite.com/2019/02/19/JavaScript/%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;02&#x2F;19&#x2F;JavaScript&#x2F;%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;02&#x2F;19&#x2F;JavaScript&#x2F;原型与原型链&#x2F;&quot;,&quot;title&quot;:&quot;原型与原型链&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>原型与原型链 | 404 not found</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">404 not found</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE"><span class="nav-number">1.</span> <span class="nav-text">原型和原型链</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">原型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B%E9%93%BE"><span class="nav-number">1.2.</span> <span class="nav-text">原型链</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84%E5%8E%9F%E5%9E%8B%E8%AF%AD%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">简单的原型语法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">创建对象的几种方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#instanceof%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">instanceof的原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#new%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">4.</span> <span class="nav-text">new运算符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JS%E9%98%B2%E6%AD%A2%E5%AF%B9%E8%B1%A1%E8%A2%AB%E7%AF%A1%E6%94%B9"><span class="nav-number">5.</span> <span class="nav-text">JS防止对象被篡改</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%8F%AF%E6%8B%93%E5%B1%95%E5%AF%B9%E8%B1%A1-%E4%B8%8D%E5%8F%AF%E6%B7%BB%E5%8A%A0%E3%80%81%E5%8F%AF%E4%BB%A5%E5%88%A0%E9%99%A4%E3%80%81%E5%8F%AF%E4%BB%A5%E4%BF%AE%E6%94%B9%E3%80%81%E5%8F%AF%E4%BB%A5%E6%9F%A5"><span class="nav-number">5.1.</span> <span class="nav-text">不可拓展对象(不可添加、可以删除、可以修改、可以查)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%86%E5%B0%81%E7%9A%84%E5%AF%B9%E8%B1%A1-%E4%B8%8D%E5%8F%AF%E6%B7%BB%E5%8A%A0%E3%80%81%E4%B8%8D%E5%8F%AF%E5%88%A0%E9%99%A4%E3%80%81%E5%8F%AF%E4%BB%A5%E4%BF%AE%E6%94%B9%E3%80%81%E5%8F%AF%E4%BB%A5%E6%9F%A5"><span class="nav-number">5.2.</span> <span class="nav-text">密封的对象(不可添加、不可删除、可以修改、可以查)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%BB%E7%BB%93%E7%9A%84%E5%AF%B9%E8%B1%A1-%E4%B8%8D%E5%8F%AF%E6%B7%BB%E5%8A%A0%E3%80%81%E4%B8%8D%E5%8F%AF%E5%88%A0%E9%99%A4%E3%80%81%E4%B8%8D%E5%8F%AF%E4%BF%AE%E6%94%B9%E3%80%81%E5%8F%AF%E4%BB%A5%E6%9F%A5"><span class="nav-number">5.3.</span> <span class="nav-text">冻结的对象 (不可添加、不可删除、不可修改、可以查)</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">leslie choi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/JavaScript/%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          原型与原型链
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-02-19 14:16:24" itemprop="dateCreated datePublished" datetime="2019-02-19T14:16:24+08:00">2019-02-19</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="原型和原型链"><a href="#原型和原型链" class="headerlink" title="原型和原型链"></a>原型和原型链</h1><p>想要了解原型和原型链，那我们首先来了解一下构造函数。<br>JavaScript不像Java一样，可以定义一个class。那在JavaScript中，想要定义一个类，就只能通过构造函数的模式。构造函数中拥有了类和实例的概念。构造函数其实就是一个普通的函数，创建的方式和普通的函数没有区别，但是 <strong>首字母需要大写</strong> ，另外普通函数可以直接调用，但是构造函数需要通过 <strong>new关键字来调用。</strong> </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age, gender</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name</span><br><span class="line">        <span class="built_in">this</span>.age = age</span><br><span class="line">        <span class="built_in">this</span>.gender = gender</span><br><span class="line">        <span class="built_in">this</span>.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            alert(<span class="built_in">this</span>.name);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(per); <span class="comment">//当我们直接在页面中打印一个对象时，事件上是输出的对象的toString()方法的返回值</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//使用prototype实现数据共享,利用原型添加方法</span></span><br><span class="line">  Person.ptototype.eat = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;我喜欢吃榴莲粥加辣椒&quot;</span>)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个时候，每创建一个Person构造函数，在Person构造函数中，为每一个对象添加了一个sayName的方法，所以就是说构造函数每调用一次就会创建一个新的方法，如果调用了1000次就会创建1000个新的方法，而着1000个方法却都是一样的。所以为了节省空间和性能，<strong>需要把这些方法单独放到一个地方，并且可以让每一个实例都可以访问到，目的就是为了共享数据</strong> 所以这个时候就需要 <strong>原型prototype</strong> </p>
+<h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><p>在javaScript中，每当定义一个<strong>函数数据类型</strong>（普通函数、类）的时候，都会天生自带一个prototype属性，这个属性指向函数的原型对象，并且这个属性是一个 <strong>对象数据类型值</strong> </p>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/prototype1.PNG" alt="markdown"></p>
+<p>所以原型对象相当于一个公共区域，所有同一个类的实例都可以访问到这个原型对象，因此可以将对象中的所有共有的内容，统一设置到原型对象中。<br>在JavaScript中，继承是基于原型的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//通过原型来添加方法，解决数据共享节省空间</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">sex,age</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">this</span>.sex=sex;</span><br><span class="line">      <span class="built_in">this</span>.age=age;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//通过原型添加方法</span></span><br><span class="line">    Person.prototype.sayHi=<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&quot;打招呼,您好&quot;</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">var</span> per=<span class="keyword">new</span> Person(<span class="string">&quot;男&quot;</span>,<span class="number">20</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(per.__proto__.constructor==Person.prototype.constructor);<span class="comment">//实例对象</span></span><br><span class="line">    <span class="built_in">console</span>.dir(Person);<span class="comment">//构造函数的名字</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> per2=<span class="keyword">new</span> Person(<span class="string">&quot;女&quot;</span>,<span class="number">30</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(per.sayHi==per2.sayHi);</span><br><span class="line"></span><br><span class="line"><span class="comment">//通过原型共享数据</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">name,age,sex</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">this</span>.name=name;</span><br><span class="line">      <span class="built_in">this</span>.age=age;</span><br><span class="line">      <span class="built_in">this</span>.sex=sex;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//所有学生的身高都是188,所有人的体重都是55</span></span><br><span class="line">    <span class="comment">//所有学生都要每天写500行代码</span></span><br><span class="line">    <span class="comment">//所有学生每天都要吃一个10斤的西瓜</span></span><br><span class="line">    <span class="comment">//原型对象</span></span><br><span class="line">    Student.prototype.height=<span class="string">&quot;188&quot;</span>;</span><br><span class="line">    Student.prototype.weight=<span class="string">&quot;55kg&quot;</span>;</span><br><span class="line">    Student.prototype.study=<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&quot;学习,写500行代码,小菜一碟&quot;</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">    Student.prototype.eat=<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&quot;吃一个10斤的西瓜&quot;</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">//实例化对象,并初始化</span></span><br><span class="line">    <span class="keyword">var</span> stu=<span class="keyword">new</span> Student(<span class="string">&quot;晨光&quot;</span>,<span class="number">57</span>,<span class="string">&quot;女&quot;</span>);</span><br><span class="line">    <span class="built_in">console</span>.dir(Student);</span><br><span class="line">    <span class="built_in">console</span>.dir(stu);</span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<ul>
+<li>任何函数都具有一个 <code>prototype</code> 属性，该属性是一个对象</li>
+<li>构造函数的 <code>prototype</code> 对象默认都有一个 <code>constructor</code> 属性，指向 <code>prototype</code> 对象所在函数</li>
+<li>通过构造函数得到的实例对象内部会包含一个指向构造函数的 <code>prototype</code> 对象的指针 <code>__proto__</code></li>
+<li>所有实例都直接或间接继承了原型对象的成员</li>
+<li>原型对象中的方法是可以相互访问的</li>
+</ul>
+<h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><p>原型链：是一种关系，实例对象和原型对象之间的关系，关系是通过原型__proto__来联系的</p>
+<ol>
+<li>__proto__和constructor<br>在JavaScript中，每一个对象数据类型（普通对象、实例、prototype…）也天生自带一个属性_proto_，属性值是当前实例所属类的原型（prototype）。原型对象中有一个属性constructor，指向函数对象。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person()</span><br><span class="line"><span class="built_in">console</span>.log(person.__proto__ === Person.prototype) <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype.constructor === Person) <span class="comment">//true</span></span><br><span class="line"><span class="comment">//顺便学习一个ES5的方法,可以获得对象的原型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(person) === Person.prototype) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/prototype2.PNG" alt="markdown"></p>
+<p>在JavaScript中，<strong>万物都是对象，对象和对象之间也有关系，并不是孤立存在的。对象之间的继承关系，在JavaScript中是通过prototype对象指向父类对象，直到指向Object对象为止，这样就形成了一个原型指向的链条，专业术语称之为原型链</strong>。</p>
+<p>举个栗子：person → People → Object ，普通人继承人类，人类继承对象类</p>
+<p>所以当我们访问对象的一个属性或者方法，首先在对象自身中寻找，如果有的话泽直接使用，没有的话再到原型对象中寻找，直到找到Object对象，如果在Object对象中依然没有找到，则返回undefined。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">Person.prototype.a = <span class="number">123</span>;</span><br><span class="line">Person.prototype.sayHello = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person()</span><br><span class="line"><span class="built_in">console</span>.log(person.a) <span class="comment">//123</span></span><br><span class="line"><span class="built_in">console</span>.log(person.hasOwnProperty(<span class="string">&#x27;a&#x27;</span>)); <span class="comment">//false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;a&#x27;</span> <span class="keyword">in</span> person) <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<p>person实例中没有a这个属性，从 person 对象中找不到 a 属性就会从 person 的原型也就是 <code>person.__proto__</code> ，也就是 Person.prototype中查找，很幸运地得到a的值为123。<br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/prototype3.PNG" alt="markdown"></p>
+<h2 id="简单的原型语法"><a href="#简单的原型语法" class="headerlink" title="简单的原型语法"></a>简单的原型语法</h2><p><strong>为了保证构造器contructor的指向正确，需要手动指向正确的构造函数</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span> (<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name</span><br><span class="line">  <span class="built_in">this</span>.age = age</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype = &#123;</span><br><span class="line">  <span class="title">constructor</span>: <span class="title">Person</span>, // =&gt; 手动将 <span class="title">constructor</span> 指向正确的构造函数</span><br><span class="line">  <span class="title">type</span>: &#x27;<span class="title">human</span>&#x27;,</span><br><span class="line">  <span class="title">sayHello</span>: <span class="title">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;我叫&#x27;</span> + <span class="built_in">this</span>.name + <span class="string">&#x27;，我今年&#x27;</span> + <span class="built_in">this</span>.age + <span class="string">&#x27;岁了&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="创建对象的几种方法"><a href="#创建对象的几种方法" class="headerlink" title="创建对象的几种方法"></a>创建对象的几种方法</h1><ol>
+<li>使用字面量形式创建对象</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> o1 = &#123;<span class="attr">name</span>: <span class="string">&#x27;o1&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> o2 = <span class="keyword">new</span> <span class="built_in">Object</span>(&#123;<span class="attr">name</span>: <span class="string">&#x27;o2&#x27;</span>&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>通过构造函数创建对象</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fun = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> o3 = <span class="keyword">new</span> fun(<span class="string">&#x27;o3&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>通过Object.create创建对象</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> p = &#123;<span class="attr">name</span>:<span class="string">&#x27;pick&#x27;</span>&#125;</span><br><span class="line"><span class="keyword">var</span> o4 = <span class="built_in">Object</span>.create(p)  <span class="comment">//事实是根据原型链的原理，需要一个中间对象。o4.__proto__指向p。继承p的属性</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="instanceof的原理"><a href="#instanceof的原理" class="headerlink" title="instanceof的原理"></a>instanceof的原理</h1><p>首先看一下这一张图片：</p>
+<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/instanceof.png" alt="markdown"></p>
+<p>instanceof运算符用来测试一个对象在其原型链中是否存在一个构造函数的prototype 属性</p>
+<p>所以instanceof的原理，可以理解为，实例对象的__proto__属性和构造函数的prototype属性指向的是不是同一个地址。</p>
+<p>下面通过一段代码来举个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span> Person(<span class="string">&#x27;james&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(p1 <span class="keyword">instanceof</span> Person);    <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(p1 <span class="keyword">instanceof</span> <span class="built_in">Object</span>);    <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(p1.__proto__ === Person.prototype);     <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype.__proto__ === <span class="built_in">Object</span>.prototype);   <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<p>因为结果都是返回true，那么我们要怎么判断p1是由Person创建的实例还是由Object创建的实例呢？所以在这里需要使用到constructor属性了</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(p1.__proto__.constructor === Person);   <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(p1.__proto__.constructor === <span class="built_in">Object</span>);   <span class="comment">//false</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>所以使用constructor相对严谨一点。</p>
+<h1 id="new运算符"><a href="#new运算符" class="headerlink" title="new运算符"></a>new运算符</h1><p>在代码中，</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span> Person(<span class="string">&#x27;james&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>使用了new运算符，在这个过程中：</p>
+<ol>
+<li>实际上是先创建了一个空对象</li>
+<li>设置新对象的__proto__属性指向构造函数的prototype对象</li>
+<li>绑定this，使用新对象调用函数，函数中的this被指向新实例对象</li>
+<li>如果构造函数返回了一个“对象”，那么这个对象就会取代刚才new出来的结果（说明刚才的操作都是无效的）。如果构造函数没有返回对象，那么new出来的结果为步骤1创建的对象</li>
+</ol>
+<h1 id="JS防止对象被篡改"><a href="#JS防止对象被篡改" class="headerlink" title="JS防止对象被篡改"></a>JS防止对象被篡改</h1><p>JS共享的本质一直是开发人员的心头痛。因为任何对象都可以被同一环境中运行的代码所修改，开发人员很可能意外地修改别人的代码，ES5也增加了几个方法，通过它们可以指定对象的行为。</p>
+<p><strong>不过请注意：一旦把对象定义为防篡改，就无法撤销了。</strong></p>
+<ul>
+<li>不可扩展</li>
+<li>密封的对象</li>
+<li>冻结的对象 </li>
+</ul>
+<h2 id="不可拓展对象-不可添加、可以删除、可以修改、可以查"><a href="#不可拓展对象-不可添加、可以删除、可以修改、可以查" class="headerlink" title="不可拓展对象(不可添加、可以删除、可以修改、可以查)"></a>不可拓展对象(不可添加、可以删除、可以修改、可以查)</h2><p>对应有两个方法</p>
+<ol>
+<li>Object.preventExtension(obj) 禁止扩展</li>
+<li>Object.isExtensible(obj) 判断是否可以扩展</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;<span class="attr">name</span>:<span class="string">&quot;Nicholas&quot;</span>&#125;</span><br><span class="line"><span class="built_in">Object</span>.preventExtension(person)</span><br><span class="line">person.age = <span class="number">29</span></span><br><span class="line"><span class="built_in">console</span>.log(person.age) <span class="comment">//undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.isExtensible(person))  <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<p>虽然不能给对象添加新成员，但是已有的成员则丝毫不受影响，仍然可以修改和删除已有的成员，但是在严格模式下，尝试给不可拓展的对象添加新成员则会导致抛出错误。</p>
+<h2 id="密封的对象-不可添加、不可删除、可以修改、可以查"><a href="#密封的对象-不可添加、不可删除、可以修改、可以查" class="headerlink" title="密封的对象(不可添加、不可删除、可以修改、可以查)"></a>密封的对象(不可添加、不可删除、可以修改、可以查)</h2><ul>
+<li>Object.seal() 密封对象</li>
+<li>Object.isSealed() 对象是否密封</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;<span class="attr">name</span>:<span class="string">&quot;Nicholas&quot;</span>&#125;</span><br><span class="line"><span class="built_in">Object</span>.seal(person)</span><br><span class="line">person.age = <span class="number">29</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.isSealed(person))  <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(person.age) <span class="comment">//undefined，如果使用严格模式的话，则会抛出错误</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.isExtensible(person))  <span class="comment">//false，因为密封对象不可拓展，所以返回false</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="冻结的对象-不可添加、不可删除、不可修改、可以查"><a href="#冻结的对象-不可添加、不可删除、不可修改、可以查" class="headerlink" title="冻结的对象 (不可添加、不可删除、不可修改、可以查)"></a>冻结的对象 (不可添加、不可删除、不可修改、可以查)</h2><p>最严格的防篡改级别是冻结对象。冻结的对象既不可扩展，又是密封的，而且对象数据属性的 [[Writable]] 特性会被设置为 false 。如果定义 [[Set]] 函数，访问器属性仍然是可写的。</p>
+<ul>
+<li>Object.freeze()</li>
+<li>Object.isFrozen()</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;<span class="attr">name</span>:<span class="string">&quot;Nicholas&quot;</span>&#125;</span><br><span class="line">person.age = <span class="number">29</span></span><br><span class="line"><span class="built_in">Object</span>.freeze(person)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.isSealed(person))  <span class="comment">//true，因为冻结对象也是密封对象</span></span><br><span class="line"><span class="built_in">console</span>.log(person.age) <span class="comment">//undefined，如果使用严格模式的话，则会抛出错误</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.isExtensible(person))  <span class="comment">//false，因为冻结对象不可拓展，所以返回false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.isFrozen(person))    <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Interview/" rel="tag"># Interview</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/02/12/%E7%BD%91%E7%BB%9C/Http%E5%8D%8F%E8%AE%AE/" rel="prev" title="HTTP和TCP">
+                  <i class="fa fa-chevron-left"></i> HTTP和TCP
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/02/19/JavaScript/JavaScript%E8%BF%9B%E9%98%B6/" rel="next" title="javaScript高级（一）">
+                  javaScript高级（一） <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leslie choi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

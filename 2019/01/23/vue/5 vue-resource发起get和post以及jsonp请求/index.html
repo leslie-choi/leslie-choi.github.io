@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yoursite.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="步骤1、导包，在vue.js后面再引入vue-resource.js，依赖于vue,需要注意先后顺序 2、get、post还有jsonp请求 在methods中定义三个函数 get请求 1234567getInfo() &amp;#123; &#x2F;&#x2F; 发起get请求    &#x2F;&#x2F;  当发起get请求之后， 通过 .then 来设置成功的回调函数    this.$http.get(&amp;#x27;http:&#x2F;&#x2F;vu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="五、vue-resource发起get和post以及jsonp请求">
+<meta property="og:url" content="http://yoursite.com/2019/01/23/vue/5%20vue-resource%E5%8F%91%E8%B5%B7get%E5%92%8Cpost%E4%BB%A5%E5%8F%8Ajsonp%E8%AF%B7%E6%B1%82/index.html">
+<meta property="og:site_name" content="404 not found">
+<meta property="og:description" content="步骤1、导包，在vue.js后面再引入vue-resource.js，依赖于vue,需要注意先后顺序 2、get、post还有jsonp请求 在methods中定义三个函数 get请求 1234567getInfo() &amp;#123; &#x2F;&#x2F; 发起get请求    &#x2F;&#x2F;  当发起get请求之后， 通过 .then 来设置成功的回调函数    this.$http.get(&amp;#x27;http:&#x2F;&#x2F;vu">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-01-23T07:13:25.000Z">
+<meta property="article:modified_time" content="2021-04-11T14:17:47.596Z">
+<meta property="article:author" content="leslie choi">
+<meta property="article:tag" content="basic">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2019/01/23/vue/5%20vue-resource%E5%8F%91%E8%B5%B7get%E5%92%8Cpost%E4%BB%A5%E5%8F%8Ajsonp%E8%AF%B7%E6%B1%82/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;01&#x2F;23&#x2F;vue&#x2F;5%20vue-resource%E5%8F%91%E8%B5%B7get%E5%92%8Cpost%E4%BB%A5%E5%8F%8Ajsonp%E8%AF%B7%E6%B1%82&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;01&#x2F;23&#x2F;vue&#x2F;5 vue-resource发起get和post以及jsonp请求&#x2F;&quot;,&quot;title&quot;:&quot;五、vue-resource发起get和post以及jsonp请求&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>五、vue-resource发起get和post以及jsonp请求 | 404 not found</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">404 not found</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.</span> <span class="nav-text">步骤</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">leslie choi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/vue/5%20vue-resource%E5%8F%91%E8%B5%B7get%E5%92%8Cpost%E4%BB%A5%E5%8F%8Ajsonp%E8%AF%B7%E6%B1%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          五、vue-resource发起get和post以及jsonp请求
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-01-23 15:13:25" itemprop="dateCreated datePublished" datetime="2019-01-23T15:13:25+08:00">2019-01-23</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1><p>1、导包，在vue.js后面再引入vue-resource.js，依赖于vue,需要注意先后顺序</p>
+<p>2、get、post还有jsonp请求</p>
+<p>在methods中定义三个函数</p>
+<p>get请求</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">getInfo</span>(<span class="params"></span>)</span> &#123; <span class="comment">// 发起get请求</span></span><br><span class="line">    <span class="comment">//  当发起get请求之后， 通过 .then 来设置成功的回调函数</span></span><br><span class="line">    <span class="built_in">this</span>.$http.get(<span class="string">&#x27;http://vue.studyit.io/api/getlunbo&#x27;</span>).then(<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 通过 result.body 拿到服务器返回的成功的数据</span></span><br><span class="line">        <span class="comment">// console.log(result.body)</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>post请求</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">postInfo</span>(<span class="params"></span>)</span> &#123; <span class="comment">// 发起 post 请求   application/x-wwww-form-urlencoded</span></span><br><span class="line">    <span class="comment">//  手动发起的 Post 请求，默认没有表单格式，所以，有的服务器处理不了</span></span><br><span class="line">    <span class="comment">//  通过 post 方法的第三个参数， &#123; emulateJSON: true &#125; 设置 提交的内容类型 为 普通表单数据格式</span></span><br><span class="line">    <span class="built_in">this</span>.$http.post(<span class="string">&#x27;http://vue.studyit.io/api/post&#x27;</span>, &#123;&#125;, &#123; <span class="attr">emulateJSON</span>: <span class="literal">true</span> &#125;).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(result.body)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>jsonp请求</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">jsonpInfo</span>(<span class="params"></span>)</span> &#123; <span class="comment">// 发起JSONP 请求</span></span><br><span class="line">    <span class="built_in">this</span>.$http.jsonp(<span class="string">&#x27;http://vue.studyit.io/api/jsonp&#x27;</span>).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(result.body)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/basic/" rel="tag"># basic</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/01/23/vue/4%20%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" rel="prev" title="四、Vue的生命周期">
+                  <i class="fa fa-chevron-left"></i> 四、Vue的生命周期
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/01/23/vue/6%20%E6%95%B0%E6%8D%AE%E5%BA%93%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%93%8D%E4%BD%9C/" rel="next" title="六、vue-resource发起get和post以及jsonp请求">
+                  六、vue-resource发起get和post以及jsonp请求 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leslie choi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yoursite.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="判断设备 判断当前设备类型  12345678910111213141516getPhoneType() &amp;#123;  let result &#x3D; false  const u &#x3D; navigator.userAgent  if (u.indexOf(&amp;#x27;Android&amp;#x27;) &gt; -1 || u.indexOf(&amp;#x27;Linux&amp;#x27;) &gt; -1) &amp;#12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 开发">
+<meta property="og:url" content="http://yoursite.com/2020/07/26/JavaScript/javascript%E5%BC%80%E5%8F%91/index.html">
+<meta property="og:site_name" content="404 not found">
+<meta property="og:description" content="判断设备 判断当前设备类型  12345678910111213141516getPhoneType() &amp;#123;  let result &#x3D; false  const u &#x3D; navigator.userAgent  if (u.indexOf(&amp;#x27;Android&amp;#x27;) &gt; -1 || u.indexOf(&amp;#x27;Linux&amp;#x27;) &gt; -1) &amp;#12">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-26T08:19:11.000Z">
+<meta property="article:modified_time" content="2021-04-11T14:17:47.570Z">
+<meta property="article:author" content="leslie choi">
+<meta property="article:tag" content="basic">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2020/07/26/JavaScript/javascript%E5%BC%80%E5%8F%91/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;07&#x2F;26&#x2F;JavaScript&#x2F;javascript%E5%BC%80%E5%8F%91&#x2F;&quot;,&quot;path&quot;:&quot;2020&#x2F;07&#x2F;26&#x2F;JavaScript&#x2F;javascript开发&#x2F;&quot;,&quot;title&quot;:&quot;JavaScript 开发&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>JavaScript 开发 | 404 not found</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">404 not found</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E8%AE%BE%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">判断设备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E6%98%AF-url"><span class="nav-number">2.</span> <span class="nav-text">判断是否是 url</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9E%E5%AD%97%E7%AC%A6%E5%92%8C%E9%A9%BC%E5%B3%B0%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2"><span class="nav-number">3.</span> <span class="nav-text">连字符和驼峰互相转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-number">4.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">leslie choi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/26/JavaScript/javascript%E5%BC%80%E5%8F%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript 开发
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-07-26 16:19:11" itemprop="dateCreated datePublished" datetime="2020-07-26T16:19:11+08:00">2020-07-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="判断设备"><a href="#判断设备" class="headerlink" title="判断设备"></a>判断设备</h1><ol>
+<li>判断当前设备类型</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="title">getPhoneType</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> result = <span class="literal">false</span></span><br><span class="line">  <span class="keyword">const</span> u = navigator.userAgent</span><br><span class="line">  <span class="keyword">if</span> (u.indexOf(<span class="string">&#x27;Android&#x27;</span>) &gt; -<span class="number">1</span> || u.indexOf(<span class="string">&#x27;Linux&#x27;</span>) &gt; -<span class="number">1</span>) &#123; <span class="comment">// 安卓手机</span></span><br><span class="line">    result = <span class="literal">false</span></span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (u.indexOf(<span class="string">&#x27;iPhone&#x27;</span>) &gt; -<span class="number">1</span>) &#123; <span class="comment">// 苹果手机</span></span><br><span class="line">    result = <span class="literal">true</span></span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (u.indexOf(<span class="string">&#x27;Windows Phone&#x27;</span>) &gt; -<span class="number">1</span>) &#123; <span class="comment">// winphone手机</span></span><br><span class="line">    result = <span class="literal">false</span></span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (u.indexOf(<span class="string">&#x27;iPhone Simulator&#x27;</span>) &gt; -<span class="number">1</span>) &#123;</span><br><span class="line">    result = <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>判断是否 IPhoneX 系列</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="title">isIphoneXall</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="comment">// iPhone X、iPhone XS</span></span><br><span class="line">  <span class="keyword">const</span> isIPhoneX = <span class="regexp">/iphone/gi</span>.test(<span class="built_in">window</span>.navigator.userAgent) &amp;&amp; <span class="built_in">window</span>.screen.width === <span class="number">375</span> &amp;&amp; <span class="built_in">window</span>.screen.height === <span class="number">812</span></span><br><span class="line">  <span class="comment">// iPhone XS Max</span></span><br><span class="line">  <span class="keyword">const</span> isIPhoneXSMax = <span class="regexp">/iphone/gi</span>.test(<span class="built_in">window</span>.navigator.userAgent) &amp;&amp; <span class="built_in">window</span>.screen.width === <span class="number">414</span> &amp;&amp; <span class="built_in">window</span>.screen.height === <span class="number">896</span></span><br><span class="line">  <span class="comment">// iPhone XR</span></span><br><span class="line">  <span class="keyword">const</span> isIPhoneXR = <span class="regexp">/iphone/gi</span>.test(<span class="built_in">window</span>.navigator.userAgent) &amp;&amp; <span class="built_in">window</span>.screen.width === <span class="number">414</span> &amp;&amp; <span class="built_in">window</span>.screen.height === <span class="number">896</span></span><br><span class="line">  <span class="keyword">if</span> (isIPhoneX || isIPhoneXSMax || isIPhoneXR) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>    </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="判断是否是-url"><a href="#判断是否是-url" class="headerlink" title="判断是否是 url"></a>判断是否是 url</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> isUrl = <span class="function"><span class="params">str</span> =&gt;</span> <span class="regexp">/^(((ht|f)tps?):\/\/)?[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?$/</span>.test(str)</span><br><span class="line"><span class="comment">// e.g.</span></span><br><span class="line">isUrl(<span class="string">&#x27;https://www.baidu.com&#x27;</span>) <span class="comment">// true</span></span><br><span class="line">isUrl(<span class="string">&#x27;https://www&#x27;</span>) <span class="comment">// false</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="连字符和驼峰互相转换"><a href="#连字符和驼峰互相转换" class="headerlink" title="连字符和驼峰互相转换"></a>连字符和驼峰互相转换</h1><ol>
+<li>连字符转驼峰</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> toCamelCase = <span class="function">(<span class="params">str = <span class="string">&#x27;&#x27;</span>, separator = <span class="string">&#x27;-&#x27;</span></span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> str !== <span class="string">&#x27;string&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;Argument must be a string&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (str === <span class="string">&#x27;&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> str</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> newExp = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">&#x27;\\-\(\\w\)&#x27;</span>, <span class="string">&#x27;g&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> str.replace(newExp, <span class="function">(<span class="params">matched, $<span class="number">1</span></span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> $<span class="number">1.</span>toUpperCase()</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// e.g.</span></span><br><span class="line">toCamelCase(<span class="string">&#x27;hello-world&#x27;</span>) <span class="comment">// helloWorld</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>驼峰转连字符</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> fromCamelCase = <span class="function">(<span class="params">str = <span class="string">&#x27;&#x27;</span>, separator = <span class="string">&#x27;-&#x27;</span></span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> str !== <span class="string">&#x27;string&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;Argument must be a string&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (str === <span class="string">&#x27;&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> str</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> str.replace(<span class="regexp">/([A-Z])/g</span>, <span class="string">`<span class="subst">$&#123;separator&#125;</span>$1`</span>).toLowerCase()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// e.g.</span></span><br><span class="line">fromCamelCase(<span class="string">&#x27;helloWorld&#x27;</span>) <span class="comment">// hello-world</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p>(【适合收藏】为了多点时间陪女朋友，我向BAT大佬跪求了这15条JS技巧)[<a target="_blank" rel="noopener" href="https://juejin.im/post/6854573211955560455]">https://juejin.im/post/6854573211955560455]</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/basic/" rel="tag"># basic</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/01/11/%E7%BD%91%E7%BB%9C/%E5%89%8D%E7%AB%AF%E7%99%BB%E5%BD%95/" rel="prev" title="前端登录">
+                  <i class="fa fa-chevron-left"></i> 前端登录
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/30/vue/Vue%20%E7%BC%96%E7%A0%81%E4%BC%98%E5%8C%96/" rel="next" title="vue 编码优化">
+                  vue 编码优化 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leslie choi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

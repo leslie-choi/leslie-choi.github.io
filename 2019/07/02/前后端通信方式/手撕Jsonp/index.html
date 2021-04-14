@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yoursite.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="实现jsonp通信JSONP(JSON with Padding) 是一种跨域请求方式。主要原理是利用了script 标签可以跨域请求的特性，由其 src 属性发送请求到服务器，服务器返回 JavaScript 代码，浏览器接受响应，然后就直接执行了，这和通过 script 标签引用外部文件的原理是一样的。 JSONP由两部分组成：回调函数和数据 ，回调函数一般是在浏览器控制，作为参数发往服务器端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手撕jsonp">
+<meta property="og:url" content="http://yoursite.com/2019/07/02/%E5%89%8D%E5%90%8E%E7%AB%AF%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/%E6%89%8B%E6%92%95Jsonp/index.html">
+<meta property="og:site_name" content="404 not found">
+<meta property="og:description" content="实现jsonp通信JSONP(JSON with Padding) 是一种跨域请求方式。主要原理是利用了script 标签可以跨域请求的特性，由其 src 属性发送请求到服务器，服务器返回 JavaScript 代码，浏览器接受响应，然后就直接执行了，这和通过 script 标签引用外部文件的原理是一样的。 JSONP由两部分组成：回调函数和数据 ，回调函数一般是在浏览器控制，作为参数发往服务器端">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-07-02T02:22:15.000Z">
+<meta property="article:modified_time" content="2021-04-11T14:17:47.612Z">
+<meta property="article:author" content="leslie choi">
+<meta property="article:tag" content="basic">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2019/07/02/%E5%89%8D%E5%90%8E%E7%AB%AF%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/%E6%89%8B%E6%92%95Jsonp/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;07&#x2F;02&#x2F;%E5%89%8D%E5%90%8E%E7%AB%AF%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F&#x2F;%E6%89%8B%E6%92%95Jsonp&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;07&#x2F;02&#x2F;前后端通信方式&#x2F;手撕Jsonp&#x2F;&quot;,&quot;title&quot;:&quot;手撕jsonp&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>手撕jsonp | 404 not found</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">404 not found</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0jsonp%E9%80%9A%E4%BF%A1"><span class="nav-number">1.</span> <span class="nav-text">实现jsonp通信</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">leslie choi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/02/%E5%89%8D%E5%90%8E%E7%AB%AF%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/%E6%89%8B%E6%92%95Jsonp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          手撕jsonp
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-07-02 10:22:15" itemprop="dateCreated datePublished" datetime="2019-07-02T10:22:15+08:00">2019-07-02</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Ajax/" itemprop="url" rel="index"><span itemprop="name">Ajax</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="实现jsonp通信"><a href="#实现jsonp通信" class="headerlink" title="实现jsonp通信"></a>实现jsonp通信</h1><p>JSONP(JSON with Padding) 是一种跨域请求方式。主要原理是利用了script 标签可以跨域请求的特性，由其 src 属性发送请求到服务器，服务器返回 JavaScript 代码，浏览器接受响应，然后就直接执行了，这和通过 script 标签引用外部文件的原理是一样的。</p>
+<p>JSONP由两部分组成：<strong>回调函数和数据</strong> ，回调函数一般是在浏览器控制，作为参数发往服务器端（当然，你也可以固定回调函数的名字，但客户端和服务器端的名称一定要一致）。当服务器响应时，服务器端就会把该函数和数据拼成字符串返回。<br>JSONP的请求过程：</p>
+<p>请求阶段：浏览器创建一个 script 标签，并给其src 赋值(类似 <a target="_blank" rel="noopener" href="http://example.com/api/?callback=jsonpCallback%EF%BC%89%E3%80%82">http://example.com/api/?callback=jsonpCallback）。</a><br>发送请求：当给script的src赋值时，浏览器就会发起一个请求。<br>数据响应：服务端将要返回的数据作为参数和函数名称拼接在一起(格式类似”jsonpCallback({name: ‘abc’})”)返回。当浏览器接收到了响应数据，由于发起请求的是 script，所以相当于直接调用 jsonpCallback 方法，并且传入了一个参数。</p>
+<p>最简单版本：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> script = <span class="built_in">document</span>.createElement(<span class="string">&quot;script&quot;</span>)</span><br><span class="line">script.src = <span class="string">&#x27;http://github.com&amp;callback=callback&#x27;</span></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(script)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">callback</span>(<span class="params">ress</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//对请求data进行格式化处理</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">formateData</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> arr = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> data) &#123;</span><br><span class="line">        <span class="comment">//避免有&amp;,=,?字符，对这些字符进行序列化</span></span><br><span class="line">        arr.push(<span class="built_in">encodeURIComponent</span>(key) + <span class="string">&#x27;=&#x27;</span> + data[key])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr.join(<span class="string">&#x27;&amp;&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//跨域jsonp请求</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">jsonp</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//先对params进行处理，防止为空</span></span><br><span class="line">    params = params || &#123;&#125;;</span><br><span class="line">    params.data = params.data || &#123;&#125;;</span><br><span class="line">    <span class="comment">//后台传递数据时调用的函数名</span></span><br><span class="line">    <span class="keyword">var</span> callbackName = params.jsonp;</span><br><span class="line">    <span class="comment">// 拿到dom元素head，先不进行操作</span></span><br><span class="line">    <span class="keyword">var</span> head = <span class="built_in">document</span>.querySelector(<span class="string">&#x27;head&#x27;</span>);</span><br><span class="line">    <span class="comment">//创建script元素，先不进行操作</span></span><br><span class="line">    <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">&#x27;script&#x27;</span>);</span><br><span class="line">    <span class="comment">//传递给后台的data数据中，需要包含回调参数callback。</span></span><br><span class="line">    <span class="comment">//callback的值是 一个回调函数的函数名，后台通过该回调函数名调用传递数据，这个参数名的key由双方约定，默认为callback</span></span><br><span class="line">    params.data[<span class="string">&#x27;callback&#x27;</span>] = callbackName;</span><br><span class="line">    <span class="comment">//对data数据进行格式化</span></span><br><span class="line">    <span class="keyword">var</span> data = formateData(params.data);</span><br><span class="line">    <span class="comment">//设置script请求的url跟数据</span></span><br><span class="line">    script.src = <span class="string">`<span class="subst">$&#123;params.url&#125;</span>?<span class="subst">$&#123;data&#125;</span>`</span>;</span><br><span class="line">    <span class="comment">//全局函数 由script请求后台，被调用的函数，只有后台成功响应才会调用该函数</span></span><br><span class="line">    <span class="built_in">window</span>[callbackName] = <span class="function"><span class="keyword">function</span> (<span class="params">jsonData</span>) </span>&#123;</span><br><span class="line">        <span class="comment">//请求移除scipt标签</span></span><br><span class="line">        head.removeChild(script);</span><br><span class="line">        <span class="built_in">clearTimeout</span>(script.timer);</span><br><span class="line">        <span class="built_in">window</span>[callbackName] = <span class="literal">null</span>;</span><br><span class="line">        params.success &amp;&amp; params.success(jsonData)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//请求超时的处理函数</span></span><br><span class="line">    <span class="keyword">if</span> (params.time) &#123;</span><br><span class="line">        script.timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">//请求超时对window下的[callbackName]函数进行清除，由于有可能下次callbackName发生改变了</span></span><br><span class="line">            <span class="built_in">window</span>[callbackName] = <span class="literal">null</span>;</span><br><span class="line">            <span class="comment">//移除script元素，无论请求成不成功</span></span><br><span class="line">            head.removeChild(script)</span><br><span class="line">            <span class="comment">//这里不需要清除定时器了，clearTimeout(script.timer); 因为定时器调用之后就被清除了</span></span><br><span class="line"> </span><br><span class="line">            <span class="comment">//调用失败回调</span></span><br><span class="line">            params.error &amp;&amp; params.error(&#123;</span><br><span class="line">                message: <span class="string">&#x27;超时&#x27;</span></span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;, time);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//往head元素插入script元素，这个时候，script就插入文档中了，请求并加载src</span></span><br><span class="line">    head.appendChild(script);</span><br><span class="line"> </span><br><span class="line">    <span class="comment">//无论是请求超时，还是请求成功，都要移除script元素，script元素只有在第一次插入页面文档的时候，才会请求src</span></span><br><span class="line">    <span class="comment">//无论请求失败还是成功，都还是要移除window[callbackName]避免增加没用的全局方法，因为每次请求的callbackName可能是不同的</span></span><br><span class="line">    <span class="comment">//之前有个无聊的问题：为啥jsonp只能是get请求呢？看了实现过程，知道其实是因为script的加载就是get方式的~</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">    &lt;script&gt;</span><br><span class="line"><span class="comment">//这个是jsonp的请求demo</span></span><br><span class="line">        jsonp(&#123;</span><br><span class="line">            url: <span class="string">&#x27;http://127.0.0.1:3000/jsonp&#x27;</span>,</span><br><span class="line">            jsonp: <span class="string">&#x27;callback&#x27;</span>,</span><br><span class="line">            data: &#123;</span><br><span class="line">                name: <span class="string">&#x27;jgchen&#x27;</span>,</span><br><span class="line">                stuNo: <span class="number">2016130201</span>,</span><br><span class="line">                method: <span class="string">&#x27;jsonp&#x27;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="function"><span class="title">success</span>(<span class="params">res</span>)</span> &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">&#x27;jsonp success:&#x27;</span>,res);</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="function"><span class="title">error</span>(<span class="params">err</span>)</span> &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(err);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/basic/" rel="tag"># basic</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/06/14/JavaScript/DOM%E4%BA%8B%E4%BB%B6%E7%B1%BB/" rel="prev" title="DOM事件类">
+                  <i class="fa fa-chevron-left"></i> DOM事件类
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/07/03/%E5%89%8D%E5%90%8E%E7%AB%AF%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/%E6%89%8B%E6%92%95webSocket/" rel="next" title="手撕websocket">
+                  手撕websocket <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leslie choi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

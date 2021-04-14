@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yoursite.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="使用 Object.freeze() 提升性能背景：在开发过程中，我们经常需要获取一些对象，像users信息，列表items，文章信息等等，但是我们不需要去修改这些信息。我们只是把这些信息展示出来，或者放在vuex中state里面。 Vue默认会对每个数组数据的每一层属性，添加双向数据绑定机制。当数组对象非常庞大时，消耗在这上面的双向数据绑定就越多。因为，在这种场景下，我们可以通过阻止Vue对这些">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue 编码优化">
+<meta property="og:url" content="http://yoursite.com/2020/07/30/vue/Vue%20%E7%BC%96%E7%A0%81%E4%BC%98%E5%8C%96/index.html">
+<meta property="og:site_name" content="404 not found">
+<meta property="og:description" content="使用 Object.freeze() 提升性能背景：在开发过程中，我们经常需要获取一些对象，像users信息，列表items，文章信息等等，但是我们不需要去修改这些信息。我们只是把这些信息展示出来，或者放在vuex中state里面。 Vue默认会对每个数组数据的每一层属性，添加双向数据绑定机制。当数组对象非常庞大时，消耗在这上面的双向数据绑定就越多。因为，在这种场景下，我们可以通过阻止Vue对这些">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-30T00:43:20.000Z">
+<meta property="article:modified_time" content="2021-04-13T11:28:07.156Z">
+<meta property="article:author" content="leslie choi">
+<meta property="article:tag" content="basic">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2020/07/30/vue/Vue%20%E7%BC%96%E7%A0%81%E4%BC%98%E5%8C%96/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;07&#x2F;30&#x2F;vue&#x2F;Vue%20%E7%BC%96%E7%A0%81%E4%BC%98%E5%8C%96&#x2F;&quot;,&quot;path&quot;:&quot;2020&#x2F;07&#x2F;30&#x2F;vue&#x2F;Vue 编码优化&#x2F;&quot;,&quot;title&quot;:&quot;vue 编码优化&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>vue 编码优化 | 404 not found</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">404 not found</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Object-freeze-%E6%8F%90%E5%8D%87%E6%80%A7%E8%83%BD"><span class="nav-number">1.</span> <span class="nav-text">使用 Object.freeze() 提升性能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#requireContext-%E5%AF%BC%E5%85%A5%E7%BB%84%E4%BB%B6-todo"><span class="nav-number">2.</span> <span class="nav-text">requireContext 导入组件(todo)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sync-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">.sync 的使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E7%BB%84%E4%BB%B6%E6%B8%B2%E6%9F%93"><span class="nav-number">4.</span> <span class="nav-text">动态组件渲染</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%96%B9%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">常见性能优化方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0%EF%BC%9A"><span class="nav-number">6.</span> <span class="nav-text">参考文章：</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">leslie choi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/30/vue/Vue%20%E7%BC%96%E7%A0%81%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vue 编码优化
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-07-30 08:43:20" itemprop="dateCreated datePublished" datetime="2020-07-30T08:43:20+08:00">2020-07-30</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-13 19:28:07" itemprop="dateModified" datetime="2021-04-13T19:28:07+08:00">2021-04-13</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="使用-Object-freeze-提升性能"><a href="#使用-Object-freeze-提升性能" class="headerlink" title="使用 Object.freeze() 提升性能"></a>使用 Object.freeze() 提升性能</h1><p>背景：在开发过程中，我们经常需要获取一些对象，像users信息，列表items，文章信息等等，但是我们不需要去修改这些信息。我们只是把这些信息展示出来，或者放在vuex中state里面。</p>
+<p>Vue默认会对每个数组数据的每一层属性，添加双向数据绑定机制。当数组对象非常庞大时，消耗在这上面的双向数据绑定就越多。因为，在这种场景下，我们可以通过阻止Vue对这些数据添加双向数据绑定来提高一些性能。</p>
+<p>根据 MDN 文档，使用 Object.freeze()，可以冻结一个对象，被冻结的对象则不能再被修改。即该对象不能添加、删除已有的属性，不能修改该对象已有属性的可枚举性、可配置性、可写性，以及不能修改已有属性的值。</p>
+<p><strong>此外，冻结一个对象后该对象的原型也不能被修改。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    name: <span class="string">&quot;james&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.freeze(obj)</span><br><span class="line"></span><br><span class="line">obj.prop = <span class="number">33</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj.prop)</span><br></pre></td></tr></table></figure>
+
+<p>PS: 顺便提一下密封对象和禁止对象属性拓展</p>
+<ol>
+<li><p>Object.preventExtensions()，禁止对象拓展，但是可以修改和删除对象的属性。<strong>Object.preventExtensions()仅阻止添加自身的属性。但其对象类型的原型依然可以添加新的属性。</strong></p>
+</li>
+<li><p>Object.seal()，可以修改对象属性，不可以删除和增加对象属性。</p>
+</li>
+</ol>
+<p><strong>以上三个方法分别可用Object.isExtensible(), Object.isSealed(), Object.isFrozen() 来检测</strong></p>
+<p>当你把一个普通的 JavaScript 对象传给 Vue 实例的  data  选项，Vue 将遍历此对象所有的属性，并使用  Object.defineProperty  把这些属性全部转为 getter/setter，这些 getter/setter 对用户来说是不可见的，但是在内部它们让 Vue 追踪依赖，在属性被访问和修改时通知变化。</p>
+<p>但 Vue 在遇到像 Object.freeze() 这样被设置为不可配置之后的对象属性时，不会为对象加上 setter getter 等数据劫持的方法，使用了 Object.freeze() 之后，减少了 observer 的开销。</p>
+<p>由于 Object.freeze()会把对象冻结，所以比较适合展示类的场景，如果你的数据属性需要改变，可以重新替换成一个新的 Object.freeze()的对象。<strong>由于 Object.freeze()会把对象冻结，所以比较适合展示类的场景，如果你的数据属性需要改变，可以重新替换成一个新的 Object.freeze()的对象。</strong></p>
+<h1 id="requireContext-导入组件-todo"><a href="#requireContext-导入组件-todo" class="headerlink" title="requireContext 导入组件(todo)"></a>requireContext 导入组件(todo)</h1><h1 id="sync-的使用"><a href="#sync-的使用" class="headerlink" title=".sync 的使用"></a>.sync 的使用</h1><p>背景：在 Vue1.x 版本，.sync 还可以进行双向数据绑定，即说明子组件中可以修改父组件的值。但是这与单向数据流的设计理念相违背，所以在 Vue2.0 版本中被舍弃。直到 Vue2.3 版本及以上，重新引进了 .sync 修饰符，这次只是作为语法糖的存在。存在的意义就是让我们手动更新父组件中的值，并且让其的数据改动来源更加明显。</p>
+<p><strong>适用于单纯在子组件中修改父组件中数据的场景</strong></p>
+<p>父组件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;button&quot; value&#x3D;&quot;我是父组件中的按钮&quot; @click&#x3D;&quot;show&quot; &#x2F;&gt;</span><br><span class="line">    &lt;!-- &lt;Son @upIsShow&#x3D;&quot;changeIsShow&quot; v-show&#x3D;&quot;isShow&quot; &#x2F;&gt; --&gt;</span><br><span class="line">    &lt;!-- &lt;Son @update:isShow&#x3D;&quot;changeIsShow&quot; v-show&#x3D;&quot;isShow&quot;&#x2F;&gt; --&gt;</span><br><span class="line">    &lt;!-- &lt;Son @update:isShow&#x3D;&quot;function(bol)&#123;isShow&#x3D;bol&#125;&quot; v-show&#x3D;&quot;isShow&quot;&#x2F;&gt; --&gt;</span><br><span class="line">    &lt;!-- &lt;Son @update:isShow&#x3D;&quot;bol&#x3D;&gt;isShow&#x3D;bol&quot; v-show&#x3D;&quot;isShow&quot;&#x2F;&gt; --&gt;</span><br><span class="line">    &lt;Son :isShow.sync&#x3D;&quot;isShow&quot; v-show&#x3D;&quot;isShow&quot; :age.sync&#x3D;&quot;age&quot;&#x2F;&gt;</span><br><span class="line">    &lt;!-- 当子组件想要更改isShow的值，需要显式触发 this.$emit(&quot;update:isShow&quot;,false) 事件--&gt;</span><br><span class="line">    &lt;span&gt;&#123;&#123;this.age&#125;&#125;&lt;&#x2F;span&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import Son from &quot;..&#x2F;components&#x2F;sync&#x2F;Son&quot;;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      isShow: false,</span><br><span class="line">      age: 20</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    Son</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    show() &#123;</span><br><span class="line">      this.isShow &#x3D; true</span><br><span class="line">    &#125;,</span><br><span class="line">    changeIsShow(bol) &#123;</span><br><span class="line">      this.isShow &#x3D; bol</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>子组件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    我是一个子组件！</span><br><span class="line">    &lt;input type&#x3D;&quot;button&quot; value&#x3D;&quot;点击消失&quot; @click&#x3D;&quot;upIsShow&quot; &#x2F;&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  methods: &#123;</span><br><span class="line">    upIsShow() &#123;</span><br><span class="line">      &#x2F;&#x2F; this.$emit(&quot;upIsShow&quot;, false)</span><br><span class="line">      this.$emit(&quot;update:isShow&quot;,false)</span><br><span class="line">      this.$emit(&quot;update:age&quot;,22)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="动态组件渲染"><a href="#动态组件渲染" class="headerlink" title="动态组件渲染"></a>动态组件渲染</h1><h1 id="常见性能优化方式"><a href="#常见性能优化方式" class="headerlink" title="常见性能优化方式"></a>常见性能优化方式</h1><ol>
+<li><p>合理使用 v-show 和 v-if</p>
+</li>
+<li><p>合理使用 compited</p>
+</li>
+<li><p>v-for 加上 key，避免和 v-if 同时使用</p>
+</li>
+<li><p>合理使用 keep-alive</p>
+</li>
+<li><p>合理使用异步组件</p>
+</li>
+<li><p>自定义事件、DOM 事件及时销毁</p>
+</li>
+<li><p>data 层级不要嵌套太深</p>
+</li>
+<li><p>开发环境使用 vue-loader 做模版编译（预编译）</p>
+</li>
+<li><p>使用 SSR</p>
+</li>
+</ol>
+<h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h1><p><a target="_blank" rel="noopener" href="https://juejin.im/post/5d5e89aee51d453bdb1d9b61">利用Object.freeze()提升性能</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/56168a779849">Object.freeze()提高Vue.js中大型列表的性能【翻译+解读】</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/basic/" rel="tag"># basic</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/07/26/JavaScript/javascript%E5%BC%80%E5%8F%91/" rel="prev" title="JavaScript 开发">
+                  <i class="fa fa-chevron-left"></i> JavaScript 开发
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/30/vue/14%20$listener%E5%92%8C$attrs%E7%9A%84%E4%BD%BF%E7%94%A8/" rel="next" title="$listener 和 $attrs 的使用">
+                  $listener 和 $attrs 的使用 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leslie choi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

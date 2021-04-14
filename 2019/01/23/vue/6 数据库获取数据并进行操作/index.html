@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yoursite.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="获取数据库数据操作1、导入vue-resource包，才能使用this.$http来发起请求 2、根据提供的接口api文档，判断使用get或者post请求 3、this.$http.get(‘url’).then(function(result){}) 4、当通过 then 指定回调函数之后，在回调函数中，可以拿到数据服务器返回的 result 5、先判断result的status，根据接口文档判">
+<meta property="og:type" content="article">
+<meta property="og:title" content="六、vue-resource发起get和post以及jsonp请求">
+<meta property="og:url" content="http://yoursite.com/2019/01/23/vue/6%20%E6%95%B0%E6%8D%AE%E5%BA%93%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="404 not found">
+<meta property="og:description" content="获取数据库数据操作1、导入vue-resource包，才能使用this.$http来发起请求 2、根据提供的接口api文档，判断使用get或者post请求 3、this.$http.get(‘url’).then(function(result){}) 4、当通过 then 指定回调函数之后，在回调函数中，可以拿到数据服务器返回的 result 5、先判断result的status，根据接口文档判">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-01-23T09:03:21.000Z">
+<meta property="article:modified_time" content="2021-04-11T14:17:47.597Z">
+<meta property="article:author" content="leslie choi">
+<meta property="article:tag" content="basic">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2019/01/23/vue/6%20%E6%95%B0%E6%8D%AE%E5%BA%93%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%93%8D%E4%BD%9C/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;01&#x2F;23&#x2F;vue&#x2F;6%20%E6%95%B0%E6%8D%AE%E5%BA%93%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%93%8D%E4%BD%9C&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;01&#x2F;23&#x2F;vue&#x2F;6 数据库获取数据并进行操作&#x2F;&quot;,&quot;title&quot;:&quot;六、vue-resource发起get和post以及jsonp请求&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>六、vue-resource发起get和post以及jsonp请求 | 404 not found</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">404 not found</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">获取数据库数据操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A2%9E%E5%8A%A0%E5%8A%9F%E8%83%BD"><span class="nav-number">2.</span> <span class="nav-text">增加功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%8A%9F%E8%83%BD"><span class="nav-number">3.</span> <span class="nav-text">删除功能</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">leslie choi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/vue/6%20%E6%95%B0%E6%8D%AE%E5%BA%93%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          六、vue-resource发起get和post以及jsonp请求
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-01-23 17:03:21" itemprop="dateCreated datePublished" datetime="2019-01-23T17:03:21+08:00">2019-01-23</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="获取数据库数据操作"><a href="#获取数据库数据操作" class="headerlink" title="获取数据库数据操作"></a>获取数据库数据操作</h1><p>1、导入vue-resource包，才能使用this.$http来发起请求</p>
+<p>2、根据提供的接口api文档，判断使用get或者post请求</p>
+<p>3、this.$http.get(‘url’).then(function(result){})</p>
+<p>4、当通过 then 指定回调函数之后，在回调函数中，可以拿到数据服务器返回的 result</p>
+<p>5、先判断result的status，根据接口文档判断是否成功，然后再把result.message赋值给this.list</p>
+<p>,如果失败则显示弹框</p>
+<p>在创建的vue实例中，添加一个getList方法，然后在生命周期函数中执行这个方法，利用AJAX异步获取数据的时候，要尽量在生命周期内前阶段，所以这里使用的是在created</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">created</span>(<span class="params"></span>)</span> &#123; <span class="comment">// 当 vm 实例 的 data 和 methods 初始化完毕后，vm实例会自动执行created 这个生命周期函数</span></span><br><span class="line">  <span class="built_in">this</span>.getAllList()</span><br><span class="line">&#125;,</span><br><span class="line">methods: &#123;</span><br><span class="line">  <span class="function"><span class="title">getAllList</span>(<span class="params"></span>)</span> &#123; <span class="comment">// 获取所有的品牌列表 </span></span><br><span class="line">    <span class="built_in">this</span>.$http.get(<span class="string">&#x27;api/getprodlist&#x27;</span>).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 注意： 通过 $http 获取到的数据，都在 result.body 中放着</span></span><br><span class="line">      <span class="keyword">var</span> result = result.body</span><br><span class="line">      <span class="keyword">if</span> (result.status === <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 成功了</span></span><br><span class="line">        <span class="built_in">this</span>.list = result.message</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 失败了</span></span><br><span class="line">        alert(<span class="string">&#x27;获取数据失败！&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="增加功能"><a href="#增加功能" class="headerlink" title="增加功能"></a>增加功能</h1><p>1、为按钮绑定点击事件实现add方法</p>
+<p>2、通过查看接口文档，确定使用post发送请求，this.$http.post</p>
+<p>3、this.$http.post需要接收三个参数</p>
+<p>3.1 第一个参数： 要请求的URL地址</p>
+<p>3.2 第二个参数： 要提交给服务器的数据 ，要以对象形式提交给服务器 { name: this.name }</p>
+<p>3.3 第三个参数： 是一个配置对象，要以哪种表单数据类型提交过去， { emulateJSON: true }, 以普通表单格式，将数据提交给服务器</p>
+<p>4、在 post 方法中，使用 .then 来设置成功的回调函数，如果想要拿到成功的结果，需要 result.body</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">this</span>.$http.post(<span class="string">&#x27;api/addproduct&#x27;</span>, &#123; <span class="attr">name</span>: <span class="built_in">this</span>.name &#125;, &#123; <span class="attr">emulateJSON</span>: <span class="literal">true</span> &#125;).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (result.body.status === <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="comment">// 成功了！状态码根据接口文档提供</span></span><br><span class="line">          <span class="comment">// 添加完成后，只需要手动，再调用一下 getAllList 就能刷新品牌列表了</span></span><br><span class="line">          <span class="built_in">this</span>.getAllList()</span><br><span class="line">          <span class="comment">// 清空 name </span></span><br><span class="line">          <span class="built_in">this</span>.name = <span class="string">&#x27;&#x27;</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="comment">// 失败了</span></span><br><span class="line">          alert(<span class="string">&#x27;添加失败！&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="删除功能"><a href="#删除功能" class="headerlink" title="删除功能"></a>删除功能</h1><p>一、在a链接上阻止默认点击事件，然后绑定删除的方法，根据传入的id进行删除</p>
+<p>&lt;a href=”” @click.prevent=”del(item.id)”&gt;删除</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">del</span>(<span class="params">id</span>)</span> &#123; <span class="comment">// 删除品牌</span></span><br><span class="line">  <span class="built_in">this</span>.$http.get(<span class="string">&#x27;api/delproduct/&#x27;</span> + id).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (result.body.status === <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="comment">// 删除成功</span></span><br><span class="line">      <span class="built_in">this</span>.getAllList()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      alert(<span class="string">&#x27;删除失败！&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>二、全局根路径的配置</p>
+<p>   如果我们通过全局配置了，请求的数据接口 根域名，则 ，在每次单独发起 http 请求的时候，请求的 url 路径，应该以相对路径开头，前面不能带 /  ，否则 不会启用根路径做拼接；</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Vue.http.options.root = <span class="string">&#x27;http://vue.studyit.io/&#x27;</span>;</span><br><span class="line">    <span class="comment">//原来为&#x27;http://vue.studyit.io/api/getproduct&#x27;</span></span><br><span class="line">    <span class="comment">//此时的请求路径写为</span></span><br><span class="line">    <span class="built_in">this</span>.$http.get(<span class="string">&#x27;api/getprodlist&#x27;</span>).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">	&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>三、全局启用 emulateJSON选项</p>
+<p>Vue.http.options.emulateJSON = true;</p>
+<p>配置之后在post请求中不再需要加入{emulateJSON : true}</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/basic/" rel="tag"># basic</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/01/23/vue/5%20vue-resource%E5%8F%91%E8%B5%B7get%E5%92%8Cpost%E4%BB%A5%E5%8F%8Ajsonp%E8%AF%B7%E6%B1%82/" rel="prev" title="五、vue-resource发起get和post以及jsonp请求">
+                  <i class="fa fa-chevron-left"></i> 五、vue-resource发起get和post以及jsonp请求
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/01/23/vue/7%20%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6/" rel="next" title="七、创建组件的三种方式">
+                  七、创建组件的三种方式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leslie choi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

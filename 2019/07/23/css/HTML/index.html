@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yoursite.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="HTML语义化在我的理解为：根据内容，使用最合适的HTML标签。场景：加入一个文章标题，要求这个标题的字体比正文的要大一些，还要加粗。能够实现这种效果的方法有很多，比如用CSS样式进行渲染。这样的效果看起来像是一个标题，但是他对浏览器来说，只是一个被渲染过的文本，无法知道他是一个标题。若要让浏览器知道他是一个标题，应该用hn标签来进行标记。从这个例子可以总结出： 语义化的HTML文档，不关心内容的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML">
+<meta property="og:url" content="http://yoursite.com/2019/07/23/css/HTML/index.html">
+<meta property="og:site_name" content="404 not found">
+<meta property="og:description" content="HTML语义化在我的理解为：根据内容，使用最合适的HTML标签。场景：加入一个文章标题，要求这个标题的字体比正文的要大一些，还要加粗。能够实现这种效果的方法有很多，比如用CSS样式进行渲染。这样的效果看起来像是一个标题，但是他对浏览器来说，只是一个被渲染过的文本，无法知道他是一个标题。若要让浏览器知道他是一个标题，应该用hn标签来进行标记。从这个例子可以总结出： 语义化的HTML文档，不关心内容的">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-07-23T07:19:35.000Z">
+<meta property="article:modified_time" content="2021-04-11T14:17:47.585Z">
+<meta property="article:author" content="leslie choi">
+<meta property="article:tag" content="basic">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2019/07/23/css/HTML/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;07&#x2F;23&#x2F;css&#x2F;HTML&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;07&#x2F;23&#x2F;css&#x2F;HTML&#x2F;&quot;,&quot;title&quot;:&quot;HTML&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>HTML | 404 not found</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">404 not found</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML%E8%AF%AD%E4%B9%89%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">HTML语义化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-number">1.1.</span> <span class="nav-text">语义化标签的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5%E6%96%B0%E5%A2%9E%E7%9A%84%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE"><span class="nav-number">1.2.</span> <span class="nav-text">HTML5新增的语义化标签</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#meta%E6%A0%87%E7%AD%BE%E7%9A%84%E7%90%86%E8%A7%A3%E5%92%8C%E6%80%BB%E7%BB%93"><span class="nav-number">2.</span> <span class="nav-text">meta标签的理解和总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#name%E5%B1%9E%E6%80%A7"><span class="nav-number">2.1.</span> <span class="nav-text">name属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-equiv%E5%B1%9E%E6%80%A7"><span class="nav-number">2.2.</span> <span class="nav-text">http-equiv属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E9%A1%B5%E9%9D%A2%E4%B8%8D%E7%BC%93%E5%AD%98%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">2.3.</span> <span class="nav-text">设置页面不缓存的方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#H5%E5%92%8CCSS3%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7"><span class="nav-number">3.</span> <span class="nav-text">H5和CSS3的新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#html5%E6%9C%89%E5%93%AA%E4%BA%9B%E6%96%B0%E7%89%B9%E6%80%A7"><span class="nav-number">3.1.</span> <span class="nav-text">html5有哪些新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#html5-%E7%9A%84%E7%A6%BB%E7%BA%BF%E5%AD%98%E5%82%A8%E4%BB%A5%E5%8F%8A%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">3.1.1.</span> <span class="nav-text">html5 的离线存储以及工作原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS3-%E6%96%B0%E5%A2%9E%E5%B1%9E%E6%80%A7"><span class="nav-number">3.2.</span> <span class="nav-text">CSS3 新增属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#H5%E4%B8%AD%E5%B7%B2%E7%BB%8F%E5%BA%9F%E5%BC%83%E7%9A%84%E6%A0%87%E7%AD%BE"><span class="nav-number">3.3.</span> <span class="nav-text">H5中已经废弃的标签</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0%EF%BC%9A"><span class="nav-number">4.</span> <span class="nav-text">参考文章：</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">leslie choi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/23/css/HTML/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          HTML
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-07-23 15:19:35" itemprop="dateCreated datePublished" datetime="2019-07-23T15:19:35+08:00">2019-07-23</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CSS/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="HTML语义化"><a href="#HTML语义化" class="headerlink" title="HTML语义化"></a>HTML语义化</h1><p>在我的理解为：根据内容，使用最合适的HTML标签。<br>场景：加入一个文章标题，要求这个标题的字体比正文的要大一些，还要加粗。能够实现这种效果的方法有很多，比如用CSS样式进行渲染。这样的效果看起来像是一个标题，但是他对浏览器来说，只是一个被渲染过的文本，无法知道他是一个标题。若要让浏览器知道他是一个标题，应该用hn标签来进行标记。<br>从这个例子可以总结出： 语义化的HTML文档，不关心内容的显示效果。 说的通俗一点： 标题脱了CSS这层外衣，它还是一个标题。</p>
+<h2 id="语义化标签的优势"><a href="#语义化标签的优势" class="headerlink" title="语义化标签的优势"></a>语义化标签的优势</h2><ul>
+<li>代码结构清晰，方便阅读，有利于团队合作开发。</li>
+<li>方便其他设备解析（如屏幕阅读器、盲人阅读器、移动设备）以语义的方式来渲染网页。</li>
+<li>有利于搜索引擎优化（SEO）。</li>
+</ul>
+<h2 id="HTML5新增的语义化标签"><a href="#HTML5新增的语义化标签" class="headerlink" title="HTML5新增的语义化标签"></a>HTML5新增的语义化标签</h2><ul>
+<li>header：页眉通常包括网站标志、主导航、全站链接以及搜索框</li>
+<li>nav：标记导航，仅对文档中重要的链接群使用</li>
+<li>main：页面主要内容，一个页面只能使用一次。如果是web应用，则包围其主要功能</li>
+<li>article：定义外部的内容，其中的内容独立于文档的其余部分</li>
+<li>section：定义文档中的节（section、区段）。比如章节、页眉、页脚或文档中的其他部分</li>
+<li>footer：页脚，只有当父级是body时，才是整个页面的页脚</li>
+</ul>
+<h1 id="meta标签的理解和总结"><a href="#meta标签的理解和总结" class="headerlink" title="meta标签的理解和总结"></a>meta标签的理解和总结</h1><p>meta常用于定义页面的说明，关键字，最后修改日期，和其它的元数据。它不会显示在页面上，但是机器却可以识别。<br>这些元数据将服务于浏览器（如何布局或重载页面），搜索引擎和其它网络服务。</p>
+<p><strong>组成：meta标签一共有两个属性，分别是http-equiv属性和name属性</strong></p>
+<h2 id="name属性"><a href="#name属性" class="headerlink" title="name属性"></a>name属性</h2><p>name属性主要用于描述网页，比如网页的关键词，叙述等。与之对应的属性值为content，content中的内容是对name填入类型的具体描述，便于搜索引擎抓取。<br>meta标签中name属性语法格式是：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;参数&quot;</span> <span class="attr">content</span>=<span class="string">&quot;具体的描述&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>A. keywords(关键字)</strong><br>说明：用于告诉搜索引擎，你网页的关键字。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;keywords&quot;</span> <span class="attr">content</span>=<span class="string">&quot;Lxxyx,博客，文科生，前端&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>B. description(网站内容的描述)</strong><br>说明：用于告诉搜索引擎，你网站的主要内容。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;description&quot;</span> <span class="attr">content</span>=<span class="string">&quot;文科生，热爱前端与编程。目前大二，这是我的前端博客&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>（SEO优先级按照title、description、keywords的顺序递减）</p>
+<ul>
+<li><strong>C. viewport(移动端的窗口)</strong><br>说明：这个概念较为复杂，具体的会在下篇博文中讲述。<br>这个属性常用于设计移动端网页。在用bootstrap,AmazeUI等框架时候都有用过viewport。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>C. viewport(移动端的窗口)</strong><br>说明：robots用来告诉爬虫哪些页面需要索引，哪些页面不需要索引。<br>content的参数有all,none,index,noindex,follow,nofollow。默认是all。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;robots&quot;</span> <span class="attr">content</span>=<span class="string">&quot;none&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>E. author(作者)</strong><br>说明：用于标注网页作者</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;author&quot;</span> <span class="attr">content</span>=<span class="string">&quot;leslie,leslie_choi@yeah.net&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>G. copyright(版权)</strong><br>说明：用于标注版权信息</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;copyright&quot;</span> <span class="attr">content</span>=<span class="string">&quot;leslie&quot;</span>&gt;</span> //代表该网站为leslie个人版权所有。</span><br></pre></td></tr></table></figure>
+
+<h2 id="http-equiv属性"><a href="#http-equiv属性" class="headerlink" title="http-equiv属性"></a>http-equiv属性</h2><p>equiv的全称是”equivalent”，意思是相等，相当于。<br>所以在这里的作用就是相当于HTTP的作用，类似于定义http参数。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;参数&quot;</span> <span class="attr">content</span>=<span class="string">&quot;具体的描述&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>A. content-Type(设定网页字符集)(推荐使用HTML5的方式)</strong></li>
+</ul>
+<p>说明：用于设定网页字符集，便于浏览器解析与渲染页面</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;content-Type&quot;</span> <span class="attr">content</span>=<span class="string">&quot;text/html;charset=utf-8&quot;</span>&gt;</span>  //旧的HTML，不推荐</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span> //HTML5设定网页字符集的方式，推荐使用UTF-8</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>B. X-UA-Compatible(浏览器采取何种版本渲染当前页面)</strong></li>
+</ul>
+<p>说明：用于告知浏览器以何种版本来渲染页面。（一般都设置为最新模式，在各大框架中这个设置也很常见。）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge,chrome=1&quot;</span>/&gt;</span> //指定IE和Chrome使用最新版本渲染当前页面</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>C.cache-control(指定请求和响应遵循的缓存机制)</strong></li>
+</ul>
+<p><strong>用法一：指导浏览器如何缓存某个响应以及缓存多长时间。</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;cache-control&quot;</span> <span class="attr">content</span>=<span class="string">&quot;no-cache&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>共有以下几种用法：</p>
+<p>1、no-cache: 先发送请求，与服务器确认该资源是否被更改，如果未被更改，则使用缓存。</p>
+<p>2、no-store: 不允许缓存，每次都要去服务器上，下载完整的响应。（安全措施）</p>
+<p>3、public : 缓存所有响应，但并非必须。因为max-age也可以做到相同效果</p>
+<p>4、private : 只为单个用户缓存，因此不允许任何中继进行缓存。（比如说CDN就不允许缓存private的响应）</p>
+<p>5、maxage : 表示当前请求开始，该响应在多久内能被缓存和重用，而不去服务器重新请求。例如：max-age=60表示响应可以再缓存和重用 60 秒。</p>
+<p><strong>用法二：禁止百度自动转码。</strong></p>
+<p>用于禁止当前页面在移动端浏览时，被百度自动转码。虽然百度的本意是好的，但是转码效果很多时候却不尽人意。所以可以在head中加入例子中的那句话，就可以避免百度自动转码了。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Cache-Control&quot;</span> <span class="attr">content</span>=<span class="string">&quot;no-siteapp&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>D. expires(网页到期时间)</strong></li>
+</ul>
+<p>用于设定网页的到期时间，过期后网页必须到服务器上重新传输。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;expires&quot;</span> <span class="attr">content</span>=<span class="string">&quot;Sunday 26 October 2016 01:00 GMT&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>refresh(自动刷新并指向某页面)</strong></li>
+</ul>
+<p>网页将在设定的时间内，自动刷新并调向设定的网址。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;refresh&quot;</span> <span class="attr">content</span>=<span class="string">&quot;2；URL=http://www.baidu.com&quot;</span>&gt;</span> //意思是2秒后跳转</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Set-Cookie(cookie设定)</strong> </li>
+</ul>
+<p>如果网页过期。那么这个网页存在本地的cookies也会被自动删除。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Set-Cookie&quot;</span> <span class="attr">content</span>=<span class="string">&quot;name, date&quot;</span>&gt;</span> //格式</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Set-Cookie&quot;</span> <span class="attr">content</span>=<span class="string">&quot;User=Lxxyx; path=/; expires=Sunday, 10-Jan-16 10:00:00 GMT&quot;</span>&gt;</span> //具体范例</span><br></pre></td></tr></table></figure>
+
+<h2 id="设置页面不缓存的方法"><a href="#设置页面不缓存的方法" class="headerlink" title="设置页面不缓存的方法"></a>设置页面不缓存的方法</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;pragma&quot;</span> <span class="attr">content</span>=<span class="string">&quot;no-cache&quot;</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Cache-Control&quot;</span> <span class="attr">content</span>=<span class="string">&quot;no-cache, must-revalidate&quot;</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;expires&quot;</span> <span class="attr">content</span>=<span class="string">&quot;0&quot;</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="H5和CSS3的新特性"><a href="#H5和CSS3的新特性" class="headerlink" title="H5和CSS3的新特性"></a>H5和CSS3的新特性</h1><h2 id="html5有哪些新特性"><a href="#html5有哪些新特性" class="headerlink" title="html5有哪些新特性"></a>html5有哪些新特性</h2><ol>
+<li>拖拽释放(Drag and drop) API </li>
+<li>语义化更好的内容标签（header,nav,footer,aside,article,section）</li>
+<li>音频、视频API(audio,video)</li>
+<li>画布(Canvas) API</li>
+<li>地理(Geolocation) API</li>
+<li>本地离线存储 localStorage 长期存储数据，浏览器关闭后数据不丢失；sessionStorage 的数据在浏览器关闭后自动删除。</li>
+<li>sessionStorage 的数据在浏览器关闭后自动删除</li>
+<li>表单控件，calendar、date、time、email、url、search  </li>
+<li>新的技术webworker, websocket, Geolocation</li>
+</ol>
+<h3 id="html5-的离线存储以及工作原理"><a href="#html5-的离线存储以及工作原理" class="headerlink" title="html5 的离线存储以及工作原理"></a>html5 的离线存储以及工作原理</h3><p>在⽤户没有与因特⽹连接时，可以正常访问站点或应⽤，在⽤户与因特⽹连接时，更新⽤ 户机器上的缓存⽂件</p>
+<p>原理：HTML5 的离线存储是基于⼀个新建的 .appcache ⽂件的缓存机制(不是存储技 术)，通过这个⽂件上的解析清单离线存储资源，这些资源就会像 cookie ⼀样被存储了下 来。之后当⽹络在处于离线状态下时，浏览器会通过被离线存储的数据进⾏⻚⾯展示</p>
+<p>使用方法：</p>
+<ol>
+<li>⻚⾯头部像下⾯⼀样加⼊⼀个 manifest 的属性</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">HTML</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">manifest</span>=<span class="string">&quot;demo.appcache&quot;</span>&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>在 cache.manifest ⽂件的编写离线存储的资源 </p>
+</li>
+<li><p>在离线状态时，操作 window.applicationCache 进⾏需求实现</p>
+</li>
+</ol>
+<p>在线的情况下，浏览器发现 html 头部有 manifest 属性，它会请求 manifest ⽂件，如 果是第⼀次访问 app ，那么浏览器就会根据manifest⽂件的内容下载相应的资源并且进⾏ 离线存储。如果已经访问过 app 并且资源已经离线存储了，那么浏览器就会使⽤离线的资 源加载⻚⾯，然后浏览器会对⽐新的 manifest ⽂件与旧的 manifest ⽂件，如果⽂件没有发⽣改变，就不做任何操作，如果⽂件改变了，那么就会重新下载⽂件中的资源并进⾏离线存储。</p>
+<p>离线的情况下，浏览器就直接使⽤离线存储的资源。</p>
+<h2 id="CSS3-新增属性"><a href="#CSS3-新增属性" class="headerlink" title="CSS3 新增属性"></a>CSS3 新增属性</h2><ol>
+<li>颜色：新增RGBA，HSLA模式</li>
+<li>文字阴影（text-shadow、）</li>
+<li>边框： 圆角（border-radius）边框阴影： box-shadow</li>
+<li>盒子模型：box-sizing</li>
+<li>背景：background-size 设置背景图片的尺寸background-origin 设置背景图片的原点。background-clip 设置背景图片的裁切区域，以”，”分隔可以设置多背景，用于自适应布局</li>
+<li>渐变：linear-gradient、radial-gradient</li>
+<li>过渡：transition，可实现动画</li>
+<li>自定义动画</li>
+<li>在CSS3中唯一引入的伪元素是 ：：selection.</li>
+<li>媒体查询，多栏布局</li>
+<li>border-image</li>
+<li>2D转换：transform：translate(x，y) rotate(x，y) skew(x，y) scale(x，y)</li>
+</ol>
+<h2 id="H5中已经废弃的标签"><a href="#H5中已经废弃的标签" class="headerlink" title="H5中已经废弃的标签"></a>H5中已经废弃的标签</h2><ul>
+<li>br 换行，已经被 p 标签进行替换</li>
+<li>hr 画线</li>
+<li>font、big、center</li>
+<li>在企业开发中，不到万不得已 不要轻易使用被废弃的标签</li>
+<li>strong ：定义重要性强调的文字</li>
+<li>ins 定义插入的文字</li>
+<li>em 定义强调的文字</li>
+<li>del定义被删除的文字</li>
+<li>frame 等等</li>
+</ul>
+<h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h1><p><a target="_blank" rel="noopener" href="https://juejin.im/entry/588074c62f301e00696b481d">关于 HTML 中 meta 标签的理解和总结</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/basic/" rel="tag"># basic</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/07/13/JavaScript/%E6%8F%90%E9%AB%98%E9%A1%B5%E9%9D%A2%E6%80%A7%E8%83%BD/" rel="prev" title="提高页面性能">
+                  <i class="fa fa-chevron-left"></i> 提高页面性能
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/08/21/%E5%89%8D%E5%90%8E%E7%AB%AF%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/ajax%E3%80%81axios%E3%80%81fetch%E7%9A%84%E5%8C%BA%E5%88%AB/" rel="next" title="ajax、axios、fetch的区别">
+                  ajax、axios、fetch的区别 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leslie choi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yoursite.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="作用域作用域概念作用域：变量可以起作用的范围 全局变量：使用var声明的，在任何地方都可以访问到的变量就是全局变量，对应全局作用域，如果页面不关闭，则内存不会释放，一直占用空间。 局部变量：只在固定的代码片段内可访问到的变量，最常见的例如函数内部。对应局部作用域(函数作用域)。 隐式全局变量：声明的变量没有var,就叫隐式全局变量。 不使用var声明的变量是全局变量，不推荐使用。 12345fun">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript随手记">
+<meta property="og:url" content="http://yoursite.com/2019/01/26/JavaScript/javaScript%E9%9A%8F%E6%89%8B%E8%AE%B0/index.html">
+<meta property="og:site_name" content="404 not found">
+<meta property="og:description" content="作用域作用域概念作用域：变量可以起作用的范围 全局变量：使用var声明的，在任何地方都可以访问到的变量就是全局变量，对应全局作用域，如果页面不关闭，则内存不会释放，一直占用空间。 局部变量：只在固定的代码片段内可访问到的变量，最常见的例如函数内部。对应局部作用域(函数作用域)。 隐式全局变量：声明的变量没有var,就叫隐式全局变量。 不使用var声明的变量是全局变量，不推荐使用。 12345fun">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-01-26T08:16:24.000Z">
+<meta property="article:modified_time" content="2021-04-11T14:17:47.570Z">
+<meta property="article:author" content="leslie choi">
+<meta property="article:tag" content="Interview">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2019/01/26/JavaScript/javaScript%E9%9A%8F%E6%89%8B%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;01&#x2F;26&#x2F;JavaScript&#x2F;javaScript%E9%9A%8F%E6%89%8B%E8%AE%B0&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;01&#x2F;26&#x2F;JavaScript&#x2F;javaScript随手记&#x2F;&quot;,&quot;title&quot;:&quot;JavaScript随手记&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>JavaScript随手记 | 404 not found</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">404 not found</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">1.</span> <span class="nav-text">作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">作用域概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">1.2.</span> <span class="nav-text">块级作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js-%E4%B8%AD%E8%AF%8D%E6%B3%95%E4%BD%9C%E7%94%A8%E5%9F%9F%E8%A7%84%E5%88%99"><span class="nav-number">1.3.</span> <span class="nav-text">js 中词法作用域规则:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE"><span class="nav-number">1.4.</span> <span class="nav-text">作用域链</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%84%E8%A7%A3%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">预解析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89-this%E6%8C%87%E5%90%91"><span class="nav-number">3.</span> <span class="nav-text">三 this指向</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BD%A2%E5%BC%8F-test"><span class="nav-number">3.1.</span> <span class="nav-text">形式 test()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BD%A2%E5%BC%8F-xxx-text"><span class="nav-number">3.2.</span> <span class="nav-text">形式 xxx.text()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BD%A2%E5%BC%8F-test-call-xxx-test-apply-xxx-test-bind"><span class="nav-number">3.3.</span> <span class="nav-text">形式 test.call(xxx) &#x2F; test.apply(xxx) &#x2F; test.bind()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#new-test-%E5%BD%A2%E5%BC%8F"><span class="nav-number">3.4.</span> <span class="nav-text">new test() 形式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#typeof%E5%92%8Cinstanceof%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">4.</span> <span class="nav-text">typeof和instanceof的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#typeof"><span class="nav-number">4.1.</span> <span class="nav-text">typeof</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#instanceof"><span class="nav-number">4.2.</span> <span class="nav-text">instanceof</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null-%E5%92%8C-undefined-%E5%8C%BA%E5%88%AB"><span class="nav-number">5.</span> <span class="nav-text">null 和 undefined 区别</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">leslie choi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/JavaScript/javaScript%E9%9A%8F%E6%89%8B%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript随手记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-01-26 16:16:24" itemprop="dateCreated datePublished" datetime="2019-01-26T16:16:24+08:00">2019-01-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h1><h2 id="作用域概念"><a href="#作用域概念" class="headerlink" title="作用域概念"></a>作用域概念</h2><p>作用域：变量可以起作用的范围</p>
+<p>全局变量：使用var声明的，在任何地方都可以访问到的变量就是全局变量，对应全局作用域，如果页面不关闭，则内存不会释放，一直占用空间。</p>
+<p>局部变量：只在固定的代码片段内可访问到的变量，最常见的例如函数内部。对应局部作用域(函数作用域)。</p>
+<p>隐式全局变量：声明的变量没有var,就叫隐式全局变量。</p>
+<p>不使用var声明的变量是全局变量，不推荐使用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  number=<span class="number">1000</span>;<span class="comment">//是隐式全局变量</span></span><br><span class="line">&#125;</span><br><span class="line">f1();</span><br><span class="line"><span class="built_in">console</span>.log(number);</span><br></pre></td></tr></table></figure>
+
+<h2 id="块级作用域"><a href="#块级作用域" class="headerlink" title="块级作用域"></a>块级作用域</h2><p>任何一对花括号（｛和｝）中的语句集都属于一个块，在这之中定义的所有变量在代码块外都是不可见的，我们称之为块级作用域。在es5之前没有块级作用域的的概念,只有函数作用域。</p>
+<h2 id="js-中词法作用域规则"><a href="#js-中词法作用域规则" class="headerlink" title="js 中词法作用域规则:"></a>js 中词法作用域规则:</h2><p>函数允许访问函数外的数据.</p>
+<p>整个代码结构中只有函数可以限定作用域.</p>
+<p>作用域规则首先使用提升规则分析</p>
+<p>如果当前作用规则中有名字了, 就不考虑外面的名字</p>
+<h2 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h2><p>只有函数可以制造作用域结构， 那么只要是代码，就至少有一个作用域, 即全局作用域。凡是代码中有函数，那么这个函数就构成另一个作用域。如果函数中还有函数，那么在这个作用域中就又可以诞生一个作用域。</p>
+<p>将这样的所有的作用域列出来，可以有一个结构: 函数内指向函数外的链式结构。就称作作用域链。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">f3</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="预解析"><a href="#预解析" class="headerlink" title="预解析"></a>预解析</h1><p>JavaScript代码的执行是由浏览器中的<strong>JavaScript解析器</strong>来执行的。JavaScript解析器执行JavaScript代码的时候，分为两个过程：<strong>预解析过程和代码执行</strong>过程。预解析就是在全局中寻找var关键字声明的变量和通过function关键字声明的函数。<br>预解析过程：</p>
+<ol>
+<li>把变量的声明提升到当前作用域的最前面，只会提升声明，不会提升赋值。</li>
+<li>把函数的声明提升到当前作用域的最前面，只会提升声明，不会提升调用。</li>
+<li>先提升函数，然后再提升变量。</li>
+<li>只有变量和函数才会发生声明提升，并且变量在提升声明的时候不会赋值，默认值是undefined，函数声明也不会将函数调用。</li>
+<li>通过声明提升，函数可以在声明的函数体之上进行调用，变量也可以在赋值之前进行输出，而且不会报错，如果说直接输出一个没有声明的变量就会报错。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">f1(); <span class="comment">// &#x27;hello&#x27;</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;hello&#x27;</span>);</span><br><span class="line">&#125; <span class="comment">// 此时预解析函数 f1 声明提升, 所以上面的调用控制台中调用不会报错</span></span><br><span class="line"><span class="built_in">console</span>.log(num); <span class="comment">// undefined  此时预解析变量 num 声明提升（没有赋值）</span></span><br><span class="line"><span class="keyword">var</span> num = <span class="number">5</span>; <span class="comment">//  所以上面在控制台中调用不会报错，只是显示 undefined</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="三-this指向"><a href="#三-this指向" class="headerlink" title="三 this指向"></a>三 this指向</h1><h2 id="形式-test"><a href="#形式-test" class="headerlink" title="形式 test()"></a>形式 test()</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line">test()  <span class="comment">//1</span></span><br></pre></td></tr></table></figure>
+<p>直接不带任何引用形式去调用函数，则this会指向全局对象，因为没有其他影响去改变this，this默认就是指向全局对象（浏览器是window，Node中是global）的。这个结论是在非严格模式的情况下，严格模式下这个this其实是undefined的。</p>
+<h2 id="形式-xxx-text"><a href="#形式-xxx-text" class="headerlink" title="形式 xxx.text()"></a>形式 xxx.text()</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a: <span class="number">2</span>,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line">obj.test()      <span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+<p>这种形式相对于第一中，this指向已经很明显，谁去调用这个函数的，这个函数中的this就绑定到谁身上。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a: <span class="number">2</span>,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj0 = &#123;</span><br><span class="line">    a: <span class="number">3</span>,</span><br><span class="line">    obj </span><br><span class="line">&#125;</span><br><span class="line">obj0.obj.test()     <span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+
+<p>虽然比上面复杂了一点，但是结果依然和上面的一样，this指向obj，指向直接调用的对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a: <span class="number">2</span>,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> testCopy = obj.test</span><br><span class="line">testCopy()      <span class="comment">//testCopy()是由window调用的，所以this指向window</span></span><br></pre></td></tr></table></figure>
+
+<p>道理同上，虽然说换了一个名字，但是只认定函数调用的时候，是由哪个对象进行调用的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a: <span class="number">2</span>,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">setTimeout</span>(obj.test)  <span class="comment">//输出1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="形式-test-call-xxx-test-apply-xxx-test-bind"><a href="#形式-test-call-xxx-test-apply-xxx-test-bind" class="headerlink" title="形式 test.call(xxx) / test.apply(xxx) / test.bind()"></a>形式 test.call(xxx) / test.apply(xxx) / test.bind()</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a: <span class="number">2</span>,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj3 = &#123;</span><br><span class="line">    a: <span class="number">3</span>,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> testCopy = obj.test</span><br><span class="line">testCopy.call(obj)<span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到，我们通过 call（apply 跟 call 的区别只是传参，作用是一样的，bind 有点区别，bind 能让我们的函数延迟执行，apply 与 call 调用就执行，所以 bind 这样的形式我们也称为函数柯里化，这些就不是我们这里要说的啦）来调用 testCopy，并且传入了你想要 this 指向的上下文，那么 this 指向你要的对象。看到这里，我们也可以想象第一、二种形式其实可以转化成 call/apply 的形式。</p>
+<h2 id="new-test-形式"><a href="#new-test-形式" class="headerlink" title="new test() 形式"></a>new test() 形式</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params">a</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.a = a</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> test(<span class="number">2</span>)</span><br><span class="line"><span class="built_in">console</span>.log(b.a)        <span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+
+<p>new这个操作符其实是new了一个新对象出来，而被new的test我们称为构造函数，我们可以在这个构造函数里定义一下将要到来的新对象的一些属性。所以构造函数里的this指的就是将要被new出来的新对象。</p>
+<p>最后的最后，其实还有一个，就是箭头函数中的this指向。</p>
+<p><strong>箭头函数中的this是在定义函数的时候绑定，而不是在执行函数的时候绑定</strong>所谓的定义时候绑定，就是this是继承自父执行上下文中的this！！</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="keyword">var</span> test = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a: <span class="number">2</span>,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line">obj.test()</span><br></pre></td></tr></table></figure>
+<p><strong>它this指向的是它的外层作用域this的指向。</strong>。外层作用域是整个window，所以输出的是1.</p>
+<h1 id="typeof和instanceof的区别"><a href="#typeof和instanceof的区别" class="headerlink" title="typeof和instanceof的区别"></a>typeof和instanceof的区别</h1><h2 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h2><p>typeof 是一个一元运算，放在一个运算数之前，运算数可以是任意类型。<strong>它返回值是一个字符串，该字符串说明运算数的类型。</strong></p>
+<p>typeof 一般只能返回如下几个结果：<br>“number”、”string”、”boolean”、”object”、”function” 和 “undefined”以及”symbol”。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">运算数为数字 <span class="keyword">typeof</span>(x) = <span class="string">&quot;number&quot;</span> </span><br><span class="line"></span><br><span class="line">字符串 <span class="keyword">typeof</span>(x) = <span class="string">&quot;string&quot;</span> </span><br><span class="line"></span><br><span class="line">布尔值 <span class="keyword">typeof</span>(x) = <span class="string">&quot;boolean&quot;</span> </span><br><span class="line"></span><br><span class="line">对象,数组和<span class="literal">null</span> <span class="keyword">typeof</span>(x) = <span class="string">&quot;object&quot;</span> </span><br><span class="line"></span><br><span class="line">函数 <span class="keyword">typeof</span>(x) = <span class="string">&quot;function&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h2><p>instanceof 运算符用来测试一个对象在其原型链中是否存在一个构造函数的 prototype 属性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=<span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line"></span><br><span class="line">alert(a <span class="keyword">instanceof</span> <span class="built_in">Array</span>); <span class="comment">// true，</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//同时 alert(a instanceof Object) //也会返回 true;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//这是因为 Array 是 object 的子类。</span></span><br></pre></td></tr></table></figure>
+
+<p>另外，更重的一点是 instanceof 可以在继承关系中用来判断一个实例是否属于它的父类型。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>)</span>&#123;&#125; </span><br><span class="line">Foo.prototype = <span class="keyword">new</span> Aoo();<span class="comment">//JavaScript 原型继承 </span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="keyword">new</span> Foo(); </span><br><span class="line"><span class="built_in">console</span>.log(foo <span class="keyword">instanceof</span> Foo)<span class="comment">//true </span></span><br><span class="line"><span class="built_in">console</span>.log(foo <span class="keyword">instanceof</span> Aoo)<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="null-和-undefined-区别"><a href="#null-和-undefined-区别" class="headerlink" title="null 和 undefined 区别"></a>null 和 undefined 区别</h1><p>null：Null 类型，代表“空值”，代表一个<strong>空对象指针</strong>，使用 typeof 运算得到 <strong>“object”</strong>，所以可以认为它是一个特殊的对象值。</p>
+<p>undefined：Undefined 类型，声明但是未初始化变量时，得到的就是 undefined。</p>
+<p>null 是 javascript 的关键字，可以认为是对象类型，它是一个空对象指针，和其它语言一样都是代表“空值”，不过 undefined 却是 javascript 才有的。undefined 是在 ECMAScript 第三版引入的，为了区分空指针对象和未初始化的变量，它是一个预定义的全局变量。没有返回值的函数返回为 undefined，没有实参的形参也是 undefined。</p>
+<p>也可以认为 undefined 是表示系统级的、出乎意料的或类似错误的值的空缺，而 null 是表示程序级的、正常的或在意料之中的值的空缺。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Interview/" rel="tag"># Interview</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/01/26/JavaScript/JavaScript%E5%85%A5%E9%97%A8/" rel="prev" title="JavaScript入门">
+                  <i class="fa fa-chevron-left"></i> JavaScript入门
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/02/08/%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="next" title="常见网络知识点">
+                  常见网络知识点 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leslie choi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

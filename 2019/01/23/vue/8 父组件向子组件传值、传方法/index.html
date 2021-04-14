@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yoursite.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="父子组件之间的相互传值父组件给子组件传值 父组件中声明数据，然后在引入子组件的时候使用 v-bind 绑定一个参数 将父组件中绑定的参数传到子组件中的 props 中 子组件中直接使用就可以获取并使用了  子组件给父组件传值 子组件中声明数据 通过触发一个回调函数(@click)向父组件传值 使用 this.$emit(‘functionName’,’props’)向父组件传值 然后父组件中引入子">
+<meta property="og:type" content="article">
+<meta property="og:title" content="八、父组件向子组件传值、传方法">
+<meta property="og:url" content="http://yoursite.com/2019/01/23/vue/8%20%E7%88%B6%E7%BB%84%E4%BB%B6%E5%90%91%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BC%A0%E5%80%BC%E3%80%81%E4%BC%A0%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="404 not found">
+<meta property="og:description" content="父子组件之间的相互传值父组件给子组件传值 父组件中声明数据，然后在引入子组件的时候使用 v-bind 绑定一个参数 将父组件中绑定的参数传到子组件中的 props 中 子组件中直接使用就可以获取并使用了  子组件给父组件传值 子组件中声明数据 通过触发一个回调函数(@click)向父组件传值 使用 this.$emit(‘functionName’,’props’)向父组件传值 然后父组件中引入子">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-01-23T12:21:20.000Z">
+<meta property="article:modified_time" content="2021-04-11T14:17:47.599Z">
+<meta property="article:author" content="leslie choi">
+<meta property="article:tag" content="basic">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2019/01/23/vue/8%20%E7%88%B6%E7%BB%84%E4%BB%B6%E5%90%91%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BC%A0%E5%80%BC%E3%80%81%E4%BC%A0%E6%96%B9%E6%B3%95/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;01&#x2F;23&#x2F;vue&#x2F;8%20%E7%88%B6%E7%BB%84%E4%BB%B6%E5%90%91%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BC%A0%E5%80%BC%E3%80%81%E4%BC%A0%E6%96%B9%E6%B3%95&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;01&#x2F;23&#x2F;vue&#x2F;8 父组件向子组件传值、传方法&#x2F;&quot;,&quot;title&quot;:&quot;八、父组件向子组件传值、传方法&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>八、父组件向子组件传值、传方法 | 404 not found</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">404 not found</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E7%9B%B8%E4%BA%92%E4%BC%A0%E5%80%BC"><span class="nav-number">1.</span> <span class="nav-text">父子组件之间的相互传值</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%88%B6%E7%BB%84%E4%BB%B6%E7%BB%99%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BC%A0%E5%80%BC"><span class="nav-number">1.1.</span> <span class="nav-text">父组件给子组件传值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%90%E7%BB%84%E4%BB%B6%E7%BB%99%E7%88%B6%E7%BB%84%E4%BB%B6%E4%BC%A0%E5%80%BC"><span class="nav-number">1.2.</span> <span class="nav-text">子组件给父组件传值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EventBus-%E5%88%A9%E7%94%A8%E4%BA%8B%E4%BB%B6%E6%80%BB%E7%BA%BF%E7%9A%84%E6%96%B9%E5%BC%8F%E5%B9%B3%E7%BA%A7%E7%BB%84%E4%BB%B6%EF%BC%8C%E8%BF%9B%E8%A1%8C%E5%85%84%E5%BC%9F%E7%BB%84%E4%BB%B6%E4%B9%8B%E9%97%B4%E4%BC%A0%E5%80%BC"><span class="nav-number">1.3.</span> <span class="nav-text">EventBus 利用事件总线的方式平级组件，进行兄弟组件之间传值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-%E9%AB%98%E7%BA%A7%E7%BB%84%E4%BB%B6%E4%BD%BF%E7%94%A8-provide-%E5%92%8C-inject-%E4%BC%A0%E5%80%BC"><span class="nav-number">1.4.</span> <span class="nav-text">Vue 高级组件使用 provide 和 inject 传值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vuex-%E7%A7%BB%E6%AD%A5%E5%85%B6%E4%BB%96%E6%96%87%E7%AB%A0"><span class="nav-number">1.5.</span> <span class="nav-text">vuex 移步其他文章</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%88%B6%E7%BB%84%E4%BB%B6%E5%90%91%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BC%A0%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">父组件向子组件传方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E6%A1%88%E4%BE%8B%E5%AE%9E%E7%8E%B0%E8%AF%84%E8%AE%BA%E5%88%97%E8%A1%A8"><span class="nav-number">3.</span> <span class="nav-text">组件案例实现评论列表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8ref%E5%B1%9E%E6%80%A7%E8%8E%B7%E5%8F%96dom%E5%85%83%E7%B4%A0%E5%92%8C%E7%BB%84%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">使用ref属性获取dom元素和组件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-number">5.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">leslie choi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/23/vue/8%20%E7%88%B6%E7%BB%84%E4%BB%B6%E5%90%91%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BC%A0%E5%80%BC%E3%80%81%E4%BC%A0%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          八、父组件向子组件传值、传方法
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-01-23 20:21:20" itemprop="dateCreated datePublished" datetime="2019-01-23T20:21:20+08:00">2019-01-23</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="父子组件之间的相互传值"><a href="#父子组件之间的相互传值" class="headerlink" title="父子组件之间的相互传值"></a>父子组件之间的相互传值</h1><h2 id="父组件给子组件传值"><a href="#父组件给子组件传值" class="headerlink" title="父组件给子组件传值"></a>父组件给子组件传值</h2><ol>
+<li>父组件中声明数据，然后在引入子组件的时候使用 v-bind 绑定一个参数</li>
+<li>将父组件中绑定的参数传到子组件中的 props 中</li>
+<li>子组件中直接使用就可以获取并使用了</li>
+</ol>
+<h2 id="子组件给父组件传值"><a href="#子组件给父组件传值" class="headerlink" title="子组件给父组件传值"></a>子组件给父组件传值</h2><ol>
+<li>子组件中声明数据</li>
+<li>通过触发一个回调函数(@click)向父组件传值</li>
+<li>使用 this.$emit(‘functionName’,’props’)向父组件传值</li>
+<li>然后父组件中引入子组件，@functionName = “show”</li>
+<li>在show方法中接收数据和参数</li>
+</ol>
+<p>父组件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;faher&quot;&gt;</span><br><span class="line">    &lt;child :name&#x3D;&quot;names&quot;</span><br><span class="line">           @toFather&#x3D;&quot;showAge&quot;&gt;</span><br><span class="line">      &lt;h1 slot&#x3D;&quot;up&quot;&gt;上面的插槽，可以自定义插槽内的内容&lt;&#x2F;h1&gt;</span><br><span class="line">      &lt;h1 slot&#x3D;&quot;down&quot;&gt;下面的插槽--子组件传给父组件的值：&#123;&#123;age&#125;&#125;&lt;&#x2F;h1&gt;</span><br><span class="line">      &lt;!--使用最新语法--&gt;</span><br><span class="line">        &lt;template v-slot:up&gt;</span><br><span class="line">          &lt;span&gt;233&lt;&#x2F;span&gt;</span><br><span class="line">        &lt;&#x2F;template&gt;</span><br><span class="line">        &lt;template #up&gt;</span><br><span class="line">          &lt;span&gt;555&lt;&#x2F;span&gt;</span><br><span class="line">        &lt;&#x2F;template&gt;</span><br><span class="line">    &lt;&#x2F;child&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import child from &#39;.&#x2F;child&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">  components: &#123; child &#125;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      names: &#39;james&#39;,</span><br><span class="line">      age: &#39;&#39;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    showAge (age) &#123;</span><br><span class="line">      this.age &#x3D; age</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>子组件：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;child&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">slot</span> <span class="attr">name</span>=<span class="string">&quot;up&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span><br><span class="line">    父组件传给子组件的值：&#123;&#123;name&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">slot</span> <span class="attr">name</span>=<span class="string">&quot;down&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>点击给父组件传值：<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;send&quot;</span>&gt;</span>传值<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line">  components: &#123;&#125;,</span><br><span class="line">  props: &#123; name &#125;,</span><br><span class="line">  data () &#123;</span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">      age: <span class="string">&#x27;1998&#x27;</span></span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    send () &#123;</span><br><span class="line"><span class="javascript">      <span class="built_in">this</span>.$emit(<span class="string">&#x27;toFather&#x27;</span>, <span class="built_in">this</span>.age)</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="EventBus-利用事件总线的方式平级组件，进行兄弟组件之间传值"><a href="#EventBus-利用事件总线的方式平级组件，进行兄弟组件之间传值" class="headerlink" title="EventBus 利用事件总线的方式平级组件，进行兄弟组件之间传值"></a>EventBus 利用事件总线的方式平级组件，进行兄弟组件之间传值</h2><p><strong>不论是父组件向子组件传值，还是子组件向父组件传值，都需要有一个介质。子向父的介质是自定义事件，父向子的介质是 props 中的属性；使用 EventBus，对于平级组件之间传值，他们也需要有一个中间介质，就是中央事件总线。</strong></p>
+<ol>
+<li>创建事件总线 eventBus.js，作为通信桥梁，也就是中央事件总线。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;Vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Vue</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>创建 ChildA 组件，引入 eventBus 事件总线。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;child-a&quot;&gt;</span><br><span class="line">  &lt;button @click&#x3D;&quot;sendMsg&quot;&gt;传值&lt;&#x2F;button&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import bus from &#39;.&#x2F;eventBus&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">  methods: &#123;</span><br><span class="line">    sendMsg: () &#x3D;&gt; &#123;</span><br><span class="line">      bus.$emit(&quot;snedMsgEvent&quot;,&quot;msg from childA&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>创建 ChildB 组件，引入 eventBus 事件总线。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">&lt;div class&#x3D;&quot;child-a&quot;&gt;</span><br><span class="line">  &lt;p&gt;从 ChildA 接收的值： &#123;&#123;msg&#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import bus from &#39;.&#x2F;eventBus&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">  data()&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      msg: &#39;默认值&#39;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  created() &#123;</span><br><span class="line">    bus.$on(&quot;snedMsgEvent&quot;,(msg) &#x3D;&gt; &#123;</span><br><span class="line">      this.msg &#x3D; msg    &#x2F;&#x2F;  msg from childA</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Vue-高级组件使用-provide-和-inject-传值"><a href="#Vue-高级组件使用-provide-和-inject-传值" class="headerlink" title="Vue 高级组件使用 provide 和 inject 传值"></a>Vue 高级组件使用 provide 和 inject 传值</h2><p>使用 EventBus 虽然可以解决深层组件之间传值的问题，但是会导致整个 event-emit 的组成混乱，难以维护。而使用 provide/inject 则可以保证父子单向数据流的清晰性。</p>
+<ol>
+<li>创建父组件</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;test&quot;&gt;</span><br><span class="line">    &lt;son prop&#x3D;&quot;data&quot;&gt;&lt;&#x2F;son&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  export default &#123;</span><br><span class="line">    name: &#39;Test&#39;,</span><br><span class="line">    provide: &#123;</span><br><span class="line">      name: &#39;Garrett&#39;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>创建孙组件，在这里的层级是父级 -&gt; 子组件 -&gt; 孙组件三个层级关系。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &#123;&#123;name&#125;&#125;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  export default &#123;</span><br><span class="line">    name: &#39;Grandson&#39;,</span><br><span class="line">    inject: [name]</span><br><span class="line">  &#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="vuex-移步其他文章"><a href="#vuex-移步其他文章" class="headerlink" title="vuex 移步其他文章"></a>vuex 移步其他文章</h2><h1 id="父组件向子组件传方法"><a href="#父组件向子组件传方法" class="headerlink" title="父组件向子组件传方法"></a>父组件向子组件传方法</h1><ol>
+<li><p>先创建一个Vue实例，作为父组件，定义一个show方法</p>
+</li>
+<li><p>为父组件绑定事件，使用v-on方法，绑定一个自定义属性func，然后调用show方法</p>
+</li>
+<li><p>在子组件拿到父组件传递过来的func属性，然后使用this.$emit(‘func属性’，’传入的参数’)</p>
+</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 父组件向子组件 传递 方法，使用的是 事件绑定机制； v-on, </span></span><br><span class="line"><span class="comment">当我们自定义了 一个 事件属性之后，那么，子组件就能够，通过某些方式，来调用 传递进去的 这个 方法了 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">com2</span> @<span class="attr">func</span>=<span class="string">&quot;show&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">com2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">id</span>=<span class="string">&quot;tmpl&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">h1</span>&gt;</span>这是 子组件<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;这是子组件中的按钮 - 点击它，触发 父组件传递过来的 func 方法&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;myclick&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 定义一个子组件</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> com2 = &#123;</span></span><br><span class="line"><span class="javascript">      template: <span class="string">&#x27;#tmpl&#x27;</span>,</span></span><br><span class="line"><span class="javascript">      <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">          sonmsg: &#123; <span class="attr">name</span>: <span class="string">&#x27;小头儿子&#x27;</span>, <span class="attr">age</span>: <span class="number">6</span> &#125;</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      methods: &#123;</span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">myclick</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">          <span class="comment">// 当点击子组件的按钮的时候，如何 拿到 父组件传递过来的 func 方法，并调用这个方法？？？</span></span></span><br><span class="line"><span class="javascript">          <span class="comment">//  emit 英文原意： 是触发，调用、发射的意思</span></span></span><br><span class="line"><span class="javascript">          <span class="comment">// this.$emit(&#x27;func123&#x27;, 123, 456)</span></span></span><br><span class="line"><span class="javascript">          <span class="built_in">this</span>.$emit(<span class="string">&#x27;func&#x27;</span>, <span class="built_in">this</span>.sonmsg)</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="javascript">    <span class="comment">// 创建 Vue 实例，得到 ViewModel</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">      el: <span class="string">&#x27;#app&#x27;</span>,</span></span><br><span class="line">      data: &#123;</span><br><span class="line"><span class="javascript">        datamsgFormSon: <span class="literal">null</span></span></span><br><span class="line">      &#125;,</span><br><span class="line">      methods: &#123;</span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">show</span>(<span class="params">data</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">          <span class="comment">// console.log(&#x27;调用了父组件身上的 show 方法: --- &#x27; + data)</span></span></span><br><span class="line"><span class="javascript">          <span class="comment">// console.log(data);</span></span></span><br><span class="line"><span class="javascript">          <span class="built_in">this</span>.datamsgFormSon = data</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      components: &#123;</span><br><span class="line">        com2</span><br><span class="line"><span class="javascript">        <span class="comment">// com2: com2</span></span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="组件案例实现评论列表"><a href="#组件案例实现评论列表" class="headerlink" title="组件案例实现评论列表"></a>组件案例实现评论列表</h1><ol>
+<li><p>父组件遍历显示子组件中的内容</p>
+</li>
+<li><p>子组件进行添加用户user和评论内容content的操作</p>
+</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line">  //func是父组件中的属性，提供给子组件调用loadComments方法</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">cmt-box</span> @<span class="attr">func</span>=<span class="string">&quot;loadComments&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">cmt-box</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;list-group&quot;</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;list-group-item&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;item in list&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;item.id&quot;</span>&gt;</span></span><br><span class="line">        			<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;badge&quot;</span>&gt;</span>评论人： &#123;&#123; item.user &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    				&#123;&#123; item.content &#125;&#125;</span><br><span class="line">			<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">//子组件进行数据的双向绑定，然后按钮触发postComment方法</span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">id</span>=<span class="string">&quot;tmpl&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;form-group&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span>&gt;</span>评论人：<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">class</span>=<span class="string">&quot;form-control&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;user&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;form-group&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span>&gt;</span>评论内容：<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">class</span>=<span class="string">&quot;form-control&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;content&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;form-group&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;发表评论&quot;</span> <span class="attr">class</span>=<span class="string">&quot;btn btn-primary&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;postComment&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="comment">//先声明一个子组件commentBox，然后新建一个发表评论的方法postComment</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> commentBox = &#123;</span></span><br><span class="line"><span class="javascript">      <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">          user: <span class="string">&#x27;&#x27;</span>,</span></span><br><span class="line"><span class="javascript">          content: <span class="string">&#x27;&#x27;</span></span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line"><span class="javascript">      template: <span class="string">&#x27;#tmpl&#x27;</span>,</span></span><br><span class="line">      methods: &#123;</span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">postComment</span>(<span class="params"></span>)</span> &#123; <span class="comment">// 发表评论的方法</span></span></span><br><span class="line"><span class="javascript">          <span class="comment">// 分析：发表评论的业务逻辑</span></span></span><br><span class="line"><span class="javascript">          <span class="comment">// 1. 评论数据存到哪里去？？？   存放到了 localStorage 中  localStorage.setItem(&#x27;cmts&#x27;, &#x27;&#x27;)</span></span></span><br><span class="line"><span class="javascript">          <span class="comment">// 2. 先组织出一个最新的评论数据对象</span></span></span><br><span class="line"><span class="javascript">          <span class="comment">// 3. 想办法，把 第二步中，得到的评论对象，保存到 localStorage 中：</span></span></span><br><span class="line"><span class="javascript">          <span class="comment">//  3.1 localStorage 只支持存放字符串数据， 要先调用 JSON.stringify </span></span></span><br><span class="line"><span class="javascript">          <span class="comment">//  3.2 在保存 最新的 评论数据之前，要先从 localStorage 获取到之前的评论数据（string）， 转换为 一个  数组对象， 然后，把最新的评论， push 到这个数组</span></span></span><br><span class="line"><span class="javascript">          <span class="comment">//  3.3 如果获取到的 localStorage 中的 评论字符串，为空不存在， 则  可以 返回一个 &#x27;[]&#x27;  让 JSON.parse 去转换</span></span></span><br><span class="line"><span class="javascript">          <span class="comment">//  3.4  把 最新的  评论列表数组，再次调用 JSON.stringify 转为  数组字符串，然后调用 localStorage.setItem()</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">          <span class="keyword">var</span> comment = &#123; <span class="attr">id</span>: <span class="built_in">Date</span>.now(), <span class="attr">user</span>: <span class="built_in">this</span>.user, <span class="attr">content</span>: <span class="built_in">this</span>.content &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">          <span class="comment">// 从 localStorage 中获取所有的评论</span></span></span><br><span class="line"><span class="javascript">          <span class="keyword">var</span> list = <span class="built_in">JSON</span>.parse(<span class="built_in">localStorage</span>.getItem(<span class="string">&#x27;cmts&#x27;</span>) || <span class="string">&#x27;[]&#x27;</span>)</span></span><br><span class="line">          list.unshift(comment)</span><br><span class="line"><span class="javascript">          <span class="comment">// 重新保存最新的 评论数据</span></span></span><br><span class="line"><span class="javascript">          <span class="built_in">localStorage</span>.setItem(<span class="string">&#x27;cmts&#x27;</span>, <span class="built_in">JSON</span>.stringify(list))</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">          <span class="built_in">this</span>.user = <span class="built_in">this</span>.content = <span class="string">&#x27;&#x27;</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">          <span class="comment">// this.loadComments() // ?????</span></span></span><br><span class="line"><span class="javascript">          <span class="built_in">this</span>.$emit(<span class="string">&#x27;func&#x27;</span>)</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="javascript">    <span class="comment">// 创建 Vue 实例，得到 ViewModel</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">      el: <span class="string">&#x27;#app&#x27;</span>,</span></span><br><span class="line">      data: &#123;</span><br><span class="line">        list: [</span><br><span class="line"><span class="javascript">          &#123; <span class="attr">id</span>: <span class="built_in">Date</span>.now(), <span class="attr">user</span>: <span class="string">&#x27;李白&#x27;</span>, <span class="attr">content</span>: <span class="string">&#x27;天生我材必有用&#x27;</span> &#125;,</span></span><br><span class="line"><span class="javascript">          &#123; <span class="attr">id</span>: <span class="built_in">Date</span>.now(), <span class="attr">user</span>: <span class="string">&#x27;江小白&#x27;</span>, <span class="attr">content</span>: <span class="string">&#x27;劝君更尽一杯酒&#x27;</span> &#125;,</span></span><br><span class="line"><span class="javascript">          &#123; <span class="attr">id</span>: <span class="built_in">Date</span>.now(), <span class="attr">user</span>: <span class="string">&#x27;小马&#x27;</span>, <span class="attr">content</span>: <span class="string">&#x27;我姓马， 风吹草低见牛羊的马&#x27;</span> &#125;</span></span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line"><span class="javascript">      <span class="function"><span class="title">beforeCreate</span>(<span class="params"></span>)</span>&#123; <span class="comment">// 注意：这里不能调用 loadComments 方法，因为在执行这个钩子函数的时候，data 和 methods 都还没有被初始化好</span></span></span><br><span class="line"></span><br><span class="line">      &#125;,</span><br><span class="line"><span class="javascript">      <span class="function"><span class="title">created</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">this</span>.loadComments()</span></span><br><span class="line">      &#125;,</span><br><span class="line">      methods: &#123;</span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">loadComments</span>(<span class="params"></span>)</span> &#123; <span class="comment">// 从本地的 localStorage 中，加载评论列表</span></span></span><br><span class="line"><span class="javascript">          <span class="keyword">var</span> list = <span class="built_in">JSON</span>.parse(<span class="built_in">localStorage</span>.getItem(<span class="string">&#x27;cmts&#x27;</span>) || <span class="string">&#x27;[]&#x27;</span>)</span></span><br><span class="line"><span class="javascript">          <span class="built_in">this</span>.list = list</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      components: &#123;</span><br><span class="line"><span class="javascript">        <span class="string">&#x27;cmt-box&#x27;</span>: commentBox</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  <span class="tag">&lt;/<span class="name">script</span>&gt;</span>  </span><br></pre></td></tr></table></figure>
+
+<p>习惯上父组件使用自定义的组件标签，放在#app里面。子组件则放在#app外面，<template id="tmpl"> </template>根据子组件id名在标签内写子组件内容。</p>
+<h1 id="使用ref属性获取dom元素和组件"><a href="#使用ref属性获取dom元素和组件" class="headerlink" title="使用ref属性获取dom元素和组件"></a>使用ref属性获取dom元素和组件</h1><ol>
+<li><p>原生js在vue中不提倡去操作dom元素，可以使用ref获取dom节点</p>
+</li>
+<li><p>在html标签中使用ref属性，后面自定义一个值，然后就可以在方法中使用$refs方法获取</p>
+</li>
+<li><p>获取组件也是同理，新建一个子组件login，使用ref绑定一个自定义的mylogin，同样使用</p>
+</li>
+</ol>
+<p>this.$refs.mylogin.msg可以获取到子组件里面的数据和方法</p>
+<p>总结：在Vue中不提倡直接操作Dom元素，而是为这个元素赋予一个属性，然后根据这个属性进行所需要的操作！！！！！！！</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">&quot;app&quot;</span>&gt;</span><br><span class="line">  &lt;input type=<span class="string">&quot;button&quot;</span> value=<span class="string">&quot;获取元素&quot;</span> @click=<span class="string">&quot;getElement&quot;</span> ref=<span class="string">&quot;mybtn&quot;</span>&gt;</span><br><span class="line">  &lt;h3 id=<span class="string">&quot;myh3&quot;</span> ref=<span class="string">&quot;myh3&quot;</span>&gt;哈哈哈， 今天天气太好了！！！&lt;/h3&gt;</span><br><span class="line">  &lt;hr&gt;</span><br><span class="line">  &lt;login ref=<span class="string">&quot;mylogin&quot;</span>&gt;&lt;/login&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">var</span> login = &#123;</span><br><span class="line">    template: <span class="string">&#x27;&lt;h1&gt;登录组件&lt;/h1&gt;&#x27;</span>,</span><br><span class="line">    <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        msg: <span class="string">&#x27;son msg&#x27;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      <span class="function"><span class="title">show</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;调用了子组件的方法&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 创建 Vue 实例，得到 ViewModel</span></span><br><span class="line">  <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    data: &#123;&#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      <span class="function"><span class="title">getElement</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line"><span class="comment">//原生js获取</span></span><br><span class="line">        <span class="comment">// console.log(document.getElementById(&#x27;myh3&#x27;).innerText)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//  ref  是 英文单词 【reference】   值类型 和 引用类型  referenceError</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.$refs.myh3.innerText)</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.$refs.mylogin.msg)</span><br><span class="line">        <span class="comment">// this.$refs.mylogin.show()</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    components: &#123;</span><br><span class="line">      login</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&lt;/script&gt;  </span><br></pre></td></tr></table></figure>
+
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46902438/article/details/107447243?utm_medium=distribute.pc_relevant.none-task-blog-baidulandingword-3&spm=1001.2101.3001.4242">组件通信原理</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/basic/" rel="tag"># basic</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/01/23/vue/7%20%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6/" rel="prev" title="七、创建组件的三种方式">
+                  <i class="fa fa-chevron-left"></i> 七、创建组件的三种方式
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/01/24/vue/9%20%E8%B7%AF%E7%94%B1/" rel="next" title="九、路由">
+                  九、路由 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leslie choi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

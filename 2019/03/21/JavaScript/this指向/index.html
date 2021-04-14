@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yoursite.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="this 指向this的指向有4种类型 形式”test()”1234567var a &#x3D; 1function test () &amp;#123;    console.log(this.a)&amp;#125;test()  直接不带任何引用形式去调用函数，则this会指向全局对象，因为没有其他影响去改变this，this默认就是指向全局对象（浏览器是window，Node中是global）的。这个结论是在非严">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javaScript中的this指向">
+<meta property="og:url" content="http://yoursite.com/2019/03/21/JavaScript/this%E6%8C%87%E5%90%91/index.html">
+<meta property="og:site_name" content="404 not found">
+<meta property="og:description" content="this 指向this的指向有4种类型 形式”test()”1234567var a &#x3D; 1function test () &amp;#123;    console.log(this.a)&amp;#125;test()  直接不带任何引用形式去调用函数，则this会指向全局对象，因为没有其他影响去改变this，this默认就是指向全局对象（浏览器是window，Node中是global）的。这个结论是在非严">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-03-21T08:12:22.000Z">
+<meta property="article:modified_time" content="2021-04-11T14:17:47.571Z">
+<meta property="article:author" content="leslie choi">
+<meta property="article:tag" content="Interview">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2019/03/21/JavaScript/this%E6%8C%87%E5%90%91/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;03&#x2F;21&#x2F;JavaScript&#x2F;this%E6%8C%87%E5%90%91&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;03&#x2F;21&#x2F;JavaScript&#x2F;this指向&#x2F;&quot;,&quot;title&quot;:&quot;javaScript中的this指向&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>javaScript中的this指向 | 404 not found</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">404 not found</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#this-%E6%8C%87%E5%90%91"><span class="nav-number">1.</span> <span class="nav-text">this 指向</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BD%A2%E5%BC%8F%E2%80%9Dtest-%E2%80%9D"><span class="nav-number">1.1.</span> <span class="nav-text">形式”test()”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BD%A2%E5%BC%8F%E2%80%9Dxxx-text-%E2%80%9D"><span class="nav-number">1.2.</span> <span class="nav-text">形式”xxx.text()”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BD%A2%E5%BC%8F%E2%80%9Ctest-call-xxx-test-apply-xxx-test-bind-%E2%80%9D"><span class="nav-number">1.3.</span> <span class="nav-text">形式“test.call(xxx) &#x2F; test.apply(xxx) &#x2F; test.bind()”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%80%9Cnew-test-%E2%80%9D%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.4.</span> <span class="nav-text">“new test()”形式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E4%B8%AD%E7%9A%84this%E6%8C%87%E5%90%91"><span class="nav-number">1.5.</span> <span class="nav-text">箭头函数中的this指向</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9%E5%8F%98%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84this%E7%9A%84%E6%8C%87%E5%90%91"><span class="nav-number">1.5.1.</span> <span class="nav-text">改变箭头函数的this的指向</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apply%E3%80%81call-%E5%92%8C-bind-%E7%9A%84%E4%BD%9C%E7%94%A8%E3%80%82"><span class="nav-number">1.6.</span> <span class="nav-text">apply、call 和 bind 的作用。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apply%E3%80%81call-%E5%92%8C-bind-%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">1.7.</span> <span class="nav-text">apply、call 和 bind 的应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bind-apply-call-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.</span> <span class="nav-text">bind &#x2F; apply &#x2F; call 的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%8B%E5%86%99-apply-call-bind"><span class="nav-number">3.</span> <span class="nav-text">手写 apply&#x2F;call&#x2F;bind</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-number">4.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">leslie choi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/21/JavaScript/this%E6%8C%87%E5%90%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          javaScript中的this指向
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-03-21 16:12:22" itemprop="dateCreated datePublished" datetime="2019-03-21T16:12:22+08:00">2019-03-21</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="this-指向"><a href="#this-指向" class="headerlink" title="this 指向"></a>this 指向</h1><p>this的指向有4种类型</p>
+<h2 id="形式”test-”"><a href="#形式”test-”" class="headerlink" title="形式”test()”"></a>形式”test()”</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line">test()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>直接不带任何引用形式去调用函数，则this会指向全局对象，因为没有其他影响去改变this，this默认就是指向全局对象（浏览器是window，Node中是global）的。这个结论是在非严格模式的情况下，严格模式下这个this其实是undefined的。</p>
+<h2 id="形式”xxx-text-”"><a href="#形式”xxx-text-”" class="headerlink" title="形式”xxx.text()”"></a>形式”xxx.text()”</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a: <span class="number">2</span>,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line">obj.test()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>这种形式相对于第一中，this指向已经很明显，谁去调用这个函数的，这个函数中的this就绑定到谁身上。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a: <span class="number">2</span>,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj0 = &#123;</span><br><span class="line">    a: <span class="number">3</span>,</span><br><span class="line">    obj </span><br><span class="line">&#125;</span><br><span class="line">obj0.obj.test()</span><br></pre></td></tr></table></figure>
+
+<p>虽然比上面复杂了一点，但是结果依然和上面的一样，this指向obj，指向直接调用的对象,结果依然是2。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a: <span class="number">2</span>,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> testCopy = obj.test</span><br><span class="line">testCopy()</span><br></pre></td></tr></table></figure>
+<p>道理同上，虽然说换了一个名字，但是调用的是window，所以结果是1。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a: <span class="number">2</span>,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">setTimeout</span>(obj.test)  <span class="comment">//输出1</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="形式“test-call-xxx-test-apply-xxx-test-bind-”"><a href="#形式“test-call-xxx-test-apply-xxx-test-bind-”" class="headerlink" title="形式“test.call(xxx) / test.apply(xxx) / test.bind()”"></a>形式“test.call(xxx) / test.apply(xxx) / test.bind()”</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a: <span class="number">2</span>,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> testCopy = obj.test</span><br><span class="line">testCopy.call(obj)<span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到，我们通过call（apply跟call的区别只是传参，作用是一样的，bind有点区别，bind能让我们的函数延迟执行，apply与call调用就执行，所以bind这样的形式我们也称为函数柯里化，这些就不是我们这里要说的啦）来调用testCopy，并且传入了你想要this指向的上下文，那么this指向你要的对象。看到这里，我们也可以想象第一、二种形式其实可以转化成call/apply的形式</p>
+<h2 id="“new-test-”形式"><a href="#“new-test-”形式" class="headerlink" title="“new test()”形式"></a>“new test()”形式</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params">a</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.a = a</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> test(<span class="number">2</span>)</span><br><span class="line"><span class="built_in">console</span>.log(b.a)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>new这个操作符其实是new了一个新对象出来，而被new的test我们称为构造函数，我们可以在这个构造函数里定义一下将要到来的新对象的一些属性。所以构造函数里的this指的就是将要被new出来的新对象。</p>
+<h2 id="箭头函数中的this指向"><a href="#箭头函数中的this指向" class="headerlink" title="箭头函数中的this指向"></a>箭头函数中的this指向</h2><p><strong>箭头函数中的this是在定义函数的时候绑定，而不是在执行函数的时候绑定</strong>所谓的定义时候绑定，就是this是继承自父执行上下文中的this！！</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="keyword">var</span> test = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a: <span class="number">2</span>,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line">obj.test()      <span class="comment">//  输出1</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>它this指向的是它的外层作用域this的指向。</strong>。外层作用域是整个window，所以输出的是1.</p>
+<p><strong>注意：简单对象（非函数）是没有执行上下文的！</strong></p>
+<h3 id="改变箭头函数的this的指向"><a href="#改变箭头函数的this的指向" class="headerlink" title="改变箭头函数的this的指向"></a>改变箭头函数的this的指向</h3><ol>
+<li>使用双冒号::进行绑定,但是该方法目前只是在ES7的提案中，虽然babel转码器已经支持但是仍未成为标准，所以在实际使用中可能会报错</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//双冒号左边是一个对象，右边是一个函数。该运算符会自动将左边的对象作为上下文环境绑定到右边的函数上</span></span><br><span class="line">foo::bar</span><br><span class="line"><span class="comment">//相当于</span></span><br><span class="line">bar.bind(foo)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>使用call</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;jack&quot;</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">	name: <span class="string">&quot;nick&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> 	<span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line"> 		<span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line"> 	&#125;,<span class="number">100</span>)</span><br><span class="line">&#125;</span><br><span class="line">foo()       <span class="comment">//  输出jack</span></span><br><span class="line">foo.call(obj)       <span class="comment">//  输出nick</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>箭头函数导致this总是指向函数定义生效时所在的对象。上面的call改变了this的执行上下文，所以指向了obj</p>
+<p>箭头函数可以让setTimeout里面的this绑定定义时所在的作用域，而不是指向运行时所在的作用域</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">Timer</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">this</span>.s1 = <span class="number">0</span></span><br><span class="line">		<span class="built_in">this</span>.s2 = <span class="number">0</span></span><br><span class="line">		<span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> <span class="built_in">this</span>.s1 ++ ,<span class="number">1000</span>)</span><br><span class="line">		<span class="built_in">setInterval</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			<span class="built_in">this</span>.s2++</span><br><span class="line">		&#125;,<span class="number">1000</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> timer = <span class="keyword">new</span> Timer()</span><br><span class="line">	<span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="built_in">console</span>.log(timer.s1),<span class="number">3100</span>)		<span class="comment">//s1: 3</span></span><br><span class="line">	<span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="built_in">console</span>.log(timer.s2),<span class="number">3100</span>)		<span class="comment">//s2: 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 前者的this绑定定义时所在的作用域，即Timer函数，tihs.s1更新了3次</span></span><br><span class="line"><span class="comment">// 后者运行时的this指向全局对象，this.s2更新0次</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="apply、call-和-bind-的作用。"><a href="#apply、call-和-bind-的作用。" class="headerlink" title="apply、call 和 bind 的作用。"></a>apply、call 和 bind 的作用。</h2><p>apply和call、bind的目的就是为了改变函数内部this的指向。</p>
+<p>除了第⼀个参数外， call 可以接收⼀个参数列表， apply 只接受⼀个参数数组。bind是es5的语法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">var</span> name = <span class="string">&#x27;global&#x27;</span>;</span><br><span class="line">    <span class="keyword">var</span> person = &#123;</span><br><span class="line">      name: <span class="string">&#x27;zero&#x27;</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">printInfo</span>(<span class="params">age, job</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="built_in">this</span>.name, age, job);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">    printInfo(<span class="number">20</span>, <span class="string">&#x27;前端工程师&#x27;</span>);        <span class="comment">// 打印：global 20 前端工程师,因为默认的上下文是window，所以this.name是全局定义的global，如果我们想打印出来zero的话，就需要改变函数执行的上下文</span></span><br><span class="line"></span><br><span class="line">    printInfo.call(person, <span class="number">20</span>, <span class="string">&#x27;前端工程师&#x27;</span>);<span class="comment">// zero 20 前端工程师</span></span><br><span class="line">    printInfo.apply(person, [<span class="number">20</span>, <span class="string">&#x27;前端工程师&#x27;</span>]);<span class="comment">// zero 20 前端工程师</span></span><br><span class="line"><span class="comment">// 这两种方式是一样的，第一个参数都是传进去的上下文，this.name取的是person.name，所以打印出来的名字就是zero了，后面的为age和job，只是参数传递的方式不一样，apply比较特殊，把要传的参数放在数组里面</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 而bind和以上两种有区别，bind是es5定义的新方法，用来返回一个有自己上下文的函数，用法也比较类似：</span></span><br><span class="line">    printInfo.bind(person)(<span class="number">20</span>, <span class="string">&#x27;前端工程师&#x27;</span>);<span class="comment">// zero 20 前端工程师</span></span><br><span class="line"><span class="comment">// printInfo.bind(person)这一块是返回的以peron为上下文的函数，后面的(20, &#x27;前端工程师&#x27;)是函数调用</span></span><br></pre></td></tr></table></figure>
+
+<p>bind后函数不会立即执行，而只是返回一个改变了上下文的函数副本，而call和apply是直接执行函数，所以我们可以通过 bind 实现柯⾥化</p>
+<h2 id="apply、call-和-bind-的应用"><a href="#apply、call-和-bind-的应用" class="headerlink" title="apply、call 和 bind 的应用"></a>apply、call 和 bind 的应用</h2><ol>
+<li>数组之间的追加(使用a.concat(b) 会返回一个新的数组，不会影响原来的数组)</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line"><span class="keyword">let</span> b = [<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.prototype.push.apply(a, b)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a)    <span class="comment">//[4, 5, 6, 7, 8, 9]</span></span><br><span class="line"><span class="built_in">console</span>.log(b)    <span class="comment">// [7, 8, 9]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>获取数组中的最大值和最小值，利用他们扩充作用域拥有Math的min和max方法</li>
+</ol>
+<p>由于没有什么对象调用这个方法，所以第一个参数可以写作null或者本身</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span>  numbers = [<span class="number">5</span>, <span class="number">458</span> , <span class="number">120</span> , -<span class="number">215</span> ]</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span>  maxInNumbers = <span class="built_in">Math</span>.max.apply(<span class="built_in">Math</span>, numbers),   <span class="comment">//458   </span></span><br><span class="line"></span><br><span class="line"><span class="comment">// maxInNumbers = Math.max.call(Math,5, 458 , 120 , -215); //458</span></span><br><span class="line"><span class="comment">// console.log(Math.max([5, 458 , 120 , -215 ]))</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>验证是否是数组（前提是toString（）方法没有被重写过）</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(fn) <span class="comment">// &quot;[object Function]&quot;  函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(date) <span class="comment">// &quot;[object Date]&quot;    日期 </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(arr) <span class="comment">// &quot;[object Array]&quot;    数组</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/[hbc]at/gi</span>;</span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(reg) <span class="comment">// &quot;[object RegExp]&quot;   正则</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>让伪数组拥有数组的方法</li>
+</ol>
+<ul>
+<li>Array.prototype.slice.call()</li>
+<li>[].prototype.slice.call()</li>
+<li>Array.from()</li>
+<li>扩展运算符[…()]</li>
+</ul>
+<h1 id="bind-apply-call-的区别"><a href="#bind-apply-call-的区别" class="headerlink" title="bind / apply / call 的区别"></a>bind / apply / call 的区别</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params">a,b,c</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">    <span class="built_in">console</span>.log(a,b,c)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> b = &#123;</span><br><span class="line">    name: <span class="string">&quot;segmentFault&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">a.call(b,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//输出 segmentFault和 1,2,3</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params">a,b,c</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name);</span><br><span class="line">    <span class="built_in">console</span>.log(a,b,c)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a.apply(b,[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line"><span class="comment">//输出segmentFault和1,2,3</span></span><br></pre></td></tr></table></figure>
+
+<p>使用 bind 之后：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> b = &#123;</span><br><span class="line">    name: <span class="string">&quot;segmentFault&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">a.bind(b, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>此时控制台并没有代码输出，因为bind会重新生成并且返回一个函数，这个函数的this指向第一个参数</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> b = &#123;</span><br><span class="line">    name: <span class="string">&quot;segmentFault&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> c = a.bind(b, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">c() <span class="comment">//此时输出segmentFault</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="手写-apply-call-bind"><a href="#手写-apply-call-bind" class="headerlink" title="手写 apply/call/bind"></a>手写 apply/call/bind</h1><ol>
+<li>手写 apply</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myApply = <span class="function"><span class="keyword">function</span> (<span class="params">context, args</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// context 是上下文，args 是携带的参数</span></span><br><span class="line">    <span class="comment">// 这里默认不传就是给window,也可以用es6给参数设置默认参数</span></span><br><span class="line">    context = context || <span class="built_in">window</span></span><br><span class="line">    args = args ? args : []</span><br><span class="line">    <span class="comment">// 给context新增一个独一无二的属性以免覆盖原有属性</span></span><br><span class="line">    <span class="keyword">const</span> key = <span class="built_in">Symbol</span>()</span><br><span class="line">    context[key] = <span class="built_in">this</span></span><br><span class="line">    <span class="comment">// 通过隐式绑定的方式调用函数</span></span><br><span class="line">    <span class="keyword">const</span> result = context[key](...args)</span><br><span class="line">    <span class="comment">// 删除添加的属性</span></span><br><span class="line">    <span class="keyword">delete</span> context[key]</span><br><span class="line">    <span class="comment">// 返回函数调用的返回值</span></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>手写 call</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//传递参数从一个数组变成逐个传参了,不用...扩展运算符的也可以用arguments代替</span></span><br><span class="line"><span class="built_in">Function</span>.prototype.myCall = <span class="function"><span class="keyword">function</span> (<span class="params">context, ...args</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 这里默认不传就是给 window,也可以用 es6 给参数设置默认参数</span></span><br><span class="line">    context = context || <span class="built_in">window</span></span><br><span class="line">    args = args ? args : []</span><br><span class="line">    <span class="comment">//给context 对象新增一个独一无二的属性以免覆盖原有属性</span></span><br><span class="line">    <span class="keyword">const</span> key = <span class="built_in">Symbol</span>()</span><br><span class="line">    context[key] = <span class="built_in">this</span></span><br><span class="line">    <span class="comment">//通过隐式绑定的方式调用函数</span></span><br><span class="line">    <span class="keyword">const</span> result = context[key](...args)</span><br><span class="line">    <span class="comment">//删除添加的属性</span></span><br><span class="line">    <span class="keyword">delete</span> context[key]</span><br><span class="line">    <span class="comment">//返回函数调用的返回值</span></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>如果要改变一个函数的 this 指向，则需要把那个函数变成一个对象上的属性</strong>，也就是在这里的 <code>context[key] = this</code>。</p>
+<ol start="3">
+<li>手写 bind</li>
+</ol>
+<p>bind 和 apply 的区别在于，bind 是返回一个绑定好的函数，apply 是直接调用。</p>
+<p>其实就是返回一个函数，里面执行了 apply 上述的操作而已。不过有一个需要判断的点，因为返回新的函数，要考虑到使用 new 去调用，并且 new 的优先级比较高，所以需要判断 new 的调用。</p>
+<p>还有一个特点就是 bind 调用的时候可以传参，调用之后生成的新的函数也可以传参，效果是一样的，所以这一块也要做处理。<br>因为上面已经实现了 apply，这里就借用一下，实际上不借用就是把代码 copy 过来。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myBind = <span class="function"><span class="keyword">function</span> (<span class="params">context, ...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> fn = <span class="built_in">this</span></span><br><span class="line">  args = args ? args : []</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">newFn</span>(<span class="params">...newFnArgs</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span> <span class="keyword">instanceof</span> newFn) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> fn(...args, ...newFnArgs)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fn.apply(context, [...args,...newFnArgs])</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p>(50行javaScript代码实现简单版的 call , apply ,bind 【中级前端面试基础必备】)[<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000020044435]">https://segmentfault.com/a/1190000020044435]</a><br>(<a target="_blank" rel="noopener" href="https://juejin.im/post/6844903891092389901#heading-7)[%E9%9D%A2%E8%AF%95%E6%84%9F%E6%82%9F,%E6%89%8B%E5%86%99bind,apply,call]">https://juejin.im/post/6844903891092389901#heading-7)[面试感悟,手写bind,apply,call]</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Interview/" rel="tag"># Interview</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/02/26/JavaScript/javaScript%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/" rel="prev" title="JavaScript运行机制">
+                  <i class="fa fa-chevron-left"></i> JavaScript运行机制
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/04/13/ES6/ES6%E6%96%B0%E8%AF%AD%E6%B3%95%E8%A7%84%E8%8C%83%E5%B8%B8%E7%94%A8/" rel="next" title="ES6新特性">
+                  ES6新特性 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leslie choi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

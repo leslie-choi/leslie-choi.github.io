@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yoursite.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="Vue2 无法检测到数组下标的更新1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283&#x2F;&#x2F; 1. 准备数据const data &#x3D; &amp;#1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue2.x 排坑">
+<meta property="og:url" content="http://yoursite.com/2021/03/01/vue/vue2.x/index.html">
+<meta property="og:site_name" content="404 not found">
+<meta property="og:description" content="Vue2 无法检测到数组下标的更新1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283&#x2F;&#x2F; 1. 准备数据const data &#x3D; &amp;#1">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-01T03:29:25.000Z">
+<meta property="article:modified_time" content="2021-04-11T15:48:53.548Z">
+<meta property="article:author" content="leslie choi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2021/03/01/vue/vue2.x/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;yoursite.com&#x2F;2021&#x2F;03&#x2F;01&#x2F;vue&#x2F;vue2.x&#x2F;&quot;,&quot;path&quot;:&quot;2021&#x2F;03&#x2F;01&#x2F;vue&#x2F;vue2.x&#x2F;&quot;,&quot;title&quot;:&quot;Vue2.x 排坑&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>Vue2.x 排坑 | 404 not found</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">404 not found</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue2-%E6%97%A0%E6%B3%95%E6%A3%80%E6%B5%8B%E5%88%B0%E6%95%B0%E7%BB%84%E4%B8%8B%E6%A0%87%E7%9A%84%E6%9B%B4%E6%96%B0"><span class="nav-number">1.</span> <span class="nav-text">Vue2 无法检测到数组下标的更新</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#watch-%E6%95%B0%E7%BB%84-newVal-%E5%92%8C-oldVal-%E5%BE%97%E5%88%B0%E7%9A%84%E5%80%BC%E4%B8%80%E6%A0%B7"><span class="nav-number">2.</span> <span class="nav-text">watch 数组 newVal 和 oldVal 得到的值一样</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#input-%E8%BE%93%E5%85%A5%E6%A1%86%E7%AE%80%E5%8D%95%E8%8A%82%E6%B5%81%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">input 输入框简单节流函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sync-%E5%B1%9E%E6%80%A7%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">.sync 属性使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#attrs-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">$attrs 的使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#listener-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">6.</span> <span class="nav-text">$listener 的使用</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">leslie choi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/01/vue/vue2.x/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vue2.x 排坑
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-03-01 11:29:25" itemprop="dateCreated datePublished" datetime="2021-03-01T11:29:25+08:00">2021-03-01</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-11 23:48:53" itemprop="dateModified" datetime="2021-04-11T23:48:53+08:00">2021-04-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Vue2-无法检测到数组下标的更新"><a href="#Vue2-无法检测到数组下标的更新" class="headerlink" title="Vue2 无法检测到数组下标的更新"></a>Vue2 无法检测到数组下标的更新</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 1. 准备数据</span></span><br><span class="line"><span class="keyword">const</span> data = &#123;</span><br><span class="line">    name: <span class="string">&#x27;zhangsan&#x27;</span>,</span><br><span class="line">    age: <span class="number">20</span>,</span><br><span class="line">    info: &#123;</span><br><span class="line">        address: <span class="string">&#x27;北京&#x27;</span> <span class="comment">// 需要深度监听</span></span><br><span class="line">    &#125;,</span><br><span class="line">    nums: [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//2. 触发更新视图</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateView</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;视图更新&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//3. 重新定义数组原型</span></span><br><span class="line"><span class="keyword">const</span> oldArrayProperty = <span class="built_in">Array</span>.prototype</span><br><span class="line"><span class="comment">// 创建新对象，原型指向 oldArrayProperty ，再扩展新的方法不会影响原型</span></span><br><span class="line"><span class="keyword">const</span> arrProto = <span class="built_in">Object</span>.create(oldArrayProperty)</span><br><span class="line"><span class="comment">// 由于只针对了以上7种方法进行了hack处理,所以其他数组的属性也是检测不到的，还是具有一定的局限性。</span></span><br><span class="line">[<span class="string">&#x27;push&#x27;</span>, <span class="string">&#x27;pop&#x27;</span>, <span class="string">&#x27;shift&#x27;</span>, <span class="string">&#x27;unshift&#x27;</span>, <span class="string">&#x27;splice&#x27;</span>, <span class="string">&#x27;sort&#x27;</span>, <span class="string">&#x27;reverse&#x27;</span>].forEach(<span class="function"><span class="params">methodName</span> =&gt;</span> &#123;</span><br><span class="line">    arrProto[methodName] = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      updateView() <span class="comment">// 触发视图更新</span></span><br><span class="line">      oldArrayProperty[methodName].call(<span class="built_in">this</span>, ...arguments)</span><br><span class="line">      <span class="comment">// Array.prototype.push.call(this, ...arguments)</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//4. 重新定义属性，监听起来</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">defineReactive</span>(<span class="params">target, key, value</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 深度监听</span></span><br><span class="line">    observer(value)</span><br><span class="line">    <span class="comment">// 核心 API</span></span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(target, key, &#123;</span><br><span class="line">        <span class="function"><span class="title">get</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> value</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="function"><span class="title">set</span>(<span class="params">newValue</span>)</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (newValue !== value) &#123;</span><br><span class="line">                <span class="comment">// 深度监听</span></span><br><span class="line">                observer(newValue)</span><br><span class="line">                <span class="comment">// 设置新值</span></span><br><span class="line">                <span class="comment">// 注意，value 一直在闭包中，此处设置完之后，再 get 时也是会获取最新的值</span></span><br><span class="line">                value = newValue</span><br><span class="line">                <span class="comment">// 触发更新视图</span></span><br><span class="line">                updateView()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//5 监听对象属性</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">observer</span>(<span class="params">target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> target !== <span class="string">&#x27;object&#x27;</span> || target === <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 不是对象或数组</span></span><br><span class="line">        <span class="keyword">return</span> target</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 污染全局的 Array 原型</span></span><br><span class="line">    <span class="comment">// Array.prototype.push = function () &#123;</span></span><br><span class="line">    <span class="comment">//     updateView()</span></span><br><span class="line">    <span class="comment">//     ...</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(target)) &#123;</span><br><span class="line">        target.__proto__ = arrProto</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 重新定义各个属性（for in 也可以遍历数组）</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> target) &#123;</span><br><span class="line">        defineReactive(target, key, target[key])</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听数据</span></span><br><span class="line">observer(data)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line"><span class="comment">// data.name = &#x27;lisi&#x27;</span></span><br><span class="line"><span class="comment">// data.age = 21</span></span><br><span class="line"><span class="comment">// // console.log(&#x27;age&#x27;, data.age)</span></span><br><span class="line"><span class="comment">// data.x = &#x27;100&#x27; // 新增属性，监听不到 —— 所以有 Vue.set</span></span><br><span class="line"><span class="comment">// delete data.name // 删除属性，监听不到 —— 所有已 Vue.delete</span></span><br><span class="line"><span class="comment">// data.info.address = &#x27;上海&#x27; // 深度监听</span></span><br><span class="line">data.nums.push(<span class="number">4</span>) <span class="comment">// 监听数组</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="watch-数组-newVal-和-oldVal-得到的值一样"><a href="#watch-数组-newVal-和-oldVal-得到的值一样" class="headerlink" title="watch 数组 newVal 和 oldVal 得到的值一样"></a>watch 数组 newVal 和 oldVal 得到的值一样</h1><p>对于引用类型，赋值存的是地址，地址指向堆内存存储的值。</p>
+<ol>
+<li>利用computed缓存依赖需要监听的对象，然后又对存在对象进行一个监听，从而获取前后值的变化。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">	<span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> &#123;</span><br><span class="line">			obj: &#123;</span><br><span class="line">				a: <span class="number">1</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	computed: &#123;</span><br><span class="line">		newObj () &#123; <span class="comment">// 对 obj 进行深拷贝</span></span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(<span class="built_in">this</span>.obj))</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	watch: &#123;</span><br><span class="line">		newObj: &#123; <span class="comment">// 监听新值</span></span><br><span class="line">			handler (newVal, oldVal) &#123;</span><br><span class="line">				<span class="built_in">console</span>.log(<span class="string">&#x27;newVal&#x27;</span>, newVal)</span><br><span class="line">				<span class="built_in">console</span>.log(<span class="string">&#x27;oldVal&#x27;</span>, oldVal)</span><br><span class="line">			&#125;,</span><br><span class="line">		    deep: <span class="literal">true</span></span><br><span class="line">	    &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="input-输入框简单节流函数"><a href="#input-输入框简单节流函数" class="headerlink" title="input 输入框简单节流函数"></a>input 输入框简单节流函数</h1><p>定时器，监听 input 输入框</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    timer: <span class="literal">null</span> <span class="comment">// 函数节流</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br><span class="line">watch: &#123;</span><br><span class="line">  queryKey: &#123;</span><br><span class="line">    handler () &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">this</span>.timer) &#123;</span><br><span class="line">        <span class="built_in">clearTimeout</span>(<span class="built_in">this</span>.timer)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">this</span>.timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.getMenus()</span><br><span class="line">      &#125;, <span class="number">500</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="sync-属性使用"><a href="#sync-属性使用" class="headerlink" title=".sync 属性使用"></a>.sync 属性使用</h1><p>Vue 2.4 版本之前，由于子组件无法直接修改父组件传递的值，需要通知父组件执行方法，修改传递给子组件的值。</p>
+<p>2.4 版本之前</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 父组件</span><br><span class="line">&lt;child :val&#x3D;&quot;name&quot; @update&#x3D;&quot;modify&quot;&gt;&lt;&#x2F;child&gt;</span><br><span class="line"></span><br><span class="line">modify(newVal) &#123;</span><br><span class="line">  this.name &#x3D; newVal</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">&#x2F;&#x2F; 子组件</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;label class&#x3D;&quot;child&quot;&gt;</span><br><span class="line">        输入框:&lt;input :value&#x3D;val @input&#x3D;&quot;$emit(&#39;update&#39;, $event.target.value)&quot; &#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;label&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2.4 版本使用 .sync</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 父组件 不需要再通过方法更新 name 的值</span></span><br><span class="line">&lt;child :val.sync=<span class="string">&quot;name&quot;</span>&gt;&lt;/child&gt;</span><br><span class="line"><span class="comment">// 相当于被扩展为</span></span><br><span class="line">&lt;comp :val=<span class="string">&quot;name&quot;</span> @update:val=<span class="string">&quot;value =&gt; name = value&quot;</span>&gt;&lt;/comp&gt; </span><br><span class="line"></span><br><span class="line"><span class="comment">// 子组件</span></span><br><span class="line">props:[<span class="string">&#x27;val&#x27;</span>]</span><br><span class="line">&lt;input :value=val @input=<span class="string">&quot;$emit(&#x27;update:val&#x27;, $event.target.value)&quot;</span> /&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 子组件修改父组件中的值 需要显式调用 this.$emit(&#x27;update: props&#x27;, value)</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="attrs-的使用"><a href="#attrs-的使用" class="headerlink" title="$attrs 的使用"></a>$attrs 的使用</h1><p>Vue 中，父组件给子组件传值，需要通过 prop 传递，但是如果父组件传给子组件多个 prop，就需要在子组件中声明多个 props。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 父组件使用封装的 my-input 子组件</span></span><br><span class="line">&lt;my-input placeholder=<span class="string">&quot;请输入你的姓名&quot;</span> type=<span class="string">&quot;text&quot;</span> title=<span class="string">&quot;姓名&quot;</span>&gt;&lt;/my-input&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// my-input 子组件声明多个 prop</span></span><br><span class="line">&lt;input :placeholder=<span class="string">&quot;placeholder&quot;</span> :title=<span class="string">&quot;title&quot;</span>/&gt;</span><br><span class="line">props:&#123;</span><br><span class="line">  palceholder: &#123;</span><br><span class="line">    type: <span class="built_in">String</span>,</span><br><span class="line">    <span class="keyword">default</span>: <span class="string">&#x27;&#x27;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  title: &#123;</span><br><span class="line">    type: <span class="built_in">String</span>,</span><br><span class="line">    <span class="keyword">default</span>: <span class="string">&#x27;&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 attrs</span></span><br><span class="line">&lt;input v-bind=<span class="string">&quot;$attrs&quot;</span> @input=<span class="string">&quot;$emit(&#x27;input&#x27;, $event.target.value)&quot;</span> /&gt;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  inheritAttrs:<span class="literal">false</span>, <span class="comment">// 设置为false，避免给myInput组件设置的属性被添加到myInput组件的根元素div上</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果需要单独获取某一个属性 可以使用 .属性的形式获取</span></span><br><span class="line">&lt;input :type=<span class="string">&quot;$attrs.type&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="listener-的使用"><a href="#listener-的使用" class="headerlink" title="$listener 的使用"></a>$listener 的使用</h1><p>my-input 组件中使用了 el-input，如果给 my-input 想要使用 el-input 自带的事件，可以使用 $emit</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;el-input v-model=<span class="string">&quot;input&quot;</span> v-bind=<span class="string">&quot;$attrs&quot;</span> @blur=<span class="string">&quot;blur&quot;</span>&gt;&lt;/el-input&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">methods: &#123;</span><br><span class="line">  <span class="function"><span class="title">blur</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.$emit(<span class="string">&#x27;blur&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是如果事件多了，就会增加一堆非必要的 methods。myInput 组件中给 el-input 组件添加上v-on=”$listeners”，就可以在 myInput 组件上使用 el-input 组件自定义的事件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;el-input v-model=<span class="string">&quot;input&quot;</span> v-bind=<span class="string">&quot;$attrs&quot;</span> v-on=<span class="string">&quot;$listeners&quot;</span>&gt;&lt;/el-input&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/02/25/css/CSS3%E5%AE%9E%E6%88%98/" rel="prev" title="CSS tips">
+                  <i class="fa fa-chevron-left"></i> CSS tips
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leslie choi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

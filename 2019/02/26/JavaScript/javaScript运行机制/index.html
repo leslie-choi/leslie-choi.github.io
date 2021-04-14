@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yoursite.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="首先必须了解JS是单线程的（语言核心），最主要的原因就是为了避免DOM的（浏览器需要渲染 DOM，JS 可以修改 DOM 结构 ），虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中。 进程和线程的区别 进程：是并发执行的程序在执行过程中分配和管理资源的基本单位，是一个动态">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript运行机制">
+<meta property="og:url" content="http://yoursite.com/2019/02/26/JavaScript/javaScript%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/index.html">
+<meta property="og:site_name" content="404 not found">
+<meta property="og:description" content="首先必须了解JS是单线程的（语言核心），最主要的原因就是为了避免DOM的（浏览器需要渲染 DOM，JS 可以修改 DOM 结构 ），虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中。 进程和线程的区别 进程：是并发执行的程序在执行过程中分配和管理资源的基本单位，是一个动态">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-02-26T06:26:24.000Z">
+<meta property="article:modified_time" content="2021-04-11T14:17:47.569Z">
+<meta property="article:author" content="leslie choi">
+<meta property="article:tag" content="basic">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2019/02/26/JavaScript/javaScript%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;02&#x2F;26&#x2F;JavaScript&#x2F;javaScript%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;02&#x2F;26&#x2F;JavaScript&#x2F;javaScript运行机制&#x2F;&quot;,&quot;title&quot;:&quot;JavaScript运行机制&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>JavaScript运行机制 | 404 not found</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">404 not found</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">进程和线程的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#js%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">1.1.</span> <span class="nav-text">js单线程的优缺点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97"><span class="nav-number">2.</span> <span class="nav-text">任务队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%92%8C%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">事件和回调函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8"><span class="nav-number">4.</span> <span class="nav-text">定时器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8%E4%BE%8B%E5%AD%901"><span class="nav-number">4.1.</span> <span class="nav-text">定时器例子1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8%E4%BE%8B%E5%AD%902"><span class="nav-number">4.2.</span> <span class="nav-text">定时器例子2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8%E4%BE%8B%E5%AD%903"><span class="nav-number">4.3.</span> <span class="nav-text">定时器例子3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8%E4%BE%8B%E5%AD%904"><span class="nav-number">4.4.</span> <span class="nav-text">定时器例子4</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Even-Loop"><span class="nav-number">5.</span> <span class="nav-text">Even Loop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#javaScript%E5%92%8CJava%E3%80%81C-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">6.</span> <span class="nav-text">javaScript和Java、C++的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88JS%E4%B8%AD-0-1-0-2-%E4%B8%8D%E7%AD%89%E4%BA%8E-0-3"><span class="nav-number">7.</span> <span class="nav-text">为什么JS中 0.1+0.2 不等于 0.3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Node%E7%9A%84%E5%BA%94%E2%BD%A4%E5%9C%BA%E6%99%AF"><span class="nav-number">8.</span> <span class="nav-text">Node的应⽤场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-number">9.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">leslie choi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/26/JavaScript/javaScript%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript运行机制
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-02-26 14:26:24" itemprop="dateCreated datePublished" datetime="2019-02-26T14:26:24+08:00">2019-02-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><strong>首先必须了解JS是单线程的（语言核心），最主要的原因就是为了避免DOM的（浏览器需要渲染 DOM，JS 可以修改 DOM 结构 ），虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中。</strong></p>
+<h1 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h1><ul>
+<li><p>进程：是并发执行的程序在执行过程中分配和管理资源的基本单位，是一个动态概念，竞争计算机系统资源的基本单位（进程是一个工厂，工厂有它的独立资源，并且工厂之间相互独立）</p>
+</li>
+<li><p>线程：是进程中的一部分，一个没有线程的进程也可以被看作是单线程的，是CPU调度的一个基本单位（线程是工厂中的工人，多个工人协作完成任务，一个工厂可以有一个或者多个工人，工人之间共享空间）</p>
+</li>
+</ul>
+<p>进程之间的通信方式：</p>
+<ul>
+<li>无名管道：半双工通信方式，数据只能单向流动并且只能在具有亲缘关系的进程间使用</li>
+<li>有名管道：也是半双工通信方式，但是允许没有亲缘进程之间的通信</li>
+<li>高级管道：将另一个程序当作一个新的程序在当前程序进程中启动，则这个进程算是当前程序的子进程</li>
+<li>信号：用于通知接受进程某个事件已经发生</li>
+</ul>
+<h2 id="js单线程的优缺点"><a href="#js单线程的优缺点" class="headerlink" title="js单线程的优缺点"></a>js单线程的优缺点</h2><p>优点：JS 是单线程运⾏的，可以达到节省内存，节约上下⽂切换时 间，没有锁的问题的好处</p>
+<p>缺点：相对其他语言效率较低。</p>
+<h1 id="任务队列"><a href="#任务队列" class="headerlink" title="任务队列"></a>任务队列</h1><p>因为Javascript是单线程的，所以意味着任务需要一个接着一个完成。但是如果前面的任务执行时间很长，那么后面的任务就得一直阻塞着，这样用户体验十分差。<br>JavaScript的设计者考虑到了这一点，所以他将JavaScript的任务分为两种，在主线程上执行的任务”同步任务”，被主线程挂载起来的任务”异步任务”,后者一般是放在一个叫<strong>任务队列</strong>的数据结构中。</p>
+<p>那么一般异步执行运行机制如下(也是JavaScript的运行机制)：</p>
+<p>(1)所有同步任务都在主线程上执行，形成一个<strong>执行栈</strong>。</p>
+<p>(2)主线程之外，还有一个“任务队列”,只要异步任务有了运行结果，就在“任务队列”之中放置一个事件。</p>
+<p>(3)一旦“执行栈”中的所有同步任务执行完毕了，系统就会读取“任务队列”，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。</p>
+<p>(4)主线程不断重复上面的三步。（事件循环，轮询执行异步队列中的函数）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">&quot;test&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> test2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">&quot;test2&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">   alert(<span class="string">&quot;setTimeout&quot;</span>);</span><br><span class="line">&#125;,<span class="number">1000</span>);</span><br><span class="line">test();</span><br><span class="line">test2();</span><br><span class="line"><span class="comment">//test</span></span><br><span class="line"><span class="comment">//test2</span></span><br><span class="line"><span class="comment">//setTimeout;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="事件和回调函数"><a href="#事件和回调函数" class="headerlink" title="事件和回调函数"></a>事件和回调函数</h1><p>test()和test2()属于“执行栈”中的同步任务，而<strong>定时器则是任务队列里面的异步任务</strong>，那么定时器就是属于异步任务中的一种，在讲定时器之前先认识一下任务队列里面的另外一个重要成员，事件。其实<strong>任务队列就是一个事件队列</strong>，因为一般我们绑定一个事件，比如点击事件等等，都是在某一个时刻才触发执行的，这个时候就得放到任务队列里面，等待执行，而在某个DOM节点上绑定了事件，就要有相应的回调函数,它们是相辅相成的。<br>所谓回调函数，就是那些被挂载起来，等待执行的代码，主线程执行任务队列里面的异步任务，其实就是执行这些回调函数。<br>一般只有主线程所有任务都执行完毕了，才会执行任务队列里面的异步任务，一般是按照队列的“先进先出”顺序执行，但是因为存在定时器，所以主线程要检查执行时间，只有到了规定的时间，才能返回主线程。</p>
+<h1 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h1><p>定时器主要由setTimeout()和setInterval()两个函数来完成，它们的内部运行机制完全一样，不同的只是，前者一次性执行，而后者反复执行。定时器，属于任务队列中的异步任务，所以才会出现上面的问题，再看几个例子就能理解了，</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="built_in">console</span>.log(<span class="number">2</span>);&#125;,<span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+
+<p>上面代码的执行结果是1,3,2，因为只有setTimeout里面的代码是异步任务，其它都是主线程里的同步任务，所以只有执行完了主线程中的所有任务，才会执行setTimeout中的任务。</p>
+<p><strong>但是因为JS的运行机制原因，会导致定时器的运行时间不够准确</strong>，所以可以通过时间戳的方法，使延迟的时间减去函数的运行时间。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line">	<span class="keyword">var</span> message = <span class="built_in">document</span>.getElementById(<span class="string">&quot;message&quot;</span>);</span><br><span class="line">	<span class="keyword">var</span> count = <span class="number">1000</span>;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">animate</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">var</span> start = +<span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">		message.innerHTML = count--;</span><br><span class="line">		<span class="keyword">var</span> finish = +<span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">		<span class="built_in">setTimeout</span>(animate, <span class="number">1000</span> - (finish-start));</span><br><span class="line">	&#125;</span><br><span class="line">   animate();</span><br><span class="line"> &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="定时器例子1"><a href="#定时器例子1" class="headerlink" title="定时器例子1"></a>定时器例子1</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//test1 每2秒运行一次， test2 每3秒运行一次</span></span><br><span class="line"><span class="comment">//求test2第二次运行是在第几秒？  </span></span><br><span class="line">    <span class="built_in">setInterval</span>(<span class="function"><span class="keyword">function</span> <span class="title">test1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> <span class="title">test2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;3&quot;</span>)</span><br><span class="line">      &#125;,<span class="number">3000</span>)</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&quot;2&quot;</span>)</span><br><span class="line">    &#125;,<span class="number">2000</span>)</span><br><span class="line"><span class="comment">//test1 第一次运行是在第二秒。test2 第一次运行需要等待test1 运行结束之后才能开始，所以在第五秒运行test2</span></span><br><span class="line"><span class="comment">//然后test2 的运行结果会被缓存，那么第二次运行就是 2+3+2 在第7秒运行，第三次运行就是2+3+2+2 在第九秒运行</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="定时器例子2"><a href="#定时器例子2" class="headerlink" title="定时器例子2"></a>定时器例子2</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    <span class="built_in">setInterval</span>(<span class="function"><span class="keyword">function</span> <span class="title">test1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> <span class="title">test2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;2&quot;</span>)</span><br><span class="line">      &#125;,<span class="number">2000</span>)</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&quot;5&quot;</span>)</span><br><span class="line">    &#125;,<span class="number">5000</span>)</span><br><span class="line"><span class="comment">//  第一次5秒时先输出5，然后过2秒再输出2，再过3秒输出5，再过2秒输出2。525252循环下去</span></span><br><span class="line"><span class="comment">// test2第一次运行是在5+2 第7s，第二次运行是在5+2+5 在12秒运行</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="定时器例子3"><a href="#定时器例子3" class="headerlink" title="定时器例子3"></a>定时器例子3</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">      <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> <span class="title">test2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">setInterval</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">&quot;1&quot;</span>)</span><br><span class="line">        &#125;,<span class="number">1000</span>)</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;5&quot;</span>)</span><br><span class="line">      &#125;,<span class="number">5000</span>)</span><br><span class="line"><span class="comment">//先输出5，然后再过1秒输出1，接下去循环每秒输出1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="定时器例子4"><a href="#定时器例子4" class="headerlink" title="定时器例子4"></a>定时器例子4</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">      <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> <span class="title">test2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">setInterval</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">&quot;5&quot;</span>)</span><br><span class="line">        &#125;,<span class="number">5000</span>)</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;1&quot;</span>)</span><br><span class="line">      &#125;,<span class="number">1000</span>)</span><br><span class="line"><span class="comment">//先输出1，然后再过5秒输出5，接下去循环每5秒输出5</span></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="Even-Loop"><a href="#Even-Loop" class="headerlink" title="Even Loop"></a>Even Loop</h1><p>javascript提供的与 <strong>“任务队列”</strong> 有关的方法有：setTimeout、setInterval、process.nextTick和setImmediate。</p>
+<p>process.nextTick方法可以在当前“执行栈”的尾部——下一次Event Loop(主线程读取“任务队列”)之前——触发回调函数。也就是说，它指定的任务总是发生在所有异步任务之前。setImmediate方法则是在当前“任务队列”的尾部添加事件，也即是说，它指定的任务总是在下一次Event Loop时执行。</p>
+<p>在JavaScript中，异步任务被详细分为两种，一种宏任务（MacroTask）也叫Task，一种叫微任务（MicroTask）。</p>
+<p><strong>MacroTask（宏任务）</strong></p>
+<p>script全部代码、setTimeout、setInterval、setImmediate（浏览器暂时不支持，只有IE10支持，具体可见MDN）、I/O、UI Rendering。</p>
+<p><strong>MicroTask（微任务）</strong></p>
+<p>Process.nextTick（Node独有）、<strong>Promise</strong>、Object.observe(废弃)、MutationObserver</p>
+<p>接下来介绍浏览器的JavaScript代码的具体流程：</p>
+<ol>
+<li>执行全局Script同步代码，这些同步代码有一些是同步语句，有一些是异步语句（比如setTimeout等）；</li>
+<li>全局Script同步代码执行完毕后，调用栈Stack会清空；</li>
+<li>从微队列microtask queue中取出位于队首的回调任务，放入调用栈Stack中执行，执行完后microtask queue长度减1；</li>
+<li>继续取出位于队首的任务，放入调用栈Stack中执行，以此类推，直到直到把microtask queue中的所有任务都执行完毕。<strong>注意，如果在执行microtask的过程中，又产生了microtask，那么会加入到队列的末尾，也会在这个周期被调用执行；</strong></li>
+<li>microtask queue中的所有任务都执行完毕，此时microtask queue为空队列，调用栈Stack也为空；</li>
+<li>取出宏队列macrotask queue中位于队首的任务，放入Stack中执行；</li>
+<li>执行完毕后，调用栈Stack为空；</li>
+<li>重复第3-7个步骤；</li>
+<li>重复第3-7个步骤；</li>
+<li>……</li>
+</ol>
+<p>可以看到，这就是浏览器的事件循环Event Loop</p>
+<p>举个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line">  <span class="built_in">Promise</span>.resolve().then(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">3</span>)</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">4</span>)</span><br><span class="line">  resolve(<span class="number">5</span>)</span><br><span class="line">&#125;).then(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">6</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">7</span>);</span><br></pre></td></tr></table></figure>
+
+<p>按照上面的步骤，将各个任务代入同步任务、宏队列和微队列中，就可以得出结果1、4、7、5、2、3、6。需要特别注意的是在这里的console.log(“4”)其实是同步任务。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;script start&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;setTimeout&#x27;</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;promise1&#x27;</span>);</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;promise2&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;script end&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>输出结果是：script start -&gt; script end -&gt; promise1 -&gt; promise2 -&gt; setTimeout</p>
+<p>为了验证是否真的掌握还是要再举个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;script start&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">await</span> async2()</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;async1 end&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;async2 end&#x27;</span>) </span><br><span class="line">&#125;</span><br><span class="line">async1()</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;setTimeout&#x27;</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;Promise&#x27;</span>)</span><br><span class="line">  resolve()</span><br><span class="line">&#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;promise1&#x27;</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;promise2&#x27;</span>)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;script end&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这里需要先理解async/await。实际上转换了</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">&#x27;async2 end&#x27;</span>)</span><br><span class="line"> <span class="comment">// Promise.resolve() 将代码插入微任务队列尾部</span></span><br><span class="line"> <span class="comment">// resolve 再次插入微任务队列尾部</span></span><br><span class="line"> resolve(<span class="built_in">Promise</span>.resolve())</span><br><span class="line">&#125;).then(<span class="function">() =&gt;</span> &#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">&#x27;async1 end&#x27;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>async/await 在底层转换成了 promise 和 then 回调函数。<br>也就是说，这是 promise 的语法糖。<br>每次我们使用 await, 解释器都创建一个 promise 对象，然后把剩下的 async 函数中的操作放到 then 回调函数中。<br>async/await 的实现，离不开 Promise。从字面意思来理解，async 是“异步”的简写，而 await 是 async wait 的简写可以认为是等待异步方法执行完成。</p>
+<p>输出的结果是：<br> script start<br> async2 end<br> Promise<br> script end<br> async1 end<br> promise1<br> promise2<br> setTimeout</p>
+<p>详细过程：</p>
+<ul>
+<li>首先，打印script start，调用async1()时，返回一个Promise，所以打印出来async2 end。</li>
+<li>每个 await，会新产生一个promise,但这个过程本身是异步的，所以该await后面不会立即调用。</li>
+<li>继续执行同步代码，打印Promise和script end，将then函数放入微任务队列中等待执行。</li>
+<li>同步执行完成之后，检查微任务队列是否为null，然后按照先入先出规则，依次执行。</li>
+<li>然后先执行打印promise1,此时then的回调函数返回undefined，此时又有then的链式调用，又放入微任务队列中，再次打印promise2。</li>
+<li>再回到await的位置执行返回的 Promise 的 resolve 函数，这又会把 resolve 丢到微任务队列中，打印async1 end。</li>
+<li>当微任务队列为空时，执行宏任务,打印setTimeout。<br>这里的主要问题是把async和await弄清楚。。。</li>
+</ul>
+<p>小结：执行顺序：同步代码 =&gt; 微任务(.then) =&gt; 宏任务 </p>
+<h1 id="javaScript和Java、C-的区别"><a href="#javaScript和Java、C-的区别" class="headerlink" title="javaScript和Java、C++的区别"></a>javaScript和Java、C++的区别</h1><ol>
+<li>从静态类型看还是动态类型看</li>
+</ol>
+<ul>
+<li><p><strong>静态类型，编译的时候就能够知道每个变量的类型，编程的时候也需要给定类型。</strong>如Java中的整型int，浮点型float等。</p>
+</li>
+<li><p><strong>动态类型，运行的时候才知道每个变量的类型，编程的时候无需显示指定类型，</strong>如JavaScript中的var、PHP中的$。JavaScript、Ruby、Python都属于动态类型语言。</p>
+</li>
+</ul>
+<p><strong>静态类型还是动态类型对语言的性能有很大影响。</strong> </p>
+<p>对于静态类型，在编译后会大量利用已知类型的优势，如int类型，占用4个字节，编译后的代码就可以用内存地址加偏移量的方法存取变量，而地址加偏移量的算法汇编很容易实现。 </p>
+<p>对于动态类型，会当做字符串通通存下来，之后存取就用字符串匹配。 </p>
+<ol start="2">
+<li>从编译型还是解释型来看</li>
+</ol>
+<p><strong>编译型语言，像C、C++，在程序执行之前，有一个单独的编译过程，将程序翻译成机器语言，以后执行这个程序的时候，就不用再进行编译了。</strong>用户只使用这些编译好的本地代码，这些本地代码由系统加载器执行，由操作系统的CPU直接执行，无需其他额外的虚拟机等。 </p>
+<p><strong>解释型语言，是在运行的时候将程序翻译成机器语言，所以运行速度相对于编译型语言要慢。用户使用脚本解释器将脚本文件解释执行，没有编译过程。</strong>对于JavaScript，随着Java虚拟机JIT技术的引入，工作方式也发生了改变。可以将抽象语法树转成中间表示（字节码），再转成本地代码，如JavaScriptCore，这样可以大大提高执行效率。但是在 V8 引擎下，⼜引⼊了 TurboFan 编译器，他会在特定的情况下进⾏优化，将代码编译成执⾏效率更⾼的 Machine Code（机器码） ，当然这个编译器并不是 JS 必须 需要的，只是为了提⾼代码执⾏性能，所以总的来说 JS 更偏向于解释型语⾔。</p>
+<p><strong>Java语言，分为两个阶段。</strong>Java语言，分为两个阶段。第一阶段，Java编译后，生成字节码，字节码与平台无关。第二阶段，在运行的时候，由JVM将字节码再翻译成机器语言。</p>
+<h1 id="为什么JS中-0-1-0-2-不等于-0-3"><a href="#为什么JS中-0-1-0-2-不等于-0-3" class="headerlink" title="为什么JS中 0.1+0.2 不等于 0.3"></a>为什么JS中 0.1+0.2 不等于 0.3</h1><p>JS中的数字是用IEEE 754 双精度 64 位浮点数来存储的，它由64位组成,但是当<strong>十进制小数的二进制表示</strong>的有限数字超过 52 位时，在 JavaScript 里是不能精确存储的，超过的会被舍弃，所以存在误差。</p>
+<p>0.1 在⼆进制中是⽆限循环的⼀些数字，其实不只是 0.1 ，其实很多⼗进制⼩数⽤⼆进制表示都是⽆限循环的。这样其实没什么 问题，但是 JS 采⽤的浮点数标准却会裁剪掉我们的数字。</p>
+<ul>
+<li>第0位：符号位， s 表示 ，0表示正数，1表示负数；</li>
+<li>第1位到第11位：储存指数部分， e 表示 ；</li>
+<li>第12位到第63位：储存小数部分（即有效数字），f 表示</li>
+</ul>
+<p>如果想要使得  0.1+0.2  == 0.3，在ES6中，已经为我们提供了这样一个属性：Number.EPSILON，小于这个范围内的误差则可以认为两个数字是相等的</p>
+<p>或者 (0.1<em>1000+0.2</em>1000)/1000==0.3 //true</p>
+<h1 id="Node的应⽤场景"><a href="#Node的应⽤场景" class="headerlink" title="Node的应⽤场景"></a>Node的应⽤场景</h1><p>特点：</p>
+<ol>
+<li>它是⼀个 Javascript 运⾏环境 </li>
+<li>依赖于 Chrome V8 引擎进⾏代码解释 </li>
+<li>事件驱动 </li>
+<li>⾮阻塞 I/O </li>
+<li>单进程，单线程</li>
+</ol>
+<p>优点：</p>
+<p>⾼并发（最重要的优点）</p>
+<p>缺点：</p>
+<ol>
+<li>只⽀持单核 CPU ，不能充分利⽤ CPU </li>
+<li>单进程，单线程，一旦这个进程崩掉，那么整个web服务就崩掉了。</li>
+</ol>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a target="_blank" rel="noopener" href="https://juejin.im/post/5c3d8956e51d4511dc72c200">一次弄懂Event Loop（彻底解决此类面试问题）</a><br><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000016278115?utm_source=tag-newest#articleHeader8">带你彻底弄懂 Event Loop</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/basic/" rel="tag"># basic</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/02/23/JavaScript/%E5%9F%BA%E7%A1%80%E9%9B%B6%E7%A2%8E%E7%82%B9/" rel="prev" title="零碎知识点">
+                  <i class="fa fa-chevron-left"></i> 零碎知识点
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/03/21/JavaScript/this%E6%8C%87%E5%90%91/" rel="next" title="javaScript中的this指向">
+                  javaScript中的this指向 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leslie choi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yoursite.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="使用 callback 回调函数优点：简单、容易理解缺点：不利于维护，代码耦合⾼ 123456789101112function f1 (callback) &amp;#123;    setTimeout(function () &amp;#123;　　　　 console.log(&quot;1&quot;)        callback()    &amp;#125;,2000)&amp;#125;function f2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript异步的四种方式">
+<meta property="og:url" content="http://yoursite.com/2019/05/12/%E5%89%8D%E5%90%8E%E7%AB%AF%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/JS%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A54%E7%A7%8D%E6%96%B9%E5%BC%8F/index.html">
+<meta property="og:site_name" content="404 not found">
+<meta property="og:description" content="使用 callback 回调函数优点：简单、容易理解缺点：不利于维护，代码耦合⾼ 123456789101112function f1 (callback) &amp;#123;    setTimeout(function () &amp;#123;　　　　 console.log(&quot;1&quot;)        callback()    &amp;#125;,2000)&amp;#125;function f2">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-05-12T03:12:25.000Z">
+<meta property="article:modified_time" content="2021-04-11T14:17:47.608Z">
+<meta property="article:author" content="leslie choi">
+<meta property="article:tag" content="basic">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2019/05/12/%E5%89%8D%E5%90%8E%E7%AB%AF%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/JS%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A54%E7%A7%8D%E6%96%B9%E5%BC%8F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;05&#x2F;12&#x2F;%E5%89%8D%E5%90%8E%E7%AB%AF%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F&#x2F;JS%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A54%E7%A7%8D%E6%96%B9%E5%BC%8F&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;05&#x2F;12&#x2F;前后端通信方式&#x2F;JS实现异步4种方式&#x2F;&quot;,&quot;title&quot;:&quot;JavaScript异步的四种方式&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>JavaScript异步的四种方式 | 404 not found</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">404 not found</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-callback-%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">使用 callback 回调函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise-ES6"><span class="nav-number">2.</span> <span class="nav-text">Promise(ES6)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Generator-ES6"><span class="nav-number">3.</span> <span class="nav-text">Generator(ES6)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#async-await-ES2017"><span class="nav-number">4.</span> <span class="nav-text">async&#x2F;await(ES2017)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86async%E5%92%8Cawait%E7%9A%84%E9%94%99%E8%AF%AF"><span class="nav-number">4.1.</span> <span class="nav-text">如何处理async和await的错误</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E7%9B%91%E5%90%AC-%E9%87%87%E2%BD%A4%E6%97%B6%E9%97%B4%E9%A9%B1%E5%8A%A8%E6%A8%A1%E5%BC%8F%EF%BC%8C%E5%8F%96%E5%86%B3%E4%BA%8E%E6%9F%90%E4%B8%AA%E4%BA%8B%E4%BB%B6%E6%98%AF%E5%90%A6%E5%8F%91%E2%BD%A3"><span class="nav-number">5.</span> <span class="nav-text">事件监听(采⽤时间驱动模式，取决于某个事件是否发⽣)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%91%E5%B8%83-%E8%AE%A2%E9%98%85-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-number">6.</span> <span class="nav-text">发布&#x2F;订阅(观察者模式)</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">leslie choi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/12/%E5%89%8D%E5%90%8E%E7%AB%AF%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/JS%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A54%E7%A7%8D%E6%96%B9%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript异步的四种方式
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-05-12 11:12:25" itemprop="dateCreated datePublished" datetime="2019-05-12T11:12:25+08:00">2019-05-12</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Ajax/" itemprop="url" rel="index"><span itemprop="name">Ajax</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="使用-callback-回调函数"><a href="#使用-callback-回调函数" class="headerlink" title="使用 callback 回调函数"></a>使用 callback 回调函数</h1><p>优点：简单、容易理解<br>缺点：不利于维护，代码耦合⾼</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span> (<span class="params">callback</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">　　　　 <span class="built_in">console</span>.log(<span class="string">&quot;1&quot;</span>)</span><br><span class="line">        callback()</span><br><span class="line">    &#125;,<span class="number">2000</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;2&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f1(f2)    <span class="comment">//过了2秒之后再输出1，2</span></span><br></pre></td></tr></table></figure>
+
+<p>缺点会出现回调地狱。</p>
+<h1 id="Promise-ES6"><a href="#Promise-ES6" class="headerlink" title="Promise(ES6)"></a>Promise(ES6)</h1><p>优点：可以利⽤then⽅法，进⾏链式写法；可以书写错误时的回调函数<br>缺点：编写和理解，相对⽐较难</p>
+<ul>
+<li><p>Promise对象代表一个异步操作，有三种状态：pending(进行中),resolved(已成功)和rejected(已失败)。</p>
+</li>
+<li><p>一旦状态改变，就不会再变，任何时候都可以得到这个结果。状态改变只有两种可能：pending=&gt;resolved,pending=&gt;rejected。</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ... some code</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="comment">/* 异步操作成功 */</span>)&#123;</span><br><span class="line">    resolve(value)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    reject(error)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>Promise实例生成以后，可以用then方法分别指定resolved状态和rejected状态的回调函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">promise.then(<span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line"><span class="comment">// success</span></span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line"><span class="comment">// failure</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>then方法接收两个回调函数，第一个回调函数是Promise对象的状态变为resolved时调用。第二个回调函数是Promise对象的状态变为rejected时调用。</p>
+<p>缺点是：</p>
+<ul>
+<li>无法取消Promise，一旦新建就立即执行，无法中途取消。</li>
+<li>不设置回调函数，Promise内部抛出的错误，不会反应到外部。</li>
+<li>当初与pending状态时，无法得知目前进展到哪一个阶段(刚刚开始还是即将完成)。</li>
+</ul>
+<h1 id="Generator-ES6"><a href="#Generator-ES6" class="headerlink" title="Generator(ES6)"></a>Generator(ES6)</h1><p>优点：函数体内外的数据交换、错误处理机制<br>缺点：流程管理不⽅便</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">G</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> a = <span class="keyword">yield</span> <span class="number">100</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;a&#x27;</span>, a)  <span class="comment">// a aaa</span></span><br><span class="line">    <span class="keyword">const</span> b = <span class="keyword">yield</span> <span class="number">200</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;b&#x27;</span>, b)  <span class="comment">// b bbb</span></span><br><span class="line">    <span class="keyword">const</span> c = <span class="keyword">yield</span> <span class="number">300</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;c&#x27;</span>, c)  <span class="comment">// c ccc</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> g = G()</span><br><span class="line">g.next()    <span class="comment">// value: 100, done: false</span></span><br><span class="line">g.next(<span class="string">&#x27;aaa&#x27;</span>) <span class="comment">// value: 200, done: false</span></span><br><span class="line">g.next(<span class="string">&#x27;bbb&#x27;</span>) <span class="comment">// value: 300, done: false</span></span><br><span class="line">g.next(<span class="string">&#x27;ccc&#x27;</span>) <span class="comment">// value: undefined, done: true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>相比Promise，Generator流程更加直观、语义化。<br>Generator的问题在于，函数的执行需要执行器每次都需要通过g.next()方式执行。</p>
+<h1 id="async-await-ES2017"><a href="#async-await-ES2017" class="headerlink" title="async/await(ES2017)"></a>async/await(ES2017)</h1><p>优点：内置执⾏器、更好的语义、更⼴的适⽤性、返回的是Promise、结构清晰。<br>缺点：错误处理机制</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">testResult</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> first = <span class="keyword">await</span> doubleAfter2seconds(<span class="number">30</span>);</span><br><span class="line">    <span class="keyword">let</span> second = <span class="keyword">await</span> doubleAfter2seconds(<span class="number">50</span>);</span><br><span class="line">    <span class="keyword">let</span> third = <span class="keyword">await</span> doubleAfter2seconds(<span class="number">30</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(first + second + third);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>asnyc函数解决了上述问题，流程清晰、直观、语义明显。<br>同时asnyc函数自带执行器，执行的时候无需手动加载。</p>
+<h2 id="如何处理async和await的错误"><a href="#如何处理async和await的错误" class="headerlink" title="如何处理async和await的错误"></a>如何处理async和await的错误</h2><ol>
+<li>使用try…catch捕获</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchA</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="function"><span class="title">Promise</span>(<span class="params">resolve,reject</span>)</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchB</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="function"><span class="title">Promise</span>(<span class="params">resolve,reject</span>)</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 每个异步都需要处理</span></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> res = <span class="keyword">await</span> fetchA()</span><br><span class="line">    <span class="built_in">console</span>.log(res)</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> res = <span class="keyword">await</span> fetchB()</span><br><span class="line">    <span class="built_in">console</span>.log(res)</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">fn()</span><br></pre></td></tr></table></figure>
+
+<p>但是这样写代码里充斥着 try/catch，但是如果只是使用一个 try/catch，如下所示，当捕获到多个错误的时候，要判断错误类型的话只能再定义err的类型，反而增加了编码的难度</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 每个异步都需要处理</span></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> resA = <span class="keyword">await</span> fetchA()</span><br><span class="line">    <span class="keyword">let</span> resB = <span class="keyword">await</span> fetchB()</span><br><span class="line">    <span class="built_in">console</span>.log(resA,resB)</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">   <span class="keyword">if</span> (error.type === <span class="string">&#x27;resA&#x27;</span>) &#123;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="string">&#x27;resA err is&#x27;</span>, err)</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span> (error.type === <span class="string">&#x27;resB&#x27;</span>) &#123;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="string">&#x27;resB err is&#x27;</span>, err)</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">fn()</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>因为 asycn…await 的本质就是 promise 的语法糖因此可以使用 then 函数，然后再将 try…catch 抽离</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//核心思路借鉴 await-to-js</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 方法抽取 */</span></span><br><span class="line"><span class="keyword">const</span> to = <span class="function"><span class="params">promise</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> promise.then(<span class="function"><span class="params">res</span> =&gt;</span> [<span class="literal">null</span>, res]).catch(<span class="function"><span class="params">error</span> =&gt;</span> [error])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> flag = <span class="literal">true</span></span><br><span class="line"><span class="comment">//异步操作</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchVehicle</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (flag) &#123;</span><br><span class="line">        resolve(<span class="literal">true</span>)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        reject(<span class="literal">false</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 每个异步都需要处理</span></span><br><span class="line">  <span class="keyword">let</span> [error, res] = <span class="keyword">await</span> to(fetchVehicle())</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;error&quot;</span>, error)</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;res&quot;</span>, res)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn()</span><br></pre></td></tr></table></figure>
+
+<h1 id="事件监听-采⽤时间驱动模式，取决于某个事件是否发⽣"><a href="#事件监听-采⽤时间驱动模式，取决于某个事件是否发⽣" class="headerlink" title="事件监听(采⽤时间驱动模式，取决于某个事件是否发⽣)"></a>事件监听(采⽤时间驱动模式，取决于某个事件是否发⽣)</h1><p>优点：容易理解，可以绑定多个事件，每个事件可以指定多个回调函数。<br>缺点：事件驱动型，流程不够清晰。</p>
+<h1 id="发布-订阅-观察者模式"><a href="#发布-订阅-观察者模式" class="headerlink" title="发布/订阅(观察者模式)"></a>发布/订阅(观察者模式)</h1><p>类似于事件监听，但是可以通过‘消息中⼼ʼ，了解现在有多少发布者，多少订阅者。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/basic/" rel="tag"># basic</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/05/11/%E7%BD%91%E7%BB%9C/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/" rel="prev" title="前端安全">
+                  <i class="fa fa-chevron-left"></i> 前端安全
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/05/20/JavaScript/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/" rel="next" title="javaScript中执行上下文">
+                  javaScript中执行上下文 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leslie choi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

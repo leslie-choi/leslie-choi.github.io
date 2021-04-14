@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yoursite.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="传统的登录方案http 是一种无状态的协议，也就是说它并不知道哪一个用户访问量了应用。针对 http 无状态的这样一个特点，解决的方法就是使用 cookie 记录用户的登录状态。   每当用户登录之后，如果登录成功，服务端就会生成一条记录，这个记录保存了一个 sessionId，可以用来判断当前的用户是哪一个，然后再将这个 sessionId 发送到客户端，客户端可以将这个 session ID">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端登录">
+<meta property="og:url" content="http://yoursite.com/2020/01/11/%E7%BD%91%E7%BB%9C/%E5%89%8D%E7%AB%AF%E7%99%BB%E5%BD%95/index.html">
+<meta property="og:site_name" content="404 not found">
+<meta property="og:description" content="传统的登录方案http 是一种无状态的协议，也就是说它并不知道哪一个用户访问量了应用。针对 http 无状态的这样一个特点，解决的方法就是使用 cookie 记录用户的登录状态。   每当用户登录之后，如果登录成功，服务端就会生成一条记录，这个记录保存了一个 sessionId，可以用来判断当前的用户是哪一个，然后再将这个 sessionId 发送到客户端，客户端可以将这个 session ID">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-01-11T06:00:25.000Z">
+<meta property="article:modified_time" content="2021-04-11T14:17:47.643Z">
+<meta property="article:author" content="leslie choi">
+<meta property="article:tag" content="basic">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2020/01/11/%E7%BD%91%E7%BB%9C/%E5%89%8D%E7%AB%AF%E7%99%BB%E5%BD%95/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;11&#x2F;%E7%BD%91%E7%BB%9C&#x2F;%E5%89%8D%E7%AB%AF%E7%99%BB%E5%BD%95&#x2F;&quot;,&quot;path&quot;:&quot;2020&#x2F;01&#x2F;11&#x2F;网络&#x2F;前端登录&#x2F;&quot;,&quot;title&quot;:&quot;前端登录&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>前端登录 | 404 not found</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">404 not found</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%A0%E7%BB%9F%E7%9A%84%E7%99%BB%E5%BD%95%E6%96%B9%E6%A1%88"><span class="nav-number">1.</span> <span class="nav-text">传统的登录方案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#token-%E7%99%BB%E5%BD%95%E9%AA%8C%E8%AF%81"><span class="nav-number">2.</span> <span class="nav-text">token 登录验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jwt-%E7%99%BB%E5%BD%95%E9%AA%8C%E8%AF%81"><span class="nav-number">3.</span> <span class="nav-text">jwt 登录验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-cookie-%E6%97%B6%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">4.1.</span> <span class="nav-text">使用 cookie 时需要考虑的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-session-%E6%97%B6%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">4.2.</span> <span class="nav-text">使用 session 时需要考虑的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-token-%E6%97%B6%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">4.3.</span> <span class="nav-text">使用 token 时需要考虑的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-JWT-%E6%97%B6%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">4.4.</span> <span class="nav-text">使用 JWT 时需要考虑的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E6%97%B6%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">4.5.</span> <span class="nav-text">使用加密算法时需要考虑的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AA%E8%A6%81%E5%85%B3%E9%97%AD%E6%B5%8F%E8%A7%88%E5%99%A8-%EF%BC%8Csession-%E7%9C%9F%E7%9A%84%E5%B0%B1%E6%B6%88%E5%A4%B1%E4%BA%86%EF%BC%9F"><span class="nav-number">4.6.</span> <span class="nav-text">只要关闭浏览器 ，session 真的就消失了？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95"><span class="nav-number">5.</span> <span class="nav-text">单点登录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">5.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CAS%E5%8E%9F%E7%90%86"><span class="nav-number">5.2.</span> <span class="nav-text">CAS原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF"><span class="nav-number">5.3.</span> <span class="nav-text">代码实现思路</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-number">6.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">leslie choi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/11/%E7%BD%91%E7%BB%9C/%E5%89%8D%E7%AB%AF%E7%99%BB%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          前端登录
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-01-11 14:00:25" itemprop="dateCreated datePublished" datetime="2020-01-11T14:00:25+08:00">2020-01-11</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/network/" itemprop="url" rel="index"><span itemprop="name">network</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="传统的登录方案"><a href="#传统的登录方案" class="headerlink" title="传统的登录方案"></a>传统的登录方案</h1><p>http 是一种无状态的协议，也就是说它并不知道哪一个用户访问量了应用。针对 http 无状态的这样一个特点，解决的方法就是使用 cookie 记录用户的登录状态。  </p>
+<p>每当用户登录之后，如果登录成功，服务端就会生成一条记录，这个记录保存了一个 sessionId，可以用来判断当前的用户是哪一个，然后再将这个 sessionId 发送到客户端，客户端可以将这个 session ID 保存到 cookie 中，下次这个用户再次向服务器发送请求的时候，就可以携带 Cookie，这个时候服务端就会验证 cookie 里面的信息，如果能在服务端中找到对应的记录，就说明用户已经通过了身份的验证，然后就可以把用户请求的数据返回给客户端。</p>
+<p>上面的解决方法就是使用 session 配合 cookie 解决的，但是这样就存在一种问题，服务端需要存储登录用户生成的 Session，而这些 Session 可能会存储在内存中、磁盘、数据库里面，所以我们就必须定时去清理过期的 Session，这种认证方法出现的问题就是，如果用户量增多，那么服务器的开销就会不断增加，而且使用到 cookie，就很容易受到跨站点请求伪造（CSRF）的攻击</p>
+<h1 id="token-登录验证"><a href="#token-登录验证" class="headerlink" title="token 登录验证"></a>token 登录验证</h1><p>针对这样一种情况，新增一种 token 的解决方案</p>
+<p>简单 token 的组成： uid(用户唯一的身份标识)、time(当前时间的时间戳)、sign（签名，token 的前几位以哈希算法压缩成的一定长度的十六进制字符串）</p>
+<p>特点：服务端无状态化、可扩展性好 支持移动端设备 相对安全 支持跨程序调用</p>
+<p><strong>传统的 token 的身份验证流程：</strong></p>
+<ul>
+<li>客户端使用用户名跟密码请求登录</li>
+<li>服务端收到请求，去验证用户名与密码</li>
+<li>验证成功后，服务端会签发一个 token 并把这个 token 发送给客户端</li>
+<li>客户端收到 token 以后，会把它存储起来，比如放在 cookie 里或者 localStorage 里</li>
+<li>客户端每次向服务端请求资源的时候需要带着服务端签发的 token</li>
+<li>服务端收到请求，然后去验证客户端请求里面带着的 token ，<strong>和数据库中的 token 进行对比</strong>，如果验证成功，就向客户端返回请求的数据</li>
+</ul>
+<p>每一次请求都需要携带 token，需要把 token 放到 HTTP 的 Header 里</p>
+<p>基于 token 的用户认证是一种服务端无状态的认证方式，服务端验证客户端发送过来的 Token 时，还需要查询数据库获取用户信息，然后验证 Token 是否有效。用解析 token 的计算时间换取 session 的存储空间，从而减轻服务器的压力，减少频繁的查询数据库。</p>
+<p>token 完全由应用管理，所以它可以避开同源策略，也可以防止 CSRF 攻击。<strong>因为请求中发送 token，而不再是发送 cookie，即使说在客户端使用 cookie 存储 token，cookie 也只是一种存储机制，而不再是用于认证，所以相对比较安全</strong></p>
+<h1 id="jwt-登录验证"><a href="#jwt-登录验证" class="headerlink" title="jwt 登录验证"></a>jwt 登录验证</h1><p>使用传统的token 进行身份验证，存在下面的缺点，就是<strong>服务端需要保存 token</strong>，以后用户再来访问的时候，需要携带token，然后再去数据库中获取token进行校验。</p>
+<p>而使用JWT，是将 Token 和 Payload 加密后存储于客户端，服务端只需要使用密钥解密进行校验（校验也是 JWT 自己实现的）即可，不需要查询或者减少查询数据库，因为 JWT 自包含了用户信息和加密的数据。</p>
+<p><strong>jwt 的身份认证流程</strong></p>
+<ul>
+<li>客户端输入账号密码进行登录，向服务端发送请求</li>
+<li>如果用户登录成功，服务端使用密钥创建 JWT，然后将 JWT 返回给浏览器</li>
+<li>在下一次浏览器向服务器发送请求的时候，将 JWT 一起发送给服务器</li>
+<li>然后服务端检查 JWT 的签名，从 JWT 中获取用户的信息，检查通过则可以把响应发送给客户端</li>
+</ul>
+<p>当用户希望访问一个受保护的路由或者资源的时候，需要请求头的 Authorization 字段中使用 Bearer 模式添加 JWT，其内容看起来是下面这样</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Authorization: Bearer &lt;token&gt;</span><br></pre></td></tr></table></figure>
+
+<p>JWT 原理：</p>
+<p>JWT 生成的 token 是由三段字符串组成的，并且用.连接起来</p>
+<ul>
+<li>第一段字符串 header，内部包含加密算法/token 类型</li>
+<li>第二段字符串 payload（可以为空），自定义值，比如用户 id，用户姓名，超时时间等用户非敏感的信息</li>
+<li>第三段字符串：将前两段字符串使用明文拼接起来，然后对前两部分密文进行加密（加密算法可以自己定义）和加盐处理，然后再使用加密算法再对前两部分的密文再进行加密。</li>
+</ul>
+<p>以后用户再来访问的时候，都需要携带 token，然后后端需要对 token 进行检验</p>
+<ul>
+<li>第一步：获取 token，然后对 token 进行切割</li>
+<li>第二步：对第二段进行解密，然后获取 payload 信息，检测 token 是否已经超时</li>
+<li>第三步：把第一二段密文再进行拼接，再次执行加密，如果结果和传过来的密文一致，则说明 token 没有被修改过，则认证通过。</li>
+</ul>
+<h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><h2 id="使用-cookie-时需要考虑的问题"><a href="#使用-cookie-时需要考虑的问题" class="headerlink" title="使用 cookie 时需要考虑的问题"></a>使用 cookie 时需要考虑的问题</h2><ul>
+<li>因为存储在客户端，容易被客户端篡改，使用前需要验证合法性</li>
+<li>不要存储敏感数据，比如用户密码，账户余额</li>
+<li>使用 httpOnly 在一定程度上提高安全性</li>
+<li>尽量减少 cookie 的体积，能存储的数据量不能超过 4kb</li>
+<li>设置正确的 domain 和 path，减少数据传输</li>
+<li>cookie 无法跨域</li>
+<li>一个浏览器针对一个网站最多存 20 个Cookie，浏览器一般只允许存放 300 个Cookie</li>
+<li>移动端对 cookie 的支持不是很好，而 session 需要基于 cookie 实现，所以移动端常用的是 token</li>
+</ul>
+<h2 id="使用-session-时需要考虑的问题"><a href="#使用-session-时需要考虑的问题" class="headerlink" title="使用 session 时需要考虑的问题"></a>使用 session 时需要考虑的问题</h2><ul>
+<li>将 session 存储在服务器里面，当用户同时在线量比较多时，这些 session 会占据较多的内存，需要在服务端定期的去清理过期的 session</li>
+<li>当网站采用集群部署的时候，会遇到多台 web 服务器之间如何做 session 共享的问题。因为 session 是由单个服务器创建的，但是处理用户请求的服务器不一定是那个创建 session 的服务器，那么该服务器就无法拿到之前已经放入到 session 中的登录凭证之类的信息了。</li>
+<li>当多个应用要共享 session 时，除了以上问题，还会遇到跨域问题，因为不同的应用可能部署的主机不一样，需要在各个应用做好 cookie 跨域的处理。</li>
+<li><strong>sessionId 是存储在 cookie 中的，假如浏览器禁止 cookie 或不支持 cookie 怎么办？</strong> 一般会把 sessionId 跟在 url 参数后面即重写 url，所以 session 不一定非得需要靠 cookie 实现</li>
+<li>移动端对 cookie 的支持不是很好，而 session 需要基于 cookie 实现，所以移动端常用的是 token。</li>
+</ul>
+<h2 id="使用-token-时需要考虑的问题"><a href="#使用-token-时需要考虑的问题" class="headerlink" title="使用 token 时需要考虑的问题"></a>使用 token 时需要考虑的问题</h2><ul>
+<li>如果你认为用数据库来存储 token 会导致查询时间太长，可以选择放在内存当中。比如 redis 很适合你对 token 查询的需求。</li>
+<li>token 完全由应用管理，所以它可以避开同源策略</li>
+<li>token 可以避免 CSRF 攻击(因为不需要 cookie 了)</li>
+<li>移动端对 cookie 的支持不是很好，而 session 需要基于 cookie 实现，所以移动端常用的是 token</li>
+</ul>
+<h2 id="使用-JWT-时需要考虑的问题"><a href="#使用-JWT-时需要考虑的问题" class="headerlink" title="使用 JWT 时需要考虑的问题"></a>使用 JWT 时需要考虑的问题</h2><ul>
+<li>因为 JWT 并不依赖 Cookie 的，所以你可以使用任何域名提供你的 API 服务而不需要担心跨域资源共享问题（CORS）<br>JWT 默认是不加密，但也是可以加密的。生成原始 Token 以后，可以用密钥再加密一次。</li>
+<li>JWT 不加密的情况下，不能将秘密数据写入 JWT。</li>
+<li>JWT 不仅可以用于认证，也可以用于交换信息。有效使用 JWT，可以降低服务器查询数据库的次数。</li>
+<li>JWT 最大的优势是服务器不再需要存储 Session，使得服务器认证鉴权业务可以方便扩展。但这也是 JWT 最大的缺点：由于服务器不需要存储 Session 状态，因此使用过程中无法废弃某个 Token 或者更改 Token 的权限。也就是说一旦 JWT 签发了，到期之前就会始终有效，除非服务器部署额外的逻辑。</li>
+<li>JWT 本身包含了认证信息，一旦泄露，任何人都可以获得该令牌的所有权限。为了减少盗用，JWT的有效期应该设置得比较短。对于一些比较重要的权限，使用时应该再次对用户进行认证。</li>
+<li>JWT 适合一次性的命令认证，颁发一个有效期极短的 JWT，即使暴露了危险也很小，由于每次操作都会生成新的 JWT，因此也没必要保存 JWT，真正实现无状态。<br>为了减少盗用，JWT 不应该使用 HTTP 协议明码传输，要使用 HTTPS 协议传输。</li>
+</ul>
+<h2 id="使用加密算法时需要考虑的问题"><a href="#使用加密算法时需要考虑的问题" class="headerlink" title="使用加密算法时需要考虑的问题"></a>使用加密算法时需要考虑的问题</h2><ul>
+<li>绝不要以明文存储密码</li>
+<li><strong>永远使用 哈希算法 来处理密码，绝不要使用 Base64 或其他编码方式来存储密码，这和以明文存储密码是一样的，使用哈希，而不要使用编码。</strong>编码以及加密，都是双向的过程，而密码是保密的，应该只被它的所有者知道， 这个过程必须是单向的。哈希正是用于做这个的，从来没有解哈希这种说法， 但是编码就存在解码，加密就存在解密。</li>
+<li>绝不要使用弱哈希或已被破解的哈希算法，像 MD5 或 SHA1 ，只使用强密码哈希算法。</li>
+<li>绝不要以明文形式显示或发送密码，即使是对密码的所有者也应该这样。如果你需要 “忘记密码” 的功能，可以随机生成一个新的 一次性的（这点很重要）密码，然后把这个密码发送给用户。</li>
+</ul>
+<h2 id="只要关闭浏览器-，session-真的就消失了？"><a href="#只要关闭浏览器-，session-真的就消失了？" class="headerlink" title="只要关闭浏览器 ，session 真的就消失了？"></a>只要关闭浏览器 ，session 真的就消失了？</h2><p>不对。对 session 来说，除非程序通知服务器删除一个 session，否则服务器会一直保留，程序一般都是在用户做 log off 的时候发个指令去删除 session。<br>然而浏览器从来不会主动在关闭之前通知服务器它将要关闭，因此服务器根本不会有机会知道浏览器已经关闭，之所以会有这种错觉，是大部分 session 机制都使用会话 cookie 来保存 session id，而关闭浏览器后这个 session id 就消失了，再次连接服务器时也就无法找到原来的 session。<br>如果服务器设置的 cookie 被保存在硬盘上，或者使用某种手段改写浏览器发出的 HTTP 请求头，把原来的 session id 发送给服务器，则再次打开浏览器仍然能够打开原来的 session。<strong>恰恰是由于关闭浏览器不会导致 session 被删除，迫使服务器为 session 设置了一个失效时间，当距离客户端上一次使用 session 的时间超过这个失效时间时，服务器就认为客户端已经停止了活动，才会把 session 删除以节省存储空间。</strong></p>
+<h1 id="单点登录"><a href="#单点登录" class="headerlink" title="单点登录"></a>单点登录</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>单点登录（Single Sign On），简称为 SSO，是目前比较流行的企业业务整合的解决方案之一。SSO的定义是在多个应用系统中，用户只需要登录一次就可以访问所有相互信任的应用系统。</p>
+<p>SSO一般都需要一个独立的认证中心（passport），子系统的登录均得通过passport，子系统本身将不参与登录操作，当一个系统成功登录以后，passport将会颁发一个令牌给各个子系统，子系统可以拿着令牌会获取各自的受保护资源，为了减少频繁认证，各个子系统在被passport授权以后，会建立一个局部会话，在一定时间内可以无需再次向passport发起认证。</p>
+<p>大概流程就是这样</p>
+<ul>
+<li><p>用户访问系统1的受保护资源，系统1发现用户未登录，跳转至sso认证中心，并将<strong>自己的地址</strong>作为参数</p>
+</li>
+<li><p>sso认证中心发现用户未登录，将用户引导至登录页面</p>
+</li>
+<li><p>用户输入用户名密码提交登录申请</p>
+</li>
+<li><p>sso认证中心校验用户信息，创建用户与sso认证中心之间的会话，称为全局会话，同时创建授权令牌</p>
+</li>
+<li><p>sso认证中心带着令牌跳转会最初的请求地址（系统1）</p>
+</li>
+<li><p>系统1拿到令牌，去sso认证中心校验令牌是否有效</p>
+</li>
+<li><p>sso认证中心校验令牌，返回有效，注册系统1</p>
+</li>
+<li><p>系统1使用该令牌创建与用户的会话，称为局部会话，返回受保护资源</p>
+</li>
+<li><p>用户访问系统2的受保护资源</p>
+</li>
+<li><p>系统2发现用户未登录，跳转至sso认证中心，并将自己的地址作为参数</p>
+</li>
+<li><p>sso认证中心发现用户已登录，跳转回系统2的地址，并附上令牌</p>
+</li>
+<li><p>系统2拿到令牌，去sso认证中心校验令牌是否有效</p>
+</li>
+<li><p>sso认证中心校验令牌，返回有效，注册系统2</p>
+</li>
+<li><p>系统2使用该令牌创建与用户的局部会话，返回受保护资源</p>
+</li>
+</ul>
+<p>用户登录成功之后，会与sso认证中心及各个子系统建立会话，用户与sso认证中心建立的会话称为全局会话，用户与各个子系统建立的会话称为局部会话，局部会话建立之后，用户访问子系统受保护资源将不再通过sso认证中心，全局会话与局部会话有如下约束关系</p>
+<ul>
+<li><p>局部会话存在，全局会话一定存在</p>
+</li>
+<li><p>全局会话存在，局部会话不一定存在</p>
+</li>
+<li><p>全局会话销毁，局部会话必须销毁</p>
+</li>
+</ul>
+<p>总结：</p>
+<ul>
+<li>SSO系统生成一个token，并将用户信息存到Redis中，并设置过期时间</li>
+<li>其他系统请求SSO系统进行登录，得到SSO返回的token，写到Cookie中</li>
+<li>每次请求时，Cookie都会带上，拦截器得到token，判断是否已经登录<br>（关于cookie跨域的问题，多个域名共享Cookie，在写到客户端的时候设置Cookie的domain。）</li>
+</ul>
+<h2 id="CAS原理"><a href="#CAS原理" class="headerlink" title="CAS原理"></a>CAS原理</h2><p>现在我们有两个系统，分别是 <code>www.java3y.com</code> 和 <code>www.java4y.com</code> ，一个SSO<code>www.sso.com</code></p>
+<p>首先，用户想要访问系统A <code>www.java3y.com</code>受限的资源(比如说购物车功能，购物车功能需要登录后才能访问)，系统A <code>www.java3y.com</code> 发现用户并没有登录，于是重定向到sso认证中心，并将自己的地址作为参数。请求的地址如下：</p>
+<p><code>www.sso.com?service=www.java3y.com</code></p>
+<p>sso认证中心发现用户未登录，将用户引导至登录页面，用户进行输入用户名和密码进行登录，用户与认证中心建立全局会话（生成一份Token，写到Cookie中，保存在浏览器上）</p>
+<p>随后，认证中心重定向回系统A，并把Token携带过去给系统A，重定向的地址如下：</p>
+<p><code>www.java3y.com?token=xxxxxxx</code></p>
+<p>接着，系统A去sso认证中心验证这个Token是否正确，如果正确，则系统A和用户建立局部会话（创建Session）。到此，系统A和用户已经是登录状态了。</p>
+<p>此时，用户想要访问系统B <code>www.java4y.com</code> 受限的资源(比如说订单功能，订单功能需要登录后才能访问)，系统B <code>www.java4y.com</code> 发现用户并没有登录，于是重定向到sso认证中心，并将自己的地址作为参数。请求的地址如下：</p>
+<p><code>www.sso.com?service=www.java4y.com</code></p>
+<p>注意，因为之前用户与认证中心<a target="_blank" rel="noopener" href="http://www.sso.com已经建立了全局会话(当时已经把cookie保存到浏览器上了),所以这次系统b重定向到认证中心/">www.sso.com已经建立了全局会话（当时已经把Cookie保存到浏览器上了），所以这次系统B重定向到认证中心</a> <code>www.sso.com</code> 是可以带上Cookie的。<br>认证中心根据带过来的Cookie发现已经与用户建立了全局会话了，认证中心重定向回系统B，并把Token携带过去给系统B，重定向的地址如下：</p>
+<p><code>www.java4y.com?token=xxxxxxx</code></p>
+<p>接着，系统B去sso认证中心验证这个Token是否正确，如果正确，则系统B和用户建立局部会话（创建Session）。到此，系统B和用户已经是登录状态了。</p>
+<p>看到这里，其实SSO认证中心就类似一个中转站。</p>
+<h2 id="代码实现思路"><a href="#代码实现思路" class="headerlink" title="代码实现思路"></a>代码实现思路</h2><ol>
+<li><p>新建一个SSO的类,这个类有baseUrL的属性,因为每次验证都需要传过来一个地址。</p>
+</li>
+<li><p>然后SSO类主要存在以下两个个方法。</p>
+</li>
+</ol>
+<ul>
+<li><p>验证TGT(Ticket Grangting Ticket)是否有效,如果有效,则可以证明用户在CAS成功登录过(用来判断是否登陆过)。</p>
+</li>
+<li><p>验证Service ticket(ST),务票据，服务的惟一标识码 , 由 CASServer 发出（ Http 传送），用户访问Service时，service发现用户没有ST，则要求用户去CAS获取ST.用户向CAS发出获取ST的请求，CAS发现用户有TGT，则签发一个ST，返回给用户。用户拿着ST去访问service，service拿ST去CAS验证，验证通过后，允许用户访问资源。</p>
+</li>
+</ul>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a target="_blank" rel="noopener" href="https://juejin.im/post/5e055d9ef265da33997a42cc">傻傻分不清之 Cookie、Session、Token、JWT</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/basic/" rel="tag"># basic</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/08/25/css/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" rel="prev" title="移动端常见问题">
+                  <i class="fa fa-chevron-left"></i> 移动端常见问题
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/26/JavaScript/javascript%E5%BC%80%E5%8F%91/" rel="next" title="JavaScript 开发">
+                  JavaScript 开发 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leslie choi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

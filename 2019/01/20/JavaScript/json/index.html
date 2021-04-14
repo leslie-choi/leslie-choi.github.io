@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yoursite.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="JSON数据格式emmmm。虽然很基础，但是作为js的一个子集（度娘也有文章说不是js的子集，但是这并不是重点），也是有必要将其单独提出来讲一下8。JSON相比起XML格式的文档，优点就多了太多了。格式轻便，能够进行AJAX传输，可读性更高。。。 语法JSON 数据的书写格式是：名称&#x2F;值对。名称&#x2F;值对包括字段名称（在双引号中），后面写一个冒号，然后是值： “name” : “吴彦祖” JSON的取">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSON数据格式">
+<meta property="og:url" content="http://yoursite.com/2019/01/20/JavaScript/json/index.html">
+<meta property="og:site_name" content="404 not found">
+<meta property="og:description" content="JSON数据格式emmmm。虽然很基础，但是作为js的一个子集（度娘也有文章说不是js的子集，但是这并不是重点），也是有必要将其单独提出来讲一下8。JSON相比起XML格式的文档，优点就多了太多了。格式轻便，能够进行AJAX传输，可读性更高。。。 语法JSON 数据的书写格式是：名称&#x2F;值对。名称&#x2F;值对包括字段名称（在双引号中），后面写一个冒号，然后是值： “name” : “吴彦祖” JSON的取">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-01-20T05:22:43.000Z">
+<meta property="article:modified_time" content="2021-04-11T14:17:47.571Z">
+<meta property="article:author" content="leslie choi">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2019/01/20/JavaScript/json/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;01&#x2F;20&#x2F;JavaScript&#x2F;json&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;01&#x2F;20&#x2F;JavaScript&#x2F;json&#x2F;&quot;,&quot;title&quot;:&quot;JSON数据格式&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>JSON数据格式 | 404 not found</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">404 not found</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JSON%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">JSON数据格式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSON%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE%E7%9A%84%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">JSON处理数据的主要方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8JSON-stringify%E8%BD%AC%E6%8D%A2%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%82"><span class="nav-number">1.2.1.</span> <span class="nav-text">使用JSON.stringify转换成字符串。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-JSON-parse-%E6%96%B9%E6%B3%95%E5%B0%86%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2%E4%B8%BA-JavaScript-%E5%AF%B9%E8%B1%A1%E3%80%82"><span class="nav-number">1.2.2.</span> <span class="nav-text">使用 JSON.parse() 方法将数据转换为 JavaScript 对象。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XML%E5%92%8CJSON%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.</span> <span class="nav-text">XML和JSON的区别</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">leslie choi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/20/JavaScript/json/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JSON数据格式
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-01-20 13:22:43" itemprop="dateCreated datePublished" datetime="2019-01-20T13:22:43+08:00">2019-01-20</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="JSON数据格式"><a href="#JSON数据格式" class="headerlink" title="JSON数据格式"></a>JSON数据格式</h1><p>emmmm。虽然很基础，但是作为js的一个子集（度娘也有文章说不是js的子集，但是这并不是重点），也是有必要将其单独提出来讲一下8。<br>JSON相比起XML格式的文档，优点就多了太多了。格式轻便，能够进行AJAX传输，可读性更高。。。</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>JSON 数据的书写格式是：名称/值对。<br>名称/值对包括字段名称（在双引号中），后面写一个冒号，然后是值：</p>
+<p>“name” : “吴彦祖”</p>
+<p>JSON的取值可以是<br>1、数字（整数或浮点数）<br>2、字符串（在双引号中）<br>3、逻辑值（true 或 false）<br>4、数组（在中括号中）<br>5、对象（在大括号中）<br>6、null</p>
+<p>一个简单的JSON对象：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;name&quot;</span> : <span class="string">&quot;蔡徐坤&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;age&quot;</span> : <span class="number">18</span>,</span><br><span class="line">    <span class="attr">&quot;size&quot;</span> : <span class="string">&quot;5cm&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;height&quot;</span> : <span class="string">&quot;160cm&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;favorite&quot;</span> : [</span><br><span class="line">        &#123;<span class="attr">&quot;sport&quot;</span>: <span class="string">&quot;篮球&quot;</span>,<span class="attr">&quot;skills&quot;</span>: <span class="string">&quot;唱  跳 rap&quot;</span>&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="JSON处理数据的主要方法"><a href="#JSON处理数据的主要方法" class="headerlink" title="JSON处理数据的主要方法"></a>JSON处理数据的主要方法</h2><h3 id="使用JSON-stringify转换成字符串。"><a href="#使用JSON-stringify转换成字符串。" class="headerlink" title="使用JSON.stringify转换成字符串。"></a>使用JSON.stringify转换成字符串。</h3><p>在向服务器发送数据时一般是字符串。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> stu = &#123;</span><br><span class="line">            <span class="string">&quot;name&quot;</span> : <span class="string">&quot;蔡徐坤&quot;</span>,</span><br><span class="line">            <span class="string">&quot;age&quot;</span> : <span class="number">18</span>,</span><br><span class="line">            <span class="string">&quot;size&quot;</span> : <span class="string">&quot;5cm&quot;</span>,</span><br><span class="line">            <span class="string">&quot;height&quot;</span> : <span class="string">&quot;160cm&quot;</span>,</span><br><span class="line">            <span class="string">&quot;favorite&quot;</span> : [</span><br><span class="line">                &#123;<span class="string">&quot;sport&quot;</span>: <span class="string">&quot;篮球&quot;</span>,<span class="string">&quot;skills&quot;</span>: <span class="string">&quot;唱  跳 rap&quot;</span>&#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line"><span class="keyword">var</span> cxk = <span class="built_in">JSON</span>.stringify(stu);</span><br><span class="line"><span class="built_in">console</span>.log(cxk);</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-JSON-parse-方法将数据转换为-JavaScript-对象。"><a href="#使用-JSON-parse-方法将数据转换为-JavaScript-对象。" class="headerlink" title="使用 JSON.parse() 方法将数据转换为 JavaScript 对象。"></a>使用 JSON.parse() 方法将数据转换为 JavaScript 对象。</h3><p>续上。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cxk = <span class="built_in">JSON</span>.stringify(stu);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.parse(cxk));</span><br></pre></td></tr></table></figure>
+
+<p>PS:分别取出对象中的键和值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> stu = &#123;</span><br><span class="line">		    <span class="string">&quot;name&quot;</span> : <span class="string">&quot;蔡徐坤&quot;</span>,</span><br><span class="line">		    <span class="string">&quot;age&quot;</span> : <span class="number">18</span>,</span><br><span class="line">		    <span class="string">&quot;size&quot;</span> : <span class="string">&quot;5cm&quot;</span>,</span><br><span class="line">		    <span class="string">&quot;height&quot;</span> : <span class="string">&quot;160cm&quot;</span>,</span><br><span class="line">		    <span class="string">&quot;favorite&quot;</span> : [</span><br><span class="line">		        &#123;<span class="string">&quot;sport&quot;</span>: <span class="string">&quot;篮球&quot;</span>,<span class="string">&quot;skills&quot;</span>: <span class="string">&quot;唱  跳 rap&quot;</span>&#125;</span><br><span class="line">		    ]</span><br><span class="line">		&#125;</span><br><span class="line">              </span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">in</span> stu)&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(key);</span><br><span class="line">	<span class="built_in">console</span>.log(stu[key]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="XML和JSON的区别"><a href="#XML和JSON的区别" class="headerlink" title="XML和JSON的区别"></a>XML和JSON的区别</h1><ol>
+<li><p>数据体积⽅⾯<br>JSON 相对 于XML 来讲，数据的体积⼩，传递的速度更快些。</p>
+</li>
+<li><p>数据交互⽅⾯<br>JSON 与 JavaScript 的交互更加⽅便，更容易解析处理，更好的数据交互</p>
+</li>
+<li><p>数据描述⽅⾯<br>JSON 对数据的描述性⽐ XML 较差</p>
+</li>
+<li><p>传输速度⽅⾯<br>JSON 的速度要远远快于 XML</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/10/28/java/check-img/" rel="prev" title="java-web基础功能（三）">
+                  <i class="fa fa-chevron-left"></i> java-web基础功能（三）
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/01/22/vue/1%20Vue%E7%9A%84%E5%A2%9E%E5%88%A0%E6%94%B9/" rel="next" title="一、Vue的增删改">
+                  一、Vue的增删改 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leslie choi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

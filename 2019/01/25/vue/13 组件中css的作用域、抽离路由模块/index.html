@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yoursite.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="组件中css的作用域、抽离路由模块1、为了使组件中的css样式不影响全局，可以在style标签内多加一个scoped属性 2、抽离路由模块 新建一个router.js a、导入组件 b、创建路由对象 c、设置子路由，并设置路径 d、将该路由暴露出去 document.cookie&#x3D;”track_id&#x3D;1545690009|eddde566ae9aa2b35a454e91ee2342a127b111">
+<meta property="og:type" content="article">
+<meta property="og:title" content="十三、组件中css的作用域、抽离路由模块">
+<meta property="og:url" content="http://yoursite.com/2019/01/25/vue/13%20%E7%BB%84%E4%BB%B6%E4%B8%ADcss%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E3%80%81%E6%8A%BD%E7%A6%BB%E8%B7%AF%E7%94%B1%E6%A8%A1%E5%9D%97/index.html">
+<meta property="og:site_name" content="404 not found">
+<meta property="og:description" content="组件中css的作用域、抽离路由模块1、为了使组件中的css样式不影响全局，可以在style标签内多加一个scoped属性 2、抽离路由模块 新建一个router.js a、导入组件 b、创建路由对象 c、设置子路由，并设置路径 d、将该路由暴露出去 document.cookie&#x3D;”track_id&#x3D;1545690009|eddde566ae9aa2b35a454e91ee2342a127b111">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-01-25T07:16:54.000Z">
+<meta property="article:modified_time" content="2021-04-11T14:17:47.593Z">
+<meta property="article:author" content="leslie choi">
+<meta property="article:tag" content="basic">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/2019/01/25/vue/13%20%E7%BB%84%E4%BB%B6%E4%B8%ADcss%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E3%80%81%E6%8A%BD%E7%A6%BB%E8%B7%AF%E7%94%B1%E6%A8%A1%E5%9D%97/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;01&#x2F;25&#x2F;vue&#x2F;13%20%E7%BB%84%E4%BB%B6%E4%B8%ADcss%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E3%80%81%E6%8A%BD%E7%A6%BB%E8%B7%AF%E7%94%B1%E6%A8%A1%E5%9D%97&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;01&#x2F;25&#x2F;vue&#x2F;13 组件中css的作用域、抽离路由模块&#x2F;&quot;,&quot;title&quot;:&quot;十三、组件中css的作用域、抽离路由模块&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>十三、组件中css的作用域、抽离路由模块 | 404 not found</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">404 not found</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E4%B8%ADcss%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E3%80%81%E6%8A%BD%E7%A6%BB%E8%B7%AF%E7%94%B1%E6%A8%A1%E5%9D%97"><span class="nav-number">1.</span> <span class="nav-text">组件中css的作用域、抽离路由模块</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">leslie choi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/25/vue/13%20%E7%BB%84%E4%BB%B6%E4%B8%ADcss%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E3%80%81%E6%8A%BD%E7%A6%BB%E8%B7%AF%E7%94%B1%E6%A8%A1%E5%9D%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          十三、组件中css的作用域、抽离路由模块
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-01-25 15:16:54" itemprop="dateCreated datePublished" datetime="2019-01-25T15:16:54+08:00">2019-01-25</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="组件中css的作用域、抽离路由模块"><a href="#组件中css的作用域、抽离路由模块" class="headerlink" title="组件中css的作用域、抽离路由模块"></a>组件中css的作用域、抽离路由模块</h1><p>1、为了使组件中的css样式不影响全局，可以在style标签内多加一个scoped属性</p>
+<p>2、抽离路由模块</p>
+<p>新建一个router.js</p>
+<p>a、导入组件</p>
+<p>b、创建路由对象</p>
+<p>c、设置子路由，并设置路径</p>
+<p>d、将该路由暴露出去</p>
+<p>document.cookie=”track_id=1545690009|eddde566ae9aa2b35a454e91ee2342a127b11148a8eaec390b|a73c8c1097ae7b5ef779f762abacfb1b; domain=ele.me; path=/“;document.cookie=”USERID=3692924746; domain=ele.me; path=/“;document.cookie=”SID=zkGQB2wu1nCjmOXtiHZmkOMpabWHwiPZgVVg; domain=ele.me; path=/“;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span></span><br><span class="line"><span class="comment">// 导入 Account 组件</span></span><br><span class="line"><span class="keyword">import</span> account <span class="keyword">from</span> <span class="string">&#x27;./main/Account.vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> goodslist <span class="keyword">from</span> <span class="string">&#x27;./main/GoodsList.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 导入Account的两个子组件</span></span><br><span class="line"><span class="keyword">import</span> login <span class="keyword">from</span> <span class="string">&#x27;./subcom/login.vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> register <span class="keyword">from</span> <span class="string">&#x27;./subcom/register.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//  创建路由对象</span></span><br><span class="line"><span class="keyword">var</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    <span class="comment">// account  goodslist</span></span><br><span class="line">    &#123;</span><br><span class="line">      path: <span class="string">&#x27;/account&#x27;</span>,</span><br><span class="line">      component: account,</span><br><span class="line">      children: [</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">&#x27;login&#x27;</span>, <span class="attr">component</span>: login &#125;,</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">&#x27;register&#x27;</span>, <span class="attr">component</span>: register &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;/goodslist&#x27;</span>, <span class="attr">component</span>: goodslist &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把路由对象暴露出去</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/basic/" rel="tag"># basic</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/01/25/vue/12%20webpack%E7%BB%93%E5%90%88%E8%B7%AF%E7%94%B1%E7%9A%84%E4%BD%BF%E7%94%A8/" rel="prev" title="十二、webpack结合路由的使用">
+                  <i class="fa fa-chevron-left"></i> 十二、webpack结合路由的使用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/01/26/JavaScript/JavaScript%E5%85%A5%E9%97%A8/" rel="next" title="JavaScript入门">
+                  JavaScript入门 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leslie choi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
