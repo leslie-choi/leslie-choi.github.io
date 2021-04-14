@@ -115,7 +115,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -155,6 +155,110 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/24/vue/10%20watch%E3%80%81computed%E5%92%8Cmethods%E5%B1%9E%E6%80%A7%E7%9A%84%E5%8C%BA%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/01/24/vue/10%20watch%E3%80%81computed%E5%92%8Cmethods%E5%B1%9E%E6%80%A7%E7%9A%84%E5%8C%BA%E5%88%AB/" class="post-title-link" itemprop="url">十、watch、computed和methods属性的区别</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-01-24 16:23:22" itemprop="dateCreated datePublished" datetime="2019-01-24T16:23:22+08:00">2019-01-24</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="watch属性"><a href="#watch属性" class="headerlink" title="watch属性"></a>watch属性</h1><p>1、监听data中属性的改变</p>
+<p>监听一个文本输入框里面数据的改变，可以使用到keyup事件，也可以使用Vue提供的watch属性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">&quot;app&quot;</span>&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;text&quot;</span> v-model=<span class="string">&quot;firstName&quot;</span>&gt; +</span><br><span class="line">    &lt;input type=<span class="string">&quot;text&quot;</span> v-model=<span class="string">&quot;lastName&quot;</span>&gt; =</span><br><span class="line">    &lt;span&gt;&#123;&#123;fullName&#125;&#125;&lt;/span&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    <span class="comment">// 创建 Vue 实例，得到 ViewModel</span></span><br><span class="line">    <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">      el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">      data: &#123;</span><br><span class="line">        firstName: <span class="string">&#x27;jack&#x27;</span>,</span><br><span class="line">        lastName: <span class="string">&#x27;chen&#x27;</span>,</span><br><span class="line">        fullName: <span class="string">&#x27;jack - chen&#x27;</span></span><br><span class="line">      &#125;,</span><br><span class="line">      methods: &#123;</span><br><span class="line">          <span class="function"><span class="title">send</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">              </span><br><span class="line">          &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      watch: &#123;</span><br><span class="line">        <span class="string">&#x27;firstName&#x27;</span>: <span class="function"><span class="keyword">function</span> (<span class="params">newVal, oldVal</span>) </span>&#123; <span class="comment">// 第一个参数是新数据，第二个参数是旧数据</span></span><br><span class="line">          <span class="built_in">this</span>.fullName = newVal + <span class="string">&#x27; - &#x27;</span> + <span class="built_in">this</span>.lastName;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&#x27;lastName&#x27;</span>: <span class="function"><span class="keyword">function</span> (<span class="params">newVal, oldVal</span>) </span>&#123;</span><br><span class="line">          <span class="built_in">this</span>.fullName = <span class="built_in">this</span>.firstName + <span class="string">&#x27; - &#x27;</span> + newVal;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>watch的使用类似于methods，将要监听的变量使用单引号括起</p>
+<p>‘变量名’:function(newVal,oldVal){</p>
+<p>​    //第一个参数是新数据，第二个参数是旧数据，watch可以监听到数据的变化</p>
+<p>}</p>
+<p>2、监听路由对象的改变</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">&quot;app&quot;</span>&gt;</span><br><span class="line">    &lt;router-link to=<span class="string">&quot;/login&quot;</span>&gt;登录&lt;/router-link&gt;</span><br><span class="line">    &lt;router-link to=<span class="string">&quot;/register&quot;</span>&gt;注册&lt;/router-link&gt;</span><br><span class="line">    &lt;router-view&gt;&lt;/router-view&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    <span class="keyword">var</span> login = Vue.extend(&#123;</span><br><span class="line">      template: <span class="string">&#x27;&lt;h1&gt;登录组件&lt;/h1&gt;&#x27;</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> register = Vue.extend(&#123;</span><br><span class="line">      template: <span class="string">&#x27;&lt;h1&gt;注册组件&lt;/h1&gt;&#x27;</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">      routes: [</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">&quot;/login&quot;</span>, <span class="attr">component</span>: login &#125;,</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">&quot;/register&quot;</span>, <span class="attr">component</span>: register &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建 Vue 实例，得到 ViewModel</span></span><br><span class="line">    <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">      el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">      data: &#123;&#125;,</span><br><span class="line">      methods: &#123;&#125;,</span><br><span class="line">      router: router,</span><br><span class="line">      watch: &#123;</span><br><span class="line">        <span class="string">&#x27;$route&#x27;</span>: <span class="function"><span class="keyword">function</span> (<span class="params">newVal, oldVal</span>) </span>&#123;</span><br><span class="line">          <span class="keyword">if</span> (newVal.path === <span class="string">&#x27;/login&#x27;</span>) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&#x27;这是登录组件&#x27;</span>);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>监听路由地址的变化，则在单引号内要输入’$route’或者’$route.path’，其余与监听数据的变化一样。</p>
+<h1 id="computed计算属性"><a href="#computed计算属性" class="headerlink" title="computed计算属性"></a>computed计算属性</h1><p>1、默认只有getter的计算属性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">&quot;app&quot;</span>&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;text&quot;</span> v-model=<span class="string">&quot;firstName&quot;</span>&gt; +</span><br><span class="line">    &lt;input type=<span class="string">&quot;text&quot;</span> v-model=<span class="string">&quot;lastName&quot;</span>&gt; =</span><br><span class="line">    &lt;span&gt;&#123;&#123;fullName&#125;&#125;&lt;/span&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    <span class="comment">// 创建 Vue 实例，得到 ViewModel</span></span><br><span class="line">    <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">      el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">      data: &#123;</span><br><span class="line">        firstName: <span class="string">&#x27;jack&#x27;</span>,</span><br><span class="line">        lastName: <span class="string">&#x27;chen&#x27;</span></span><br><span class="line">      &#125;,</span><br><span class="line">      methods: &#123;&#125;,</span><br><span class="line">      computed: &#123; <span class="comment">// 计算属性； 特点：当计算属性中所以来的任何一个 data 属性改变之后，都会重新触发 本计算属性 的重新计算，从而更新 fullName 的值</span></span><br><span class="line">        <span class="function"><span class="title">fullName</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="built_in">this</span>.firstName + <span class="string">&#x27; - &#x27;</span> + <span class="built_in">this</span>.lastName;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>计算属性特点：当计算属性中所以来的任何一个 data 属性改变之后，都会重新触发 本计算属性 的重新计算，从而更新 fullName 的值</p>
+<p>2、定义有getter和setter的计算属性：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">&quot;app&quot;</span>&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;text&quot;</span> v-model=<span class="string">&quot;firstName&quot;</span>&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;text&quot;</span> v-model=<span class="string">&quot;lastName&quot;</span>&gt;</span><br><span class="line">    &lt;!-- 点击按钮重新为 计算属性 fullName 赋值 --&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;button&quot;</span> value=<span class="string">&quot;修改fullName&quot;</span> @click=<span class="string">&quot;changeName&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;span&gt;&#123;&#123;fullName&#125;&#125;&lt;/span&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    <span class="comment">// 创建 Vue 实例，得到 ViewModel</span></span><br><span class="line">    <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">      el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">      data: &#123;</span><br><span class="line">        firstName: <span class="string">&#x27;jack&#x27;</span>,</span><br><span class="line">        lastName: <span class="string">&#x27;chen&#x27;</span></span><br><span class="line">      &#125;,</span><br><span class="line">      methods: &#123;</span><br><span class="line">        <span class="function"><span class="title">changeName</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">          <span class="built_in">this</span>.fullName = <span class="string">&#x27;TOM - chen2&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      computed: &#123;</span><br><span class="line">        fullName: &#123;</span><br><span class="line">          get: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">this</span>.firstName + <span class="string">&#x27; - &#x27;</span> + <span class="built_in">this</span>.lastName;</span><br><span class="line">          &#125;,</span><br><span class="line">          set: <span class="function"><span class="keyword">function</span> (<span class="params">newVal</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> parts = newVal.split(<span class="string">&#x27; - &#x27;</span>);</span><br><span class="line">            <span class="built_in">this</span>.fir、</span><br><span class="line">            stName = parts[<span class="number">0</span>];</span><br><span class="line">            <span class="built_in">this</span>.lastName = parts[<span class="number">1</span>];</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>watch、computed和methods之间的对比</p>
+<ol>
+<li>computed属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；</li>
+<li>methods方法表示一个具体的操作，主要书写业务逻辑；</li>
+<li>watch一个对象，键是需要观察的表达式，值是对应回调函数。主要用来监听某些特定数据的变化，从而进行某些具体的业务逻辑操作；可以看作是computed和methods的结合体；</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1208,110 +1312,6 @@
 <p><img src="D:\leslie-choi.github.io\source_posts\vue\images\vue增删改.png" alt="vue增删改"></p>
 <h1 id="四、动态改变样式"><a href="#四、动态改变样式" class="headerlink" title="四、动态改变样式"></a>四、动态改变样式</h1><p>通过v-bind指令，绑定一个对象。对象里面可以设置对应的类名。通过true和false控制。<br>然后再在style中声明对应类名的样式。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;hello&quot;</span>&gt;</span><br><span class="line">    &lt;h1&gt;&#123;&#123; msg &#125;&#125;&lt;/h1&gt;</span><br><span class="line">    &lt;div :<span class="class"><span class="keyword">class</span> </span>= <span class="string">&quot;obj&quot;</span>&gt;</span><br><span class="line">      showObj</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;button @click=<span class="string">&quot;changClass()&quot;</span>&gt;click&lt;/button&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">&#x27;HelloWorld&#x27;</span>,</span><br><span class="line">  data () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      msg: <span class="string">&#x27;Welcome to Your Vue.js App&#x27;</span>,</span><br><span class="line">      obj: &#123;</span><br><span class="line">        <span class="string">&#x27;obj1&#x27;</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="string">&#x27;obj2&#x27;</span>: <span class="literal">false</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    changClass () &#123;</span><br><span class="line">      <span class="built_in">this</span>.obj.obj1 = <span class="literal">false</span></span><br><span class="line">      <span class="built_in">this</span>.obj.obj2 = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- Add <span class="string">&quot;scoped&quot;</span> attribute to limit CSS to <span class="built_in">this</span> component only --&gt;</span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">.obj1 &#123;</span><br><span class="line">  font-size: 22px;</span><br><span class="line">  color: red;</span><br><span class="line">&#125;</span><br><span class="line">.obj2 &#123;</span><br><span class="line">  font-size: 28px;</span><br><span class="line">  color: blue;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/20/JavaScript/json/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/01/20/JavaScript/json/" class="post-title-link" itemprop="url">JSON数据格式</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-01-20 13:22:43" itemprop="dateCreated datePublished" datetime="2019-01-20T13:22:43+08:00">2019-01-20</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="JSON数据格式"><a href="#JSON数据格式" class="headerlink" title="JSON数据格式"></a>JSON数据格式</h1><p>emmmm。虽然很基础，但是作为js的一个子集（度娘也有文章说不是js的子集，但是这并不是重点），也是有必要将其单独提出来讲一下8。<br>JSON相比起XML格式的文档，优点就多了太多了。格式轻便，能够进行AJAX传输，可读性更高。。。</p>
-<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>JSON 数据的书写格式是：名称/值对。<br>名称/值对包括字段名称（在双引号中），后面写一个冒号，然后是值：</p>
-<p>“name” : “吴彦祖”</p>
-<p>JSON的取值可以是<br>1、数字（整数或浮点数）<br>2、字符串（在双引号中）<br>3、逻辑值（true 或 false）<br>4、数组（在中括号中）<br>5、对象（在大括号中）<br>6、null</p>
-<p>一个简单的JSON对象：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;name&quot;</span> : <span class="string">&quot;蔡徐坤&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;age&quot;</span> : <span class="number">18</span>,</span><br><span class="line">    <span class="attr">&quot;size&quot;</span> : <span class="string">&quot;5cm&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;height&quot;</span> : <span class="string">&quot;160cm&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;favorite&quot;</span> : [</span><br><span class="line">        &#123;<span class="attr">&quot;sport&quot;</span>: <span class="string">&quot;篮球&quot;</span>,<span class="attr">&quot;skills&quot;</span>: <span class="string">&quot;唱  跳 rap&quot;</span>&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="JSON处理数据的主要方法"><a href="#JSON处理数据的主要方法" class="headerlink" title="JSON处理数据的主要方法"></a>JSON处理数据的主要方法</h2><h3 id="使用JSON-stringify转换成字符串。"><a href="#使用JSON-stringify转换成字符串。" class="headerlink" title="使用JSON.stringify转换成字符串。"></a>使用JSON.stringify转换成字符串。</h3><p>在向服务器发送数据时一般是字符串。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> stu = &#123;</span><br><span class="line">            <span class="string">&quot;name&quot;</span> : <span class="string">&quot;蔡徐坤&quot;</span>,</span><br><span class="line">            <span class="string">&quot;age&quot;</span> : <span class="number">18</span>,</span><br><span class="line">            <span class="string">&quot;size&quot;</span> : <span class="string">&quot;5cm&quot;</span>,</span><br><span class="line">            <span class="string">&quot;height&quot;</span> : <span class="string">&quot;160cm&quot;</span>,</span><br><span class="line">            <span class="string">&quot;favorite&quot;</span> : [</span><br><span class="line">                &#123;<span class="string">&quot;sport&quot;</span>: <span class="string">&quot;篮球&quot;</span>,<span class="string">&quot;skills&quot;</span>: <span class="string">&quot;唱  跳 rap&quot;</span>&#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line"><span class="keyword">var</span> cxk = <span class="built_in">JSON</span>.stringify(stu);</span><br><span class="line"><span class="built_in">console</span>.log(cxk);</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用-JSON-parse-方法将数据转换为-JavaScript-对象。"><a href="#使用-JSON-parse-方法将数据转换为-JavaScript-对象。" class="headerlink" title="使用 JSON.parse() 方法将数据转换为 JavaScript 对象。"></a>使用 JSON.parse() 方法将数据转换为 JavaScript 对象。</h3><p>续上。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cxk = <span class="built_in">JSON</span>.stringify(stu);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.parse(cxk));</span><br></pre></td></tr></table></figure>
-
-<p>PS:分别取出对象中的键和值</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> stu = &#123;</span><br><span class="line">		    <span class="string">&quot;name&quot;</span> : <span class="string">&quot;蔡徐坤&quot;</span>,</span><br><span class="line">		    <span class="string">&quot;age&quot;</span> : <span class="number">18</span>,</span><br><span class="line">		    <span class="string">&quot;size&quot;</span> : <span class="string">&quot;5cm&quot;</span>,</span><br><span class="line">		    <span class="string">&quot;height&quot;</span> : <span class="string">&quot;160cm&quot;</span>,</span><br><span class="line">		    <span class="string">&quot;favorite&quot;</span> : [</span><br><span class="line">		        &#123;<span class="string">&quot;sport&quot;</span>: <span class="string">&quot;篮球&quot;</span>,<span class="string">&quot;skills&quot;</span>: <span class="string">&quot;唱  跳 rap&quot;</span>&#125;</span><br><span class="line">		    ]</span><br><span class="line">		&#125;</span><br><span class="line">              </span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">in</span> stu)&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(key);</span><br><span class="line">	<span class="built_in">console</span>.log(stu[key]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="XML和JSON的区别"><a href="#XML和JSON的区别" class="headerlink" title="XML和JSON的区别"></a>XML和JSON的区别</h1><ol>
-<li><p>数据体积⽅⾯<br>JSON 相对 于XML 来讲，数据的体积⼩，传递的速度更快些。</p>
-</li>
-<li><p>数据交互⽅⾯<br>JSON 与 JavaScript 的交互更加⽅便，更容易解析处理，更好的数据交互</p>
-</li>
-<li><p>数据描述⽅⾯<br>JSON 对数据的描述性⽐ XML 较差</p>
-</li>
-<li><p>传输速度⽅⾯<br>JSON 的速度要远远快于 XML</p>
-</li>
-</ol>
-
       
     </div>
 
