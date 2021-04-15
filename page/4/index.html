@@ -115,7 +115,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-count">67</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -668,6 +668,114 @@
 
 
 <h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/juse__we/article/details/88900685">Promise原理和问题集锦</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/26/vue/Vuex%20%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/04/26/vue/Vuex%20%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">Vuex的基本使用</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-04-26 14:53:20" itemprop="dateCreated datePublished" datetime="2019-04-26T14:53:20+08:00">2019-04-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-14 23:01:55" itemprop="dateModified" datetime="2021-04-14T23:01:55+08:00">2021-04-14</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Vuex的基本使用。"><a href="#Vuex的基本使用。" class="headerlink" title="Vuex的基本使用。"></a>Vuex的基本使用。</h1><p>问题的引入：在Vue中，涉及到父子组件之间的传值，我们可以使用 <strong>props</strong> 和 <strong>emit</strong>方法进行传值，但是兄弟组件之间传值要怎么办呢？所以这个时候就要引入Vuex进行状态管理了，Vuex 是适用于Vue.js应用的状态管理库，为 Vue.js为应用中的所有组件提供集中式的状态存储与操作，保证了所有状态以可预测的方式进行修改。 </p>
+<h2 id="主要的几种状态"><a href="#主要的几种状态" class="headerlink" title="主要的几种状态"></a>主要的几种状态</h2><ul>
+<li><p>dispatch：操作行为触发方法，是唯一能执行action的方法。</p>
+</li>
+<li><p>actions：操作行为处理模块。负责处理 Vue Components 接收到的所有<strong>交互行为</strong>。包含<strong>同步/异步</strong>操作，支持多个同名方法，按照注册的顺序依次触发。向后台API请求的操作就在这个模块中进行，包括触发其他action以及提交mutation的操作。该模块提供了Promise的封装，以支持action的链式触发。</p>
+</li>
+<li><p>commit：状态改变提交操作方法。对mutation进行提交，是唯一能执行mutation的方法。</p>
+</li>
+<li><p>mutations：状态改变操作方法。是<strong>Vuex修改state的唯一推荐方法</strong>，其他修改方式在严格模式下将会报错。该方法只能进行同步操作，且方法名只能全局唯一。操作之中会有一些hook暴露出来，以进行state的监控等。</p>
+</li>
+<li><p>state：页面状态管理容器对象。集中存储Vue components中data对象的零散数据，全局唯一，以进行统一的状态管理。页面显示所需的数据从该对象中进行读取，利用Vue的细粒度数据响应机制来进行高效的状态更新。 </p>
+</li>
+<li><p>getters：state对象读取方法。直接通过这个获取数据</p>
+</li>
+</ul>
+<p>第一步：在main.js中安装（如果项目大的话，需要全局共享处理的数据比较多，则最好对应的每个状态都建立一个js文件，至少不会把所有的代码糅合在一起，看着舒服一点。。）</p>
+<p>第二步：导入 vuex</p>
+<p>第三步：注册 vuex 到 vue 中。</p>
+<p>第四步：新建一个 store 实例，然后可以在这个 state 里面写对应的状态方法。</p>
+<p>第五步：<strong>将vuex创建的store挂载到vm实例上，才能全局都访问到这个store数据</strong>。（敲黑板划重点，第一次忘记挂载结果找了好久的错误）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 入口文件</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="comment">// 配置vuex的步骤</span></span><br><span class="line"><span class="comment">// 1. 运行 cnpm i vuex -S </span></span><br><span class="line"><span class="comment">// 2. 导入包</span></span><br><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">&#x27;vuex&#x27;</span></span><br><span class="line"><span class="comment">// 3. 注册vuex到vue中</span></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"><span class="comment">// 4. new Vuex.Store() 实例，得到一个 数据仓储对象</span></span><br><span class="line"><span class="keyword">var</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  state: &#123;</span><br><span class="line">    <span class="comment">// 大家可以把 state 想象成 组件中的 data ,专门用来存储数据的</span></span><br><span class="line">    <span class="comment">// 如果在 组件中，想要访问，store 中的数据，只能通过 this.$store.state.*** 来访问</span></span><br><span class="line">    count: <span class="number">0</span></span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;</span><br><span class="line">    <span class="comment">// 注意： 如果要操作 store 中的 state 值，只能通过 调用 mutations 提供的方法，才能操作对应的数据，不推荐直接操作 state 中的数据，因为 万一导致了数据的紊乱，不能快速定位到错误的原因，因为，每个组件都可能有操作数据的方法；</span></span><br><span class="line">    <span class="function"><span class="title">increment</span>(<span class="params">state</span>)</span> &#123;</span><br><span class="line">      state.count++</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 注意： 如果组件想要调用 mutations 中的方法，只能使用 this.$store.commit(&#x27;方法名&#x27;)</span></span><br><span class="line">    <span class="comment">// 这种 调用 mutations 方法的格式，和 this.$emit(&#x27;父组件中方法名&#x27;)</span></span><br><span class="line">    <span class="function"><span class="title">subtract</span>(<span class="params">state, obj</span>)</span> &#123;</span><br><span class="line">      <span class="comment">// 注意： mutations 的 函数参数列表中，最多支持两个参数，其中，参数1： 是 state 状态； 参数2： 通过 commit 提交过来的参数；</span></span><br><span class="line">      <span class="built_in">console</span>.log(obj)</span><br><span class="line">      state.count -= (obj.c + obj.d)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  getters: &#123;</span><br><span class="line">    <span class="comment">// 注意：这里的 getters， 只负责 对外提供数据，不负责 修改数据，如果想要修改 state 中的数据，请 去找 mutations</span></span><br><span class="line">    optCount: <span class="function"><span class="keyword">function</span> (<span class="params">state</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&#x27;当前最新的count值是：&#x27;</span> + state.count</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 经过对比，发现 getters 中的方法， 和组件中的过滤器比较类似，因为 过滤器和 getters 都没有修改原数据， 都是把原数据做了一层包装，提供给了 调用者；</span></span><br><span class="line">    <span class="comment">// 其次， getters 也和 computed 比较像， 只要 state 中的数据发生变化了，那么，如果 getters 正好也引用了这个数据，那么 就会立即触发 getters 的重新求值；</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">  render: <span class="function"><span class="params">c</span> =&gt;</span> c(App),</span><br><span class="line">  store <span class="comment">// 5. 将 vuex 创建的 store 挂载到 VM 实例上， 只要挂载到了 vm 上，任何组件都能使用 store 来存取数据</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<ol>
+<li>state中的数据，不能直接修改，如果想要修改，必须通过 mutations</li>
+<li>如果组件想要直接 从 state 上获取数据： 需要 this.$store.state.</li>
+<li>如果组件，想要修改数据，必须使用 mutations 提供的方法，需要通过 this.$store.commit(‘方法的称’， 唯一的一个参数)</li>
+<li>如果 store 中 state 上的数据， 在对外提供的时候，需要做一层包装，那么 ，推荐使用 getters, 如果需要使用 getters ,则用 this.$store.getters.</li>
+</ol>
 
       
     </div>
@@ -2076,7 +2184,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+        <time title="修改时间：2021-04-16 01:05:16" itemprop="dateModified" datetime="2021-04-16T01:05:16+08:00">2021-04-16</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -2098,7 +2206,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><strong>首先必须了解JS是单线程的（语言核心），最主要的原因就是为了避免DOM的（浏览器需要渲染 DOM，JS 可以修改 DOM 结构 ），虽然在HTML5中的webWorker支持多线程，但是仍然不支持对DOM的操作，所以最佳的解决方案是异步，依赖EventLoop实现。异步虽然存在很多问题，但是依然在不断完善中。</strong></p>
+          <p><strong>首先必须了解JS是单线程的（语言核心），最主要的原因就是为了避免DOM的（浏览器需要渲染 DOM，JS 可以修改 DOM 结构 ），虽然在 HTML5 中的 webWorker 支持多线程，但是仍然不支持对 DOM 的操作，所以最佳的解决方案是异步，依赖 EventLoop 实现。异步虽然存在很多问题，但是依然在不断完善中。</strong></p>
 <h1 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h1><ul>
 <li><p>进程：是并发执行的程序在执行过程中分配和管理资源的基本单位，是一个动态概念，竞争计算机系统资源的基本单位（进程是一个工厂，工厂有它的独立资源，并且工厂之间相互独立）</p>
 </li>
@@ -2114,7 +2222,7 @@
 </ul>
 <h2 id="js单线程的优缺点"><a href="#js单线程的优缺点" class="headerlink" title="js单线程的优缺点"></a>js单线程的优缺点</h2><p>优点：JS 是单线程运⾏的，可以达到节省内存，节约上下⽂切换时 间，没有锁的问题的好处</p>
 <p>缺点：相对其他语言效率较低。</p>
-<h1 id="任务队列"><a href="#任务队列" class="headerlink" title="任务队列"></a>任务队列</h1><p>因为Javascript是单线程的，所以意味着任务需要一个接着一个完成。但是如果前面的任务执行时间很长，那么后面的任务就得一直阻塞着，这样用户体验十分差。<br>JavaScript的设计者考虑到了这一点，所以他将JavaScript的任务分为两种，在主线程上执行的任务”同步任务”，被主线程挂载起来的任务”异步任务”,后者一般是放在一个叫<strong>任务队列</strong>的数据结构中。</p>
+<h1 id="任务队列"><a href="#任务队列" class="headerlink" title="任务队列"></a>任务队列</h1><p>因为 Javascript 是单线程的，所以意味着任务需要一个接着一个完成。但是如果前面的任务执行时间很长，那么后面的任务就得一直阻塞着，这样用户体验十分差。<br>JavaScript 的设计者考虑到了这一点，所以他将 JavaScript 的任务分为两种，在主线程上执行的任务”同步任务”，被主线程挂载起来的任务”异步任务”,后者一般是放在一个叫<strong>任务队列</strong>的数据结构中。</p>
 <p>那么一般异步执行运行机制如下(也是JavaScript的运行机制)：</p>
 <p>(1)所有同步任务都在主线程上执行，形成一个<strong>执行栈</strong>。</p>
 <p>(2)主线程之外，还有一个“任务队列”,只要异步任务有了运行结果，就在“任务队列”之中放置一个事件。</p>
@@ -2123,10 +2231,10 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">&quot;test&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> test2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">&quot;test2&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">   alert(<span class="string">&quot;setTimeout&quot;</span>);</span><br><span class="line">&#125;,<span class="number">1000</span>);</span><br><span class="line">test();</span><br><span class="line">test2();</span><br><span class="line"><span class="comment">//test</span></span><br><span class="line"><span class="comment">//test2</span></span><br><span class="line"><span class="comment">//setTimeout;</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="事件和回调函数"><a href="#事件和回调函数" class="headerlink" title="事件和回调函数"></a>事件和回调函数</h1><p>test()和test2()属于“执行栈”中的同步任务，而<strong>定时器则是任务队列里面的异步任务</strong>，那么定时器就是属于异步任务中的一种，在讲定时器之前先认识一下任务队列里面的另外一个重要成员，事件。其实<strong>任务队列就是一个事件队列</strong>，因为一般我们绑定一个事件，比如点击事件等等，都是在某一个时刻才触发执行的，这个时候就得放到任务队列里面，等待执行，而在某个DOM节点上绑定了事件，就要有相应的回调函数,它们是相辅相成的。<br>所谓回调函数，就是那些被挂载起来，等待执行的代码，主线程执行任务队列里面的异步任务，其实就是执行这些回调函数。<br>一般只有主线程所有任务都执行完毕了，才会执行任务队列里面的异步任务，一般是按照队列的“先进先出”顺序执行，但是因为存在定时器，所以主线程要检查执行时间，只有到了规定的时间，才能返回主线程。</p>
-<h1 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h1><p>定时器主要由setTimeout()和setInterval()两个函数来完成，它们的内部运行机制完全一样，不同的只是，前者一次性执行，而后者反复执行。定时器，属于任务队列中的异步任务，所以才会出现上面的问题，再看几个例子就能理解了，</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="built_in">console</span>.log(<span class="number">2</span>);&#125;,<span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+<h1 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h1><p>定时器主要由 setTimeout() 和 setInterval() 两个函数来完成，它们的内部运行机制完全一样，不同的只是，前者一次性执行，而后者反复执行。定时器，属于任务队列中的异步任务，所以才会出现上面的问题，再看几个例子就能理解了，</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>)</span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="built_in">console</span>.log(<span class="number">2</span>);&#125;,<span class="number">1000</span>)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
 
-<p>上面代码的执行结果是1,3,2，因为只有setTimeout里面的代码是异步任务，其它都是主线程里的同步任务，所以只有执行完了主线程中的所有任务，才会执行setTimeout中的任务。</p>
+<p>上面代码的执行结果是1,3,2，因为只有 setTimeout 里面的代码是异步任务，其它都是主线程里的同步任务，所以只有执行完了主线程中的所有任务，才会执行setTimeout 中的任务。</p>
 <p><strong>但是因为JS的运行机制原因，会导致定时器的运行时间不够准确</strong>，所以可以通过时间戳的方法，使延迟的时间减去函数的运行时间。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line">	<span class="keyword">var</span> message = <span class="built_in">document</span>.getElementById(<span class="string">&quot;message&quot;</span>);</span><br><span class="line">	<span class="keyword">var</span> count = <span class="number">1000</span>;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">animate</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">var</span> start = +<span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">		message.innerHTML = count--;</span><br><span class="line">		<span class="keyword">var</span> finish = +<span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">		<span class="built_in">setTimeout</span>(animate, <span class="number">1000</span> - (finish-start));</span><br><span class="line">	&#125;</span><br><span class="line">   animate();</span><br><span class="line"> &lt;/script&gt;</span><br></pre></td></tr></table></figure>
 
@@ -2143,28 +2251,28 @@
 <p>process.nextTick方法可以在当前“执行栈”的尾部——下一次Event Loop(主线程读取“任务队列”)之前——触发回调函数。也就是说，它指定的任务总是发生在所有异步任务之前。setImmediate方法则是在当前“任务队列”的尾部添加事件，也即是说，它指定的任务总是在下一次Event Loop时执行。</p>
 <p>在JavaScript中，异步任务被详细分为两种，一种宏任务（MacroTask）也叫Task，一种叫微任务（MicroTask）。</p>
 <p><strong>MacroTask（宏任务）</strong></p>
-<p>script全部代码、setTimeout、setInterval、setImmediate（浏览器暂时不支持，只有IE10支持，具体可见MDN）、I/O、UI Rendering。</p>
+<p>setTimeout、setInterval、setImmediate（浏览器暂时不支持，只有IE10支持，具体可见MDN）、I/O、UI Rendering。</p>
 <p><strong>MicroTask（微任务）</strong></p>
 <p>Process.nextTick（Node独有）、<strong>Promise</strong>、Object.observe(废弃)、MutationObserver</p>
-<p>接下来介绍浏览器的JavaScript代码的具体流程：</p>
+<p>接下来介绍浏览器的 JavaScript 代码的具体流程：</p>
 <ol>
-<li>执行全局Script同步代码，这些同步代码有一些是同步语句，有一些是异步语句（比如setTimeout等）；</li>
-<li>全局Script同步代码执行完毕后，调用栈Stack会清空；</li>
-<li>从微队列microtask queue中取出位于队首的回调任务，放入调用栈Stack中执行，执行完后microtask queue长度减1；</li>
-<li>继续取出位于队首的任务，放入调用栈Stack中执行，以此类推，直到直到把microtask queue中的所有任务都执行完毕。<strong>注意，如果在执行microtask的过程中，又产生了microtask，那么会加入到队列的末尾，也会在这个周期被调用执行；</strong></li>
-<li>microtask queue中的所有任务都执行完毕，此时microtask queue为空队列，调用栈Stack也为空；</li>
-<li>取出宏队列macrotask queue中位于队首的任务，放入Stack中执行；</li>
-<li>执行完毕后，调用栈Stack为空；</li>
+<li>执行全局 Script 同步代码，这些同步代码有一些是同步语句，有一些是异步语句（比如setTimeout等）；</li>
+<li>全局 Script 同步代码执行完毕后，调用栈Stack会清空；</li>
+<li>从微队列 microtask queue 中取出位于队首的回调任务，放入调用栈 Stack 中执行，执行完后 microtask queue 长度减1；</li>
+<li>继续取出位于队首的任务，放入调用栈 Stack 中执行，以此类推，直到直到把 microtask queue 中的所有任务都执行完毕。<strong>注意，如果在执行 microtask 的过程中，又产生了 microtask，那么会加入到队列的末尾，也会在这个周期被调用执行；</strong></li>
+<li>microtask queue中的所有任务都执行完毕，此时 microtask queue 为空队列，调用栈 Stack 也为空；</li>
+<li>取出宏队列 macrotask queue 中位于队首的任务，放入 Stack 中执行；</li>
+<li>执行完毕后，调用栈 Stack 为空；</li>
 <li>重复第3-7个步骤；</li>
 <li>重复第3-7个步骤；</li>
 <li>……</li>
 </ol>
-<p>可以看到，这就是浏览器的事件循环Event Loop</p>
+<p>可以看到，这就是浏览器的事件循环 Event Loop</p>
 <p>举个例子：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line">  <span class="built_in">Promise</span>.resolve().then(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">3</span>)</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">4</span>)</span><br><span class="line">  resolve(<span class="number">5</span>)</span><br><span class="line">&#125;).then(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">6</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">7</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">  <span class="built_in">Promise</span>.resolve().then(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">3</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">4</span>)</span><br><span class="line">  resolve(<span class="number">5</span>)</span><br><span class="line">&#125;).then(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">6</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">7</span>)</span><br></pre></td></tr></table></figure>
 
 <p>按照上面的步骤，将各个任务代入同步任务、宏队列和微队列中，就可以得出结果1、4、7、5、2、3、6。需要特别注意的是在这里的console.log(“4”)其实是同步任务。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;script start&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;setTimeout&#x27;</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;promise1&#x27;</span>);</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;promise2&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;script end&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;script start&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;setTimeout&#x27;</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;promise1&#x27;</span>)</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;promise2&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;script end&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
 <p>输出结果是：script start -&gt; script end -&gt; promise1 -&gt; promise2 -&gt; setTimeout</p>
 <p>为了验证是否真的掌握还是要再举个例子：</p>
@@ -2402,124 +2510,6 @@
 <li>Array.prototype.isPrototypeOf(obj)</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.isPrototypeOf([])   <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/23/JavaScript/%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9CDOM%E8%8A%82%E7%82%B9Api/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/02/23/JavaScript/%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9CDOM%E8%8A%82%E7%82%B9Api/" class="post-title-link" itemprop="url">JS常见API</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-02-23 18:06:21" itemprop="dateCreated datePublished" datetime="2019-02-23T18:06:21+08:00">2019-02-23</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="获取DOM节点"><a href="#获取DOM节点" class="headerlink" title="获取DOM节点"></a>获取DOM节点</h1><p>第一个返回选中id，其余则是返回一个数组。所以注意是elements,并且获取的时候要使用elements[0]的数组形式获取否则报错</p>
-<ul>
-<li>document.getElementById()</li>
-<li>document.getElementsByName()</li>
-<li>document.getElementsByClassName()</li>
-<li>document.getElementsByTagName()</li>
-</ul>
-<h1 id="修改样式"><a href="#修改样式" class="headerlink" title="修改样式"></a>修改样式</h1><ul>
-<li>element.style.height = ‘100px’;</li>
-<li>element.setAttribute(‘height’, ‘100px’);</li>
-<li>element.setAttribute(‘style’, ‘height: 100px !important;width: 200px;’)</li>
-<li>element.style.setProperty(‘height’, ‘300px’, ‘important’)</li>
-<li>element.style.cssText += ‘height: 100px !important’</li>
-</ul>
-<h1 id="创建元素"><a href="#创建元素" class="headerlink" title="创建元素"></a>创建元素</h1><ol>
-<li>它们创建的节点只是一个孤立的节点，要通过appendChild添加到文档中</li>
-<li>cloneNode要注意如果被复制的节点是否包含子节点以及事件绑定等问题</li>
-<li>使用createDocumentFragment来解决添加大量节点时的性能问题</li>
-</ol>
-<ul>
-<li>createElement</li>
-<li>createTextNode</li>
-<li>cloneNode</li>
-<li>createDocumentFragment</li>
-</ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">&quot;myList&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>Coffee<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>Tea<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">&quot;myFunction()&quot;</span>&gt;</span>点我<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">myFunction</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> node = <span class="built_in">document</span>.createElement(<span class="string">&quot;button&quot;</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> textnode = <span class="built_in">document</span>.createTextNode(<span class="string">&quot;Water&quot;</span>);</span></span><br><span class="line">        node.appendChild(textnode);</span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.getElementById(<span class="string">&quot;myList&quot;</span>).appendChild(node);</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="修改元素"><a href="#修改元素" class="headerlink" title="修改元素"></a>修改元素</h1><ol>
-<li>不管是新增还是替换节点，如果新增或替换的节点是原本存在页面上的，则其原来位置的节点将被移除，也就是说同一个节点不能存在于页面的多个位置</li>
-<li>节点本身绑定的事件会不会消失，会一直保留着</li>
-</ol>
-<ul>
-<li>appendChild</li>
-<li>insertBefore</li>
-<li>removeChild</li>
-<li>replaceChild</li>
-</ul>
-<p><strong>例子：创建元素后修改样式</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> p = <span class="built_in">document</span>.createElement(<span class="string">&quot;button&quot;</span>)</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(p)</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;button&quot;</span>)[<span class="number">0</span>].setAttribute(<span class="string">&quot;style&quot;</span>,<span class="string">&quot;display:none&quot;</span>)</span><br><span class="line">&#125;,<span class="number">2000</span>)</span><br></pre></td></tr></table></figure>
-
       
     </div>
 

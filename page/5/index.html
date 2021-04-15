@@ -115,7 +115,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-count">67</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -155,6 +155,124 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/23/JavaScript/%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9CDOM%E8%8A%82%E7%82%B9Api/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/02/23/JavaScript/%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9CDOM%E8%8A%82%E7%82%B9Api/" class="post-title-link" itemprop="url">JS常见API</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-02-23 18:06:21" itemprop="dateCreated datePublished" datetime="2019-02-23T18:06:21+08:00">2019-02-23</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="获取DOM节点"><a href="#获取DOM节点" class="headerlink" title="获取DOM节点"></a>获取DOM节点</h1><p>第一个返回选中id，其余则是返回一个数组。所以注意是elements,并且获取的时候要使用elements[0]的数组形式获取否则报错</p>
+<ul>
+<li>document.getElementById()</li>
+<li>document.getElementsByName()</li>
+<li>document.getElementsByClassName()</li>
+<li>document.getElementsByTagName()</li>
+</ul>
+<h1 id="修改样式"><a href="#修改样式" class="headerlink" title="修改样式"></a>修改样式</h1><ul>
+<li>element.style.height = ‘100px’;</li>
+<li>element.setAttribute(‘height’, ‘100px’);</li>
+<li>element.setAttribute(‘style’, ‘height: 100px !important;width: 200px;’)</li>
+<li>element.style.setProperty(‘height’, ‘300px’, ‘important’)</li>
+<li>element.style.cssText += ‘height: 100px !important’</li>
+</ul>
+<h1 id="创建元素"><a href="#创建元素" class="headerlink" title="创建元素"></a>创建元素</h1><ol>
+<li>它们创建的节点只是一个孤立的节点，要通过appendChild添加到文档中</li>
+<li>cloneNode要注意如果被复制的节点是否包含子节点以及事件绑定等问题</li>
+<li>使用createDocumentFragment来解决添加大量节点时的性能问题</li>
+</ol>
+<ul>
+<li>createElement</li>
+<li>createTextNode</li>
+<li>cloneNode</li>
+<li>createDocumentFragment</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">&quot;myList&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>Coffee<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>Tea<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">&quot;myFunction()&quot;</span>&gt;</span>点我<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">myFunction</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> node = <span class="built_in">document</span>.createElement(<span class="string">&quot;button&quot;</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> textnode = <span class="built_in">document</span>.createTextNode(<span class="string">&quot;Water&quot;</span>);</span></span><br><span class="line">        node.appendChild(textnode);</span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.getElementById(<span class="string">&quot;myList&quot;</span>).appendChild(node);</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="修改元素"><a href="#修改元素" class="headerlink" title="修改元素"></a>修改元素</h1><ol>
+<li>不管是新增还是替换节点，如果新增或替换的节点是原本存在页面上的，则其原来位置的节点将被移除，也就是说同一个节点不能存在于页面的多个位置</li>
+<li>节点本身绑定的事件会不会消失，会一直保留着</li>
+</ol>
+<ul>
+<li>appendChild</li>
+<li>insertBefore</li>
+<li>removeChild</li>
+<li>replaceChild</li>
+</ul>
+<p><strong>例子：创建元素后修改样式</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> p = <span class="built_in">document</span>.createElement(<span class="string">&quot;button&quot;</span>)</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(p)</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;button&quot;</span>)[<span class="number">0</span>].setAttribute(<span class="string">&quot;style&quot;</span>,<span class="string">&quot;display:none&quot;</span>)</span><br><span class="line">&#125;,<span class="number">2000</span>)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1947,92 +2065,6 @@
 <p>3、导入组件 </p>
 <p>4、创建路由对象</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="comment">// 1. 导入 vue-router 包</span></span><br><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span></span><br><span class="line"><span class="comment">// 2. 手动安装 VueRouter </span></span><br><span class="line">Vue.use(VueRouter)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 导入 app 组件</span></span><br><span class="line"><span class="keyword">import</span> app <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"><span class="comment">// 导入 Account 组件</span></span><br><span class="line"><span class="keyword">import</span> account <span class="keyword">from</span> <span class="string">&#x27;./main/Account.vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> goodslist <span class="keyword">from</span> <span class="string">&#x27;./main/GoodsList.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 创建路由对象</span></span><br><span class="line"><span class="keyword">var</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    <span class="comment">// account  goodslist</span></span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;/account&#x27;</span>, <span class="attr">component</span>: account &#125;,</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;/goodslist&#x27;</span>, <span class="attr">component</span>: goodslist &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">  render: <span class="function"><span class="params">c</span> =&gt;</span> c(app), <span class="comment">// render 会把 el 指定的容器中，所有的内容都清空覆盖，所以 不要 把 路由的 router-view 和 router-link 直接写到 el 所控制的元素中</span></span><br><span class="line">  router <span class="comment">// 4. 将路由对象挂载到 vm 上</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注意： App 这个组件，是通过 VM 实例的 render 函数，渲染出来的， render 函数如果要渲染 组件， 渲染出来的组件，只能放到 el: &#x27;#app&#x27; 所指定的 元素中；</span></span><br><span class="line"><span class="comment">// Account 和 GoodsList 组件， 是通过 路由匹配监听到的，所以， 这两个组件，只能展示到 属于 路由的 &lt;router-view&gt;&lt;/router-view&gt; 中去；</span></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/24/vue/11%20%E4%BD%BF%E7%94%A8render%E5%87%BD%E6%95%B0%E6%B8%B2%E6%9F%93%E7%BB%84%E4%BB%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/01/24/vue/11%20%E4%BD%BF%E7%94%A8render%E5%87%BD%E6%95%B0%E6%B8%B2%E6%9F%93%E7%BB%84%E4%BB%B6/" class="post-title-link" itemprop="url">十一、使用render函数渲染组件</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-01-24 17:56:12" itemprop="dateCreated datePublished" datetime="2019-01-24T17:56:12+08:00">2019-01-24</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="render函数基本使用"><a href="#render函数基本使用" class="headerlink" title="render函数基本使用"></a>render函数基本使用</h1><p>render函数与methods平级，使用语法</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">render: <span class="function"><span class="keyword">function</span> (<span class="params">createElements</span>) </span>&#123; </span><br><span class="line"><span class="comment">// createElements 是一个 方法，调用它，能够把 指定的 组件模板，渲染为 html 结构</span></span><br><span class="line">  <span class="keyword">return</span> createElements(login)</span><br><span class="line">  <span class="comment">// 注意：这里 return 的结果，会 替换页面中 el 指定的那个 容器</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这里的login是自己定义的一个子组件</p>
-<p>要注意的是，平时在components中注册组件，然后将该标签放入#app中，并不会覆盖里面的其他内容，而使用render函数，则会覆盖掉页面中el指定的那个容器,即容器内其他标签不起作用</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">&quot;app&quot;</span>&gt;</span><br><span class="line">    &lt;p&gt;<span class="number">33333</span>&lt;/p&gt;</span><br><span class="line">    &lt;login&gt;&lt;/login&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
 
 
       
