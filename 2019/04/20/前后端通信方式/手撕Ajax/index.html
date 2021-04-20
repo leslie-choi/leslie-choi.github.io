@@ -20,15 +20,15 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
 
 <script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;yoursite.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
-<meta name="description" content="实现原生的AJAX通信原生 ajax 请求 XMLHttpRequest 对象XMLHttpRequest 对象是 ajax 的基础, XMLHttpRequest 用于在后台与服务器交换数据。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。目前所有浏览器都支持 XMLHttpRequest。 onreadystatechange  每次状态改变所触发事件的事件。response">
+<meta name="description" content="实现原生的 AJAX 通信原生 ajax 请求 XMLHttpRequest 对象XMLHttpRequest 对象是 ajax 的基础, XMLHttpRequest 用于在后台与服务器交换数据。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。目前所有浏览器都支持 XMLHttpRequest。 onreadystatechange  每次状态改变所触发事件的事件。respon">
 <meta property="og:type" content="article">
 <meta property="og:title" content="手撕Ajax">
 <meta property="og:url" content="http://yoursite.com/2019/04/20/%E5%89%8D%E5%90%8E%E7%AB%AF%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/%E6%89%8B%E6%92%95Ajax/index.html">
 <meta property="og:site_name" content="404 not found">
-<meta property="og:description" content="实现原生的AJAX通信原生 ajax 请求 XMLHttpRequest 对象XMLHttpRequest 对象是 ajax 的基础, XMLHttpRequest 用于在后台与服务器交换数据。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。目前所有浏览器都支持 XMLHttpRequest。 onreadystatechange  每次状态改变所触发事件的事件。response">
+<meta property="og:description" content="实现原生的 AJAX 通信原生 ajax 请求 XMLHttpRequest 对象XMLHttpRequest 对象是 ajax 的基础, XMLHttpRequest 用于在后台与服务器交换数据。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。目前所有浏览器都支持 XMLHttpRequest。 onreadystatechange  每次状态改变所触发事件的事件。respon">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-04-20T12:52:25.000Z">
-<meta property="article:modified_time" content="2021-04-20T13:49:36.318Z">
+<meta property="article:modified_time" content="2021-04-20T16:28:13.027Z">
 <meta property="article:author" content="leslie choi">
 <meta property="article:tag" content="basic">
 <meta name="twitter:card" content="summary">
@@ -108,7 +108,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%94%9F%E7%9A%84AJAX%E9%80%9A%E4%BF%A1"><span class="nav-number">1.</span> <span class="nav-text">实现原生的AJAX通信</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%94%9F%E7%9A%84-AJAX-%E9%80%9A%E4%BF%A1"><span class="nav-number">1.</span> <span class="nav-text">实现原生的 AJAX 通信</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#comet-%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8E%A8%E9%80%81"><span class="nav-number">2.</span> <span class="nav-text">comet 服务器推送</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -202,7 +202,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-20 21:49:36" itemprop="dateModified" datetime="2021-04-20T21:49:36+08:00">2021-04-20</time>
+        <time title="修改时间：2021-04-21 00:28:13" itemprop="dateModified" datetime="2021-04-21T00:28:13+08:00">2021-04-21</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -224,7 +224,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="实现原生的AJAX通信"><a href="#实现原生的AJAX通信" class="headerlink" title="实现原生的AJAX通信"></a>实现原生的AJAX通信</h1><p>原生 ajax 请求</p>
+        <h1 id="实现原生的-AJAX-通信"><a href="#实现原生的-AJAX-通信" class="headerlink" title="实现原生的 AJAX 通信"></a>实现原生的 AJAX 通信</h1><p>原生 ajax 请求</p>
 <p>XMLHttpRequest 对象<br>XMLHttpRequest 对象是 ajax 的基础, XMLHttpRequest 用于在后台与服务器交换数据。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。目前所有浏览器都支持 XMLHttpRequest。</p>
 <p>onreadystatechange  每次状态改变所触发事件的事件。<br>responseText  从服务器接收到的响应体（不包括头部），或者如果还没有接收到数据的话，就是空字符串。<br>responseXML  对请求的响应，解析为 XML 并作为 Document 对象返回。<br>status  从服务器返回的数字代码，比如常见的404（未找到）和200（已就绪）<br>status Text   请求的 HTTP 的状态代码</p>
 <p>readyState   HTTP 请求的状态.当一个 XMLHttpRequest 初次创建时，这个属性的值从 0 开始，直到接收到完整的 HTTP 响应，这个值增加到 4。</p>
@@ -247,6 +247,20 @@
 <p>post请求</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建异步对象  </span></span><br><span class="line">    <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line"><span class="comment">//设置请求的类型及url，必须要先open才能继续下一步</span></span><br><span class="line">	xhr.open(<span class="string">&#x27;post&#x27;</span>, <span class="string">&#x27;02.post.php&#x27;</span> )</span><br><span class="line"><span class="comment">//post请求一定要添加请求头才行不然会报错</span></span><br><span class="line">	xhr.setRequestHeader(<span class="string">&quot;Content-type&quot;</span>,<span class="string">&quot;application/x-www-form-urlencoded&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//发送请求</span></span><br><span class="line">	xhr.send(<span class="string">&#x27;name=fox&amp;age=18&#x27;</span>)</span><br><span class="line">	xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 这步为判断服务器是否正确响应</span></span><br><span class="line">    <span class="keyword">if</span> (xhr.readyState == <span class="number">4</span> &amp;&amp; xhr.status == <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(xhr.responseText);</span><br><span class="line">      &#125; </span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure>
 
+<h1 id="comet-服务器推送"><a href="#comet-服务器推送" class="headerlink" title="comet 服务器推送"></a>comet 服务器推送</h1><p>Ajax 是一种页面向服务器发送请求数据的技术，而 comet 恰恰相反，是一种服务器向页面推送数据的技术。</p>
+<p>实现 comet 有两种方式：长轮询和流。</p>
+<ol>
+<li>短轮询</li>
+</ol>
+<p>浏览器定时向服务器发送请求，看看有没有需要更新的数据。</p>
+<ol start="2">
+<li>长轮询</li>
+</ol>
+<p>浏览器向服务器发送请求，然后服务器一直保持连接打开，直到有数据可以发送。发送完之后，浏览器关闭连接，随即又发起一个到服务器的新请求。</p>
+<ol start="3">
+<li>流</li>
+</ol>
+<p>长短轮询，浏览器都要在接收数据之前，先发起对服务器的连接。流是基于 http 连接，整个页面的生命周期也只有一个 http 连接。浏览器向服务器发送请求，整个服务器保持连接打开，然后周期性地向浏览器发送数据。</p>
 <p>参考文章：<br><a target="_blank" rel="noopener" href="https://juejin.im/post/5d007134e51d45590a445b23">终于明白如何去写原生AJAX</a><br><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000006669043">聊聊Ajax那些事</a> </p>
 
     </div>

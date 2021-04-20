@@ -600,7 +600,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+        <time title="修改时间：2021-04-21 00:53:51" itemprop="dateModified" datetime="2021-04-21T00:53:51+08:00">2021-04-21</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -626,12 +626,12 @@
 <p>互联网由一整套协议构成。</p>
 <p>图片说明：顶层协议是应用层协议 =&gt; TCP协议 =&gt; IP协议 =&gt; 以太网协议（应用层=&gt;传输层=&gt;网络层=&gt;链路层）</p>
 <p>以太网协议：最底层的协议，可以解决子网内部的点对点通讯。</p>
-<p>IP协议：IP协议，可以解决多个局域网之间互通，可以连接多个局域网，定义了一套自己的地址规则，实现了路由的功能，允许某个局域网的A主机，向另一个局域网的B主机发送消息。（PS：路由器就是基于IP协议。所以局域网之间要靠路由器连接）</p>
-<p>题外话：路由原理就是路由器内部有一张路由表，规定A段IP地址走出口一，B段IP地址走出口二。。。根据这样实现了数据包的转发。</p>
-<p>TCP协议：IP协议只是一个地址协议，并不能保证数据的完整性。如果缓存满了，新进来的数据包就会丢失，所以这个时候需要发现丢了哪一个包，以及如何重新发送这个包，所以这个时候需要使用到TCP协议。以太网数据包的负载是1500字节，TCP数据包的负载在1400字节左右。</p>
+<p>IP 协议：IP 协议，可以解决多个局域网之间互通，可以连接多个局域网，定义了一套自己的地址规则，实现了路由的功能，允许某个局域网的 A 主机，向另一个局域网的 B 主机发送消息。（PS：路由器就是基于 IP 协议。所以局域网之间要靠路由器连接）</p>
+<p>题外话：路由原理就是路由器内部有一张路由表，规定 A 段 IP 地址走出口一，B 段 IP 地址走出口二。。。根据这样实现了数据包的转发。</p>
+<p>TCP 协议：IP 协议只是一个地址协议，并不能保证数据的完整性。如果缓存满了，新进来的数据包就会丢失，所以这个时候需要发现丢了哪一个包，以及如何重新发送这个包，所以这个时候需要使用到 TCP 协议。以太网数据包的负载是 1500 字节，TCP 数据包的负载在 1400 字节左右。</p>
 <h2 id="TCP建立连接（三次握手）"><a href="#TCP建立连接（三次握手）" class="headerlink" title="TCP建立连接（三次握手）"></a>TCP建立连接（三次握手）</h2><p>HTTP 是基于 TCP 协议的，浏览器最快也要在第三次握手时才能捎带 HTTP 请求报文，达到真正的建立连接，但是这些连接无法复用会导致每次请求都经历三次握手和慢启动。三次握手在高延迟的场景下影响较明显，慢启动则对文件类大请求影响较大。</p>
 <ul>
-<li>第一次握手：建立连接时，客户端发送syn包（syn=1,seq=x）到服务器，并进入 SYN_SENT 状态，<strong>服务端得到结论：客户端的发送能力、服务端的接收能力正常。</strong></li>
+<li>第一次握手：建立连接时，客户端发送 syn 包（syn=1,seq=x）到服务器，并进入 SYN_SENT 状态，<strong>服务端得到结论：客户端的发送能力、服务端的接收能力正常。</strong></li>
 <li>第二次握手：服务器收到 syn 包，必须确认客户的 SYN（ack=x+1,seq=y），同时自己也发送一个 ACK 包，即 SYN+ACK 包，此时服务器进入 SYN_RECV 状态，客户端接收到，<strong>于是客户端得到结论：服务端的接收和发送能力正常，客户端的接收发送能力正常，但是此时服务器并不能确认客户端的接收能力是否正常</strong></li>
 <li>第三次握手：客户端收到服务器的 SYN+ACK 包，向服务器发送确认包 ACK(ack=y+1,seq=z），此包发送完毕，客户端和服务器进入 ESTABLISHED（TCP连接成功）状态，<strong>服务端得到结论：客户端和服务端的接收发送能力都正常，完成三次握手。</strong></li>
 </ul>
@@ -913,7 +913,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+        <time title="修改时间：2021-04-21 00:51:40" itemprop="dateModified" datetime="2021-04-21T00:51:40+08:00">2021-04-21</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -938,7 +938,7 @@
           <h1 id="跨域问题"><a href="#跨域问题" class="headerlink" title="跨域问题"></a>跨域问题</h1><p>跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器对JavaScript实施的安全限制。</p>
 <p>客户端请求的时候，请求的服务器，不是同一个IP、端口、域名、主机名的时候，都称为跨域。</p>
 <p>同源策略限制了以下行为：</p>
-<p>Cookie、LocalStorage 和 IndexDB 无法读取<br>DOM 和 JS 对象无法获取<br>Ajax请求发送后结果被浏览器拦截</p>
+<p>Cookie、LocalStorage 和 IndexDB 无法读取<br>DOM 和 JS 对象无法获取<br>Ajax 请求发送后结果被浏览器拦截</p>
 <p><strong>所谓的同源是指，域名、协议、端口均为相同，主要对XHR的一个主要约束。其实主要是用来防止 CSRF 攻击的。</strong></p>
 <p><a target="_blank" rel="noopener" href="http://www.nealyang.cn/index.html">http://www.nealyang.cn/index.html</a> 调用   <a target="_blank" rel="noopener" href="http://www.nealyang.cn/server.php">http://www.nealyang.cn/server.php</a>  非跨域</p>
 <p><a target="_blank" rel="noopener" href="http://www.nealyang.cn/index.html">http://www.nealyang.cn/index.html</a> 调用   <a target="_blank" rel="noopener" href="http://www.neal.cn/server.php">http://www.neal.cn/server.php</a>  跨域,主域不同</p>
@@ -946,9 +946,9 @@
 <p><a target="_blank" rel="noopener" href="http://www.nealyang.cn:8080/index.html">http://www.nealyang.cn:8080/index.html</a> 调用   <a target="_blank" rel="noopener" href="http://www.nealyang.cn/server.php">http://www.nealyang.cn/server.php</a>  跨域,端口不同</p>
 <p><a target="_blank" rel="noopener" href="https://www.nealyang.cn/index.html">https://www.nealyang.cn/index.html</a> 调用   <a target="_blank" rel="noopener" href="http://www.nealyang.cn/server.php">http://www.nealyang.cn/server.php</a>  跨域,协议不同</p>
 <p>localhost   调用 127.0.0.1 则造成跨域</p>
-<p><strong>同源策略对于js的限制有3点</strong></p>
+<p><strong>同源策略对于 js 的限制有3点</strong></p>
 <ul>
-<li><p> 非同源的Cookie、LocalStorage 和 IndexDB 无法读取。<br>为了防止恶意网站通过 js 获取用户其他网站的cookie。</p>
+<li><p> 非同源的 Cookie、LocalStorage 和 IndexDB 无法读取。<br>为了防止恶意网站通过 js 获取用户其他网站的 cookie。</p>
 </li>
 <li><p>无法用 js 获取非同源的 DOM。<br>如果没有这一条，恶意网站可以通过 iframe 打开银行页面，可以获取 dom 就相当于可以获取整个银行页面的信息。</p>
 </li>
@@ -956,7 +956,7 @@
 </li>
 </ul>
 <h1 id="为什么要有同源策略？"><a href="#为什么要有同源策略？" class="headerlink" title="为什么要有同源策略？"></a>为什么要有同源策略？</h1><ol>
-<li>为什么要限制不同源发请求？假设用户登陆了 bank.com，同时打开了evil.com，如果没有任何限制，evil.com 可以向 bank.com 请求到任何信息，进而就可以在 evil.com 向 bank.com 发转账请求等。</li>
+<li>为什么要限制不同源发请求？假设用户登陆了 bank.com，同时打开了 evil.com，如果没有任何限制，evil.com 可以向 bank.com 请求到任何信息，进而就可以在 evil.com 向 bank.com 发转账请求等。</li>
 </ol>
 <p>如果这样，为什么不直接限制写，只限制读？因为如果连请求都发不出去了，那就不能做跨域资源共享了，无法读取返回结果，evil.com 就无法继续下一步的操作，如获取转账请求的一些必要的验证信息。</p>
 <ol start="2">
@@ -988,9 +988,9 @@
 <li>接收响应数据</li>
 </ol>
 <h1 id="解决跨域问题"><a href="#解决跨域问题" class="headerlink" title="解决跨域问题"></a>解决跨域问题</h1><ol>
-<li>jsonp解决跨域</li>
+<li>jsonp 解决跨域</li>
 </ol>
-<p>jsonp跨域其实也是JavaScript设计模式中的一种代理模式。由两个部分组成，<strong>回调函数和数据</strong>（数据指的是下面传入回调函数的res）</p>
+<p>jsonp 跨域其实也是 JavaScript 设计模式中的一种代理模式。由两个部分组成，<strong>回调函数和数据</strong>（数据指的是下面传入回调函数的res）</p>
 <p>在html页面中通过相应的标签（img、script等）从不同域名下加载静态资源文件是被浏览器允许的，所以我们可以通过这个“犯罪漏洞”来进行跨域。一般，我们可以动态的创建script标签，再去请求一个带参网址来实现跨域通信</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原生的实现方式	</span></span><br><span class="line"><span class="keyword">let</span>  script  =  <span class="built_in">document</span>.createElement(<span class="string">&#x27;script&#x27;</span>);</span><br><span class="line">script.src  =  <span class="string">&#x27;http://www.nealyang.cn/login?username=Nealyang&amp;callback=huidiao&#x27;</span>;</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(script);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>  <span class="title">huidiao</span>(<span class="params">res</span>)  </span>&#123;  </span><br><span class="line">    <span class="built_in">console</span>.log(res);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Jquery实现方式</span></span><br><span class="line">$.ajax(&#123;</span><br><span class="line">    url:<span class="string">&#x27;http://www.nealyang.cn/login&#x27;</span>,</span><br><span class="line">    type:<span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">    dataType:<span class="string">&#x27;jsonp&#x27;</span>,<span class="comment">//请求方式为jsonp</span></span><br><span class="line">    jsonpCallback:<span class="string">&#x27;callback&#x27;</span>,</span><br><span class="line">    data:&#123;</span><br><span class="line">        <span class="string">&quot;username&quot;</span>:<span class="string">&quot;Nealyang&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
@@ -1000,26 +1000,26 @@
 <li><strong>跨域资源共享 CORS—–目前主流的跨域解决方案</strong></li>
 </ol>
 <p>CORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing）。<strong>基本 的思想就是让HTTP头部让浏览器与服务器之间进行沟通，从而决定请求或者响应应该成功还是失败。</strong></p>
-<p>只要浏览器检测到响应头带上了CORS，并且允许的源包括了本网站，那么就不会拦截请求响应。</p>
+<p>只要浏览器检测到响应头带上了 CORS，并且允许的源包括了本网站，那么就不会拦截请求响应。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Metods:GET,PUT,POST,OPTIONS,DELETE,PATCH</span><br><span class="line">Access-Control-Allow-Origin: *</span><br></pre></td></tr></table></figure>
 
-<p>栗子：浏览器发送一个简单请求的时候，在http请求头加个额外的origin头部，其中包含源信息（协议端口和域名），服务器根据这个头部信息决定是否响应。如origin：<code>http://www.nidongde.net</code>，服务器认为请求可以接收的话，就在Access-Control-Allow-Origin回发相同的源信息，如果是公共资源，则可以回发”<em>“。 *<em>（最好不要设置为</em>在移动端会出现 预检请求不通过的状况，切记切记切记！）*</em></p>
-<p>它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。</p>
-<p>CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。IE8+：IE8/9需要使用XDomainRequest对象来支持CORS。整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。</p>
+<p>栗子：浏览器发送一个简单请求的时候，在 http 请求头加个额外的 origin 头部，其中包含源信息（协议端口和域名），服务器根据这个头部信息决定是否响应。如origin：<code>http://www.nidongde.net</code>，服务器认为请求可以接收的话，就在 Access-Control-Allow-Origin 回发相同的源信息，如果是公共资源，则可以回发”<em>“。 *<em>（最好不要设置为</em>在移动端会出现 预检请求不通过的状况，切记切记切记！）*</em></p>
+<p>它允许浏览器向跨源服务器，发出 XMLHttpRequest 请求，从而克服了 AJAX 只能同源使用的限制。</p>
+<p>CORS 需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE 浏览器不能低于 IE10。IE8+：IE8/9 需要使用 XDomainRequest 对象来支持CORS。整个 CORS 通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS 通信与同源的 AJAX 通信没有差别，代码完全一样。浏览器一旦发现 AJAX 请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。因此，实现 CORS 通信的关键是服务器。只要服务器实现了 CORS 接口，就可以跨源通信。</p>
 <p>使用方法很简单，在服务端设置：</p>
 <p><strong>Header set Access-Control-Allow-Origin</strong><br>这种设置将接受所有域名的跨域请求，也可以指定具体网址，也可以对域名进行限定：<br>Header set Access-Control-Allow-Origin <code>http://www.test.com</code></p>
 <p>然而，这种方式的局限性在于要求客户端支持，并且服务端进行相关设置。</p>
-<p>在这两者满足的情况下，通过CORS进行跨域不仅支持所有类型的HTTP请求，而且开发者可以使用<br>普通的XMLHttpRequest发起请求和获得数据，比起JSONP有更好的错误处理。</p>
-<p>PS:Access-Control-Allow-Origin只能设置一个值，所以如果有多个域需要跨域访问的话，可以通过设置一个白名单，然后判断当前域的 Origin 值是否存在其中，存在的话则设置成当前的Origin值</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 判断origin是否在域名白名单列表中</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isOriginAllowed</span>(<span class="params">origin, allowedOrigin</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (_.isArray(allowedOrigin)) &#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; allowedOrigin.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span>(isOriginAllowed(origin, allowedOrigin[i])) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (_.isString(allowedOrigin)) &#123;</span><br><span class="line">    <span class="keyword">return</span> origin === allowedOrigin;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (allowedOrigin <span class="keyword">instanceof</span> <span class="built_in">RegExp</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> allowedOrigin.test(origin);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> !!allowedOrigin;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ALLOW_ORIGIN = [ <span class="comment">// 域名白名单</span></span><br><span class="line"><span class="string">&#x27;*.233.666.com&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;hello.world.com&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;hello..*.com&#x27;</span></span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">app.post(<span class="string">&#x27;a/b&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line"><span class="keyword">let</span> reqOrigin = req.headers.origin; <span class="comment">// request响应头的origin属性</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断请求是否在域名白名单内</span></span><br><span class="line"><span class="keyword">if</span>(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) &#123;</span><br><span class="line"><span class="comment">// 设置CORS为请求的Origin值</span></span><br><span class="line">res.header(<span class="string">&quot;Access-Control-Allow-Origin&quot;</span>, reqOrigin);</span><br><span class="line">res.header(<span class="string">&#x27;Access-Control-Allow-Credentials&#x27;</span>, <span class="string">&#x27;true&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 你的业务代码逻辑代码 ...</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">res.send(&#123; <span class="attr">code</span>: -<span class="number">2</span>, <span class="attr">msg</span>: <span class="string">&#x27;非法请求&#x27;</span> &#125;);</span><br><span class="line">&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>在这两者满足的情况下，通过 CORS 进行跨域不仅支持所有类型的 HTTP 请求，而且开发者可以使用<br>普通的 XMLHttpRequest 发起请求和获得数据，比起 JSONP 有更好的错误处理。</p>
+<p>PS:Access-Control-Allow-Origin 只能设置一个值，所以如果有多个域需要跨域访问的话，可以通过设置一个白名单，然后判断当前域的 Origin 值是否存在其中，存在的话则设置成当前的 Origin 值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 判断origin是否在域名白名单列表中</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isOriginAllowed</span>(<span class="params">origin, allowedOrigin</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (_.isArray(allowedOrigin)) &#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; allowedOrigin.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span>(isOriginAllowed(origin, allowedOrigin[i])) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (_.isString(allowedOrigin)) &#123;</span><br><span class="line">    <span class="keyword">return</span> origin === allowedOrigin;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (allowedOrigin <span class="keyword">instanceof</span> <span class="built_in">RegExp</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> allowedOrigin.test(origin);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> !!allowedOrigin;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ALLOW_ORIGIN = [ <span class="comment">// 域名白名单</span></span><br><span class="line"><span class="string">&#x27;*.233.666.com&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;hello.world.com&#x27;</span>,</span><br><span class="line"><span class="string">&#x27;hello..*.com&#x27;</span></span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">app.post(<span class="string">&#x27;a/b&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line"><span class="keyword">let</span> reqOrigin = req.headers.origin; <span class="comment">// request响应头的origin属性</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断请求是否在域名白名单内</span></span><br><span class="line"><span class="keyword">if</span>(isOriginAllowed(reqOrigin, ALLOW_ORIGIN)) &#123;</span><br><span class="line"><span class="comment">// 设置CORS为请求的Origin值</span></span><br><span class="line">res.header(<span class="string">&quot;Access-Control-Allow-Origin&quot;</span>, reqOrigin);</span><br><span class="line">res.header(<span class="string">&#x27;Access-Control-Allow-Credentials&#x27;</span>, <span class="string">&#x27;true&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 你的业务代码逻辑代码 ...</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  res.send(&#123; <span class="attr">code</span>: -<span class="number">2</span>, <span class="attr">msg</span>: <span class="string">&#x27;非法请求&#x27;</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <p><strong>预检请求</strong></p>
-<p>就是在发生cors请求时，浏览器检测到跨域请求，会自动发出一个OPTIONS请求来检测本次请求是否被服务器接受。一个OPTIONS请求一般会携带下面两个与CORS相关</p>
+<p>就是在发生 cors 请求时，浏览器检测到跨域请求，会自动发出一个 OPTIONS 请求来检测本次请求是否被服务器接受。一个 OPTIONS 请求一般会携带下面两个与  CORS 相关。</p>
 <ul>
 <li>Access-Control-Request-Method </li>
 <li>Access-Control-Request-Headers</li>
 </ul>
-<p>这样，服务端收到该预检请求后，会返回与CORS相关的响应头。主要会包括下面几个，但可能还会有其他的有关CORS字段：</p>
+<p>这样，服务端收到该预检请求后，会返回与 CORS 相关的响应头。主要会包括下面几个，但可能还会有其他的有关 CORS 字段：</p>
 <ul>
 <li>Access-Control-Allow-Origin: 服务器允许的跨域请求源</li>
 <li>Access-Control-Allow-Methods: 服务器允许的请求方法</li>
@@ -1042,20 +1042,20 @@
 <li>Content-Language</li>
 <li>Content-Type (需要注意额外的限制)<br>…</li>
 </ul>
-<p>服务器通过CORS跨域请求后，下面浏览器就会发出正式的数据请求。整个请求过程其实是发生了两次请求：一个预检请求，通过后的实际数据请求</p>
+<p>服务器通过 CORS 跨域请求后，下面浏览器就会发出正式的数据请求。整个请求过程其实是发生了两次请求：一个预检请求，通过后的实际数据请求</p>
 <p>也就是说 当你自定义了请求头，浏览器就会先发送预检请求，期望得到想要的 Access-Control-Allow-Headers 返回头</p>
 <p>以下是一个带有自定义头部 NCZ 的使用 POST 方法发送的请求</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Origin: http:<span class="comment">//www.nczonline.com</span></span><br><span class="line">Access-Control-Request-Method: POST</span><br><span class="line">ACcess_Control-Request-Headers: NCZ</span><br></pre></td></tr></table></figure>
 
 <ol start="3">
-<li>使用window.postMessage进行跨域</li>
+<li>使用 window.postMessage 进行跨域</li>
 </ol>
-<p>这是由H5提出来的的API，IE8以上支持这个功能。window.postMessage() 方法可以安全地实现跨源通信。<strong>这种方式通常用于获取嵌入页面中的第三方页面数据。一个页面发送消息，另一个页面判断来源并接收消息。</strong>通常，对于两个不同页面的脚本，只有当执行它们的页面位于具有相同的协议（通常为https），端口号（443为https的默认值），以及主机  (两个页面的模数 Document.domain设置为相同的值) 时，这两个脚本才能相互通信。<strong>window.postMessage() 方法提供了一种受控机制来规避此限制，</strong>只要正确的使用，这种方法就很安全。能实现跨窗口的消息传递。这个功能是不受同源策略限制的。</p>
+<p>这是由 H5 提出来的的 API，IE8以上支持这个功能。window.postMessage() 方法可以安全地实现跨源通信。<strong>这种方式通常用于获取嵌入页面中的第三方页面数据。一个页面发送消息，另一个页面判断来源并接收消息。</strong>通常，对于两个不同页面的脚本，只有当执行它们的页面位于具有相同的协议（通常为https），端口号（443为https的默认值），以及主机  (两个页面的模数 Document.domain设置为相同的值) 时，这两个脚本才能相互通信。<strong>window.postMessage() 方法提供了一种受控机制来规避此限制，</strong>只要正确的使用，这种方法就很安全。能实现跨窗口的消息传递。这个功能是不受同源策略限制的。</p>
 <ol start="4">
-<li>nginx代理跨域</li>
+<li>nginx 代理跨域</li>
 </ol>
-<p>跨域原理： 同源策略是浏览器的安全策略，不是HTTP协议的一部分。服务器端调用HTTP接口只是使用HTTP协议，不会执行JS脚本，不需要同源策略，也就不存在跨越问题。</p>
-<p>实现思路： 通过nginx配置一个代理服务器（域名与domain1相同，端口不同）做跳板机，反向代理访问<br>domain2接口，并且可以顺便修改cookie中domain信息，方便当前域cookie写入，实现跨域登录。</p>
+<p>跨域原理： 同源策略是浏览器的安全策略，不是 HTTP 协议的一部分。服务器端调用 HTTP 接口只是使用 HTTP 协议，不会执行 JS 脚本，不需要同源策略，也就不存在跨越问题。</p>
+<p>实现思路： 通过 nginx 配置一个代理服务器（域名与 domain1 相同，端口不同）做跳板机，反向代理访问<br>domain2 接口，并且可以顺便修改 cookie 中 domain 信息，方便当前域 cookie 写入，实现跨域登录。</p>
 <ol start="5">
 <li>WebSocket</li>
 </ol>
