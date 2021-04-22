@@ -115,7 +115,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -155,6 +155,178 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/23/JavaScript/%E5%9F%BA%E7%A1%80%E9%9B%B6%E7%A2%8E%E7%82%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leslie choi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="404 not found">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/02/23/JavaScript/%E5%9F%BA%E7%A1%80%E9%9B%B6%E7%A2%8E%E7%82%B9/" class="post-title-link" itemprop="url">零碎知识点</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-02-23 18:06:21" itemprop="dateCreated datePublished" datetime="2019-02-23T18:06:21+08:00">2019-02-23</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="数组Array的对象方法"><a href="#数组Array的对象方法" class="headerlink" title="数组Array的对象方法"></a>数组Array的对象方法</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//改变数组的api</span></span><br><span class="line"></span><br><span class="line">arr.splice(index,num)	<span class="comment">//=&gt;实现数组的增arr.splice(index,0,newItem)删arr.splice(index,1,newItem)改arr.splice(index,1)</span></span><br><span class="line">arr.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>&#123;<span class="keyword">return</span> a-b&#125;)		<span class="comment">//=&gt;实现数组的排序  升序</span></span><br><span class="line">arr.pop() <span class="comment">//删除一个数组中的最后的一个元素</span></span><br><span class="line">arr.shift() <span class="comment">//删除数组的第一个元素</span></span><br><span class="line">arr.push() <span class="comment">//向数组的末尾添加元素</span></span><br><span class="line">arr.unshift()</span><br><span class="line">arr.reverse() <span class="comment">//颠倒数组中元素的顺序</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//不改变数组的api</span></span><br><span class="line"><span class="comment">//1.</span></span><br><span class="line">	arr.slice(begin,end) <span class="comment">//浅拷贝数组的元素</span></span><br><span class="line"><span class="comment">//	begin(可选) 索引数值,接受负值，从该索引处开始提取原数组中的元素,默认值为0。</span></span><br><span class="line"><span class="comment">//	end(可选):索引数值(不包括),接受负值，在该索引处前结束提取原数组元素，默认值为数组末尾(包括最后一个元素)。</span></span><br><span class="line">	</span><br><span class="line"><span class="comment">//2.</span></span><br><span class="line">	arr.join() <span class="comment">//数组转字符串</span></span><br><span class="line"><span class="comment">//str(可选): 指定要使用的分隔符，默认使用逗号作为分隔符。</span></span><br><span class="line">	</span><br><span class="line"><span class="comment">//3.</span></span><br><span class="line">toLocaleString() <span class="comment">//数组转字符串</span></span><br><span class="line"><span class="comment">//定义: 返回一个表示数组元素的字符串。该字符串由数组中的每个元素的 toLocaleString() 返回值经调用 join() 方法连接（由逗号隔开）组成。</span></span><br><span class="line">	</span><br><span class="line"><span class="comment">//4.</span></span><br><span class="line">arr.toString() <span class="comment">//数组转字符串 不推荐</span></span><br><span class="line"><span class="comment">//定义: toString() 方法可把数组转换为由逗号链接起来的字符串。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//5.</span></span><br><span class="line">arr.cancat()</span><br><span class="line"><span class="comment">//定义： 方法用于合并两个或多个数组，返回一个新数组。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//6.</span></span><br><span class="line">arr.indexOf()<span class="comment">//查找数组是否存在某个元素，返回下标</span></span><br><span class="line"><span class="comment">//定义: 返回在数组中可以找到一个给定元素的第一个索引，如果不存在，则返回-1。</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="JS中的类型转换"><a href="#JS中的类型转换" class="headerlink" title="JS中的类型转换"></a>JS中的类型转换</h1><h2 id="显式类型的转换（强制类型转换）"><a href="#显式类型的转换（强制类型转换）" class="headerlink" title="显式类型的转换（强制类型转换）"></a>显式类型的转换（强制类型转换）</h2><h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><ol>
+<li>toString()方法(但是注意null和undefined两个值没有toString，调用该方法会报错)，当数字调用该方法的时候，可以在括号内传入转换的进制数。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">123</span></span><br><span class="line">a.toString()<span class="comment">//&quot;123&quot;</span></span><br><span class="line"><span class="keyword">var</span> b = <span class="literal">null</span>;</span><br><span class="line">b.toString()<span class="comment">//&quot;报错&quot;</span></span><br><span class="line"><span class="keyword">var</span> c = <span class="literal">undefined</span></span><br><span class="line">c.toString()<span class="comment">//&quot;报错&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> iNum = <span class="number">10</span>;</span><br><span class="line">alert(iNum.toString(<span class="number">2</span>));        <span class="comment">//输出 &quot;1010&quot;</span></span><br><span class="line">alert(iNum.toString(<span class="number">8</span>));        <span class="comment">//输出 &quot;12&quot;</span></span><br><span class="line">alert(iNum.toString(<span class="number">16</span>));       <span class="comment">//输出 &quot;A&quot; </span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>String()方法，对于number和Boolean的转换，实际上调用的是toString的方法，但是对于null和undefined，会直接转换为null和undefined</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>(<span class="literal">null</span>)    <span class="comment">//null</span></span><br><span class="line"><span class="built_in">String</span>(<span class="literal">undefined</span>)   <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h3><ol>
+<li>使用number函数</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Number</span>(<span class="string">&#x27;324&#x27;</span>) <span class="comment">// 324</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">&#x27;324abc&#x27;</span>) <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">&#x27;&#x27;</span>) <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="literal">true</span>) <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="literal">false</span>) <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="literal">undefined</span>) <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="literal">null</span>) <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">Number</span>(&#123;<span class="attr">a</span>: <span class="number">1</span>&#125;) <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">Number</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]) <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">Number</span>([<span class="number">5</span>]) <span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>parseInt() &amp; parseFloat()</li>
+</ol>
+<ul>
+<li>Boolean()</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> x = <span class="keyword">new</span> <span class="built_in">Boolean</span>(<span class="literal">false</span>);</span><br><span class="line"><span class="keyword">if</span> (x) &#123;</span><br><span class="line">alert(<span class="string">&#x27;hi&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> y = <span class="built_in">Boolean</span>(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span> (y) &#123;</span><br><span class="line">alert(<span class="string">&#x27;hello&#x27;</span>); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Boolean</span>(&#123;&#125;) <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Boolean</span>([]) <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="literal">false</span>)  <span class="comment">//false</span></span><br><span class="line"><span class="built_in">Boolean</span>(<span class="keyword">new</span> <span class="built_in">Boolean</span>(<span class="literal">false</span>)) <span class="comment">// true,这里实际上是传递的一个对象</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：在JS中，只有0，-0，NaN，””，undefined,null这六个值转换为布尔值时，结果才会是false。而所有的对象转化为布尔值时，结果都会是true！</strong><br>所以上面题目的第一部分，有new关键字，所以X就是一个新对象，结果就会输出hi。<br>题目的第二部分，没有new关键字，所以就是进行显示类型的转换，0转换为false，结果域加new的时候相反。</p>
+<h1 id="自动转换"><a href="#自动转换" class="headerlink" title="自动转换"></a>自动转换</h1><ol>
+<li>自动转换为布尔值</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> abc</span><br><span class="line"><span class="keyword">if</span> (<span class="string">&#x27;abc&#x27;</span>) &#123;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line">&#125;  <span class="comment">// &quot;hello&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>自动转换为数值</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;5&#x27;</span> * <span class="string">&#x27;2&#x27;</span> <span class="comment">// 10</span></span><br><span class="line"><span class="keyword">true</span> - <span class="number">1</span>  <span class="comment">// 0</span></span><br><span class="line"><span class="string">&#x27;1&#x27;</span> - <span class="number">1</span>   <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>自动转换为字符串</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;5&#x27;</span> + <span class="number">1</span> <span class="comment">// &#x27;51&#x27;</span></span><br><span class="line"><span class="string">&#x27;5&#x27;</span> + <span class="literal">true</span> <span class="comment">// &quot;5true&quot;</span></span><br><span class="line"><span class="string">&#x27;5&#x27;</span> + <span class="literal">false</span> <span class="comment">// &quot;5false&quot;</span></span><br><span class="line"> <span class="string">&#x27;5&#x27;</span> - <span class="literal">true</span>  <span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+
+<p>js中的四则运算</p>
+<ul>
+<li>运算中其中⼀⽅为字符串，那么就会把另⼀⽅也转换为字符串 </li>
+<li>如果⼀⽅不是字符串或者数字，那么会将它转换为数字或者字符串</li>
+</ul>
+<h1 id="JavaScript中的类型检测"><a href="#JavaScript中的类型检测" class="headerlink" title="JavaScript中的类型检测"></a>JavaScript中的类型检测</h1><ol>
+<li>typeof</li>
+</ol>
+<p>使用typeof，返回的结果有：String number boolean undefined Object function symbol</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="string">&#x27;a&#x27;</span>)   <span class="comment">//  String</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="number">2</span>)     <span class="comment">//  number</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="literal">true</span>)  <span class="comment">//  boolean</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="literal">undefined</span>)   <span class="comment">//  undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="keyword">new</span> <span class="built_in">Object</span>)    <span class="comment">//  Object</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="literal">null</span>)    <span class="comment">//  Object</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="built_in">Object</span>)    <span class="comment">//  function</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="built_in">Function</span>)  <span class="comment">//  function</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="built_in">Symbol</span>)    <span class="comment">//  function</span></span><br><span class="line"> <span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="function"><span class="keyword">function</span>)   //  报错</span></span><br><span class="line"><span class="function"> <span class="title">console</span>.<span class="title">log</span>(<span class="params"><span class="keyword">typeof</span> <span class="built_in">Symbol</span>()</span>)    //  <span class="title">symbol</span></span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>instanceof</li>
+</ol>
+<p>判断某个对象的原型链上是否存在其构造函数的prototype的属性</p>
+<p>所以instanceof的原理，可以理解为，实例对象的__proto__属性和构造函数的prototype属性指向的是不是同一个地址</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">&#x27;312&#x27;</span></span><br><span class="line"><span class="built_in">console</span>.log(str <span class="keyword">instanceof</span> <span class="built_in">String</span>)		<span class="comment">//false，因为str只是一个以string为数据类型的值，但并不属于String对象的实例</span></span><br><span class="line"><span class="keyword">var</span> str = <span class="keyword">new</span> <span class="built_in">String</span>()</span><br><span class="line"><span class="built_in">console</span>.log(str <span class="keyword">instanceof</span> <span class="built_in">String</span>)		<span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line"><span class="built_in">console</span>.log(arr <span class="keyword">instanceof</span> <span class="built_in">Array</span>)       <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(arr <span class="keyword">instanceof</span> <span class="built_in">Object</span>)      <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>Object.prototype.toString.call()</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//除了能够判断基本类型之外，还能判断原生引用另外类型</span></span><br><span class="line"><span class="built_in">Function</span> <span class="function"><span class="title">fn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(“test”);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(fn); <span class="comment">// &quot;[object Function]&quot;  函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(date); <span class="comment">// &quot;[object Date]&quot;    日期 </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(arr); <span class="comment">// &quot;[object Array]&quot;    数组</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/[hbc]at/gi</span>;</span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(reg); <span class="comment">// &quot;[object RegExp]&quot;   正则</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person(<span class="string">&quot;Rose&quot;</span>, <span class="number">18</span>);</span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(arr); <span class="comment">// &quot;[object Object]&quot;     自定义类型</span></span><br><span class="line">conslole.log(person <span class="keyword">instanceof</span> Person)    <span class="comment">//在这里使用instanceof更合理</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="值类型与引用类型的差别"><a href="#值类型与引用类型的差别" class="headerlink" title="值类型与引用类型的差别"></a>值类型与引用类型的差别</h1><ol>
+<li>基本类型在内存中占据固定大小的空间，因此被保存在栈内存中</li>
+<li>从一个变量向另一个变量复制基本类型的值，复制的是值的副本</li>
+<li>引用类型的值是对象，保存在堆内存</li>
+<li>包含引用类型值的变量实际上包含的并不是对象本身，而是一个指向该对象的指针</li>
+<li>从一个变量向另一个变量复制引用类型的值的时候，复制是引用指针，因此两个变量最终都指向同一个对象</li>
+</ol>
+<h1 id="判断是否是数组的几种方法"><a href="#判断是否是数组的几种方法" class="headerlink" title="判断是否是数组的几种方法"></a>判断是否是数组的几种方法</h1><ol>
+<li>使用instanceof方法</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr=[]</span><br><span class="line"><span class="built_in">console</span>.log(arr <span class="keyword">instanceof</span> <span class="built_in">Array</span>) </span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>使用constructor方法</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log([].constructor == <span class="built_in">Array</span>);  <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>使用Object.prototype.toString.call(arr)</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = []</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(arr))		<span class="comment">//[object Array]</span></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>Array.isArray()</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = []</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.isArray(arr))				<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>Array.prototype.isPrototypeOf(obj)</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.isPrototypeOf([])   <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -428,7 +600,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+        <time title="修改时间：2021-04-21 23:15:04" itemprop="dateModified" datetime="2021-04-21T23:15:04+08:00">2021-04-21</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -513,7 +685,7 @@
 <p>使用了new运算符，在这个过程中：</p>
 <ol>
 <li>实际上是先创建了一个空对象</li>
-<li>设置新对象的__proto__属性指向构造函数的prototype对象</li>
+<li>设置新对象的__proto__属性指向构造函数的prototype对象，也就是继承了该函数的原型</li>
 <li>绑定this，使用新对象调用函数，函数中的this被指向新实例对象</li>
 <li>如果构造函数返回了一个“对象”，那么这个对象就会取代刚才new出来的结果（说明刚才的操作都是无效的）。如果构造函数没有返回对象，那么new出来的结果为步骤1创建的对象</li>
 </ol>
@@ -600,7 +772,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-21 00:53:51" itemprop="dateModified" datetime="2021-04-21T00:53:51+08:00">2021-04-21</time>
+        <time title="修改时间：2021-04-22 08:22:21" itemprop="dateModified" datetime="2021-04-22T08:22:21+08:00">2021-04-22</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -801,6 +973,7 @@
 <p><strong>非对称加密（认证过程）：</strong></p>
 <p>有公钥私钥之分，公钥所有人都可以知道，可以将数据用公钥加密，但是将数据解密必须使用私钥解密，私钥只有分发公钥的一方才知道（服务端）。<br>这种加密方式就可以完美解决对称加密存在的问题。假设现在两端需要使用对称加密，那么在这之前，可以先使用非对称加密交换秘钥。</p>
 <p>简单流程如下：首先服务端将公钥公布出去，那么客户端也就知道公钥了。接下来客户端创建一个秘钥，然后通过公钥加密并发送给服务端，服务端接收到密文以后通过私钥解密出正确的秘钥，这时候两端就都知道秘钥是什么了。</p>
+<p>PS:【公钥】与【私钥】是一对，如果使用公开密匙对数据进行加密，那么只有对应的私有密匙才能解密；<br>相反，如果使用私有密匙对数据进行加密，那么只有对应的公开密匙进行解密。<br>因加密解密使用的是两种不同的密匙，所以这种算法称之为【非对称加密算法】。</p>
 <h2 id="SSL-TLS-四次握手"><a href="#SSL-TLS-四次握手" class="headerlink" title="SSL/TLS 四次握手"></a>SSL/TLS 四次握手</h2><p>四次握手主要交换了3个信息：</p>
 <ol>
 <li>数字证书：该证书包含了公钥等信息，一般是由服务器发给客户端，接收方通过验证这个证书是不是信赖的CA签发的，或者与本地的证书相比，来判断证书是否可信，防止身份被冒充。</li>
@@ -913,7 +1086,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-21 00:51:40" itemprop="dateModified" datetime="2021-04-21T00:51:40+08:00">2021-04-21</time>
+        <time title="修改时间：2021-04-22 08:18:09" itemprop="dateModified" datetime="2021-04-22T08:18:09+08:00">2021-04-22</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1077,6 +1250,40 @@
 </ol>
 <p>在根目录的 vue.config.js 中配置 proxy 代理</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    disableHostCheck: <span class="literal">true</span>,</span><br><span class="line">    proxy: &#123;</span><br><span class="line">      <span class="string">&#x27;/udm/&#x27;</span>: &#123;</span><br><span class="line">        target: <span class="string">&#x27;http://10.33.122.138:2001/v1/api/proxy/&#x27;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="正向代理和反向代理的区别"><a href="#正向代理和反向代理的区别" class="headerlink" title="正向代理和反向代理的区别"></a>正向代理和反向代理的区别</h1><h2 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h2><p>正向代理，简单的说，我是一个用户，我访问不了某网站，但是我能访问一个代理服务器，这个代理服务器呢，他能访问那个我不能访问的网站，于是我先连上代理服务器，告诉他我需要那个无法访问网站的内容，代理服务器去取回来，然后返回给我。<br>从网站的角度，只在代理服务器来取内容的时候有一次记录，有时候并不知道是用户的请求，也隐藏了用户的资料，这取决于代理告不告诉网站。</p>
+<p>正向代理，一般需要客户端进行特殊的配置。比如翻墙，需要进行 ssr 配置等。</p>
+<p><img src="http://www.511yj.com/pagephoto/plcvch/20160703/zhdaili.jpg" alt="markdown"></p>
+<p><strong>代理服务器的应用</strong></p>
+<ol>
+<li>cache 缓存</li>
+</ol>
+<p>目标网站可以在代理服务器做缓存，用户不需要直接访问服务器就可以拿到所要的数据。（cache）</p>
+<ol start="2">
+<li>翻墙</li>
+</ol>
+<p>代理服务器处理客户端请求，从目标网站获取相应的字段，返回给客户端。</p>
+<ol start="3">
+<li>权限验证</li>
+</ol>
+<p>连接互联网首先得经过代理服务器。可以在代理服务器中做相关权限的处理。</p>
+<h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><p><strong>举个例子：</strong></p>
+<p>例用户访问 <a target="_blank" rel="noopener" href="http://www.test.com/readme%EF%BC%8C%E4%BD%86">http://www.test.com/readme，但</a> <a target="_blank" rel="noopener" href="http://www.test.com/">www.test.com</a> 上并不存在 readme 页面，他是偷偷从另外一台服务器上取回来，然后作为自己的内容返回用户，但用户并不知情。这里所提到的 <a target="_blank" rel="noopener" href="http://www.test.com/">www.test.com</a> 这个域名对应的服务器就设置了反向代理功能。</p>
+<p>结论就是，反向代理正好相反，对于客户端而言它就像是原始服务器，并且客户端不需要进行任何特别的设置。<br>客户端向反向代理的命名空间(name-space)中的内容发送普通请求，接着反向代理将判断向何处(原始服务器)<strong>转交请求</strong>，并将获得的内容返回给客户端，就像这些内容原本就是它自己的一样。</p>
+<p><strong>反向代理应用</strong></p>
+<ol>
+<li><p>跨域</p>
+</li>
+<li><p>负载均衡</p>
+</li>
+</ol>
+<p>当 http 请求过多时，反向代理服务器负责分发 http 请求，确保某台资源服务器（可以是集群）压力不会太大，而导致崩溃。</p>
+<ol start="3">
+<li>cache 缓存</li>
+</ol>
+<p>反向代理服务器像正向代理服务器一样拥有 CACHE 的作用，它可以缓存原始资源服务器B的资源，而不是每次都要向原始资源服务器请求数据。<br>特别是一些静态的数据，比如图片和文件，如果这些反向代理服务器能够做到和用户X来自同一个网络，那么用户访问反向代理服务器，就会得到很高质量的速度。这正是 CDN 技术的核心。</p>
+<h2 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a><strong>参考文章：</strong></h2><p><a target="_blank" rel="noopener" href="http://www.511yj.com/plcvch-nginx-nat.html">图解正向代理与反向代理的区别</a></p>
+
       
     </div>
 
@@ -1455,7 +1662,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+        <time title="修改时间：2021-04-22 08:24:13" itemprop="dateModified" datetime="2021-04-22T08:24:13+08:00">2021-04-22</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1503,7 +1710,7 @@
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">f1(); <span class="comment">// &#x27;hello&#x27;</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;hello&#x27;</span>);</span><br><span class="line">&#125; <span class="comment">// 此时预解析函数 f1 声明提升, 所以上面的调用控制台中调用不会报错</span></span><br><span class="line"><span class="built_in">console</span>.log(num); <span class="comment">// undefined  此时预解析变量 num 声明提升（没有赋值）</span></span><br><span class="line"><span class="keyword">var</span> num = <span class="number">5</span>; <span class="comment">//  所以上面在控制台中调用不会报错，只是显示 undefined</span></span><br></pre></td></tr></table></figure>
 
-<h1 id="三-this指向"><a href="#三-this指向" class="headerlink" title="三 this指向"></a>三 this指向</h1><h2 id="形式-test"><a href="#形式-test" class="headerlink" title="形式 test()"></a>形式 test()</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line">test()  <span class="comment">//1</span></span><br></pre></td></tr></table></figure>
+<h1 id="this指向"><a href="#this指向" class="headerlink" title="this指向"></a>this指向</h1><h2 id="形式-test"><a href="#形式-test" class="headerlink" title="形式 test()"></a>形式 test()</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line">test()  <span class="comment">//1</span></span><br></pre></td></tr></table></figure>
 <p>直接不带任何引用形式去调用函数，则this会指向全局对象，因为没有其他影响去改变this，this默认就是指向全局对象（浏览器是window，Node中是global）的。这个结论是在非严格模式的情况下，严格模式下这个this其实是undefined的。</p>
 <h2 id="形式-xxx-text"><a href="#形式-xxx-text" class="headerlink" title="形式 xxx.text()"></a>形式 xxx.text()</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a: <span class="number">2</span>,</span><br><span class="line">    test</span><br><span class="line">&#125;</span><br><span class="line">obj.test()      <span class="comment">//2</span></span><br></pre></td></tr></table></figure>
 <p>这种形式相对于第一中，this指向已经很明显，谁去调用这个函数的，这个函数中的this就绑定到谁身上。</p>
@@ -1539,6 +1746,27 @@
 <p>undefined：Undefined 类型，声明但是未初始化变量时，得到的就是 undefined。</p>
 <p>null 是 javascript 的关键字，可以认为是对象类型，它是一个空对象指针，和其它语言一样都是代表“空值”，不过 undefined 却是 javascript 才有的。undefined 是在 ECMAScript 第三版引入的，为了区分空指针对象和未初始化的变量，它是一个预定义的全局变量。没有返回值的函数返回为 undefined，没有实参的形参也是 undefined。</p>
 <p>也可以认为 undefined 是表示系统级的、出乎意料的或类似错误的值的空缺，而 null 是表示程序级的、正常的或在意料之中的值的空缺。</p>
+<h1 id="判断是否空对象"><a href="#判断是否空对象" class="headerlink" title="判断是否空对象"></a>判断是否空对象</h1><ol>
+<li>JSON.stringify()</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123;&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(a) === <span class="string">&quot;&#123;&#125;&quot;</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>for…in 循环</li>
+</ol>
+<p>循环可以遍历所有属性以次判断对象是否为空对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isEmptyObj</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> obj) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>Object.getOwnPropertyNames()</li>
+</ol>
+<p>Object.getOwnPropertyNames() 方法返回一个由指定对象的所有自身属性的属性名（包括不可枚举属性但不包括Symbol值作为名称的属性）组成的数组。<br>用此方法判断空对象只需要判断返回的数组长度是否为 0，为 0 的话就是空对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> data = &#123;&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyNames(data).length === <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>Object.keys()/Object.values()</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> data = &#123;&#125;</span><br><span class="line"><span class="keyword">const</span> keyArr = <span class="built_in">Object</span>.keys(data)</span><br><span class="line"><span class="keyword">const</span> valueArr = <span class="built_in">Object</span>.values(data)</span><br><span class="line"><span class="built_in">console</span>.log(keyArr.length === <span class="number">0</span>) <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(valueArr.length === <span class="number">0</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1980,91 +2208,6 @@
 <p>d、将该路由暴露出去</p>
 <p>document.cookie=”track_id=1545690009|eddde566ae9aa2b35a454e91ee2342a127b11148a8eaec390b|a73c8c1097ae7b5ef779f762abacfb1b; domain=ele.me; path=/“;document.cookie=”USERID=3692924746; domain=ele.me; path=/“;document.cookie=”SID=zkGQB2wu1nCjmOXtiHZmkOMpabWHwiPZgVVg; domain=ele.me; path=/“;</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span></span><br><span class="line"><span class="comment">// 导入 Account 组件</span></span><br><span class="line"><span class="keyword">import</span> account <span class="keyword">from</span> <span class="string">&#x27;./main/Account.vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> goodslist <span class="keyword">from</span> <span class="string">&#x27;./main/GoodsList.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 导入Account的两个子组件</span></span><br><span class="line"><span class="keyword">import</span> login <span class="keyword">from</span> <span class="string">&#x27;./subcom/login.vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> register <span class="keyword">from</span> <span class="string">&#x27;./subcom/register.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//  创建路由对象</span></span><br><span class="line"><span class="keyword">var</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    <span class="comment">// account  goodslist</span></span><br><span class="line">    &#123;</span><br><span class="line">      path: <span class="string">&#x27;/account&#x27;</span>,</span><br><span class="line">      component: account,</span><br><span class="line">      children: [</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">&#x27;login&#x27;</span>, <span class="attr">component</span>: login &#125;,</span><br><span class="line">        &#123; <span class="attr">path</span>: <span class="string">&#x27;register&#x27;</span>, <span class="attr">component</span>: register &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;/goodslist&#x27;</span>, <span class="attr">component</span>: goodslist &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把路由对象暴露出去</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/25/vue/12%20webpack%E7%BB%93%E5%90%88%E8%B7%AF%E7%94%B1%E7%9A%84%E4%BD%BF%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="leslie choi">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="404 not found">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/01/25/vue/12%20webpack%E7%BB%93%E5%90%88%E8%B7%AF%E7%94%B1%E7%9A%84%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">十二、webpack结合路由的使用</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-01-25 13:46:52" itemprop="dateCreated datePublished" datetime="2019-01-25T13:46:52+08:00">2019-01-25</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="webpack结合路由的使用"><a href="#webpack结合路由的使用" class="headerlink" title="webpack结合路由的使用"></a>webpack结合路由的使用</h1><p>1、在main.js中导入vue-router包</p>
-<p>2、手动安装VueRouter</p>
-<p>3、导入组件 </p>
-<p>4、创建路由对象</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="comment">// 1. 导入 vue-router 包</span></span><br><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span></span><br><span class="line"><span class="comment">// 2. 手动安装 VueRouter </span></span><br><span class="line">Vue.use(VueRouter)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 导入 app 组件</span></span><br><span class="line"><span class="keyword">import</span> app <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"><span class="comment">// 导入 Account 组件</span></span><br><span class="line"><span class="keyword">import</span> account <span class="keyword">from</span> <span class="string">&#x27;./main/Account.vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> goodslist <span class="keyword">from</span> <span class="string">&#x27;./main/GoodsList.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 创建路由对象</span></span><br><span class="line"><span class="keyword">var</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    <span class="comment">// account  goodslist</span></span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;/account&#x27;</span>, <span class="attr">component</span>: account &#125;,</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;/goodslist&#x27;</span>, <span class="attr">component</span>: goodslist &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">  render: <span class="function"><span class="params">c</span> =&gt;</span> c(app), <span class="comment">// render 会把 el 指定的容器中，所有的内容都清空覆盖，所以 不要 把 路由的 router-view 和 router-link 直接写到 el 所控制的元素中</span></span><br><span class="line">  router <span class="comment">// 4. 将路由对象挂载到 vm 上</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注意： App 这个组件，是通过 VM 实例的 render 函数，渲染出来的， render 函数如果要渲染 组件， 渲染出来的组件，只能放到 el: &#x27;#app&#x27; 所指定的 元素中；</span></span><br><span class="line"><span class="comment">// Account 和 GoodsList 组件， 是通过 路由匹配监听到的，所以， 这两个组件，只能展示到 属于 路由的 &lt;router-view&gt;&lt;/router-view&gt; 中去；</span></span><br></pre></td></tr></table></figure>
 
 
       
