@@ -845,7 +845,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+        <time title="修改时间：2021-04-23 07:18:09" itemprop="dateModified" datetime="2021-04-23T07:18:09+08:00">2021-04-23</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -995,7 +995,9 @@
 <p>我最喜欢用的是阿里矢量图标库（网址：<code>http://www.iconfont.cn/</code>），里面有大量的矢量图资源，而且你只需要像在淘宝采购一样把他们添加至购物车就能把它们带回家，整理完资源后还能自动生成CDN 链接，可以说是完美的一条龙服务了。（图片来自官网首页）</p>
 <p>图片能做的很多事情，矢量图都能作，<strong>而且它只是往 HTML 里插入字符和 CSS 样式而已，和图片请求比起来资源占用完全不在一个数量级，</strong>如果你的项目里有小图标，就使用矢量图吧。</p>
 <h1 id="1像素边框问题"><a href="#1像素边框问题" class="headerlink" title="1像素边框问题"></a>1像素边框问题</h1><p><strong>物理像素</strong></p>
-<p>移动设备出厂时，不同设备自带的不同像素，也称硬件像素；</p>
+<p>移动设备出厂时，不同设备自带的不同像素，也称硬件像素。</p>
+<p>而在 PC 端，默认情况下一个 css 像素对应一个物理像素，因为屏幕宽度足够大。</p>
+<p>移动设备大小是有限的，而且分辨率不低，甚至比 pc 端更高，也就是可以显示的物理像素更多，如果和pc端一样，一个 css 的 px 和物理像素一一对应，显示的内容会很小。可能一个 px 对应 2个物理像素，可能 3个物理像素。</p>
 <p><strong>逻辑像素</strong></p>
 <p>即css中像素，和设备屏幕的像素没有必然的关系</p>
 <p><strong>dpr(devicePixelRatio)设备像素比</strong></p>
@@ -1028,7 +1030,28 @@
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/* 2倍屏 */</span></span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">-webkit-min-device-pixel-ratio</span>: <span class="number">2.0</span>) &#123;</span><br><span class="line">    <span class="selector-class">.border-bottom</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">        -webkit-<span class="attribute">transform</span>: <span class="built_in">scaleY</span>(<span class="number">0.5</span>);</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">scaleY</span>(<span class="number">0.5</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 3倍屏 */</span></span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">-webkit-min-device-pixel-ratio</span>: <span class="number">3.0</span>) &#123;</span><br><span class="line">    <span class="selector-class">.border-bottom</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">        -webkit-<span class="attribute">transform</span>: <span class="built_in">scaleY</span>(<span class="number">0.33</span>);</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">scaleY</span>(<span class="number">0.33</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>PS：使用rem布局时，个人习惯将字体设置为50px(浏览器默认是16px)，这样在换算成rem单位的时候，就可以直接乘以0.2就好了。（50px换算成10rem）；另外也可以将默认字体设置为62.5%，这样在换算单位的时候，就可以将1rem换算为10px。</p>
-<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5bcc169ae51d450e85308d86">首页白屏的引发的思考(一)</a><br><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUxMzcxMzE5Ng==&mid=2247489586&idx=1&sn=2168d42df837521da50b3ed7f8932698&chksm=f951ad71ce262467728b7940de1a2311c523f264f4ca7e705712bf655a844fab93706cbe1ca3&token=1792152421&lang=zh_CN#rd">首屏时间从12.67s到1.06s，我是如何做到的？</a></p>
+<p>像素比：dpr 是设备像素比，也就是 css 的设备无关像素px和物理像素的比<br>宽度比：开发适配的设备的宽度（现在一般是iphone6），和实际的设备的宽度的比<br>总的来说，可以一句话来总结，<strong>像素比实现高清，宽度比实现适配</strong></p>
+<h1 id="解决微信调整字体大小导致-rem-布局错乱"><a href="#解决微信调整字体大小导致-rem-布局错乱" class="headerlink" title="解决微信调整字体大小导致 rem 布局错乱"></a>解决微信调整字体大小导致 rem 布局错乱</h1><ol>
+<li><p>安卓手动调整字体的话，会使根元素的字体变化，导致整个页面内的元素的一些属性变化，包括宽高字体等样式属性。</p>
+</li>
+<li><p>ios 手动调整字体，只是单纯的把文字的字体改变，并没有改变根元素字体，整体布局不会改变，但是字体元素会有影响。</p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ios 系统</span></span><br><span class="line">body&#123;</span><br><span class="line">  -webkit-text-size-adjust: <span class="number">100</span>% !important;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 安卓系统</span></span><br><span class="line"><span class="comment">// 借助微信浏览器内置 WeixinJSBridge 对象来阻止字体大小调整</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> WeixinJSBridge == <span class="string">&quot;object&quot;</span> &amp;&amp; <span class="keyword">typeof</span> WeixinJSBridge.invoke == <span class="string">&quot;function&quot;</span>) &#123;</span><br><span class="line">        handleFontSize();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">document</span>.addEventListener(<span class="string">&quot;WeixinJSBridgeReady&quot;</span>, handleFontSize, <span class="literal">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">handleFontSize</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 设置网页字体为默认大小</span></span><br><span class="line">        WeixinJSBridge.invoke(<span class="string">&#x27;setFontSizeCallback&#x27;</span>, &#123; <span class="string">&#x27;fontSize&#x27;</span> : <span class="number">0</span> &#125;);</span><br><span class="line">        <span class="comment">// 重写设置网页字体大小的事件</span></span><br><span class="line">        <span class="comment">// 调用微信提供覆盖菜单里面“调整字体”功能的接口</span></span><br><span class="line">        WeixinJSBridge.on(<span class="string">&#x27;menu:setfont&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            WeixinJSBridge.invoke(<span class="string">&#x27;setFontSizeCallback&#x27;</span>, &#123; <span class="string">&#x27;fontSize&#x27;</span> : <span class="number">0</span> &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+
+<h1 id="小程序-rpx-原理"><a href="#小程序-rpx-原理" class="headerlink" title="小程序 rpx 原理"></a>小程序 rpx 原理</h1><p>微信小程序开发中新出了尺寸单位 rpx（responsive pixel）: 可以根据屏幕宽度进行自适应。规定屏幕宽为750rpx。</p>
+<p>如在 iPhone6 上，屏幕宽度为375px，共有750个物理像素，则750rpx = 375px = 750物理像素，1rpx = 0.5px = 1物理像素。</p>
+<p>微信官方建议视觉稿以iPhone 6为标准。</p>
+<p>不同的 rpx 对应不同的手机尺寸是不一样的，比如，在设置一个 button，你用 rpx，可以保证在任何机型上，都是一致的比例，这个用来保持界面比例一致是非常有用的。</p>
+<p>但很多情况下，比如你渲染一个网页里面大量内容是用来阅读的，如果你还用 rpx，就会导致文字在小屏幕上变得很小很小，这时候为了保证阅读体验，而适配不是核心问题，就应该用 px。</p>
+<p>rpx 是一个相当于屏幕宽度百分比的相对单位，以下情况不建议使用：</p>
+<ul>
+<li>font-size 和 border-width；</li>
+<li>animation 动画中涉及 translate 位移：部分机器在 rpx 转成 px 出现小数时，如 262.89px，微信会向下取值为 262px，产生 1px 的差距。</li>
+<li>canvas 绘图，比如二维码、分享图片等</li>
+<li>尽量不要 rpx 混和 px进行布局</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5bcc169ae51d450e85308d86">首页白屏的引发的思考(一)</a><br><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUxMzcxMzE5Ng==&mid=2247489586&idx=1&sn=2168d42df837521da50b3ed7f8932698&chksm=f951ad71ce262467728b7940de1a2311c523f264f4ca7e705712bf655a844fab93706cbe1ca3&token=1792152421&lang=zh_CN#rd">首屏时间从12.67s到1.06s，我是如何做到的？</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1b69f0df78f3?from=timeline">px、物理像素、rem、rpx的关系</a></p>
 
       
     </div>
@@ -1221,7 +1244,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-14 23:00:06" itemprop="dateModified" datetime="2021-04-14T23:00:06+08:00">2021-04-14</time>
+        <time title="修改时间：2021-04-23 07:28:29" itemprop="dateModified" datetime="2021-04-23T07:28:29+08:00">2021-04-23</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1440,6 +1463,7 @@
 <li>提供 include 和 exclude 属性(另外还有max参数，设置最大缓存组件的个数)，两者都支持字符串或正则表达式， include 表示只有名称匹配的组件会被缓存，exclude 表示任何名称匹配的组件都不会被缓存 ，<strong>其中 exclude 的优先级比 include 高；</strong></li>
 <li>对应两个生命周期钩子函数 activated 和 deactivated ，当组件被激活时，触发钩子函数 activated，当组件被移除时，触发钩子函数 deactivated。</li>
 </ul>
+<p>原理：Vue 内部将 DOM 节点抽象成了一个个的 VNode 节点，这个我之前写过相关文章可以参考 VNode 节点。所以，keep-alive 的缓存也是基于 VNode 节点的而不是直接存储 DOM 结构。<br>其实就是将需要缓存的 VNode 节点保存在 this.cache 中／在 render 时,如果 VNode 的 name 符合在缓存条件（可以用 include 以及 exclude 控制），则会从 this.cache 中取出之前缓存的 VNode 实例进行渲染。</p>
 <h1 id="组件中的data为什么是一个函数"><a href="#组件中的data为什么是一个函数" class="headerlink" title="组件中的data为什么是一个函数?"></a>组件中的data为什么是一个函数?</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// data</span></span><br><span class="line"><span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">	message: <span class="string">&quot;子组件&quot;</span>,</span><br><span class="line">	childName:<span class="built_in">this</span>.name</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// new Vue</span></span><br><span class="line">&lt;div id=<span class="string">&quot;app&quot;</span>&gt;</span><br><span class="line">  &#123;&#123; message &#125;&#125;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    message: <span class="string">&#x27;Hello Vue!&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>因为<strong>组件是用来复用的，且 JS 里对象是引用关系，如果组件中 data 是一个对象，那么这样作用域没有隔离，子组件中的 data 属性值会相互影响</strong>，如果组件中 data 选项是一个函数，那么每个实例可以维护一份被返回对象的独立的拷贝，组件实例之间的 data 属性值不会互相影响；而 <strong>new Vue 的实例，是不会被复用的</strong>，因此不存在引用对象的问题。</p>
@@ -2096,7 +2120,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+        <time title="修改时间：2021-04-23 07:33:36" itemprop="dateModified" datetime="2021-04-23T07:33:36+08:00">2021-04-23</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -2183,6 +2207,7 @@
 <li>async是在下载完脚本之后立即执行，渲染引擎会中断，执行完脚本之后才会继续渲染，如果是多个，执行顺序和加载顺序无关</li>
 <li>直接使用src方式引入JS会阻塞页面的渲染</li>
 </ul>
+<p>从应用的角度，如果脚本和 DOM 元素和其他脚本之间的依赖关系不强，建议使用 async，反之选用 defer。</p>
 <h2 id="解决异步加载脚本的问题"><a href="#解决异步加载脚本的问题" class="headerlink" title="解决异步加载脚本的问题"></a>解决异步加载脚本的问题</h2><p>如何处理加载过程中这些脚本的互相依赖关系，就成了实现异步加载过程中所需要考虑的问题。一方面，对于页面中那些独立的脚本，如用户统计等插件就可以放心大胆地使用异步加载。而另一方面，对于那些确实需要处理依赖关系的脚本，业界已经有很成熟的解决方案了。如采用AMD规范的RequireJS,CMD规范的seaJS，或者使用ES6中的模块化开发。另一方面，也可以使用promise技术来实现处理异步脚本加载过程中的依赖问题：</p>
 <p>针对每个脚本依赖都会创建一个promise对象来管理其状态。采用动态插入脚本的方式来管理脚本，然后利用脚本onload和onreadystatechange(兼容性处理)事件来监听脚本是否加载完成。一旦加载完毕，就会触发promise的resovle方法。最后，针对依赖的处理，是promise的all方法，这个方法只有在所有promise对象都resolved的时候才会触发resolve方法，这样一来，我们就可以确保在执行回调之前，所有依赖的脚本都已经加载并执行完毕。</p>
 <h1 id="利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理"><a href="#利用浏览器缓存（最重要的一步）-gt-缓存的分类-gt-缓存的原理" class="headerlink" title="利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理"></a>利用浏览器缓存（最重要的一步） -&gt; 缓存的分类 -&gt; 缓存的原理</h1><ol>

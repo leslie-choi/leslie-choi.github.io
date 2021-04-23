@@ -28,7 +28,7 @@
 <meta property="og:description" content="300毫秒延迟的由来和解决方法 300 毫秒延迟的主要原因是解决双击缩放。双击缩放，顾名思义，即用手指在屏幕上快速点击两次，iOS 自带的 Safari 浏览器会将网页缩放至原始比例。 那么这和 300 毫秒延迟有什么联系呢？ 假定这么一个场景。用户在 iOS Safari 里边点击了一个链接。由于用户可以进行双击缩放或者双击滚动的操作，当用户一次点击屏幕之后，浏览器并不能立刻判断用户是确实要打开">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-08-25T12:29:25.000Z">
-<meta property="article:modified_time" content="2021-04-11T14:17:47.587Z">
+<meta property="article:modified_time" content="2021-04-22T23:18:09.623Z">
 <meta property="article:author" content="leslie choi">
 <meta property="article:tag" content="basic">
 <meta name="twitter:card" content="summary">
@@ -108,7 +108,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#300%E6%AF%AB%E7%A7%92%E5%BB%B6%E8%BF%9F%E7%9A%84%E7%94%B1%E6%9D%A5%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">300毫秒延迟的由来和解决方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SPA%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8%E4%BC%98%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">SPA单页面应用优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A7%91%E6%99%AEPWA"><span class="nav-number">3.</span> <span class="nav-text">科普PWA</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%B5%84%E6%BA%90%E5%8E%8B%E7%BC%A9"><span class="nav-number">4.</span> <span class="nav-text">移动端资源压缩</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1%E5%83%8F%E7%B4%A0%E8%BE%B9%E6%A1%86%E9%97%AE%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">1像素边框问题</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#300%E6%AF%AB%E7%A7%92%E5%BB%B6%E8%BF%9F%E7%9A%84%E7%94%B1%E6%9D%A5%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">300毫秒延迟的由来和解决方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SPA%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8%E4%BC%98%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">SPA单页面应用优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A7%91%E6%99%AEPWA"><span class="nav-number">3.</span> <span class="nav-text">科普PWA</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%B5%84%E6%BA%90%E5%8E%8B%E7%BC%A9"><span class="nav-number">4.</span> <span class="nav-text">移动端资源压缩</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1%E5%83%8F%E7%B4%A0%E8%BE%B9%E6%A1%86%E9%97%AE%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">1像素边框问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E5%BE%AE%E4%BF%A1%E8%B0%83%E6%95%B4%E5%AD%97%E4%BD%93%E5%A4%A7%E5%B0%8F%E5%AF%BC%E8%87%B4-rem-%E5%B8%83%E5%B1%80%E9%94%99%E4%B9%B1"><span class="nav-number">6.</span> <span class="nav-text">解决微信调整字体大小导致 rem 布局错乱</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%A8%8B%E5%BA%8F-rpx-%E5%8E%9F%E7%90%86"><span class="nav-number">7.</span> <span class="nav-text">小程序 rpx 原理</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -202,7 +202,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+        <time title="修改时间：2021-04-23 07:18:09" itemprop="dateModified" datetime="2021-04-23T07:18:09+08:00">2021-04-23</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -352,7 +352,9 @@
 <p>我最喜欢用的是阿里矢量图标库（网址：<code>http://www.iconfont.cn/</code>），里面有大量的矢量图资源，而且你只需要像在淘宝采购一样把他们添加至购物车就能把它们带回家，整理完资源后还能自动生成CDN 链接，可以说是完美的一条龙服务了。（图片来自官网首页）</p>
 <p>图片能做的很多事情，矢量图都能作，<strong>而且它只是往 HTML 里插入字符和 CSS 样式而已，和图片请求比起来资源占用完全不在一个数量级，</strong>如果你的项目里有小图标，就使用矢量图吧。</p>
 <h1 id="1像素边框问题"><a href="#1像素边框问题" class="headerlink" title="1像素边框问题"></a>1像素边框问题</h1><p><strong>物理像素</strong></p>
-<p>移动设备出厂时，不同设备自带的不同像素，也称硬件像素；</p>
+<p>移动设备出厂时，不同设备自带的不同像素，也称硬件像素。</p>
+<p>而在 PC 端，默认情况下一个 css 像素对应一个物理像素，因为屏幕宽度足够大。</p>
+<p>移动设备大小是有限的，而且分辨率不低，甚至比 pc 端更高，也就是可以显示的物理像素更多，如果和pc端一样，一个 css 的 px 和物理像素一一对应，显示的内容会很小。可能一个 px 对应 2个物理像素，可能 3个物理像素。</p>
 <p><strong>逻辑像素</strong></p>
 <p>即css中像素，和设备屏幕的像素没有必然的关系</p>
 <p><strong>dpr(devicePixelRatio)设备像素比</strong></p>
@@ -385,7 +387,28 @@
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/* 2倍屏 */</span></span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">-webkit-min-device-pixel-ratio</span>: <span class="number">2.0</span>) &#123;</span><br><span class="line">    <span class="selector-class">.border-bottom</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">        -webkit-<span class="attribute">transform</span>: <span class="built_in">scaleY</span>(<span class="number">0.5</span>);</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">scaleY</span>(<span class="number">0.5</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 3倍屏 */</span></span><br><span class="line"><span class="keyword">@media</span> <span class="keyword">only</span> screen <span class="keyword">and</span> (<span class="attribute">-webkit-min-device-pixel-ratio</span>: <span class="number">3.0</span>) &#123;</span><br><span class="line">    <span class="selector-class">.border-bottom</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">        -webkit-<span class="attribute">transform</span>: <span class="built_in">scaleY</span>(<span class="number">0.33</span>);</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">scaleY</span>(<span class="number">0.33</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>PS：使用rem布局时，个人习惯将字体设置为50px(浏览器默认是16px)，这样在换算成rem单位的时候，就可以直接乘以0.2就好了。（50px换算成10rem）；另外也可以将默认字体设置为62.5%，这样在换算单位的时候，就可以将1rem换算为10px。</p>
-<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5bcc169ae51d450e85308d86">首页白屏的引发的思考(一)</a><br><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUxMzcxMzE5Ng==&mid=2247489586&idx=1&sn=2168d42df837521da50b3ed7f8932698&chksm=f951ad71ce262467728b7940de1a2311c523f264f4ca7e705712bf655a844fab93706cbe1ca3&token=1792152421&lang=zh_CN#rd">首屏时间从12.67s到1.06s，我是如何做到的？</a></p>
+<p>像素比：dpr 是设备像素比，也就是 css 的设备无关像素px和物理像素的比<br>宽度比：开发适配的设备的宽度（现在一般是iphone6），和实际的设备的宽度的比<br>总的来说，可以一句话来总结，<strong>像素比实现高清，宽度比实现适配</strong></p>
+<h1 id="解决微信调整字体大小导致-rem-布局错乱"><a href="#解决微信调整字体大小导致-rem-布局错乱" class="headerlink" title="解决微信调整字体大小导致 rem 布局错乱"></a>解决微信调整字体大小导致 rem 布局错乱</h1><ol>
+<li><p>安卓手动调整字体的话，会使根元素的字体变化，导致整个页面内的元素的一些属性变化，包括宽高字体等样式属性。</p>
+</li>
+<li><p>ios 手动调整字体，只是单纯的把文字的字体改变，并没有改变根元素字体，整体布局不会改变，但是字体元素会有影响。</p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ios 系统</span></span><br><span class="line">body&#123;</span><br><span class="line">  -webkit-text-size-adjust: <span class="number">100</span>% !important;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 安卓系统</span></span><br><span class="line"><span class="comment">// 借助微信浏览器内置 WeixinJSBridge 对象来阻止字体大小调整</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> WeixinJSBridge == <span class="string">&quot;object&quot;</span> &amp;&amp; <span class="keyword">typeof</span> WeixinJSBridge.invoke == <span class="string">&quot;function&quot;</span>) &#123;</span><br><span class="line">        handleFontSize();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">document</span>.addEventListener(<span class="string">&quot;WeixinJSBridgeReady&quot;</span>, handleFontSize, <span class="literal">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">handleFontSize</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 设置网页字体为默认大小</span></span><br><span class="line">        WeixinJSBridge.invoke(<span class="string">&#x27;setFontSizeCallback&#x27;</span>, &#123; <span class="string">&#x27;fontSize&#x27;</span> : <span class="number">0</span> &#125;);</span><br><span class="line">        <span class="comment">// 重写设置网页字体大小的事件</span></span><br><span class="line">        <span class="comment">// 调用微信提供覆盖菜单里面“调整字体”功能的接口</span></span><br><span class="line">        WeixinJSBridge.on(<span class="string">&#x27;menu:setfont&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            WeixinJSBridge.invoke(<span class="string">&#x27;setFontSizeCallback&#x27;</span>, &#123; <span class="string">&#x27;fontSize&#x27;</span> : <span class="number">0</span> &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+
+<h1 id="小程序-rpx-原理"><a href="#小程序-rpx-原理" class="headerlink" title="小程序 rpx 原理"></a>小程序 rpx 原理</h1><p>微信小程序开发中新出了尺寸单位 rpx（responsive pixel）: 可以根据屏幕宽度进行自适应。规定屏幕宽为750rpx。</p>
+<p>如在 iPhone6 上，屏幕宽度为375px，共有750个物理像素，则750rpx = 375px = 750物理像素，1rpx = 0.5px = 1物理像素。</p>
+<p>微信官方建议视觉稿以iPhone 6为标准。</p>
+<p>不同的 rpx 对应不同的手机尺寸是不一样的，比如，在设置一个 button，你用 rpx，可以保证在任何机型上，都是一致的比例，这个用来保持界面比例一致是非常有用的。</p>
+<p>但很多情况下，比如你渲染一个网页里面大量内容是用来阅读的，如果你还用 rpx，就会导致文字在小屏幕上变得很小很小，这时候为了保证阅读体验，而适配不是核心问题，就应该用 px。</p>
+<p>rpx 是一个相当于屏幕宽度百分比的相对单位，以下情况不建议使用：</p>
+<ul>
+<li>font-size 和 border-width；</li>
+<li>animation 动画中涉及 translate 位移：部分机器在 rpx 转成 px 出现小数时，如 262.89px，微信会向下取值为 262px，产生 1px 的差距。</li>
+<li>canvas 绘图，比如二维码、分享图片等</li>
+<li>尽量不要 rpx 混和 px进行布局</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5bcc169ae51d450e85308d86">首页白屏的引发的思考(一)</a><br><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUxMzcxMzE5Ng==&mid=2247489586&idx=1&sn=2168d42df837521da50b3ed7f8932698&chksm=f951ad71ce262467728b7940de1a2311c523f264f4ca7e705712bf655a844fab93706cbe1ca3&token=1792152421&lang=zh_CN#rd">首屏时间从12.67s到1.06s，我是如何做到的？</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1b69f0df78f3?from=timeline">px、物理像素、rem、rpx的关系</a></p>
 
     </div>
 

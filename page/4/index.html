@@ -313,7 +313,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-14 22:59:06" itemprop="dateModified" datetime="2021-04-14T22:59:06+08:00">2021-04-14</time>
+        <time title="修改时间：2021-04-23 00:10:24" itemprop="dateModified" datetime="2021-04-23T00:10:24+08:00">2021-04-23</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -414,91 +414,6 @@
 <p>webpack和gulp的区别：</p>
 <p>gulp是<strong>基于流的构建工具</strong>：all in one的打包模式，输出一个js文件和一个css文件，优点是减少http请求，万金油方案。<br>webpack是<strong>模块化管理工具</strong>，使用webpack可以对模块进行压缩、预处理、打包、按需加载等。</p>
 <p><strong>总结：</strong><br><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/zongjie.png" alt="markdown"></p>
-<h1 id="webpack概念"><a href="#webpack概念" class="headerlink" title="webpack概念"></a>webpack概念</h1><p>webpack是收把项目当作一个整体，通过一个给定的的主文件，webpack将从这个文件开始找到你的项目的所有依赖文件，使用loaders处理它们，最后打包成一个或多个浏览器可识别的js文件。我们可以把webpack理解为一个工厂，进入相当于把各种各样的原料放进我们的工厂了，然后工厂进行一系列的打包操作把打包好的东西，向外输出，然后就可以去出售了(上线)。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2017/9/27/2395e1d01728fbb0d740d53c4530ed5b?imageView2/0/w/1280/h/960&ynotemdtimestamp=1558167915965" alt="markdown"></p>
-<p>要使用webpack，则首先添加我们即将使用的包：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install webpack webpack-dev-server --save-dev</span><br></pre></td></tr></table></figure>
-
-<p>webpack是我们需要的模块打包机，webpack-dev-server用来创建本地服务器，监听你的代码修改，并自动刷新修改后的结果。这些是有关devServer的配置</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">&quot;./app/entry&quot;</span>, <span class="comment">// string | object | array</span></span><br><span class="line">  <span class="comment">// Webpack打包的入口</span></span><br><span class="line">  output: &#123;  <span class="comment">// 定义webpack如何输出的选项</span></span><br><span class="line">    path: path.resolve(__dirname, <span class="string">&quot;dist&quot;</span>), <span class="comment">// string</span></span><br><span class="line">    <span class="comment">// 所有输出文件的目标路径</span></span><br><span class="line">    filename: <span class="string">&quot;[chunkhash].js&quot;</span>, <span class="comment">// string</span></span><br><span class="line">    <span class="comment">// 「入口(entry chunk)」文件命名模版</span></span><br><span class="line">    publicPath: <span class="string">&quot;/assets/&quot;</span>, <span class="comment">// string</span></span><br><span class="line">    <span class="comment">// 构建文件的输出目录</span></span><br><span class="line">    <span class="comment">/* 其它高级配置 */</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;  <span class="comment">// 模块相关配置</span></span><br><span class="line">    rules: [ <span class="comment">// 配置模块loaders，解析规则</span></span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.jsx?$/</span>,  <span class="comment">// RegExp | string</span></span><br><span class="line">        include: [ <span class="comment">// 和test一样，必须匹配选项</span></span><br><span class="line">          path.resolve(__dirname, <span class="string">&quot;app&quot;</span>)</span><br><span class="line">        ],</span><br><span class="line">        exclude: [ <span class="comment">// 必不匹配选项（优先级高于test和include）</span></span><br><span class="line">          path.resolve(__dirname, <span class="string">&quot;app/demo-files&quot;</span>)</span><br><span class="line">        ],</span><br><span class="line">        loader: <span class="string">&quot;babel-loader&quot;</span>, <span class="comment">// 模块上下文解析</span></span><br><span class="line">        options: &#123; <span class="comment">// loader的可选项</span></span><br><span class="line">          presets: [<span class="string">&quot;es2015&quot;</span>]</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  resolve: &#123; <span class="comment">//  解析模块的可选项</span></span><br><span class="line">    modules: [ <span class="comment">// 模块的查找目录</span></span><br><span class="line">      <span class="string">&quot;node_modules&quot;</span>,</span><br><span class="line">      path.resolve(__dirname, <span class="string">&quot;app&quot;</span>)</span><br><span class="line">    ],</span><br><span class="line">    extensions: [<span class="string">&quot;.js&quot;</span>, <span class="string">&quot;.json&quot;</span>, <span class="string">&quot;.jsx&quot;</span>, <span class="string">&quot;.css&quot;</span>], <span class="comment">// 用到的文件的扩展</span></span><br><span class="line">    alias: &#123; <span class="comment">// 模块别名列表</span></span><br><span class="line">      <span class="string">&quot;module&quot;</span>: <span class="string">&quot;new-module&quot;</span></span><br><span class="line">	  &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  devtool: <span class="string">&quot;source-map&quot;</span>, <span class="comment">// enum</span></span><br><span class="line">  <span class="comment">// 为浏览器开发者工具添加元数据增强调试</span></span><br><span class="line">  plugins: [ <span class="comment">// 附加插件列表</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>首先我们需要了解webpack的几个核心概念：</strong></p>
-<ul>
-<li><p>entry: 用来写入口文件，它将是整个依赖关系的根,当我们需要多个入口文件的时候，可以把entry写成一个对象.</p>
-</li>
-<li><p>output: 告诉webpack如何命名输出的文件以及输出的目录，即使入口文件有多个，但是只有一个输出配置</p>
-</li>
-<li><p>Loader：由于webpack只能处理javascript，所以我们需要对一些非js文件处理成webpack能够处理的模块，比如sass文件</p>
-</li>
-</ul>
-<p>loader的作用： </p>
-<ol>
-<li><p>实现对不同格式的文件的处理，比如说将scss转换为css，或者typescript转化为js</p>
-</li>
-<li><p>转换这些文件，从而使其能够被添加到依赖图中 loader是webpack最重要的部分之一，通过使用不同的Loader，我们能够调用外部的脚本或者工具，实现对不同格式文件的处理，loader需要在webpack.config.js里边单独用module进行配置</p>
-</li>
-</ol>
-<ul>
-<li>Plugins：Loaders将各类型的文件处理成webpack能够处理的模块，plugins有着很强的能力。插件的范围包括，从打包优化和压缩，一直到重新定义环境中的变量。但也是最复杂的一个。</li>
-</ul>
-<p>plugins和loader很容易搞混，说都是外部引用有什么区别呢？ 事实上他们是两个完全不同的东西。这么说loaders负责的是处理源文件的如scss、jsx，一次处理一个文件。而plugins并不是直接操作单个文件，它直接对整个构建过程起作用。下面列举了一些我们常用的plugins和他的用法</p>
-<ul>
-<li>Chunk：我们可以对一些代码打包成一个单独的chunk，比如某些公共模块，去重，更好的利用缓存。或者按需加载某些功能模块，优化加载时间。在webpack3及以前我们都利用CommonsChunkPlugin将一些公共代码分割成一个chunk，实现单独加载。在webpack4 中CommonsChunkPlugin被废弃，使用SplitChunksPlugin</li>
-</ul>
-<h2 id="webpack的打包流程"><a href="#webpack的打包流程" class="headerlink" title="webpack的打包流程"></a>webpack的打包流程</h2><p><strong>初始化配置参数 -&gt; 绑定事件钩子回调 -&gt; 确定Entry逐一遍历 -&gt; 使用loader编译文件 -&gt; 输出文件</strong></p>
-<ol>
-<li>webpack首先会扫描整个项目，找到默认的配置文件。webpack.config.js</li>
-<li>然后根据配置文件的entry入口，找到需要当前需要打包的文件（一个项目可能有多个入口）</li>
-<li>在module中配置对应的规则，通过正则表达式匹配对应的文件类型，然后安装对应的loader，让loader执行对应的打包操作</li>
-<li>最后配置一个output出口，可以设置output输出的文件名，也可以设置输出的文件位置（即使入口文件有多个，但是只有一个输出配置）</li>
-</ol>
-<h2 id="webpack事件流"><a href="#webpack事件流" class="headerlink" title="webpack事件流"></a>webpack事件流</h2><p>Webpack 就像一条生产线，要经过一系列处理流程后才能将源文件转换成输出结果。 这条生产线上的每个处理流程的职责都是单一的，多个流程之间有存在依赖关系，只有完成当前处理后才能交给下一个流程去处理。 插件就像是一个插入到生产线中的一个功能，在特定的时机对生产线上的资源做处理。</p>
-<p>Webpack 通过 Tapable(webpack自带的模块) 来组织这条复杂的生产线。 Webpack 在运行过程中会广播事件，插件只需要监听它所关心的事件，就能加入到这条生产线中，去改变生产线的运作。 Webpack 的事件流机制保证了插件的有序性，使得整个系统扩展性很好。 </p>
-<p>webpack本质上是一种事件流的机制，它的工作流程就是将各个插件串联起来，而实现这一切的核心就是Tapable，webpack中最核心的负责编译的Compiler和负责创建bundles的Compilation都是Tapable的实例。</p>
-<p><strong>Tapable的原理其实就是通过发布者-订阅者模式实现</strong>，通过一对一或者一对多的依赖关系，当对象发生改变时，订阅方都会收到通知。在现实生活中，也有很多类似场景，比如我需要在购物网站上购买一个产品，但是发现该产品目前处于缺货状态，这时候我可以点击有货通知的按钮，让网站在产品有货的时候通过短信通知我。</p>
-<h2 id="webpack运行流程详解"><a href="#webpack运行流程详解" class="headerlink" title="webpack运行流程详解"></a>webpack运行流程详解</h2><p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/webpackJizhi.PNG" alt="markdown"></p>
-<ol>
-<li>首先读取webpack的入口文件</li>
-</ol>
-<p>webpack会读取你在命令行传入的配置以及项目里的 webpack.config.js 文件，初始化本次构建的配置参数，并且执行配置文件中的插件实例化语句，webpack 的入口文件其实就实例了Compiler并调用了run方法开启了编译，webpack的编译都按照下面的钩子调用顺序执行</p>
-<ul>
-<li>before-run 清除缓存</li>
-<li>run 注册缓存数据钩子</li>
-<li>before-compile</li>
-<li>compile 开始编译</li>
-<li>make 从入口分析依赖以及间接依赖模块，创建模块对象</li>
-<li>build-module 模块构建</li>
-<li>seal 构建结果封装， 不可再更改</li>
-<li>after-compile 完成构建，缓存数据</li>
-<li>emit 输出到dist目录</li>
-</ul>
-<ol start="2">
-<li><p>接下来到了entryOption(入口选项)阶段，webpack开始读取配置的Entries，递归遍历所有的入口文件</p>
-</li>
-<li><p>编译&amp;构建流程</p>
-</li>
-</ol>
-<p>Webpack接下来就开始了compilation过程</p>
-<p>会依次进入其中每一个入口文件(entry)，先使用用户配置好的loader对文件内容进行编译，我们可以从传入事件回调的compilation上拿到module的resource（资源路径）、loaders（经过的loaders）等信息；</p>
-<p>之后，再将编译好的文件内容使用acorn解析生成AST静态语法树（normalModuleLoader），分析文件的依赖关系逐个拉取依赖模块并重复上述过程，最后将所有模块中的require语法替换成__webpack_require__来模拟模块化操作</p>
-<ol start="4">
-<li>emit阶段，所有文件的编译及转化都已经完成，包含了最终输出的资源，我们可以在传入事件回调的compilation.assets 上拿到所需数据，其中包括即将输出的资源、代码块Chunk等等信息，将文件输出到指定的path</li>
-</ol>
-<p><strong>什么是AST？</strong></p>
-<p><img src="https://leslie-blog.oss-cn-hongkong.aliyuncs.com/leslie_choi_blog/AST.png" alt="markdown"></p>
-<p>抽象语法树，简称语法树，是源代码语法结构的一种抽象表示。它以树状的形式表现编程语言的语法结构，树上的每个节点都表示源代码中的一种结构。</p>
-<p>转换成AST的目的就是将我们书写的字符串文件转换成计算机更容易识别的数据结构，这样更容易提取其中的关键信息，而这棵树在计算机上的表现形式，其实就是一个单纯的Object。</p>
-<h2 id="介绍好用的loader和plugin"><a href="#介绍好用的loader和plugin" class="headerlink" title="介绍好用的loader和plugin"></a>介绍好用的loader和plugin</h2><ul>
-<li>postcss-loader：可以给一些样式（如css3中的transform）加前缀，提高兼容性</li>
-<li>file-loader: 生成的文件名就是文件内容的MD5哈希值并会保留所引用资源的原始扩展名</li>
-<li>url-loader：可以将图片打包成为base64的形式放在JS文件中，但是不适合大图片的打包，会导致整个js文件很庞大，可以使用limit配置项来设置对应需要打包图片的大小</li>
-<li>babel-loader： 让下一代的js文件转换成现代浏览器能够支持的JS文件。babel有些复杂，所以大多数都会新建一个.babelrc进行配置</li>
-<li>css-loader,style-loader:两个建议配合使用，用来解析css文件，能够解释@import,url()如果需要解析less就在后面加一个less-loader</li>
-<li>px2rem-loader：转换px和rem单位</li>
-<li>htmlWebpackPlugin：会在打包结束后，自动生成一个html文件，并把打包生成的js自动引入到这个html文件中，可以配置html文件的模板</li>
-<li>cleanWebpackPlugin（第三方）：打包之后可以把先前打包的文件删除</li>
-</ul>
-<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a><strong>总结：</strong></h2><p>纵观webpack构建流程，我们可以发现整个构建过程主要花费时间的部分也就是递归遍历各个entry然后寻找依赖逐个编译的过程，每次递归都需要经历 String-&gt;AST-&gt;String 的流程，经过loader还需要处理一些字符串或者执行一些JS脚本，由于JS单线程的缘故，webpack构建慢一直成为它饱受诟病的原因。</p>
 <h1 id="webpack打包优化"><a href="#webpack打包优化" class="headerlink" title="webpack打包优化"></a>webpack打包优化</h1><p>对于 Loader 来说，影响打包效率首当其冲必属 Babel 了。因为 Babel 会将代码转为字符串生成 AST，然后对 AST 继续进行转变最后再生成新的代码，项目越大，转换代码越多，效率就越低<br>Webpack在启动后会根据Entry配置的入口出发，递归地解析所依赖的文件。这个过程分为搜索文件和把匹配的文件进行分析、转化的两个过程，因此可以从这两个角度来进行优化配置</p>
 <h2 id="devServer提高开发效率"><a href="#devServer提高开发效率" class="headerlink" title="devServer提高开发效率"></a>devServer提高开发效率</h2><ul>
 <li>在package.json中配置命令 “webpack –watch” 可以监听到打包文件的变化，实现自动打包</li>
@@ -579,21 +494,6 @@
 <li>缓存 webpack-md5-plugin </li>
 <li>拆包 splitChunksPlugin 、 import() 、 require.ensure</li>
 </ul>
-<h1 id="webpack-实现热更新的原理"><a href="#webpack-实现热更新的原理" class="headerlink" title="webpack 实现热更新的原理"></a>webpack 实现热更新的原理</h1><p>Webpack 热更新（ Hot Module Replacement，简称 HMR，后续均以 HMR 替代），无需完全刷新整个页面的同时，更新所有类型的模块。</p>
-<ol>
-<li><p>Webpack编译期，为需要热更新的 entry 注入热更新代码(EventSource通信，核心是Webpack-hot-middleware 插件的作用，就是提供浏览器和 Webpack 服务器之间的通信机制、且在浏览器端接收 Webpack 服务器端的更新变化。)</p>
-</li>
-<li><p>页面首次打开后，服务端与客户端通过 EventSource 建立通信渠道，把下一次的 hash 返回客户端</p>
-</li>
-<li><p>客户端获取到hash，这个hash将作为下一次请求服务端 hot-update.js 和 hot-update.json的hash</p>
-</li>
-<li><p>修改页面代码后，Webpack 的Complier 类会调用 Watch 方法监听文件变更，当监听到文件修改后，开始编译，编译完成后，发送 build 消息给客户端</p>
-</li>
-<li><p>客户端获取到hash，成功后客户端构造hot-update.js script链接，然后插入主文档</p>
-</li>
-<li><p>hot-update.js 插入成功后，执行hotAPI 的 createRecord 和 reload方法，获取到 Vue 组件的 render方法，重新 render 组件， 继而实现 UI 无刷新更新。</p>
-</li>
-</ol>
 <h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h1><p><a target="_blank" rel="noopener" href="https://juejin.im/post/5aa3d2056fb9a028c36868aa#heading-7">webpack详解</a><br><a target="_blank" rel="noopener" href="https://juejin.im/post/5badd0c5e51d450e4437f07a#heading-7">Webpack揭秘——走向高阶前端的必经之路</a><br><a target="_blank" rel="noopener" href="https://juejin.im/post/5b652b036fb9a04fa01d616b">三十分钟掌握Webpack性能优化</a><br><a target="_blank" rel="noopener" href="https://juejin.im/post/5b4609f5e51d4519596b66a7">手写一个webpack4.0配置</a></p>
 
       
@@ -1692,7 +1592,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-11 22:17:47" itemprop="dateModified" datetime="2021-04-11T22:17:47+08:00">2021-04-11</time>
+        <time title="修改时间：2021-04-23 00:11:25" itemprop="dateModified" datetime="2021-04-23T00:11:25+08:00">2021-04-23</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -2047,16 +1947,6 @@
 <p>对象转为 Map</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">objToStrMap</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> strMap = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> k <span class="keyword">of</span> <span class="built_in">Object</span>.keys(obj)) &#123;</span><br><span class="line">    strMap.set(k, obj[k]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> strMap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">objToStrMap(&#123;<span class="attr">yes</span>: <span class="literal">true</span>, <span class="attr">no</span>: <span class="literal">false</span>&#125;)</span><br><span class="line"><span class="comment">// Map &#123;&quot;yes&quot; =&gt; true, &quot;no&quot; =&gt; false&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h1 id="babel-转码原理"><a href="#babel-转码原理" class="headerlink" title="babel 转码原理"></a>babel 转码原理</h1><p>babel的转译过程分为三个阶段：parsing(解析)、transforming(转换)、generating(产生)</p>
-<p>具体过程：</p>
-<ol>
-<li>编写ES6代码</li>
-<li>babylon进行解析，解析得到AST</li>
-<li>plugin用babel-traverse对AST树进行遍历转译，得到新的AST树</li>
-<li>用babel-generator通过AST树生成ES5代码</li>
-</ol>
-<p>需注意的一点就是，babel默认只是转译新标准引入的语法，比如ES6的箭头函数，不转换新的API，比如Iterator、Generator、Set、Maps、Proxy、Reflect、Symbol、Promise等全局对象，以及一些定义在全局对象上的方法（比如Object.assign）都不会转码。</p>
-<p>举例来说，ES6在Array对象上新增了Array.from方法。Babel就不会转码这个方法。如果想让这个方法运行，必须使用babel-polyfill，为当前环境提供一个垫片。</p>
 <h1 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h1><h1 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h1><p>Proxy 是 ES6 中新增的功能，可以⽤来⾃定义对象中的操作。</p>
 <p>Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问，都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。Proxy 这个词的原意是代理，用在这里表示由它来“代理”某些操作，可以译为“代理器”。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, handler); <span class="comment">// `target` 代表需要添加代理的对象 // `handler` ⽤来⾃定义对象中的操作 可以很⽅便的使⽤ Proxy 来实现⼀个数据绑定和监听 </span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">let</span> onWatch = <span class="function">(<span class="params">obj, setBind, getLogger</span>) =&gt;</span> &#123; </span><br><span class="line">  <span class="keyword">let</span> handler = &#123;     </span><br><span class="line">    <span class="function"><span class="title">get</span>(<span class="params">target, property, receiver</span>)</span> &#123;       </span><br><span class="line">      getLogger(target, property)       </span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Reflect</span>.get(target, property, receiver)  </span><br><span class="line">      &#125;,     </span><br><span class="line">    <span class="function"><span class="title">set</span>(<span class="params">target, property, value, receiver</span>)</span> &#123;       </span><br><span class="line">      setBind(value);       </span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Reflect</span>.set(target, property, value)</span><br><span class="line">      &#125;   </span><br><span class="line">    &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Proxy</span>(obj, handler);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125; </span><br><span class="line"><span class="keyword">let</span> value </span><br><span class="line"><span class="keyword">let</span> p = onWatch(obj, <span class="function">(<span class="params">v</span>) =&gt;</span> &#123;   </span><br><span class="line">  value = v &#125;, </span><br><span class="line">  (target, property) =&gt; &#123;   </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`Get &#x27;<span class="subst">$&#123;property&#125;</span>&#x27; = <span class="subst">$&#123;target[property]&#125;</span>`</span>); </span><br><span class="line">&#125;) </span><br><span class="line"></span><br><span class="line">p.a = <span class="number">2</span> <span class="comment">// bind `value` to `2` p.a // -&gt; Get &#x27;a&#x27; = 2</span></span><br></pre></td></tr></table></figure>
